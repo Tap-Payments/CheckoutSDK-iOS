@@ -1,0 +1,6 @@
+framework module TapUIKit_iOS {
+  umbrella header "TapUIKit-iOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

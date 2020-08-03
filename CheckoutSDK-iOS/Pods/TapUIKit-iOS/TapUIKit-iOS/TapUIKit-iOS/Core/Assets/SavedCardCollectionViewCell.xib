@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SavedCardCollectionViewCell" id="gTV-IL-0wX" customClass="SavedCardCollectionViewCell" customModule="TapUIKit_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="109" height="40"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="109" height="40"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CPc-y7-NiM">
+                        <rect key="frame" x="0.0" y="0.0" width="2" height="40"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="2" id="UeD-Hl-LM3"/>
+                            <constraint firstAttribute="height" priority="750" constant="40" id="xHu-7Z-Y9M"/>
+                        </constraints>
+                    </view>
+                    <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OAf-DC-1aD">
+                        <rect key="frame" x="101" y="-7" width="15" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="65q-PP-qRe"/>
+                            <constraint firstAttribute="width" constant="15" id="RLG-Rp-jeD"/>
+                        </constraints>
+                        <state key="normal" image="tap.png"/>
+                        <connections>
+                            <action selector="deleteButtonClicked:" destination="gTV-IL-0wX" eventType="touchUpInside" id="d71-XX-NpA"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <color key="backgroundColor" red="0.85098039215686272" green="0.85098039215686272" blue="0.85490196078431369" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="CPc-y7-NiM" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="4Oz-Zg-LDm"/>
+                <constraint firstAttribute="bottom" secondItem="CPc-y7-NiM" secondAttribute="bottom" id="MeP-qP-aJS"/>
+                <constraint firstItem="CPc-y7-NiM" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Pp1-94-cag"/>
+                <constraint firstItem="OAf-DC-1aD" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="-7" id="TZN-5K-3Hh"/>
+                <constraint firstAttribute="trailing" secondItem="OAf-DC-1aD" secondAttribute="trailing" constant="-7" id="uGi-OC-YAE"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <connections>
+                <outlet property="deleteCardButton" destination="OAf-DC-1aD" id="jHi-pL-myJ"/>
+            </connections>
+            <point key="canvasLocation" x="138.40579710144928" y="152.67857142857142"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="tap.png" width="21" height="20"/>
+    </resources>
+</document>
