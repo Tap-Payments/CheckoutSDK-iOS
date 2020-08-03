@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,7 +16,38 @@
 		E8811AEF24D4287400DE95D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8811AED24D4287400DE95D1 /* Main.storyboard */; };
 		E8811AF124D4287500DE95D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E8811AF024D4287500DE95D1 /* Assets.xcassets */; };
 		E8811AF424D4287500DE95D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8811AF224D4287500DE95D1 /* LaunchScreen.storyboard */; };
+		E8845E6A24D835B1009E8B73 /* CheckoutSDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8811AD624D4283C00DE95D1 /* CheckoutSDK_iOS.framework */; };
+		E8845E6B24D835B1009E8B73 /* CheckoutSDK_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E8811AD624D4283C00DE95D1 /* CheckoutSDK_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E8845E7024D83D7B009E8B73 /* TapCheckout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8845E6F24D83D7B009E8B73 /* TapCheckout.swift */; };
+		E8845E7224D83FA3009E8B73 /* TapBottomCheckoutControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8845E7124D83FA3009E8B73 /* TapBottomCheckoutControllerViewController.swift */; };
+		E8845E7924D851E2009E8B73 /* TapCheckoutBlurView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8845E7824D851E2009E8B73 /* TapCheckoutBlurView.xib */; };
+		E8845E7C24D851FF009E8B73 /* TapCheckoutBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8845E7B24D851FF009E8B73 /* TapCheckoutBlurView.swift */; };
+		E8845E7E24D85466009E8B73 /* sampleBG.png in Resources */ = {isa = PBXBuildFile; fileRef = E8845E7D24D85466009E8B73 /* sampleBG.png */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E8845E6C24D835B1009E8B73 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8811ACD24D4283C00DE95D1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E8811AD524D4283C00DE95D1;
+			remoteInfo = "CheckoutSDK-iOS";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E8845E6E24D835B1009E8B73 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E8845E6B24D835B1009E8B73 /* CheckoutSDK_iOS.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0802648EECEE8D8A9592697F /* Pods-CheckoutSDK-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutSDK-iOS.release.xcconfig"; path = "Target Support Files/Pods-CheckoutSDK-iOS/Pods-CheckoutSDK-iOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -35,6 +66,11 @@
 		E8811AF024D4287500DE95D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E8811AF324D4287500DE95D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E8811AF524D4287500DE95D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E8845E6F24D83D7B009E8B73 /* TapCheckout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckout.swift; sourceTree = "<group>"; };
+		E8845E7124D83FA3009E8B73 /* TapBottomCheckoutControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapBottomCheckoutControllerViewController.swift; sourceTree = "<group>"; };
+		E8845E7824D851E2009E8B73 /* TapCheckoutBlurView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TapCheckoutBlurView.xib; sourceTree = "<group>"; };
+		E8845E7B24D851FF009E8B73 /* TapCheckoutBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckoutBlurView.swift; sourceTree = "<group>"; };
+		E8845E7D24D85466009E8B73 /* sampleBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sampleBG.png; sourceTree = "<group>"; };
 		FF4A2E12A9944D1FED9040B6 /* Pods-CheckoutSDK-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutSDK-iOS.debug.xcconfig"; path = "Target Support Files/Pods-CheckoutSDK-iOS/Pods-CheckoutSDK-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -52,6 +88,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B453A3F4FF0BE6BFE5129CB /* Pods_CheckoutExample.framework in Frameworks */,
+				E8845E6A24D835B1009E8B73 /* CheckoutSDK_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,7 +112,6 @@
 				FF4A2E12A9944D1FED9040B6 /* Pods-CheckoutSDK-iOS.debug.xcconfig */,
 				0802648EECEE8D8A9592697F /* Pods-CheckoutSDK-iOS.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -102,8 +138,11 @@
 		E8811AD824D4283C00DE95D1 /* CheckoutSDK-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				E8845E7324D84596009E8B73 /* Core */,
 				E8811AD924D4283C00DE95D1 /* CheckoutSDK_iOS.h */,
 				E8811ADA24D4283C00DE95D1 /* Info.plist */,
+				E8845E6F24D83D7B009E8B73 /* TapCheckout.swift */,
+				E8845E7124D83FA3009E8B73 /* TapBottomCheckoutControllerViewController.swift */,
 			);
 			path = "CheckoutSDK-iOS";
 			sourceTree = "<group>";
@@ -114,12 +153,46 @@
 				E8811AE724D4287400DE95D1 /* AppDelegate.swift */,
 				E8811AE924D4287400DE95D1 /* SceneDelegate.swift */,
 				E8811AEB24D4287400DE95D1 /* ViewController.swift */,
+				E8845E7D24D85466009E8B73 /* sampleBG.png */,
 				E8811AED24D4287400DE95D1 /* Main.storyboard */,
 				E8811AF024D4287500DE95D1 /* Assets.xcassets */,
 				E8811AF224D4287500DE95D1 /* LaunchScreen.storyboard */,
 				E8811AF524D4287500DE95D1 /* Info.plist */,
 			);
 			path = CheckoutExample;
+			sourceTree = "<group>";
+		};
+		E8845E7324D84596009E8B73 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				E8845E7524D845A9009E8B73 /* Assets */,
+				E8845E7424D8459E009E8B73 /* Logic */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		E8845E7424D8459E009E8B73 /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				E8845E7A24D851EE009E8B73 /* Views */,
+			);
+			path = Logic;
+			sourceTree = "<group>";
+		};
+		E8845E7524D845A9009E8B73 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				E8845E7824D851E2009E8B73 /* TapCheckoutBlurView.xib */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		E8845E7A24D851EE009E8B73 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E8845E7B24D851FF009E8B73 /* TapCheckoutBlurView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,10 +237,12 @@
 				E8811AE224D4287400DE95D1 /* Frameworks */,
 				E8811AE324D4287400DE95D1 /* Resources */,
 				06E6A196C1FE3F4B9687D7DF /* [CP] Embed Pods Frameworks */,
+				E8845E6E24D835B1009E8B73 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E8845E6D24D835B1009E8B73 /* PBXTargetDependency */,
 			);
 			name = CheckoutExample;
 			productName = CheckoutExample;
@@ -186,6 +261,7 @@
 				TargetAttributes = {
 					E8811AD524D4283C00DE95D1 = {
 						CreatedOnToolsVersion = 11.5;
+						LastSwiftMigration = 1150;
 					};
 					E8811AE424D4287400DE95D1 = {
 						CreatedOnToolsVersion = 11.5;
@@ -216,6 +292,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8845E7924D851E2009E8B73 /* TapCheckoutBlurView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +302,7 @@
 			files = (
 				E8811AF424D4287500DE95D1 /* LaunchScreen.storyboard in Resources */,
 				E8811AF124D4287500DE95D1 /* Assets.xcassets in Resources */,
+				E8845E7E24D85466009E8B73 /* sampleBG.png in Resources */,
 				E8811AEF24D4287400DE95D1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,6 +378,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8845E7C24D851FF009E8B73 /* TapCheckoutBlurView.swift in Sources */,
+				E8845E7024D83D7B009E8B73 /* TapCheckout.swift in Sources */,
+				E8845E7224D83FA3009E8B73 /* TapBottomCheckoutControllerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +395,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E8845E6D24D835B1009E8B73 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E8811AD524D4283C00DE95D1 /* CheckoutSDK-iOS */;
+			targetProxy = E8845E6C24D835B1009E8B73 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		E8811AED24D4287400DE95D1 /* Main.storyboard */ = {
@@ -459,6 +548,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FF4A2E12A9944D1FED9040B6 /* Pods-CheckoutSDK-iOS.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = NZS2NM6PXP;
@@ -476,6 +566,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "tap.CheckoutSDK-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -485,6 +576,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0802648EECEE8D8A9592697F /* Pods-CheckoutSDK-iOS.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = NZS2NM6PXP;
@@ -511,6 +603,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9EA23C9D0ACA6A832C046E7C /* Pods-CheckoutExample.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NZS2NM6PXP;
@@ -531,6 +624,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 308B270DB224DA958A7F9DB1 /* Pods-CheckoutExample.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NZS2NM6PXP;

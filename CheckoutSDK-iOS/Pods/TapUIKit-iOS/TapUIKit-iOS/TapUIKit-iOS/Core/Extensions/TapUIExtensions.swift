@@ -89,7 +89,7 @@ internal extension UIImage {
 
 // MARK:- UIView extensions
 
-internal extension UIView {
+extension UIView {
     // MARK:- Making corner radious for certain corners
     /**
     Assigns a radious value to certain corners
@@ -128,7 +128,7 @@ internal extension UIView {
      - Parameter identefier: The name of the XIB, default is the name of the UIView
      - Parameter addAsSubView: Indicates whether the method should add the loaded XIB into the UIView, default is true
      */
-    func setupXIB(from bundle:Bundle? = nil, with identefier: String? = nil, then addAsSubView:Bool = true) -> UIView {
+    public func setupXIB(from bundle:Bundle? = nil, with identefier: String? = nil, then addAsSubView:Bool = true) -> UIView {
         
         // Whether we use the passed bundle if any, or by default we use the bundle that contains the caller UIView
         let bundle = bundle ?? Bundle(for: Self.self)
