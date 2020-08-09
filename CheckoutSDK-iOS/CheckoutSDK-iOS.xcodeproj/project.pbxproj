@@ -115,6 +115,22 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		E80F426B24DFFB5B001A9E8D /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				E8845E6F24D83D7B009E8B73 /* TapCheckout.swift */,
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		E80F426C24DFFB64001A9E8D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E8845E7124D83FA3009E8B73 /* TapBottomCheckoutControllerViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		E8811ACC24D4283C00DE95D1 = {
 			isa = PBXGroup;
 			children = (
@@ -141,8 +157,6 @@
 				E8845E7324D84596009E8B73 /* Core */,
 				E8811AD924D4283C00DE95D1 /* CheckoutSDK_iOS.h */,
 				E8811ADA24D4283C00DE95D1 /* Info.plist */,
-				E8845E6F24D83D7B009E8B73 /* TapCheckout.swift */,
-				E8845E7124D83FA3009E8B73 /* TapBottomCheckoutControllerViewController.swift */,
 			);
 			path = "CheckoutSDK-iOS";
 			sourceTree = "<group>";
@@ -174,6 +188,8 @@
 		E8845E7424D8459E009E8B73 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				E80F426C24DFFB64001A9E8D /* Controllers */,
+				E80F426B24DFFB5B001A9E8D /* Interfaces */,
 				E8845E7A24D851EE009E8B73 /* Views */,
 			);
 			path = Logic;

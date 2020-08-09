@@ -8,11 +8,13 @@
 
 import Foundation
 
+/// A protocol to communicate with the Presente tap sheet controller
 internal protocol  ToPresentAsPopupViewControllerDelegate {
-    func dismissMySelfClicked()
-    func changeHeightClicked()
+    /**
+     Will be fired once the tap sheet content changed its height
+     - Parameter newHeight: The new height the content of the Tap sheet has
+     */
     func changeHeight(to newHeight:CGFloat)
-    func updateStackViews(with views:[UIView])
 }
 
 
@@ -98,19 +100,6 @@ extension TapCheckout: TapBottomSheetDialogDelegate {
 
 
 extension TapCheckout : ToPresentAsPopupViewControllerDelegate {
-    func dismissMySelfClicked() {
-        bottomSheetController.dismissTheController()
-    }
-    
-    func changeHeightClicked() {
-        bottomSheetController.changeHeight(to: CGFloat(Int.random(in: 50 ..< 600)))
-    }
-    
-    
-    func updateStackViews(with views: [UIView]) {
-        
-    }
-    
     func changeHeight(to newHeight: CGFloat) {
         bottomSheetController.changeHeight(to: newHeight)
     }
