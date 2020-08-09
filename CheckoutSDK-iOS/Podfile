@@ -6,7 +6,6 @@ target 'CheckoutExample' do
   use_frameworks!
 
   # Pods for CheckoutExample
-pod 'TapUIKit-iOS'
 end
 
 target 'CheckoutSDK-iOS' do
@@ -15,4 +14,5 @@ target 'CheckoutSDK-iOS' do
 
   # Pods for CheckoutSDK-iOS
 pod 'TapUIKit-iOS'
+pod 'TapNetworkKit-iOS'
 end
