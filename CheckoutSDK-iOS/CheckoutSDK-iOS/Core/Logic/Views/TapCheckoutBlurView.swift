@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+/// Represents a class that will handle showing a blurring background for the tap sheet based on the context
 class TapCheckoutBlurView: UIView {
 
     /// Represents the main holding view
@@ -34,7 +34,7 @@ class TapCheckoutBlurView: UIView {
 
 extension TapCheckoutBlurView {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        
+        // Change the blurring effect based on the current display status
         if traitCollection.userInterfaceStyle == .dark {
             blurEffectView.effect = UIBlurEffect(style: .dark)
         }else {
