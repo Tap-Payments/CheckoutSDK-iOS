@@ -21,10 +21,6 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
 @objc public class TapCheckout: NSObject {
     /// Reference to the color of the dimming of the tap sheet controller
     internal var bottomSheetBackgroundColor:UIColor? = .init(white: 0, alpha: 0.5)
-    /// Reference to the blur effect required to show in the Tap bottom sheet
-    internal var bottomSheetBlurEffect:UIBlurEffect? = nil
-    /// Instruct if the sheet is dismissable when clicking outside
-    internal var dismissWhenClickOutSide:Bool = false
     internal var initialHeight:CGFloat = 100
     internal var cornerRadius:CGFloat = 12
     /// The tap bottom sheet reference
@@ -50,10 +46,6 @@ extension TapCheckout:TapBottomSheetDialogDataSource {
         return bottomSheetBackgroundColor
     }
     
-    public func tapBottomSheetBlurEffect() -> UIBlurEffect? {
-        return bottomSheetBlurEffect
-    }
-    
     public func tapBottomSheetViewControllerToPresent() -> UIViewController? {
         let controller = TapBottomCheckoutControllerViewController.init()
         controller.delegate = self
@@ -61,7 +53,7 @@ extension TapCheckout:TapBottomSheetDialogDataSource {
     }
     
     public func tapBottomSheetShouldAutoDismiss() -> Bool {
-        return dismissWhenClickOutSide
+        return false
     }
     
     
