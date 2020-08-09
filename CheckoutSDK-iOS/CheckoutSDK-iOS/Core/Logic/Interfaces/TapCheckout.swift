@@ -17,14 +17,17 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
     func changeHeight(to newHeight:CGFloat)
 }
 
-
+/// The public interface to deal and start the TapCheckout SDK/UI
 @objc public class TapCheckout: NSObject {
-    
+    /// Reference to the color of the dimming of the tap sheet controller
     internal var bottomSheetBackgroundColor:UIColor? = .init(white: 0, alpha: 0.5)
+    /// Reference to the blur effect required to show in the Tap bottom sheet
     internal var bottomSheetBlurEffect:UIBlurEffect? = nil
+    /// Instruct if the sheet is dismissable when clicking outside
     internal var dismissWhenClickOutSide:Bool = false
     internal var initialHeight:CGFloat = 100
     internal var cornerRadius:CGFloat = 12
+    /// The tap bottom sheet reference
     internal var bottomSheetController = TapBottomSheetDialogViewController()
     
     /**
