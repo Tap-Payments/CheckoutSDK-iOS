@@ -56,6 +56,9 @@ import class UIKit.UICollectionViewCell
     case CurrencyChip = 4
     /// Saved card chip has the card icon and the crypted card number
     case SavedCardChip = 5
+    /// Logout chip has the logout icon
+    case LogoutChip = 6
+    
     
     /**
      Defines what is the theme path to look for to customise a cell based on its type
@@ -63,7 +66,7 @@ import class UIKit.UICollectionViewCell
      */
     func themePath() -> String {
         switch self {
-        case .GatewayChip:
+        case .GatewayChip,.LogoutChip:
             return "horizontalList.chips.gatewayChip"
         case .ApplePayChip:
             return "horizontalList.chips.applePayChip"
@@ -92,6 +95,8 @@ import class UIKit.UICollectionViewCell
             return "CurrencyChipCollectionViewCell"
         case .SavedCardChip:
             return "SavedCardCollectionViewCell"
+        case .LogoutChip:
+            return "TapLogoutChipCollectionViewCell"
         }
     }
 }

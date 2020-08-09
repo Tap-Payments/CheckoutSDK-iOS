@@ -43,9 +43,22 @@ internal protocol TapSwitchViewDelegate {
             updateCardState()
         }
     }
+    /// Reference to the switch view itself as UI that will be rendered
+    internal var switchView: TapSwitchView?
+    /// Public reference to the list view itself as UI that will be rendered
+    @objc public var attachedView: TapSwitchView {
+        return switchView ?? .init()
+    }
     
     /// The delegate used to fire events to the caller view
-    @objc public var delegate:TapSwitchViewModelDelegate?
+    @objc public var delegate:TapSwitchViewModelDelegate? {
+        didSet {
+            // Assign the view delegate
+            switchView = .init()
+            // Instruct the list view that ME is the viewmodel of it
+            switchView!.setup(with: self, adjustConstraints: true)
+        }
+    }
     
     /// main Switch model that holds the main switch properties
     internal var mainSwitch: TapSwitchModel = TapSwitchModel(title: "", subtitle: "")

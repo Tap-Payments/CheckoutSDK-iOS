@@ -8,7 +8,7 @@
 
 import SimpleAnimation
 import TapThemeManager2020
-
+import TapCardScanner_iOS
 /// The protocol for the delegates and notifications fired from the TapVerticalView
 @objc public protocol TapVerticalViewDelegate {
     /**
@@ -42,11 +42,15 @@ import TapThemeManager2020
         }
     }
     private var newSizeTimer:Timer?
+    /// Used to handle keyboard events and get the keyboard frame at run time
     private let keyboardHelper = KeyboardHelper()
+    /// Used to hide show the action button
     @IBOutlet weak var tapActionButtonHeightConstraint: NSLayoutConstraint!
+    /// Used to push and pull the whole views above the keybaod when it is shown or dimissed
     @IBOutlet weak var tapActionButtonBottomConstraint: NSLayoutConstraint!
+    /// Reference to the tap action button
     @IBOutlet weak var tapActionButton: TapActionButton!
-    
+    /// Saves the current keyboard height when it is visible
     internal var keyboardPadding:CGFloat = 0
     internal var delaySizeChange:Bool = true
     
@@ -76,6 +80,7 @@ import TapThemeManager2020
         scrollView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
         scrollView.addSubview(stackView)
         
+        /// Adjust the stack view layout to fill in the super view
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
         stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
@@ -92,31 +97,15 @@ import TapThemeManager2020
     public func setupActionButton(with viewModel:TapActionButtonViewModel) {
         tapActionButton.setup(with: viewModel)
     }
-    
+    /**
+     Computes the needed size to show all the views inside the scroll view
+     - Returns: The needed size to show all teh renered views + the action button size and keyboard padding if any
+     */
     internal func neededSize() -> CGSize {
         var contentSize = scrollView.contentSize
         contentSize.height += tapActionButtonHeightConstraint.constant
         return contentSize
     }
-    
-    
-    /// Shows the action button fade in + height increase
-    public func showActionButton() {
-        tapActionButton.fadeIn()
-        tapActionButtonHeightConstraint.constant = 74
-        tapActionButton.updateConstraints()
-        layoutIfNeeded()
-    }
-    
-    /// Hide the action button fade out + height decrease
-    public func hideActionButton() {
-        tapActionButtonHeightConstraint.constant = 0
-        tapActionButton.updateConstraints()
-        layoutIfNeeded()
-    }
-    
-    
-    
     
     /// It is overriden to listen to the change in size of the scroll view
     override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -152,7 +141,7 @@ import TapThemeManager2020
     }
     
     
-    @objc private func publishNewContentSize(timer: Timer) {//to newSize:CGSize, with frame:CGRect) {
+    @objc private func publishNewContentSize(timer: Timer) {
         
         guard itemsBeingAdded == 0 else {
             
@@ -176,276 +165,62 @@ import TapThemeManager2020
         self.containerView.frame = bounds
     }
     
-    
+    /**
+     Use this method to tell the SDK if it needs to handle itself and deal with the keybord shown/dismissed events.
+     - Parameter newStatus: If set, then SDK will deal with the keyboard events and pushes itself above the keyboard. If not set, then it is your responsibility to deal with this
+     */
     @objc public func updateKeyBoardHandling(with newStatus:Bool = false) {
         if newStatus {
+            // If we have to deal with it, then we listen to keboard shown and dismissed events and updates our UI accordingly
             keyboardHelper.onKeyboardWillBeShown = {[weak self] keyboardRect in
                 print("KEYBOARD SHOW : \(keyboardRect)")
-                self?.addKeyboardSpaceView(with: keyboardRect)
+                self?.addSpaceView(with: keyboardRect)
             }
             keyboardHelper.onKeyboardWillBeHidden = { [weak self] keyboardRect in
                 self?.removeAllHintViews()
-                self?.removeKeyboardSpaceView(with: keyboardRect)
+                self?.removeSpaceView(with: keyboardRect)
             }
         }else{
+            // If the user will deal with it. We deactivate listening to keyboard events
             keyboardHelper.onKeyboardWillBeShown = nil
             keyboardHelper.onKeyboardWillBeHidden = nil
         }
     }
     
-    internal func addKeyboardSpaceView(with keyboardRect:CGRect) {
-        tapActionButtonBottomConstraint.constant = keyboardRect.height
-       
-        keyboardPadding = keyboardRect.height
-        
-        var currentContentSize = scrollView.contentSize
-        currentContentSize.height -= 1
-        
-        
-        UIView.animate(withDuration: 0.25, animations: {
-            self.tapActionButton.updateConstraints()
-            //scrollView.layoutIfNeeded()
-            self.layoutIfNeeded()
-        }) { _ in
-            
-        }
-        
-        self.delaySizeChange = false
-        self.scrollView.contentSize = currentContentSize
-    }
-    
-    internal func removeKeyboardSpaceView(with keyboardRect:CGRect) {
-        
-        
-        tapActionButtonBottomConstraint.constant = 0
-        
-        keyboardPadding = 0
-        
-        var currentContentSize = scrollView.contentSize
-        currentContentSize.height -= 1
-        
-        
-        UIView.animate(withDuration: 0.25, animations: {
-            self.tapActionButton.updateConstraints()
-            //scrollView.layoutIfNeeded()
-            self.layoutIfNeeded()
-        }) { _ in
-            
-        }
-        
-        self.delaySizeChange = false
-        self.scrollView.contentSize = currentContentSize
-        
-        
-        
-        /*DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-            
-            self.keyboardPadding = 0
-            var currentContentSize = self.scrollView.contentSize
-            currentContentSize.height += 1
-            self.scrollView.contentSize = currentContentSize
-            
-            DispatchQueue.main.asyncAfter(deadline: .now()) {
-                self.tapActionButtonBottomConstraint.constant = 0
-                self.tapActionButton.updateConstraints()
-                self.scrollView.layoutIfNeeded()
-            }
-        }*/
-       
-    }
-    
-    internal func addSpaceView(with keyboardRect:CGRect) {
-        removeSpaceViews()
-        let space:SpaceView = .init()
-        space.backgroundColor = .clear
-        space.translatesAutoresizingMaskIntoConstraints = false
-        space.heightAnchor.constraint(equalToConstant: keyboardRect.height).isActive = true
-        add(view: space, with: [.none])
-    }
-    
-    internal func removeSpaceViews() {
-        let spaceViews:[SpaceView] = stackView.arrangedSubviews.filter{ $0.isKind(of: SpaceView.self) } as? [SpaceView] ?? []
-        guard spaceViews.count > 0 else { return }
-        spaceViews.forEach { spaceView in
-            remove(view: spaceView, with: TapVerticalViewAnimationType.none)
+    /**
+     Internal helper method to change the amount section status
+     - Parameter newStatus: The new amoutn section status to be assigned
+     */
+    func changeTapAmountSectionStatus(to newStatus:AmountSectionCurrentState) {
+        // Make sure there is a valid Amount section rendered and visible on the screen..
+        if let tapAmountSectionView:TapAmountSectionView = stackView.arrangedSubviews.filter({ $0.isKind(of: TapAmountSectionView.self) })[0] as? TapAmountSectionView {
+            // If yes, then assign the new status to it
+            tapAmountSectionView.viewModel?.screenChanged(to: newStatus)
         }
     }
     
     /**
-     Removes an arranged subview from the vertical hierarchy
-     - Parameter view: The view to be deleted
-     - Parameter animation: The animation to be applied while doing the view removal. Default is nil
+     Calculates the max space that a view can be added in the sheet with respect to the current height of the views added + the maximum availble height given tor the sheet
+     - Returns: The space that can be filled with respect to the crrent views heights + the maximum height the sheet can expand to
      */
-    public func remove(view:UIView, with animation:TapVerticalViewAnimationType? = nil) {
-        handleDeletion(for: view, with: animation)
-    }
-    
     @objc public func getMaxAvailableHeight() -> CGFloat {
+        // Calculate the current views' height firs
         var currentViewsHeight:CGFloat = 0
         stackView.arrangedSubviews.forEach{ currentViewsHeight += ($0.frame.height > 0) ? $0.frame.height : 45 }
         return TapConstantManager.maxAllowedHeight - currentViewsHeight
     }
     
     /**
-     Removes an arranged subview from the vertical hierarchy
-     - Parameter index: The index of the view to be deleted
-     - Parameter animation: The animation to be applied while doing the view removal. Default is nil
-     */
-    public func remove(at index:Int, with animation:TapVerticalViewAnimationType? = nil) {
-        let subViews = stackView.arrangedSubviews
-        guard subViews.count > index else { return }
-        
-        handleDeletion(for: subViews[index], with: animation)
-    }
-    
-    /**
-     Handles all the logic needed to remove an arranged subview from the vertical hierarchy
+     Deletes a certain view from with Fadeout animation from the stack view
      - Parameter view: The view to be deleted
-     - Parameter animation: The animation to be applied while doing the view removal. Default is nil
      */
-    private func handleDeletion(for view:UIView, with animation:TapVerticalViewAnimationType? = nil) {
-        
-        // Check if there is an animation we need to do
-        guard let animation:TapVerticalViewAnimationType = animation, animation != .none  else {
-            itemsBeingRemoved = false
-            view.isHidden = true
-            stackView.removeArrangedSubview(view)
-            return
-        }
-        
-        
-        itemsBeingRemoved = true
-        
-        switch animation {
-        case .bounceIn(let direction,_,_):
-            view.bounceIn(from: direction.animationKitDirection(),completion: {_ in self.removeFromStackView(view:view)})
-        case .bounceOut(let direction,_,_):
-            view.bounceOut(to: direction.animationKitDirection(),completion: {_ in self.removeFromStackView(view:view)})
-        case .fadeIn:
-            view.fadeIn(completion: {_ in self.removeFromStackView(view:view)})
-        case .fadeOut(let duration,_):
-            view.fadeOut(duration:duration,completion: {_ in self.removeFromStackView(view:view)})
-        case .slideIn(let direction,_,_):
-            view.slideIn(from: direction.animationKitDirection(),completion: {_ in self.removeFromStackView(view:view)})
-        case .slideOut(let direction,let duration,_):
-            view.slideOut(to: direction.animationKitDirection(),duration:duration,completion: {_ in self.removeFromStackView(view:view)})
-        case .popIn:
-            view.popIn()
-        case .popOut:
-            view.popOut()
-        case .none:
-            break
-        }
-        
-    }
-    
-    
-    private func removeFromStackView(view:UIView) {
+    internal func removeFromStackView(view:UIView) {
         view.fadeOut(duration:0)
         stackView.removeArrangedSubview(view)
         itemsBeingRemoved = false
     }
-    
-    
-    /**
-     Adds a hint view below a given view
-     - Parameter hintView: The hint view to be added
-     - Parameter to: The type of the view you want to show the hint below it
-     - Parameter animations: A boolean to indicate whether you want to show the hint with animation or right away
-     */
-    
-    @objc public func attach(hintView:TapHintView,to:AnyClass,with animations:Bool = false) {
-        // First we remove all hints
-        removeAllHintViews()
-        // Then we check that there is already a view with the passed type
-        let filteredViews:[UIView] = stackView.arrangedSubviews.filter{ $0.isKind(of: to) }
-        guard  filteredViews.count > 0 else { return }
-        
-        // Fetch the index of the view we will attach the hint
-        guard let attachToViewIndex:Int = stackView.arrangedSubviews.firstIndex(of: filteredViews[0]) else { return }
-        // All good now we can add, but let us determine the animations first
-        let requiredAnimations:[TapVerticalViewAnimationType] = animations ? [.fadeIn()] : []
-        // Insert at the hint view at the correct index
-        if attachToViewIndex == stackView.arrangedSubviews.count - 1 {
-            // The attaching to view is already the last element, hence we add at the end normally as we usually do
-            add(view: hintView, with: requiredAnimations)
-        }else {
-            add(view: hintView,at: (attachToViewIndex+1), with: requiredAnimations)
-        }
-    }
-    
-    
-    @objc public func removeAllHintViews() {
-        let hintViews:[TapHintView] = stackView.arrangedSubviews.filter{ $0.isKind(of: TapHintView.self) } as? [TapHintView] ?? []
-        guard hintViews.count > 0 else { return }
-        hintViews.forEach { hintView in
-            remove(view: hintView, with: TapVerticalViewAnimationType.none)
-        }
-    }
-    
-    /**
-     Adds an arranged subview to the vertical hierarchy at a certain position
-     - Parameter view: The view to be added
-     - Parameter index: The index to add the view in, skip to add at the end of the vertical heirarchy
-     - Parameter animation: The animation to be applied while doing the view addition. Default is nil
-     - Parameter shouldFillHeight: If true, then this view will expand the available height from the previous view to fill in the screen
-     */
-    public func add(view:UIView, at index:Int? = nil, with animations:[TapVerticalViewAnimationType] = [], and animationSequence:TapAnimationSequence = .serial, shouldFillHeight:Bool = false) {
-        handleAddition(of: view, at: index,with: animations,and: animationSequence,shouldFillHeight: shouldFillHeight)
-    }
-    /**
-     Handles all the logic needed to add an arranged subview to the vertical hierarchy
-     - Parameter view: The view to be added
-     - Parameter index: The index to add the view in, skip to add at the end of the vertical heirarchy
-     - Parameter animation: The animation to be applied while doing the view removal. Default is nil
-     shouldFillHeight:Bool = false
-     */
-    private func handleAddition(of view:UIView, at index:Int? = nil, with animations:[TapVerticalViewAnimationType] = [], and animationSequence:TapAnimationSequence = .serial,shouldFillHeight:Bool = false) {
-  
-        // Check if should fill in max height, then set its height to the maxium availble
-        if shouldFillHeight {
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.heightAnchor.constraint(equalToConstant: getMaxAvailableHeight()).isActive = true
-            view.layoutIfNeeded()
-        }
-        
-        itemsBeingAdded += 1
-        
-        // If the index is not defined, then we just add it to the end
-        if let index = index {
-            stackView.insertArrangedSubview(view, at: index)
-        }else{
-            stackView.addArrangedSubview(view)
-        }
-        
-        DispatchQueue.main.async { [weak self] in
-            
-            
-            // Make sure there are some animations passed
-            guard animations.count > 0 else {
-                self?.itemsBeingAdded -= 1
-                return
-            }
-            // We need to apply the animations passed to the passed view with the required sequence
-            view.alpha = 0
-            // First case, we have only 1 animation then the sequence will not differ whether serial or parallel
-            guard animations.count > 1 else {
-                self?.animate(view: view, with: animations[0],and:{
-                    self?.itemsBeingAdded -= 1
-                })
-                return
-            }
-            
-            // Second case, we have more than 1 animation, hence we need to consider the sequence type
-            self?.adjustAnimationList(view: view, for: animations, with: animationSequence,then: {
-                self?.itemsBeingAdded -= 1
-            })
-        }
-    }
-    
-    
-    
-    private func adjustAnimationList(view:UIView, for animations:[TapVerticalViewAnimationType], with sequence:TapAnimationSequence, then completion:@escaping () -> () = {  }) {
+   
+    internal func adjustAnimationList(view:UIView, for animations:[TapSheetAnimation], with sequence:TapAnimationSequence, then completion:@escaping () -> () = {  }) {
         // Create mutable instance of the animation list to be able to change the required values
         var delayUpToCurrentAnimation:Double = 0
         
@@ -468,45 +243,9 @@ import TapThemeManager2020
         
     }
     
-    private func animate(view:UIView,with animation:TapVerticalViewAnimationType,after delay:TimeInterval = 0, and completion:@escaping () -> () = {  }) {
+    internal func animate(view:UIView,with animation:TapSheetAnimation,after delay:TimeInterval = 0, and completion:@escaping () -> () = {  }) {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(Int(delay * 1000))) {
-            switch animation {
-            case .bounceIn(let direction,let duration,let delay):
-                view.bounceIn(from: direction.animationKitDirection(), duration:duration, delay:delay, completion: { _ in
-                    completion()
-                })
-            case .bounceOut(let direction,let duration,let delay):
-                view.bounceOut(to: direction.animationKitDirection(), duration:duration, delay:delay, completion: { _ in
-                    completion()
-                })
-            case .fadeIn(let duration,let delay):
-                view.fadeIn(duration:duration, delay:delay , completion: { _ in
-                    completion()
-                })
-            case .fadeOut(let duration,let delay):
-                view.fadeOut(duration:duration, delay:delay , completion: { _ in
-                    completion()
-                })
-            case .slideIn(let direction,let duration,let delay):
-                view.slideIn(from: direction.animationKitDirection(),x:0,y:400, duration:duration, delay:delay, completion: { _ in
-                    completion()
-                })
-            case .slideOut(let direction,let duration,let delay):
-                view.slideOut(to: direction.animationKitDirection(), duration:duration, delay:delay, completion: { _ in
-                    completion()
-                })
-            case .popIn(let duration,let delay):
-                view.popIn(duration:duration, delay:delay, completion: { _ in
-                    completion()
-                })
-            case .popOut(let duration,let delay):
-                view.popOut(duration:duration, delay:delay, completion: { _ in
-                    completion()
-                })
-            case .none:
-                completion()
-                break
-            }
+            animation.applyAnimation(to: view, with: completion)
         }
     }
     
@@ -554,62 +293,99 @@ import TapThemeManager2020
             }
         }
     }
+}
+
+
+/// Defines the type and the configuration of the needed animations
+@objc public class TapSheetAnimation : NSObject {
+    /// The duration required to performt the animation
+    var duration:Double = TapConstantManager.TapAnimationDuration
+    /// The delay before performing the animatijn
+    var delay:Double = 0
+    /// The direction to perform the animation from/to
+    var direction:TapVerticalViewAnimationDirection = .bottom
+    /// Which animation you want to perform
+    var animation:TapVerticalViewAnimationType = .none
     
-    private func add(subViews:[UIView], animationSequence:TapVerticalUpdatesAnimationSequence, delay:Int = 0) {
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(delay)) { [weak self] in
-            subViews.forEach{self?.stackView.addArrangedSubview($0)}
-            // Make sure they are of the same order now!
-            for (_, newView) in subViews.enumerated() {
-                if animationSequence != .none {
-                    newView.slideIn(from: .bottom)
-                }
-                /*let oldIndex = self?.stackView.arrangedSubviews.firstIndex(of: newView)
-                if oldIndex != newIndex {
-                    self?.stackView.removeArrangedSubview(newView)
-                    self?.stackView.insertArrangedSubview(newView, at: newIndex)
-                    if animationSequence != .none {
-                        newView.bounceIn(from: .bottom)
-                    }
-                }*/
-            }
+    /**
+     Creates a new instance of tap sheet animation object
+     - Parameter duration: The duration required to performt the animation, default is TapConstantManager.TapAnimationDuration
+     - Parameter delay:  The delay before performing the animatijn, default is 0
+     - Parameter direction: The direction to perform the animation from/to, default is bottom
+     - Parameter animation: Which anumation you want to perform, default is none
+     */
+    @objc public init(for animation:TapVerticalViewAnimationType = .none, with duration:Double = TapConstantManager.TapAnimationDuration,and direction:TapVerticalViewAnimationDirection = .bottom, wait delay:Double = 0) {
+        self.duration = duration
+        self.direction = direction
+        self.animation = animation
+        self.delay = delay
+    }
+    
+    /**
+     An elegante way to get all the emebded info and data inside the Animation object
+     - Returns: Tuble of (Animation direction, duration and delay)
+     */
+    internal func animationDetails() -> (TapVerticalViewAnimationDirection?,Double,Double) {
+        return( (self.animation == .none) ? nil : self.direction,duration,delay)
+    }
+    
+    /**
+     Perfosm a correct animation with the needed attributes to the given the view
+     - Parameter view: The UIView to perform the animation on
+     - Parameter completion: The block to exeute after finishing the animation
+     */
+    internal func applyAnimation(to view:UIView, with completion:@escaping () -> () = {  }) {
+        switch animation {
+        case .bounceIn:
+            view.bounceIn(from: direction.animationKitDirection(), duration:duration, delay:delay, completion: { _ in
+                completion()
+            })
+        case .bounceOut:
+            view.bounceOut(to: direction.animationKitDirection(), duration:duration, delay:delay, completion: { _ in
+                completion()
+            })
+        case .fadeIn:
+            view.fadeIn(duration:duration, delay:delay , completion: { _ in
+                completion()
+            })
+        case .fadeOut:
+            view.fadeOut(duration:duration, delay:delay , completion: { _ in
+                completion()
+            })
+        case .slideIn:
+            view.slideIn(from: direction.animationKitDirection(),x:0,y:400, duration:duration, delay:delay, completion: { _ in
+                completion()
+            })
+        case .slideOut:
+            view.slideOut(to: direction.animationKitDirection(), duration:duration, delay:delay, completion: { _ in
+                completion()
+            })
+        case .popIn:
+            view.popIn(duration:duration, delay:delay, completion: { _ in
+                completion()
+            })
+        case .popOut:
+            view.popOut(duration:duration, delay:delay, completion: { _ in
+                completion()
+            })
+        case .none:
+            completion()
+            break
         }
     }
 }
 
-/// Defines the type and the configuration of the needed animations
-public enum TapVerticalViewAnimationType: Equatable {
-    case bounceIn(TapVerticalViewAnimationDirection,duration:Double = TapConstantManager.TapAnimationDuration, delay:Double = 0)
-    case bounceOut(TapVerticalViewAnimationDirection,duration:Double = TapConstantManager.TapAnimationDuration, delay:Double = 0)
-    case slideIn(TapVerticalViewAnimationDirection,duration:Double = TapConstantManager.TapAnimationDuration, delay:Double = 0)
-    case slideOut(TapVerticalViewAnimationDirection,duration:Double = TapConstantManager.TapAnimationDuration, delay:Double = 0)
-    case fadeIn(duration:Double = TapConstantManager.TapAnimationDuration, delay:Double = 0)
-    case fadeOut(duration:Double = TapConstantManager.TapAnimationDuration, delay:Double = 0)
-    case popIn(duration:Double = TapConstantManager.TapAnimationDuration, delay:Double = 0)
-    case popOut(duration:Double = TapConstantManager.TapAnimationDuration, delay:Double = 0)
-    case none
-    
-    internal func animationDetails() -> (TapVerticalViewAnimationDirection?,Double,Double) {
-        var detectedDirection:TapVerticalViewAnimationDirection? = nil
-        var detectedDuration:Double = TapConstantManager.TapAnimationDuration
-        var detectedDelay:Double = 0
-        switch self {
-        case .bounceIn(let direction,let duration,let delay), .bounceOut(let direction,let duration,let delay), .slideIn(let direction,let duration,let delay), .slideOut(let direction,let duration,let delay):
-            detectedDirection = direction
-            detectedDuration = duration
-            detectedDelay = delay
-        case .fadeIn(let duration,let delay), .fadeOut(let duration,let delay), .popIn(let duration,let delay), .popOut(let duration,let delay):
-            detectedDirection = nil
-            detectedDuration = duration
-            detectedDelay = delay
-        case .none:
-            detectedDirection = nil
-            detectedDuration = 0
-            detectedDelay = 0
-            break
-        }
-        return(detectedDirection,detectedDuration,detectedDelay)
-    }
+/// Defines the animation type
+@objc public enum TapVerticalViewAnimationType: Int {
+    case bounceIn = 1
+    case bounceOut = 2
+    case slideIn = 3
+    case slideOut = 4
+    case fadeIn = 5
+    case fadeOut = 6
+    case popIn = 7
+    case popOut = 8
+    case none = 9
 }
 
 

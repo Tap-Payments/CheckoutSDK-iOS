@@ -11,10 +11,11 @@ import SnapKit
 
 internal class TapBottomCheckoutControllerViewController: UIViewController {
     
+    
     var delegate:ToPresentAsPopupViewControllerDelegate?
     var tapVerticalView: TapVerticalView = .init()
     var tapItemsTableViewModel:TapGenericTableViewModel = .init()
-    var tapMerchantHeaderViewModel:TapMerchantHeaderViewModel = .init()
+    var tapMerchantViewModel:TapMerchantHeaderViewModel = .init()
     var tapAmountSectionViewModel:TapAmountSectionViewModel = .init()
     var tapGatewayChipHorizontalListViewModel:TapChipHorizontalListViewModel = .init()
     var tapGoPayChipsHorizontalListViewModel:TapChipHorizontalListViewModel = .init()
@@ -26,34 +27,21 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     var tapCardPhoneListDataSource:[TapCardPhoneIconViewModel] = []
     let goPayBarViewModel:TapGoPayLoginBarViewModel = .init(countries: [.init(nameAR: "الكويت", nameEN: "Kuwait", code: "965", phoneLength: 8),.init(nameAR: "مصر", nameEN: "Egypt", code: "20", phoneLength: 10),.init(nameAR: "البحرين", nameEN: "Bahrain", code: "973", phoneLength: 8)])
     let tapActionButtonViewModel: TapActionButtonViewModel = .init()
-    // للدفع بشكل أسرع وأسهل ، احفظ رقم هاتفك المحمول.
-    // حفظ ل goPay Checkouts
-    // من خلال تمكين goPay ، سيتم حفظ رقم هاتفك المحمول مع Tap Payments للحصول على عمليات دفع أسرع وأكثر أمانًا في تطبيقات ومواقع ويب متعددة.
-    // يُرجى التحقق من بريدك الإلكتروني أو رسالة SMS لإكمال عملية تسجيل goPay Checkout.
+    var tapCardTelecomPaymentViewModel: TapCardTelecomPaymentViewModel = .init()
     var tapSaveCardSwitchViewModel: TapSwitchViewModel = .init(with: .invalidCard, merchant: "jazeera airways")
-    //        .init(mainSwitch: TapSwitchModel(title: "For faster and easier checkout,save your mobile number.", subtitle: ""), goPaySwitch: TapSwitchModel(title: "Save for goPay Checkouts", subtitle: "By enabling goPay, your mobile number will be saved with Tap Payments to get faster and more secure checkouts in multiple apps and websites.", notes: "Please check your email or SMS’s in order to complete the goPay Checkout signup process."))
-    
-    var views:[UIView] = []
-    var gatewaysListView:TapChipHorizontalList = .init()
-    var goPayListView:TapChipHorizontalList = .init()
-    var currencyListView:TapChipHorizontalList = .init()
-    var tabItemsTableView: TapGenericTableView = .init()
-    var tapCardTelecomPaymentView: TapCardTelecomPaymentView = .init()
     var dragView:TapDragHandlerView = .init()
-    var merchantHeaderView:TapMerchantHeaderView = .init()
-    var amountSectionView:TapAmountSectionView = .init()
-    var tapSaveCardSwitchView:TapSwitchView = .init()
+    
+    var webViewModel:TapWebViewModel = .init()
     
     var rates:[String:Double] = [:]
     var loadedWebPages:Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         addDefaultViews()
         
         tapVerticalView.delegate = self
-        // Do any additional setup after loading the view.
+        // Do any additional setup after  the view.
         tapVerticalView.updateKeyBoardHandling(with: true)
         createDefaultViewModels()
         // Setting up the number of lines and doing a word wrapping
@@ -61,7 +49,6 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
         UILabel.appearance(whenContainedInInstancesOf:[UIAlertController.self]).lineBreakMode = .byWordWrapping
         addGloryViews()
     }
-    
     
     func addDefaultViews() {
         
@@ -84,21 +71,19 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
         }
         
         view.layoutIfNeeded()
-        
-        
-        
-        
     }
     
     func createDefaultViewModels() {
-        tapMerchantHeaderViewModel = .init(subTitle: "Tap Payments", iconURL: "https://avatars3.githubusercontent.com/u/19837565?s=200&v=4")
+        tapMerchantViewModel = .init(subTitle: "Tap Payments", iconURL: "https://avatars3.githubusercontent.com/u/19837565?s=200&v=4")
         tapAmountSectionViewModel = .init(originalTransactionAmount: 10000, originalTransactionCurrency: .USD, numberOfItems: 10)
         
-        tapMerchantHeaderViewModel.delegate = self
+        tapMerchantViewModel.delegate = self
         tapAmountSectionViewModel.delegate = self
         
         tapActionButtonViewModel.buttonStatus = .InvalidPayment
+        webViewModel.delegate = self
         
+        tapSaveCardSwitchViewModel.delegate = self
         
         createTabBarViewModel()
         createGatewaysViews()
@@ -115,6 +100,8 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
         tapCardPhoneListDataSource.append(.init(associatedCardBrand: .zain, tapCardPhoneIconUrl: "https://i.ibb.co/mvkJXwF/zain-3x.png"))
         
         tapCardPhoneListViewModel.dataSource = tapCardPhoneListDataSource
+        tapCardTelecomPaymentViewModel = .init(with: tapCardPhoneListViewModel, and: .init(nameAR: "الكويت", nameEN: "Kuwait", code: "965", phoneLength: 8))
+        tapCardTelecomPaymentViewModel.delegate = self
     }
     
     func createItemsViewModel() {
@@ -136,11 +123,11 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
             itemsModels.append(.init(itemModel: itemModel, originalCurrency:(tapCurrienciesChipHorizontalListViewModel.selectedChip as! CurrencyChipViewModel).currency ))
         }
         
-        tapItemsTableViewModel.dataSource = itemsModels
+        tapItemsTableViewModel = .init(dataSource: itemsModels)
         tapItemsTableViewModel.delegate = self
         
-        tabItemsTableView.changeViewMode(with: tapItemsTableViewModel)
-        tabItemsTableView.translatesAutoresizingMaskIntoConstraints = false
+        //tapItemsTableViewModel.attachedView.changeViewMode(with: tapItemsTableViewModel)
+        //tapItemsTableViewModel.attachedView.translatesAutoresizingMaskIntoConstraints = false
         
         tapAmountSectionViewModel.numberOfItems = itemsModels.count
         tapAmountSectionViewModel.originalTransactionAmount = itemsModels.reduce(0.0) { (accumlator, viewModel) -> Double in
@@ -151,37 +138,10 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     
     func addGloryViews() {
         
-        
-        // The drag handler
-        views.append(dragView)
-        
-        // The TapMerchantHeaderView
-        views.append(merchantHeaderView)
-        merchantHeaderView.changeViewModel(with: tapMerchantHeaderViewModel)
-        
-        // The TapAmountSectionView
-        views.append(amountSectionView)
-        amountSectionView.changeViewModel(with: tapAmountSectionViewModel)
-        
-        // The GatwayListSection
-        views.append(goPayListView)
-        views.append(gatewaysListView)
-        
-        // The tab bar section
-        tapCardTelecomPaymentView.delegate = self
-        
-        tapCardTelecomPaymentView.tapCardPhoneListViewModel = tapCardPhoneListViewModel
-        tapCardTelecomPaymentView.tapCountry = .init(nameAR: "الكويت", nameEN: "Kuwait", code: "965", phoneLength: 8)
-        views.append(tapCardTelecomPaymentView)
-        
-        // Save Card switch view
-        views.append(tapSaveCardSwitchView)
-        tapSaveCardSwitchViewModel.delegate = self
-        tapSaveCardSwitchView.setup(with: tapSaveCardSwitchViewModel, adjustConstraints: true)
-        
         // The button
         self.tapVerticalView.setupActionButton(with: tapActionButtonViewModel)
-        self.tapVerticalView.updateSubViews(with: views,and: .none)
+        // The initial views
+        self.tapVerticalView.add(views: [dragView,tapMerchantViewModel.attachedView,tapAmountSectionViewModel.attachedView,tapGoPayChipsHorizontalListViewModel.attachedView,tapGatewayChipHorizontalListViewModel.attachedView,tapCardTelecomPaymentViewModel.attachedView,tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
     }
     
     
@@ -226,53 +186,20 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
         goPayChipsViewModel.append(SavedCardCollectionViewCellModel.init(title: "•••• 3333", icon:"https://img.icons8.com/color/2x/amex.png", listSource: .GoPayListHeader))
         goPayChipsViewModel.append(SavedCardCollectionViewCellModel.init(title: "•••• 4444", icon:"https://img.icons8.com/color/2x/visa.png", listSource: .GoPayListHeader))
         goPayChipsViewModel.append(SavedCardCollectionViewCellModel.init(title: "•••• 5555", icon:"https://img.icons8.com/color/2x/mastercard-logo.png", listSource: .GoPayListHeader))
+        goPayChipsViewModel.append(TapLogoutChipViewModel())
         
         tapGoPayChipsHorizontalListViewModel = .init(dataSource: goPayChipsViewModel, headerType: .GoPayListHeader)
         tapGoPayChipsHorizontalListViewModel.delegate = self
         
         
-        gatewaysListView.changeViewMode(with: tapGatewayChipHorizontalListViewModel)
-        goPayListView.changeViewMode(with: tapGoPayChipsHorizontalListViewModel)
-        currencyListView.changeViewMode(with: tapCurrienciesChipHorizontalListViewModel)
+        //tapGatewayChipHorizontalListViewModel.attachedView.changeViewMode(with: tapGatewayChipHorizontalListViewModel)
+        //tapGoPayChipsHorizontalListViewModel.attachedView.changeViewMode(with: tapGoPayChipsHorizontalListViewModel)
+        //currencyListView.changeViewMode(with: tapCurrienciesChipHorizontalListViewModel)
     }
     
     
     func showGoPay() {
-        
-        tapActionButtonViewModel.buttonStatus = .InvalidNext
-        
-        let signGoPayView: TapGoPaySignInView = .init()
-        signGoPayView.delegate = self
-        signGoPayView.backgroundColor = .clear
-        
-        
-        signGoPayView.setup(with: goPayBarViewModel)
-        tapAmountSectionViewModel.screenChanged(to: .GoPayView)
-        
-        self.view.endEditing(true)
-        for (index, element) in views.enumerated() {
-            if element == gatewaysListView {
-                //self.tapVerticalView.updateActionButtonVisibility(to: true)
-                self.tapVerticalView.remove(view: views[index-1], with: TapVerticalViewAnimationType.none)
-                self.tapVerticalView.remove(view: element, with: TapVerticalViewAnimationType.none)
-                self.tapVerticalView.remove(view: views[index+1], with: TapVerticalViewAnimationType.none)
-                self.tapVerticalView.remove(view: views[index+2], with: TapVerticalViewAnimationType.none)
-                //self.tapVerticalView.remove(view: tapActionButton, with: TapVerticalViewAnimationType.none)
-                views.remove(at: index)
-                views.remove(at: index)
-                views.remove(at: index)
-                views.remove(at: (index-1))
-                //views.removeLast()
-                views.append(signGoPayView)
-                //views.append(tapActionButton)
-                DispatchQueue.main.async{ [weak self] in
-                    self?.tapVerticalView.add(view: signGoPayView, with: [TapVerticalViewAnimationType.fadeIn()])
-                    //self?.tapVerticalView.add(view: self!.tapActionButton, with: [TapVerticalViewAnimationType.fadeIn()])
-                }
-                break
-            }
-        }
-        
+        tapVerticalView.showGoPaySignInForm(with: self, and: goPayBarViewModel)
     }
     /*
      // MARK: - Navigation
@@ -312,194 +239,70 @@ extension TapBottomCheckoutControllerViewController:TapMerchantHeaderViewDelegat
 extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDelegate {
     func showItemsClicked() {
         self.view.endEditing(true)
-        for (index, element) in views.enumerated() {
-            if element == gatewaysListView {
-                //self.tapVerticalView.remove(view: element, with: .fadeOut(duration: nil, delay: nil))
-                //self.tapVerticalView.updateActionButtonVisibility(to: false)
-                self.tapVerticalView.remove(view: views[index-1], with: TapVerticalViewAnimationType.none)
-                self.tapVerticalView.remove(view: element, with: TapVerticalViewAnimationType.none)
-                self.tapVerticalView.remove(view: views[index+1], with: TapVerticalViewAnimationType.none)
-                self.tapVerticalView.remove(view: views[index+2], with: TapVerticalViewAnimationType.none)
-                self.tapVerticalView.hideActionButton()
-                //self.tapVerticalView.remove(view: tapActionButton, with: TapVerticalViewAnimationType.none)
-                views.remove(at: index)
-                views.remove(at: index)
-                views.remove(at: index)
-                views.remove(at: (index-1))
-                //views.removeLast()
-                views.append(currencyListView)
-                views.append(tabItemsTableView)
-                DispatchQueue.main.async{ [weak self] in
-                    self?.tapVerticalView.add(view: self!.currencyListView, with: [TapVerticalViewAnimationType.fadeIn()])
-                    self?.tapVerticalView.add(view: self!.tabItemsTableView, with: [TapVerticalViewAnimationType.fadeIn()])
-                    self?.tapCurrienciesChipHorizontalListViewModel.refreshLayout()
-                }
-                break
-            }
+        self.tapVerticalView.remove(viewType: TapChipHorizontalList.self, with: .init(), and: true)
+        
+        DispatchQueue.main.async{ [weak self] in
+            self?.tapVerticalView.add(views: [self!.tapCurrienciesChipHorizontalListViewModel.attachedView,self!.tapItemsTableViewModel.attachedView], with: [.init(for: .fadeIn)])
+            self?.tapCurrienciesChipHorizontalListViewModel.refreshLayout()
         }
     }
     
     
     func closeItemsClicked() {
         self.view.endEditing(true)
-        for (index, element) in views.enumerated() {
-            if element == currencyListView {
-                //self.tapVerticalView.remove(view: element, with: .fadeOut(duration: nil, delay: nil))
-                //self.tapVerticalView.remove(view: tabItemsTableView, with: .fadeOut(duration: nil, delay: nil))
-                //self.tapVerticalView.updateActionButtonVisibility(to: true)
-                self.tapVerticalView.remove(view: element, with: TapVerticalViewAnimationType.none)
-                self.tapVerticalView.remove(view: tabItemsTableView, with: TapVerticalViewAnimationType.none)
-                views.remove(at: index)
-                views.remove(at: index)
-                views.append(goPayListView)
-                views.append(gatewaysListView)
-                views.append(tapCardTelecomPaymentView)
-                views.append(tapSaveCardSwitchView)
-                //views.append(tapActionButton)
-                DispatchQueue.main.async{ [weak self] in
-                    self?.tapVerticalView.showActionButton()
-                    self?.tapVerticalView.add(view: self!.goPayListView, with: [TapVerticalViewAnimationType.fadeIn()])
-                    self?.tapVerticalView.add(view: self!.gatewaysListView, with: [TapVerticalViewAnimationType.fadeIn()])
-                    self?.tapVerticalView.add(view: self!.tapCardTelecomPaymentView, with: [TapVerticalViewAnimationType.fadeIn()])
-                    self?.tapVerticalView.add(view: self!.tapSaveCardSwitchView, with: [TapVerticalViewAnimationType.fadeIn()])
-                    //self?.tapVerticalView.add(view: self!.tapActionButton, with: [TapVerticalViewAnimationType.fadeIn()])
-                }
-                break
-            }
+        self.tapVerticalView.remove(viewType: TapChipHorizontalList.self, with: .init(), and: true)
+        
+        DispatchQueue.main.async{ [weak self] in
+            self?.tapVerticalView.showActionButton()
+            self?.tapVerticalView.add(views: [self!.tapGoPayChipsHorizontalListViewModel.attachedView,self!.tapGatewayChipHorizontalListViewModel.attachedView,self!.tapCardTelecomPaymentViewModel.attachedView,self!.tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
         }
     }
+    
     func amountSectionClicked() {
         showAlert(title: "Amount Section", message: "The user clicked on the amount section, do you want me to do anything?")
     }
     
     func closeScannerClicked() {
-        self.view.endEditing(true)
-        for (index, element) in views.enumerated() {
-            if let scannerElement:TapCardScannerView = element as? TapCardScannerView {
-                //self.tapVerticalView.remove(view: element, with: .fadeOut(duration: nil, delay: nil))
-                //self.tapVerticalView.remove(view: tabItemsTableView, with: .fadeOut(duration: nil, delay: nil))
-                scannerElement.killScanner()
-                
-                self.tapVerticalView.remove(view: scannerElement, with: TapVerticalViewAnimationType.none)
-                views.remove(at: index)
-                views.remove(at: index-1)
-                views.append(goPayListView)
-                views.append(gatewaysListView)
-                views.append(tapCardTelecomPaymentView)
-                views.append(tapSaveCardSwitchView)
-                tapAmountSectionViewModel.screenChanged(to: .DefaultView)
-                DispatchQueue.main.async{ [weak self] in
-                    self?.tapVerticalView.removeAllHintViews()
-                    self?.tapVerticalView.showActionButton()
-                    self?.tapVerticalView.add(view: self!.goPayListView, with: [TapVerticalViewAnimationType.fadeIn()])
-                    self?.tapVerticalView.add(view: self!.gatewaysListView, with: [TapVerticalViewAnimationType.fadeIn()])
-                    self?.tapVerticalView.add(view: self!.tapCardTelecomPaymentView, with: [TapVerticalViewAnimationType.fadeIn()])
-                    self?.tapVerticalView.add(view: self!.tapSaveCardSwitchView, with: [TapVerticalViewAnimationType.fadeIn()])
-                }
-                break
-            }
+        tapVerticalView.closeScanner()
+        DispatchQueue.main.async{ [weak self] in
+            self?.tapVerticalView.add(views: [self!.tapGoPayChipsHorizontalListViewModel.attachedView,self!.tapGatewayChipHorizontalListViewModel.attachedView,self!.tapCardTelecomPaymentViewModel.attachedView,self!.tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
         }
     }
     
     
     func closeGoPayClicked() {
-        self.view.endEditing(true)
-        tapActionButtonViewModel.buttonStatus = .InvalidPayment
-        self.changeBlur(to: false)
-        for (index, element) in views.enumerated() {
-            if let goPayElement:TapGoPaySignInView = element as? TapGoPaySignInView {
-                goPayElement.stopOTPTimers()
-                //self.tapVerticalView.updateActionButtonVisibility(to: true)
-                self.tapVerticalView.remove(view: goPayElement, with: TapVerticalViewAnimationType.none)
-                //self.tapVerticalView.remove(view: tapActionButton, with: TapVerticalViewAnimationType.none)
-                views.remove(at: index)
-                //views.removeLast()
-                views.append(goPayListView)
-                views.append(gatewaysListView)
-                views.append(tapCardTelecomPaymentView)
-                views.append(tapSaveCardSwitchView)
-                //views.append(tapActionButton)
-                tapAmountSectionViewModel.screenChanged(to: .DefaultView)
-                DispatchQueue.main.async{ [weak self] in
-                    self?.tapVerticalView.removeAllHintViews()
-                    self?.tapVerticalView.add(view: self!.goPayListView, with: [TapVerticalViewAnimationType.fadeIn()])
-                    self?.tapVerticalView.add(view: self!.gatewaysListView, with: [TapVerticalViewAnimationType.fadeIn()])
-                    self?.tapVerticalView.add(view: self!.tapCardTelecomPaymentView, with: [TapVerticalViewAnimationType.fadeIn()])
-                    self?.tapVerticalView.add(view: self!.tapSaveCardSwitchView, with: [TapVerticalViewAnimationType.fadeIn()])
-                    //self?.tapVerticalView.add(view: self!.tapActionButton, with: [TapVerticalViewAnimationType.fadeIn()])
-                }
-                break
-            }
+        tapVerticalView.closeGoPaySignInForm()
+        
+        DispatchQueue.main.async{ [weak self] in
+            self?.tapVerticalView.add(views: [self!.tapGoPayChipsHorizontalListViewModel.attachedView,self!.tapGatewayChipHorizontalListViewModel.attachedView,self!.tapCardTelecomPaymentViewModel.attachedView,self!.tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
         }
     }
     
     func showScanner() {
-        self.view.endEditing(true)
-        for (index, element) in views.enumerated() {
-            if element == gatewaysListView {
-                self.tapVerticalView.remove(view: views[index-1], with: TapVerticalViewAnimationType.none)
-                self.tapVerticalView.remove(view: element, with: TapVerticalViewAnimationType.none)
-                self.tapVerticalView.remove(view: views[index+1], with: TapVerticalViewAnimationType.none)
-                self.tapVerticalView.remove(view: views[index+2], with: TapVerticalViewAnimationType.none)
-                self.tapVerticalView.hideActionButton()
-                let hintViewModel:TapHintViewModel = .init(with: .ReadyToScan)
-                let hintView:TapHintView = hintViewModel.createHintView()
-                let tapCardScannerView:TapCardScannerView = .init()
-                tapCardScannerView.delegate = self
-                tapCardScannerView.configureScanner()
-                views.remove(at: index)
-                views.remove(at: index)
-                views.remove(at: index)
-                views.remove(at: (index-1))
-                views.append(hintView)
-                views.append(tapCardScannerView)
-                tapAmountSectionViewModel.screenChanged(to: .ScannerView)
-                DispatchQueue.main.async{ [weak self] in
-                    self?.tapVerticalView.attach(hintView: hintView, to: TapAmountSectionView.self,with: true)
-                    self?.tapVerticalView.add(view: tapCardScannerView, with: [TapVerticalViewAnimationType.fadeIn()],shouldFillHeight: true)
-                }
-                break
-            }
-        }
+        tapVerticalView.showScanner(with: self)
     }
     
     func showWebView(with url:URL) {
         
-        let webViewModel:TapWebViewModel = .init()
-        webViewModel.delegate = self
+        self.tapVerticalView.remove(viewType: TapMerchantHeaderView.self, with: .init(), and: true)
         
-        let webView:TapWebView = .init()
-        webView.setup(with: webViewModel)
-        
-        self.tapVerticalView.remove(view: merchantHeaderView, with: TapVerticalViewAnimationType.fadeOut())
-        self.tapVerticalView.remove(view: amountSectionView, with: TapVerticalViewAnimationType.fadeOut())
-        self.tapVerticalView.remove(view: goPayListView, with: TapVerticalViewAnimationType.fadeOut())
-        self.tapVerticalView.remove(view: gatewaysListView, with: TapVerticalViewAnimationType.fadeOut())
-        self.tapVerticalView.remove(view: tapCardTelecomPaymentView, with: TapVerticalViewAnimationType.fadeOut())
-        self.tapVerticalView.remove(view: tapSaveCardSwitchView, with: TapVerticalViewAnimationType.fadeOut())
         self.tapActionButtonViewModel.startLoading()
-        views = []
-        views.append(webView)
-        
+        webViewModel = .init()
+        webViewModel.delegate = self
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) { [weak self] in
             self?.tapVerticalView.hideActionButton()
-            self?.tapVerticalView.add(view: webView, with: [TapVerticalViewAnimationType.fadeIn()],shouldFillHeight: true)
-            webViewModel.load(with: url)
+            self?.tapVerticalView.add(view: self!.webViewModel.attachedView, with: [.init(for: .fadeIn)],shouldFillHeight: true)
+            self?.webViewModel.load(with: url)
         }
     }
     
     
     func closeWebView() {
         self.view.endEditing(true)
-        for (_, element) in views.enumerated() {
-            if element.isKind(of: TapWebView.self) {
-                self.tapVerticalView.remove(view: element, with: TapVerticalViewAnimationType.fadeOut())
-                self.tapVerticalView.showActionButton()
-            }
-            break
-        }
+        self.tapVerticalView.remove(view: webViewModel.attachedView, with: .init(for: .fadeOut))
+        self.tapVerticalView.showActionButton()
+        
         self.tapActionButtonViewModel.startLoading()
-        views = []
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) { [weak self] in
             self?.tapActionButtonViewModel.endLoading(with: true, completion: {
@@ -507,6 +310,16 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
                     self?.dismiss(animated: true, completion: nil)
                 }
             })
+        }
+    }
+    
+    
+    func hideGoPay() {
+        self.view.endEditing(true)
+        self.tapVerticalView.remove(view: tapGoPayChipsHorizontalListViewModel.attachedView, with: .init(for: .fadeOut))
+        self.tapGatewayChipHorizontalListViewModel.editMode(changed: false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+            self.tapGatewayChipHorizontalListViewModel.headerType = .GatewayListHeader
         }
     }
 }
@@ -517,6 +330,17 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
 
 
 extension TapBottomCheckoutControllerViewController:TapChipHorizontalListViewModelDelegate {
+    func logoutChip(for viewModel: TapLogoutChipViewModel) {
+        let logoutConfirmationAlert:UIAlertController = .init(title: "Are you sure you would like to sign out?", message: "The goPay cards will be hidden from the page and you will need to login again to use any of them.", preferredStyle: .alert)
+        let confirmLogoutAction:UIAlertAction = .init(title: "Yes", style: .default) { [weak self] (_) in
+            self?.hideGoPay()
+        }
+        let cancelLogoutAction:UIAlertAction = .init(title: "No", style: .cancel, handler: nil)
+        logoutConfirmationAlert.addAction(confirmLogoutAction)
+        logoutConfirmationAlert.addAction(cancelLogoutAction)
+        present(logoutConfirmationAlert, animated: true, completion: nil)
+    }
+    
     
     func currencyChip(for viewModel: CurrencyChipViewModel) {
         
@@ -611,15 +435,11 @@ extension TapBottomCheckoutControllerViewController:TapChipHorizontalListViewMod
             tapActionButtonViewModel.buttonActionBlock = {}
             tapSaveCardSwitchViewModel.cardState = .invalidTelecom
         }
-        
-        
-        
-        
     }
     
     func handleCardPayment(for cardBrand: CardBrand, with validation: CrardInputTextFieldStatusEnum) {
         if validation == .Valid,
-            tapCardTelecomPaymentView.decideHintStatus() == nil {
+            tapCardTelecomPaymentViewModel.decideHintStatus() == .None {
             tapActionButtonViewModel.buttonStatus = .ValidPayment
             let payAction:()->() = { self.startPayment(then:false) }
             tapActionButtonViewModel.buttonActionBlock = payAction
@@ -633,24 +453,8 @@ extension TapBottomCheckoutControllerViewController:TapChipHorizontalListViewMod
     
     func startPayment(then success:Bool) {
         view.endEditing(true)
-        
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(0)) {
-            for (index, element) in self.views.enumerated() {
-                if element == self.gatewaysListView {
-                    self.tapVerticalView.remove(view: self.views[index-1], with: TapVerticalViewAnimationType.none)
-                    self.tapVerticalView.remove(view: element, with: TapVerticalViewAnimationType.none)
-                    self.tapVerticalView.remove(view: self.views[index+1], with: TapVerticalViewAnimationType.none)
-                    self.tapVerticalView.remove(view: self.views[index+2], with: TapVerticalViewAnimationType.none)
-                    self.views.remove(at: index)
-                    self.views.remove(at: index)
-                    self.views.remove(at: index)
-                    self.views.remove(at: (index-1))
-                    self.tapActionButtonViewModel.startLoading()
-                    break
-                }
-            }
-        }
+        self.tapVerticalView.remove(viewType: TapChipHorizontalList.self, with: .init(), and: true)
+        self.tapActionButtonViewModel.startLoading()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(3500)) {
             self.tapActionButtonViewModel.endLoading(with: success, completion: {
@@ -740,7 +544,7 @@ extension TapBottomCheckoutControllerViewController:TapInlineScannerProtocl {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500)) { [weak self] in
             self?.closeScannerClicked()
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) { [weak self] in
-                self?.tapCardTelecomPaymentView.setCard(with: tapCard)
+                self?.tapCardTelecomPaymentViewModel.setCard(with: tapCard)
             }
         }
     }

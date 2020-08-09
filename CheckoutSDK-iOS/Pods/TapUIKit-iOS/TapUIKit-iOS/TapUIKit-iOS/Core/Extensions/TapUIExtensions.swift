@@ -89,7 +89,7 @@ internal extension UIImage {
 
 // MARK:- UIView extensions
 
-extension UIView {
+internal extension UIView {
     // MARK:- Making corner radious for certain corners
     /**
     Assigns a radious value to certain corners

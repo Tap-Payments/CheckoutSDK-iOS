@@ -40,11 +40,24 @@ import RxCocoa
     internal var showItemsObserver:BehaviorRelay<Bool> = .init(value: true)
     /// Indicates if the amount labels should be shown
     internal var showAmount:BehaviorRelay<Bool> = .init(value: true)
-    
+    /// Reference to the amount section view itself as UI that will be rendered
+    internal var amountSectionView: TapAmountSectionView?
+    /// Public reference to the list view itself as UI that will be rendered
+    @objc public var attachedView: TapAmountSectionView {
+        return amountSectionView ?? .init()
+    }
     
     // MARK:- Public normal swift variables
     
-    @objc public var delegate:TapAmountSectionViewModelDelegate?
+    /// Attach yourself to this delegate to start getting events fired from this view model and its attached uiview
+    @objc public var delegate:TapAmountSectionViewModelDelegate? {
+        didSet {
+            // Assign the view delegate
+            amountSectionView = .init()
+            // Instruct the list view that ME is the viewmodel of it
+            amountSectionView!.changeViewModel(with: self)
+        }
+    }
     /// Enum to determine the current state of the amount view, whether we are shoing the default view or the items list is currencly visible
     var currentStateView:AmountSectionCurrentState = .DefaultView {
         didSet{
