@@ -31,13 +31,13 @@ import enum		UIKit.UISemanticContentAttribute
 import class	UIKit.UIView
 
 /// Useful extension to UIView.
-@IBDesignable extension UIView {
+@IBDesignable internal extension UIView {
     
-    // MARK: - Public -
+    // MARK: - internal -
     // MARK: Properties
     
     /// Corner radius of the view.
-    @IBInspectable public var tap_cornerRadius: CGFloat {
+    /*@IBInspectable var tap_cornerRadius: CGFloat {
         
         get {
             
@@ -50,7 +50,7 @@ import class	UIKit.UIView
     }
     
     /// Border width of the view.
-    @IBInspectable public var tap_borderWidth: CGFloat {
+    @IBInspectable var tap_borderWidth: CGFloat {
         
         get {
             
@@ -63,7 +63,7 @@ import class	UIKit.UIView
     }
     
     /// Border color of the view.
-    @IBInspectable public var tap_borderColor: UIColor? {
+    @IBInspectable var tap_borderColor: UIColor? {
         
         get {
             guard let cgBorderColor = self.layer.borderColor else {
@@ -80,7 +80,7 @@ import class	UIKit.UIView
     }
     
     /// Horizontal scale of the view.
-    @IBInspectable public var tap_horizontalScale: CGFloat {
+    @IBInspectable var tap_horizontalScale: CGFloat {
         
         get {
             
@@ -94,7 +94,7 @@ import class	UIKit.UIView
     }
     
     /// Vertical scale of the view.
-    @IBInspectable public var tap_verticalScale: CGFloat {
+    @IBInspectable var tap_verticalScale: CGFloat {
         
         get {
             
@@ -108,7 +108,7 @@ import class	UIKit.UIView
     }
     
     /// Inspectable translatesAutoresizingMaskIntoConstraints
-    @IBInspectable public var tap_convertsAutoresizingMaskIntoConstraints: Bool {
+    @IBInspectable var tap_convertsAutoresizingMaskIntoConstraints: Bool {
         
         get {
             
@@ -118,16 +118,16 @@ import class	UIKit.UIView
             
             self.translatesAutoresizingMaskIntoConstraints = newValue
         }
-    }
+    }*/
     
     /// Returns screenshot of the view.
-    public var tap_screenshot: UIImage? {
+    var tap_screenshot: UIImage? {
         
         return self.tap_screenshot(with: 1.0)
     }
     
     /// Returns current first responder in a view hieararchy with receiver as a parent or nil if there is no first responder set.
-    public var tap_firstResponder: UIResponder? {
+    var tap_firstResponder: UIResponder? {
         
         if self.isFirstResponder {
             
@@ -146,7 +146,7 @@ import class	UIKit.UIView
     }
     
     /// Defines if the receiver contains subview that is scrolling.
-    public var tap_containsScrollingScrollView: Bool {
+    var tap_containsScrollingScrollView: Bool {
         
         if let scrollView = self as? UIScrollView {
             
@@ -160,7 +160,7 @@ import class	UIKit.UIView
     }
     
     /// Returns existing width constraint if presented or creates new one, attaches it to the view and returns.
-    public var tap_widthConstraint: NSLayoutConstraint {
+    var tap_widthConstraint: NSLayoutConstraint {
         
         if let wConstraint = self.tap_widthConstraintIfPresent {
             
@@ -174,13 +174,13 @@ import class	UIKit.UIView
     }
     
     /// Returns width layout constraint if it is presented.
-    public var tap_widthConstraintIfPresent: NSLayoutConstraint? {
+    var tap_widthConstraintIfPresent: NSLayoutConstraint? {
         
         return self.constraints.filter { $0.firstAttribute == .width }.first
     }
     
     /// Returns existing height constraint if presented or creates new one, attaches it to the view and returns.
-    public var tap_heightConstraint: NSLayoutConstraint {
+    var tap_heightConstraint: NSLayoutConstraint {
         
         if let hConstraint = self.tap_heightConstraintIfPresent {
             
@@ -194,7 +194,7 @@ import class	UIKit.UIView
     }
     
     /// Returns height layout constraint if it is presented.
-    public var tap_heightConstraintIfPresent: NSLayoutConstraint? {
+    var tap_heightConstraintIfPresent: NSLayoutConstraint? {
         
         return self.constraints.filter { $0.firstAttribute == .height }.first
     }
@@ -208,7 +208,7 @@ import class	UIKit.UIView
      
      - returns: Top view in the hieararchy of the given nib file or nil if error occured during view creation.
      */
-    public func tap_load<T>(from nibName: String?) -> T? {
+    func tap_load<T>(from nibName: String?) -> T? {
         
         guard let nonnullNibName = nibName, !nonnullNibName.isEmpty else { return nil }
         
@@ -225,7 +225,7 @@ import class	UIKit.UIView
      
      - returns: Color of a given point or nil if point is outside the view.
      */
-    open func tap_color(at point: CGPoint) -> UIColor? {
+    func tap_color(at point: CGPoint) -> UIColor? {
         
         if !self.bounds.contains(point) {
             
@@ -241,12 +241,12 @@ import class	UIKit.UIView
     /**
      Removes all animations on a given view and all subviews.
      */
-    public func tap_removeAllAnimations() {
+    func tap_removeAllAnimations() {
         
         self.tap_removeAllAnimations(includeSubviews: true)
     }
     
-    public func tap_removeAllAnimations(includeSubviews: Bool) {
+    func tap_removeAllAnimations(includeSubviews: Bool) {
         
         self.layer.tap_removeAnimations()
         
@@ -264,7 +264,7 @@ import class	UIKit.UIView
      
      - parameter touch: Boolean parameter to determine whether exclusive touch should be enabled.
      */
-    public func tap_setExclusiveTouchOnAllSubviews(_ touch: Bool) {
+    func tap_setExclusiveTouchOnAllSubviews(_ touch: Bool) {
         
         self.isExclusiveTouch = touch
         for subview in subviews {
@@ -278,7 +278,7 @@ import class	UIKit.UIView
      
      - parameter scale: Scale to set.
      */
-    public func tap_setScale(_ scale: CGFloat) {
+    func tap_setScale(_ scale: CGFloat) {
         
         self.layer.setAffineTransform(CGAffineTransform(scaleX: scale, y: scale))
     }
@@ -288,7 +288,7 @@ import class	UIKit.UIView
     /// - Parameters:
     ///   - value: Boolean value to apply.
     ///   - includeSubviews: Defines if the value should be applied for the subviews ( and their subviews ).
-    public func tap_setTranslatesAutoresizingMasksIntoConstrants(_ value: Bool, includeSubviews: Bool = true) {
+    func tap_setTranslatesAutoresizingMasksIntoConstrants(_ value: Bool, includeSubviews: Bool = true) {
         
         self.translatesAutoresizingMaskIntoConstraints = value
         
@@ -308,7 +308,7 @@ import class	UIKit.UIView
      
      - returns: First subview of specific class if nil if subview could not be found.
      */
-    public func tap_subview<T>(ofClass subviewClass: T.Type) -> T? where T: AnyObject {
+    func tap_subview<T>(ofClass subviewClass: T.Type) -> T? where T: AnyObject {
         
         for subview in self.subviews {
             
@@ -329,7 +329,7 @@ import class	UIKit.UIView
     /// Applies semantic content attribute for the receiver and all subviews.
     ///
     /// - Parameter attribute: Attribute to apply.
-    @available(iOS 9.0, *) open func tap_applySemanticContentAttribute(_ attribute: UISemanticContentAttribute) {
+    @available(iOS 9.0, *) func tap_applySemanticContentAttribute(_ attribute: UISemanticContentAttribute) {
         
         self.semanticContentAttribute = attribute
         
@@ -344,7 +344,7 @@ import class	UIKit.UIView
      
      - parameter subview:  Subview to add.
      */
-    public func tap_addSubviewWithConstraints(_ subview: UIView, respectLanguageDirection: Bool = true) {
+    func tap_addSubviewWithConstraints(_ subview: UIView, respectLanguageDirection: Bool = true) {
         
         subview.frame = self.bounds
         
@@ -357,7 +357,7 @@ import class	UIKit.UIView
      
      - parameter subview: Subview to add constraints to.
      */
-    public func tap_addConstraints(to subview: UIView, respectLanguageDirection: Bool) {
+    func tap_addConstraints(to subview: UIView, respectLanguageDirection: Bool) {
         
         subview.translatesAutoresizingMaskIntoConstraints = false
         
@@ -375,7 +375,7 @@ import class	UIKit.UIView
     /**
      Removes from superview with fade out animation.
      */
-    public func tap_removeFromSuperviewAnimated() {
+    func tap_removeFromSuperviewAnimated() {
         
         self.tap_removeFromSuperviewAnimated(with: Constants.defaultRemoveFromSuperviewAnimationDuration)
     }
@@ -383,7 +383,7 @@ import class	UIKit.UIView
     /// Removes from superview with fade out animation.
     ///
     /// - Parameter duration: Animation duration.
-    public func tap_removeFromSuperviewAnimated(with duration: TimeInterval) {
+    func tap_removeFromSuperviewAnimated(with duration: TimeInterval) {
         
         let animations = {
             
@@ -406,7 +406,7 @@ import class	UIKit.UIView
 	///   - delay: Animation delay.
 	///   - update: Closure that will be called when view is not visible (faded in).
 	///   - completion: Closure that will be called when animation finishes.
-	public static func tap_fadeOutUpdateAndFadeIn<T>(view: T, with duration: TimeInterval, delay: TimeInterval = 0.0, update: @escaping (T) -> Void, completion: ((Bool) -> Void)? = nil) where T: UIView {
+	func tap_fadeOutUpdateAndFadeIn<T>(view: T, with duration: TimeInterval, delay: TimeInterval = 0.0, update: @escaping (T) -> Void, completion: ((Bool) -> Void)? = nil) where T: UIView {
 		
 		let fadeDuration = 0.5 * duration
 		
@@ -431,7 +431,7 @@ import class	UIKit.UIView
     ///
     /// - Parameter scale: Resulting image scale.
     /// - Returns: Screenshot image.
-    public func tap_screenshot(with scale: CGFloat) -> UIImage? {
+    func tap_screenshot(with scale: CGFloat) -> UIImage? {
         
         return self.tap_screenshot(area: self.bounds, with: scale)
     }
@@ -442,7 +442,7 @@ import class	UIKit.UIView
     ///   - area: Area to screenshot measured in points.
     ///   - scale: Resulting image scale.
     /// - Returns: Screenshot image.
-    public func tap_screenshot(area: CGRect, with scale: CGFloat = 1.0) -> UIImage? {
+    func tap_screenshot(area: CGRect, with scale: CGFloat = 1.0) -> UIImage? {
         
         let imageScale = scale / UIScreen.main.tap_numberOfPointsInOnePixel
         
@@ -464,7 +464,7 @@ import class	UIKit.UIView
     }
     
     /// Force layout.
-    public func tap_layout() {
+    func tap_layout() {
         
         self.setNeedsLayout()
 		
@@ -475,7 +475,7 @@ import class	UIKit.UIView
     }
     
     /// Changes receiver's frame to fit its superview.
-    public func tap_stickToSuperview() {
+    func tap_stickToSuperview() {
         
         if let nonnullSuperview = self.superview {
             
@@ -496,7 +496,7 @@ import class	UIKit.UIView
     /// - Parameters:
     ///   - corners: Corners to round.
     ///   - radius: Corner radius.
-    public func tap_roundCorners(_ corners: UIRectCorner, with radius: CGFloat) {
+    func tap_roundCorners(_ corners: UIRectCorner, with radius: CGFloat) {
         
         let radii = CGSize(width: radius, height: radius)
         let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: radii)

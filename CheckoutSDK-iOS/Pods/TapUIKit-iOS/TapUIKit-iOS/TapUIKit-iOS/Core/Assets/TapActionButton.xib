@@ -48,7 +48,7 @@
                         <constraint firstItem="bDd-in-4hb" firstAttribute="centerX" secondItem="3Pi-Oh-5Gg" secondAttribute="centerX" id="3mb-U0-9cG"/>
                         <constraint firstAttribute="width" constant="200" id="6ca-gc-JEt"/>
                         <constraint firstAttribute="bottom" secondItem="CgC-zI-zgc" secondAttribute="bottom" id="8se-6I-qmP"/>
-                        <constraint firstAttribute="height" constant="40" id="GWL-TP-bZr"/>
+                        <constraint firstAttribute="height" priority="750" constant="39" id="GWL-TP-bZr"/>
                         <constraint firstAttribute="trailing" secondItem="CgC-zI-zgc" secondAttribute="trailing" id="Rna-EM-XDc"/>
                         <constraint firstItem="bDd-in-4hb" firstAttribute="centerY" secondItem="3Pi-Oh-5Gg" secondAttribute="centerY" id="UM0-go-g3I"/>
                         <constraint firstItem="CgC-zI-zgc" firstAttribute="top" secondItem="3Pi-Oh-5Gg" secondAttribute="top" id="mW1-sN-FM8"/>

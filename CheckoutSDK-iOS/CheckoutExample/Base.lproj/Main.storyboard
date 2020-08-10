@@ -19,15 +19,13 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sampleBG.png" translatesAutoresizingMaskIntoConstraints="NO" id="0oM-Y9-Frd">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XZi-T0-zUu">
-                                <rect key="frame" x="0.0" y="790" width="414" height="106"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JeU-3e-jLT" customClass="TapActionButton" customModule="TapUIKit_iOS">
+                                <rect key="frame" x="0.0" y="821" width="414" height="75"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="106" id="NOn-tk-ikS"/>
+                                    <constraint firstAttribute="height" constant="75" id="hZe-5o-vLx"/>
                                 </constraints>
-                                <connections>
-                                    <action selector="startSDKClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZrM-qa-RDe"/>
-                                </connections>
-                            </button>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -35,12 +33,15 @@
                             <constraint firstItem="0oM-Y9-Frd" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Njt-9g-BGE"/>
                             <constraint firstAttribute="bottom" secondItem="0oM-Y9-Frd" secondAttribute="bottom" id="XgC-gb-Trp"/>
                             <constraint firstItem="0oM-Y9-Frd" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="es5-Jc-hzE"/>
-                            <constraint firstItem="XZi-T0-zUu" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="fSZ-Ww-li5"/>
-                            <constraint firstItem="XZi-T0-zUu" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="mXY-S1-vrM"/>
-                            <constraint firstAttribute="bottom" secondItem="XZi-T0-zUu" secondAttribute="bottom" id="vTf-9H-j6e"/>
+                            <constraint firstItem="JeU-3e-jLT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="gqh-O8-7aC"/>
+                            <constraint firstItem="JeU-3e-jLT" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="rGF-mM-WKT"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="JeU-3e-jLT" secondAttribute="trailing" id="zpb-XU-3iq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="tapPayButton" destination="JeU-3e-jLT" id="WTz-DD-uIv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

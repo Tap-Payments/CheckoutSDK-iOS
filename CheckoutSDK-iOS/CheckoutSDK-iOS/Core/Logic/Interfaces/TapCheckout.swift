@@ -9,6 +9,19 @@
 import Foundation
 
 /// A protocol to communicate with the Presente tap sheet controller
+@objc public protocol CheckoutScreenDelegate {
+    /**
+     Will be fired just before the sheet is dismissed
+     */
+    @objc optional func tapBottomSheetWillDismiss()
+    /**
+     Will be fired once the controller is presented
+     */
+    @objc optional func tapBottomSheetPresented()
+}
+
+
+/// A protocol to communicate with the Presente tap sheet controller
 internal protocol  ToPresentAsPopupViewControllerDelegate {
     /**
      Will be fired once the tap sheet content changed its height
@@ -16,6 +29,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      */
     func changeHeight(to newHeight:CGFloat)
 }
+
 
 /// The public interface to deal and start the TapCheckout SDK/UI
 @objc public class TapCheckout: NSObject {
@@ -25,6 +39,8 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
     internal var cornerRadius:CGFloat = 12
     /// The tap bottom sheet reference
     internal var bottomSheetController = TapBottomSheetDialogViewController()
+    
+    @objc public var tapCheckoutScreenDelegate:CheckoutScreenDelegate?
     
     /**
      Defines the tap checkout bottom sheet controller
@@ -79,9 +95,11 @@ extension TapCheckout: TapBottomSheetDialogDelegate {
     
     
     public func tapBottomSheetPresented() {
+        tapCheckoutScreenDelegate?.tapBottomSheetPresented?()
     }
     
     public func tapBottomSheetWillDismiss() {
+        tapCheckoutScreenDelegate?.tapBottomSheetPresented?()
     }
     
     public func tapBottomSheetDidTapOutside() {

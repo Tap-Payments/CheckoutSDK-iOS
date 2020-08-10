@@ -11,16 +11,39 @@ import CheckoutSDK_iOS
 
 class ViewController: UIViewController {
    
-    
+    @IBOutlet weak var tapPayButton: TapActionButton!
+    let tapPayButtonViewModel:TapActionButtonViewModel = .init()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        TapThemeManager.setDefaultTapTheme()
+        adjustTapButton()
+    }
+    
+    func adjustTapButton() {
+        tapPayButton.setup(with: tapPayButtonViewModel)
+        tapPayButtonViewModel.buttonStatus = .ValidPayment
+        tapPayButtonViewModel.buttonActionBlock = { [weak self] in self?.startSDKClicked() }
     }
     
     
-    @IBAction func startSDKClicked(_ sender: Any) {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    
+    func startSDKClicked() {
         let checkout:TapCheckout = .init()
+        checkout.tapCheckoutScreenDelegate = self
         present(checkout.startCheckoutSDK(), animated: true, completion: nil)
+    }
+}
+
+
+
+extension ViewController:CheckoutScreenDelegate {
+    func tapBottomSheetWillDismiss() {
+        adjustTapButton()
     }
 }
