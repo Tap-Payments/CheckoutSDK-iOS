@@ -31,7 +31,7 @@ import enum		UIKit.UISemanticContentAttribute
 import class	UIKit.UIView
 
 /// Useful extension to UIView.
-@IBDesignable internal extension UIView {
+internal extension UIView {
     
     // MARK: - internal -
     // MARK: Properties
