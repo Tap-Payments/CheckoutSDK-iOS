@@ -17,6 +17,11 @@ internal protocol TapPresentableViewControllerDelegate {
      */
     func tapBottomSheetHeightChanged(with newHeight:CGFloat)
     
+    ///Will be fired just before the sheet is dismissed
+    func willDismiss()
+    
+    ///Will be fired just after the sheet is dismissed
+    func dismissed()
 }
 
 
@@ -68,7 +73,7 @@ internal class TapPresentableViewController: PullUpController {
     
     ///Computes the point the view will be moved to, and calculates the auto dismissal logic
     override func pullUpControllerWillMove(to point: CGFloat) {
-       // print("POINT WILL MOVE TO : \(point) - With Frame \(self.view.frame.origin.y)")
+        // print("POINT WILL MOVE TO : \(point) - With Frame \(self.view.frame.origin.y)")
         // Check if the new point is lower than the dismiss Y threshold
         if changedBefore && point <= TapConstantManager.TapBottomSheetMinimumYPoint {
             dismissView()
@@ -113,12 +118,15 @@ internal class TapPresentableViewController: PullUpController {
             }
         }
         
-       // print("NEW \(containerView.frame) -- \(tapVertical.neededSize())")
+        // print("NEW \(containerView.frame) -- \(tapVertical.neededSize())")
     }
     
     
     private func dismissView() {
-        dismiss(animated: true, completion: nil)
+        delegate?.willDismiss()
+        dismiss(animated: true) { [weak self] in
+            self?.delegate?.dismissed()
+        }
     }
     
 }

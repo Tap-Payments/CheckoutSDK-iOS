@@ -99,7 +99,7 @@ extension TapCheckout: TapBottomSheetDialogDelegate {
     }
     
     public func tapBottomSheetWillDismiss() {
-        tapCheckoutScreenDelegate?.tapBottomSheetPresented?()
+        tapCheckoutScreenDelegate?.tapBottomSheetWillDismiss?()
     }
     
     public func tapBottomSheetDidTapOutside() {
