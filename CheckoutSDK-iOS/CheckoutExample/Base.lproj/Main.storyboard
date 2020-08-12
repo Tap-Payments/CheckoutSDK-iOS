@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -33,15 +33,28 @@
                                     <segue destination="cZe-Uy-c7T" kind="presentation" id="jub-aJ-oY7"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lf2-sc-cSQ">
+                                <rect key="frame" x="174.5" y="503" width="65" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="65" id="L56-6i-2rM"/>
+                                    <constraint firstAttribute="height" constant="35" id="eUX-jM-UwS"/>
+                                </constraints>
+                                <state key="normal" title="Settings"/>
+                                <connections>
+                                    <action selector="showSettings:" destination="BYZ-38-t0r" eventType="touchUpInside" id="COT-Gd-77w"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="bOs-oz-Va6" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="33R-ux-0WA"/>
                             <constraint firstItem="0oM-Y9-Frd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="6B4-tp-X02"/>
+                            <constraint firstItem="Lf2-sc-cSQ" firstAttribute="centerX" secondItem="bOs-oz-Va6" secondAttribute="centerX" id="CIh-VH-uAf"/>
                             <constraint firstItem="0oM-Y9-Frd" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Njt-9g-BGE"/>
                             <constraint firstAttribute="bottom" secondItem="0oM-Y9-Frd" secondAttribute="bottom" id="XgC-gb-Trp"/>
                             <constraint firstItem="0oM-Y9-Frd" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="es5-Jc-hzE"/>
                             <constraint firstItem="JeU-3e-jLT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="gqh-O8-7aC"/>
+                            <constraint firstItem="Lf2-sc-cSQ" firstAttribute="top" secondItem="bOs-oz-Va6" secondAttribute="bottom" constant="40" id="hJw-kl-jkO"/>
                             <constraint firstItem="JeU-3e-jLT" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="rGF-mM-WKT"/>
                             <constraint firstItem="bOs-oz-Va6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ui5-zF-wxj"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="JeU-3e-jLT" secondAttribute="trailing" id="zpb-XU-3iq"/>
@@ -55,6 +68,51 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="esj-8y-eK5">
+            <objects>
+                <viewController storyboardIdentifier="SettingsViewController" id="TaV-uB-5bd" customClass="SettingsViewController" customModule="CheckoutExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2z5-yk-fix">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MQ5-NT-DkI">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="nrw-AY-mud">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nrw-AY-mud" id="hjb-dq-Uif">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="TaV-uB-5bd" id="OlL-Tz-few"/>
+                                    <outlet property="delegate" destination="TaV-uB-5bd" id="plx-1K-PDV"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="nSf-D5-j84" firstAttribute="bottom" secondItem="MQ5-NT-DkI" secondAttribute="bottom" id="9wd-Cq-N1X"/>
+                            <constraint firstItem="MQ5-NT-DkI" firstAttribute="top" secondItem="nSf-D5-j84" secondAttribute="top" id="OfJ-hd-off"/>
+                            <constraint firstItem="MQ5-NT-DkI" firstAttribute="leading" secondItem="nSf-D5-j84" secondAttribute="leading" id="Qoh-HL-8eV"/>
+                            <constraint firstItem="nSf-D5-j84" firstAttribute="trailing" secondItem="MQ5-NT-DkI" secondAttribute="trailing" id="rwA-vS-tf6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="nSf-D5-j84"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="neS-7c-H8f"/>
+                    <connections>
+                        <outlet property="settingsTableView" destination="MQ5-NT-DkI" id="3ZS-a2-Irh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="beq-ti-g0w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="138" y="825"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="FRr-of-qRD">

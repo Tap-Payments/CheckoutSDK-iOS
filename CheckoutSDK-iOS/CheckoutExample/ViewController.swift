@@ -42,6 +42,17 @@ class ViewController: UIViewController {
         checkout.tapCheckoutScreenDelegate = self
         present(checkout.startCheckoutSDK(localiseFile: localisationFileName), animated: true, completion: nil)
     }
+    @IBAction func showSettings(_ sender: UIButton) {
+        let settingsVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") as! SettingsViewController
+        settingsVC.delegate = self
+        present(settingsVC, animated: true, completion: nil)
+    }
+}
+
+extension ViewController: LocalisationSettingsDelegate {
+    func didUpdateLanguage(with locale: String) {
+        print("new localisation: \(locale)")
+    }    
 }
 
 
@@ -49,5 +60,9 @@ class ViewController: UIViewController {
 extension ViewController:CheckoutScreenDelegate {
     func tapBottomSheetWillDismiss() {
         adjustTapButton()
+    }
+    
+    func didUpdateLocalisation(to enabled: Bool) {
+        print("didUpdateLocalisation: \(enabled)")
     }
 }
