@@ -9,17 +9,17 @@
             "emailPlaceHolder": "email@email.com"
         },
         "TapMerchantSection": {
-            "paymentFor" : "TRANSACTION FOR"
+            "paymentFor" : "PAYMENT FOR"
         },
         "HorizontalHeaders": {
             "GatewayHeader":{
-                "leftTitle": "CHOOSE",
+                "leftTitle": "SELECT",
                 "rightTitle": "EDIT"
             }
         },
         "ItemList": {
-            "showDesc": "Visible Description",
-            "hideDesc": "Kill Description",
+            "showDesc": "Show Description",
+            "hideDesc": "Hide Description",
             "Discount": "Discount"
         },
         "Hints":
@@ -205,6 +205,214 @@
             "resend": "إعادة إرسال",
             "next": "التالي",
             "signin": "دخول"
+        }
+    },
+    "fr": {
+        "TapCardInputKit": {
+            "cardNumberPlaceHolder": "0000 0000 0000 0000",
+            "cardNamePlaceHolder": "Nom du titulaire",
+            "cardCVVPlaceHolder": "CVV",
+            "cardExpiryPlaceHolder": "MM/YY",
+            "cardSaveLabel": "Pour un paiement plus rapide et plus sécurisé, \n enregistrez votre carte",
+            "emailPlaceHolder": "email@email.com"
+        },
+        "TapMerchantSection": {
+            "paymentFor" : "PAIEMENT POUR"
+        },
+        "HorizontalHeaders": {
+            "GatewayHeader":{
+                "leftTitle": "SÉLECTIONNER",
+                "rightTitle": "ÉDITER"
+            }
+        },
+        "ItemList": {
+            "showDesc": "Montrer la description",
+            "hideDesc": "Masquer la description",
+            "Discount": "Remise"
+        },
+        "Hints":
+        {
+            "Warning":
+            {
+                "missingExpiryCVV": "La date d'expiration et le numéro CVV sont manquants.",
+                "missingCVV": "Le numéro CVV est manquant."
+            },
+            "Error":
+            {
+                "wrongCardNumber": "Le numéro de carte n'est pas valide"
+            },
+            "Default":
+            {
+                "scan": "Prêt à numériser."
+            },
+            "Scanned":
+            {
+                "successFullScan" : "Your card has been scanned successfully."
+            },
+            "GoPayLogin":
+            {
+                "password": "",
+                "otp": "Le mot de passe a été envoyé à"
+            }
+        },
+        "TapOtpView": {
+            "Message": {
+                "Ready": "Le mot de passe a été envoyé à",
+                "Invalid": "Numéro OTP invalide!",
+                "Expired": ""
+            }
+        },
+        "TapSwitchView" : {
+            "mainTelecom": {
+                "titleEmpty": "Pour un paiement plus rapide et plus facile,\nenregistrez votre numéro de mobile.",
+                "titleValid": "Pour un paiement plus rapide et plus facile,\nenregistrez votre numéro de mobile.",
+                "subtitle": "",
+                "notes": ""
+            },
+            "mainCards": {
+                "titleEmpty": "Pour un paiement plus rapide et plus facile,\nutilisez le scanner de cartes.",
+                "titleValid": "Pour un paiement plus rapide et plus facile,\nenregistrez la carte pour plus tard.",
+                "subtitle": "",
+                "notes": ""
+            },
+            "goPay": {
+                "title": "Économisez pour les paiements goPay",
+                "subtitle": "En activant goPay, votre numéro de mobile sera enregistré avec Tap Payments pour obtenir des paiements plus rapides et plus sécurisés dans plusieurs applications et sites Web.",
+                "notes": "Veuillez vérifier vos e-mails ou SMS afin de terminer le processus d'inscription à goPay Checkout."
+            },
+            "merchant": {
+                "title": "Économisez pour les caisses %@",
+                "subtitle": "",
+                "notes": ""
+            }
+        },
+        "Common": {
+            "next": "Prochain",
+            "previous": "Précédent",
+            "done": "Terminé",
+            "recent": "Récente",
+            "edit": "Éditer",
+            "close": "Fermer",
+            "items": "Articles",
+            "item": "Article",
+            "email": "email",
+            "phone": "téléphone",
+            "password": "Mot de passe",
+            "change": "changement"
+        },
+        "GoPay": {
+            "HintLabel": "Vous pouvez accéder à vos cartes enregistrées de n'importe où avec goPay."
+        },
+        "ActionButton":{
+            "pay": "Payer",
+            "confirm": "Confirmer",
+            "resend": "Renvoyer OTP",
+            "next": "Prochain",
+            "signin": "Se connecter"
+        }
+    },
+    "hi": {
+        "TapCardInputKit": {
+            "cardNumberPlaceHolder": "0000 0000 0000 0000",
+            "cardNamePlaceHolder": "धारक का नाम",
+            "cardCVVPlaceHolder": "CVV",
+            "cardExpiryPlaceHolder": "MM/YY",
+            "cardSaveLabel": "तेज़ और अधिक सुरक्षित चेकआउट के लिए,\nअपना कार्ड दें",
+            "emailPlaceHolder": "email@email.com"
+        },
+        "TapMerchantSection": {
+            "paymentFor" : "के लिए भुगतान"
+        },
+        "HorizontalHeaders": {
+            "GatewayHeader":{
+                "leftTitle": "चुनते हैं",
+                "rightTitle": "संपादित करें"
+            }
+        },
+        "ItemList": {
+            "showDesc": "विवरण दिखाएं",
+            "hideDesc": "विवरण छिपाएँ",
+            "Discount": "छूट"
+        },
+        "Hints":
+        {
+            "Warning":
+            {
+                "missingExpiryCVV": "एक्सपायरी डेट और सीवीवी नंबर गायब हैं।",
+                "missingCVV": "सीवीवी नंबर गायब है।"
+            },
+            "Error":
+            {
+                "wrongCardNumber": "कार्ड नंबर अमान्य है"
+            },
+            "Default":
+            {
+                "scan": "स्कैन करने के लिए तैयार है।"
+            },
+            "Scanned":
+            {
+                "successFullScan" : "आपके कार्ड को सफलतापूर्वक स्कैन कर लिया गया है।"
+            },
+            "GoPayLogin":
+            {
+                "password": "",
+                "otp": "OTP को भेज दिया गया है"
+            }
+        },
+        "TapOtpView": {
+            "Message": {
+                "Ready": "OTP को भेज दिया गया है",
+                "Invalid": "अमान्य OTP नंबर! ",
+                "Expired": ""
+            }
+        },
+        "TapSwitchView" : {
+            "mainTelecom": {
+                "titleEmpty": "तेज़ और आसान चेकआउट के लिए, अपना मोबाइल नंबर\nसहेजें करें।",
+                "titleValid": "तेज़ और आसान चेकआउट के लिए, अपना मोबाइल नंबर\nसहेजें करें।",
+                "subtitle": "",
+                "notes": ""
+            },
+            "mainCards": {
+                "titleEmpty": "तेज और आसान चेकआउट के लिए,\nउपयोग कार्ड स्कैनर या एनएफसी।",
+                "titleValid": "तेज़ और आसान चेकआउट के लिए, बाद में कार्ड के लिए \nसहेजें करें।",
+                "subtitle": "",
+                "notes": ""
+            },
+            "goPay": {
+                "title": "GoPay चेकआउट के लिए सहेजें",
+                "subtitle": "GoPay को सक्षम करने से, कई ऐप और वेबसाइटों में तेज़ और अधिक सुरक्षित चेकआउट प्राप्त करने के लिए आपका मोबाइल नंबर टैप पेमेंट के साथ सहेजा जाएगा।",
+                "notes": "GoPay चेकआउट साइनअप प्रक्रिया को पूरा करने के लिए कृपया अपना ईमेल या एसएमएस देखें।"
+            },
+            "merchant": {
+                "title": "%@ चेकआउट के लिए सहेजें",
+                "subtitle": "",
+                "notes": ""
+            }
+        },
+        "Common": {
+            "next": "आगे",
+            "previous": "पिछला",
+            "done": "किया हुआ",
+            "recent": "हाल का",
+            "edit": "संपादित करें",
+            "close": "बंद करे",
+            "items": "आइटम",
+            "item": "मद",
+            "email": "ईमेल",
+            "phone": "फ़ोन",
+            "password": "कुंजिका",
+            "change": "change"
+        },
+        "GoPay": {
+            "HintLabel": "आप अपने सहेजे गए कार्ड को गोपे से कहीं से भी एक्सेस कर सकते हैं।"
+        },
+        "ActionButton":{
+            "pay": "वेतन",
+            "confirm": "पुष्टि करें",
+            "resend": "ओटीपी पुनः भेजें",
+            "next": "Next",
+            "signin": "साइन इन करें"
         }
     }
 }

@@ -13,8 +13,8 @@ class ViewController: UIViewController {
    
     @IBOutlet weak var tapPayButton: TapActionButton!
     let tapPayButtonViewModel:TapActionButtonViewModel = .init()
-    var localeID:String = "en"
-    var localisationFileName:String? = nil
+    var localeID:String = "hi"
+    var localisationFileName:String? = "CustomLocalisation"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +38,7 @@ class ViewController: UIViewController {
     func startSDKClicked() {
         let checkout:TapCheckout = .init()
         TapCheckout.flippingStatus = .FlipOnLoadWithFlippingBack
+        TapCheckout.localeIdentifier = localeID
         checkout.tapCheckoutScreenDelegate = self
         present(checkout.startCheckoutSDK(localiseFile: localisationFileName), animated: true, completion: nil)
     }
