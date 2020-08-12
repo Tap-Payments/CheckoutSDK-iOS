@@ -72,21 +72,32 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
             TapThemeManager.setDefaultTapTheme()
             return
         }
-        
+    }
+    /** Configures the localisation manager bu setting the locale, adjusting the flipping and the localisation custom file if any
+     - Parameter localiseFile: Please pass the name of the custom localisation file if needed. If not set, the normal and default TAP localisations will be used
+     */
+    internal func configureLocalisationManager(localiseFile:String? = nil) {
         // Set the required locale
         sharedLocalisationManager.localisationLocale = TapCheckout.localeIdentifier
         // Adjust the flipping
         if TapCheckout.flippingStatus != .NoFlipping {
             MOLH.setLanguageTo(TapCheckout.localeIdentifier)
         }
+        // Check if the user provided a custom localisation file to use and it is a correct and a reachable one
+        guard let localiseFile = localiseFile,
+            let stringPath = Bundle.main.path(forResource: localiseFile, ofType: "json") else { return }
+        let urlPath = URL(fileURLWithPath: stringPath)
+        sharedLocalisationManager.localisationFilePath = urlPath
     }
     
     // MARK:- Public functions
     /**
      Defines the tap checkout bottom sheet controller
+     - Parameter localiseFile: Please pass the name of the custom localisation file if needed. If not set, the normal and default TAP localisations will be used
      - Returns: The tap checkout bottom sheet controller you need to show afterwards
      */
-    @objc public func startCheckoutSDK() -> UIViewController {
+    @objc public func startCheckoutSDK(localiseFile:String? = nil) -> UIViewController {
+        configureLocalisationManager(localiseFile: localiseFile)
         configureBottomSheet()
         return bottomSheetController
     }
