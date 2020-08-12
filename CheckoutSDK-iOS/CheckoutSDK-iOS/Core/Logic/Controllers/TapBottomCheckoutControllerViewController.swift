@@ -242,6 +242,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         self.tapVerticalView.remove(viewType: TapChipHorizontalList.self, with: .init(), and: true)
         
         DispatchQueue.main.async{ [weak self] in
+            self?.tapVerticalView.hideActionButton()
             self?.tapVerticalView.add(views: [self!.tapCurrienciesChipHorizontalListViewModel.attachedView,self!.tapItemsTableViewModel.attachedView], with: [.init(for: .fadeIn)])
             self?.tapCurrienciesChipHorizontalListViewModel.refreshLayout()
         }

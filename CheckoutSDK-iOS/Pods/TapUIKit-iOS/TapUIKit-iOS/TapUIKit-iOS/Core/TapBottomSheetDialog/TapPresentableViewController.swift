@@ -73,7 +73,7 @@ internal class TapPresentableViewController: PullUpController {
     
     ///Computes the point the view will be moved to, and calculates the auto dismissal logic
     override func pullUpControllerWillMove(to point: CGFloat) {
-        // print("POINT WILL MOVE TO : \(point) - With Frame \(self.view.frame.origin.y)")
+       // print("POINT WILL MOVE TO : \(point) - With Frame \(self.view.frame.origin.y)")
         // Check if the new point is lower than the dismiss Y threshold
         if changedBefore && point <= TapConstantManager.TapBottomSheetMinimumYPoint {
             dismissView()
@@ -118,7 +118,7 @@ internal class TapPresentableViewController: PullUpController {
             }
         }
         
-        // print("NEW \(containerView.frame) -- \(tapVertical.neededSize())")
+       // print("NEW \(containerView.frame) -- \(tapVertical.neededSize())")
     }
     
     

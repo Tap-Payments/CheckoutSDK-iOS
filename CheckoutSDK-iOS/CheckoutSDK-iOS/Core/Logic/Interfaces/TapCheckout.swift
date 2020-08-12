@@ -33,14 +33,24 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
 
 /// The public interface to deal and start the TapCheckout SDK/UI
 @objc public class TapCheckout: NSObject {
+    
+    // MARK:- Internal varibales
+    
     /// Reference to the color of the dimming of the tap sheet controller
     internal var bottomSheetBackgroundColor:UIColor? = .init(white: 0, alpha: 0.5)
+    /// Initial height to start the sheet with
     internal var initialHeight:CGFloat = 100
+    /// The corner radius of the sheet
     internal var cornerRadius:CGFloat = 12
     /// The tap bottom sheet reference
     internal var bottomSheetController = TapBottomSheetDialogViewController()
     
+    
+    // MARK:- Public varibales
+    /// A protocol to communicate with the Presente tap sheet controller
     @objc public var tapCheckoutScreenDelegate:CheckoutScreenDelegate?
+    /// The ISO 639-1 Code language identefier, please note if the passed locale is wrong or not found in the localisation files, we will fallback to EN
+    @objc static var localeIdentifier:String = "en"
     
     /**
      Defines the tap checkout bottom sheet controller
