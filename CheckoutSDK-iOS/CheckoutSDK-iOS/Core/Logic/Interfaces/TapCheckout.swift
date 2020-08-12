@@ -47,8 +47,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
     internal var bottomSheetController = TapBottomSheetDialogViewController()
     /// A reference to the localisation manager
     internal var sharedLocalisationManager = TapLocalisationManager.shared
-    /// The ISO 639-1 Code language identefier, please note if the passed locale is wrong or not found in the localisation files, we will show the keys instead of the values
-    internal var localeIdentifier:String = "en"
+    
     
     
     // MARK:- Public varibales
@@ -56,6 +55,8 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
     @objc public var tapCheckoutScreenDelegate:CheckoutScreenDelegate?
     /// Indicates what to do when using RTL languages
     @objc public static var flippingStatus:TapCheckoutFlipStatus = .FlipOnLoadWithFlippingBack
+    /// The ISO 639-1 Code language identefier, please note if the passed locale is wrong or not found in the localisation files, we will show the keys instead of the values
+    @objc public static var localeIdentifier:String = "en"
     
     // MARK:- Internal functions
     
@@ -73,10 +74,10 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         }
         
         // Set the required locale
-        sharedLocalisationManager.localisationLocale = localeIdentifier
+        sharedLocalisationManager.localisationLocale = TapCheckout.localeIdentifier
         // Adjust the flipping
         if TapCheckout.flippingStatus != .NoFlipping {
-            MOLH.setLanguageTo(localeIdentifier)
+            MOLH.setLanguageTo(TapCheckout.localeIdentifier)
         }
     }
     

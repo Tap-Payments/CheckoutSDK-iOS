@@ -34,7 +34,9 @@ class ViewController: UIViewController {
     
     
     func startSDKClicked() {
+        // Select the language
         let checkout:TapCheckout = .init()
+        TapCheckout.flippingStatus = .FlipOnLoadWithFlippingBack
         checkout.tapCheckoutScreenDelegate = self
         present(checkout.startCheckoutSDK(), animated: true, completion: nil)
     }

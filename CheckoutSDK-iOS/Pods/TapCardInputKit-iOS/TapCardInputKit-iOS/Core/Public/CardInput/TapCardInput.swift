@@ -284,7 +284,7 @@ internal protocol TapCardInputCommonProtocol {
             }
             
             saveLabel.textAlignment = (sharedLocalisationManager.localisationLocale == "ar") ? .right : .left
-            MOLH.setLanguageTo(sharedLocalisationManager.localisationLocale ?? "en")
+            //MOLH.setLanguageTo(sharedLocalisationManager.localisationLocale ?? "en")
         }
         
     }
