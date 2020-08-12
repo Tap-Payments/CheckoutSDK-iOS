@@ -23,6 +23,7 @@
 		E8845E7924D851E2009E8B73 /* TapCheckoutBlurView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8845E7824D851E2009E8B73 /* TapCheckoutBlurView.xib */; };
 		E8845E7C24D851FF009E8B73 /* TapCheckoutBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8845E7B24D851FF009E8B73 /* TapCheckoutBlurView.swift */; };
 		E8845E7E24D85466009E8B73 /* sampleBG.png in Resources */ = {isa = PBXBuildFile; fileRef = E8845E7D24D85466009E8B73 /* sampleBG.png */; };
+		E8C2052624E3FEFA006653CA /* TapCheckoutFlipStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C2052524E3FEFA006653CA /* TapCheckoutFlipStatus.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		E8845E7824D851E2009E8B73 /* TapCheckoutBlurView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TapCheckoutBlurView.xib; sourceTree = "<group>"; };
 		E8845E7B24D851FF009E8B73 /* TapCheckoutBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckoutBlurView.swift; sourceTree = "<group>"; };
 		E8845E7D24D85466009E8B73 /* sampleBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sampleBG.png; sourceTree = "<group>"; };
+		E8C2052524E3FEFA006653CA /* TapCheckoutFlipStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckoutFlipStatus.swift; sourceTree = "<group>"; };
 		FF4A2E12A9944D1FED9040B6 /* Pods-CheckoutSDK-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutSDK-iOS.debug.xcconfig"; path = "Target Support Files/Pods-CheckoutSDK-iOS/Pods-CheckoutSDK-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -179,6 +181,7 @@
 		E8845E7324D84596009E8B73 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				E8C2052424E3FDCC006653CA /* Enums */,
 				E8845E7524D845A9009E8B73 /* Assets */,
 				E8845E7424D8459E009E8B73 /* Logic */,
 			);
@@ -209,6 +212,14 @@
 				E8845E7B24D851FF009E8B73 /* TapCheckoutBlurView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		E8C2052424E3FDCC006653CA /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				E8C2052524E3FEFA006653CA /* TapCheckoutFlipStatus.swift */,
+			);
+			path = Enums;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -394,6 +405,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8C2052624E3FEFA006653CA /* TapCheckoutFlipStatus.swift in Sources */,
 				E8845E7C24D851FF009E8B73 /* TapCheckoutBlurView.swift in Sources */,
 				E8845E7024D83D7B009E8B73 /* TapCheckout.swift in Sources */,
 				E8845E7224D83FA3009E8B73 /* TapBottomCheckoutControllerViewController.swift in Sources */,

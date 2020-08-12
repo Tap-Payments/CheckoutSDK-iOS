@@ -7,7 +7,8 @@
 //
 
 import Foundation
-
+import LocalisationManagerKit_iOS
+import MOLH
 /// A protocol to communicate with the Presente tap sheet controller
 @objc public protocol CheckoutScreenDelegate {
     /**
@@ -44,24 +45,42 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
     internal var cornerRadius:CGFloat = 12
     /// The tap bottom sheet reference
     internal var bottomSheetController = TapBottomSheetDialogViewController()
-    
+    /// A reference to the localisation manager
+    internal var sharedLocalisationManager = TapLocalisationManager.shared
     
     // MARK:- Public varibales
     /// A protocol to communicate with the Presente tap sheet controller
     @objc public var tapCheckoutScreenDelegate:CheckoutScreenDelegate?
-    /// The ISO 639-1 Code language identefier, please note if the passed locale is wrong or not found in the localisation files, we will fallback to EN
+    /// The ISO 639-1 Code language identefier, please note if the passed locale is wrong or not found in the localisation files, we will show the keys instead of the values
     @objc static var localeIdentifier:String = "en"
     
+    
+    // MARK:- Internal functions
+    
+    /// Configures the bottom sheet by creating one and assigning the correct delegates and datasources
+    internal func configureBottomSheet() {
+        // Create the sheet itself
+        bottomSheetController = TapBottomSheetDialogViewController()
+        bottomSheetController.dataSource = self
+        bottomSheetController.delegate = self
+        bottomSheetController.modalPresentationStyle = .overCurrentContext
+        // Make sure the theme is applied or we apply the default theme
+        guard let _ = TapThemeManager.currentTheme else {
+            TapThemeManager.setDefaultTapTheme()
+            return
+        }
+        
+        // Set the required locale
+        sharedLocalisationManager.localisationLocale = TapCheckout.localeIdentifier
+    }
+    
+    // MARK:- Public functions
     /**
      Defines the tap checkout bottom sheet controller
      - Returns: The tap checkout bottom sheet controller you need to show afterwards
      */
     @objc public func startCheckoutSDK() -> UIViewController {
-        bottomSheetController = TapBottomSheetDialogViewController()
-        bottomSheetController.dataSource = self
-        bottomSheetController.delegate = self
-        bottomSheetController.modalPresentationStyle = .overCurrentContext
-        TapThemeManager.setDefaultTapTheme()
+        configureBottomSheet()
         return bottomSheetController
     }
 }
@@ -109,6 +128,7 @@ extension TapCheckout: TapBottomSheetDialogDelegate {
     }
     
     public func tapBottomSheetWillDismiss() {
+        
         tapCheckoutScreenDelegate?.tapBottomSheetWillDismiss?()
     }
     
