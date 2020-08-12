@@ -23,14 +23,15 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NeA-e9-qa4">
-                        <rect key="frame" x="255" y="7" width="51" height="31"/>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NeA-e9-qa4">
+                        <rect key="frame" x="255" y="6.5" width="51" height="31"/>
                     </switch>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Hic-BZ-51S" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="4bf-Mo-2gv"/>
                     <constraint firstAttribute="trailing" secondItem="NeA-e9-qa4" secondAttribute="trailing" constant="16" id="9ES-nd-FXq"/>
                     <constraint firstItem="NeA-e9-qa4" firstAttribute="leading" secondItem="Hic-BZ-51S" secondAttribute="trailing" constant="8" id="E8N-8f-uYC"/>
+                    <constraint firstItem="NeA-e9-qa4" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="SUY-xt-CcO"/>
                     <constraint firstItem="Hic-BZ-51S" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="YUS-cI-67R"/>
                     <constraint firstAttribute="bottom" secondItem="Hic-BZ-51S" secondAttribute="bottom" constant="11" id="j3p-DJ-PR3"/>
                 </constraints>
