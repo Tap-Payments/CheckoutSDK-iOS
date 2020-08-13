@@ -13,12 +13,13 @@ class ViewController: UIViewController {
    
     @IBOutlet weak var tapPayButton: TapActionButton!
     let tapPayButtonViewModel:TapActionButtonViewModel = .init()
-    var localeID:String = "hi"
+    var localeID:String = "en"
     var localisationFileName:String? = "CustomLocalisation"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        TapLocalisationManager.shared.localisationLocale = "en"
         TapThemeManager.setDefaultTapTheme()
         adjustTapButton()
     }
@@ -51,8 +52,13 @@ class ViewController: UIViewController {
 
 extension ViewController: LocalisationSettingsDelegate {
     func didUpdateLanguage(with locale: String) {
-        print("new localisation: \(locale)")
-    }    
+        adjustTapButton()
+        localeID = locale
+    }
+    
+    func didUpdateLocalisation(to enabled: Bool) {
+        localisationFileName = (enabled) ? "CustomLocalisation" : nil
+    }
 }
 
 
@@ -60,9 +66,5 @@ extension ViewController: LocalisationSettingsDelegate {
 extension ViewController:CheckoutScreenDelegate {
     func tapBottomSheetWillDismiss() {
         adjustTapButton()
-    }
-    
-    func didUpdateLocalisation(to enabled: Bool) {
-        print("didUpdateLocalisation: \(enabled)")
     }
 }

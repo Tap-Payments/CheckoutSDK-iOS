@@ -89,15 +89,19 @@ extension SettingsViewController  {
         
         languageActionSheet.addAction(arabicActionButton)
 
-        let saveActionButton = UIAlertAction(title: "English", style: .default) { _ in
+        let englishActionButton = UIAlertAction(title: "English", style: .default) { _ in
             self.delegate?.didUpdateLanguage(with: "en")
         }
-        languageActionSheet.addAction(saveActionButton)
+        languageActionSheet.addAction(englishActionButton)
 
-        let deleteActionButton = UIAlertAction(title: "French", style: .default) { _ in
+        let frenchActionButton = UIAlertAction(title: "French", style: .default) { _ in
             self.delegate?.didUpdateLanguage(with: "fr")
         }
-        languageActionSheet.addAction(deleteActionButton)
+        languageActionSheet.addAction(frenchActionButton)
+        let hindiActionButton = UIAlertAction(title: "Hindi", style: .default) { _ in
+            self.delegate?.didUpdateLanguage(with: "hi")
+        }
+        languageActionSheet.addAction(hindiActionButton)
         self.present(languageActionSheet, animated: true, completion: nil)
     }
 }
