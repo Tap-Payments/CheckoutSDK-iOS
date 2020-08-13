@@ -240,12 +240,13 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
     func showItemsClicked() {
         self.view.endEditing(true)
         self.tapVerticalView.remove(viewType: TapChipHorizontalList.self, with: .init(), and: true)
-        
-        DispatchQueue.main.async{ [weak self] in
-            self?.tapVerticalView.hideActionButton()
+        tapVerticalView.hideActionButton()
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(80), execute: { [weak self] in
             self?.tapVerticalView.add(views: [self!.tapCurrienciesChipHorizontalListViewModel.attachedView,self!.tapItemsTableViewModel.attachedView], with: [.init(for: .fadeIn)])
-            self?.tapCurrienciesChipHorizontalListViewModel.refreshLayout()
-        }
+            if let locale = TapLocalisationManager.shared.localisationLocale, locale == "ar" {
+                self?.tapCurrienciesChipHorizontalListViewModel.refreshLayout()
+            }
+        })
     }
     
     
@@ -265,6 +266,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
     
     func closeScannerClicked() {
         tapVerticalView.closeScanner()
+        tapCardTelecomPaymentViewModel.scanerClosed()
         DispatchQueue.main.async{ [weak self] in
             self?.tapVerticalView.add(views: [self!.tapGoPayChipsHorizontalListViewModel.attachedView,self!.tapGatewayChipHorizontalListViewModel.attachedView,self!.tapCardTelecomPaymentViewModel.attachedView,self!.tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
         }
@@ -488,7 +490,7 @@ extension TapBottomCheckoutControllerViewController:TapCardTelecomPaymentProtoco
     func showHint(with status: TapHintViewStatusEnum) {
         let hintViewModel:TapHintViewModel = .init(with: status)
         let hintView:TapHintView = hintViewModel.createHintView()
-        tapVerticalView.attach(hintView: hintView, to: TapCardTelecomPaymentView.self,with: true)
+        tapVerticalView.attach(hintView: hintView, to: TapCardTelecomPaymentView.self,with: false)
     }
     
     func hideHints() {
@@ -545,7 +547,7 @@ extension TapBottomCheckoutControllerViewController:TapInlineScannerProtocl {
         tapVerticalView.attach(hintView: hintView, to: TapAmountSectionView.self,with: true)
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500)) { [weak self] in
             self?.closeScannerClicked()
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) { [weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) { [weak self] in
                 self?.tapCardTelecomPaymentViewModel.setCard(with: tapCard)
             }
         }

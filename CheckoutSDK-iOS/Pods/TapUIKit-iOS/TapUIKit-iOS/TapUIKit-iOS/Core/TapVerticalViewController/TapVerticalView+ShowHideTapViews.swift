@@ -10,7 +10,7 @@ import Foundation
 import TapCardScanner_iOS
 /// Extension to the bottom sheet that contains all the logic required for showing and dismissing Tap custom views fromt the sheet controller
 extension TapVerticalView {
-
+    
     
     /// Call this method to remove all the shown hint views in the TAP bottom sheet
     @objc public func removeAllHintViews() {
@@ -18,8 +18,9 @@ extension TapVerticalView {
         let hintViews:[TapHintView] = stackView.arrangedSubviews.filter{ $0.isKind(of: TapHintView.self) } as? [TapHintView] ?? []
         guard hintViews.count > 0 else { return }
         // For each one, apply the deletion method
-        hintViews.forEach { hintView in
-            remove(view: hintView, with: .init(for:.fadeOut))
+        hintViews.forEach { [weak self] hintView in
+            self?.stackView.removeArrangedSubview(hintView)
+            hintView.isHidden = true
         }
     }
     
@@ -191,7 +192,7 @@ extension TapVerticalView {
     }
     
     /// Hide the action button fade out + height decrease
-   @objc  public func hideActionButton() {
+    @objc  public func hideActionButton() {
         tapActionButtonHeightConstraint.priority = .required
         tapActionButtonHeightConstraint.constant = 0
         tapActionButton.updateConstraints()

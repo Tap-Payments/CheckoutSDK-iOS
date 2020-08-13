@@ -88,6 +88,14 @@ import TapCardVlidatorKit_iOS
     
     
     /**
+     Call this method when scanner is closed to reset the scanning icon
+     */
+    @objc public func scanerClosed() {
+        tapCardTelecomPaymentView?.cardInputView.scannerClosed()
+    }
+    
+    
+    /**
      Decides which hint status to be shown based on the validation statuses for the card input fields
      - Parameter tapCard: The current tap card input by the user
      */

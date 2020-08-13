@@ -54,7 +54,7 @@ import LocalisationManagerKit_iOS
         lastUserInterfaceStyle = self.traitCollection.userInterfaceStyle
         commonInit()
     }
-
+    
     public override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Apply the correct logic based on the selection state and inform the view model
@@ -165,7 +165,7 @@ extension ItemTableViewCell {
 
 
 extension ItemTableViewCell:TapCellViewModelDelegate {
-   
+    
     func changeSelection(with status: Bool) {
         // In items case, no specific UI upon selection
         return
@@ -182,7 +182,7 @@ extension ItemTableViewCell:ItemCellViewModelDelegate {
     func reloadDescription(with state: DescriptionState) {
         guard let tableView:UITableView = self.superview as? UITableView,
             let indexPath:IndexPath = tableView.indexPath(for: self) else { return }
-        // Reload the expanded/collapsed the 
+        // Reload the expanded/collapsed the
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(0)) {
             tableView.reloadRows(at: [indexPath], with: .none)
         }

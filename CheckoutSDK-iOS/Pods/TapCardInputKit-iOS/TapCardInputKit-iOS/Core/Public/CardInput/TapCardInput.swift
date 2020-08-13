@@ -158,7 +158,7 @@ internal protocol TapCardInputCommonProtocol {
         self.showCardName = showCardName
         self.showCardBrandIcon = showCardBrandIcon
         // After applying the theme, we need now to actually setup the views
-        FlurryLogger.logEvent(with: "Tap_Card_Input_Setup_Called", timed:false , params:["defaultTheme":"true","cardInputMode":"\(cardInputMode)"])
+        //FlurryLogger.logEvent(with: "Tap_Card_Input_Setup_Called", timed:false , params:["defaultTheme":"true","cardInputMode":"\(cardInputMode)"])
         self.cardIconUrl = cardIconUrl
         defer {
             self.allowedCardBrands = allowedCardBrands
@@ -191,7 +191,7 @@ internal protocol TapCardInputCommonProtocol {
         // Then we set the card expiry and check if it is valid or not
         guard cardExpiry.changeText(with: tapCard.tapCardExpiryMonth, year: tapCard.tapCardExpiryYear) else {
             cardExpiry.text = ""
-            cardExpiry.resignFirstResponder()
+            cardExpiry.becomeFirstResponder()
             return
         }
         
@@ -201,14 +201,23 @@ internal protocol TapCardInputCommonProtocol {
         // Then check if the usder provided a correct cvv
         guard cardCVV.changeText(with: tapCard.tapCardCVV ?? "", setTextAfterValidation: true) else {
             cardCVV.text = ""
-            cardCVV.resignFirstResponder()
+            cardCVV.becomeFirstResponder()
             return
         }
         
         cardCVV.resignFirstResponder()
         updateWidths(for: cardCVV)
         
-        FlurryLogger.logEvent(with: "Tap_Card_Input_Fill_Data_Called", timed:false , params:["card_number":tapCard.tapCardNumber ?? "","card_name":tapCard.tapCardName ?? "","card_month":tapCard.tapCardExpiryMonth ?? "","card_year":tapCard.tapCardExpiryYear ?? ""])
+        
+        if !cardNumber.isValid(cardNumber: providedCardNumber) {
+            cardNumber.becomeFirstResponder()
+        }else if !cardExpiry.isValid() {
+            cardExpiry.becomeFirstResponder()
+        }else if !cardCVV.isValid() {
+            cardCVV.becomeFirstResponder()
+        }
+        
+        //FlurryLogger.logEvent(with: "Tap_Card_Input_Fill_Data_Called", timed:false , params:["card_number":tapCard.tapCardNumber ?? "","card_name":tapCard.tapCardName ?? "","card_month":tapCard.tapCardExpiryMonth ?? "","card_year":tapCard.tapCardExpiryYear ?? ""])
         
     }
     
@@ -284,7 +293,7 @@ internal protocol TapCardInputCommonProtocol {
             }
             
             saveLabel.textAlignment = (sharedLocalisationManager.localisationLocale == "ar") ? .right : .left
-            //MOLH.setLanguageTo(sharedLocalisationManager.localisationLocale ?? "en")
+            MOLH.setLanguageTo(sharedLocalisationManager.localisationLocale ?? "en")
         }
         
     }
@@ -447,8 +456,8 @@ internal protocol TapCardInputCommonProtocol {
             }
             // Update the cvv allowed length based on the detected card brand
             self.cardCVV.cvvLength = CardValidator.cvvLength(for: nonNullBrand)
-            let brandName:String = "\(nonNullBrand)"
-            FlurryLogger.logEvent(with: "Tap_Card_Input_Brand_Detected", timed:false , params:["brandName":brandName])
+            //let brandName:String = "\(nonNullBrand)"
+            //FlurryLogger.logEvent(with: "Tap_Card_Input_Brand_Detected", timed:false , params:["brandName":brandName])
         }else {
             // At any problem as fall back we set the default values again
             if cardInputMode == .FullCardInput {
@@ -500,7 +509,7 @@ internal protocol TapCardInputCommonProtocol {
             let (detectedBrand, _) = cardNumber.cardBrand(for: tapCard.tapCardNumber ?? "")
             nonNullDelegate.brandDetected(for: detectedBrand ?? .unknown, with: cardNumber.textFieldStatus(cardNumber: tapCard.tapCardNumber))
         }
-        FlurryLogger.logEvent(with: "Tap_Card_Input_Data_Changed", timed:false , params:["card_number":tapCard.tapCardNumber ?? "","card_name":tapCard.tapCardName ?? "","card_month":tapCard.tapCardExpiryMonth ?? "","card_year":tapCard.tapCardExpiryYear ?? ""])
+        //FlurryLogger.logEvent(with: "Tap_Card_Input_Data_Changed", timed:false , params:["card_number":tapCard.tapCardNumber ?? "","card_name":tapCard.tapCardName ?? "","card_month":tapCard.tapCardExpiryMonth ?? "","card_year":tapCard.tapCardExpiryYear ?? ""])
         adjustExpiryCvv()
     }
     
@@ -520,8 +529,13 @@ internal protocol TapCardInputCommonProtocol {
             // If there is a delegate then we call the related method
             nonNullDelegate.scanCardClicked()
         }
-        FlurryLogger.logEvent(with: "Tap_Card_Input_Scan_Clicked")
+        //FlurryLogger.logEvent(with: "Tap_Card_Input_Scan_Clicked")
         self.scanButton.setImage(TapThemeManager.imageValue(for: "\(themePath).scanImage.selected",from: Bundle(for: type(of: self))), for: .normal)
+    }
+    
+    /// The method that holds the logic needed to do when any of the scan button is clicked
+    @objc public func scannerClosed() {
+        adjustScanButton()
     }
     
     

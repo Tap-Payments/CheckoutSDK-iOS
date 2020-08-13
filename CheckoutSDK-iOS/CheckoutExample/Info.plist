@@ -58,5 +58,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSFaceIDUsageDescription</key>
+	<string>This allows you to sign into your app.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera is needed to scan a card</string>
 </dict>
 </plist>
