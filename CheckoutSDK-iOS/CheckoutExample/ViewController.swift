@@ -61,6 +61,10 @@ extension ViewController: LocalisationSettingsDelegate {
     func didUpdateLocalisation(to enabled: Bool) {
         localisationFileName = (enabled) ? "CustomLocalisation" : nil
     }
+    
+    func didChangeTheme(with themeName: String?) {
+        print("selected theme: \(String(describing: themeName))")
+    }
 }
 
 

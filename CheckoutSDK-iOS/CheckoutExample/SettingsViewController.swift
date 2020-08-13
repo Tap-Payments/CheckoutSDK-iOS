@@ -21,6 +21,7 @@ class SettingsViewController: UIViewController {
         settingsTableView.register(UINib.init(nibName: "LocalisationSwitchTableViewCell", bundle: nil), forCellReuseIdentifier: "LocalisationSwitchTableViewCell")
         settingsList.append(["title": "Language", "rows":["Change Language"], "cellType":""])
         settingsList.append(["title": "Custom Localisation", "rows": ["Show Custom Localization"], "cellType":"switch"])
+        settingsList.append(["title": "Theme", "rows": ["Change Theme"], "cellType":""])
         settingsTableView.reloadData()
     }
 
@@ -58,8 +59,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         switch indexPath.section {
-        case 0:
-            showLanguageActionSheet()
+        case 0: showLanguageActionSheet()
+        case 2: showThemeActionSheet()
         default: break
         }
     }
@@ -103,5 +104,31 @@ extension SettingsViewController  {
         }
         languageActionSheet.addAction(hindiActionButton)
         self.present(languageActionSheet, animated: true, completion: nil)
+    }
+    
+    func showThemeActionSheet() {
+         //Create the AlertController and add Its action like button in Actionsheet
+        let themeActionSheet = UIAlertController(title: nil, message: "Select Theme", preferredStyle: .actionSheet)
+       
+        let defaultActionButton = UIAlertAction(title: "Default", style: .default) { _ in
+            self.delegate?.didChangeTheme(with: .none)
+        }
+        themeActionSheet.addAction(defaultActionButton)
+        
+        let redActionButton = UIAlertAction(title: "Custom Red", style: .default) { _ in
+            self.delegate?.didChangeTheme(with: "Red")
+        }
+        themeActionSheet.addAction(redActionButton)
+
+        let greenActionButton = UIAlertAction(title: "Custom Green", style: .default) { _ in
+            self.delegate?.didChangeTheme(with: "Green")
+        }
+        themeActionSheet.addAction(greenActionButton)
+
+        let blueActionButton = UIAlertAction(title: "Custom Blue", style: .default) { _ in
+            self.delegate?.didChangeTheme(with: "Blue")
+        }
+        themeActionSheet.addAction(blueActionButton)
+        self.present(themeActionSheet, animated: true, completion: nil)
     }
 }

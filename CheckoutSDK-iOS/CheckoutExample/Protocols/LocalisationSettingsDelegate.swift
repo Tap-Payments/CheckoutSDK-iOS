@@ -10,4 +10,5 @@ import Foundation
 @objc public protocol LocalisationSettingsDelegate {
     @objc func didUpdateLanguage(with locale: String)
     @objc func didUpdateLocalisation(to enabled: Bool)
+    @objc func didChangeTheme(with themeName: String?)
 }
