@@ -30,6 +30,10 @@
 		E8C2052624E3FEFA006653CA /* TapCheckoutFlipStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C2052524E3FEFA006653CA /* TapCheckoutFlipStatus.swift */; };
 		E8C2052824E40E95006653CA /* CustomLocalisation.json in Resources */ = {isa = PBXBuildFile; fileRef = E8C2052724E40E95006653CA /* CustomLocalisation.json */; };
 		E8C58B3824E5344700E1F04F /* TapCheckOutTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C58B3724E5344700E1F04F /* TapCheckOutTheme.swift */; };
+		E8C58B3F24E53F8100E1F04F /* RedDarkTheme.json in Resources */ = {isa = PBXBuildFile; fileRef = E8C58B3D24E53F8100E1F04F /* RedDarkTheme.json */; };
+		E8C58B4024E53F8100E1F04F /* RedLightTheme.json in Resources */ = {isa = PBXBuildFile; fileRef = E8C58B3E24E53F8100E1F04F /* RedLightTheme.json */; };
+		E8C58B4324E54AF400E1F04F /* GreenDarkTheme.json in Resources */ = {isa = PBXBuildFile; fileRef = E8C58B4124E54AF400E1F04F /* GreenDarkTheme.json */; };
+		E8C58B4424E54AF400E1F04F /* GreenLightTheme.json in Resources */ = {isa = PBXBuildFile; fileRef = E8C58B4224E54AF400E1F04F /* GreenLightTheme.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +89,10 @@
 		E8C2052524E3FEFA006653CA /* TapCheckoutFlipStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckoutFlipStatus.swift; sourceTree = "<group>"; };
 		E8C2052724E40E95006653CA /* CustomLocalisation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CustomLocalisation.json; sourceTree = "<group>"; };
 		E8C58B3724E5344700E1F04F /* TapCheckOutTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckOutTheme.swift; sourceTree = "<group>"; };
+		E8C58B3D24E53F8100E1F04F /* RedDarkTheme.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RedDarkTheme.json; sourceTree = "<group>"; };
+		E8C58B3E24E53F8100E1F04F /* RedLightTheme.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RedLightTheme.json; sourceTree = "<group>"; };
+		E8C58B4124E54AF400E1F04F /* GreenDarkTheme.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GreenDarkTheme.json; sourceTree = "<group>"; };
+		E8C58B4224E54AF400E1F04F /* GreenLightTheme.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GreenLightTheme.json; sourceTree = "<group>"; };
 		FF4A2E12A9944D1FED9040B6 /* Pods-CheckoutSDK-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutSDK-iOS.debug.xcconfig"; path = "Target Support Files/Pods-CheckoutSDK-iOS/Pods-CheckoutSDK-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -201,6 +209,10 @@
 				E8C2052724E40E95006653CA /* CustomLocalisation.json */,
 				E8811AE924D4287400DE95D1 /* SceneDelegate.swift */,
 				E8811AEB24D4287400DE95D1 /* ViewController.swift */,
+				E8C58B3D24E53F8100E1F04F /* RedDarkTheme.json */,
+				E8C58B3E24E53F8100E1F04F /* RedLightTheme.json */,
+				E8C58B4124E54AF400E1F04F /* GreenDarkTheme.json */,
+				E8C58B4224E54AF400E1F04F /* GreenLightTheme.json */,
 				620965F424E41F1E00BD9985 /* SettingsViewController.swift */,
 				E8845E7D24D85466009E8B73 /* sampleBG.png */,
 				E8811AED24D4287400DE95D1 /* Main.storyboard */,
@@ -369,12 +381,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8C58B4024E53F8100E1F04F /* RedLightTheme.json in Resources */,
 				E8811AF424D4287500DE95D1 /* LaunchScreen.storyboard in Resources */,
+				E8C58B4424E54AF400E1F04F /* GreenLightTheme.json in Resources */,
 				620965FD24E4364100BD9985 /* LocalisationSwitchTableViewCell.xib in Resources */,
 				E8C2052824E40E95006653CA /* CustomLocalisation.json in Resources */,
+				E8C58B4324E54AF400E1F04F /* GreenDarkTheme.json in Resources */,
 				E8811AF124D4287500DE95D1 /* Assets.xcassets in Resources */,
 				E8845E7E24D85466009E8B73 /* sampleBG.png in Resources */,
 				E8811AEF24D4287400DE95D1 /* Main.storyboard in Resources */,
+				E8C58B3F24E53F8100E1F04F /* RedDarkTheme.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

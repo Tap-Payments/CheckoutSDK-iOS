@@ -36,9 +36,10 @@ import Foundation
         self.lightModeThemeFileName = lightModeThemeFileName
         
         // Check if he didn't pass a dark theme file, we assign the light to it
-        guard let _ = darkModeThemeFileName else {
+        guard let nonNullDarkThemeFile = darkModeThemeFileName else {
             self.darkModeThemeFileName = lightModeThemeFileName
             return
         }
+        self.darkModeThemeFileName = nonNullDarkThemeFile
     }    
 }

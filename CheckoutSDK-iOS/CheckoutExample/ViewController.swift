@@ -15,6 +15,8 @@ class ViewController: UIViewController {
     let tapPayButtonViewModel:TapActionButtonViewModel = .init()
     var localeID:String = "en"
     var localisationFileName:String? = "CustomLocalisation"
+    var customLightTheme:String? = "GreenLightTheme"
+    var customDarkTheme:String? = "GreenDarkTheme"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +43,7 @@ class ViewController: UIViewController {
         TapCheckout.flippingStatus = .FlipOnLoadWithFlippingBack
         TapCheckout.localeIdentifier = localeID
         checkout.tapCheckoutScreenDelegate = self
-        present(checkout.startCheckoutSDK(localiseFile: localisationFileName), animated: true, completion: nil)
+        present(checkout.startCheckoutSDK(localiseFile: localisationFileName,customTheme: .init(with: customLightTheme ?? "", and: customDarkTheme)), animated: true, completion: nil)
     }
     @IBAction func showSettings(_ sender: UIButton) {
         let settingsVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") as! SettingsViewController
