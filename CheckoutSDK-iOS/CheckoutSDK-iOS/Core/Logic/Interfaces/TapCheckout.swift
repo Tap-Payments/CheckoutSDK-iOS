@@ -94,7 +94,12 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter customTheme: Please pass the tap checkout theme object with the names of your custom theme files if needed. If not set, the normal and default TAP theme will be used
      */
     internal func configureThemeManager(customTheme:TapCheckOutTheme? = nil) {
-        TapThemeManager.setDefaultTapTheme(lightModeJSONTheme: customTheme?.lightModeThemeFileName ?? "", darkModeJSONTheme: customTheme?.darkModeThemeFileName ?? "")
+        guard let nonNullCustomTheme = customTheme else {
+            TapThemeManager.setDefaultTapTheme()
+            return
+        }
+        
+        TapThemeManager.setDefaultTapTheme(lightModeJSONTheme: nonNullCustomTheme.lightModeThemeFileName ?? "", darkModeJSONTheme: nonNullCustomTheme.darkModeThemeFileName ?? "")
     }
     
     // MARK:- Public functions

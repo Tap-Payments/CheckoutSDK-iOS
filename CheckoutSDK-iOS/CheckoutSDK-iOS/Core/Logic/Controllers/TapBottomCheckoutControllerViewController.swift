@@ -496,7 +496,8 @@ extension TapBottomCheckoutControllerViewController:TapCardTelecomPaymentProtoco
     }
     
     func cardDataChanged(tapCard: TapCard) {
-        
+        tapGatewayChipHorizontalListViewModel.deselectAll()
+        tapGoPayChipsHorizontalListViewModel.deselectAll()
     }
     
     func brandDetected(for cardBrand: CardBrand, with validation: CrardInputTextFieldStatusEnum) {

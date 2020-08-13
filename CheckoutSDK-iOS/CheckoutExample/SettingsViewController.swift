@@ -125,10 +125,10 @@ extension SettingsViewController  {
         }
         themeActionSheet.addAction(greenActionButton)
 
-        let blueActionButton = UIAlertAction(title: "Custom Blue", style: .default) { _ in
+        /*let blueActionButton = UIAlertAction(title: "Custom Blue", style: .default) { _ in
             self.delegate?.didChangeTheme(with: "Blue")
         }
-        themeActionSheet.addAction(blueActionButton)
+        themeActionSheet.addAction(blueActionButton)*/
         self.present(themeActionSheet, animated: true, completion: nil)
     }
 }

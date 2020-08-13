@@ -19,7 +19,7 @@ extension TapVerticalView {
         guard hintViews.count > 0 else { return }
         // For each one, apply the deletion method
         hintViews.forEach { hintView in
-            remove(view: hintView, with: .init())
+            remove(view: hintView, with: .init(for:.fadeOut))
         }
     }
     

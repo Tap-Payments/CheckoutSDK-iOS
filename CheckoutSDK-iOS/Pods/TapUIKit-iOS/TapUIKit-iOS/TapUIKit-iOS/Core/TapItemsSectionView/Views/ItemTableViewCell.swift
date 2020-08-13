@@ -69,11 +69,11 @@ import LocalisationManagerKit_iOS
     /// Reload the cell view with new data coming in
     internal func reload() {
         // Fade oit the item price label
-        itemPriceLabel.fadeOut()
-        itemDiscountPriceLabel.fadeOut(duration: 0.2){ [weak self] (_) in
+        itemPriceLabel.fadeOut(duration: 0.5)
+        itemDiscountPriceLabel.fadeOut(duration: 0.5){ [weak self] (_) in
             // Now it is time to how the new data after fading in
-            self?.itemPriceLabel.fadeIn()
-            self?.itemDiscountPriceLabel.fadeIn()
+            self?.itemPriceLabel.fadeIn(duration: 0.5)
+            self?.itemDiscountPriceLabel.fadeIn(duration: 0.5)
             self?.itemDiscountPriceLabel.attributedText = self?.viewModel.itemDiscount(with: self!.itemDiscountPriceLabel.font, and: self!.itemDiscountPriceLabel.textColor)
             self?.itemPriceLabel.text = self?.viewModel.itemPrice()
         }
