@@ -90,14 +90,23 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         sharedLocalisationManager.localisationFilePath = urlPath
     }
     
+    /** Configures the theme manager by setting the provided custom theme file names
+     - Parameter customTheme: Please pass the tap checkout theme object with the names of your custom theme files if needed. If not set, the normal and default TAP theme will be used
+     */
+    internal func configureThemeManager(customTheme:TapCheckOutTheme? = nil) {
+        TapThemeManager.setDefaultTapTheme(lightModeJSONTheme: customTheme?.lightModeThemeFileName ?? "", darkModeJSONTheme: customTheme?.darkModeThemeFileName ?? "")
+    }
+    
     // MARK:- Public functions
     /**
      Defines the tap checkout bottom sheet controller
      - Parameter localiseFile: Please pass the name of the custom localisation file if needed. If not set, the normal and default TAP localisations will be used
+     - Parameter customTheme: Please pass the tap checkout theme object with the names of your custom theme files if needed. If not set, the normal and default TAP theme will be used
      - Returns: The tap checkout bottom sheet controller you need to show afterwards
      */
-    @objc public func startCheckoutSDK(localiseFile:String? = nil) -> UIViewController {
+    @objc public func startCheckoutSDK(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil) -> UIViewController {
         configureLocalisationManager(localiseFile: localiseFile)
+        configureThemeManager(customTheme:customTheme)
         configureBottomSheet()
         return bottomSheetController
     }
