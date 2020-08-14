@@ -242,6 +242,8 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         self.tapVerticalView.remove(viewType: TapChipHorizontalList.self, with: .init(), and: true)
         tapVerticalView.hideActionButton()
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(80), execute: { [weak self] in
+            self!.tapCurrienciesChipHorizontalListViewModel.attachedView.alpha = 0
+            self!.tapItemsTableViewModel.attachedView.alpha = 0
             self?.tapVerticalView.add(views: [self!.tapCurrienciesChipHorizontalListViewModel.attachedView,self!.tapItemsTableViewModel.attachedView], with: [.init(for: .fadeIn)])
             if let locale = TapLocalisationManager.shared.localisationLocale, locale == "ar" {
                 self?.tapCurrienciesChipHorizontalListViewModel.refreshLayout()
