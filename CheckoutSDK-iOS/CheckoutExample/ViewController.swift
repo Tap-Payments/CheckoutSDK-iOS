@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     var localisationFileName:String? = "CustomLocalisation"
     var customTheme:TapCheckOutTheme? = nil
     @IBOutlet weak var amountTextField: UITextField!
+    var selectedCurrency:TapCurrencyCode = .KWD
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +38,6 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
     }
     
-    
     func startSDKClicked() {
         let checkout:TapCheckout = .init()
         TapCheckout.flippingStatus = .FlipOnLoadWithFlippingBack
@@ -46,9 +46,11 @@ class ViewController: UIViewController {
         checkout.build(
                 localiseFile: localisationFileName,
                 customTheme: customTheme,
-                delegate: self
+                delegate: self,
+                currency: selectedCurrency
             ).start(presentIn: self)
     }
+    
     @IBAction func showSettings(_ sender: UIButton) {
         let settingsVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") as! SettingsViewController
         settingsVC.delegate = self
@@ -56,7 +58,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: LocalisationSettingsDelegate {
+extension ViewController: SettingsDelegate {
     func didUpdateLanguage(with locale: String) {
         localeID = locale
         adjustTapButton()
@@ -76,8 +78,8 @@ extension ViewController: LocalisationSettingsDelegate {
         customTheme = .init(with: "\(nonNullThemeName)LightTheme", and: "\(nonNullThemeName)DarkTheme")
     }
     
-    func didChangeCurrency(with currency: String) {
-        print("selected currency: \(currency)")
+    func didChangeCurrency(with currency: TapCurrencyCode) {
+        selectedCurrency = currency
     }
 }
 

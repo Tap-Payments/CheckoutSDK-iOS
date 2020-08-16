@@ -54,4 +54,29 @@ internal extension TapCheckout {
         TapThemeManager.setDefaultTapTheme(lightModeJSONTheme: nonNullCustomTheme.lightModeThemeFileName ?? "", darkModeJSONTheme: nonNullCustomTheme.darkModeThemeFileName ?? "")
     }
     
+    /** Configures the Checkout shared manager by setting the provided custom data gatherd by the merchant
+     - Parameter currency: Represents the original transaction currency stated by the merchant on checkout start
+     */
+    func configureSharedManager(currency:TapCurrencyCode) {
+        let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager
+        sharedManager.transactionCurrencyObserver.accept(currency)
+        // Bind observables
+        
+        // Listen to changes in user currency
+        sharedManager.userSelectedCurrencyObserver.share().subscribe(onNext: { [weak self] (newUserCurrency) in
+            self?.userSelectedCurrencyChanged(with: newUserCurrency)
+        }).disposed(by: disposeBag)
+    }
+    
+    /**
+     Listen to changes in user currency
+     - Parameter newUserCurrency: The new selected currency by the user
+     */
+    func userSelectedCurrencyChanged(with newUserCurrency:TapCurrencyCode) {
+        // Update the items list price and UI
+        tapCheckoutControllerViewController.updateItemsList(with: newUserCurrency)
+        // Update the amount section
+        tapCheckoutControllerViewController.updateAmountSection(with: newUserCurrency)
+    }
+    
 }

@@ -10,9 +10,10 @@
 		4440C47B892B346D05532D10 /* Pods_CheckoutSDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21BD535F94169C44719615A6 /* Pods_CheckoutSDK_iOS.framework */; };
 		5B453A3F4FF0BE6BFE5129CB /* Pods_CheckoutExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9641A958A3B669E7ED3F097E /* Pods_CheckoutExample.framework */; };
 		620965F524E41F1E00BD9985 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620965F424E41F1E00BD9985 /* SettingsViewController.swift */; };
-		620965F824E42ED800BD9985 /* LocalisationSettingsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620965F724E42ED800BD9985 /* LocalisationSettingsDelegate.swift */; };
+		620965F824E42ED800BD9985 /* SettingsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620965F724E42ED800BD9985 /* SettingsDelegate.swift */; };
 		620965FC24E4364100BD9985 /* LocalisationSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620965FA24E4364100BD9985 /* LocalisationSwitchTableViewCell.swift */; };
 		620965FD24E4364100BD9985 /* LocalisationSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 620965FB24E4364100BD9985 /* LocalisationSwitchTableViewCell.xib */; };
+		E825DD5924E938DB0074BF54 /* TapCheckoutSharedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E825DD5824E938DB0074BF54 /* TapCheckoutSharedManager.swift */; };
 		E8811ADB24D4283C00DE95D1 /* CheckoutSDK_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = E8811AD924D4283C00DE95D1 /* CheckoutSDK_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E8811AE824D4287400DE95D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8811AE724D4287400DE95D1 /* AppDelegate.swift */; };
 		E8811AEA24D4287400DE95D1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8811AE924D4287400DE95D1 /* SceneDelegate.swift */; };
@@ -66,11 +67,12 @@
 		21BD535F94169C44719615A6 /* Pods_CheckoutSDK_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CheckoutSDK_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		308B270DB224DA958A7F9DB1 /* Pods-CheckoutExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutExample.release.xcconfig"; path = "Target Support Files/Pods-CheckoutExample/Pods-CheckoutExample.release.xcconfig"; sourceTree = "<group>"; };
 		620965F424E41F1E00BD9985 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		620965F724E42ED800BD9985 /* LocalisationSettingsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalisationSettingsDelegate.swift; sourceTree = "<group>"; };
+		620965F724E42ED800BD9985 /* SettingsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDelegate.swift; sourceTree = "<group>"; };
 		620965FA24E4364100BD9985 /* LocalisationSwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalisationSwitchTableViewCell.swift; sourceTree = "<group>"; };
 		620965FB24E4364100BD9985 /* LocalisationSwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocalisationSwitchTableViewCell.xib; sourceTree = "<group>"; };
 		9641A958A3B669E7ED3F097E /* Pods_CheckoutExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CheckoutExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EA23C9D0ACA6A832C046E7C /* Pods-CheckoutExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutExample.debug.xcconfig"; path = "Target Support Files/Pods-CheckoutExample/Pods-CheckoutExample.debug.xcconfig"; sourceTree = "<group>"; };
+		E825DD5824E938DB0074BF54 /* TapCheckoutSharedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckoutSharedManager.swift; sourceTree = "<group>"; };
 		E8811AD624D4283C00DE95D1 /* CheckoutSDK_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CheckoutSDK_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8811AD924D4283C00DE95D1 /* CheckoutSDK_iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckoutSDK_iOS.h; sourceTree = "<group>"; };
 		E8811ADA24D4283C00DE95D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -131,7 +133,7 @@
 		620965F624E42EB000BD9985 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				620965F724E42ED800BD9985 /* LocalisationSettingsDelegate.swift */,
+				620965F724E42ED800BD9985 /* SettingsDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -159,6 +161,7 @@
 		E80F426B24DFFB5B001A9E8D /* Interfaces */ = {
 			isa = PBXGroup;
 			children = (
+				E825DD5824E938DB0074BF54 /* TapCheckoutSharedManager.swift */,
 				E89225E824E92CC4001D5CAB /* TapCheckout */,
 			);
 			path = Interfaces;
@@ -478,6 +481,7 @@
 			files = (
 				E8C58B3824E5344700E1F04F /* TapCheckOutTheme.swift in Sources */,
 				E89225EA24E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift in Sources */,
+				E825DD5924E938DB0074BF54 /* TapCheckoutSharedManager.swift in Sources */,
 				E8C2052624E3FEFA006653CA /* TapCheckoutFlipStatus.swift in Sources */,
 				E8845E7C24D851FF009E8B73 /* TapCheckoutBlurView.swift in Sources */,
 				E8845E7024D83D7B009E8B73 /* TapCheckout.swift in Sources */,
@@ -494,7 +498,7 @@
 				E8811AE824D4287400DE95D1 /* AppDelegate.swift in Sources */,
 				E8811AEA24D4287400DE95D1 /* SceneDelegate.swift in Sources */,
 				620965F524E41F1E00BD9985 /* SettingsViewController.swift in Sources */,
-				620965F824E42ED800BD9985 /* LocalisationSettingsDelegate.swift in Sources */,
+				620965F824E42ED800BD9985 /* SettingsDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

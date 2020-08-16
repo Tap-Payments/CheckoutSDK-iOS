@@ -9,6 +9,7 @@
 import Foundation
 import LocalisationManagerKit_iOS
 import MOLH
+import class RxSwift.DisposeBag
 /// A protocol to communicate with the Presente tap sheet controller
 @objc public protocol CheckoutScreenDelegate {
     /**
@@ -47,8 +48,10 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
     internal var bottomSheetController = TapBottomSheetDialogViewController()
     /// A reference to the localisation manager
     internal var sharedLocalisationManager = TapLocalisationManager.shared
-    
-    
+    /// A reference to the TapCheckoutController that will present the TapSheet
+    internal let tapCheckoutControllerViewController = TapBottomCheckoutControllerViewController.init()
+    /// A RX garbage collector
+    internal let disposeBag:DisposeBag = .init()
     
     // MARK:- Public varibales
     /// A protocol to communicate with the Presente tap sheet controller
@@ -67,11 +70,14 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter localiseFile: Please pass the name of the custom localisation file if needed. If not set, the normal and default TAP localisations will be used
      - Parameter customTheme: Please pass the tap checkout theme object with the names of your custom theme files if needed. If not set, the normal and default TAP theme will be used
      - Parameter delegate: A protocol to communicate with the Presente tap sheet controller
+     - Parameter currency: Represents the original transaction currency stated by the merchant on checkout start
      */
-    @objc public func build(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil) -> TapCheckout {
+    @objc public func build(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil,currency:TapCurrencyCode = .KWD) -> TapCheckout {
+        
         tapCheckoutScreenDelegate = delegate
         configureLocalisationManager(localiseFile: localiseFile)
         configureThemeManager(customTheme:customTheme)
+        configureSharedManager(currency:currency)
         configureBottomSheet()
         return self
     }
@@ -93,9 +99,9 @@ extension TapCheckout:TapBottomSheetDialogDataSource {
     }
     
     public func tapBottomSheetViewControllerToPresent() -> UIViewController? {
-        let controller = TapBottomCheckoutControllerViewController.init()
-        controller.delegate = self
-        return controller
+        
+        tapCheckoutControllerViewController.delegate = self
+        return tapCheckoutControllerViewController
     }
     
     public func tapBottomSheetShouldAutoDismiss() -> Bool {

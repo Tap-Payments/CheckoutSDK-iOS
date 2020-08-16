@@ -75,7 +75,7 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     
     func createDefaultViewModels() {
         tapMerchantViewModel = .init(subTitle: "Tap Payments", iconURL: "https://avatars3.githubusercontent.com/u/19837565?s=200&v=4")
-        tapAmountSectionViewModel = .init(originalTransactionAmount: 10000, originalTransactionCurrency: .USD, numberOfItems: 10)
+        tapAmountSectionViewModel = .init(originalTransactionAmount: 10000, originalTransactionCurrency: TapCheckoutSharedManager.sharedCheckoutManager.transactionCurrencyObserver.value, numberOfItems: 10)
         
         tapMerchantViewModel.delegate = self
         tapAmountSectionViewModel.delegate = self
@@ -155,7 +155,7 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     
     func createGatewaysViews() {
         currenciesChipsViewModel = [CurrencyChipViewModel.init(currency: .USD),CurrencyChipViewModel.init(currency: .AED),CurrencyChipViewModel.init(currency: .SAR),CurrencyChipViewModel.init(currency: .KWD),CurrencyChipViewModel.init(currency: .BHD),CurrencyChipViewModel.init(currency: .QAR),CurrencyChipViewModel.init(currency: .OMR),CurrencyChipViewModel.init(currency: .EGP),CurrencyChipViewModel.init(currency: .JOD)]
-        tapCurrienciesChipHorizontalListViewModel = .init(dataSource: currenciesChipsViewModel, headerType: .NoHeader,selectedChip: currenciesChipsViewModel[0])
+        tapCurrienciesChipHorizontalListViewModel = .init(dataSource: currenciesChipsViewModel, headerType: .NoHeader,selectedChip: currenciesChipsViewModel.filter{ $0.currency == TapCheckoutSharedManager.sharedCheckoutManager.userSelectedCurrencyObserver.value }[0])
         tapCurrienciesChipHorizontalListViewModel.delegate = self
         
         
@@ -201,6 +201,27 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     func showGoPay() {
         tapVerticalView.showGoPaySignInForm(with: self, and: goPayBarViewModel)
     }
+    
+    /**
+     Update the items list UI wise when a new currency is selected
+     - Parameter currency: The new selected currency
+     */
+    func updateItemsList(with currency:TapCurrencyCode) {
+        tapItemsTableViewModel.dataSource.forEach { (genericCellModel) in
+            if let itemViewModel:ItemCellViewModel = genericCellModel as? ItemCellViewModel {
+                itemViewModel.convertCurrency = currency
+            }
+        }
+    }
+    
+    /**
+     Update the amount section UI wise when a new currency is selected
+     - Parameter currency: The new selected currency
+     */
+    func updateAmountSection(with currency: TapCurrencyCode) {
+        tapAmountSectionViewModel.convertedTransactionCurrency = currency
+    }
+    
     /*
      // MARK: - Navigation
      
@@ -348,14 +369,7 @@ extension TapBottomCheckoutControllerViewController:TapChipHorizontalListViewMod
     
     
     func currencyChip(for viewModel: CurrencyChipViewModel) {
-        
-        tapItemsTableViewModel.dataSource.forEach { (genericCellModel) in
-            if let itemViewModel:ItemCellViewModel = genericCellModel as? ItemCellViewModel {
-                itemViewModel.convertCurrency = viewModel.currency
-            }
-        }
-        
-        tapAmountSectionViewModel.convertedTransactionCurrency = viewModel.currency
+        TapCheckoutSharedManager.sharedCheckoutManager.userSelectedCurrencyObserver.accept(viewModel.currency)
     }
     
     func applePayAuthoized(for viewModel: ApplePayChipViewCellModel, with token: TapApplePayToken) {
