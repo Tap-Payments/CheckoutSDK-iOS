@@ -75,6 +75,10 @@ extension ViewController: LocalisationSettingsDelegate {
         
         customTheme = .init(with: "\(nonNullThemeName)LightTheme", and: "\(nonNullThemeName)DarkTheme")
     }
+    
+    func didChangeCurrency(with currency: String) {
+        print("selected currency: \(currency)")
+    }
 }
 
 

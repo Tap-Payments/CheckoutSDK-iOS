@@ -11,4 +11,5 @@ import Foundation
     @objc func didUpdateLanguage(with locale: String)
     @objc func didUpdateLocalisation(to enabled: Bool)
     @objc func didChangeTheme(with themeName: String?)
+    @objc func didChangeCurrency(with currency: String)
 }
