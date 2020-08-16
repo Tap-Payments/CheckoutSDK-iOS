@@ -66,13 +66,23 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      Defines the tap checkout bottom sheet controller
      - Parameter localiseFile: Please pass the name of the custom localisation file if needed. If not set, the normal and default TAP localisations will be used
      - Parameter customTheme: Please pass the tap checkout theme object with the names of your custom theme files if needed. If not set, the normal and default TAP theme will be used
-     - Returns: The tap checkout bottom sheet controller you need to show afterwards
+     - Parameter delegate: A protocol to communicate with the Presente tap sheet controller
      */
-    @objc public func startCheckoutSDK(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil) -> UIViewController {
+    @objc public func build(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil) -> TapCheckout {
+        tapCheckoutScreenDelegate = delegate
         configureLocalisationManager(localiseFile: localiseFile)
         configureThemeManager(customTheme:customTheme)
         configureBottomSheet()
-        return bottomSheetController
+        return self
+    }
+    
+    
+    /**
+     Starts the TapCheckout UIView in the required viewcontroller
+     - Parameter controller: This is th view controller you want to show the tap checkout in
+     */
+    @objc public func start(presentIn controller:UIViewController) {
+        controller.present(bottomSheetController, animated: true, completion: nil)
     }
 }
 

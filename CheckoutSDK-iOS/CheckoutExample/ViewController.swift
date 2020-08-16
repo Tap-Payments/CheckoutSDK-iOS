@@ -42,8 +42,12 @@ class ViewController: UIViewController {
         let checkout:TapCheckout = .init()
         TapCheckout.flippingStatus = .FlipOnLoadWithFlippingBack
         TapCheckout.localeIdentifier = localeID
-        checkout.tapCheckoutScreenDelegate = self
-        present(checkout.startCheckoutSDK(localiseFile: localisationFileName,customTheme: customTheme), animated: true, completion: nil)
+        
+        checkout.build(
+                localiseFile: localisationFileName,
+                customTheme: customTheme,
+                delegate: self
+            ).start(presentIn: self)
     }
     @IBAction func showSettings(_ sender: UIButton) {
         let settingsVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") as! SettingsViewController
