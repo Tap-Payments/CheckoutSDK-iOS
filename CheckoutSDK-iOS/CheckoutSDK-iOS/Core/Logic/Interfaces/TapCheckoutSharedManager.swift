@@ -27,43 +27,59 @@ internal class TapCheckoutSharedManager {
     
     // MARK:- RxSwift Variables
     /// Represents the original transaction currency stated by the merchant on checkout start
-    let transactionCurrencyObserver:BehaviorRelay<TapCurrencyCode> = .init(value: .USD)
+    var transactionCurrencyObserver:BehaviorRelay<TapCurrencyCode> = .init(value: .undefined)
     /// Represents the transaction currency selected by the user
-    let transactionUserCurrencyObserver:BehaviorRelay<TapCurrencyCode> = .init(value: .USD)
+    var transactionUserCurrencyObserver:BehaviorRelay<TapCurrencyCode> = .init(value: .undefined)
     /// Represents the original transaction total amount stated by the merchant on checkout start
-    let transactionTotalAmountObserver:BehaviorRelay<Double> = .init(value: 0)
+    var transactionTotalAmountObserver:BehaviorRelay<Double> = .init(value: 0)
     /// Represents the list of items passed by the merchant on load
-    let transactionItemsObserver:BehaviorRelay<[ItemModel]> = .init(value: [])
+    var transactionItemsObserver:BehaviorRelay<[ItemModel]> = .init(value: [])
     // MARK:- Methods
     
-    init() {
+    internal func reset() {
+        resetViewModels()
+        resetObservables()
         // Create default view models
         createTapMerchantHeaderViewModel()
         // Bind the observables
         bindTheObservables()
         
+        
+    }
+    
+    private func resetViewModels() {
+        tapMerchantViewModel = .init()
+        tapAmountSectionViewModel = .init()
+        tapItemsTableViewModel = .init()
+    }
+    
+    private func resetObservables() {
+        transactionCurrencyObserver = .init(value: .undefined)
+        transactionUserCurrencyObserver = .init(value: .undefined)
+        transactionTotalAmountObserver = .init(value: 0)
+        transactionItemsObserver = .init(value: [])
     }
     
     /// Responsible for wiring up the observables to fire the correct methods upon the correct data changes
     private func bindTheObservables() {
         // Listen to the changes in transaction currency
-        transactionCurrencyObserver.share().subscribe(onNext: { [weak self] (newTransactionCurrency) in
+        transactionCurrencyObserver.skip(1).share().subscribe(onNext: { [weak self] (newTransactionCurrency) in
             self?.transactionCurrencyUpdated()
         }).disposed(by: disposeBag)
         
         // We only create items list when we have both elements, items and original currency
-        Observable.zip(transactionTotalAmountObserver, transactionItemsObserver)
+        Observable.zip(transactionTotalAmountObserver, transactionItemsObserver).share().skip(1)
             .subscribe(onNext: { [weak self] (currency, items) in
                 self?.createTapItemsViewModel()
             }).disposed(by: disposeBag)
         
         // The amount section and items list will be changed if total amount or the selected currency is changed one of them or both
-        Observable.combineLatest(transactionTotalAmountObserver, transactionUserCurrencyObserver)
-            .share().distinctUntilChanged { (arg0, arg1) -> Bool in
+        Observable.combineLatest(transactionTotalAmountObserver, transactionUserCurrencyObserver).share().skip(1)
+            .distinctUntilChanged { (arg0, arg1) -> Bool in
                 let (lastAmount, lastUserCurrency) = arg0
                 let (newAmount, newUserCurrency) = arg1
                 return (lastAmount == newAmount) && (lastUserCurrency == newUserCurrency)
-        }.subscribe(onNext: { [weak self] (_,_) in
+            }.subscribe(onNext: { [weak self] (_,_) in
             self?.updateAmountSection()
             self?.updateItemsList()
         }).disposed(by: disposeBag)

@@ -45,7 +45,7 @@ class ViewController: UIViewController {
         let checkout:TapCheckout = .init()
         TapCheckout.flippingStatus = .FlipOnLoadWithFlippingBack
         TapCheckout.localeIdentifier = localeID
-        
+        items = []
         for i in 1...Int.random(in: 3..<20) {
             var itemTitle:String = "Item Title # \(i)"
             if i % 5 == 4 {

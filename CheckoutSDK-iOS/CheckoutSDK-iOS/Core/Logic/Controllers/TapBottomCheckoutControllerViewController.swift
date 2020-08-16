@@ -102,38 +102,6 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
         tapCardTelecomPaymentViewModel.delegate = self
     }
     
-    func createItemsViewModel() {
-        var itemsModels:[ItemCellViewModel] = []
-        for i in 1...Int.random(in: 3..<4) {
-            var itemTitle:String = "Item Title # \(i)"
-            if i % 5 == 4 {
-                itemTitle = "VERY LOOOOOOOOOOOOOONG ITEM TITLE Item Title # \(i)"
-            }
-            let itemDescriptio:String = "Item Description # \(i)"
-            let itemPrice:Double = Double.random(in: 10..<4000)
-            let itemQuantity:Int = Int.random(in: 1..<10)
-            let itemDiscountValue:Double = Double.random(in: 0..<itemPrice)
-            var itemDiscount:DiscountModel? = .init(type: .Fixed, value: itemDiscountValue)
-            if i % 5 == 2 {
-                itemDiscount = nil
-            }
-            let itemModel:ItemModel = .init(title: itemTitle, description: itemDescriptio, price: itemPrice, quantity: itemQuantity, discount: itemDiscount)
-            itemsModels.append(.init(itemModel: itemModel, originalCurrency:(tapCurrienciesChipHorizontalListViewModel.selectedChip as! CurrencyChipViewModel).currency ))
-        }
-        
-        tapItemsTableViewModel = .init(dataSource: itemsModels)
-        tapItemsTableViewModel.delegate = self
-        
-        //tapItemsTableViewModel.attachedView.changeViewMode(with: tapItemsTableViewModel)
-        //tapItemsTableViewModel.attachedView.translatesAutoresizingMaskIntoConstraints = false
-        
-        tapAmountSectionViewModel.numberOfItems = itemsModels.count
-        tapAmountSectionViewModel.originalTransactionAmount = itemsModels.reduce(0.0) { (accumlator, viewModel) -> Double in
-            return accumlator + viewModel.itemPrice()
-        }
-    }
-    
-    
     func addGloryViews() {
         
         // The button

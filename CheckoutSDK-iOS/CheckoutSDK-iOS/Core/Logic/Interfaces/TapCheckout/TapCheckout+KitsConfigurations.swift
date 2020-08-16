@@ -56,12 +56,12 @@ internal extension TapCheckout {
     
     /** Configures the Checkout shared manager by setting the provided custom data gatherd by the merchant
      - Parameter currency: Represents the original transaction currency stated by the merchant on checkout start
-     - Parameter currency: Represents the original transaction currency stated by the merchant on checkout start
+     - Parameter amount: Represents the original transaction amount stated by the merchant on checkout start
      - Parameter items: Represents the List of payment items if any. If no items are provided one will be created by default as PAY TO [MERCHANT NAME] -- Total value
      */
     func configureSharedManager(currency:TapCurrencyCode, amount:Double,items:[ItemModel]) {
-        //TapCheckoutSharedManager.sharedCheckoutManager = .init()
         let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager
+        sharedManager.reset()
         sharedManager.transactionCurrencyObserver.accept(currency)
         sharedManager.transactionTotalAmountObserver.accept(amount)
         // if items has no items, we need to add the default items
