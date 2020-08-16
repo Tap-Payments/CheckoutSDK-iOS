@@ -22,6 +22,7 @@ class SettingsViewController: UIViewController {
         settingsList.append(["title": "Language", "rows":["Change Language"], "cellType":""])
         settingsList.append(["title": "Custom Localisation", "rows": ["Show Custom Localization"], "cellType":"switch"])
         settingsList.append(["title": "Theme", "rows": ["Change Theme"], "cellType":""])
+        settingsList.append(["title": "Currency", "rows": ["Change Currency"], "cellType":""])
         settingsTableView.reloadData()
     }
 
@@ -61,6 +62,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         switch indexPath.section {
         case 0: showLanguageActionSheet()
         case 2: showThemeActionSheet()
+        case 3: showCurrencyActionSheet()
         default: break
         }
     }
@@ -130,5 +132,58 @@ extension SettingsViewController  {
         }
         themeActionSheet.addAction(blueActionButton)
         self.present(themeActionSheet, animated: true, completion: nil)
+    }
+    
+    func showCurrencyActionSheet() {
+         //Create the AlertController and add Its action like button in Actionsheet
+        let currencyActionSheet = UIAlertController(title: nil, message: "Select Currency", preferredStyle: .actionSheet)
+       
+        let usdActionButton = UIAlertAction(title: "USD", style: .default) { _ in
+            self.delegate?.didChangeCurrency(with: "USD")
+        }
+        currencyActionSheet.addAction(usdActionButton)
+        
+        let aedActionButton = UIAlertAction(title: "AED", style: .default) { _ in
+            self.delegate?.didChangeCurrency(with: "AED")
+        }
+        currencyActionSheet.addAction(aedActionButton)
+        
+        let sarActionButton = UIAlertAction(title: "SAR", style: .default) { _ in
+            self.delegate?.didChangeCurrency(with: "SAR")
+        }
+        currencyActionSheet.addAction(sarActionButton)
+        
+        let kwdActionButton = UIAlertAction(title: "KWD", style: .default) { _ in
+            self.delegate?.didChangeCurrency(with: "KWD")
+        }
+        currencyActionSheet.addAction(kwdActionButton)
+        
+        let bhdActionButton = UIAlertAction(title: "BHD", style: .default) { _ in
+            self.delegate?.didChangeCurrency(with: "BHD")
+        }
+        currencyActionSheet.addAction(bhdActionButton)
+        
+        let qarActionButton = UIAlertAction(title: "QAR", style: .default) { _ in
+            self.delegate?.didChangeCurrency(with: "QAR")
+        }
+        currencyActionSheet.addAction(qarActionButton)
+        
+        let omrActionButton = UIAlertAction(title: "OMR", style: .default) { _ in
+            self.delegate?.didChangeCurrency(with: "OMR")
+        }
+        currencyActionSheet.addAction(omrActionButton)
+        
+        let egpActionButton = UIAlertAction(title: "EGP", style: .default) { _ in
+            self.delegate?.didChangeCurrency(with: "EGP")
+        }
+        currencyActionSheet.addAction(egpActionButton)
+        
+        let jodActionButton = UIAlertAction(title: "JOD", style: .default) { _ in
+            self.delegate?.didChangeCurrency(with: "JOD")
+        }
+        currencyActionSheet.addAction(jodActionButton)
+        
+        
+        self.present(currencyActionSheet, animated: true, completion: nil)
     }
 }

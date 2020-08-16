@@ -65,6 +65,10 @@ extension ViewController: LocalisationSettingsDelegate {
     func didChangeTheme(with themeName: String?) {
         print("selected theme: \(String(describing: themeName))")
     }
+    
+    func didChangeCurrency(with currency: String) {
+        print("selected currency: \(currency)")
+    }
 }
 
 
