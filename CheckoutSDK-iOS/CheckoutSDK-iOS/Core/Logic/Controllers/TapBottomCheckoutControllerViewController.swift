@@ -11,7 +11,7 @@ import SnapKit
 
 internal class TapBottomCheckoutControllerViewController: UIViewController {
     
-    let sharedCheckoutDataManager:TapCheckoutSharedManager = .sharedCheckoutManager
+    let sharedCheckoutDataManager:TapCheckoutSharedManager = .sharedCheckoutManager()
     
     var delegate:ToPresentAsPopupViewControllerDelegate?
     var tapVerticalView: TapVerticalView = .init()
@@ -121,7 +121,7 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     
     func createGatewaysViews() {
         currenciesChipsViewModel = [CurrencyChipViewModel.init(currency: .USD),CurrencyChipViewModel.init(currency: .AED),CurrencyChipViewModel.init(currency: .SAR),CurrencyChipViewModel.init(currency: .KWD),CurrencyChipViewModel.init(currency: .BHD),CurrencyChipViewModel.init(currency: .QAR),CurrencyChipViewModel.init(currency: .OMR),CurrencyChipViewModel.init(currency: .EGP),CurrencyChipViewModel.init(currency: .JOD)]
-        tapCurrienciesChipHorizontalListViewModel = .init(dataSource: currenciesChipsViewModel, headerType: .NoHeader,selectedChip: currenciesChipsViewModel.filter{ $0.currency == TapCheckoutSharedManager.sharedCheckoutManager.transactionUserCurrencyObserver.value }[0])
+        tapCurrienciesChipHorizontalListViewModel = .init(dataSource: currenciesChipsViewModel, headerType: .NoHeader,selectedChip: currenciesChipsViewModel.filter{ $0.currency == sharedCheckoutDataManager.transactionUserCurrencyObserver.value }[0])
         tapCurrienciesChipHorizontalListViewModel.delegate = self
         
         
@@ -327,7 +327,7 @@ extension TapBottomCheckoutControllerViewController:TapChipHorizontalListViewMod
     
     
     func currencyChip(for viewModel: CurrencyChipViewModel) {
-        TapCheckoutSharedManager.sharedCheckoutManager.transactionUserCurrencyObserver.accept(viewModel.currency)
+        sharedCheckoutDataManager.transactionUserCurrencyObserver.accept(viewModel.currency)
     }
     
     func applePayAuthoized(for viewModel: ApplePayChipViewCellModel, with token: TapApplePayToken) {

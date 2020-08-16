@@ -49,7 +49,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
     /// A reference to the localisation manager
     internal var sharedLocalisationManager = TapLocalisationManager.shared
     /// A reference to the TapCheckoutController that will present the TapSheet
-    internal let tapCheckoutControllerViewController = TapBottomCheckoutControllerViewController.init()
+    internal var tapCheckoutControllerViewController:TapBottomCheckoutControllerViewController?
     /// A RX garbage collector
     internal let disposeBag:DisposeBag = .init()
     
@@ -75,7 +75,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter items: Represents the List of payment items if any. If no items are provided one will be created by default as PAY TO [MERCHANT NAME] -- Total value
      */
     @objc public func build(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil,currency:TapCurrencyCode = .USD,amount:Double = 1,items:[ItemModel] = []) -> TapCheckout {
-        
+        TapCheckoutSharedManager.destroy()
         tapCheckoutScreenDelegate = delegate
         configureLocalisationManager(localiseFile: localiseFile)
         configureThemeManager(customTheme:customTheme)
@@ -101,8 +101,8 @@ extension TapCheckout:TapBottomSheetDialogDataSource {
     }
     
     public func tapBottomSheetViewControllerToPresent() -> UIViewController? {
-        
-        tapCheckoutControllerViewController.delegate = self
+        tapCheckoutControllerViewController = .init()
+        tapCheckoutControllerViewController?.delegate = self
         return tapCheckoutControllerViewController
     }
     

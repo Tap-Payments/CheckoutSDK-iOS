@@ -60,8 +60,8 @@ internal extension TapCheckout {
      - Parameter items: Represents the List of payment items if any. If no items are provided one will be created by default as PAY TO [MERCHANT NAME] -- Total value
      */
     func configureSharedManager(currency:TapCurrencyCode, amount:Double,items:[ItemModel]) {
-        let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager
-        sharedManager.reset()
+        TapCheckoutSharedManager.destroy()
+        let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
         sharedManager.transactionCurrencyObserver.accept(currency)
         sharedManager.transactionTotalAmountObserver.accept(amount)
         // if items has no items, we need to add the default items
@@ -85,7 +85,7 @@ internal extension TapCheckout {
      */
     func userSelectedCurrencyChanged(with newUserCurrency:TapCurrencyCode) {
         // Update the items list price and UI
-        tapCheckoutControllerViewController.updateItemsList(with: newUserCurrency)
+        tapCheckoutControllerViewController?.updateItemsList(with: newUserCurrency)
     }
     
 }

@@ -23,36 +23,55 @@ internal class TapCheckoutSharedManager {
     var tapItemsTableViewModel:TapGenericTableViewModel = .init()
     
     /// Represents a global accessable common data gathered by the merchant when loading the checkout sdk like amount, currency, etc
-    static var sharedCheckoutManager = TapCheckoutSharedManager()
+    private static var privateShared : TapCheckoutSharedManager?
     
     // MARK:- RxSwift Variables
     /// Represents the original transaction currency stated by the merchant on checkout start
-    var transactionCurrencyObserver:BehaviorRelay<TapCurrencyCode> = .init(value: .undefined)
+    var transactionCurrencyObserver:BehaviorRelay<TapCurrencyCode> = .init(value: .KWD)
     /// Represents the transaction currency selected by the user
-    var transactionUserCurrencyObserver:BehaviorRelay<TapCurrencyCode> = .init(value: .undefined)
+    var transactionUserCurrencyObserver:BehaviorRelay<TapCurrencyCode> = .init(value: .KWD)
     /// Represents the original transaction total amount stated by the merchant on checkout start
     var transactionTotalAmountObserver:BehaviorRelay<Double> = .init(value: 0)
     /// Represents the list of items passed by the merchant on load
     var transactionItemsObserver:BehaviorRelay<[ItemModel]> = .init(value: [])
     // MARK:- Methods
+    /**
+     Creates a shared instance of the CheckoutDataManager
+     - Returns: The shared checkout manager
+     */
+    internal class func sharedCheckoutManager() -> TapCheckoutSharedManager { // change class to final to prevent override
+        guard let uwShared = privateShared else {
+            privateShared = TapCheckoutSharedManager()
+            return privateShared!
+        }
+        return uwShared
+    }
     
-    internal func reset() {
-        resetViewModels()
-        resetObservables()
+    /// Resets all the view models and dispose all the active observers
+    internal class func destroy() {
+        privateShared = nil
+    }
+    
+    private init() {
+        print("init singleton")
         // Create default view models
         createTapMerchantHeaderViewModel()
         // Bind the observables
         bindTheObservables()
-        
-        
     }
     
+    deinit {
+        print("deinit singleton")
+    }
+    
+    /// Resetting all view models to the initial state
     private func resetViewModels() {
         tapMerchantViewModel = .init()
         tapAmountSectionViewModel = .init()
         tapItemsTableViewModel = .init()
     }
     
+    /// Resetting and disposing all previous subscribers to the observables
     private func resetObservables() {
         transactionCurrencyObserver = .init(value: .undefined)
         transactionUserCurrencyObserver = .init(value: .undefined)
@@ -63,18 +82,18 @@ internal class TapCheckoutSharedManager {
     /// Responsible for wiring up the observables to fire the correct methods upon the correct data changes
     private func bindTheObservables() {
         // Listen to the changes in transaction currency
-        transactionCurrencyObserver.skip(1).share().subscribe(onNext: { [weak self] (newTransactionCurrency) in
+        transactionCurrencyObserver.share().subscribe(onNext: { [weak self] (newTransactionCurrency) in
             self?.transactionCurrencyUpdated()
         }).disposed(by: disposeBag)
         
         // We only create items list when we have both elements, items and original currency
-        Observable.zip(transactionTotalAmountObserver, transactionItemsObserver).share().skip(1)
+        Observable.zip(transactionTotalAmountObserver, transactionItemsObserver).share()
             .subscribe(onNext: { [weak self] (currency, items) in
                 self?.createTapItemsViewModel()
             }).disposed(by: disposeBag)
         
         // The amount section and items list will be changed if total amount or the selected currency is changed one of them or both
-        Observable.combineLatest(transactionTotalAmountObserver, transactionUserCurrencyObserver).share().skip(1)
+        Observable.combineLatest(transactionTotalAmountObserver, transactionUserCurrencyObserver).share()
             .distinctUntilChanged { (arg0, arg1) -> Bool in
                 let (lastAmount, lastUserCurrency) = arg0
                 let (newAmount, newUserCurrency) = arg1
