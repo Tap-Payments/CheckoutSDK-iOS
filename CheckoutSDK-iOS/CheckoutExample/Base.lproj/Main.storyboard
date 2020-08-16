@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dwQ-Ma-F85">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dwQ-Ma-F85">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -26,6 +26,11 @@
                                     <constraint firstAttribute="height" constant="75" id="hZe-5o-vLx"/>
                                 </constraints>
                             </view>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type the amount here" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Myq-c4-8VJ">
+                                <rect key="frame" x="20" y="108" width="374" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -34,6 +39,9 @@
                             <constraint firstAttribute="bottom" secondItem="0oM-Y9-Frd" secondAttribute="bottom" id="XgC-gb-Trp"/>
                             <constraint firstItem="0oM-Y9-Frd" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="es5-Jc-hzE"/>
                             <constraint firstItem="JeU-3e-jLT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="gqh-O8-7aC"/>
+                            <constraint firstItem="Myq-c4-8VJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="iat-LF-Bs2"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Myq-c4-8VJ" secondAttribute="trailing" constant="20" id="k8x-Jh-WFE"/>
+                            <constraint firstItem="Myq-c4-8VJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="oPw-rJ-Qky"/>
                             <constraint firstItem="JeU-3e-jLT" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="rGF-mM-WKT"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="JeU-3e-jLT" secondAttribute="trailing" id="zpb-XU-3iq"/>
                         </constraints>
@@ -56,6 +64,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="amountTextField" destination="Myq-c4-8VJ" id="Kb9-Mu-uff"/>
                         <outlet property="tapPayButton" destination="JeU-3e-jLT" id="WTz-DD-uIv"/>
                     </connections>
                 </viewController>

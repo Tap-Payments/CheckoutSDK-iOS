@@ -38,7 +38,7 @@ extension TapCheckoutBlurView {
         if traitCollection.userInterfaceStyle == .dark {
             blurEffectView.effect = UIBlurEffect(style: .dark)
         }else {
-            blurEffectView.effect = UIBlurEffect(style: .regular)
+            blurEffectView.effect = UIBlurEffect(style: .prominent)
         }
     }
 }

@@ -1,7 +1,6 @@
 ${PODS_ROOT}/Target Support Files/Pods-CheckoutExample/Pods-CheckoutExample-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/CommonDataModelsKit-iOS/CommonDataModelsKit_iOS.framework
 ${BUILT_PRODUCTS_DIR}/EasyAnimation/EasyAnimation.framework
-${BUILT_PRODUCTS_DIR}/Flurry-iOS-SDK/Flurry_iOS_SDK.framework
 ${BUILT_PRODUCTS_DIR}/LocalisationManagerKit-iOS/LocalisationManagerKit_iOS.framework
 ${BUILT_PRODUCTS_DIR}/MOLH/MOLH.framework
 ${BUILT_PRODUCTS_DIR}/McPicker/McPicker.framework
