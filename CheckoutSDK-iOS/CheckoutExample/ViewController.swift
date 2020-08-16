@@ -17,11 +17,14 @@ class ViewController: UIViewController {
     var localisationFileName:String? = "CustomLocalisation"
     var customTheme:TapCheckOutTheme? = nil
     @IBOutlet weak var amountTextField: UITextField!
-    var selectedCurrency:TapCurrencyCode = .KWD
+    var selectedCurrency:TapCurrencyCode = .USD
+    var amount:Double = 1000
+    var items:[ItemModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        amountTextField.delegate = self
         TapLocalisationManager.shared.localisationLocale = "en"
         TapThemeManager.setDefaultTapTheme()
         adjustTapButton()
@@ -43,11 +46,31 @@ class ViewController: UIViewController {
         TapCheckout.flippingStatus = .FlipOnLoadWithFlippingBack
         TapCheckout.localeIdentifier = localeID
         
+        for i in 1...Int.random(in: 3..<20) {
+            var itemTitle:String = "Item Title # \(i)"
+            if i % 5 == 4 {
+                itemTitle = "VERY LOOOOOOOOOOOOOONG ITEM TITLE Item Title # \(i)"
+            }
+            let itemDescriptio:String = "Item Description # \(i)"
+            let itemPrice:Double = Double.random(in: 10..<4000)
+            let itemQuantity:Int = Int.random(in: 1..<10)
+            let itemDiscountValue:Double = Double.random(in: 0..<itemPrice)
+            var itemDiscount:DiscountModel? = .init(type: .Fixed, value: itemDiscountValue)
+            if i % 5 == 2 {
+                itemDiscount = nil
+            }
+            let itemModel:ItemModel = .init(title: itemTitle, description: itemDescriptio, price: itemPrice, quantity: itemQuantity, discount: itemDiscount)
+            items.append(itemModel)
+        }
+        
+        
         checkout.build(
                 localiseFile: localisationFileName,
                 customTheme: customTheme,
                 delegate: self,
-                currency: selectedCurrency
+                currency: selectedCurrency,
+                amount: amount,
+                items: items
             ).start(presentIn: self)
     }
     
@@ -88,5 +111,19 @@ extension ViewController: SettingsDelegate {
 extension ViewController:CheckoutScreenDelegate {
     func tapBottomSheetWillDismiss() {
         adjustTapButton()
+    }
+}
+
+
+extension ViewController:UITextFieldDelegate {
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+        amount = Double(amountTextField.text ?? "") ?? 1000
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

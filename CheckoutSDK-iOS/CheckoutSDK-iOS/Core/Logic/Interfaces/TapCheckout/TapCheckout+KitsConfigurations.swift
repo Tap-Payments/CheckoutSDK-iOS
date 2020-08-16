@@ -56,14 +56,25 @@ internal extension TapCheckout {
     
     /** Configures the Checkout shared manager by setting the provided custom data gatherd by the merchant
      - Parameter currency: Represents the original transaction currency stated by the merchant on checkout start
+     - Parameter currency: Represents the original transaction currency stated by the merchant on checkout start
+     - Parameter items: Represents the List of payment items if any. If no items are provided one will be created by default as PAY TO [MERCHANT NAME] -- Total value
      */
-    func configureSharedManager(currency:TapCurrencyCode) {
+    func configureSharedManager(currency:TapCurrencyCode, amount:Double,items:[ItemModel]) {
+        //TapCheckoutSharedManager.sharedCheckoutManager = .init()
         let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager
         sharedManager.transactionCurrencyObserver.accept(currency)
+        sharedManager.transactionTotalAmountObserver.accept(amount)
+        // if items has no items, we need to add the default items
+        if items == [] {
+            sharedManager.transactionItemsObserver.accept([ItemModel.init(title: "PAY TO TAP PAYMENTS",description: nil, price: amount, quantity: 1,discount: nil)])
+        }else {
+            sharedManager.transactionItemsObserver.accept(items)
+        }
+        
         // Bind observables
         
         // Listen to changes in user currency
-        sharedManager.userSelectedCurrencyObserver.share().subscribe(onNext: { [weak self] (newUserCurrency) in
+        sharedManager.transactionUserCurrencyObserver.share().subscribe(onNext: { [weak self] (newUserCurrency) in
             self?.userSelectedCurrencyChanged(with: newUserCurrency)
         }).disposed(by: disposeBag)
     }
@@ -75,8 +86,6 @@ internal extension TapCheckout {
     func userSelectedCurrencyChanged(with newUserCurrency:TapCurrencyCode) {
         // Update the items list price and UI
         tapCheckoutControllerViewController.updateItemsList(with: newUserCurrency)
-        // Update the amount section
-        tapCheckoutControllerViewController.updateAmountSection(with: newUserCurrency)
     }
     
 }
