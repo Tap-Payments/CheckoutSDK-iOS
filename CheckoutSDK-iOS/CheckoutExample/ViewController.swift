@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     var localeID:String = "en"
     var localisationFileName:String? = "CustomLocalisation"
     var customTheme:TapCheckOutTheme? = nil
+    @IBOutlet weak var amountTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,8 +54,8 @@ class ViewController: UIViewController {
 
 extension ViewController: LocalisationSettingsDelegate {
     func didUpdateLanguage(with locale: String) {
-        adjustTapButton()
         localeID = locale
+        adjustTapButton()
     }
     
     func didUpdateLocalisation(to enabled: Bool) {
@@ -69,7 +70,6 @@ extension ViewController: LocalisationSettingsDelegate {
         }
         
         customTheme = .init(with: "\(nonNullThemeName)LightTheme", and: "\(nonNullThemeName)DarkTheme")
-        
     }
 }
 

@@ -106,7 +106,7 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     
     func createItemsViewModel() {
         var itemsModels:[ItemCellViewModel] = []
-        for i in 1...Int.random(in: 3..<20) {
+        for i in 1...Int.random(in: 3..<4) {
             var itemTitle:String = "Item Title # \(i)"
             if i % 5 == 4 {
                 itemTitle = "VERY LOOOOOOOOOOOOOONG ITEM TITLE Item Title # \(i)"
@@ -242,8 +242,8 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         self.tapVerticalView.remove(viewType: TapChipHorizontalList.self, with: .init(), and: true)
         tapVerticalView.hideActionButton()
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(80), execute: { [weak self] in
-            self!.tapCurrienciesChipHorizontalListViewModel.attachedView.alpha = 0
-            self!.tapItemsTableViewModel.attachedView.alpha = 0
+            //self!.tapCurrienciesChipHorizontalListViewModel.attachedView.alpha = 0
+            //self!.tapItemsTableViewModel.attachedView.alpha = 0
             self?.tapVerticalView.add(views: [self!.tapCurrienciesChipHorizontalListViewModel.attachedView,self!.tapItemsTableViewModel.attachedView], with: [.init(for: .fadeIn)])
             if let locale = TapLocalisationManager.shared.localisationLocale, locale == "ar" {
                 self?.tapCurrienciesChipHorizontalListViewModel.refreshLayout()

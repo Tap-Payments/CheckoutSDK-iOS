@@ -27,6 +27,7 @@
 		E8845E7924D851E2009E8B73 /* TapCheckoutBlurView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8845E7824D851E2009E8B73 /* TapCheckoutBlurView.xib */; };
 		E8845E7C24D851FF009E8B73 /* TapCheckoutBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8845E7B24D851FF009E8B73 /* TapCheckoutBlurView.swift */; };
 		E8845E7E24D85466009E8B73 /* sampleBG.png in Resources */ = {isa = PBXBuildFile; fileRef = E8845E7D24D85466009E8B73 /* sampleBG.png */; };
+		E89225EA24E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89225E924E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift */; };
 		E8C2052624E3FEFA006653CA /* TapCheckoutFlipStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C2052524E3FEFA006653CA /* TapCheckoutFlipStatus.swift */; };
 		E8C2052824E40E95006653CA /* CustomLocalisation.json in Resources */ = {isa = PBXBuildFile; fileRef = E8C2052724E40E95006653CA /* CustomLocalisation.json */; };
 		E8C58B3824E5344700E1F04F /* TapCheckOutTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C58B3724E5344700E1F04F /* TapCheckOutTheme.swift */; };
@@ -86,6 +87,7 @@
 		E8845E7824D851E2009E8B73 /* TapCheckoutBlurView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TapCheckoutBlurView.xib; sourceTree = "<group>"; };
 		E8845E7B24D851FF009E8B73 /* TapCheckoutBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckoutBlurView.swift; sourceTree = "<group>"; };
 		E8845E7D24D85466009E8B73 /* sampleBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sampleBG.png; sourceTree = "<group>"; };
+		E89225E924E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+KitsConfigurations.swift"; sourceTree = "<group>"; };
 		E8C2052524E3FEFA006653CA /* TapCheckoutFlipStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckoutFlipStatus.swift; sourceTree = "<group>"; };
 		E8C2052724E40E95006653CA /* CustomLocalisation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CustomLocalisation.json; sourceTree = "<group>"; };
 		E8C58B3724E5344700E1F04F /* TapCheckOutTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckOutTheme.swift; sourceTree = "<group>"; };
@@ -157,7 +159,7 @@
 		E80F426B24DFFB5B001A9E8D /* Interfaces */ = {
 			isa = PBXGroup;
 			children = (
-				E8845E6F24D83D7B009E8B73 /* TapCheckout.swift */,
+				E89225E824E92CC4001D5CAB /* TapCheckout */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -258,6 +260,15 @@
 				E8845E7B24D851FF009E8B73 /* TapCheckoutBlurView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		E89225E824E92CC4001D5CAB /* TapCheckout */ = {
+			isa = PBXGroup;
+			children = (
+				E8845E6F24D83D7B009E8B73 /* TapCheckout.swift */,
+				E89225E924E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift */,
+			);
+			path = TapCheckout;
 			sourceTree = "<group>";
 		};
 		E8C2052424E3FDCC006653CA /* Enums */ = {
@@ -466,6 +477,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E8C58B3824E5344700E1F04F /* TapCheckOutTheme.swift in Sources */,
+				E89225EA24E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift in Sources */,
 				E8C2052624E3FEFA006653CA /* TapCheckoutFlipStatus.swift in Sources */,
 				E8845E7C24D851FF009E8B73 /* TapCheckoutBlurView.swift in Sources */,
 				E8845E7024D83D7B009E8B73 /* TapCheckout.swift in Sources */,
