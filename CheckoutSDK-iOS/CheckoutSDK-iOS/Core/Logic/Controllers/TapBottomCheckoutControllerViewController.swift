@@ -11,12 +11,10 @@ import SnapKit
 
 internal class TapBottomCheckoutControllerViewController: UIViewController {
     
+    let sharedCheckoutDataManager:TapCheckoutSharedManager = .sharedCheckoutManager()
     
     var delegate:ToPresentAsPopupViewControllerDelegate?
     var tapVerticalView: TapVerticalView = .init()
-    var tapItemsTableViewModel:TapGenericTableViewModel = .init()
-    var tapMerchantViewModel:TapMerchantHeaderViewModel = .init()
-    var tapAmountSectionViewModel:TapAmountSectionViewModel = .init()
     var tapGatewayChipHorizontalListViewModel:TapChipHorizontalListViewModel = .init()
     var tapGoPayChipsHorizontalListViewModel:TapChipHorizontalListViewModel = .init()
     var tapCurrienciesChipHorizontalListViewModel:TapChipHorizontalListViewModel = .init()
@@ -74,11 +72,12 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     }
     
     func createDefaultViewModels() {
-        tapMerchantViewModel = .init(subTitle: "Tap Payments", iconURL: "https://avatars3.githubusercontent.com/u/19837565?s=200&v=4")
-        tapAmountSectionViewModel = .init(originalTransactionAmount: 10000, originalTransactionCurrency: TapCheckoutSharedManager.sharedCheckoutManager.transactionCurrencyObserver.value, numberOfItems: 10)
         
-        tapMerchantViewModel.delegate = self
-        tapAmountSectionViewModel.delegate = self
+        //tapAmountSectionViewModel = .init(originalTransactionAmount: 10000, originalTransactionCurrency: TapCheckoutSharedManager.sharedCheckoutManager.transactionCurrencyObserver.value, numberOfItems: 10)
+        
+        sharedCheckoutDataManager.tapMerchantViewModel.delegate = self
+        
+        sharedCheckoutDataManager.tapAmountSectionViewModel.delegate = self
         
         tapActionButtonViewModel.buttonStatus = .InvalidPayment
         webViewModel.delegate = self
@@ -87,7 +86,6 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
         
         createTabBarViewModel()
         createGatewaysViews()
-        createItemsViewModel()
     }
     
     func createTabBarViewModel() {
@@ -104,44 +102,12 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
         tapCardTelecomPaymentViewModel.delegate = self
     }
     
-    func createItemsViewModel() {
-        var itemsModels:[ItemCellViewModel] = []
-        for i in 1...Int.random(in: 3..<4) {
-            var itemTitle:String = "Item Title # \(i)"
-            if i % 5 == 4 {
-                itemTitle = "VERY LOOOOOOOOOOOOOONG ITEM TITLE Item Title # \(i)"
-            }
-            let itemDescriptio:String = "Item Description # \(i)"
-            let itemPrice:Double = Double.random(in: 10..<4000)
-            let itemQuantity:Int = Int.random(in: 1..<10)
-            let itemDiscountValue:Double = Double.random(in: 0..<itemPrice)
-            var itemDiscount:DiscountModel? = .init(type: .Fixed, value: itemDiscountValue)
-            if i % 5 == 2 {
-                itemDiscount = nil
-            }
-            let itemModel:ItemModel = .init(title: itemTitle, description: itemDescriptio, price: itemPrice, quantity: itemQuantity, discount: itemDiscount)
-            itemsModels.append(.init(itemModel: itemModel, originalCurrency:(tapCurrienciesChipHorizontalListViewModel.selectedChip as! CurrencyChipViewModel).currency ))
-        }
-        
-        tapItemsTableViewModel = .init(dataSource: itemsModels)
-        tapItemsTableViewModel.delegate = self
-        
-        //tapItemsTableViewModel.attachedView.changeViewMode(with: tapItemsTableViewModel)
-        //tapItemsTableViewModel.attachedView.translatesAutoresizingMaskIntoConstraints = false
-        
-        tapAmountSectionViewModel.numberOfItems = itemsModels.count
-        tapAmountSectionViewModel.originalTransactionAmount = itemsModels.reduce(0.0) { (accumlator, viewModel) -> Double in
-            return accumlator + viewModel.itemPrice()
-        }
-    }
-    
-    
     func addGloryViews() {
         
         // The button
         self.tapVerticalView.setupActionButton(with: tapActionButtonViewModel)
         // The initial views
-        self.tapVerticalView.add(views: [dragView,tapMerchantViewModel.attachedView,tapAmountSectionViewModel.attachedView,tapGoPayChipsHorizontalListViewModel.attachedView,tapGatewayChipHorizontalListViewModel.attachedView,tapCardTelecomPaymentViewModel.attachedView,tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
+        self.tapVerticalView.add(views: [dragView,sharedCheckoutDataManager.tapMerchantViewModel.attachedView,sharedCheckoutDataManager.tapAmountSectionViewModel.attachedView,tapGoPayChipsHorizontalListViewModel.attachedView,tapGatewayChipHorizontalListViewModel.attachedView,tapCardTelecomPaymentViewModel.attachedView,tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
     }
     
     
@@ -155,7 +121,7 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     
     func createGatewaysViews() {
         currenciesChipsViewModel = [CurrencyChipViewModel.init(currency: .USD),CurrencyChipViewModel.init(currency: .AED),CurrencyChipViewModel.init(currency: .SAR),CurrencyChipViewModel.init(currency: .KWD),CurrencyChipViewModel.init(currency: .BHD),CurrencyChipViewModel.init(currency: .QAR),CurrencyChipViewModel.init(currency: .OMR),CurrencyChipViewModel.init(currency: .EGP),CurrencyChipViewModel.init(currency: .JOD)]
-        tapCurrienciesChipHorizontalListViewModel = .init(dataSource: currenciesChipsViewModel, headerType: .NoHeader,selectedChip: currenciesChipsViewModel.filter{ $0.currency == TapCheckoutSharedManager.sharedCheckoutManager.userSelectedCurrencyObserver.value }[0])
+        tapCurrienciesChipHorizontalListViewModel = .init(dataSource: currenciesChipsViewModel, headerType: .NoHeader,selectedChip: currenciesChipsViewModel.filter{ $0.currency == sharedCheckoutDataManager.transactionUserCurrencyObserver.value }[0])
         tapCurrienciesChipHorizontalListViewModel.delegate = self
         
         
@@ -207,19 +173,11 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
      - Parameter currency: The new selected currency
      */
     func updateItemsList(with currency:TapCurrencyCode) {
-        tapItemsTableViewModel.dataSource.forEach { (genericCellModel) in
+        /*tapItemsTableViewModel.dataSource.forEach { (genericCellModel) in
             if let itemViewModel:ItemCellViewModel = genericCellModel as? ItemCellViewModel {
                 itemViewModel.convertCurrency = currency
             }
-        }
-    }
-    
-    /**
-     Update the amount section UI wise when a new currency is selected
-     - Parameter currency: The new selected currency
-     */
-    func updateAmountSection(with currency: TapCurrencyCode) {
-        tapAmountSectionViewModel.convertedTransactionCurrency = currency
+        }*/
     }
     
     /*
@@ -263,9 +221,9 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         self.tapVerticalView.remove(viewType: TapChipHorizontalList.self, with: .init(), and: true)
         tapVerticalView.hideActionButton()
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(80), execute: { [weak self] in
-            //self!.tapCurrienciesChipHorizontalListViewModel.attachedView.alpha = 0
-            //self!.tapItemsTableViewModel.attachedView.alpha = 0
-            self?.tapVerticalView.add(views: [self!.tapCurrienciesChipHorizontalListViewModel.attachedView,self!.tapItemsTableViewModel.attachedView], with: [.init(for: .fadeIn)])
+            self!.tapCurrienciesChipHorizontalListViewModel.attachedView.alpha = 0
+            self!.sharedCheckoutDataManager.tapItemsTableViewModel.attachedView.alpha = 0
+            self?.tapVerticalView.add(views: [self!.tapCurrienciesChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapItemsTableViewModel.attachedView], with: [.init(for: .fadeIn)])
             if let locale = TapLocalisationManager.shared.localisationLocale, locale == "ar" {
                 self?.tapCurrienciesChipHorizontalListViewModel.refreshLayout()
             }
@@ -369,7 +327,7 @@ extension TapBottomCheckoutControllerViewController:TapChipHorizontalListViewMod
     
     
     func currencyChip(for viewModel: CurrencyChipViewModel) {
-        TapCheckoutSharedManager.sharedCheckoutManager.userSelectedCurrencyObserver.accept(viewModel.currency)
+        sharedCheckoutDataManager.transactionUserCurrencyObserver.accept(viewModel.currency)
     }
     
     func applePayAuthoized(for viewModel: ApplePayChipViewCellModel, with token: TapApplePayToken) {
