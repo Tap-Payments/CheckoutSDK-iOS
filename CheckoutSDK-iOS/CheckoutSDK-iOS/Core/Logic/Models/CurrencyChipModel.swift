@@ -21,7 +21,7 @@ internal class CurrencyChipModel {
      - Parameter tapChipViewModel: Represents the chip view model itself (Apple, goPay & saved card)
      - Parameter supportedCurrencies: Represents the list of currencies the chip supports or should be visible when selected
      */
-    init(tapChipViewModel:GenericTapChipViewModel, supportedCurrencies:[TapCurrencyCode]) {
+    init(tapChipViewModel:GenericTapChipViewModel, supportedCurrencies:[TapCurrencyCode] = []) {
         self.tapChipViewModel = tapChipViewModel
         self.supportedCurrencies = supportedCurrencies
     }
@@ -33,7 +33,19 @@ internal class CurrencyChipModel {
      */
     func enable(for currency:TapCurrencyCode) -> Bool {
         // Make sure the currency list has values with the given currenct or it supports every currency
-        return (supportedCurrencies == []) || (supportedCurrencies.contains(currency))
+        return (supportedCurrencies == []) || (supportedCurrencies.filter{ $0.appleRawValue == currency.appleRawValue } != [])
         
+    }
+}
+
+internal extension Array where Element: CurrencyChipModel {
+    /**
+     Extended method to easily extract the list of GenericTapChipViewModel from list of CurrencyChipModel that supports a certain currenct
+     - Parameter currency: Pass the currency you want to see its support. If no passed, the Global UserCurrency will be used as the filtering currency
+     - Returns: List of the chip models that supports the given currency code
+     */
+    func filter(for currency:TapCurrencyCode? = nil) -> [GenericTapChipViewModel] {
+        let filterForCurrency:TapCurrencyCode = currency ?? TapCheckoutSharedManager.sharedCheckoutManager().transactionUserCurrencyObserver.value
+        return self.filter{ $0.enable(for: filterForCurrency) }.map{ $0.tapChipViewModel }
     }
 }
