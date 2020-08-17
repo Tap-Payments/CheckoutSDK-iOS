@@ -90,7 +90,9 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter controller: This is th view controller you want to show the tap checkout in
      */
     @objc public func start(presentIn controller:UIViewController) {
-        controller.present(bottomSheetController, animated: true, completion: nil)
+        DispatchQueue.main.async { [weak self] in
+            controller.present(self!.bottomSheetController, animated: true, completion: nil)
+        }
     }
 }
 

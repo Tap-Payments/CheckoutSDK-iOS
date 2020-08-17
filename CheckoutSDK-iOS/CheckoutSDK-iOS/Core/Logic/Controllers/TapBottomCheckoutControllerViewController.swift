@@ -20,11 +20,10 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     var currenciesChipsViewModel:[CurrencyChipViewModel] = []
     
     
-    let tapCardPhoneListViewModel:TapCardPhoneBarListViewModel = .init()
-    var tapCardPhoneListDataSource:[CurrencyCardsTelecomModel] = []
+    
     let goPayBarViewModel:TapGoPayLoginBarViewModel = .init(countries: [.init(nameAR: "الكويت", nameEN: "Kuwait", code: "965", phoneLength: 8),.init(nameAR: "مصر", nameEN: "Egypt", code: "20", phoneLength: 10),.init(nameAR: "البحرين", nameEN: "Bahrain", code: "973", phoneLength: 8)])
     let tapActionButtonViewModel: TapActionButtonViewModel = .init()
-    var tapCardTelecomPaymentViewModel: TapCardTelecomPaymentViewModel = .init()
+    
     var tapSaveCardSwitchViewModel: TapSwitchViewModel = .init(with: .invalidCard, merchant: "jazeera airways")
     var dragView:TapDragHandlerView = .init()
     
@@ -86,17 +85,8 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     }
     
     func createTabBarViewModel() {
-        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .visa, tapCardPhoneIconUrl: "https://img.icons8.com/color/2x/visa.png")))
-        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .masterCard, tapCardPhoneIconUrl: "https://img.icons8.com/color/2x/mastercard.png")))
-        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .americanExpress, tapCardPhoneIconUrl: "https://img.icons8.com/color/2x/amex.png")))
-        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .mada, tapCardPhoneIconUrl: "https://i.ibb.co/S3VhxmR/796px-Mada-Logo-svg.png"),supportedCurrencies: [.SAR]))
-        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .viva, tapCardPhoneIconUrl: "https://i.ibb.co/cw5y89V/unnamed.png"),supportedCurrencies: [.KWD]))
-        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .wataniya, tapCardPhoneIconUrl: "https://i.ibb.co/PCYd8Xm/ooredoo-3x.png"),supportedCurrencies: [.KWD]))
-        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .zain, tapCardPhoneIconUrl: "https://i.ibb.co/mvkJXwF/zain-3x.png"),supportedCurrencies: [.KWD]))
         
-        tapCardPhoneListViewModel.dataSource = tapCardPhoneListDataSource.filter(for: .KWD)
-        tapCardTelecomPaymentViewModel = .init(with: tapCardPhoneListViewModel, and: .init(nameAR: "الكويت", nameEN: "Kuwait", code: "965", phoneLength: 8))
-        tapCardTelecomPaymentViewModel.delegate = self
+        sharedCheckoutDataManager.tapCardTelecomPaymentViewModel.delegate = self
     }
     
     func addGloryViews() {
@@ -104,7 +94,7 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
         // The button
         self.tapVerticalView.setupActionButton(with: tapActionButtonViewModel)
         // The initial views
-        self.tapVerticalView.add(views: [dragView,sharedCheckoutDataManager.tapMerchantViewModel.attachedView,sharedCheckoutDataManager.tapAmountSectionViewModel.attachedView,sharedCheckoutDataManager.tapGoPayChipsHorizontalListViewModel.attachedView,sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.attachedView,tapCardTelecomPaymentViewModel.attachedView,tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
+        self.tapVerticalView.add(views: [dragView,sharedCheckoutDataManager.tapMerchantViewModel.attachedView,sharedCheckoutDataManager.tapAmountSectionViewModel.attachedView,sharedCheckoutDataManager.tapGoPayChipsHorizontalListViewModel.attachedView,sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.attachedView,sharedCheckoutDataManager.tapCardTelecomPaymentViewModel.attachedView,tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
     }
     
     
@@ -200,7 +190,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         
         DispatchQueue.main.async{ [weak self] in
             self?.tapVerticalView.showActionButton()
-            self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.attachedView,self!.tapCardTelecomPaymentViewModel.attachedView,self!.tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
+            self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapCardTelecomPaymentViewModel.attachedView,self!.tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
         }
     }
     
@@ -210,9 +200,9 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
     
     func closeScannerClicked() {
         tapVerticalView.closeScanner()
-        tapCardTelecomPaymentViewModel.scanerClosed()
+        sharedCheckoutDataManager.tapCardTelecomPaymentViewModel.scanerClosed()
         DispatchQueue.main.async{ [weak self] in
-            self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.attachedView,self!.tapCardTelecomPaymentViewModel.attachedView,self!.tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
+            self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapCardTelecomPaymentViewModel.attachedView,self!.tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
         }
     }
     
@@ -221,7 +211,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         tapVerticalView.closeGoPaySignInForm()
         
         DispatchQueue.main.async{ [weak self] in
-            self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.attachedView,self!.tapCardTelecomPaymentViewModel.attachedView,self!.tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
+            self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapCardTelecomPaymentViewModel.attachedView,self!.tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
         }
     }
     
@@ -379,7 +369,7 @@ extension TapBottomCheckoutControllerViewController:TapChipHorizontalListViewMod
     
     func handleCardPayment(for cardBrand: CardBrand, with validation: CrardInputTextFieldStatusEnum) {
         if validation == .Valid,
-            tapCardTelecomPaymentViewModel.decideHintStatus() == .None {
+            sharedCheckoutDataManager.tapCardTelecomPaymentViewModel.decideHintStatus() == .None {
             tapActionButtonViewModel.buttonStatus = .ValidPayment
             let payAction:()->() = { self.startPayment(then:false) }
             tapActionButtonViewModel.buttonActionBlock = payAction
@@ -485,7 +475,7 @@ extension TapBottomCheckoutControllerViewController:TapInlineScannerProtocl {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500)) { [weak self] in
             self?.closeScannerClicked()
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) { [weak self] in
-                self?.tapCardTelecomPaymentViewModel.setCard(with: tapCard)
+                self?.sharedCheckoutDataManager.tapCardTelecomPaymentViewModel.setCard(with: tapCard)
             }
         }
     }

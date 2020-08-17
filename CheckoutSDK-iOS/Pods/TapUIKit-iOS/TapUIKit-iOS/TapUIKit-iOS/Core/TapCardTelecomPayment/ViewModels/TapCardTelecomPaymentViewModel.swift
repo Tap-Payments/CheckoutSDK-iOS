@@ -54,6 +54,19 @@ import TapCardVlidatorKit_iOS
         return tapCardTelecomPaymentView ?? .init()
     }
     
+    @objc public var tapCardPhoneListViewModel:TapCardPhoneBarListViewModel? {
+        didSet{
+            // Assign the list view model to it
+            // Create the attached view
+            tapCardTelecomPaymentView = nil
+            tapCardTelecomPaymentView = .init()
+            tapCardTelecomPaymentView?.lastReportedTapCard = .init()
+            tapCardTelecomPaymentView?.tapCardPhoneListViewModel = tapCardPhoneListViewModel!
+            // Assign the view delegate to self
+            tapCardTelecomPaymentView?.viewModel = self
+        }
+    }
+    
     /// The delegate that wants to hear from the view on new data and events
     @objc public var delegate:TapCardTelecomPaymentProtocol?
     
@@ -64,13 +77,8 @@ import TapCardVlidatorKit_iOS
      */
     @objc public init(with tapCardPhoneListViewModel:TapCardPhoneBarListViewModel, and tapCountry:TapCountry?) {
         super.init()
-        // Create the attached view
-        tapCardTelecomPaymentView = .init()
-        // Assign the list view model to it
-        tapCardTelecomPaymentView?.tapCardPhoneListViewModel = tapCardPhoneListViewModel
+        self.tapCardPhoneListViewModel = tapCardPhoneListViewModel
         tapCardTelecomPaymentView?.tapCountry = tapCountry
-        // Assign the view delegate to self
-        tapCardTelecomPaymentView?.viewModel = self
     }
     
     /**

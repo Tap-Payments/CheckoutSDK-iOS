@@ -39,6 +39,9 @@ import Foundation
     case viva
     case wataniya
     case zain
+    case orange
+    case etisalat
+    case vodafone
 
     case unknown
 
@@ -76,7 +79,10 @@ import Foundation
 			.visaElectron		: RawValues.visaElectron,
             .viva               : RawValues.viva,
             .wataniya           : RawValues.wataniya,
-            .zain               : RawValues.zain
+            .zain               : RawValues.zain,
+            .orange             : RawValues.orange,
+            .etisalat           : RawValues.etisalat,
+            .vodafone           : RawValues.vodafone
         ]
 
         private static let aiywaLoyalty     = ["Aiywa Loyalty"]
@@ -108,6 +114,9 @@ import Foundation
         private static let viva             = ["Viva PAY"]
         private static let wataniya         = ["Wataniya PAY"]
         private static let zain             = ["Zain PAY"]
+        private static let orange           = ["ORANGE PAY"]
+        private static let etisalat         = ["ETISALAT PAY"]
+        private static let vodafone         = ["VODAFONE PAY"]
 
         @available(*, unavailable) private init() {}
     }
@@ -116,7 +125,7 @@ import Foundation
     public var brandSegmentIdentifier:String {
         get {
             switch self {
-            case .zain,.viva,.wataniya:
+            case .zain,.viva,.wataniya,.vodafone,.etisalat,.orange:
                 return "telecom"
             default:
                 return "cards"

@@ -15,15 +15,19 @@ internal class CurrencyChipModel {
     lazy var tapChipViewModel:GenericTapChipViewModel = .init()
     /// Represents the list of currencies the chip supports or should be visible when selected
     lazy var supportedCurrencies:[TapCurrencyCode] = []
+    /// Represents the the country the telecom operator works with
+    var supportedCountry:TapCountry?
     
     /**
      Creates a new instance that links the chip model with certain currencies
      - Parameter tapChipViewModel: Represents the chip view model itself (Apple, goPay & saved card)
      - Parameter supportedCurrencies: Represents the list of currencies the chip supports or should be visible when selected
+     - Parameter supportedCountry: Represents the the country the telecom operator works with
      */
-    init(tapChipViewModel:GenericTapChipViewModel, supportedCurrencies:[TapCurrencyCode] = []) {
+    init(tapChipViewModel:GenericTapChipViewModel, supportedCurrencies:[TapCurrencyCode] = [],supportedCountry:TapCountry? = nil) {
         self.tapChipViewModel = tapChipViewModel
         self.supportedCurrencies = supportedCurrencies
+        self.supportedCountry = supportedCountry
     }
     
     /**

@@ -126,7 +126,10 @@ import RxCocoa
     private func bindObserverbales() {
         // We need to know when a new segment is selected in the tab bar payment list, then we need to decide which input field should be shown
         tapCardPhoneListViewModel.selectedSegmentObserver
+            .share()
+            .filter{ $0 != "" }
             .distinctUntilChanged()
+            .filter{ $0 != "" }
             .subscribe(onNext: { [weak self] (newSegmentID) in
                 self?.showInputFor(for: newSegmentID)
             }).disposed(by: disposeBag)
@@ -176,7 +179,7 @@ import RxCocoa
         cardInputView.setup(for: .InlineCardInput, allowedCardBrands: tapCardPhoneListViewModel.dataSource.map{ $0.associatedCardBrand }.filter{ $0.brandSegmentIdentifier == "cards" }.map{ $0.rawValue }, cardIconUrl: brandIconUrl)
         // Reset any selection done on the bar layout
         tapCardPhoneListViewModel.resetCurrentSegment()
-        
+        lastReportedTapCard = .init()
         viewModel?.delegate?.brandDetected(for: .unknown, with: .Invalid)
     }
     

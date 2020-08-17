@@ -52,5 +52,14 @@ internal extension Array where Element: CurrencyCardsTelecomModel {
     func filter(for currency:TapCurrencyCode) -> [TapCardPhoneIconViewModel] {
         return self.filter{ $0.isEnabled(for: currency) }.map{ $0.tapCardPhoneViewModel }
     }
+    
+    func telecomCountry(for currency:TapCurrencyCode) -> TapCountry? {
+        let nonNullCountriesFiltered = self.filter{ $0.isEnabled(for: currency) && $0.supportedTelecomCountry != nil }
+        guard nonNullCountriesFiltered.count > 0 else {
+            return nil
+        }
+        
+        return nonNullCountriesFiltered[0].supportedTelecomCountry
+    }
 }
 

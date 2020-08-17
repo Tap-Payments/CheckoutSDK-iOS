@@ -25,7 +25,13 @@ internal class TapCheckoutSharedManager {
     var tapGatewayChipHorizontalListViewModel:TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GateWayListWithGoPayListHeader)
     /// Represents the view model that controls the gopay gateway chips list view
     var tapGoPayChipsHorizontalListViewModel:TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GoPayListHeader)
+    /// Represents the view model that controls the cards/telecom tabs view
+    var tapCardPhoneListViewModel:TapCardPhoneBarListViewModel = .init()
+    /// Represents the view model that controls the tabbar view
+    var tapCardTelecomPaymentViewModel: TapCardTelecomPaymentViewModel = .init()
     
+    /// Represents the list of ALL allowed telecom/cards payments for the logged in merchant
+    var tapCardPhoneListDataSource:[CurrencyCardsTelecomModel] = []
     /// Represents the list of ALL allowed payment chips for the logged in merchant
     var gatewayChipsViewModel:[CurrencyChipModel] = []
     /// Represents the list of ALL allowed goPay chips for the logged in customer
@@ -36,9 +42,9 @@ internal class TapCheckoutSharedManager {
     
     // MARK:- RxSwift Variables
     /// Represents the original transaction currency stated by the merchant on checkout start
-    var transactionCurrencyObserver:BehaviorRelay<TapCurrencyCode> = .init(value: .KWD)
+    var transactionCurrencyObserver:BehaviorRelay<TapCurrencyCode> = .init(value: .undefined)
     /// Represents the transaction currency selected by the user
-    var transactionUserCurrencyObserver:BehaviorRelay<TapCurrencyCode> = .init(value: .KWD)
+    var transactionUserCurrencyObserver:BehaviorRelay<TapCurrencyCode> = .init(value: .undefined)
     /// Represents the original transaction total amount stated by the merchant on checkout start
     var transactionTotalAmountObserver:BehaviorRelay<Double> = .init(value: 0)
     /// Represents the list of items passed by the merchant on load
@@ -66,6 +72,7 @@ internal class TapCheckoutSharedManager {
         // Create default view models
         createTapMerchantHeaderViewModel()
         createGatewayDummyChips()
+        createDummyCardTelecomModel()
         // Bind the observables
         bindTheObservables()
     }
@@ -92,13 +99,15 @@ internal class TapCheckoutSharedManager {
     /// Responsible for wiring up the observables to fire the correct methods upon the correct data changes
     private func bindTheObservables() {
         // Listen to the changes in transaction currency
-        transactionCurrencyObserver.share().subscribe(onNext: { [weak self] (newTransactionCurrency) in
+        transactionCurrencyObserver
+        .filter{ $0 != .undefined }
+        .share().subscribe(onNext: { [weak self] (newTransactionCurrency) in
             self?.transactionCurrencyUpdated()
         }).disposed(by: disposeBag)
         
         // We only create items list when we have both elements, items and original currency
-        Observable.zip(transactionTotalAmountObserver, transactionItemsObserver).share()
-            .subscribe(onNext: { [weak self] (currency, items) in
+        transactionItemsObserver.filter{ $0 != [] }.distinctUntilChanged()
+            .subscribe(onNext: { [weak self] _ in
                 self?.createTapItemsViewModel()
             }).disposed(by: disposeBag)
         
@@ -108,10 +117,12 @@ internal class TapCheckoutSharedManager {
                 let (lastAmount, lastUserCurrency) = arg0
                 let (newAmount, newUserCurrency) = arg1
                 return (lastAmount == newAmount) && (lastUserCurrency == newUserCurrency)
-            }.subscribe(onNext: { [weak self] (_,_) in
+            }.filter{ $0 != 0 && $1 != .undefined }
+            .subscribe(onNext: { [weak self] (_,_) in
             self?.updateAmountSection()
             self?.updateItemsList()
             self?.updateGatewayChipsList()
+            self?.updateCardTelecomList()
         }).disposed(by: disposeBag)
     }
     
@@ -121,11 +132,6 @@ internal class TapCheckoutSharedManager {
         let itemsModels:[ItemCellViewModel] = transactionItemsObserver.value.map{ ItemCellViewModel.init(itemModel: $0, originalCurrency:transactionCurrencyObserver.value) }
         tapItemsTableViewModel = .init(dataSource: itemsModels)
         tapAmountSectionViewModel.numberOfItems = transactionItemsObserver.value.count
-    }
-    
-    /// Handles all the logic needed to create and set the data in the merchant header section
-    private func createTapMerchantHeaderViewModel() {
-        tapMerchantViewModel = .init(subTitle: "Tap Payments", iconURL: "https://avatars3.githubusercontent.com/u/19837565?s=200&v=4")
     }
     
     /// Handles all the logic needed to create and set the data in the merchant header section
@@ -160,7 +166,21 @@ internal class TapCheckoutSharedManager {
         tapGoPayChipsHorizontalListViewModel.dataSource = goPayChipsViewModel.filter(for: transactionUserCurrencyObserver.value)
     }
     
+    /// Handles all the logic needed when the user selected currency changed to reflect in the supported cards/telecom tabbar items for the new currency
+    private func updateCardTelecomList() {
+        tapCardPhoneListViewModel.dataSource = tapCardPhoneListDataSource.filter(for: transactionUserCurrencyObserver.value)
+        tapCardTelecomPaymentViewModel.tapCardPhoneListViewModel = tapCardPhoneListViewModel
+        tapCardTelecomPaymentViewModel.changeTapCountry(to: tapCardPhoneListDataSource.telecomCountry(for: transactionUserCurrencyObserver.value))
+    }
     
+    
+}
+
+
+// MARK:- extension that includes all methods that will create dummy data, until it is loaded from API calls
+extension TapCheckoutSharedManager {
+    
+    /// Creates a dummy data for the chips and saved card chips
     private func createGatewayDummyChips() {
         let applePayChipViewModel:ApplePayChipViewCellModel = ApplePayChipViewCellModel.init()
         applePayChipViewModel.configureApplePayRequest()
@@ -188,5 +208,33 @@ internal class TapCheckoutSharedManager {
         goPayChipsViewModel.append(.init(tapChipViewModel:SavedCardCollectionViewCellModel.init(title: "•••• 4444", icon:"https://img.icons8.com/color/2x/visa.png", listSource: .GoPayListHeader)))
         goPayChipsViewModel.append(.init(tapChipViewModel:SavedCardCollectionViewCellModel.init(title: "•••• 5555", icon:"https://img.icons8.com/color/2x/mastercard-logo.png", listSource: .GoPayListHeader)))
         goPayChipsViewModel.append(.init(tapChipViewModel:TapLogoutChipViewModel()))
+    }
+    
+    /// Handles all the logic needed to create and set the data in the merchant header section
+    private func createTapMerchantHeaderViewModel() {
+        tapMerchantViewModel = .init(subTitle: "Tap Payments", iconURL: "https://avatars3.githubusercontent.com/u/19837565?s=200&v=4")
+    }
+    
+    
+    private func createDummyCardTelecomModel() {
+        let Kuwait:TapCountry = .init(nameAR: "الكويت", nameEN: "Kuwait", code: "965", phoneLength: 8)
+        let Egypt:TapCountry = .init(nameAR: "مصر", nameEN: "Egypt", code: "20", phoneLength: 9)
+        
+        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .visa, tapCardPhoneIconUrl: "https://img.icons8.com/color/2x/visa.png")))
+        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .masterCard, tapCardPhoneIconUrl: "https://img.icons8.com/color/2x/mastercard.png")))
+        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .americanExpress, tapCardPhoneIconUrl: "https://img.icons8.com/color/2x/amex.png")))
+        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .mada, tapCardPhoneIconUrl: "https://i.ibb.co/S3VhxmR/796px-Mada-Logo-svg.png"),supportedCurrencies: [.SAR]))
+        
+        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .viva, tapCardPhoneIconUrl: "https://i.ibb.co/cw5y89V/unnamed.png"),supportedCurrencies: [.KWD],supportedTelecomCountry: Kuwait))
+        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .wataniya, tapCardPhoneIconUrl: "https://i.ibb.co/PCYd8Xm/ooredoo-3x.png"),supportedCurrencies: [.KWD],supportedTelecomCountry: Kuwait))
+        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .zain, tapCardPhoneIconUrl: "https://i.ibb.co/mvkJXwF/zain-3x.png"),supportedCurrencies: [.KWD],supportedTelecomCountry: Kuwait))
+        
+        
+        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .orange, tapCardPhoneIconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/2560px-Orange_logo.svg.png"),supportedCurrencies: [.EGP],supportedTelecomCountry: Egypt))
+        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .vodafone, tapCardPhoneIconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Vodafone_icon.svg/1020px-Vodafone_icon.svg.png"),supportedCurrencies: [.EGP],supportedTelecomCountry: Egypt))
+        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .etisalat, tapCardPhoneIconUrl: "https://i.ibb.co/K28R093/1280px-Etisalat-Logo.png"),supportedCurrencies: [.EGP],supportedTelecomCountry: Egypt))
+        
+        
+        tapCardTelecomPaymentViewModel = .init(with: tapCardPhoneListViewModel, and: .init(nameAR: "الكويت", nameEN: "Kuwait", code: "965", phoneLength: 8))
     }
 }

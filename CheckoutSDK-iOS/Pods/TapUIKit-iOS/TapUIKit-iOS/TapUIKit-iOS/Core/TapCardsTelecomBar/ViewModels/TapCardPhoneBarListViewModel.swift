@@ -47,6 +47,10 @@ internal protocol TapCardPhoneBarListViewModelDelegate {
     /// The data source which is the list if tab view models that we need to render
     @objc public var dataSource:[TapCardPhoneIconViewModel] = [] {
         didSet{
+            dataSourceObserver = .init(value: [])
+            segmentSelectionObserver = .init(value: [:])
+            selectedSegmentObserver = .init(value:"")
+            selectedIconValidatedObserver = .init(value:false)
             // Once set, we need to wire up the observables with their subscribers
             configureDataSource()
             // We need to fire an event that a new data source is here
@@ -234,7 +238,10 @@ internal protocol TapCardPhoneBarListViewModelDelegate {
         
     }
     
-    
+    /**
+     This method will select a certain segment as a group
+     - Parameter segmentID: The id of the segment to be selcted
+     */
     @objc public func select(segment segmentID:String) {
         // Fire a notification of a new selected segment
         selectedSegmentObserver.accept(segmentID)
@@ -251,7 +258,9 @@ internal protocol TapCardPhoneBarListViewModelDelegate {
         iconIsSelected(with: relatedModels[0])
     }
     
-    
+    /**
+     This method will deselct all selected segments if any
+     */
     @objc public func resetCurrentSegment() {
         let currentSelectedSegment:String = selectedSegmentObserver.value
         guard currentSelectedSegment != "" else { return }
@@ -277,6 +286,12 @@ extension TapCardPhoneBarListViewModel:TapCardPhoneIconDelegate {
     func iconIsSelected(with viewModel: TapCardPhoneIconViewModel) {
         // Fetch the frame for the selected tab
         let segmentFrame:CGRect = frame(for: viewModel.associatedCardBrand.brandSegmentIdentifier)
+        guard segmentFrame.width > 0 else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) { [weak self] in
+                self?.iconIsSelected(with: viewModel)
+            }
+            return
+        }
         // Add half of the spacing to its width
         //segmentFrame.size.width += abs((viewDelegate?.calculatedSpacing() ?? 0))
         // Change the underline to the computed frame

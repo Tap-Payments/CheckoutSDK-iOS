@@ -69,22 +69,6 @@ internal extension TapCheckout {
         }else {
             sharedManager.transactionItemsObserver.accept(items)
         }
-        
-        // Bind observables
-        
-        // Listen to changes in user currency
-        sharedManager.transactionUserCurrencyObserver.share().subscribe(onNext: { [weak self] (newUserCurrency) in
-            self?.userSelectedCurrencyChanged(with: newUserCurrency)
-        }).disposed(by: disposeBag)
-    }
-    
-    /**
-     Listen to changes in user currency
-     - Parameter newUserCurrency: The new selected currency by the user
-     */
-    func userSelectedCurrencyChanged(with newUserCurrency:TapCurrencyCode) {
-        // Update the items list price and UI
-        tapCheckoutControllerViewController?.updateItemsList(with: newUserCurrency)
     }
     
 }

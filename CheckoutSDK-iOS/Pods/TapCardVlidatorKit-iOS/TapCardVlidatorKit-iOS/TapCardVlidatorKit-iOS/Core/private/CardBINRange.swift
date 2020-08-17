@@ -216,7 +216,11 @@ internal final class CardBINRange {
         
         CardBINRange(lowRange: "9"  , highRange: "9"  , lengths: [8]                                   , brand: .zain),
         CardBINRange(lowRange: "5"  , highRange: "5"  , lengths: [8]                                   , brand: .viva),
-        CardBINRange(lowRange: "6"  , highRange: "6"  , lengths: [8]                                   , brand: .wataniya)
+        CardBINRange(lowRange: "6"  , highRange: "6"  , lengths: [8]                                   , brand: .wataniya),
+        
+        CardBINRange(lowRange: "12"  , highRange: "12"  , lengths: [9]                                   , brand: .orange),
+        CardBINRange(lowRange: "15"  , highRange: "15"  , lengths: [9]                                   , brand: .etisalat),
+        CardBINRange(lowRange: "10"  , highRange: "10"  , lengths: [9]                                   , brand: .vodafone)
     ]
 
     private static let generalRange = CardBINRange(lowRange: Constants.emptyString, highRange: Constants.emptyString, lengths: [16], brand: .unknown)
