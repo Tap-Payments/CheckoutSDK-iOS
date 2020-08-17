@@ -31,7 +31,7 @@ internal class CurrencyChipModel {
      - Parameter currency: The currency to deteremine if the chip view model supports or no
      - Returns: True if the list if currencies is empty (means it should be visible always.) or It has the given currency. Returns false otherwise
      */
-    func enable(for currency:TapCurrencyCode) -> Bool {
+    func isEnabled(for currency:TapCurrencyCode) -> Bool {
         // Make sure the currency list has values with the given currenct or it supports every currency
         return (supportedCurrencies == []) || (supportedCurrencies.filter{ $0.appleRawValue == currency.appleRawValue } != [])
         
@@ -45,6 +45,6 @@ internal extension Array where Element: CurrencyChipModel {
      - Returns: List of the chip models that supports the given currency code
      */
     func filter(for currency:TapCurrencyCode) -> [GenericTapChipViewModel] {
-        return self.filter{ $0.enable(for: currency) }.map{ $0.tapChipViewModel }
+        return self.filter{ $0.isEnabled(for: currency) }.map{ $0.tapChipViewModel }
     }
 }

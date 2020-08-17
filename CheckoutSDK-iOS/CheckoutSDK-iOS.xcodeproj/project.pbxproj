@@ -16,6 +16,7 @@
 		62570A1024EA6F2500274C2C /* TapSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62570A0F24EA6F2500274C2C /* TapSettings.swift */; };
 		E825DD5924E938DB0074BF54 /* TapCheckoutSharedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E825DD5824E938DB0074BF54 /* TapCheckoutSharedManager.swift */; };
 		E861286D24EA7F7F00774BAA /* CurrencyChipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E861286C24EA7F7F00774BAA /* CurrencyChipModel.swift */; };
+		E861286F24EAA38A00774BAA /* CurrencyCardsTelecomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E861286E24EAA38A00774BAA /* CurrencyCardsTelecomModel.swift */; };
 		E8811ADB24D4283C00DE95D1 /* CheckoutSDK_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = E8811AD924D4283C00DE95D1 /* CheckoutSDK_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E8811AE824D4287400DE95D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8811AE724D4287400DE95D1 /* AppDelegate.swift */; };
 		E8811AEA24D4287400DE95D1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8811AE924D4287400DE95D1 /* SceneDelegate.swift */; };
@@ -77,6 +78,7 @@
 		9EA23C9D0ACA6A832C046E7C /* Pods-CheckoutExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutExample.debug.xcconfig"; path = "Target Support Files/Pods-CheckoutExample/Pods-CheckoutExample.debug.xcconfig"; sourceTree = "<group>"; };
 		E825DD5824E938DB0074BF54 /* TapCheckoutSharedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckoutSharedManager.swift; sourceTree = "<group>"; };
 		E861286C24EA7F7F00774BAA /* CurrencyChipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyChipModel.swift; sourceTree = "<group>"; };
+		E861286E24EAA38A00774BAA /* CurrencyCardsTelecomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCardsTelecomModel.swift; sourceTree = "<group>"; };
 		E8811AD624D4283C00DE95D1 /* CheckoutSDK_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CheckoutSDK_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8811AD924D4283C00DE95D1 /* CheckoutSDK_iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckoutSDK_iOS.h; sourceTree = "<group>"; };
 		E8811ADA24D4283C00DE95D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 			children = (
 				E8C58B3724E5344700E1F04F /* TapCheckOutTheme.swift */,
 				E861286C24EA7F7F00774BAA /* CurrencyChipModel.swift */,
+				E861286E24EAA38A00774BAA /* CurrencyCardsTelecomModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -496,6 +499,7 @@
 				E8C58B3824E5344700E1F04F /* TapCheckOutTheme.swift in Sources */,
 				E89225EA24E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift in Sources */,
 				E825DD5924E938DB0074BF54 /* TapCheckoutSharedManager.swift in Sources */,
+				E861286F24EAA38A00774BAA /* CurrencyCardsTelecomModel.swift in Sources */,
 				E8C2052624E3FEFA006653CA /* TapCheckoutFlipStatus.swift in Sources */,
 				E8845E7C24D851FF009E8B73 /* TapCheckoutBlurView.swift in Sources */,
 				E861286D24EA7F7F00774BAA /* CurrencyChipModel.swift in Sources */,
@@ -730,7 +734,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = G46S76PUH4;
 				INFOPLIST_FILE = CheckoutExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -752,7 +756,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = G46S76PUH4;
 				INFOPLIST_FILE = CheckoutExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;

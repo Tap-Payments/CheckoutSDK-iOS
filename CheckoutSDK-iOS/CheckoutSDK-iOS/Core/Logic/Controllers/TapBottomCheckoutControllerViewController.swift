@@ -16,14 +16,12 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     var delegate:ToPresentAsPopupViewControllerDelegate?
     var tapVerticalView: TapVerticalView = .init()
     
-    
-    
     var tapCurrienciesChipHorizontalListViewModel:TapChipHorizontalListViewModel = .init()
-    
-    
     var currenciesChipsViewModel:[CurrencyChipViewModel] = []
+    
+    
     let tapCardPhoneListViewModel:TapCardPhoneBarListViewModel = .init()
-    var tapCardPhoneListDataSource:[TapCardPhoneIconViewModel] = []
+    var tapCardPhoneListDataSource:[CurrencyCardsTelecomModel] = []
     let goPayBarViewModel:TapGoPayLoginBarViewModel = .init(countries: [.init(nameAR: "الكويت", nameEN: "Kuwait", code: "965", phoneLength: 8),.init(nameAR: "مصر", nameEN: "Egypt", code: "20", phoneLength: 10),.init(nameAR: "البحرين", nameEN: "Bahrain", code: "973", phoneLength: 8)])
     let tapActionButtonViewModel: TapActionButtonViewModel = .init()
     var tapCardTelecomPaymentViewModel: TapCardTelecomPaymentViewModel = .init()
@@ -74,8 +72,6 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     
     func createDefaultViewModels() {
         
-        //tapAmountSectionViewModel = .init(originalTransactionAmount: 10000, originalTransactionCurrency: TapCheckoutSharedManager.sharedCheckoutManager.transactionCurrencyObserver.value, numberOfItems: 10)
-        
         sharedCheckoutDataManager.tapMerchantViewModel.delegate = self
         
         sharedCheckoutDataManager.tapAmountSectionViewModel.delegate = self
@@ -90,15 +86,15 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     }
     
     func createTabBarViewModel() {
-        tapCardPhoneListDataSource.append(.init(associatedCardBrand: .visa, tapCardPhoneIconUrl: "https://img.icons8.com/color/2x/visa.png"))
-        tapCardPhoneListDataSource.append(.init(associatedCardBrand: .masterCard, tapCardPhoneIconUrl: "https://img.icons8.com/color/2x/mastercard.png"))
-        tapCardPhoneListDataSource.append(.init(associatedCardBrand: .americanExpress, tapCardPhoneIconUrl: "https://img.icons8.com/color/2x/amex.png"))
-        tapCardPhoneListDataSource.append(.init(associatedCardBrand: .mada, tapCardPhoneIconUrl: "https://i.ibb.co/S3VhxmR/796px-Mada-Logo-svg.png"))
-        tapCardPhoneListDataSource.append(.init(associatedCardBrand: .viva, tapCardPhoneIconUrl: "https://i.ibb.co/cw5y89V/unnamed.png"))
-        tapCardPhoneListDataSource.append(.init(associatedCardBrand: .wataniya, tapCardPhoneIconUrl: "https://i.ibb.co/PCYd8Xm/ooredoo-3x.png"))
-        tapCardPhoneListDataSource.append(.init(associatedCardBrand: .zain, tapCardPhoneIconUrl: "https://i.ibb.co/mvkJXwF/zain-3x.png"))
+        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .visa, tapCardPhoneIconUrl: "https://img.icons8.com/color/2x/visa.png")))
+        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .masterCard, tapCardPhoneIconUrl: "https://img.icons8.com/color/2x/mastercard.png")))
+        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .americanExpress, tapCardPhoneIconUrl: "https://img.icons8.com/color/2x/amex.png")))
+        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .mada, tapCardPhoneIconUrl: "https://i.ibb.co/S3VhxmR/796px-Mada-Logo-svg.png"),supportedCurrencies: [.SAR]))
+        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .viva, tapCardPhoneIconUrl: "https://i.ibb.co/cw5y89V/unnamed.png"),supportedCurrencies: [.KWD]))
+        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .wataniya, tapCardPhoneIconUrl: "https://i.ibb.co/PCYd8Xm/ooredoo-3x.png"),supportedCurrencies: [.KWD]))
+        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .zain, tapCardPhoneIconUrl: "https://i.ibb.co/mvkJXwF/zain-3x.png"),supportedCurrencies: [.KWD]))
         
-        tapCardPhoneListViewModel.dataSource = tapCardPhoneListDataSource
+        tapCardPhoneListViewModel.dataSource = tapCardPhoneListDataSource.filter(for: .KWD)
         tapCardTelecomPaymentViewModel = .init(with: tapCardPhoneListViewModel, and: .init(nameAR: "الكويت", nameEN: "Kuwait", code: "965", phoneLength: 8))
         tapCardTelecomPaymentViewModel.delegate = self
     }

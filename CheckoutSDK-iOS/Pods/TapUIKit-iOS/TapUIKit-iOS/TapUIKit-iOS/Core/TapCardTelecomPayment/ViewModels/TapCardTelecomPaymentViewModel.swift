@@ -73,6 +73,14 @@ import TapCardVlidatorKit_iOS
         tapCardTelecomPaymentView?.viewModel = self
     }
     
+    /**
+     Changes the country of the telecom operatorrs list
+     - Parameter tapCountry: Represents the country that telecom options are being shown for, used to handle country code and correct phone length
+     */
+    @objc public func changeTapCountry(to tapCountry:TapCountry?) {
+        tapCardTelecomPaymentView?.tapCountry = tapCountry
+    }
+    
     @objc override public init() {
         super.init()
     }
