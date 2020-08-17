@@ -20,7 +20,7 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     var tapGoPayChipsHorizontalListViewModel:TapChipHorizontalListViewModel = .init()
     var tapCurrienciesChipHorizontalListViewModel:TapChipHorizontalListViewModel = .init()
     var gatewayChipsViewModel:[CurrencyChipModel] = []
-    var goPayChipsViewModel:[GenericTapChipViewModel] = []
+    var goPayChipsViewModel:[CurrencyChipModel] = []
     var currenciesChipsViewModel:[CurrencyChipViewModel] = []
     let tapCardPhoneListViewModel:TapCardPhoneBarListViewModel = .init()
     var tapCardPhoneListDataSource:[TapCardPhoneIconViewModel] = []
@@ -150,12 +150,12 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
         tapGatewayChipHorizontalListViewModel.delegate = self
         
         
-        goPayChipsViewModel.append(SavedCardCollectionViewCellModel.init(title: "•••• 3333", icon:"https://img.icons8.com/color/2x/amex.png", listSource: .GoPayListHeader))
-        goPayChipsViewModel.append(SavedCardCollectionViewCellModel.init(title: "•••• 4444", icon:"https://img.icons8.com/color/2x/visa.png", listSource: .GoPayListHeader))
-        goPayChipsViewModel.append(SavedCardCollectionViewCellModel.init(title: "•••• 5555", icon:"https://img.icons8.com/color/2x/mastercard-logo.png", listSource: .GoPayListHeader))
-        goPayChipsViewModel.append(TapLogoutChipViewModel())
+        goPayChipsViewModel.append(.init(tapChipViewModel:SavedCardCollectionViewCellModel.init(title: "•••• 3333", icon:"https://img.icons8.com/color/2x/amex.png", listSource: .GoPayListHeader)))
+        goPayChipsViewModel.append(.init(tapChipViewModel:SavedCardCollectionViewCellModel.init(title: "•••• 4444", icon:"https://img.icons8.com/color/2x/visa.png", listSource: .GoPayListHeader)))
+        goPayChipsViewModel.append(.init(tapChipViewModel:SavedCardCollectionViewCellModel.init(title: "•••• 5555", icon:"https://img.icons8.com/color/2x/mastercard-logo.png", listSource: .GoPayListHeader)))
+        goPayChipsViewModel.append(.init(tapChipViewModel:TapLogoutChipViewModel()))
         
-        tapGoPayChipsHorizontalListViewModel = .init(dataSource: goPayChipsViewModel, headerType: .GoPayListHeader)
+        tapGoPayChipsHorizontalListViewModel = .init(dataSource: goPayChipsViewModel.filter(), headerType: .GoPayListHeader)
         tapGoPayChipsHorizontalListViewModel.delegate = self
         
         
