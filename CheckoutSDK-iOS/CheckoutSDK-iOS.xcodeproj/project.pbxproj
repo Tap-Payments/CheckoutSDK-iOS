@@ -13,6 +13,7 @@
 		620965F824E42ED800BD9985 /* SettingsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620965F724E42ED800BD9985 /* SettingsDelegate.swift */; };
 		620965FC24E4364100BD9985 /* LocalisationSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620965FA24E4364100BD9985 /* LocalisationSwitchTableViewCell.swift */; };
 		620965FD24E4364100BD9985 /* LocalisationSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 620965FB24E4364100BD9985 /* LocalisationSwitchTableViewCell.xib */; };
+		62570A1024EA6F2500274C2C /* TapSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62570A0F24EA6F2500274C2C /* TapSettings.swift */; };
 		E825DD5924E938DB0074BF54 /* TapCheckoutSharedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E825DD5824E938DB0074BF54 /* TapCheckoutSharedManager.swift */; };
 		E8811ADB24D4283C00DE95D1 /* CheckoutSDK_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = E8811AD924D4283C00DE95D1 /* CheckoutSDK_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E8811AE824D4287400DE95D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8811AE724D4287400DE95D1 /* AppDelegate.swift */; };
@@ -70,6 +71,7 @@
 		620965F724E42ED800BD9985 /* SettingsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDelegate.swift; sourceTree = "<group>"; };
 		620965FA24E4364100BD9985 /* LocalisationSwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalisationSwitchTableViewCell.swift; sourceTree = "<group>"; };
 		620965FB24E4364100BD9985 /* LocalisationSwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocalisationSwitchTableViewCell.xib; sourceTree = "<group>"; };
+		62570A0F24EA6F2500274C2C /* TapSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapSettings.swift; sourceTree = "<group>"; };
 		9641A958A3B669E7ED3F097E /* Pods_CheckoutExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CheckoutExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EA23C9D0ACA6A832C046E7C /* Pods-CheckoutExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutExample.debug.xcconfig"; path = "Target Support Files/Pods-CheckoutExample/Pods-CheckoutExample.debug.xcconfig"; sourceTree = "<group>"; };
 		E825DD5824E938DB0074BF54 /* TapCheckoutSharedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckoutSharedManager.swift; sourceTree = "<group>"; };
@@ -147,6 +149,14 @@
 			path = TableViewCells;
 			sourceTree = "<group>";
 		};
+		62570A0E24EA6F0F00274C2C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				62570A0F24EA6F2500274C2C /* TapSettings.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		7494201249226D5B262AD198 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -208,6 +218,7 @@
 		E8811AE624D4287400DE95D1 /* CheckoutExample */ = {
 			isa = PBXGroup;
 			children = (
+				62570A0E24EA6F0F00274C2C /* Models */,
 				620965F924E4360300BD9985 /* TableViewCells */,
 				620965F624E42EB000BD9985 /* Protocols */,
 				E8811AE724D4287400DE95D1 /* AppDelegate.swift */,
@@ -499,6 +510,7 @@
 				E8811AEA24D4287400DE95D1 /* SceneDelegate.swift in Sources */,
 				620965F524E41F1E00BD9985 /* SettingsViewController.swift in Sources */,
 				620965F824E42ED800BD9985 /* SettingsDelegate.swift in Sources */,
+				62570A1024EA6F2500274C2C /* TapSettings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
