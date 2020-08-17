@@ -21,7 +21,7 @@ internal protocol TapCardPhoneBarListViewModelDelegate {
      */
     func animateBar(to x:CGFloat,with width:CGFloat)
     /**
-        Asks the view to provide the dynamically calculated space between tabs
+     Asks the view to provide the dynamically calculated space between tabs
      - Returns: The actual computed width between tabs
      */
     func calculatedSpacing() -> CGFloat
@@ -70,7 +70,7 @@ internal protocol TapCardPhoneBarListViewModelDelegate {
     
     // MARK:- Private methods
     /**
-        Generates the list if tab views from the list of tab view models
+     Generates the list if tab views from the list of tab view models
      - Parameter maxWidth: The tab layout will try to spread the tabs with full screen width but spacing will not go beyond the provided max width
      - Returns: List of TapCardPhoneIconView, where each view represents  tab view with its tab view model
      */
@@ -88,7 +88,7 @@ internal protocol TapCardPhoneBarListViewModelDelegate {
     }
     
     /**
-        Comutes the frame where the underline should go to, whether the whole frame of a segment or the frame of a specific tab inside the segment
+     Comutes the frame where the underline should go to, whether the whole frame of a segment or the frame of a specific tab inside the segment
      - Parameter segment: Defines the segment ID to get the correct underline frame regarding to
      - Returns: The frame of the underline that covers the whole segment if no tab is selected inside the segment or the frame of the specific tab inside the segment if any
      */
@@ -247,7 +247,7 @@ internal protocol TapCardPhoneBarListViewModelDelegate {
         selectedSegmentObserver.accept(segmentID)
         // Fire a notification of a new selection validation
         selectedIconValidatedObserver.accept(false)
-      
+        
         var currentSelection = segmentSelectionObserver.value
         currentSelection[segmentID] = nil
         segmentSelectionObserver.accept(currentSelection)

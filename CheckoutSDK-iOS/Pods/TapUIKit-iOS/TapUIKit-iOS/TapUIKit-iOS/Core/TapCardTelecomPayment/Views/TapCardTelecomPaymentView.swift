@@ -17,7 +17,7 @@ import RxCocoa
 
 /// Represents a wrapper view that does the needed connections between cardtelecomBar, card input and telecom input
 @objc public class TapCardTelecomPaymentView: UIView {
-
+    
     // MARK:- Internal variables
     /// last reported tap card
     internal var lastReportedTapCard:TapCard = .init()
@@ -136,8 +136,8 @@ import RxCocoa
     }
     
     /**
-        Decides which delegate function about hint status to be called
-        - Parameter status: The hint status to be reported. If nill, then we will insntruct the delegate to hide all the statuses
+     Decides which delegate function about hint status to be called
+     - Parameter status: The hint status to be reported. If nill, then we will insntruct the delegate to hide all the statuses
      */
     internal func reportHintStatus(with status:TapHintViewStatusEnum?) {
         // Check if there is a status to show, or we need to hide the hint view
