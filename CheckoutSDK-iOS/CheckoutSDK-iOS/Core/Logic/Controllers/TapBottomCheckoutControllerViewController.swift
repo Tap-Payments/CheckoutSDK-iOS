@@ -146,7 +146,7 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
         gatewayChipsViewModel.append(.init(tapChipViewModel:SavedCardCollectionViewCellModel.init(title: "•••• 5678", icon:"https://img.icons8.com/color/2x/visa.png")))
         gatewayChipsViewModel.append(.init(tapChipViewModel:SavedCardCollectionViewCellModel.init(title: "•••• 9012", icon:"https://img.icons8.com/color/2x/mastercard-logo.png")))
         
-        tapGatewayChipHorizontalListViewModel = .init(dataSource: gatewayChipsViewModel.filter(), headerType: .GateWayListWithGoPayListHeader)
+        tapGatewayChipHorizontalListViewModel = .init(dataSource: [], headerType: .GateWayListWithGoPayListHeader)
         tapGatewayChipHorizontalListViewModel.delegate = self
         
         
@@ -155,13 +155,18 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
         goPayChipsViewModel.append(.init(tapChipViewModel:SavedCardCollectionViewCellModel.init(title: "•••• 5555", icon:"https://img.icons8.com/color/2x/mastercard-logo.png", listSource: .GoPayListHeader)))
         goPayChipsViewModel.append(.init(tapChipViewModel:TapLogoutChipViewModel()))
         
-        tapGoPayChipsHorizontalListViewModel = .init(dataSource: goPayChipsViewModel.filter(), headerType: .GoPayListHeader)
+        tapGoPayChipsHorizontalListViewModel = .init(dataSource: [], headerType: .GoPayListHeader)
         tapGoPayChipsHorizontalListViewModel.delegate = self
         
-        
+        setGatewayData()
         //tapGatewayChipHorizontalListViewModel.attachedView.changeViewMode(with: tapGatewayChipHorizontalListViewModel)
         //tapGoPayChipsHorizontalListViewModel.attachedView.changeViewMode(with: tapGoPayChipsHorizontalListViewModel)
         //currencyListView.changeViewMode(with: tapCurrienciesChipHorizontalListViewModel)
+    }
+    
+    func setGatewayData() {
+        tapGoPayChipsHorizontalListViewModel.dataSource = goPayChipsViewModel.filter()
+        tapGatewayChipHorizontalListViewModel.dataSource = gatewayChipsViewModel.filter()
     }
     
     
