@@ -21,6 +21,15 @@ internal class TapCheckoutSharedManager {
     var tapAmountSectionViewModel:TapAmountSectionViewModel = .init()
     /// Rerpesents the view model that controls the items list view
     var tapItemsTableViewModel:TapGenericTableViewModel = .init()
+    /// Represents the view model that controls the payment gateway chips list view
+    var tapGatewayChipHorizontalListViewModel:TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GateWayListWithGoPayListHeader)
+    /// Represents the view model that controls the gopay gateway chips list view
+    var tapGoPayChipsHorizontalListViewModel:TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GoPayListHeader)
+    
+    /// Represents the list of ALL allowed payment chips for the logged in merchant
+    var gatewayChipsViewModel:[CurrencyChipModel] = []
+    /// Represents the list of ALL allowed goPay chips for the logged in customer
+    var goPayChipsViewModel:[CurrencyChipModel] = []
     
     /// Represents a global accessable common data gathered by the merchant when loading the checkout sdk like amount, currency, etc
     private static var privateShared : TapCheckoutSharedManager?
@@ -56,6 +65,7 @@ internal class TapCheckoutSharedManager {
         print("init singleton")
         // Create default view models
         createTapMerchantHeaderViewModel()
+        createGatewayDummyChips()
         // Bind the observables
         bindTheObservables()
     }
@@ -101,6 +111,7 @@ internal class TapCheckoutSharedManager {
             }.subscribe(onNext: { [weak self] (_,_) in
             self?.updateAmountSection()
             self?.updateItemsList()
+            self?.updateGatewayChipsList()
         }).disposed(by: disposeBag)
     }
     
@@ -138,8 +149,42 @@ internal class TapCheckoutSharedManager {
         tapAmountSectionViewModel.originalTransactionAmount = transactionTotalAmountObserver.value
     }
     
-    
+    /// Handles all the logic needed when the user selected currency changed to reflect in the items list view
     private func updateItemsList() {
         tapItemsTableViewModel.dataSource.map{ $0 as! ItemCellViewModel }.forEach{ $0.convertCurrency = transactionUserCurrencyObserver.value }
+    }
+    
+    /// Handles all the logic needed when the user selected currency changed to reflect in the supported gateways chips for the new currency
+    private func updateGatewayChipsList() {
+        tapGatewayChipHorizontalListViewModel.dataSource = gatewayChipsViewModel.filter(for: transactionUserCurrencyObserver.value)
+        tapGoPayChipsHorizontalListViewModel.dataSource = goPayChipsViewModel.filter(for: transactionUserCurrencyObserver.value)
+    }
+    
+    
+    private func createGatewayDummyChips() {
+        let applePayChipViewModel:ApplePayChipViewCellModel = ApplePayChipViewCellModel.init()
+        applePayChipViewModel.configureApplePayRequest()
+        gatewayChipsViewModel.append(.init(tapChipViewModel: applePayChipViewModel, supportedCurrencies: [.AED,.USD,.SAR]))
+        
+        gatewayChipsViewModel.append(.init(tapChipViewModel: GatewayChipViewModel.init(title: "KNET", icon: "https://meetanshi.com/media/catalog/product/cache/1/image/925f46717e92fbc24a8e2d03b22927e1/m/a/magento-knet-payment-354x.png") , supportedCurrencies: [.KWD]))
+        gatewayChipsViewModel.append(.init(tapChipViewModel: GatewayChipViewModel.init(title: "KNET", icon: "https://meetanshi.com/media/catalog/product/cache/1/image/925f46717e92fbc24a8e2d03b22927e1/m/a/magento-knet-payment-354x.png") , supportedCurrencies: [.KWD]))
+        
+        gatewayChipsViewModel.append(.init(tapChipViewModel: GatewayChipViewModel.init(title: "BENEFIT", icon: "https://media-exp1.licdn.com/dms/image/C510BAQG0Pwkl3gsm2w/company-logo_200_200/0?e=2159024400&v=beta&t=ragD_Mg4TUCAiVGiYOmjT2orY1IKEOOe_JEokwkzvaY") , supportedCurrencies: [.BHD]))
+        gatewayChipsViewModel.append(.init(tapChipViewModel: GatewayChipViewModel.init(title: "BENEFIT", icon: "https://media-exp1.licdn.com/dms/image/C510BAQG0Pwkl3gsm2w/company-logo_200_200/0?e=2159024400&v=beta&t=ragD_Mg4TUCAiVGiYOmjT2orY1IKEOOe_JEokwkzvaY") , supportedCurrencies: [.BHD]))
+        
+        gatewayChipsViewModel.append(.init(tapChipViewModel: GatewayChipViewModel.init(title: "SADAD", icon: "https://www.payfort.com/wp-content/uploads/2017/09/go_glocal_mada_logo_en.png") , supportedCurrencies: [.SAR]))
+        gatewayChipsViewModel.append(.init(tapChipViewModel: GatewayChipViewModel.init(title: "SADAD", icon: "https://www.payfort.com/wp-content/uploads/2017/09/go_glocal_mada_logo_en.png") , supportedCurrencies: [.SAR]))
+        
+        
+        gatewayChipsViewModel.append(.init(tapChipViewModel: TapGoPayViewModel.init(title: "GoPay Clicked")))
+        
+        gatewayChipsViewModel.append(.init(tapChipViewModel:SavedCardCollectionViewCellModel.init(title: "•••• 1234", icon:"https://img.icons8.com/color/2x/amex.png")))
+        gatewayChipsViewModel.append(.init(tapChipViewModel:SavedCardCollectionViewCellModel.init(title: "•••• 5678", icon:"https://img.icons8.com/color/2x/visa.png")))
+        gatewayChipsViewModel.append(.init(tapChipViewModel:SavedCardCollectionViewCellModel.init(title: "•••• 9012", icon:"https://img.icons8.com/color/2x/mastercard-logo.png")))
+        
+        goPayChipsViewModel.append(.init(tapChipViewModel:SavedCardCollectionViewCellModel.init(title: "•••• 3333", icon:"https://img.icons8.com/color/2x/amex.png", listSource: .GoPayListHeader)))
+        goPayChipsViewModel.append(.init(tapChipViewModel:SavedCardCollectionViewCellModel.init(title: "•••• 4444", icon:"https://img.icons8.com/color/2x/visa.png", listSource: .GoPayListHeader)))
+        goPayChipsViewModel.append(.init(tapChipViewModel:SavedCardCollectionViewCellModel.init(title: "•••• 5555", icon:"https://img.icons8.com/color/2x/mastercard-logo.png", listSource: .GoPayListHeader)))
+        goPayChipsViewModel.append(.init(tapChipViewModel:TapLogoutChipViewModel()))
     }
 }

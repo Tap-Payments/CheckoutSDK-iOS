@@ -60,7 +60,6 @@ internal extension TapCheckout {
      - Parameter items: Represents the List of payment items if any. If no items are provided one will be created by default as PAY TO [MERCHANT NAME] -- Total value
      */
     func configureSharedManager(currency:TapCurrencyCode, amount:Double,items:[ItemModel]) {
-        TapCheckoutSharedManager.destroy()
         let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
         sharedManager.transactionCurrencyObserver.accept(currency)
         sharedManager.transactionTotalAmountObserver.accept(amount)

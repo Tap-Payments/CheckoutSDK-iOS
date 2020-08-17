@@ -44,8 +44,7 @@ internal extension Array where Element: CurrencyChipModel {
      - Parameter currency: Pass the currency you want to see its support. If no passed, the Global UserCurrency will be used as the filtering currency
      - Returns: List of the chip models that supports the given currency code
      */
-    func filter(for currency:TapCurrencyCode? = nil) -> [GenericTapChipViewModel] {
-        let filterForCurrency:TapCurrencyCode = currency ?? TapCheckoutSharedManager.sharedCheckoutManager().transactionUserCurrencyObserver.value
-        return self.filter{ $0.enable(for: filterForCurrency) }.map{ $0.tapChipViewModel }
+    func filter(for currency:TapCurrencyCode) -> [GenericTapChipViewModel] {
+        return self.filter{ $0.enable(for: currency) }.map{ $0.tapChipViewModel }
     }
 }
