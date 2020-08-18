@@ -16,15 +16,15 @@ import Foundation
 @objc public class ItemModel : NSObject, Codable {
     
     /// The title of the item
-	let title : String?
+	public let title : String?
     /// A description of the item
-	let itemDescription : String?
+	public let itemDescription : String?
     /// The raw original price in the original currency
-	let price : Double?
+	public let price : Double?
     /// The quantity added to this item
-	let quantity : Int?
+	public let quantity : Int?
     /// The discount applied to the item's price
-	let discount : DiscountModel?
+	public let discount : DiscountModel?
 
     
     /**

@@ -7,15 +7,21 @@
 //
 
 import UIKit
+import CheckoutSDK_iOS
+
+protocol AddItemViewControllerDelegate {
+    func addNewItem(with itemModel: ItemModel)
+}
 
 class AddItemViewController: FormViewController {
+    var delegate: AddItemViewControllerDelegate?
     
     var gender:String? {
-        didSet{
-               if let cell = self.sections?[2][0], let gender = self.gender {
-                    (cell as! LinkCell).valueLabel.text = gender
-                }
+        didSet {
+            if let cell = self.sections?[2][0], let gender = self.gender {
+                (cell as! LinkCell).valueLabel.text = gender
             }
+        }
     }
 
     func createFieldsAndSections()->[[Field]]{
@@ -26,12 +32,6 @@ class AddItemViewController: FormViewController {
         let discount = Field(name:"discount", title:"Discount:", cellType: NumberCell.self)
 
         let sectionPersonal = [titleField, descriptionField, price, quantity, discount]
-//        let company = Field(name:"company", title:"Company:", cellType: TextCell.self)
-//        let position = Field(name:"position", title:"Position:", cellType: TextCell.self)
-//        let salary = Field(name:"salary", title:"Salary:", cellType: NumberCell.self)
-//        let sectionProfessional = [company, position, salary]
-//        let gender = Field(name: "gender", title:"Gender:", cellType: LinkCell.self)
-//        let sectionGender = [gender]
         return [sectionPersonal]
     }
     
@@ -39,49 +39,14 @@ class AddItemViewController: FormViewController {
         return UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveTapped))
     }()
     
-    lazy var genderList = { ()-> TableViewController<String> in
-        let genders = ["male", "female"]
-        let genderList = TableViewController(items:genders, cellType: UITableViewCell.self)
-        
-        genderList.configureCell = { (cell, item, indexPath) in
-            cell.textLabel?.text = "\(item)"
-        }
-        
-        genderList.selectedRow = { (controller, indexPath) in
-            if let cell  = controller.tableView.cellForRow(at: indexPath as IndexPath){
-                cell.accessoryType = .checkmark
-                controller.selected = indexPath
-                self.gender = cell.textLabel?.text
-            }
-            controller.navigationController?.popViewController(animated: true)
-        }
-        
-        genderList.deselectedRow = { (controller, indexPath) in
-            if controller.selected != nil {
-                if let cell  = controller.tableView.cellForRow(at: controller.selected!){
-                    cell.accessoryType = .none
-                }
-            }
-        }
-        
-        genderList.title = "Venues"
-        
-        return genderList
-    }()
-    
     override init(){
         super.init()
         let its = createFieldsAndSections()
         self.fields = its
         self.sections = buildCells(items: its)
-        self.selectedRow = { [weak self] (form:FormViewController,indexPath:IndexPath) in
+        self.selectedRow = { (form:FormViewController,indexPath:IndexPath) in
             let cell = form.tableView.cellForRow(at: indexPath)
             cell?.isSelected = false
-            if cell is LinkCell {
-                if (cell as! FormCell).name == "gender" {
-                    self?.navigationController?.pushViewController(self!.genderList, animated: true)
-                }
-            }
         }
     }
     
@@ -95,7 +60,7 @@ class AddItemViewController: FormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Employee"
+        title = "Add Item"
         navigationItem.rightBarButtonItem = saveButton
         navigationController?.navigationBar.prefersLargeTitles = true
     }
@@ -106,6 +71,27 @@ class AddItemViewController: FormViewController {
     
     @objc func saveTapped(){
         let dic = self.getFormData()
+//        let titleVal = FormItem<String>.parse(input: dic["title"] ?? nil)
+//        let descriptionVal = FormItem<String>.parse(input: dic["description"] ?? nil)
+//        let priceVal = FormItem<Double>.parse(input: dic["price"] ?? nil) ?? <#default value#>
+//        let quantityVal = FormItem<Int>.parse(input: dic["quantity"] ?? nil)
+//        let discountVal = FormItem<DiscountModel>.parse(input: dic["discount"] ?? nil)
+        
+        do {
+            let jsonData = try? JSONSerialization.data(withJSONObject: dic, options: [])
+            let decoder = JSONDecoder()
+            if let jsonData = jsonData {
+                let item = try decoder.decode(ItemModel.self, from: jsonData)
+                print("item: \(item)")
+                self.delegate?.addNewItem(with: item)
+            }
+        } catch {
+            print("error parsing: \(error.localizedDescription)")
+        }
+        
+        
+
+//        let item = ItemModel(title: titleVal, description: descriptionVal, price: priceVal, quantity: quantityVal, discount: discountVal)
         let alertController = UIAlertController(title: "Form Data", message: dic.description, preferredStyle: .alert)
         //We add buttons to the alert controller by creating UIAlertActions:
         let actionOk = UIAlertAction(title: "OK",
@@ -115,4 +101,22 @@ class AddItemViewController: FormViewController {
         alertController.addAction(actionOk)
         self.present(alertController, animated: true, completion: nil)
     }
+}
+
+struct FormItem<DataParsingType: Decodable>: Prasable {
+    static func parse(input: AnyObject?) -> DataParsingType? {
+        
+        
+//        let result = try JSONDecoder().decode(MNAPIResponse<T>.self, from: response.data)
+
+        if input is DataParsingType {
+            return input as? DataParsingType
+        }
+        return nil
+    }
+}
+
+protocol Prasable: Decodable {
+    associatedtype DataParsingType
+    static func parse(input: AnyObject?) -> DataParsingType?
 }

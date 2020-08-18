@@ -86,6 +86,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="amountTextField" destination="Myq-c4-8VJ" id="Kb9-Mu-uff"/>
+                        <outlet property="paymentItemsTableView" destination="WFC-EV-pBm" id="8FG-Ye-6Jc"/>
                         <outlet property="tapPayButton" destination="JeU-3e-jLT" id="WTz-DD-uIv"/>
                     </connections>
                 </viewController>
@@ -152,7 +153,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="beq-ti-g0w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="138" y="825"/>
+            <point key="canvasLocation" x="1048" y="819"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="FRr-of-qRD">

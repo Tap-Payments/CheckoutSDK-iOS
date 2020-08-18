@@ -20,6 +20,8 @@ class ViewController: UIViewController {
     var selectedCurrency:TapCurrencyCode = .USD
     var amount:Double = 1000
     var items:[ItemModel] = []
+    @IBOutlet weak var paymentItemsTableView: UITableView!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +30,9 @@ class ViewController: UIViewController {
         TapLocalisationManager.shared.localisationLocale = "en"
         TapThemeManager.setDefaultTapTheme()
         adjustTapButton()
+        paymentItemsTableView.estimatedRowHeight = 100
+        paymentItemsTableView.rowHeight = UITableView.automaticDimension
+        paymentItemsTableView.register(UINib(nibName: "ItemTableViewCell", bundle: nil), forCellReuseIdentifier: "ItemTableViewCell")
     }
     
     func adjustTapButton() {
@@ -81,7 +86,9 @@ class ViewController: UIViewController {
     }
     @IBAction func addItemsClicked(_ sender: Any) {
         let addItemsVC = AddItemViewController()
-        present(addItemsVC, animated: true, completion: nil)
+        addItemsVC.delegate = self
+        let addItemsNav = UINavigationController(rootViewController: addItemsVC)
+        present(addItemsNav, animated: true, completion: nil)
     }
 }
 
@@ -130,4 +137,23 @@ extension ViewController:UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+}
+
+extension ViewController: UITableViewDataSource, UITableViewDelegate, AddItemViewControllerDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemTableViewCell", for: indexPath) as! ItemTableViewCell
+        cell.configure(with: items[indexPath.row])
+        return cell
+    }
+    
+    
+    func addNewItem(with itemModel: ItemModel) {
+        items.append(itemModel)
+        self.paymentItemsTableView.reloadData()
+    }
+    
 }
