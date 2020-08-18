@@ -33,6 +33,8 @@ class ViewController: UIViewController {
         paymentItemsTableView.estimatedRowHeight = 100
         paymentItemsTableView.rowHeight = UITableView.automaticDimension
         paymentItemsTableView.register(UINib(nibName: "ItemTableViewCell", bundle: nil), forCellReuseIdentifier: "ItemTableViewCell")
+        paymentItemsTableView.delegate = self
+        paymentItemsTableView.dataSource = self
     }
     
     func adjustTapButton() {
@@ -141,7 +143,7 @@ extension ViewController:UITextFieldDelegate {
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate, AddItemViewControllerDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

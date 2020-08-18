@@ -71,52 +71,27 @@ class AddItemViewController: FormViewController {
     
     @objc func saveTapped(){
         let dic = self.getFormData()
-//        let titleVal = FormItem<String>.parse(input: dic["title"] ?? nil)
-//        let descriptionVal = FormItem<String>.parse(input: dic["description"] ?? nil)
-//        let priceVal = FormItem<Double>.parse(input: dic["price"] ?? nil) ?? <#default value#>
-//        let quantityVal = FormItem<Int>.parse(input: dic["quantity"] ?? nil)
-//        let discountVal = FormItem<DiscountModel>.parse(input: dic["discount"] ?? nil)
+        let titleVal = dic["title"] as? String ?? ""
+        let descriptionVal = dic["description"] as? String ?? ""
+        let priceVal = dic["price"] as? Double ?? 0.0
+        let quantityVal = dic["quantity"] as? Int ?? 0
+        let discountVal = dic["discount"] as? Double ?? 0.0
         
-        do {
-            let jsonData = try? JSONSerialization.data(withJSONObject: dic, options: [])
-            let decoder = JSONDecoder()
-            if let jsonData = jsonData {
-                let item = try decoder.decode(ItemModel.self, from: jsonData)
-                print("item: \(item)")
-                self.delegate?.addNewItem(with: item)
-            }
-        } catch {
-            print("error parsing: \(error.localizedDescription)")
-        }
+        let item = ItemModel(title: titleVal, description: descriptionVal, price: priceVal, quantity: quantityVal, discount: DiscountModel(type: .Fixed, value: discountVal))
+        print("item: \(item)")
+        self.delegate?.addNewItem(with: item)
+           
         
-        
+        dismiss(animated: true, completion: nil)
 
 //        let item = ItemModel(title: titleVal, description: descriptionVal, price: priceVal, quantity: quantityVal, discount: discountVal)
-        let alertController = UIAlertController(title: "Form Data", message: dic.description, preferredStyle: .alert)
-        //We add buttons to the alert controller by creating UIAlertActions:
-        let actionOk = UIAlertAction(title: "OK",
-                                     style: .default,
-                                     handler: nil) //You can use a block here to handle a press on this button
-        
-        alertController.addAction(actionOk)
-        self.present(alertController, animated: true, completion: nil)
+//        let alertController = UIAlertController(title: "Form Data", message: dic.description, preferredStyle: .alert)
+//        //We add buttons to the alert controller by creating UIAlertActions:
+//        let actionOk = UIAlertAction(title: "OK",
+//                                     style: .default,
+//                                     handler: nil) //You can use a block here to handle a press on this button
+//
+//        alertController.addAction(actionOk)
+//        self.present(alertController, animated: true, completion: nil)
     }
-}
-
-struct FormItem<DataParsingType: Decodable>: Prasable {
-    static func parse(input: AnyObject?) -> DataParsingType? {
-        
-        
-//        let result = try JSONDecoder().decode(MNAPIResponse<T>.self, from: response.data)
-
-        if input is DataParsingType {
-            return input as? DataParsingType
-        }
-        return nil
-    }
-}
-
-protocol Prasable: Decodable {
-    associatedtype DataParsingType
-    static func parse(input: AnyObject?) -> DataParsingType?
 }
