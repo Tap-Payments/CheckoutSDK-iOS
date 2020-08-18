@@ -79,6 +79,10 @@ class ViewController: UIViewController {
         settingsVC.delegate = self
         present(settingsVC, animated: true, completion: nil)
     }
+    @IBAction func addItemsClicked(_ sender: Any) {
+        let addItemsVC = AddItemViewController()
+        present(addItemsVC, animated: true, completion: nil)
+    }
 }
 
 extension ViewController: SettingsDelegate {
