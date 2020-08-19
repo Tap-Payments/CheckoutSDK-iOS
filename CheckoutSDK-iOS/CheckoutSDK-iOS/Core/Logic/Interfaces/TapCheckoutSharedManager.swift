@@ -123,6 +123,7 @@ internal class TapCheckoutSharedManager {
             self?.updateItemsList()
             self?.updateGatewayChipsList()
             self?.updateCardTelecomList()
+            self?.updateApplePayRequest()
         }).disposed(by: disposeBag)
     }
     
@@ -173,7 +174,15 @@ internal class TapCheckoutSharedManager {
         tapCardTelecomPaymentViewModel.changeTapCountry(to: tapCardPhoneListDataSource.telecomCountry(for: transactionUserCurrencyObserver.value))
     }
     
-    
+    /// Handles all the logic needed to correctly parse the passed data into a correct Apple Pay request format
+    private func updateApplePayRequest() {
+        // get the apple pay chip view modl
+        let applePayChips = gatewayChipsViewModel.filter{ $0.tapChipViewModel.isKind(of: ApplePayChipViewCellModel.self) }
+        guard applePayChips.count > 0, let applePayChipViewModel:ApplePayChipViewCellModel = applePayChips[0].tapChipViewModel as? ApplePayChipViewCellModel else { // meaning no apple pay chip is there
+            return }
+        
+        applePayChipViewModel.configureApplePayRequest(currencyCode: transactionUserCurrencyObserver.value,paymentItems: transactionItemsObserver.value.toApplePayItems(), amount: transactionTotalAmountObserver.value)
+    }
 }
 
 
