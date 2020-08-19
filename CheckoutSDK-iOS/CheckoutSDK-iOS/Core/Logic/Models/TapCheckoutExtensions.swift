@@ -44,18 +44,22 @@ internal extension Array where Element: CurrencyChipModel {
 internal extension Array where Element: ItemModel {
     /**
      Extended method to easily extract the total amount of a list of tap payment items
+     - Parameter convertFromCurrency: The original currency if needed to convert from
+     - Parameter convertToCurrenct: The new currency if needed to convert to
      - Returns: Total amount of list of tap payment items
      */
-    func totalItemsPrices() -> Double {
-        return self.map{ $0.itemFinalPrice() }.reduce(0, +)
+    func totalItemsPrices(convertFromCurrency:TapCurrencyCode? = nil,convertToCurrenct:TapCurrencyCode? = nil) -> Double {
+        return self.map{ $0.itemFinalPrice(convertFromCurrency: convertFromCurrency, convertToCurrenct: convertToCurrenct) }.reduce(0, +)
     }
     
     /**
      Extended method to easily covert list of tap payment items to Apple pay payment items
+     - Parameter convertFromCurrency: The original currency if needed to convert from
+     - Parameter convertToCurrenct: The new currency if needed to convert to
      - Returns: Correctly Apple Pay payment items
      */
-    func toApplePayItems() -> [PKPaymentSummaryItem] {
-        return self.map{ PKPaymentSummaryItem.init(label: $0.title ?? "Item", amount: NSDecimalNumber(value: $0.itemFinalPrice())) }
+    func toApplePayItems(convertFromCurrency:TapCurrencyCode? = nil,convertToCurrenct:TapCurrencyCode? = nil) -> [PKPaymentSummaryItem] {
+        return self.map{ PKPaymentSummaryItem.init(label: $0.title ?? "Item", amount: NSDecimalNumber(value: $0.itemFinalPrice(convertFromCurrency: convertFromCurrency, convertToCurrenct: convertToCurrenct))) }
     }
 }
 

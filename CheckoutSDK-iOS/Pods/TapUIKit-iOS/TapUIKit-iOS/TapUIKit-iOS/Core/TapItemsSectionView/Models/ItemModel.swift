@@ -12,6 +12,8 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 */
 
 import Foundation
+import enum CommonDataModelsKit_iOS.TapCurrencyCode
+
 /// Represent the model of an ITEM inside an order/transaction
 @objc public class ItemModel : NSObject, Codable {
     
@@ -63,9 +65,11 @@ import Foundation
     
     /**
      Holds the logic to calculate the final price of the item based on price, quantity and discount
+     - Parameter convertFromCurrency: The original currency if needed to convert from
+     - Parameter convertToCurrenct: The new currency if needed to convert to
      - Returns: The total price of the item as follows : (itemPrice-discount) * quantity
      */
-    public func itemFinalPrice() -> Double {
+    public func itemFinalPrice(convertFromCurrency:TapCurrencyCode? = nil,convertToCurrenct:TapCurrencyCode? = nil) -> Double {
         
         // Defensive coding, make sure all values are set
         guard let price = price else { return 0 }
@@ -76,8 +80,13 @@ import Foundation
         // Put in the quantity in action
         discountedItemPrice = discountedItemPrice * Double(quantity ?? 1)
         
-        return discountedItemPrice
+        // Check if the caller wants to make a conversion to a certain currency
+        guard let originalCurrency = convertFromCurrency, let conversionCurrency = convertToCurrenct,
+            originalCurrency != .undefined, conversionCurrency !=  .undefined else {
+            return discountedItemPrice
+        }
         
+        return conversionCurrency.convert(from: originalCurrency, for: discountedItemPrice)
     }
     
 }

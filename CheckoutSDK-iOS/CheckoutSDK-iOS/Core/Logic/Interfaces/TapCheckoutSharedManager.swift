@@ -181,7 +181,8 @@ internal class TapCheckoutSharedManager {
         guard applePayChips.count > 0, let applePayChipViewModel:ApplePayChipViewCellModel = applePayChips[0].tapChipViewModel as? ApplePayChipViewCellModel else { // meaning no apple pay chip is there
             return }
         
-        applePayChipViewModel.configureApplePayRequest(currencyCode: transactionUserCurrencyObserver.value,paymentItems: transactionItemsObserver.value.toApplePayItems(), amount: transactionTotalAmountObserver.value)
+        applePayChipViewModel.configureApplePayRequest(currencyCode: transactionUserCurrencyObserver.value,paymentItems: transactionItemsObserver.value.toApplePayItems(convertFromCurrency: transactionCurrencyObserver.value, convertToCurrenct: transactionUserCurrencyObserver.value), amount: transactionUserCurrencyObserver.value.convert(from: transactionCurrencyObserver.value, for: transactionTotalAmountObserver.value))
+        
     }
 }
 
