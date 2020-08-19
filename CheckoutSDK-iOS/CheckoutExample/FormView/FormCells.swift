@@ -18,7 +18,7 @@ open class FormCell:UITableViewCell {
         return v
     }()
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
         self.setup()
     }
@@ -34,7 +34,7 @@ open class FormCell:UITableViewCell {
     }
     
     func setup() {
-        self.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+        self.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
         self.textLabel?.textColor = .black
     }
     
@@ -150,7 +150,7 @@ open class TextCell: FormCell, UITextFieldDelegate {
     
     var textField:UITextField = {
         let tf = UITextField()
-        tf.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+        tf.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
         tf.autocorrectionType = .no
         tf.autocapitalizationType = .none
         tf.tag = 3
@@ -221,12 +221,12 @@ open class NumberCell: FormCell, UITextFieldDelegate {
         nf.tag = 3
         nf.translatesAutoresizingMaskIntoConstraints = false
         nf.placeholder = "0.00"
-        nf.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.title1)
+        nf.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.title1)
         nf.autocorrectionType = UITextAutocorrectionType.no
         nf.keyboardType = UIKeyboardType.numberPad
         nf.returnKeyType = UIReturnKeyType.done
-        nf.clearButtonMode = UITextFieldViewMode.whileEditing
-        nf.contentVerticalAlignment = UIControlContentVerticalAlignment.center
+        nf.clearButtonMode = UITextField.ViewMode.whileEditing
+        nf.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
         nf.textAlignment = NSTextAlignment.center
         return nf
     }()
@@ -449,7 +449,7 @@ open class DateCell : TextCell {
         
         accessoryType = .none
         editingAccessoryType =  .none
-        datePicker.datePickerMode = UIDatePickerMode.date
+        datePicker.datePickerMode = UIDatePicker.Mode.date
         self.textField.inputView = datePicker
         datePicker.addTarget(self, action: #selector(DateCell.datePickerValueChanged(_:)), for: .valueChanged)
     }
@@ -479,7 +479,7 @@ open class DateCell : TextCell {
 
 open class ButtonCell: FormCell, UITextFieldDelegate {
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setup()
     }
@@ -500,7 +500,7 @@ open class ButtonCell: FormCell, UITextFieldDelegate {
         accessoryType = .none
         editingAccessoryType = accessoryType
         textLabel?.textAlignment = .center
-        textLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.title1)
+        textLabel?.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.title1)
     }
 }
 
@@ -512,13 +512,13 @@ open class LinkCell : FormCell {
         l.translatesAutoresizingMaskIntoConstraints = false
         l.baselineAdjustment = .alignCenters
         l.textAlignment = .right
-        l.font =  UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+        l.font =  UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
         l.textColor = UIColor.black
         l.backgroundColor = UIColor.clear
         return l
     }()
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style:.value1, reuseIdentifier: reuseIdentifier)
         self.setup()
         textLabel?.textColor = .black
@@ -601,7 +601,7 @@ open class SliderCell: FormCell {
     lazy var valueLabel:UILabel = {
         let l = self.getLabel()
         l.textColor = UIColor.lightGray
-        l.font =  UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
+        l.font =  UIFont.preferredFont(forTextStyle: UIFont.TextStyle.subheadline)
         l.text = "00 %"
         return l
     }()
@@ -672,7 +672,7 @@ open class SliderCell: FormCell {
     func getLabel()->UILabel{
         let l = UILabel()
         l.textAlignment = .center
-        l.font =  UIFont.preferredFont(forTextStyle: UIFontTextStyle.caption1)
+        l.font =  UIFont.preferredFont(forTextStyle: UIFont.TextStyle.caption1)
         l.textColor = UIColor.black
         l.backgroundColor = UIColor.clear
         return l
@@ -706,7 +706,7 @@ open class SwitchCell:FormCell {
     
     
     override func setup() {
-        self.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.caption1)
+        self.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.caption1)
         self.addSubview(self.switchStack)
     }
     
@@ -757,7 +757,7 @@ open class StepperCell:FormCell {
     }()
     
     override func setup() {
-        self.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.caption1)
+        self.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.caption1)
         self.addSubview(self.switchStack)
     }
     
