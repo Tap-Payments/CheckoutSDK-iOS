@@ -36,6 +36,8 @@ internal class TapCheckoutSharedManager {
     var gatewayChipsViewModel:[CurrencyChipModel] = []
     /// Represents the list of ALL allowed goPay chips for the logged in customer
     var goPayChipsViewModel:[CurrencyChipModel] = []
+    /// Represents The Apple pay merchant id to be used inside the apple pay kit
+    var applePayMerchantID:String = ""
     
     /// Represents a global accessable common data gathered by the merchant when loading the checkout sdk like amount, currency, etc
     private static var privateShared : TapCheckoutSharedManager?
@@ -181,7 +183,7 @@ internal class TapCheckoutSharedManager {
         guard applePayChips.count > 0, let applePayChipViewModel:ApplePayChipViewCellModel = applePayChips[0].tapChipViewModel as? ApplePayChipViewCellModel else { // meaning no apple pay chip is there
             return }
         
-        applePayChipViewModel.configureApplePayRequest(currencyCode: transactionUserCurrencyObserver.value,paymentItems: transactionItemsObserver.value.toApplePayItems(convertFromCurrency: transactionCurrencyObserver.value, convertToCurrenct: transactionUserCurrencyObserver.value), amount: transactionUserCurrencyObserver.value.convert(from: transactionCurrencyObserver.value, for: transactionTotalAmountObserver.value))
+        applePayChipViewModel.configureApplePayRequest(currencyCode: transactionUserCurrencyObserver.value,paymentItems: transactionItemsObserver.value.toApplePayItems(convertFromCurrency: transactionCurrencyObserver.value, convertToCurrenct: transactionUserCurrencyObserver.value), amount: transactionUserCurrencyObserver.value.convert(from: transactionCurrencyObserver.value, for: transactionTotalAmountObserver.value), merchantID: applePayMerchantID)
         
     }
 }

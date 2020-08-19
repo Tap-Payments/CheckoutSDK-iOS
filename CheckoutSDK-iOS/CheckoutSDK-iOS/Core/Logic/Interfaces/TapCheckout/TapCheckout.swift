@@ -73,13 +73,14 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter currency: Represents the original transaction currency stated by the merchant on checkout start
      - Parameter amount: Represents the original total transaction amount stated by the merchant on checkout start
      - Parameter items: Represents the List of payment items if any. If no items are provided one will be created by default as PAY TO [MERCHANT NAME] -- Total value
+     - Parameter applePayMerchantID: The Apple pay merchant id to be used inside the apple pay kit
      */
-    @objc public func build(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil,currency:TapCurrencyCode = .USD,amount:Double = 1,items:[ItemModel] = []) -> TapCheckout {
+    @objc public func build(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil,currency:TapCurrencyCode = .USD,amount:Double = 1,items:[ItemModel] = [],applePayMerchantID:String = "merchant.tap.gosell") -> TapCheckout {
         TapCheckoutSharedManager.destroy()
         tapCheckoutScreenDelegate = delegate
         configureLocalisationManager(localiseFile: localiseFile)
         configureThemeManager(customTheme:customTheme)
-        configureSharedManager(currency:currency, amount:amount,items:items)
+        configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID)
         configureBottomSheet()
         return self
     }
