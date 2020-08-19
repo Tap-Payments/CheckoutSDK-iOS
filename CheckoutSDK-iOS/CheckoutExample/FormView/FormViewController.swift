@@ -133,7 +133,7 @@ class FormViewController: UIViewController {
                 }
             }
         }
-        print(data!)
+        //print(data!)
         return self.data!
     }
     
@@ -252,15 +252,15 @@ extension FormViewController:UITableViewDelegate {
 extension FormViewController:UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        print("numberOfSections")
-        print("sections: \(self.sections?.count ?? -1)")
+        //print("numberOfSections")
+        //print("sections: \(self.sections?.count ?? -1)")
         if self.sections == nil  { return 0 }
         return self.fields?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("numberOfRowsInSection")
-        print("sections: \(self.sections?.count ?? -1)")
+        //print("numberOfRowsInSection")
+        //print("sections: \(self.sections?.count ?? -1)")
         if self.sections == nil { return 0 }
         return self.fields?[section].count ?? 0
     }

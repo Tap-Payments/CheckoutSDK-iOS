@@ -178,7 +178,7 @@ open class TextCell: FormCell, UITextFieldDelegate {
     }
     
     open func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-         print("textFieldShouldReturn")
+         //print("textFieldShouldReturn")
         textField.resignFirstResponder()
         return true
     }
@@ -262,15 +262,15 @@ open class NumberCell: FormCell, UITextFieldDelegate {
     }
     
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    //    print("amountTypedString:\(amountTypedString)")
+    //    //print("amountTypedString:\(amountTypedString)")
         if string.count > 0 {
-            print(string)
+            //print(string)
             amountTypedString += string
-            print(amountTypedString)
+            //print(amountTypedString)
             let decNumber = NSDecimalNumber(value: Float(amountTypedString)! as Float).multiplying(by: 0.01)
-            print(decNumber)
+            //print(decNumber)
             let newString = formatter.string(from: decNumber)!
-            print(newString)
+            //print(newString)
             numberFormatted.text = newString
         } else {
             amountTypedString = String(amountTypedString.dropLast())
@@ -306,9 +306,9 @@ open class NumberCell: FormCell, UITextFieldDelegate {
                 strValue = strValue.replacingOccurrences(of: String(i), with: "")
             }
         }
-  //      print("filtered: \(strValue)")
+  //      //print("filtered: \(strValue)")
         amountTypedString = strValue
-  //      print("amountTypedString:\(amountTypedString)")
+  //      //print("amountTypedString:\(amountTypedString)")
     }
     
     override func getCellData()-> (key: String, value: AnyObject){
@@ -355,7 +355,7 @@ open class NameCell : TextCell {
     }
     
     override open func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        print("textFieldShouldReturn")
+        //print("textFieldShouldReturn")
         textField.resignFirstResponder()
         return true
     }
@@ -625,7 +625,7 @@ open class SliderCell: FormCell {
     
     
     lazy var mainStack:UIStackView = {
-        print("main")
+        //print("main")
         let s = UIStackView(frame: self.bounds)
         s.axis = .vertical
         s.distribution = .fill
