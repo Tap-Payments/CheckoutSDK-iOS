@@ -81,9 +81,9 @@
 		620965FA24E4364100BD9985 /* LocalisationSwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalisationSwitchTableViewCell.swift; sourceTree = "<group>"; };
 		620965FB24E4364100BD9985 /* LocalisationSwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocalisationSwitchTableViewCell.xib; sourceTree = "<group>"; };
 		62570A0F24EA6F2500274C2C /* TapSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapSettings.swift; sourceTree = "<group>"; };
-		62B45F9D24EBD6680094FB4B /* FormCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FormCells.swift; path = "../../../../../../../../../Downloads/TableForm-master/TableForm/FormCells.swift"; sourceTree = "<group>"; };
-		62B45F9E24EBD6680094FB4B /* FormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FormViewController.swift; path = "../../../../../../../../../Downloads/TableForm-master/TableForm/FormViewController.swift"; sourceTree = "<group>"; };
-		62B45F9F24EBD6680094FB4B /* FormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FormView.swift; path = "../../../../../../../../../Downloads/TableForm-master/TableForm/FormView.swift"; sourceTree = "<group>"; };
+		62B45F9D24EBD6680094FB4B /* FormCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormCells.swift; sourceTree = "<group>"; };
+		62B45F9E24EBD6680094FB4B /* FormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
+		62B45F9F24EBD6680094FB4B /* FormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormView.swift; sourceTree = "<group>"; };
 		62B45FA424EBE19B0094FB4B /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
 		62B45FA624EBE2210094FB4B /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		62B45FA824EBF2620094FB4B /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
