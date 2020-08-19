@@ -32,35 +32,22 @@
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WFC-EV-pBm">
-                                <rect key="frame" x="20" y="200" width="374" height="601"/>
+                                <rect key="frame" x="20" y="162" width="374" height="639"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CkX-Pe-ih9">
-                                <rect key="frame" x="325" y="162" width="69" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="TGo-hn-Hxk"/>
-                                    <constraint firstAttribute="width" constant="69" id="us2-Z9-1qZ"/>
-                                </constraints>
-                                <state key="normal" title="Add Item"/>
-                                <connections>
-                                    <action selector="addItemsClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lj5-EA-qG1"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="0oM-Y9-Frd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="6B4-tp-X02"/>
-                            <constraint firstItem="CkX-Pe-ih9" firstAttribute="top" secondItem="Myq-c4-8VJ" secondAttribute="bottom" constant="20" id="Ig5-PX-nvb"/>
                             <constraint firstItem="JeU-3e-jLT" firstAttribute="top" secondItem="WFC-EV-pBm" secondAttribute="bottom" constant="20" id="JKs-wa-dTP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="WFC-EV-pBm" secondAttribute="trailing" constant="20" id="JMy-Zs-nuC"/>
                             <constraint firstItem="0oM-Y9-Frd" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Njt-9g-BGE"/>
                             <constraint firstAttribute="bottom" secondItem="0oM-Y9-Frd" secondAttribute="bottom" id="XgC-gb-Trp"/>
                             <constraint firstItem="WFC-EV-pBm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="ar4-NP-Jdr"/>
-                            <constraint firstItem="CkX-Pe-ih9" firstAttribute="trailing" secondItem="WFC-EV-pBm" secondAttribute="trailing" id="djy-L7-0hx"/>
                             <constraint firstItem="0oM-Y9-Frd" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="es5-Jc-hzE"/>
+                            <constraint firstItem="WFC-EV-pBm" firstAttribute="top" secondItem="Myq-c4-8VJ" secondAttribute="bottom" constant="20" id="gon-4o-R39"/>
                             <constraint firstItem="JeU-3e-jLT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="gqh-O8-7aC"/>
                             <constraint firstItem="Myq-c4-8VJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="iat-LF-Bs2"/>
-                            <constraint firstItem="WFC-EV-pBm" firstAttribute="top" secondItem="CkX-Pe-ih9" secondAttribute="bottom" constant="8" id="jka-Yc-QLt"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Myq-c4-8VJ" secondAttribute="trailing" constant="20" id="k8x-Jh-WFE"/>
                             <constraint firstItem="Myq-c4-8VJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="oPw-rJ-Qky"/>
                             <constraint firstItem="JeU-3e-jLT" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="rGF-mM-WKT"/>
@@ -80,6 +67,20 @@
                                 <state key="normal" title="Settings"/>
                                 <connections>
                                     <action selector="showSettings:" destination="BYZ-38-t0r" eventType="touchUpInside" id="COT-Gd-77w"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="Oeq-91-Uwd">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="CkX-Pe-ih9">
+                                <rect key="frame" x="325" y="7" width="69" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="TGo-hn-Hxk"/>
+                                    <constraint firstAttribute="width" constant="69" id="us2-Z9-1qZ"/>
+                                </constraints>
+                                <state key="normal" title="Add Item"/>
+                                <connections>
+                                    <action selector="addItemsClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lj5-EA-qG1"/>
                                 </connections>
                             </button>
                         </barButtonItem>
