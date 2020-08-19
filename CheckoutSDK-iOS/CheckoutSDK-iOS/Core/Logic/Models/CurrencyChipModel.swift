@@ -41,14 +41,3 @@ internal class CurrencyChipModel {
         
     }
 }
-
-internal extension Array where Element: CurrencyChipModel {
-    /**
-     Extended method to easily extract the list of GenericTapChipViewModel from list of CurrencyChipModel that supports a certain currenct
-     - Parameter currency: Pass the currency you want to see its support. If no passed, the Global UserCurrency will be used as the filtering currency
-     - Returns: List of the chip models that supports the given currency code
-     */
-    func filter(for currency:TapCurrencyCode) -> [GenericTapChipViewModel] {
-        return self.filter{ $0.isEnabled(for: currency) }.map{ $0.tapChipViewModel }
-    }
-}

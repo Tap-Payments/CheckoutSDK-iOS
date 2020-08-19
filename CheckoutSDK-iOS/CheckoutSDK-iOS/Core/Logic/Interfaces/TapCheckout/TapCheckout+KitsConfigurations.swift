@@ -62,13 +62,15 @@ internal extension TapCheckout {
     func configureSharedManager(currency:TapCurrencyCode, amount:Double,items:[ItemModel]) {
         let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
         sharedManager.transactionCurrencyObserver.accept(currency)
-        sharedManager.transactionTotalAmountObserver.accept(amount)
+        
         // if items has no items, we need to add the default items
         if items == [] {
             sharedManager.transactionItemsObserver.accept([ItemModel.init(title: "PAY TO TAP PAYMENTS",description: nil, price: amount, quantity: 1,discount: nil)])
         }else {
             sharedManager.transactionItemsObserver.accept(items)
         }
+        
+        sharedManager.transactionTotalAmountObserver.accept(items.totalItemsPrices())
     }
     
 }
