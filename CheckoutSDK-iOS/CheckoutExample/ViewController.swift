@@ -61,15 +61,9 @@ class ViewController: UIViewController {
             currency: selectedCurrency,
             amount: amount,
             items: items,
-            presentIn: self)
-//        checkout.build(
-//                localiseFile: localisationFileName,
-//                customTheme: customTheme,
-//                delegate: self,
-//                currency: selectedCurrency,
-//                amount: amount,
-//                items: items
-//            ).start(presentIn: self)
+            onCheckOutReady: {[weak self] tapCheckOut in
+                tapCheckOut.start(presentIn: self)
+            })
     }
     
     @IBAction func showSettings(_ sender: UIButton) {

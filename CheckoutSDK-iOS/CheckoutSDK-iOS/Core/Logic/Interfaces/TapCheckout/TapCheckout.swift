@@ -74,16 +74,16 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter amount: Represents the original total transaction amount stated by the merchant on checkout start
      - Parameter items: Represents the List of payment items if any. If no items are provided one will be created by default as PAY TO [MERCHANT NAME] -- Total value
      - Parameter applePayMerchantID: The Apple pay merchant id to be used inside the apple pay kit
+     - Parameter onCheckOutReady: This will be called once the checkout is ready so you can use it to present it or cancel it
      */
-    @objc public func build(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil,currency:TapCurrencyCode = .USD,amount:Double = 1,items:[ItemModel] = [],applePayMerchantID:String = "merchant.tap.gosell", presentIn controller: UIViewController) {
+    @objc public func build(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil,currency:TapCurrencyCode = .USD,amount:Double = 1,items:[ItemModel] = [],applePayMerchantID:String = "merchant.tap.gosell",onCheckOutReady:(TapCheckout) -> () = {_ in}){
         TapCheckoutSharedManager.destroy()
         tapCheckoutScreenDelegate = delegate
         configureLocalisationManager(localiseFile: localiseFile)
         configureThemeManager(customTheme:customTheme)
         configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID)
         configureBottomSheet()
-        start(presentIn: controller)
-//        onCheckoutBuildReady(self)
+        onCheckOutReady(self)
     }
     
     
@@ -91,7 +91,8 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      Starts the TapCheckout UIView in the required viewcontroller
      - Parameter controller: This is th view controller you want to show the tap checkout in
      */
-    @objc public func start(presentIn controller:UIViewController) {
+    @objc public func start(presentIn controller:UIViewController?) {
+        guard let controller = controller else { return }
         DispatchQueue.main.async { [weak self] in
             controller.present(self!.bottomSheetController, animated: true, completion: nil)
         }
