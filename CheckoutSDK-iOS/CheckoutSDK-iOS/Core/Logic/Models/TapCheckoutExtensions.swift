@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PassKit
 
 internal extension Array where Element: CurrencyCardsTelecomModel {
     /**
@@ -47,6 +48,14 @@ internal extension Array where Element: ItemModel {
      */
     func totalItemsPrices() -> Double {
         return self.map{ $0.itemFinalPrice() }.reduce(0, +)
+    }
+    
+    /**
+     Extended method to easily covert list of tap payment items to Apple pay payment items
+     - Returns: Correctly Apple Pay payment items
+     */
+    func toApplePayItems() -> [PKPaymentSummaryItem] {
+        return self.map{ PKPaymentSummaryItem.init(label: $0.title ?? "Item", amount: NSDecimalNumber(value: $0.itemFinalPrice())) }
     }
 }
 
