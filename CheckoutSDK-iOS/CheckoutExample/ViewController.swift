@@ -54,15 +54,22 @@ class ViewController: UIViewController {
         let checkout:TapCheckout = .init()
         TapCheckout.flippingStatus = .FlipOnLoadWithFlippingBack
         TapCheckout.localeIdentifier = localeID
-        
         checkout.build(
-                localiseFile: localisationFileName,
-                customTheme: customTheme,
-                delegate: self,
-                currency: selectedCurrency,
-                amount: amount,
-                items: items
-            ).start(presentIn: self)
+            localiseFile: localisationFileName,
+            customTheme: customTheme,
+            delegate: self,
+            currency: selectedCurrency,
+            amount: amount,
+            items: items,
+            presentIn: self)
+//        checkout.build(
+//                localiseFile: localisationFileName,
+//                customTheme: customTheme,
+//                delegate: self,
+//                currency: selectedCurrency,
+//                amount: amount,
+//                items: items
+//            ).start(presentIn: self)
     }
     
     @IBAction func showSettings(_ sender: UIButton) {
