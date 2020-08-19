@@ -18,7 +18,9 @@ class ViewController: UIViewController {
     var customTheme:TapCheckOutTheme? = nil
     @IBOutlet weak var amountTextField: UITextField!
     var selectedCurrency:TapCurrencyCode = .USD
-    var amount:Double = 1000
+    var amount:Double {
+        return Double(amountTextField.text ?? "") ?? 1000
+    }
     var items:[ItemModel] = []
     @IBOutlet weak var paymentItemsTableView: UITableView!
 
@@ -114,7 +116,6 @@ extension ViewController:UITextFieldDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
-        amount = Double(amountTextField.text ?? "") ?? 1000
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -138,6 +139,20 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate, AddItemVie
     func addNewItem(with itemModel: ItemModel) {
         items.append(itemModel)
         self.paymentItemsTableView.reloadData()
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+            // handle delete (by removing the data from your array and updating the tableview)
+            items.remove(at: indexPath.row)
+            tableView.beginUpdates()
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
+        }
     }
     
 }

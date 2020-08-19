@@ -32,7 +32,7 @@ internal extension UIImageView {
             addTapGesture()
         }
     }
-
+    
     
     /// The tap gesture recognizer that listens to the tap
     private var gesture: UITapGestureRecognizer {
@@ -46,7 +46,7 @@ internal extension UIImageView {
         // Disable all the old gestures if any
         if let attachedGestures = self.gestureRecognizers {
             for l in 0 ..< attachedGestures.count {
-               self.gestureRecognizers![l].isEnabled = false
+                self.gestureRecognizers![l].isEnabled = false
             }
         }
         
@@ -54,7 +54,7 @@ internal extension UIImageView {
         self.isUserInteractionEnabled = true
         self.addGestureRecognizer(gesture)
     }
-
+    
     @objc private func tapped() {
         callback()
     }
@@ -76,7 +76,7 @@ internal extension UIImage {
     
     
     // MARK:- Black and White
-     ///Convert the image into a grayscale one
+    ///Convert the image into a grayscale one
     func toGrayScale() -> UIImage {
         let blackWhite = TapBlackWhiteImage()
         blackWhite.inputImage = self
@@ -89,14 +89,14 @@ internal extension UIImage {
 
 // MARK:- UIView extensions
 
-internal extension UIView {
+public extension UIView {
     // MARK:- Making corner radious for certain corners
     /**
-    Assigns a radious value to certain corners
-    - Parameter corners: The  corners we want to apply the radious to
-    - Parameter radius: The radius value we want  to apply
-    */
-    func tapRoundCorners(corners:CACornerMask, radius: CGFloat) {
+     Assigns a radious value to certain corners
+     - Parameter corners: The  corners we want to apply the radious to
+     - Parameter radius: The radius value we want  to apply
+     */
+    internal func tapRoundCorners(corners:CACornerMask, radius: CGFloat) {
         self.layer.cornerRadius = CGFloat(radius)
         self.clipsToBounds = true
         self.layer.maskedCorners = corners
@@ -108,7 +108,7 @@ internal extension UIView {
      Wiggle animation for the uiview
      - Parameter on : If set then wiggle will start
      */
-    func wiggle(on:Bool) {
+    internal func wiggle(on:Bool) {
         self.layer.removeAllAnimations()
         if on {
             let transformAnim  = CAKeyframeAnimation(keyPath:"transform")
@@ -128,7 +128,7 @@ internal extension UIView {
      - Parameter identefier: The name of the XIB, default is the name of the UIView
      - Parameter addAsSubView: Indicates whether the method should add the loaded XIB into the UIView, default is true
      */
-    public func setupXIB(from bundle:Bundle? = nil, with identefier: String? = nil, then addAsSubView:Bool = true) -> UIView {
+    func setupXIB(from bundle:Bundle? = nil, with identefier: String? = nil, then addAsSubView:Bool = true) -> UIView {
         
         // Whether we use the passed bundle if any, or by default we use the bundle that contains the caller UIView
         let bundle = bundle ?? Bundle(for: Self.self)
