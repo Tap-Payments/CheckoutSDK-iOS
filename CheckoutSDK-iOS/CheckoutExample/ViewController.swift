@@ -52,24 +52,6 @@ class ViewController: UIViewController {
         let checkout:TapCheckout = .init()
         TapCheckout.flippingStatus = .FlipOnLoadWithFlippingBack
         TapCheckout.localeIdentifier = localeID
-        items = []
-        for i in 1...Int.random(in: 3..<20) {
-            var itemTitle:String = "Item Title # \(i)"
-            if i % 5 == 4 {
-                itemTitle = "VERY LOOOOOOOOOOOOOONG ITEM TITLE Item Title # \(i)"
-            }
-            let itemDescriptio:String = "Item Description # \(i)"
-            let itemPrice:Double = Double.random(in: 10..<4000)
-            let itemQuantity:Int = Int.random(in: 1..<10)
-            let itemDiscountValue:Double = Double.random(in: 0..<itemPrice)
-            var itemDiscount:DiscountModel? = .init(type: .Fixed, value: itemDiscountValue)
-            if i % 5 == 2 {
-                itemDiscount = nil
-            }
-            let itemModel:ItemModel = .init(title: itemTitle, description: itemDescriptio, price: itemPrice, quantity: itemQuantity, discount: itemDiscount)
-            items.append(itemModel)
-        }
-        
         
         checkout.build(
                 localiseFile: localisationFileName,

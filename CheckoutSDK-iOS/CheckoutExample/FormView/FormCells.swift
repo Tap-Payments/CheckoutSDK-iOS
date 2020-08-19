@@ -331,8 +331,8 @@ open class IntCell : TextCell {
     }
     
     override func setCellData(key: String, value: AnyObject){
-        let nf = NumberFormatter()
-        self.textField.text! = nf.string(from: value as! NSNumber)!
+        //let nf = NumberFormatter()
+        self.textField.text = "\(value)"
     }
     
 }
