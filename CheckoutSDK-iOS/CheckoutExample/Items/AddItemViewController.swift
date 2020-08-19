@@ -73,9 +73,9 @@ class AddItemViewController: FormViewController {
         let dic = self.getFormData()
         let titleVal = dic["title"] as? String ?? ""
         let descriptionVal = dic["description"] as? String ?? ""
-        let priceVal = dic["price"] as? Double ?? 0.0
-        let quantityVal = dic["quantity"] as? Int ?? 0
-        let discountVal = dic["discount"] as? Double ?? 0.0
+        let priceVal = Double(dic["price"] as? String ?? "") ?? 0.0
+        let quantityVal = Int(dic["quantity"] as? String ?? "") ?? 0
+        let discountVal = Double(dic["discount"] as? String ?? "") ?? 0.0
         
         let item = ItemModel(title: titleVal, description: descriptionVal, price: priceVal, quantity: quantityVal, discount: DiscountModel(type: .Fixed, value: discountVal))
         print("item: \(item)")
