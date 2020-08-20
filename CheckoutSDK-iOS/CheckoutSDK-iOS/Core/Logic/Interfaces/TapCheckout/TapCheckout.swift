@@ -30,6 +30,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter newHeight: The new height the content of the Tap sheet has
      */
     func changeHeight(to newHeight:CGFloat)
+    func dismissMySelfClicked()
 }
 
 
@@ -159,6 +160,11 @@ extension TapCheckout: TapBottomSheetDialogDelegate {
 
 
 extension TapCheckout : ToPresentAsPopupViewControllerDelegate {
+    func dismissMySelfClicked() {
+        //tapCheckoutControllerViewController?.dismiss(animated: true, completion: nil)
+        bottomSheetController.dismissTheController()
+    }
+    
     func changeHeight(to newHeight: CGFloat) {
         bottomSheetController.changeHeight(to: newHeight)
     }

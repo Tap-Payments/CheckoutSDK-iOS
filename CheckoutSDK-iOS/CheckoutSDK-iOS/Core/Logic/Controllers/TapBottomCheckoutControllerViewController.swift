@@ -82,6 +82,7 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
         
         createTabBarViewModel()
         createGatewaysViews()
+        dragView.delegate = self
     }
     
     func createTabBarViewModel() {
@@ -590,5 +591,12 @@ extension TapBottomCheckoutControllerViewController:TapWebViewModelDelegate {
     
     func didFail(with error: Error, for url: URL?) {
         
+    }
+}
+
+extension TapBottomCheckoutControllerViewController:TapDragHandlerViewDelegate {
+    
+    func closeButtonClicked() {
+        delegate?.dismissMySelfClicked()
     }
 }
