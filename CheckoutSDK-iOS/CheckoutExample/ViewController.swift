@@ -64,6 +64,11 @@ class ViewController: UIViewController {
             onCheckOutReady: {[weak self] tapCheckOut in
                 tapCheckOut.start(presentIn: self)
             })
+//        NetworkManager.shared.makeApiCall(resultType: MerchantModel.Type, completion: { (session, result, error) in
+//            print("result is: \(String(describing: result))")
+//            print("error: \(String(describing: error))")
+////            completion?(session, result, error)
+//        })
     }
     
     @IBAction func showSettings(_ sender: UIButton) {

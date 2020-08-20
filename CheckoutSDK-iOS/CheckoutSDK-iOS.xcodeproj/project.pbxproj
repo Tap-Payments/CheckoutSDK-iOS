@@ -21,6 +21,7 @@
 		62B45FA724EBE2210094FB4B /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B45FA624EBE2210094FB4B /* TableViewController.swift */; };
 		62B45FAA24EBF2620094FB4B /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B45FA824EBF2620094FB4B /* ItemTableViewCell.swift */; };
 		62B45FAB24EBF2620094FB4B /* ItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62B45FA924EBF2620094FB4B /* ItemTableViewCell.xib */; };
+		62CF141A24EE8F140036015C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CF141924EE8F140036015C /* NetworkManager.swift */; };
 		E825DD5924E938DB0074BF54 /* TapCheckoutSharedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E825DD5824E938DB0074BF54 /* TapCheckoutSharedManager.swift */; };
 		E861286D24EA7F7F00774BAA /* CurrencyChipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E861286C24EA7F7F00774BAA /* CurrencyChipModel.swift */; };
 		E861286F24EAA38A00774BAA /* CurrencyCardsTelecomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E861286E24EAA38A00774BAA /* CurrencyCardsTelecomModel.swift */; };
@@ -89,6 +90,7 @@
 		62B45FA624EBE2210094FB4B /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		62B45FA824EBF2620094FB4B /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
 		62B45FA924EBF2620094FB4B /* ItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemTableViewCell.xib; sourceTree = "<group>"; };
+		62CF141924EE8F140036015C /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		9641A958A3B669E7ED3F097E /* Pods_CheckoutExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CheckoutExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EA23C9D0ACA6A832C046E7C /* Pods-CheckoutExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutExample.debug.xcconfig"; path = "Target Support Files/Pods-CheckoutExample/Pods-CheckoutExample.debug.xcconfig"; sourceTree = "<group>"; };
 		E825DD5824E938DB0074BF54 /* TapCheckoutSharedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckoutSharedManager.swift; sourceTree = "<group>"; };
@@ -199,6 +201,14 @@
 			path = Items;
 			sourceTree = "<group>";
 		};
+		62CF141824EE8F040036015C /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				62CF141924EE8F140036015C /* NetworkManager.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		7494201249226D5B262AD198 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -260,6 +270,7 @@
 		E8811AE624D4287400DE95D1 /* CheckoutExample */ = {
 			isa = PBXGroup;
 			children = (
+				62CF141824EE8F040036015C /* Network */,
 				E86128B524ED2E3B00774BAA /* CheckoutExample.entitlements */,
 				62B45FA324EBE1810094FB4B /* Items */,
 				62570A6924EBD5B500274C2C /* FormView */,
@@ -566,6 +577,7 @@
 				E8811AEA24D4287400DE95D1 /* SceneDelegate.swift in Sources */,
 				62B45FA724EBE2210094FB4B /* TableViewController.swift in Sources */,
 				620965F524E41F1E00BD9985 /* SettingsViewController.swift in Sources */,
+				62CF141A24EE8F140036015C /* NetworkManager.swift in Sources */,
 				620965F824E42ED800BD9985 /* SettingsDelegate.swift in Sources */,
 				62570A1024EA6F2500274C2C /* TapSettings.swift in Sources */,
 				62B45FA524EBE19B0094FB4B /* AddItemViewController.swift in Sources */,
