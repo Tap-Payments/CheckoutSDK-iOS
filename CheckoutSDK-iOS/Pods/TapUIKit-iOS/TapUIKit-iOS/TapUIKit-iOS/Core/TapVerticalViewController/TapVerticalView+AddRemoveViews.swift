@@ -78,7 +78,7 @@ extension TapVerticalView {
      - Parameter animation: The animation to be applied while doing the view removal. Default is nil
      */
     internal func handleDeletion(for view:UIView, with animation:TapSheetAnimation? = nil) {
-        view.alpha = 0
+        
         // Check if there is an animation we need to do
         guard let animation:TapSheetAnimation = animation, animation.animation != .none  else {
             itemsBeingRemoved = false
