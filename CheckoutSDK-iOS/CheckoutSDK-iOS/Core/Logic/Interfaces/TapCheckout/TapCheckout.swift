@@ -82,17 +82,13 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         tapCheckoutScreenDelegate = delegate
         configureLocalisationManager(localiseFile: localiseFile)
         configureThemeManager(customTheme:customTheme)
-        let merchantModel:MerchantModel = try! .init(dictionary: ["name":"TAP PAYMENTS","logo":"https://avatars3.githubusercontent.com/u/19837565?s=200&v=4"])
-        configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,merchantModel:merchantModel)
-        configureBottomSheet()
-        onCheckOutReady(self)
         
-        /*NetworkManager.shared.makeApiCall(routing: .MerchantInfo, resultType: MerchantModel.self) { (session, result, error) in
-            guard let merchantModel:MerchantModel = result as? MerchantModel else { return }
-            self.configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,merchantModel:merchantModel)
+        NetworkManager.shared.makeApiCall(routing: .EntitAPI, resultType: TapEntitResponseModel.self) { (session, result, error) in
+            guard let entitModel:TapEntitResponseModel = result as? TapEntitResponseModel else { return }
+            self.configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,entitModel:entitModel)
             self.configureBottomSheet()
             onCheckOutReady(self)
-        }*/
+        }
     }
     
     

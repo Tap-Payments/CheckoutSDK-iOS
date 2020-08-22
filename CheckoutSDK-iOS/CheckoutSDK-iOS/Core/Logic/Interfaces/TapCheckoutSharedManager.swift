@@ -29,6 +29,13 @@ internal class TapCheckoutSharedManager {
     var tapCardPhoneListViewModel:TapCardPhoneBarListViewModel = .init()
     /// Represents the view model that controls the tabbar view
     var tapCardTelecomPaymentViewModel: TapCardTelecomPaymentViewModel = .init()
+    /// Represents the data loaded from the Entit api on checkout start
+    var entitModelResponse:TapEntitResponseModel?{
+        didSet{
+            // Now it is time to fetch needed data from the model parsed
+            parseEntitResponse()
+        }
+    }
     
     /// Represents the list of ALL allowed telecom/cards payments for the logged in merchant
     var tapCardPhoneListDataSource:[CurrencyCardsTelecomModel] = []
@@ -179,6 +186,15 @@ internal class TapCheckoutSharedManager {
         
         applePayChipViewModel.configureApplePayRequest(currencyCode: transactionUserCurrencyObserver.value,paymentItems: transactionItemsObserver.value.toApplePayItems(convertFromCurrency: transactionCurrencyObserver.value, convertToCurrenct: transactionUserCurrencyObserver.value), amount: transactionUserCurrencyObserver.value.convert(from: transactionCurrencyObserver.value, for: transactionTotalAmountObserver.value), merchantID: applePayMerchantID)
         
+    }
+    
+    
+    /// Handles the logic to fetch different sections from the Entit API response
+    private func parseEntitResponse() {
+        // Fetch the merchant header info
+        if let merchantModel:MerchantModel = entitModelResponse?.merchant {
+            self.tapMerchantViewModel = .init(title: nil, subTitle: merchantModel.name, iconURL: merchantModel.logo)
+        }
     }
 }
 
