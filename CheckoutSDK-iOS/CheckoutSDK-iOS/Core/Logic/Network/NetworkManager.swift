@@ -7,23 +7,22 @@
 //
 
 import TapNetworkKit_iOS
-import CheckoutSDK_iOS
 
-@objc public class NetworkManager: NSObject {
+internal class NetworkManager: NSObject {
     static let shared = NetworkManager()
     private var headers = ["decive_model": "iphone", "os_version": "ios 13"]
     private var networkManager: TapNetworkManager
-    private let _baseURL = "https://run.mocky.io/v3/"
+    private let baseURL = "https://run.mocky.io/v3/"
     public var enableLogging = false
     
     private override init () {
-        networkManager = TapNetworkManager(baseURL: URL(string: _baseURL)!)
+        networkManager = TapNetworkManager(baseURL: URL(string: baseURL)!)
     }
     
-    public func makeApiCall<T:Decodable>(resultType:T.Type, completion: TapNetworkManager.RequestCompletionClosure?) {
+    internal func makeApiCall<T:Decodable>(routing: TapNetworkPath, resultType:T.Type, completion: TapNetworkManager.RequestCompletionClosure?) {
         networkManager.isRequestLoggingEnabled = enableLogging
-        let requestOperation = TapNetworkRequestOperation(path: "aaf816bd-4c67-4d9e-acfe-ba35ff919875", method: .GET, headers: headers, urlModel: .none, bodyModel: .none, responseType: .json)
         
+        let requestOperation = TapNetworkRequestOperation(path: "\(baseURL)\(routing.rawValue)", method: .GET, headers: headers, urlModel: .none, bodyModel: .none, responseType: .json)
         networkManager.performRequest(requestOperation, completion: { (session, result, error) in
             print("result is: \(String(describing: result))")
             print("error: \(String(describing: error))")

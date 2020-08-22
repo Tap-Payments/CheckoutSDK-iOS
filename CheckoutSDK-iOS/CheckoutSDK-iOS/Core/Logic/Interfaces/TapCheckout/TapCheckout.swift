@@ -77,14 +77,17 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter applePayMerchantID: The Apple pay merchant id to be used inside the apple pay kit
      - Parameter onCheckOutReady: This will be called once the checkout is ready so you can use it to present it or cancel it
      */
-    @objc public func build(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil,currency:TapCurrencyCode = .USD,amount:Double = 1,items:[ItemModel] = [],applePayMerchantID:String = "merchant.tap.gosell",onCheckOutReady:(TapCheckout) -> () = {_ in}){
+    @objc public func build(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil,currency:TapCurrencyCode = .USD,amount:Double = 1,items:[ItemModel] = [],applePayMerchantID:String = "merchant.tap.gosell",onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}){
         TapCheckoutSharedManager.destroy()
         tapCheckoutScreenDelegate = delegate
         configureLocalisationManager(localiseFile: localiseFile)
         configureThemeManager(customTheme:customTheme)
-        configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID)
-        configureBottomSheet()
-        onCheckOutReady(self)
+        NetworkManager.shared.makeApiCall(routing: .MerchantInfo, resultType: MerchantModel.self) { (session, result, error) in
+            guard let merchantModel:MerchantModel = result as? MerchantModel else { return }
+            self.configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,merchantModel:merchantModel)
+            self.configureBottomSheet()
+            onCheckOutReady(self)
+        }
     }
     
     

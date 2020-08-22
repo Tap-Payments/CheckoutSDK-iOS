@@ -72,7 +72,6 @@ internal class TapCheckoutSharedManager {
     private init() {
         print("init singleton")
         // Create default view models
-        createTapMerchantHeaderViewModel()
         createGatewayDummyChips()
         createDummyCardTelecomModel()
         // Bind the observables
@@ -135,11 +134,6 @@ internal class TapCheckoutSharedManager {
         let itemsModels:[ItemCellViewModel] = transactionItemsObserver.value.map{ ItemCellViewModel.init(itemModel: $0, originalCurrency:transactionCurrencyObserver.value) }
         tapItemsTableViewModel = .init(dataSource: itemsModels)
         tapAmountSectionViewModel.numberOfItems = transactionItemsObserver.value.count
-    }
-    
-    /// Handles all the logic needed to create and set the data in the merchant header section
-    private func createTapAmountHeaderViewModel() {
-        tapMerchantViewModel = .init(subTitle: "Tap Payments", iconURL: "https://avatars3.githubusercontent.com/u/19837565?s=200&v=4")
     }
     
     /// Handles all the logic needed when the original transaction currency changed
@@ -221,12 +215,6 @@ extension TapCheckoutSharedManager {
         goPayChipsViewModel.append(.init(tapChipViewModel:SavedCardCollectionViewCellModel.init(title: "•••• 5555", icon:"https://img.icons8.com/color/2x/mastercard-logo.png", listSource: .GoPayListHeader)))
         goPayChipsViewModel.append(.init(tapChipViewModel:TapLogoutChipViewModel()))
     }
-    
-    /// Handles all the logic needed to create and set the data in the merchant header section
-    private func createTapMerchantHeaderViewModel() {
-        tapMerchantViewModel = .init(subTitle: "Tap Payments", iconURL: "https://avatars3.githubusercontent.com/u/19837565?s=200&v=4")
-    }
-    
     
     private func createDummyCardTelecomModel() {
         let Kuwait:TapCountry = .init(nameAR: "الكويت", nameEN: "Kuwait", code: "965", phoneLength: 8)
