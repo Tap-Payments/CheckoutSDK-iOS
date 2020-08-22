@@ -7,6 +7,8 @@
 //
 
 import TapThemeManager2020
+import LocalisationManagerKit_iOS
+import CommonDataModelsKit_iOS
 
 /// Represents the public protocol to listen to the notifications fired from the TapDragHandler
 @objc public protocol TapDragHandlerViewDelegate {
@@ -91,6 +93,9 @@ extension TapDragHandlerView {
     
     /// Match the UI attributes with the correct theming entries
     private func matchThemeAttributes() {
+        
+        cancelButton.setTitle(TapLocalisationManager.shared.localisedValue(for: "Common.close", with: TapCommonConstants.pathForDefaultLocalisation()), for: .normal)
+        
         handlerImageView.tap_theme_image = .init(keyPath: "\(themePath).image")
         handlerImageView.layer.tap_theme_cornerRadious = .init(keyPath: "\(themePath).corner")
         changeHandlerSize(with: CGFloat(TapThemeManager.numberValue(for: "\(themePath).width")?.floatValue ?? 75),
