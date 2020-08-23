@@ -16,17 +16,36 @@ import Foundation
 internal struct TapEntitResponseModel : Codable {
     /// Represents the merchant header info section
 	let merchant : MerchantModel?
-    let currencies: [String]?
+    /// Represents the string raw values parsed from the response about the currency codes
+    private let stringCurrencies:[String]?
+    /// Represents the supported currencies for the logged in merchant
+    var currencies: [TapCurrencyCode] {
+        return decodeCurrencyList(with: stringCurrencies ?? [])
+    }
 
 	enum CodingKeys: String, CodingKey {
 		case merchant = "merchant"
-        case currencies = "currencies"
+        case stringCurrencies = "currencies"
 	}
 
 	init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
 		merchant = try values.decodeIfPresent(MerchantModel.self, forKey: .merchant)
-        currencies = try values.decodeIfPresent([String].self, forKey: .currencies)
+        stringCurrencies = try values.decodeIfPresent([String].self, forKey: .stringCurrencies)
 	}
 
+}
+
+/// Extension to provide all the helper methods in decoding the raw data into the corresponsind models/viewmodels
+extension TapEntitResponseModel {
+    
+    /**
+     Helper method that converts a list of strings into the corresponding Tap Currency code enum
+     - Parameter stringCodes: The list of raw string currency code in ISO format e.g AED, KWD, EGP, USD, etcl.
+     */
+    private func decodeCurrencyList(with stringCodes:[String]) -> [TapCurrencyCode] {
+        // Convert the passed strings into enums and filter out any wrong passed code
+        return stringCodes.map{ (TapCurrencyCode.init(appleRawValue: $0) ?? TapCurrencyCode.undefined)}.filter{ $0 != .undefined}
+    }
+    
 }

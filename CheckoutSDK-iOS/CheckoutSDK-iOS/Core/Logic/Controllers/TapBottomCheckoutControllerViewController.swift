@@ -17,7 +17,7 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     var tapVerticalView: TapVerticalView = .init()
     
     var tapCurrienciesChipHorizontalListViewModel:TapChipHorizontalListViewModel = .init()
-    var currenciesChipsViewModel:[CurrencyChipViewModel] = []
+    
     
     
     
@@ -108,8 +108,8 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     
     
     func createGatewaysViews() {
-        currenciesChipsViewModel = [CurrencyChipViewModel.init(currency: .USD),CurrencyChipViewModel.init(currency: .AED),CurrencyChipViewModel.init(currency: .SAR),CurrencyChipViewModel.init(currency: .KWD),CurrencyChipViewModel.init(currency: .BHD),CurrencyChipViewModel.init(currency: .QAR),CurrencyChipViewModel.init(currency: .OMR),CurrencyChipViewModel.init(currency: .EGP),CurrencyChipViewModel.init(currency: .JOD)]
-        tapCurrienciesChipHorizontalListViewModel = .init(dataSource: currenciesChipsViewModel, headerType: .NoHeader,selectedChip: currenciesChipsViewModel.filter{ $0.currency == sharedCheckoutDataManager.transactionUserCurrencyObserver.value }[0])
+        
+        tapCurrienciesChipHorizontalListViewModel = .init(dataSource: sharedCheckoutDataManager.currenciesChipsViewModel, headerType: .NoHeader,selectedChip: sharedCheckoutDataManager.currenciesChipsViewModel.filter{ $0.currency == sharedCheckoutDataManager.transactionUserCurrencyObserver.value }[0])
         tapCurrienciesChipHorizontalListViewModel.delegate = self
         
         sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.delegate = self

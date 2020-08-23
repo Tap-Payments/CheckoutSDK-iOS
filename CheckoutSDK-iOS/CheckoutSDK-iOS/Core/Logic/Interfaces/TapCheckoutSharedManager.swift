@@ -29,6 +29,8 @@ internal class TapCheckoutSharedManager {
     var tapCardPhoneListViewModel:TapCardPhoneBarListViewModel = .init()
     /// Represents the view model that controls the tabbar view
     var tapCardTelecomPaymentViewModel: TapCardTelecomPaymentViewModel = .init()
+    /// Represents the view model that controls the chips list of supported currencies view
+    var currenciesChipsViewModel:[CurrencyChipViewModel] = []
     /// Represents the data loaded from the Entit api on checkout start
     var entitModelResponse:TapEntitResponseModel?{
         didSet{
@@ -191,10 +193,17 @@ internal class TapCheckoutSharedManager {
     
     /// Handles the logic to fetch different sections from the Entit API response
     private func parseEntitResponse() {
+        
+        guard let entitModel = entitModelResponse else { return }
+        
         // Fetch the merchant header info
-        if let merchantModel:MerchantModel = entitModelResponse?.merchant {
+        if let merchantModel:MerchantModel = entitModel.merchant {
             self.tapMerchantViewModel = .init(title: nil, subTitle: merchantModel.name, iconURL: merchantModel.logo)
+            
         }
+        
+        // Fetch the list of supported currencies
+        self.currenciesChipsViewModel = entitModel.currencies.map{ CurrencyChipViewModel.init(currency: $0) }
     }
 }
 

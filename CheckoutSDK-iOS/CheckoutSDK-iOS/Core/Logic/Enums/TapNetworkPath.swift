@@ -11,5 +11,5 @@ import Foundation
 /// Represents a routing enum, which will has the end point of each needed request
 internal enum TapNetworkPath : String {
     /// Loading the merchant info
-    case EntitAPI = "0392957a-a5ea-427d-bd02-0048630075ef"
+    case EntitAPI = "a80dc488-2cdd-4e0b-a083-afb269ba89d8"
 }
