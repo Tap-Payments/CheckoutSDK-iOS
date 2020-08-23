@@ -85,6 +85,14 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         
         NetworkManager.shared.makeApiCall(routing: .EntitAPI, resultType: TapEntitResponseModel.self) { (session, result, error) in
             guard let entitModel:TapEntitResponseModel = result as? TapEntitResponseModel else { return }
+            var currencies: [TapCurrencyCode] = []
+            entitModel.currencies?.forEach({ currencyString in
+                if let curency = TapCurrencyCode.init(appleRawValue: .init(string: currencyString)) {
+                    currencies.append(curency)
+                }
+            })
+            print("currencies: \(currencies)")
+
             self.configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,entitModel:entitModel)
             self.configureBottomSheet()
             onCheckOutReady(self)

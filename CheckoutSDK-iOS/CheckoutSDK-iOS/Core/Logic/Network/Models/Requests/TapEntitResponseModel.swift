@@ -16,15 +16,17 @@ import Foundation
 internal struct TapEntitResponseModel : Codable {
     /// Represents the merchant header info section
 	let merchant : MerchantModel?
+    let currencies: [String]?
 
 	enum CodingKeys: String, CodingKey {
-
 		case merchant = "merchant"
+        case currencies = "currencies"
 	}
 
 	init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
 		merchant = try values.decodeIfPresent(MerchantModel.self, forKey: .merchant)
+        currencies = try values.decodeIfPresent([String].self, forKey: .currencies)
 	}
 
 }
