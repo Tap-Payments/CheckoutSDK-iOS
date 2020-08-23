@@ -191,7 +191,7 @@ extension TapChipHorizontalList:UICollectionViewDataSource,UICollectionViewDeleg
         if viewModel.selectedChip == model {
             model.didSelectItem()
             cell.isSelected = true
-            collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
+            collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .left)
         }
         //po cell.isSelected = viewModel.selectedChip == model
         return cell
