@@ -16,7 +16,7 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     var delegate:ToPresentAsPopupViewControllerDelegate?
     var tapVerticalView: TapVerticalView = .init()
     
-    let goPayBarViewModel:TapGoPayLoginBarViewModel = .init(countries: [.init(nameAR: "الكويت", nameEN: "Kuwait", code: "965", phoneLength: 8),.init(nameAR: "مصر", nameEN: "Egypt", code: "20", phoneLength: 10),.init(nameAR: "البحرين", nameEN: "Bahrain", code: "973", phoneLength: 8)])
+    
     let tapActionButtonViewModel: TapActionButtonViewModel = .init()
     
     var tapSaveCardSwitchViewModel: TapSwitchViewModel = .init(with: .invalidCard, merchant: "jazeera airways")
@@ -114,7 +114,7 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     
     
     func showGoPay() {
-        tapVerticalView.showGoPaySignInForm(with: self, and: goPayBarViewModel)
+        tapVerticalView.showGoPaySignInForm(with: self, and: sharedCheckoutDataManager.goPayBarViewModel!)
     }
     
     /**

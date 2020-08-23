@@ -28,7 +28,7 @@ internal struct TapEntitResponseModel : Codable {
 	enum CodingKeys: String, CodingKey {
 		case merchant = "merchant"
         case stringCurrencies = "currencies"
-        case goPayLoginCountries = "countries"
+        case goPayLoginCountries = "goPayCountries"
 	}
 
 	init(from decoder: Decoder) throws {

@@ -31,8 +31,13 @@ internal class TapCheckoutSharedManager {
     var tapCardTelecomPaymentViewModel: TapCardTelecomPaymentViewModel = .init()
     /// Represents the view model that controls the chips list of supported currencies view
     var tapCurrienciesChipHorizontalListViewModel:TapChipHorizontalListViewModel = .init()
+    /// Represents the view model that controls the country picker when logging in to goPay using the phone number
+    var goPayBarViewModel:TapGoPayLoginBarViewModel?
+    
     /// Repreents the list fof supported currencies
     var currenciesChipsViewModel:[CurrencyChipViewModel] = []
+    /// Repreents the list fof supported currencies
+    var goPayLoginCountries:[TapCountry] = []
     /// Represents the data loaded from the Entit api on checkout start
     var entitModelResponse:TapEntitResponseModel?{
         didSet{
@@ -206,8 +211,11 @@ internal class TapCheckoutSharedManager {
         
         // Fetch the list of supported currencies
         self.currenciesChipsViewModel = entitModel.currencies.map{ CurrencyChipViewModel.init(currency: $0) }
-        
         self.tapCurrienciesChipHorizontalListViewModel = .init(dataSource: currenciesChipsViewModel, headerType: .NoHeader,selectedChip: currenciesChipsViewModel.filter{ $0.currency == transactionUserCurrencyObserver.value }[0])
+        
+        // Fetch the list of the goPay supported login countries
+        self.goPayLoginCountries = entitModel.goPayLoginCountries ?? []
+        self.goPayBarViewModel = .init(countries: goPayLoginCountries)
     }
 }
 

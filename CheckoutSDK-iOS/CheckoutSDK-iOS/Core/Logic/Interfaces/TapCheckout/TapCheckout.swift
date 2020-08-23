@@ -89,12 +89,6 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
             self.configureBottomSheet()
             onCheckOutReady(self)
         }
-        
-        NetworkManager.shared.makeApiCall(routing: .CurrenciesAPI, resultType: TapEntitResponseModel.self) { (session, result, error) in
-            guard let entitModel:TapEntitResponseModel = result as? TapEntitResponseModel else { return }
-            print("entitModel: \(entitModel.currencies)")
-        }
-        
     }
     
     
