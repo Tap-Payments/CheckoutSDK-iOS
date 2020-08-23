@@ -16,11 +16,6 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     var delegate:ToPresentAsPopupViewControllerDelegate?
     var tapVerticalView: TapVerticalView = .init()
     
-    var tapCurrienciesChipHorizontalListViewModel:TapChipHorizontalListViewModel = .init()
-    
-    
-    
-    
     let goPayBarViewModel:TapGoPayLoginBarViewModel = .init(countries: [.init(nameAR: "الكويت", nameEN: "Kuwait", code: "965", phoneLength: 8),.init(nameAR: "مصر", nameEN: "Egypt", code: "20", phoneLength: 10),.init(nameAR: "البحرين", nameEN: "Bahrain", code: "973", phoneLength: 8)])
     let tapActionButtonViewModel: TapActionButtonViewModel = .init()
     
@@ -109,8 +104,8 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     
     func createGatewaysViews() {
         
-        tapCurrienciesChipHorizontalListViewModel = .init(dataSource: sharedCheckoutDataManager.currenciesChipsViewModel, headerType: .NoHeader,selectedChip: sharedCheckoutDataManager.currenciesChipsViewModel.filter{ $0.currency == sharedCheckoutDataManager.transactionUserCurrencyObserver.value }[0])
-        tapCurrienciesChipHorizontalListViewModel.delegate = self
+        
+        sharedCheckoutDataManager.tapCurrienciesChipHorizontalListViewModel.delegate = self
         
         sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.delegate = self
 
@@ -175,11 +170,11 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         self.tapVerticalView.remove(viewType: TapChipHorizontalList.self, with: .init(), and: true)
         tapVerticalView.hideActionButton()
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(80), execute: { [weak self] in
-            self!.tapCurrienciesChipHorizontalListViewModel.attachedView.alpha = 0
+            self!.sharedCheckoutDataManager.tapCurrienciesChipHorizontalListViewModel.attachedView.alpha = 0
             self!.sharedCheckoutDataManager.tapItemsTableViewModel.attachedView.alpha = 0
-            self?.tapVerticalView.add(views: [self!.tapCurrienciesChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapItemsTableViewModel.attachedView], with: [.init(for: .fadeIn)])
+            self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.tapCurrienciesChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapItemsTableViewModel.attachedView], with: [.init(for: .fadeIn)])
             if let locale = TapLocalisationManager.shared.localisationLocale, locale == "ar" {
-                self?.tapCurrienciesChipHorizontalListViewModel.refreshLayout()
+                self?.sharedCheckoutDataManager.tapCurrienciesChipHorizontalListViewModel.refreshLayout()
             }
         })
     }

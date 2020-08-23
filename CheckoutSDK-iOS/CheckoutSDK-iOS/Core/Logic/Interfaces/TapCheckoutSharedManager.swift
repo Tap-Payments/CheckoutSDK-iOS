@@ -30,6 +30,8 @@ internal class TapCheckoutSharedManager {
     /// Represents the view model that controls the tabbar view
     var tapCardTelecomPaymentViewModel: TapCardTelecomPaymentViewModel = .init()
     /// Represents the view model that controls the chips list of supported currencies view
+    var tapCurrienciesChipHorizontalListViewModel:TapChipHorizontalListViewModel = .init()
+    /// Repreents the list fof supported currencies
     var currenciesChipsViewModel:[CurrencyChipViewModel] = []
     /// Represents the data loaded from the Entit api on checkout start
     var entitModelResponse:TapEntitResponseModel?{
@@ -204,6 +206,8 @@ internal class TapCheckoutSharedManager {
         
         // Fetch the list of supported currencies
         self.currenciesChipsViewModel = entitModel.currencies.map{ CurrencyChipViewModel.init(currency: $0) }
+        
+        self.tapCurrienciesChipHorizontalListViewModel = .init(dataSource: currenciesChipsViewModel, headerType: .NoHeader,selectedChip: currenciesChipsViewModel.filter{ $0.currency == transactionUserCurrencyObserver.value }[0])
     }
 }
 
