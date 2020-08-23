@@ -188,6 +188,12 @@ extension TapChipHorizontalList:UICollectionViewDataSource,UICollectionViewDeleg
         let cell:GenericTapChip = viewModel.dequeuCell(in: collectionView, at: indexPath)
         cell.configureCell(with: model)
         
+        if viewModel.selectedChip == model {
+            model.didSelectItem()
+            cell.isSelected = true
+            collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .left)
+        }
+        //po cell.isSelected = viewModel.selectedChip == model
         return cell
     }
     
