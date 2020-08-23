@@ -12,4 +12,5 @@ import Foundation
 internal enum TapNetworkPath : String {
     /// Loading the merchant info
     case EntitAPI = "a80dc488-2cdd-4e0b-a083-afb269ba89d8"
+    case CurrenciesAPI = "e221998f-b505-4131-b236-3aff57043fcc"
 }

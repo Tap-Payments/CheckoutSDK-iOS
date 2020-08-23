@@ -22,16 +22,20 @@ internal struct TapEntitResponseModel : Codable {
     var currencies: [TapCurrencyCode] {
         return decodeCurrencyList(with: stringCurrencies ?? [])
     }
+    /// Represents the supported countries for the logged in merchant
+    let countries: [TapCountry]?
 
 	enum CodingKeys: String, CodingKey {
 		case merchant = "merchant"
         case stringCurrencies = "currencies"
+        case countries
 	}
 
 	init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
 		merchant = try values.decodeIfPresent(MerchantModel.self, forKey: .merchant)
         stringCurrencies = try values.decodeIfPresent([String].self, forKey: .stringCurrencies)
+        countries = try values.decodeIfPresent([TapCountry].self, forKey: .countries)
 	}
 
 }
