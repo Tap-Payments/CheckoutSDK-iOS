@@ -8,7 +8,7 @@
 
 import Foundation
 /// Represents a model that will link the different Cards and Telecom bar item view models with their approved currencies and countries
-internal class CurrencyCardsTelecomModel {
+internal class CurrencyCardsTelecomModel:Codable {
     
     /// Represents the card/telecom bar item view model itself (Visa, Amex, )
     lazy var tapCardPhoneViewModel:TapCardPhoneIconViewModel = .init(associatedCardBrand: .visa)
@@ -37,6 +37,28 @@ internal class CurrencyCardsTelecomModel {
     func isEnabled(for currency:TapCurrencyCode) -> Bool {
         // Make sure the currency list has values with the given currenct or it supports every currency
         return (supportedCurrencies == []) || (supportedCurrencies.filter{ $0.appleRawValue == currency.appleRawValue } != [])
+        
+    }
+    
+    
+    enum CodingKeys: String, CodingKey {
+        case brand = "brand"
+        case supportedCurrencies = "currencies"
+        case supportedTelecomCountry = "country"
+        case brandIcon = "icon"
+    }
+    
+    required public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        self.supportedCurrencies = try values.decodeIfPresent([TapCurrencyCode].self, forKey: .supportedCurrencies) ?? []
+        self.supportedTelecomCountry = try values.decodeIfPresent(TapCountry.self, forKey: .supportedTelecomCountry)
+        let cardBrand:CardBrand = try values.decodeIfPresent(CardBrand.self, forKey: .brand) ?? CardBrand.unknown
+        let brandIcon:String = try values.decodeIfPresent(String.self, forKey: .brandIcon) ?? ""
+        self.tapCardPhoneViewModel = .init(associatedCardBrand: cardBrand, tapCardPhoneIconUrl:brandIcon)
+    }
+    
+    
+    func encode(to encoder: Encoder) throws {
         
     }
     

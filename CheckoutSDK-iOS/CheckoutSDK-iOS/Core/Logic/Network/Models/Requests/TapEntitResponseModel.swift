@@ -21,7 +21,8 @@ internal struct TapIntentResponseModel : Codable {
     let goPaySavedCards:[ChipWithCurrencyModel]?
     /// Represents all available payment chips including Apple pay + redirection + saved cards for the logged in customer
     let paymentChips:[ChipWithCurrencyModel]?
-    
+    /// Represents the list of ALL allowed telecom/cards payments for the logged in merchant
+    let tapCardPhoneListDataSource:[CurrencyCardsTelecomModel]?
     /// Represents the supported currencies for the logged in merchant
     var currencies: [TapCurrencyCode] = []
     /// Represents the supported countries to login to goPay with phone
@@ -33,6 +34,7 @@ internal struct TapIntentResponseModel : Codable {
         case goPayLoginCountries = "goPayCountries"
         case goPaySavedCards = "goPaySavedCards"
         case paymentChips = "savedCards"
+        case tapCardPhoneListDataSource = "tapCardPhoneListDataSource"
 	}
 
 	init(from decoder: Decoder) throws {
@@ -42,6 +44,7 @@ internal struct TapIntentResponseModel : Codable {
         goPayLoginCountries = try values.decodeIfPresent([TapCountry].self, forKey: .goPayLoginCountries)
         goPaySavedCards = try values.decodeIfPresent([ChipWithCurrencyModel].self, forKey: .goPaySavedCards)
         paymentChips = try values.decodeIfPresent([ChipWithCurrencyModel].self, forKey: .paymentChips)
+        tapCardPhoneListDataSource = try values.decodeIfPresent([CurrencyCardsTelecomModel].self, forKey: .tapCardPhoneListDataSource)
 	}
 
 }

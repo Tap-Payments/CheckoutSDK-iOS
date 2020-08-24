@@ -87,8 +87,6 @@ internal class TapCheckoutSharedManager {
     
     private init() {
         print("init singleton")
-        // Create default view models
-        createDummyCardTelecomModel()
         // Bind the observables
         bindTheObservables()
     }
@@ -221,33 +219,9 @@ internal class TapCheckoutSharedManager {
         goPayChipsViewModel.append(.init(tapChipViewModel:TapLogoutChipViewModel()))
         
         // Fetch the merchant based saved cards + differnt payment types
-        gatewayChipsViewModel = intentModel.paymentChips ?? []
-    }
-}
-
-
-// MARK:- extension that includes all methods that will create dummy data, until it is loaded from API calls
-extension TapCheckoutSharedManager {
-    
-    private func createDummyCardTelecomModel() {
-        let Kuwait:TapCountry = .init(nameAR: "الكويت", nameEN: "Kuwait", code: "965", phoneLength: 8)
-        let Egypt:TapCountry = .init(nameAR: "مصر", nameEN: "Egypt", code: "20", phoneLength: 9)
+        self.gatewayChipsViewModel = intentModel.paymentChips ?? []
         
-        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .visa, tapCardPhoneIconUrl: "https://img.icons8.com/color/2x/visa.png")))
-        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .masterCard, tapCardPhoneIconUrl: "https://img.icons8.com/color/2x/mastercard.png")))
-        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .americanExpress, tapCardPhoneIconUrl: "https://img.icons8.com/color/2x/amex.png")))
-        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .mada, tapCardPhoneIconUrl: "https://i.ibb.co/S3VhxmR/796px-Mada-Logo-svg.png"),supportedCurrencies: [.SAR]))
-        
-        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .viva, tapCardPhoneIconUrl: "https://i.ibb.co/cw5y89V/unnamed.png"),supportedCurrencies: [.KWD],supportedTelecomCountry: Kuwait))
-        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .wataniya, tapCardPhoneIconUrl: "https://i.ibb.co/PCYd8Xm/ooredoo-3x.png"),supportedCurrencies: [.KWD],supportedTelecomCountry: Kuwait))
-        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .zain, tapCardPhoneIconUrl: "https://i.ibb.co/mvkJXwF/zain-3x.png"),supportedCurrencies: [.KWD],supportedTelecomCountry: Kuwait))
-        
-        
-        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .orange, tapCardPhoneIconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/2560px-Orange_logo.svg.png"),supportedCurrencies: [.EGP],supportedTelecomCountry: Egypt))
-        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .vodafone, tapCardPhoneIconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Vodafone_icon.svg/1020px-Vodafone_icon.svg.png"),supportedCurrencies: [.EGP],supportedTelecomCountry: Egypt))
-        tapCardPhoneListDataSource.append(.init(tapCardPhoneViewModel: .init(associatedCardBrand: .etisalat, tapCardPhoneIconUrl: "https://i.ibb.co/K28R093/1280px-Etisalat-Logo.png"),supportedCurrencies: [.EGP],supportedTelecomCountry: Egypt))
-        
-        
-        tapCardTelecomPaymentViewModel = .init(with: tapCardPhoneListViewModel, and: .init(nameAR: "الكويت", nameEN: "Kuwait", code: "965", phoneLength: 8))
+        // Fetch the cards + telecom payments options
+        self.tapCardPhoneListDataSource = intentModel.tapCardPhoneListDataSource ?? .init()
     }
 }
