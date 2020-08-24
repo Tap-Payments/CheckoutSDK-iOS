@@ -12,7 +12,7 @@ import CheckoutSDK_iOS
 class ViewController: UIViewController {
    
     @IBOutlet weak var tapPayButton: TapActionButton!
-    let tapPayButtonViewModel:TapActionButtonViewModel = .init()
+    let tapPayButtonViewModel:TapPayButtonViewModel = .init()
     var localeID:String = "en"
     var localisationFileName:String? = "CustomLocalisation"
     var customTheme:TapCheckOutTheme? = nil
@@ -51,6 +51,7 @@ class ViewController: UIViewController {
     }
     
     func startSDKClicked() {
+        tapPayButtonViewModel.startLoading()
         let checkout:TapCheckout = .init()
         TapCheckout.flippingStatus = .FlipOnLoadWithFlippingBack
         TapCheckout.localeIdentifier = localeID
@@ -62,14 +63,10 @@ class ViewController: UIViewController {
             amount: amount,
             items: items,
             onCheckOutReady: {[weak self] tapCheckOut in
-                tapCheckOut.start(presentIn: self)
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
+                    tapCheckOut.start(presentIn: self)
+                }
             })
-        
-//        NetworkManager.shared.makeApiCall(resultType: MerchantModel.Type) { (session, result, error) in
-//            print("result: \(result)")
-//            print("error: \(error)")
-//        }
-        
     }
     
     @IBAction func showSettings(_ sender: UIButton) {
@@ -114,6 +111,7 @@ extension ViewController: SettingsDelegate {
 
 extension ViewController:CheckoutScreenDelegate {
     func tapBottomSheetWillDismiss() {
+        tapPayButtonViewModel.expandButton()
         adjustTapButton()
     }
 }
