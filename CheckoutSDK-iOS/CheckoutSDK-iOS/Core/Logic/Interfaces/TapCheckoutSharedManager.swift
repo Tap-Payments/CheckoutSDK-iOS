@@ -221,7 +221,7 @@ internal class TapCheckoutSharedManager {
         goPayChipsViewModel.append(.init(tapChipViewModel:TapLogoutChipViewModel()))
         
         // Fetch the merchant based saved cards + differnt payment types
-        gatewayChipsViewModel = intentModel.savedCards ?? []
+        gatewayChipsViewModel = intentModel.paymentChips ?? []
     }
 }
 
