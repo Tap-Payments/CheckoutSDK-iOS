@@ -67,7 +67,7 @@ internal protocol GenericCellChipViewModelDelegate {
 }
 
 /// This is a superclass for all the chips view models created, this will make sure all have the same interface/output and ease the parametery type in methods
-@objc public class GenericTapChipViewModel:NSObject {
+@objc public class GenericTapChipViewModel:NSObject,Codable {
     
     /// The title to be displayed if any in the Chip cell
     @objc public var title:String?
@@ -125,6 +125,17 @@ internal protocol GenericCellChipViewModelDelegate {
      */
     func correctCellType(for cell:GenericTapChip) -> GenericTapChip {
         return cell
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case title = "title"
+        case icon = "icon"
+    }
+    
+    required public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        self.title = try values.decodeIfPresent(String.self, forKey: .title)
+        self.icon = try values.decodeIfPresent(String.self, forKey: .icon)
     }
     
 }

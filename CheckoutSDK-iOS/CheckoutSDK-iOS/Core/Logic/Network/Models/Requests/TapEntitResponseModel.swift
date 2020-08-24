@@ -16,13 +16,11 @@ import Foundation
 internal struct TapIntentResponseModel : Codable {
     /// Represents the merchant header info section
 	let merchant : MerchantModel?
-    /// Represents the string raw values parsed from the response about the currency codes
-    //private let stringCurrencies:[String]?
     
-    /// Represents the supported currencies for the logged in merchant
-    var redirectionGateways:[ChipWithCurrencyModel] {
-        return []
-    }
+    /// Represents the saved cards for the logged in customer with goPay
+    let goPaySavedCards:[ChipWithCurrencyModel]?
+    /// Represents the saved cards for the logged in customer within the logged in merchant
+    let savedCards:[ChipWithCurrencyModel]?
     
     /// Represents the supported currencies for the logged in merchant
     var currencies: [TapCurrencyCode] = []
@@ -33,6 +31,8 @@ internal struct TapIntentResponseModel : Codable {
 		case merchant = "merchant"
         case currencies = "currencies"
         case goPayLoginCountries = "goPayCountries"
+        case goPaySavedCards = "goPaySavedCards"
+        case savedCards = "savedCards"
 	}
 
 	init(from decoder: Decoder) throws {
@@ -40,6 +40,8 @@ internal struct TapIntentResponseModel : Codable {
 		merchant = try values.decodeIfPresent(MerchantModel.self, forKey: .merchant)
         currencies = try values.decodeIfPresent([TapCurrencyCode].self, forKey: .currencies) ?? []
         goPayLoginCountries = try values.decodeIfPresent([TapCountry].self, forKey: .goPayLoginCountries)
+        goPaySavedCards = try values.decodeIfPresent([ChipWithCurrencyModel].self, forKey: .goPaySavedCards)
+        savedCards = try values.decodeIfPresent([ChipWithCurrencyModel].self, forKey: .savedCards)
 	}
 
 }
