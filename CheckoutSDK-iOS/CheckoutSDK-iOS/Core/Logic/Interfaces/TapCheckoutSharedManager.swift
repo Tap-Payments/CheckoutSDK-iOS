@@ -49,9 +49,9 @@ internal class TapCheckoutSharedManager {
     /// Represents the list of ALL allowed telecom/cards payments for the logged in merchant
     var tapCardPhoneListDataSource:[CurrencyCardsTelecomModel] = []
     /// Represents the list of ALL allowed payment chips for the logged in merchant
-    var gatewayChipsViewModel:[CurrencyChipModel] = []
+    var gatewayChipsViewModel:[ChipWithCurrencyModel] = []
     /// Represents the list of ALL allowed goPay chips for the logged in customer
-    var goPayChipsViewModel:[CurrencyChipModel] = []
+    var goPayChipsViewModel:[ChipWithCurrencyModel] = []
     /// Represents The Apple pay merchant id to be used inside the apple pay kit
     var applePayMerchantID:String = ""
     

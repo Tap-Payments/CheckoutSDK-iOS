@@ -29,9 +29,9 @@ internal extension Array where Element: CurrencyCardsTelecomModel {
     }
 }
 
-internal extension Array where Element: CurrencyChipModel {
+internal extension Array where Element: ChipWithCurrencyModel {
     /**
-     Extended method to easily extract the list of GenericTapChipViewModel from list of CurrencyChipModel that supports a certain currenct
+     Extended method to easily extract the list of GenericTapChipViewModel from list of ChipWithCurrencyModel that supports a certain currenct
      - Parameter currency: Pass the currency you want to see its support. If no passed, the Global UserCurrency will be used as the filtering currency
      - Returns: List of the chip models that supports the given currency code
      */

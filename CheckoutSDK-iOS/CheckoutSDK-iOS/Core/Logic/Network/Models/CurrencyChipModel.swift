@@ -1,5 +1,5 @@
 //
-//  CurrencyChipModel.swift
+//  ChipWithCurrencyModel.swift
 //  CheckoutSDK-iOS
 //
 //  Created by Osama Rabie on 8/17/20.
@@ -9,7 +9,7 @@
 import Foundation
 
 /// Represents a model that will link the different chips models with their approved currencies
-internal class CurrencyChipModel {
+internal class ChipWithCurrencyModel {
     
     /// Represents the chip view model itself (Apple, goPay & saved card)
     lazy var tapChipViewModel:GenericTapChipViewModel = .init()

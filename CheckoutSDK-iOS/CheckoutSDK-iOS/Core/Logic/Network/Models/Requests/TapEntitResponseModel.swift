@@ -17,24 +17,28 @@ internal struct TapEntitResponseModel : Codable {
     /// Represents the merchant header info section
 	let merchant : MerchantModel?
     /// Represents the string raw values parsed from the response about the currency codes
-    private let stringCurrencies:[String]?
+    //private let stringCurrencies:[String]?
+    
     /// Represents the supported currencies for the logged in merchant
-    var currencies: [TapCurrencyCode] {
-        return decodeCurrencyList(with: stringCurrencies ?? [])
+    var redirectionGateways:[ChipWithCurrencyModel] {
+        return []
     }
+    
+    /// Represents the supported currencies for the logged in merchant
+    var currencies: [TapCurrencyCode] = []
     /// Represents the supported countries to login to goPay with phone
     let goPayLoginCountries: [TapCountry]?
 
 	enum CodingKeys: String, CodingKey {
 		case merchant = "merchant"
-        case stringCurrencies = "currencies"
+        case currencies = "currencies"
         case goPayLoginCountries = "goPayCountries"
 	}
 
 	init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
 		merchant = try values.decodeIfPresent(MerchantModel.self, forKey: .merchant)
-        stringCurrencies = try values.decodeIfPresent([String].self, forKey: .stringCurrencies)
+        currencies = try values.decodeIfPresent([TapCurrencyCode].self, forKey: .currencies) ?? []
         goPayLoginCountries = try values.decodeIfPresent([TapCountry].self, forKey: .goPayLoginCountries)
 	}
 
@@ -52,4 +56,14 @@ extension TapEntitResponseModel {
         return stringCodes.map{ (TapCurrencyCode.init(appleRawValue: $0) ?? TapCurrencyCode.undefined)}.filter{ $0 != .undefined}
     }
     
+}
+
+
+/// Making Tap Currency Code codable direct from json data
+extension TapCurrencyCode:Codable {
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let rawValue = try container.decode(String.self)
+        self = TapCurrencyCode.init(appleRawValue: rawValue) ??  TapCurrencyCode.undefined
+    }
 }
