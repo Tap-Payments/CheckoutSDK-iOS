@@ -10,6 +10,6 @@ import Foundation
 
 /// Represents a routing enum, which will has the end point of each needed request
 internal enum TapNetworkPath : String {
-    /// Loading the Entit API
-    case EntitAPI = "719798c2-868f-474a-9afb-ca740112fb58"
+    /// Loading the Intent API
+    case IntentAPI = "719798c2-868f-474a-9afb-ca740112fb58"
 }

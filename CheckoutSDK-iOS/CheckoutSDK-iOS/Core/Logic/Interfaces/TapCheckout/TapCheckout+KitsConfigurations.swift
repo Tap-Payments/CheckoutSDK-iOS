@@ -59,13 +59,13 @@ internal extension TapCheckout {
      - Parameter amount: Represents the original transaction amount stated by the merchant on checkout start
      - Parameter items: Represents the List of payment items if any. If no items are provided one will be created by default as PAY TO [MERCHANT NAME] -- Total value
      - Parameter applePayMerchantID: The Apple pay merchant id to be used inside the apple pay kit
-     - Parameter entitModel: The loaded Entit API response model
+     - Parameter intentModel: The loaded Intent API response model
      */
-    func configureSharedManager(currency:TapCurrencyCode, amount:Double,items:[ItemModel],applePayMerchantID:String = "merchant.tap.gosell",entitModel:TapEntitResponseModel) {
+    func configureSharedManager(currency:TapCurrencyCode, amount:Double,items:[ItemModel],applePayMerchantID:String = "merchant.tap.gosell",intentModel:TapIntentResponseModel) {
         let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
         sharedManager.transactionCurrencyObserver.accept(currency)
         sharedManager.applePayMerchantID = applePayMerchantID
-        sharedManager.entitModelResponse = entitModel
+        sharedManager.intentModelResponse = intentModel
         // a variable used to hold the correct amount, which will be the passed amount in case no items or the total items' prices when items are passed
         var finalAmount:Double = amount
         // if items has no items, we need to add the default items

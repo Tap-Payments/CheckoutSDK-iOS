@@ -83,9 +83,9 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         configureLocalisationManager(localiseFile: localiseFile)
         configureThemeManager(customTheme:customTheme)
         
-        NetworkManager.shared.makeApiCall(routing: .EntitAPI, resultType: TapEntitResponseModel.self) { (session, result, error) in
-            guard let entitModel:TapEntitResponseModel = result as? TapEntitResponseModel else { return }
-            self.configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,entitModel:entitModel)
+        NetworkManager.shared.makeApiCall(routing: .IntentAPI, resultType: TapIntentResponseModel.self) { (session, result, error) in
+            guard let intentModel:TapIntentResponseModel = result as? TapIntentResponseModel else { return }
+            self.configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,intentModel:intentModel)
             self.configureBottomSheet()
             onCheckOutReady(self)
         }

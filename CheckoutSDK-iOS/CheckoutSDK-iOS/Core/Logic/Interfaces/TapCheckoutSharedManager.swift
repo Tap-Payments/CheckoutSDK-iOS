@@ -38,11 +38,11 @@ internal class TapCheckoutSharedManager {
     var currenciesChipsViewModel:[CurrencyChipViewModel] = []
     /// Repreents the list fof supported currencies
     var goPayLoginCountries:[TapCountry] = []
-    /// Represents the data loaded from the Entit api on checkout start
-    var entitModelResponse:TapEntitResponseModel?{
+    /// Represents the data loaded from the Intent api on checkout start
+    var intentModelResponse:TapIntentResponseModel?{
         didSet{
             // Now it is time to fetch needed data from the model parsed
-            parseEntitResponse()
+            parseIntentResponse()
         }
     }
     
@@ -198,23 +198,23 @@ internal class TapCheckoutSharedManager {
     }
     
     
-    /// Handles the logic to fetch different sections from the Entit API response
-    private func parseEntitResponse() {
+    /// Handles the logic to fetch different sections from the Intent API response
+    private func parseIntentResponse() {
         
-        guard let entitModel = entitModelResponse else { return }
+        guard let intentModel = intentModelResponse else { return }
         
         // Fetch the merchant header info
-        if let merchantModel:MerchantModel = entitModel.merchant {
+        if let merchantModel:MerchantModel = intentModel.merchant {
             self.tapMerchantViewModel = .init(title: nil, subTitle: merchantModel.name, iconURL: merchantModel.logo)
             
         }
         
         // Fetch the list of supported currencies
-        self.currenciesChipsViewModel = entitModel.currencies.map{ CurrencyChipViewModel.init(currency: $0) }
+        self.currenciesChipsViewModel = intentModel.currencies.map{ CurrencyChipViewModel.init(currency: $0) }
         self.tapCurrienciesChipHorizontalListViewModel = .init(dataSource: currenciesChipsViewModel, headerType: .NoHeader,selectedChip: currenciesChipsViewModel.filter{ $0.currency == transactionUserCurrencyObserver.value }[0])
         
         // Fetch the list of the goPay supported login countries
-        self.goPayLoginCountries = entitModel.goPayLoginCountries ?? []
+        self.goPayLoginCountries = intentModel.goPayLoginCountries ?? []
         self.goPayBarViewModel = .init(countries: goPayLoginCountries)
     }
 }

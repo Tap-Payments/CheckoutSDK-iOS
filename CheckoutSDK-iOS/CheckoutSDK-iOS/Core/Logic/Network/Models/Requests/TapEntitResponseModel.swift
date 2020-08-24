@@ -12,8 +12,8 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 */
 
 import Foundation
-/// Represents the model to parse the Entit API response
-internal struct TapEntitResponseModel : Codable {
+/// Represents the model to parse the Intent API response
+internal struct TapIntentResponseModel : Codable {
     /// Represents the merchant header info section
 	let merchant : MerchantModel?
     /// Represents the string raw values parsed from the response about the currency codes
@@ -45,7 +45,7 @@ internal struct TapEntitResponseModel : Codable {
 }
 
 /// Extension to provide all the helper methods in decoding the raw data into the corresponsind models/viewmodels
-extension TapEntitResponseModel {
+extension TapIntentResponseModel {
     
     /**
      Helper method that converts a list of strings into the corresponding Tap Currency code enum
