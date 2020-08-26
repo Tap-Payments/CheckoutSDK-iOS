@@ -14,7 +14,6 @@
 		620965FC24E4364100BD9985 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620965FA24E4364100BD9985 /* SwitchTableViewCell.swift */; };
 		620965FD24E4364100BD9985 /* LocalisationSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 620965FB24E4364100BD9985 /* LocalisationSwitchTableViewCell.xib */; };
 		62570A1024EA6F2500274C2C /* TapSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62570A0F24EA6F2500274C2C /* TapSettings.swift */; };
-		625E2CC824F69F09008C2019 /* TapPaymentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625E2CC724F69F09008C2019 /* TapPaymentType.swift */; };
 		625E2CCA24F6A176008C2019 /* MultipleSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625E2CC924F6A176008C2019 /* MultipleSelectionViewController.swift */; };
 		62B45FA024EBD6680094FB4B /* FormCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B45F9D24EBD6680094FB4B /* FormCells.swift */; };
 		62B45FA124EBD6680094FB4B /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B45F9E24EBD6680094FB4B /* FormViewController.swift */; };
@@ -89,7 +88,6 @@
 		620965FA24E4364100BD9985 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		620965FB24E4364100BD9985 /* LocalisationSwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocalisationSwitchTableViewCell.xib; sourceTree = "<group>"; };
 		62570A0F24EA6F2500274C2C /* TapSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapSettings.swift; sourceTree = "<group>"; };
-		625E2CC724F69F09008C2019 /* TapPaymentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapPaymentType.swift; sourceTree = "<group>"; };
 		625E2CC924F6A176008C2019 /* MultipleSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSelectionViewController.swift; sourceTree = "<group>"; };
 		62B45F9D24EBD6680094FB4B /* FormCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormCells.swift; sourceTree = "<group>"; };
 		62B45F9E24EBD6680094FB4B /* FormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
@@ -188,7 +186,6 @@
 			isa = PBXGroup;
 			children = (
 				62570A0F24EA6F2500274C2C /* TapSettings.swift */,
-				625E2CC724F69F09008C2019 /* TapPaymentType.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -609,7 +606,6 @@
 				E8811AEA24D4287400DE95D1 /* SceneDelegate.swift in Sources */,
 				62B45FA724EBE2210094FB4B /* TableViewController.swift in Sources */,
 				620965F524E41F1E00BD9985 /* SettingsViewController.swift in Sources */,
-				625E2CC824F69F09008C2019 /* TapPaymentType.swift in Sources */,
 				620965F824E42ED800BD9985 /* SettingsDelegate.swift in Sources */,
 				62570A1024EA6F2500274C2C /* TapSettings.swift in Sources */,
 				62B45FA524EBE19B0094FB4B /* AddItemViewController.swift in Sources */,
