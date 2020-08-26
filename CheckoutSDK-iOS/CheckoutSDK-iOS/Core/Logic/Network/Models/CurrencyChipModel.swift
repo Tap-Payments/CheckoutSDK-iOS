@@ -17,6 +17,8 @@ internal class ChipWithCurrencyModel:Codable {
     lazy var supportedCurrencies:[TapCurrencyCode] = []
     /// Represents the the country the telecom operator works with
     var supportedCountry:TapCountry?
+    /// Represents the payment type
+    lazy var paymentType:TapPaymentType = .All
     
     /**
      Creates a new instance that links the chip model with certain currencies
@@ -38,19 +40,22 @@ internal class ChipWithCurrencyModel:Codable {
     func isEnabled(for currency:TapCurrencyCode) -> Bool {
         // Make sure the currency list has values with the given currenct or it supports every currency
         return (supportedCurrencies == []) || (supportedCurrencies.filter{ $0.appleRawValue == currency.appleRawValue } != [])
-        
     }
+    
     enum CodingKeys: String, CodingKey {
         case tapChipViewModel = "chip"
         case supportedCurrencies = "currencies"
         case supportedCountry = "country"
         case chipType = "chipType"
+        case paymentType = "paymentType"
     }
     
     required public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         self.supportedCurrencies = try values.decodeIfPresent([TapCurrencyCode].self, forKey: .supportedCurrencies) ?? []
         self.supportedCountry = try values.decodeIfPresent(TapCountry.self, forKey: .supportedCountry)
+        self.paymentType = try values.decodeIfPresent(TapPaymentType.self, forKey: .paymentType) ?? .All
+        
         let chipType:TapChipType = try values.decodeIfPresent(TapChipType.self, forKey: .chipType) ?? .GatewayChip
         switch chipType {
         case .GatewayChip:
