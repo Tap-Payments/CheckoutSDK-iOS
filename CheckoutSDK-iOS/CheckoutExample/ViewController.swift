@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     var amount:Double {
         return Double(amountTextField.text ?? "") ?? 1000
     }
+    var swipeToDismiss:Bool = false
     var items:[ItemModel] = []
     @IBOutlet weak var paymentItemsTableView: UITableView!
 
@@ -62,6 +63,7 @@ class ViewController: UIViewController {
             currency: selectedCurrency,
             amount: amount,
             items: items,
+            swipeDownToDismiss: swipeToDismiss,
             onCheckOutReady: {[weak self] tapCheckOut in
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
                     tapCheckOut.start(presentIn: self)
@@ -106,8 +108,8 @@ extension ViewController: SettingsDelegate {
         selectedCurrency = currency
     }
     
-    func didUpdateFeature(to enabled: Bool) {
-        print("did enable the feature: \(enabled)")
+    func didUpdateSwipeToDismiss(to enabled: Bool) {
+        swipeToDismiss = enabled
     }
 }
 

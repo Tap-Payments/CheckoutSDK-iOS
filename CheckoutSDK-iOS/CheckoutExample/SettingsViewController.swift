@@ -17,7 +17,7 @@ class SettingsViewController: UIViewController {
     @objc public var delegate: SettingsDelegate?
     
     private var settingsList: [[String: Any]] = []
-    private var tapSettings = TapSettings(language: "English", localisation: false, theme: "Default", currency: .USD, feature: false)
+    private var tapSettings = TapSettings(language: "English", localisation: false, theme: "Default", currency: .USD, swipeToDismissFeature: false)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +40,8 @@ class SettingsViewController: UIViewController {
                              "rows": [["title": "Change Theme", "selected": tapSettings.theme]], "cellType":""])
         settingsList.append(["title": "Currency",
                              "rows": [["title": "Change Currency", "selected": tapSettings.currency]], "cellType":""])
-        settingsList.append(["title": "Enable Feature",
-        "rows": [["title": "Enable Feature", "selected": tapSettings.feature]], "cellType":"switch"])
+        settingsList.append(["title": "Swipe to dismiss",
+        "rows": [["title": "Enable swipe to dismiss the checkout screen", "selected": tapSettings.swipeToDismissFeature]], "cellType":"switch"])
     }
 }
 
@@ -108,7 +108,7 @@ extension SettingsViewController: SwitchTableViewCellDelegate {
         case 1:
             self.delegate?.didUpdateLocalisation(to: enabled)
         case 4:
-            self.delegate?.didUpdateFeature(to: enabled)
+            self.delegate?.didUpdateSwipeToDismiss(to: enabled)
         default: break
         }
     }

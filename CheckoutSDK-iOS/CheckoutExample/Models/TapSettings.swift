@@ -29,18 +29,18 @@ import CheckoutSDK_iOS
             self.onChangeBlock?()
         }
     }
-    var feature: Bool {
+    var swipeToDismissFeature: Bool {
         didSet {
             self.onChangeBlock?()
         }
     }
     var onChangeBlock: (() -> ())?
     
-    init(language: String, localisation: Bool, theme: String, currency: TapCurrencyCode, feature: Bool) {
+    init(language: String, localisation: Bool, theme: String, currency: TapCurrencyCode, swipeToDismissFeature: Bool) {
         self.language = language
         self.localisation = localisation
         self.theme = theme
         self.currency = currency
-        self.feature = feature
+        self.swipeToDismissFeature = swipeToDismissFeature
     }
 }
