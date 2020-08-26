@@ -23,6 +23,7 @@
 		62B45FAB24EBF2620094FB4B /* ItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62B45FA924EBF2620094FB4B /* ItemTableViewCell.xib */; };
 		E825DD5924E938DB0074BF54 /* TapCheckoutSharedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E825DD5824E938DB0074BF54 /* TapCheckoutSharedManager.swift */; };
 		E830B7F324F3E96900B62713 /* TapPayButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E830B7F224F3E96900B62713 /* TapPayButtonViewModel.swift */; };
+		E830B7F524F6ACCC00B62713 /* TapPaymentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E830B7F424F6ACCC00B62713 /* TapPaymentType.swift */; };
 		E861286D24EA7F7F00774BAA /* CurrencyChipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E861286C24EA7F7F00774BAA /* CurrencyChipModel.swift */; };
 		E861286F24EAA38A00774BAA /* CurrencyCardsTelecomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E861286E24EAA38A00774BAA /* CurrencyCardsTelecomModel.swift */; };
 		E86128B424ED23EF00774BAA /* TapCheckoutExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86128B324ED23EF00774BAA /* TapCheckoutExtensions.swift */; };
@@ -98,6 +99,7 @@
 		9EA23C9D0ACA6A832C046E7C /* Pods-CheckoutExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutExample.debug.xcconfig"; path = "Target Support Files/Pods-CheckoutExample/Pods-CheckoutExample.debug.xcconfig"; sourceTree = "<group>"; };
 		E825DD5824E938DB0074BF54 /* TapCheckoutSharedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckoutSharedManager.swift; sourceTree = "<group>"; };
 		E830B7F224F3E96900B62713 /* TapPayButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapPayButtonViewModel.swift; sourceTree = "<group>"; };
+		E830B7F424F6ACCC00B62713 /* TapPaymentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapPaymentType.swift; sourceTree = "<group>"; };
 		E861286C24EA7F7F00774BAA /* CurrencyChipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyChipModel.swift; sourceTree = "<group>"; };
 		E861286E24EAA38A00774BAA /* CurrencyCardsTelecomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCardsTelecomModel.swift; sourceTree = "<group>"; };
 		E86128B324ED23EF00774BAA /* TapCheckoutExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckoutExtensions.swift; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 			children = (
 				E8C2052524E3FEFA006653CA /* TapCheckoutFlipStatus.swift */,
 				E8983DCE24F0F7B800C34E50 /* TapNetworkPath.swift */,
+				E830B7F424F6ACCC00B62713 /* TapPaymentType.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -571,6 +574,7 @@
 				E89225EA24E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift in Sources */,
 				E830B7F324F3E96900B62713 /* TapPayButtonViewModel.swift in Sources */,
 				E825DD5924E938DB0074BF54 /* TapCheckoutSharedManager.swift in Sources */,
+				E830B7F524F6ACCC00B62713 /* TapPaymentType.swift in Sources */,
 				E861286F24EAA38A00774BAA /* CurrencyCardsTelecomModel.swift in Sources */,
 				E8983DCD24EEC3D900C34E50 /* NetworkManager.swift in Sources */,
 				E8C2052624E3FEFA006653CA /* TapCheckoutFlipStatus.swift in Sources */,
