@@ -9,7 +9,7 @@
 import Foundation
 
 /// An enum to define all the possible payment methods/types provided by the checkout SDK
-@objc public enum TapPaymentType:Int, Codable {
+@objc public enum TapPaymentType:Int, Codable, RawRepresentable {
     /// Meaning, all availble payment options will be visible for the customers
     case All = 1
     /// Meaning, only web (redirectional) payments wil be visible (like KNET, BENEFIT, FAWRY, etc.)

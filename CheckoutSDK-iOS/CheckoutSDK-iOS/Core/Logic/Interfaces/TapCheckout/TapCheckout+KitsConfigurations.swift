@@ -61,13 +61,16 @@ internal extension TapCheckout {
      - Parameter applePayMerchantID: The Apple pay merchant id to be used inside the apple pay kit
      - Parameter intentModel: The loaded Intent API response model
      - Parameter swipeDownToDismiss: If it is set then when the user swipes down the payment will close, otherwise, there will be a shown button to dismiss the screen. Default is false
+     - Parameter paymentTypes: The allowed payment types inclyding cards, apple pay, web and telecom
      */
-    func configureSharedManager(currency:TapCurrencyCode, amount:Double,items:[ItemModel],applePayMerchantID:String = "merchant.tap.gosell",intentModel:TapIntentResponseModel,swipeDownToDismiss:Bool = false) {
+    func configureSharedManager(currency:TapCurrencyCode, amount:Double,items:[ItemModel],applePayMerchantID:String = "merchant.tap.gosell",intentModel:TapIntentResponseModel,swipeDownToDismiss:Bool = false,paymentTypes:[TapPaymentType]) {
         let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
         sharedManager.transactionCurrencyObserver.accept(currency)
         sharedManager.applePayMerchantID = applePayMerchantID
-        sharedManager.intentModelResponse = intentModel
+        sharedManager.paymentTypes = paymentTypes
         sharedManager.swipeDownToDismiss = swipeDownToDismiss
+        sharedManager.intentModelResponse = intentModel
+        
         // a variable used to hold the correct amount, which will be the passed amount in case no items or the total items' prices when items are passed
         var finalAmount:Double = amount
         // if items has no items, we need to add the default items
@@ -79,6 +82,8 @@ internal extension TapCheckout {
         }
         // Tell the manager what is the final amount based on given items prices or a given total amount
         sharedManager.transactionTotalAmountObserver.accept(finalAmount)
+        
+        
     }
     
 }

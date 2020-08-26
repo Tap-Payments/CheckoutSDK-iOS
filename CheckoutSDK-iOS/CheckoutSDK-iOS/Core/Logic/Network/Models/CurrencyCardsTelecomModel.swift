@@ -16,17 +16,21 @@ internal class CurrencyCardsTelecomModel:Codable {
     lazy var supportedCurrencies:[TapCurrencyCode] = []
     /// Repreents the country associated with the telecom bar payments if any
     lazy var supportedTelecomCountry:TapCountry? = nil
+    /// Represents the payment type
+    lazy var paymentType:TapPaymentType = .All
     
     /**
      Creates a new instance that links the bar view model with certain currencies
      - Parameter tapCardPhoneViewModel: Represents the card/telecom bar item view model itself (Visa, Amex, )
      - Parameter supportedCurrencies: Represents the list of currencies the bar item supports or should be visible when selected selected
      - Parameter supportedTelecomCountry: Repreents the country associated with the telecom bar payments if any
+     - Parameter paymentType:Represents the payment type
      */
-    init(tapCardPhoneViewModel:TapCardPhoneIconViewModel, supportedCurrencies:[TapCurrencyCode] = [], supportedTelecomCountry:TapCountry? = nil) {
+    init(tapCardPhoneViewModel:TapCardPhoneIconViewModel, supportedCurrencies:[TapCurrencyCode] = [], supportedTelecomCountry:TapCountry? = nil,paymentType:TapPaymentType = .All) {
         self.tapCardPhoneViewModel = tapCardPhoneViewModel
         self.supportedCurrencies = supportedCurrencies
         self.supportedTelecomCountry = supportedTelecomCountry
+        self.paymentType = paymentType
     }
     
     /**
@@ -46,6 +50,7 @@ internal class CurrencyCardsTelecomModel:Codable {
         case supportedCurrencies = "currencies"
         case supportedTelecomCountry = "country"
         case brandIcon = "icon"
+        case paymentType = "paymentType"
     }
     
     required public init(from decoder: Decoder) throws {
@@ -55,6 +60,7 @@ internal class CurrencyCardsTelecomModel:Codable {
         let cardBrand:CardBrand = try values.decodeIfPresent(CardBrand.self, forKey: .brand) ?? CardBrand.unknown
         let brandIcon:String = try values.decodeIfPresent(String.self, forKey: .brandIcon) ?? ""
         self.tapCardPhoneViewModel = .init(associatedCardBrand: cardBrand, tapCardPhoneIconUrl:brandIcon)
+        self.paymentType = try values.decodeIfPresent(TapPaymentType.self, forKey: .paymentType) ?? .All
     }
     
     

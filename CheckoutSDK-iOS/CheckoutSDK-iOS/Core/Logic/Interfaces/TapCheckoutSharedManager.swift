@@ -46,6 +46,8 @@ internal class TapCheckoutSharedManager {
             parseIntentResponse()
         }
     }
+    /// Represents The allowed payment types inclyding cards, apple pay, web and telecom
+    var paymentTypes:[TapPaymentType] = [.All]
     
     /// Represents the list of ALL allowed telecom/cards payments for the logged in merchant
     var tapCardPhoneListDataSource:[CurrencyCardsTelecomModel] = []
