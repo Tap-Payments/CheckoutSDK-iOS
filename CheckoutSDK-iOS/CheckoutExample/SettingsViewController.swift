@@ -17,7 +17,7 @@ class SettingsViewController: UIViewController {
     @objc public var delegate: SettingsDelegate?
     
     private var settingsList: [[String: Any]] = []
-    private var tapSettings = TapSettings(language: "English", localisation: false, theme: "Default", currency: .USD)
+    private var tapSettings = TapSettings(language: "English", localisation: false, theme: "Default", currency: .USD, feature: false)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +40,8 @@ class SettingsViewController: UIViewController {
                              "rows": [["title": "Change Theme", "selected": tapSettings.theme]], "cellType":""])
         settingsList.append(["title": "Currency",
                              "rows": [["title": "Change Currency", "selected": tapSettings.currency]], "cellType":""])
+        settingsList.append(["title": "Enable Feature",
+        "rows": [["title": "Enable Feature", "selected": tapSettings.feature]], "cellType":"switch"])
     }
 }
 
@@ -62,9 +64,10 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         let currentRow = rows[indexPath.row]
         
         if settingsList[indexPath.section]["cellType"] as! String == "switch" {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "LocalisationSwitchTableViewCell") as! LocalisationSwitchTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "LocalisationSwitchTableViewCell") as! SwitchTableViewCell
             cell.titleLabel.text = currentRow["title"] as? String
             cell.switchButton.isOn = currentRow["selected"] as? Bool ?? false
+            cell.indexPath = indexPath
             cell.delegate = self
             return cell
         } else {
@@ -97,10 +100,17 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     
 }
 
-extension SettingsViewController: LocalisationSwitchTableViewCellDelegate {
-    func switchDidChange(enabled: Bool) {
+extension SettingsViewController: SwitchTableViewCellDelegate {
+    func switchDidChange(enabled: Bool, at indexPath: IndexPath?) {
         let text = enabled ? "enabled" : "disabled"
-        print("localisation \(text)")
+        print("indexPath?.section: \(String(describing: indexPath?.section)) -- enabled \(text)")
+        switch indexPath?.section {
+        case 1:
+            self.delegate?.didUpdateLocalisation(to: enabled)
+        case 4:
+            self.delegate?.didUpdateFeature(to: enabled)
+        default: break
+        }
     }
 }
 

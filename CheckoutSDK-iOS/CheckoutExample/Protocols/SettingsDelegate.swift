@@ -13,4 +13,5 @@ import CheckoutSDK_iOS
     @objc func didUpdateLocalisation(to enabled: Bool)
     @objc func didChangeTheme(with themeName: String?)
     @objc func didChangeCurrency(with currency: TapCurrencyCode)
+    @objc func didUpdateFeature(to enabled: Bool)
 }

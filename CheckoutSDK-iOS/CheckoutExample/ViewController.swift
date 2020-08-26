@@ -105,6 +105,10 @@ extension ViewController: SettingsDelegate {
     func didChangeCurrency(with currency: TapCurrencyCode) {
         selectedCurrency = currency
     }
+    
+    func didUpdateFeature(to enabled: Bool) {
+        print("did enable the feature: \(enabled)")
+    }
 }
 
 
