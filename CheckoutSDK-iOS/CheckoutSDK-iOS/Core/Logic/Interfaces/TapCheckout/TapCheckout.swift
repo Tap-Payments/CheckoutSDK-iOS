@@ -76,8 +76,9 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter items: Represents the List of payment items if any. If no items are provided one will be created by default as PAY TO [MERCHANT NAME] -- Total value
      - Parameter applePayMerchantID: The Apple pay merchant id to be used inside the apple pay kit
      - Parameter onCheckOutReady: This will be called once the checkout is ready so you can use it to present it or cancel it
+     - Parameter swipeDownToDismiss: If it is set then when the user swipes down the payment will close, otherwise, there will be a shown button to dismiss the screen. Default is false
      */
-    @objc public func build(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil,currency:TapCurrencyCode = .USD,amount:Double = 1,items:[ItemModel] = [],applePayMerchantID:String = "merchant.tap.gosell",onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}){
+    @objc public func build(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil,currency:TapCurrencyCode = .USD,amount:Double = 1,items:[ItemModel] = [],applePayMerchantID:String = "merchant.tap.gosell",swipeDownToDismiss:Bool = false, onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}){
         TapCheckoutSharedManager.destroy()
         tapCheckoutScreenDelegate = delegate
         configureLocalisationManager(localiseFile: localiseFile)
@@ -85,7 +86,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         
         NetworkManager.shared.makeApiCall(routing: .IntentAPI, resultType: TapIntentResponseModel.self) { (session, result, error) in
             guard let intentModel:TapIntentResponseModel = result as? TapIntentResponseModel else { return }
-            self.configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,intentModel:intentModel)
+            self.configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,intentModel:intentModel,swipeDownToDismiss:swipeDownToDismiss)
             self.configureBottomSheet()
             onCheckOutReady(self)
         }
@@ -147,10 +148,18 @@ extension TapCheckout: TapBottomSheetDialogDelegate {
     }
     
     public func tapBottomSheetWillDismiss() {
+        // If it is allowed, then we need to start the dismissing of the checkout screen
         if TapCheckout.flippingStatus == .FlipOnLoadWithFlippingBack {
             MOLH.setLanguageTo("en")
         }
         tapCheckoutScreenDelegate?.tapBottomSheetWillDismiss?()
+    }
+    
+    
+    public func shallSwipeToDismiss() -> Bool {
+        // Make sure if the swipe down is enabled or not
+        let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
+        return sharedManager.swipeDownToDismiss
     }
     
     public func tapBottomSheetDidTapOutside() {
