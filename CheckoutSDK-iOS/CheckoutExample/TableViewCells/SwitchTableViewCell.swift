@@ -8,15 +8,16 @@
 
 import UIKit
 
-protocol LocalisationSwitchTableViewCellDelegate {
-    func switchDidChange(enabled: Bool)
+protocol SwitchTableViewCellDelegate {
+    func switchDidChange(enabled: Bool, at indexPath: IndexPath?)
 }
 
-class LocalisationSwitchTableViewCell: UITableViewCell {
+class SwitchTableViewCell: UITableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var switchButton: UISwitch!
-    var delegate: LocalisationSwitchTableViewCellDelegate?
+    var delegate: SwitchTableViewCellDelegate?
+    var indexPath: IndexPath?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -30,6 +31,6 @@ class LocalisationSwitchTableViewCell: UITableViewCell {
     @objc func switchToggled(sender: UISwitch) {
         let value = sender.isOn
         print("switch value changed \(value)")
-        self.delegate?.switchDidChange(enabled: sender.isOn)
+        self.delegate?.switchDidChange(enabled: sender.isOn, at: indexPath)
     }
 }
