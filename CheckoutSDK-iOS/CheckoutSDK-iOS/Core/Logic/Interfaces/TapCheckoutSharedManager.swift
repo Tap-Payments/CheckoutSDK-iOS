@@ -33,7 +33,8 @@ internal class TapCheckoutSharedManager {
     var tapCurrienciesChipHorizontalListViewModel:TapChipHorizontalListViewModel = .init()
     /// Represents the view model that controls the country picker when logging in to goPay using the phone number
     var goPayBarViewModel:TapGoPayLoginBarViewModel?
-    
+    /// If it is set then when the user swipes down the payment will close, otherwise, there will be a shown button to dismiss the screen. Default is false
+    var swipeDownToDismiss:Bool = false
     /// Repreents the list fof supported currencies
     var currenciesChipsViewModel:[CurrencyChipViewModel] = []
     /// Repreents the list fof supported currencies
@@ -86,14 +87,11 @@ internal class TapCheckoutSharedManager {
     }
     
     private init() {
-        print("init singleton")
         // Bind the observables
         bindTheObservables()
     }
     
-    deinit {
-        print("deinit singleton")
-    }
+    deinit {}
     
     /// Resetting all view models to the initial state
     private func resetViewModels() {
@@ -133,12 +131,17 @@ internal class TapCheckoutSharedManager {
                 return (lastAmount == newAmount) && (lastUserCurrency == newUserCurrency)
             }.filter{ $0 != 0 && $1 != .undefined }
             .subscribe(onNext: { [weak self] (_,_) in
-            self?.updateAmountSection()
-            self?.updateItemsList()
-            self?.updateGatewayChipsList()
-            self?.updateCardTelecomList()
-            self?.updateApplePayRequest()
+                self?.updateManager()
         }).disposed(by: disposeBag)
+    }
+    
+    /// Handles the logic required to update all required fields and variables upon a change in the current shared data manager state
+    private func updateManager() {
+        updateAmountSection()
+        updateItemsList()
+        updateGatewayChipsList()
+        updateCardTelecomList()
+        updateApplePayRequest()
     }
     
     /// Handles the logic needed to create the tap items view model by utilising the original currency and the items list passed by the merchant
@@ -201,10 +204,7 @@ internal class TapCheckoutSharedManager {
         guard let intentModel = intentModelResponse else { return }
         
         // Fetch the merchant header info
-        if let merchantModel:MerchantModel = intentModel.merchant {
-            self.tapMerchantViewModel = .init(title: nil, subTitle: merchantModel.name, iconURL: merchantModel.logo)
-            
-        }
+        self.tapMerchantViewModel = .init(title: nil, subTitle: intentModel.merchant?.name, iconURL: intentModel.merchant?.logo)
         
         // Fetch the list of supported currencies
         self.currenciesChipsViewModel = intentModel.currencies.map{ CurrencyChipViewModel.init(currency: $0) }

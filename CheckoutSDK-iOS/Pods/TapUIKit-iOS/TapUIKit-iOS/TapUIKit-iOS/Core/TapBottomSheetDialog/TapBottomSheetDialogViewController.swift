@@ -96,6 +96,11 @@ import TapThemeManager2020
      Will be fired once the controller is presented
      */
     @objc optional func tapBottomSheetPresented()
+    
+    /**
+     Fetches if the swipe to dismiss enabled or disabled
+     */
+    @objc optional func shallSwipeToDismiss() -> Bool
 }
 
 /// This class represents the bottom sheet popup with all of its configuration
@@ -406,6 +411,10 @@ import TapThemeManager2020
 
 
 extension TapBottomSheetDialogViewController: TapPresentableViewControllerDelegate {
+    func shallSwipeToDismiss() -> Bool {
+        return delegate?.shallSwipeToDismiss?() ?? false
+    }
+    
     func willDismiss() {
         UIView.animate(withDuration: 0.15) {
             self.view.alpha = 0
