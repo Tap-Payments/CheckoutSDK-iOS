@@ -17,7 +17,7 @@ class SettingsViewController: UIViewController {
     @objc public var delegate: SettingsDelegate?
     
     private var settingsList: [[String: Any]] = []
-    private var tapSettings = TapSettings(language: "English", localisation: false, theme: "Default", currency: .USD, swipeToDismissFeature: false)
+    private var tapSettings = TapSettings(language: "English", localisation: false, theme: "Default", currency: .USD, swipeToDismissFeature: false, paymentType: .All)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +42,8 @@ class SettingsViewController: UIViewController {
                              "rows": [["title": "Change Currency", "selected": tapSettings.currency]], "cellType":""])
         settingsList.append(["title": "Swipe to dismiss",
         "rows": [["title": "Enable swipe to dismiss the checkout screen", "selected": tapSettings.swipeToDismissFeature]], "cellType":"switch"])
+        settingsList.append(["title": "Pyament Options",
+        "rows": [["title": "Select payment options", "selected": tapSettings.paymentType]], "cellType":""])
     }
 }
 
@@ -81,6 +83,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             cell.detailTextLabel?.text = selectedValue as? String
            case 3: // currency
             cell.detailTextLabel?.text = (selectedValue as? TapCurrencyCode)?.appleRawValue
+           case 5:
+            cell.detailTextLabel?.text = (selectedValue as? TapPaymentType)?.stringValue
             default: break
             }
             return cell
@@ -94,13 +98,14 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         case 0: showLanguageActionSheet()
         case 2: showThemeActionSheet()
         case 3: showCurrencyActionSheet()
+        case 5: showPaypentTypesList()
         default: break
         }
     }
     
 }
 
-extension SettingsViewController: SwitchTableViewCellDelegate {
+extension SettingsViewController: SwitchTableViewCellDelegate, MultipleSelectionViewDelegate {
     func switchDidChange(enabled: Bool, at indexPath: IndexPath?) {
         let text = enabled ? "enabled" : "disabled"
         print("indexPath?.section: \(String(describing: indexPath?.section)) -- enabled \(text)")
@@ -112,9 +117,20 @@ extension SettingsViewController: SwitchTableViewCellDelegate {
         default: break
         }
     }
+    
+    func didSelectRow(with paymentType: TapPaymentType) {
+        tapSettings.paymentType = paymentType
+    }
 }
 
 extension SettingsViewController  {
+    // MARK: Multiple Selection List
+    func showPaypentTypesList() {
+        let multipleOptionsVC = self.storyboard?.instantiateViewController(withIdentifier: "MultipleSelectionViewController") as! MultipleSelectionViewController
+        multipleOptionsVC.options = [.All,.Web,.Card,.Telecom,.ApplePay]
+        multipleOptionsVC.delegate = self
+        self.present(multipleOptionsVC, animated: true, completion: nil)
+    }
     
     // MARK: Language Selection
     func showLanguageActionSheet() {

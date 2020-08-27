@@ -9,7 +9,7 @@
 import Foundation
 
 /// An enum to define all the possible payment methods/types provided by the checkout SDK
-@objc public enum TapPaymentType:Int, Codable, RawRepresentable {
+@objc public enum TapPaymentType:Int, Codable, RawRepresentable, CaseIterable {
     /// Meaning, all availble payment options will be visible for the customers
     case All = 1
     /// Meaning, only web (redirectional) payments wil be visible (like KNET, BENEFIT, FAWRY, etc.)
@@ -41,6 +41,21 @@ import Foundation
         let container = try decoder.singleValueContainer()
         let rawValue = try container.decode(String.self)
         self = TapPaymentType.init(stringValue: rawValue)
+    }
+    
+    public var stringValue: String {
+        switch self {
+        case .Web:
+            return "web"
+        case .Card:
+            return "card"
+        case .Telecom:
+            return "telecom"
+        case .ApplePay:
+            return "apple_pay"
+        default:
+            return "all"
+        }
     }
     
 }

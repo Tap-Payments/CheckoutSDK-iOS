@@ -10,37 +10,31 @@ import CheckoutSDK_iOS
 
 @objc public class TapSettings: NSObject {
     var language: String {
-        didSet {
-            self.onChangeBlock?()
-        }
+        didSet { self.onChangeBlock?() }
     }
     var localisation: Bool {
-        didSet {
-            self.onChangeBlock?()
-        }
+        didSet { self.onChangeBlock?() }
     }
     var theme: String {
-        didSet {
-            self.onChangeBlock?()
-        }
+        didSet { self.onChangeBlock?() }
     }
     var currency: TapCurrencyCode {
-        didSet {
-            self.onChangeBlock?()
-        }
+        didSet { self.onChangeBlock?() }
     }
     var swipeToDismissFeature: Bool {
-        didSet {
-            self.onChangeBlock?()
-        }
+        didSet { self.onChangeBlock?() }
+    }
+    var paymentType: TapPaymentType {
+        didSet { self.onChangeBlock?() }
     }
     var onChangeBlock: (() -> ())?
     
-    init(language: String, localisation: Bool, theme: String, currency: TapCurrencyCode, swipeToDismissFeature: Bool) {
+    init(language: String, localisation: Bool, theme: String, currency: TapCurrencyCode, swipeToDismissFeature: Bool, paymentType: TapPaymentType) {
         self.language = language
         self.localisation = localisation
         self.theme = theme
         self.currency = currency
         self.swipeToDismissFeature = swipeToDismissFeature
+        self.paymentType = paymentType
     }
 }
