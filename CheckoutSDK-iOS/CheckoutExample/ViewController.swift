@@ -64,6 +64,7 @@ class ViewController: UIViewController {
             amount: amount,
             items: items,
             swipeDownToDismiss: swipeToDismiss,
+            paymentTypes: [.Card,.Web],
             onCheckOutReady: {[weak self] tapCheckOut in
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
                     tapCheckOut.start(presentIn: self)
