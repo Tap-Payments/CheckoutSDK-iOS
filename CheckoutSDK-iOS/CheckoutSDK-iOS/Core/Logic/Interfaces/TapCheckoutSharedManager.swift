@@ -217,13 +217,18 @@ internal class TapCheckoutSharedManager {
         self.goPayBarViewModel = .init(countries: goPayLoginCountries)
         
         // Fetch the list of goPay Saved Cards
-        self.goPayChipsViewModel = intentModel.goPaySavedCards ?? []
-        goPayChipsViewModel.append(.init(tapChipViewModel:TapLogoutChipViewModel()))
+        // First check if cards are allowed
+        if paymentTypes.contains(.All) || paymentTypes.contains(.Card) {
+            self.goPayChipsViewModel = intentModel.goPaySavedCards ?? []
+            goPayChipsViewModel.append(.init(tapChipViewModel:TapLogoutChipViewModel()))
+        }else{
+            self.goPayChipsViewModel = []
+        }
         
         // Fetch the merchant based saved cards + differnt payment types
-        self.gatewayChipsViewModel = intentModel.paymentChips ?? []
+        self.gatewayChipsViewModel = (intentModel.paymentChips ?? []).filter{ paymentTypes.contains(.All) || paymentTypes.contains($0.paymentType) }
         
         // Fetch the cards + telecom payments options
-        self.tapCardPhoneListDataSource = intentModel.tapCardPhoneListDataSource ?? .init()
+        self.tapCardPhoneListDataSource = (intentModel.tapCardPhoneListDataSource ?? []).filter{ paymentTypes.contains(.All) || paymentTypes.contains($0.paymentType) }
     }
 }
