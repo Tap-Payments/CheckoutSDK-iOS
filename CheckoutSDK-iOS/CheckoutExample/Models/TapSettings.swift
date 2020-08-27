@@ -24,17 +24,17 @@ import CheckoutSDK_iOS
     var swipeToDismissFeature: Bool {
         didSet { self.onChangeBlock?() }
     }
-    var paymentType: TapPaymentType {
+    var paymentTypes: [TapPaymentType] {
         didSet { self.onChangeBlock?() }
     }
     var onChangeBlock: (() -> ())?
     
-    init(language: String, localisation: Bool, theme: String, currency: TapCurrencyCode, swipeToDismissFeature: Bool, paymentType: TapPaymentType) {
+    init(language: String, localisation: Bool, theme: String, currency: TapCurrencyCode, swipeToDismissFeature: Bool, paymentTypes: [TapPaymentType]) {
         self.language = language
         self.localisation = localisation
         self.theme = theme
         self.currency = currency
         self.swipeToDismissFeature = swipeToDismissFeature
-        self.paymentType = paymentType
+        self.paymentTypes = paymentTypes
     }
 }

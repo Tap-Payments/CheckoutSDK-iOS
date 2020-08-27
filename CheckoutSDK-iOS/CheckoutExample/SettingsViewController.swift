@@ -17,7 +17,7 @@ class SettingsViewController: UIViewController {
     @objc public var delegate: SettingsDelegate?
     
     private var settingsList: [[String: Any]] = []
-    private var tapSettings = TapSettings(language: "English", localisation: false, theme: "Default", currency: .USD, swipeToDismissFeature: false, paymentType: .All)
+    private var tapSettings = TapSettings(language: "English", localisation: false, theme: "Default", currency: .USD, swipeToDismissFeature: false, paymentTypes: [.All])
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +43,7 @@ class SettingsViewController: UIViewController {
         settingsList.append(["title": "Swipe to dismiss",
         "rows": [["title": "Enable swipe to dismiss the checkout screen", "selected": tapSettings.swipeToDismissFeature]], "cellType":"switch"])
         settingsList.append(["title": "Pyament Options",
-        "rows": [["title": "Select payment options", "selected": tapSettings.paymentType]], "cellType":""])
+        "rows": [["title": "Select payment options", "selected": tapSettings.paymentTypes]], "cellType":""])
     }
 }
 
@@ -84,7 +84,9 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
            case 3: // currency
             cell.detailTextLabel?.text = (selectedValue as? TapCurrencyCode)?.appleRawValue
            case 5:
-            cell.detailTextLabel?.text = (selectedValue as? TapPaymentType)?.stringValue
+            var strings: [String] = []
+            (selectedValue as? [TapPaymentType])?.forEach{strings.append($0.stringValue)}
+            cell.detailTextLabel?.text = strings.joined(separator: ",")
             default: break
             }
             return cell
@@ -117,10 +119,11 @@ extension SettingsViewController: SwitchTableViewCellDelegate, MultipleSelection
         default: break
         }
     }
-    
-    func didSelectRow(with paymentType: TapPaymentType) {
-        tapSettings.paymentType = paymentType
+    func didUpdatePaymentTypes(paymentTypes: [TapPaymentType]) {
+        tapSettings.paymentTypes = paymentTypes
+
     }
+    
 }
 
 extension SettingsViewController  {
@@ -128,6 +131,7 @@ extension SettingsViewController  {
     func showPaypentTypesList() {
         let multipleOptionsVC = self.storyboard?.instantiateViewController(withIdentifier: "MultipleSelectionViewController") as! MultipleSelectionViewController
         multipleOptionsVC.options = [.All,.Web,.Card,.Telecom,.ApplePay]
+        multipleOptionsVC.selectedOptions = tapSettings.paymentTypes
         multipleOptionsVC.delegate = self
         self.present(multipleOptionsVC, animated: true, completion: nil)
     }
