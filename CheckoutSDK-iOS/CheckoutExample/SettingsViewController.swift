@@ -14,7 +14,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var settingsTableView: UITableView!
     
     /// The delegate used to fire events to the caller view
-    @objc public var delegate: SettingsDelegate?
+    public var delegate: SettingsDelegate?
     
     private var settingsList: [[String: Any]] = []
     private var tapSettings = TapSettings(language: "English", localisation: false, theme: "Default", currency: .USD, swipeToDismissFeature: false, paymentTypes: [.All])
@@ -121,7 +121,7 @@ extension SettingsViewController: SwitchTableViewCellDelegate, MultipleSelection
     }
     func didUpdatePaymentTypes(paymentTypes: [TapPaymentType]) {
         tapSettings.paymentTypes = paymentTypes
-
+        delegate?.didUpdatePaymentTypes(to: paymentTypes)
     }
     
 }

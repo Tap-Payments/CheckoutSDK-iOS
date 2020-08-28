@@ -19,7 +19,7 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     
     let tapActionButtonViewModel: TapActionButtonViewModel = .init()
     
-    var tapSaveCardSwitchViewModel: TapSwitchViewModel = .init(with: .invalidCard, merchant: "jazeera airways")
+    
     var dragView:TapDragHandlerView = .init()
     
     var webViewModel:TapWebViewModel = .init()
@@ -30,7 +30,7 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addDefaultViews()
-        
+        sharedCheckoutDataManager.UIDelegate = self
         tapVerticalView.delegate = self
         // Do any additional setup after  the view.
         tapVerticalView.updateKeyBoardHandling(with: true)
@@ -73,7 +73,7 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
         tapActionButtonViewModel.buttonStatus = .InvalidPayment
         webViewModel.delegate = self
         
-        tapSaveCardSwitchViewModel.delegate = self
+        sharedCheckoutDataManager.tapSaveCardSwitchViewModel.delegate = self
         
         createTabBarViewModel()
         createGatewaysViews()
@@ -90,7 +90,7 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
         // The button
         self.tapVerticalView.setupActionButton(with: tapActionButtonViewModel)
         // The initial views
-        self.tapVerticalView.add(views: [dragView,sharedCheckoutDataManager.tapMerchantViewModel.attachedView,sharedCheckoutDataManager.tapAmountSectionViewModel.attachedView,sharedCheckoutDataManager.tapGoPayChipsHorizontalListViewModel.attachedView,sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.attachedView,sharedCheckoutDataManager.tapCardTelecomPaymentViewModel.attachedView,tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
+        self.tapVerticalView.add(views: [dragView,sharedCheckoutDataManager.tapMerchantViewModel.attachedView,sharedCheckoutDataManager.tapAmountSectionViewModel.attachedView,sharedCheckoutDataManager.tapGoPayChipsHorizontalListViewModel.attachedView,sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.attachedView,sharedCheckoutDataManager.tapCardTelecomPaymentViewModel.attachedView,sharedCheckoutDataManager.tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
     }
     
     
@@ -167,7 +167,7 @@ extension TapBottomCheckoutControllerViewController:TapMerchantHeaderViewDelegat
 extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDelegate {
     func showItemsClicked() {
         self.view.endEditing(true)
-        self.tapVerticalView.remove(viewType: TapChipHorizontalList.self, with: .init(), and: true)
+        self.tapVerticalView.remove(viewType: TapAmountSectionView.self, with: .init(), and: true, skipSelf: true)
         tapVerticalView.hideActionButton()
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(80), execute: { [weak self] in
             self!.sharedCheckoutDataManager.tapCurrienciesChipHorizontalListViewModel.attachedView.alpha = 0
@@ -186,7 +186,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         
         DispatchQueue.main.async{ [weak self] in
             self?.tapVerticalView.showActionButton()
-            self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapCardTelecomPaymentViewModel.attachedView,self!.tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
+            self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapCardTelecomPaymentViewModel.attachedView,self!.sharedCheckoutDataManager.tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
         }
     }
     
@@ -198,7 +198,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         tapVerticalView.closeScanner()
         sharedCheckoutDataManager.tapCardTelecomPaymentViewModel.scanerClosed()
         DispatchQueue.main.async{ [weak self] in
-            self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapCardTelecomPaymentViewModel.attachedView,self!.tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
+            self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapCardTelecomPaymentViewModel.attachedView,self!.sharedCheckoutDataManager.tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
         }
     }
     
@@ -207,7 +207,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         tapVerticalView.closeGoPaySignInForm()
         
         DispatchQueue.main.async{ [weak self] in
-            self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapCardTelecomPaymentViewModel.attachedView,self!.tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
+            self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapCardTelecomPaymentViewModel.attachedView,self!.sharedCheckoutDataManager.tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
         }
     }
     
@@ -355,11 +355,11 @@ extension TapBottomCheckoutControllerViewController:TapChipHorizontalListViewMod
             tapActionButtonViewModel.buttonStatus = .ValidPayment
             let payAction:()->() = { self.startPayment(then:true) }
             tapActionButtonViewModel.buttonActionBlock = payAction
-            tapSaveCardSwitchViewModel.cardState = .validTelecom
+            sharedCheckoutDataManager.tapSaveCardSwitchViewModel.cardState = .validTelecom
         }else {
             tapActionButtonViewModel.buttonStatus = .InvalidPayment
             tapActionButtonViewModel.buttonActionBlock = {}
-            tapSaveCardSwitchViewModel.cardState = .invalidTelecom
+            sharedCheckoutDataManager.tapSaveCardSwitchViewModel.cardState = .invalidTelecom
         }
     }
     
@@ -369,17 +369,17 @@ extension TapBottomCheckoutControllerViewController:TapChipHorizontalListViewMod
             tapActionButtonViewModel.buttonStatus = .ValidPayment
             let payAction:()->() = { self.startPayment(then:false) }
             tapActionButtonViewModel.buttonActionBlock = payAction
-            tapSaveCardSwitchViewModel.cardState = .validCard
+            sharedCheckoutDataManager.tapSaveCardSwitchViewModel.cardState = .validCard
         }else{
             tapActionButtonViewModel.buttonStatus = .InvalidPayment
             tapActionButtonViewModel.buttonActionBlock = {}
-            tapSaveCardSwitchViewModel.cardState = .invalidCard
+            sharedCheckoutDataManager.tapSaveCardSwitchViewModel.cardState = .invalidCard
         }
     }
     
     func startPayment(then success:Bool) {
         view.endEditing(true)
-        self.tapVerticalView.remove(viewType: TapChipHorizontalList.self, with: .init(), and: true)
+        self.tapVerticalView.remove(viewType: TapAmountSectionView.self, with: .init(), and: true, skipSelf: true)
         self.tapActionButtonViewModel.startLoading()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(3500)) {
@@ -593,5 +593,13 @@ extension TapBottomCheckoutControllerViewController:TapDragHandlerViewDelegate {
     
     func closeButtonClicked() {
         delegate?.dismissMySelfClicked()
+    }
+}
+
+
+
+extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDelegate {
+    func removeView(view: UIView) {
+        tapVerticalView.remove(view: view)
     }
 }

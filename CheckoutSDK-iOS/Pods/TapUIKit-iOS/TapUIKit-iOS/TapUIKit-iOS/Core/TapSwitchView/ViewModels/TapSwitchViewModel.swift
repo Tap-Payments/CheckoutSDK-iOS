@@ -61,6 +61,9 @@ internal protocol TapSwitchViewDelegate {
         }
     }
     
+    /// Represents if the attached view should be visible or not, based on the existence of items inside the list
+    @objc public var shouldShow:Bool = false
+    
     /// main Switch model that holds the main switch properties
     internal var mainSwitch: TapSwitchModel = TapSwitchModel(title: "", subtitle: "")
     /// goPay Switch model that holds the goPay switch properties

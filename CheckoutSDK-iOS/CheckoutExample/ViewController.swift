@@ -23,6 +23,8 @@ class ViewController: UIViewController {
     }
     var swipeToDismiss:Bool = false
     var items:[ItemModel] = []
+    var paymentTypes:[TapPaymentType] = [.All]
+    
     @IBOutlet weak var paymentItemsTableView: UITableView!
 
     
@@ -64,7 +66,7 @@ class ViewController: UIViewController {
             amount: amount,
             items: items,
             swipeDownToDismiss: swipeToDismiss,
-            paymentTypes: [.Card,.Web],
+            paymentTypes: paymentTypes,
             onCheckOutReady: {[weak self] tapCheckOut in
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
                     tapCheckOut.start(presentIn: self)
@@ -86,6 +88,10 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: SettingsDelegate {
+    func didUpdatePaymentTypes(to types: [TapPaymentType]) {
+        paymentTypes = types
+    }
+    
     func didUpdateLanguage(with locale: String) {
         localeID = locale
         adjustTapButton()

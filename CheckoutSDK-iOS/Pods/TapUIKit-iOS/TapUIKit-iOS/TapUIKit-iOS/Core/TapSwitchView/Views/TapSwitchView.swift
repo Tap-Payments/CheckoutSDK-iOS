@@ -68,6 +68,10 @@ import TapThemeManager2020
         }
     }
     
+    @objc override func shouldShowTapView() -> Bool {
+        return viewModel.shouldShow
+    }
+    
     /// Tells the view if it needs to handle itself regarding dynamic height for the main switch and the sub switches. hence, will set the requied constraints to automaically enlarge the height to match the added switches
     internal func adjustConstraints() {
         translatesAutoresizingMaskIntoConstraints = false

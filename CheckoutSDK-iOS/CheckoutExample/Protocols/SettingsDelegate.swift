@@ -8,10 +8,11 @@
 import Foundation
 import CheckoutSDK_iOS
 
-@objc public protocol SettingsDelegate {
-    @objc func didUpdateLanguage(with locale: String)
-    @objc func didUpdateLocalisation(to enabled: Bool)
-    @objc func didChangeTheme(with themeName: String?)
-    @objc func didChangeCurrency(with currency: TapCurrencyCode)
-    @objc func didUpdateSwipeToDismiss(to enabled: Bool)
+public protocol SettingsDelegate {
+    func didUpdateLanguage(with locale: String)
+    func didUpdateLocalisation(to enabled: Bool)
+    func didChangeTheme(with themeName: String?)
+    func didChangeCurrency(with currency: TapCurrencyCode)
+    func didUpdateSwipeToDismiss(to enabled: Bool)
+    func didUpdatePaymentTypes(to types:[TapPaymentType])
 }

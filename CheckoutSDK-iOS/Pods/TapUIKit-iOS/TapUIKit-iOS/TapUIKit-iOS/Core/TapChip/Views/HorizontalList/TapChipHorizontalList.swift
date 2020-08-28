@@ -67,6 +67,10 @@ import SimpleAnimation
         self.contentView.frame = bounds
     }
     
+    @objc override func shouldShowTapView() -> Bool {
+        return viewModel.shouldShow
+    }
+    
     // Mark:- Private methods
     /// Used as a consolidated method to do all the needed steps upon creating the view
     private func commonInit() {

@@ -10,10 +10,20 @@ import Foundation
 import RxCocoa
 import RxSwift
 
+/// A protocol to comminicate between the UIManager and the data manager
+internal protocol TapCheckoutSharedManagerUIDelegate {
+    
+    func removeView(view:UIView)
+    
+}
+
 /// Represents a global accessable common data gathered by the merchant when loading the checkout sdk like amount, currency, etc
 internal class TapCheckoutSharedManager {
     
     // MARK:- Normal Swift Variables
+    /// A protocol to comminicate between the UIManager and the data manager
+    var UIDelegate:TapCheckoutSharedManagerUIDelegate?
+
     let disposeBag:DisposeBag = .init()
     /// Rerpesents the view model that controls the Merchant header section view
     var tapMerchantViewModel:TapMerchantHeaderViewModel = .init()
@@ -31,6 +41,8 @@ internal class TapCheckoutSharedManager {
     var tapCardTelecomPaymentViewModel: TapCardTelecomPaymentViewModel = .init()
     /// Represents the view model that controls the chips list of supported currencies view
     var tapCurrienciesChipHorizontalListViewModel:TapChipHorizontalListViewModel = .init()
+    /// Represents the view model that controls the save card/number view
+    var tapSaveCardSwitchViewModel: TapSwitchViewModel = .init(with: .invalidCard, merchant: "jazeera airways")
     /// Represents the view model that controls the country picker when logging in to goPay using the phone number
     var goPayBarViewModel:TapGoPayLoginBarViewModel?
     /// If it is set then when the user swipes down the payment will close, otherwise, there will be a shown button to dismiss the screen. Default is false
@@ -143,6 +155,7 @@ internal class TapCheckoutSharedManager {
         updateItemsList()
         updateGatewayChipsList()
         updateCardTelecomList()
+        updateSaveCardSwitchStatus()
         updateApplePayRequest()
     }
     
@@ -152,6 +165,14 @@ internal class TapCheckoutSharedManager {
         let itemsModels:[ItemCellViewModel] = transactionItemsObserver.value.map{ ItemCellViewModel.init(itemModel: $0, originalCurrency:transactionCurrencyObserver.value) }
         tapItemsTableViewModel = .init(dataSource: itemsModels)
         tapAmountSectionViewModel.numberOfItems = transactionItemsObserver.value.count
+    }
+    
+    /// Handles the logic to determine the visibility and the status of the save card/ohone switch depending on the current card/telecom data source
+    private func updateSaveCardSwitchStatus() {
+        tapSaveCardSwitchViewModel.shouldShow = tapCardTelecomPaymentViewModel.shouldShow
+        if tapSaveCardSwitchViewModel.shouldShow {
+            tapSaveCardSwitchViewModel.cardState = (tapCardPhoneListViewModel.dataSource[0].associatedCardBrand.brandSegmentIdentifier == "cards") ? .invalidCard : .invalidTelecom
+        }
     }
     
     /// Handles all the logic needed when the original transaction currency changed
@@ -227,6 +248,9 @@ internal class TapCheckoutSharedManager {
         
         // Fetch the merchant based saved cards + differnt payment types
         self.gatewayChipsViewModel = (intentModel.paymentChips ?? []).filter{ paymentTypes.contains(.All) || paymentTypes.contains($0.paymentType) }
+        
+        // Fetch the save card/phone switch data
+        tapSaveCardSwitchViewModel = .init(with: .invalidCard, merchant: tapMerchantViewModel.subTitle ?? "")
         
         // Fetch the cards + telecom payments options
         self.tapCardPhoneListDataSource = (intentModel.tapCardPhoneListDataSource ?? []).filter{ paymentTypes.contains(.All) || paymentTypes.contains($0.paymentType) }
