@@ -254,8 +254,10 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         self.view.endEditing(true)
         self.tapVerticalView.remove(view: sharedCheckoutDataManager.tapGoPayChipsHorizontalListViewModel.attachedView, with: .init(for: .fadeOut))
         self.sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.editMode(changed: false)
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-            self.sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.headerType = .GatewayListHeader
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(0)) {
+            //self.sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.headerType = .GatewayListHeader
+            UserDefaults.standard.set(false, forKey: TapCheckoutConstants.GoPayLoginUserDefaultsKey)
+            self.sharedCheckoutDataManager.loggedInToGoPay = false
         }
     }
 }

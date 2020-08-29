@@ -49,7 +49,9 @@ internal extension TapCheckoutSharedManager {
             // Save the result for next checkout
             UserDefaults.standard.set(goPayLoginModel.success, forKey: TapCheckoutConstants.GoPayLoginUserDefaultsKey)
             self?.loggedInToGoPay = goPayLoginModel.success
-            self?.UIDelegate?.goPaySignIn(status: goPayLoginModel.success)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500)) { [weak self] in
+                self?.UIDelegate?.goPaySignIn(status: goPayLoginModel.success)
+            }
         }
     }
 }
