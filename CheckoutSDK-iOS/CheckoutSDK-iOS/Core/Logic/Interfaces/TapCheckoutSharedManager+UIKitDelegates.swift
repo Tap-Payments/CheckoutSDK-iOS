@@ -31,8 +31,25 @@ internal extension TapCheckoutSharedManager {
         goPaySign(with: ["phone":phone,"otp":otp])
     }
     
+    /**
+     Perofm the api call to validate the goPay credentials
+     - Parameter body: The body you want to send to the api request will has to have email & password or phone & OTP
+     */
     func goPaySign(with body:[String:String]) {
-        self.tapActionButtonViewModel.startLoading()
+        // STart loading the button
+        tapActionButtonViewModel.startLoading()
         
+        // perform the login gopay api call
+        NetworkManager.shared.makeApiCall(routing: .GoPayLoginAPI, resultType: TapGoPayLoginResponseModel.self) { [weak self] (session, result, error) in
+            
+            guard let goPayLoginModel:TapGoPayLoginResponseModel = result as? TapGoPayLoginResponseModel else {
+                self?.tapActionButtonViewModel.endLoading(with: false)
+                return }
+            
+            // Save the result for next checkout
+            UserDefaults.standard.set(goPayLoginModel.success, forKey: TapCheckoutConstants.GoPayLoginUserDefaultsKey)
+            self?.loggedInToGoPay = goPayLoginModel.success
+            self?.UIDelegate?.goPaySignIn(status: goPayLoginModel.success)
+        }
     }
 }

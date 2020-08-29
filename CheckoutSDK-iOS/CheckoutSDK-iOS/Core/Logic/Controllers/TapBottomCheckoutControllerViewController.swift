@@ -206,9 +206,10 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
     
     
     func closeGoPayClicked() {
+        sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.deselectAll()
         tapVerticalView.closeGoPaySignInForm()
         
-        DispatchQueue.main.async{ [weak self] in
+        DispatchQueue.main.async { [weak self] in
             self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapCardTelecomPaymentViewModel.attachedView,self!.sharedCheckoutDataManager.tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
         }
     }
@@ -581,19 +582,14 @@ extension TapBottomCheckoutControllerViewController:TapDragHandlerViewDelegate {
 
 extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDelegate {
     func goPaySignIn(status: Bool) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-            self.tapActionButtonViewModel.startLoading()
-        }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(3500)) {
-            self.tapActionButtonViewModel.endLoading(with: true, completion: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500)) {
-                    self.closeGoPayClicked()
-                    self.tapActionButtonViewModel.buttonStatus = .InvalidPayment
-                    self.tapActionButtonViewModel.expandButton()
-                }
-            })
-        }
+        tapActionButtonViewModel.endLoading(with: true, completion: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500)) { [weak self] in
+                self?.closeGoPayClicked()
+                self?.tapActionButtonViewModel.buttonStatus = .InvalidPayment
+                self?.tapActionButtonViewModel.expandButton()
+            }
+        })
     }
     
     func removeView(view: UIView) {

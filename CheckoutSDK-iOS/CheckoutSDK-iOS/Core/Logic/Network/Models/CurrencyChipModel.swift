@@ -70,7 +70,6 @@ internal class ChipWithCurrencyModel:Codable {
             self.tapChipViewModel = try values.decodeIfPresent(CurrencyChipViewModel.self, forKey: .tapChipViewModel) ?? .init()
         case .SavedCardChip:
             self.tapChipViewModel = try values.decodeIfPresent(SavedCardCollectionViewCellModel.self, forKey: .tapChipViewModel) ?? .init()
-            (self.tapChipViewModel as! SavedCardCollectionViewCellModel).listSource = .GoPayListHeader
         case .LogoutChip:
             self.tapChipViewModel = try values.decodeIfPresent(TapLogoutChipViewModel.self, forKey: .tapChipViewModel) ?? .init()
         }

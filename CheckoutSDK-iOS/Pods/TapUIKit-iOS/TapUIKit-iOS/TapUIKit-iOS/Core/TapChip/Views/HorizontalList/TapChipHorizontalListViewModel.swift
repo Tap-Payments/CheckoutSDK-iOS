@@ -166,6 +166,7 @@ internal protocol TapChipHorizontalViewModelDelegate {
     
     /// Call this method when you want to deselct all selected items inside the horizontal list
     @objc public func deselectAll() {
+        selectedChip = nil
         cellDelegate?.deselectAll()
     }
     

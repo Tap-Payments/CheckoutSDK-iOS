@@ -22,7 +22,7 @@ internal class NetworkManager: NSObject {
     internal func makeApiCall<T:Decodable>(routing: TapNetworkPath, resultType:T.Type,body:[String:Any] = [:], completion: TapNetworkManager.RequestCompletionClosure?) {
         networkManager.isRequestLoggingEnabled = enableLogging
         
-        let requestOperation = TapNetworkRequestOperation(path: "\(baseURL)\(routing.rawValue)", method: .GET, headers: headers, urlModel: .none, bodyModel: .init(body: body), responseType: .json)
+        let requestOperation = TapNetworkRequestOperation(path: "\(baseURL)\(routing.rawValue)", method: .GET, headers: headers, urlModel: .none, bodyModel: .none, responseType: .json)
         networkManager.performRequest(requestOperation, completion: { (session, result, error) in
             print("result is: \(String(describing: result))")
             print("error: \(String(describing: error))")

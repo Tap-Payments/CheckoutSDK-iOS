@@ -12,4 +12,6 @@ import Foundation
 internal enum TapNetworkPath : String {
     /// Loading the Intent API
     case IntentAPI = "5720fa1c-9b7e-4b68-810f-dbb79228405c"
+    /// Login to GoPay
+    case GoPayLoginAPI = "7ffceaa7-0b86-4a18-88bb-c157c9a27aae"
 }

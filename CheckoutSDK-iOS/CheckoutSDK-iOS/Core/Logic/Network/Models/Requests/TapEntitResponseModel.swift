@@ -43,6 +43,7 @@ internal struct TapIntentResponseModel : Codable {
         currencies = try values.decodeIfPresent([TapCurrencyCode].self, forKey: .currencies) ?? []
         goPayLoginCountries = try values.decodeIfPresent([TapCountry].self, forKey: .goPayLoginCountries)
         goPaySavedCards = try values.decodeIfPresent([ChipWithCurrencyModel].self, forKey: .goPaySavedCards)
+        goPaySavedCards?.forEach{ ($0.tapChipViewModel as! SavedCardCollectionViewCellModel).listSource = TapHorizontalHeaderType.GoPayListHeader }
         paymentChips = try values.decodeIfPresent([ChipWithCurrencyModel].self, forKey: .paymentChips)
         tapCardPhoneListDataSource = try values.decodeIfPresent([CurrencyCardsTelecomModel].self, forKey: .tapCardPhoneListDataSource)
 	}

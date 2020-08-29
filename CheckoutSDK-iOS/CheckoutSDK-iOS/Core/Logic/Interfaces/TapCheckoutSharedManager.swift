@@ -80,8 +80,10 @@ internal class TapCheckoutSharedManager {
     /// Represents The Apple pay merchant id to be used inside the apple pay kit
     var applePayMerchantID:String = ""
     /// Represents if the current customer is logged in to goPay
-    var loggedInToGoPay:Bool {
-        return UserDefaults.standard.bool(forKey: "tapGoPayLoggedIn")
+    var loggedInToGoPay:Bool = false {
+        didSet{
+            updateGatewayChipsList()
+        }
     }
     /// Represents a global accessable common data gathered by the merchant when loading the checkout sdk like amount, currency, etc
     private static var privateShared : TapCheckoutSharedManager?
@@ -211,6 +213,9 @@ internal class TapCheckoutSharedManager {
     
     /// Handles all the logic needed when the user selected currency changed to reflect in the supported gateways chips for the new currency
     private func updateGatewayChipsList() {
+        tapGatewayChipHorizontalListViewModel.deselectAll()
+        tapGoPayChipsHorizontalListViewModel.deselectAll()
+        
         tapGatewayChipHorizontalListViewModel.dataSource = gatewayChipsViewModel.filter(for: transactionUserCurrencyObserver.value)
         tapGoPayChipsHorizontalListViewModel.dataSource = goPayChipsViewModel.filter(for: transactionUserCurrencyObserver.value)
         updateGoPayAndGatewayLists()
@@ -276,5 +281,8 @@ internal class TapCheckoutSharedManager {
         
         // Fetch the cards + telecom payments options
         self.tapCardPhoneListDataSource = (intentModel.tapCardPhoneListDataSource ?? []).filter{ paymentTypes.contains(.All) || paymentTypes.contains($0.paymentType) }
+        
+        // Load the goPayLogin status
+        loggedInToGoPay = UserDefaults.standard.bool(forKey: TapCheckoutConstants.GoPayLoginUserDefaultsKey)
     }
 }

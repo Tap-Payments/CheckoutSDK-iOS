@@ -23,5 +23,5 @@ internal struct TapGoPayLoginResponseModel : Codable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         success = try values.decodeIfPresent(Bool.self, forKey: .success) ?? false
         message = try values.decodeIfPresent(String.self, forKey: .message) ?? ""
-    }   
+    }
 }
