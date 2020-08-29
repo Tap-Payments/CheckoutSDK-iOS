@@ -69,7 +69,10 @@ internal class TapCheckoutSharedManager {
     var goPayChipsViewModel:[ChipWithCurrencyModel] = []
     /// Represents The Apple pay merchant id to be used inside the apple pay kit
     var applePayMerchantID:String = ""
-    
+    /// Represents if the current customer is logged in to goPay
+    var loggedInToGoPay:Bool {
+        return UserDefaults.standard.bool(forKey: "tapGoPayLoggedIn")
+    }
     /// Represents a global accessable common data gathered by the merchant when loading the checkout sdk like amount, currency, etc
     private static var privateShared : TapCheckoutSharedManager?
     
@@ -200,6 +203,15 @@ internal class TapCheckoutSharedManager {
     private func updateGatewayChipsList() {
         tapGatewayChipHorizontalListViewModel.dataSource = gatewayChipsViewModel.filter(for: transactionUserCurrencyObserver.value)
         tapGoPayChipsHorizontalListViewModel.dataSource = goPayChipsViewModel.filter(for: transactionUserCurrencyObserver.value)
+        updateGoPayAndGatewayLists()
+    }
+    
+    /// Handles if goPay should be shown if the user is logged in, determine the header of the both gateways cards and goPay cards based on the visibility ot the goPay cards
+    private func updateGoPayAndGatewayLists() {
+        // Check if the user is logged in before or not
+        tapGoPayChipsHorizontalListViewModel.shouldShow = tapGoPayChipsHorizontalListViewModel.shouldShow && loggedInToGoPay
+        // Adjust the header of the tapGatewayChipList
+        tapGatewayChipHorizontalListViewModel.headerType = tapGoPayChipsHorizontalListViewModel.shouldShow ? .GateWayListWithGoPayListHeader : .GatewayListHeader
     }
     
     /// Handles all the logic needed when the user selected currency changed to reflect in the supported cards/telecom tabbar items for the new currency
