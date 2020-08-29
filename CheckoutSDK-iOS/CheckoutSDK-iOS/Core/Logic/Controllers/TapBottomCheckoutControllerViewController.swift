@@ -17,7 +17,9 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     var tapVerticalView: TapVerticalView = .init()
     
     
-    let tapActionButtonViewModel: TapActionButtonViewModel = .init()
+    var tapActionButtonViewModel: TapActionButtonViewModel {
+        return sharedCheckoutDataManager.tapActionButtonViewModel
+    }
     
     
     var dragView:TapDragHandlerView = .init()
@@ -494,33 +496,12 @@ extension TapBottomCheckoutControllerViewController: TapGoPaySignInViewProtocol 
     }
     
     func signIn(with email: String, and password: String) {
-        demoSigning()
+        sharedCheckoutDataManager.signIn(email: email, password: password)
     }
-    
     
     func signIn(phone: String, and otp: String) {
-        demoSigning()
+        sharedCheckoutDataManager.signIn(phone: phone, otp: otp)
     }
-    
-    
-    
-    func demoSigning() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-            self.tapActionButtonViewModel.startLoading()
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(3500)) {
-            self.tapActionButtonViewModel.endLoading(with: true, completion: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500)) {
-                    self.closeGoPayClicked()
-                    self.tapActionButtonViewModel.buttonStatus = .InvalidPayment
-                    self.tapActionButtonViewModel.expandButton()
-                }
-            })
-        }
-    }
-    
-    
 }
 
 
@@ -599,6 +580,22 @@ extension TapBottomCheckoutControllerViewController:TapDragHandlerViewDelegate {
 
 
 extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDelegate {
+    func goPaySignIn(status: Bool) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+            self.tapActionButtonViewModel.startLoading()
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(3500)) {
+            self.tapActionButtonViewModel.endLoading(with: true, completion: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500)) {
+                    self.closeGoPayClicked()
+                    self.tapActionButtonViewModel.buttonStatus = .InvalidPayment
+                    self.tapActionButtonViewModel.expandButton()
+                }
+            })
+        }
+    }
+    
     func removeView(view: UIView) {
         tapVerticalView.remove(view: view)
     }

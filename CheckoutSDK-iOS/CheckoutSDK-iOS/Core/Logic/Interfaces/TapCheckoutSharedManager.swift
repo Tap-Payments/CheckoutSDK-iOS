@@ -12,8 +12,16 @@ import RxSwift
 
 /// A protocol to comminicate between the UIManager and the data manager
 internal protocol TapCheckoutSharedManagerUIDelegate {
-    
+    /**
+     Inform the delegate to remove a certain view from the checkout sheet
+     - Parameter view: The view required by the data manager to be removed from the checkout sheet
+     */
     func removeView(view:UIView)
+    /**
+     Inform the delegate to end the loading status of the goPay login
+     - Parameter status: If set, means the user has provided correct credentials and is logged in to goPay. Otherwise, he provided wrong ones
+     */
+    func goPaySignIn(status:Bool)
     
 }
 
@@ -45,6 +53,8 @@ internal class TapCheckoutSharedManager {
     var tapSaveCardSwitchViewModel: TapSwitchViewModel = .init(with: .invalidCard, merchant: "jazeera airways")
     /// Represents the view model that controls the country picker when logging in to goPay using the phone number
     var goPayBarViewModel:TapGoPayLoginBarViewModel?
+    /// Represents the view model that controls the action button view
+    let tapActionButtonViewModel: TapActionButtonViewModel = .init()
     /// If it is set then when the user swipes down the payment will close, otherwise, there will be a shown button to dismiss the screen. Default is false
     var swipeDownToDismiss:Bool = false
     /// Repreents the list fof supported currencies
