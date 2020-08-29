@@ -247,7 +247,7 @@ internal class TapCheckoutSharedManager {
         }
         
         // Fetch the merchant based saved cards + differnt payment types
-        self.gatewayChipsViewModel = (intentModel.paymentChips ?? []).filter{ paymentTypes.contains(.All) || paymentTypes.contains($0.paymentType) }
+        self.gatewayChipsViewModel = (intentModel.paymentChips ?? []).filter{ paymentTypes.contains(.All) || paymentTypes.contains($0.paymentType) || $0.paymentType == .All }
         
         // Fetch the save card/phone switch data
         tapSaveCardSwitchViewModel = .init(with: .invalidCard, merchant: tapMerchantViewModel.subTitle ?? "")
