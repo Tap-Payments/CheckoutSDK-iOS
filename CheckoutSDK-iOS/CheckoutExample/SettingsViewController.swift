@@ -21,13 +21,23 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        do {
+            let loadedSettings = try UserDefaults.standard.getObject(forKey: TapSettings.localSavedKey, castTo: TapSettings.self)
+            self.tapSettings = loadedSettings
+            self.refillTableView()
+        } catch {
+            print("error:\(error.localizedDescription)")
+        }
         tapSettings.onChangeBlock = {
-            self.fillDataSource()
-            self.settingsTableView.reloadData()
+            self.refillTableView()
         }
         settingsTableView.register(UINib.init(nibName: "LocalisationSwitchTableViewCell", bundle: nil), forCellReuseIdentifier: "LocalisationSwitchTableViewCell")
+        self.refillTableView()
+    }
+    
+    private func refillTableView() {
         self.fillDataSource()
-        settingsTableView.reloadData()
+        self.settingsTableView.reloadData()
     }
     
     func fillDataSource() {
@@ -48,6 +58,7 @@ class SettingsViewController: UIViewController {
 }
 
 extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
+    // MARK: TableView DataSource / Delegate
     func numberOfSections(in tableView: UITableView) -> Int {
         return settingsList.count
     }
@@ -113,8 +124,10 @@ extension SettingsViewController: SwitchTableViewCellDelegate, MultipleSelection
         print("indexPath?.section: \(String(describing: indexPath?.section)) -- enabled \(text)")
         switch indexPath?.section {
         case 1:
+            tapSettings.localisation = enabled
             self.delegate?.didUpdateLocalisation(to: enabled)
         case 4:
+            
             self.delegate?.didUpdateSwipeToDismiss(to: enabled)
         default: break
         }

@@ -22,6 +22,7 @@
 		62B45FA724EBE2210094FB4B /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B45FA624EBE2210094FB4B /* TableViewController.swift */; };
 		62B45FAA24EBF2620094FB4B /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B45FA824EBF2620094FB4B /* ItemTableViewCell.swift */; };
 		62B45FAB24EBF2620094FB4B /* ItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62B45FA924EBF2620094FB4B /* ItemTableViewCell.xib */; };
+		62E4415B24FD132C00B0F87C /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E4415A24FD132C00B0F87C /* UserDefaultsHelper.swift */; };
 		E825DD5924E938DB0074BF54 /* TapCheckoutSharedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E825DD5824E938DB0074BF54 /* TapCheckoutSharedManager.swift */; };
 		E830B7F324F3E96900B62713 /* TapPayButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E830B7F224F3E96900B62713 /* TapPayButtonViewModel.swift */; };
 		E830B7F524F6ACCC00B62713 /* TapPaymentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E830B7F424F6ACCC00B62713 /* TapPaymentType.swift */; };
@@ -100,6 +101,7 @@
 		62B45FA824EBF2620094FB4B /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
 		62B45FA924EBF2620094FB4B /* ItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemTableViewCell.xib; sourceTree = "<group>"; };
 		62CF141924EE8F140036015C /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		62E4415A24FD132C00B0F87C /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
 		9641A958A3B669E7ED3F097E /* Pods_CheckoutExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CheckoutExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EA23C9D0ACA6A832C046E7C /* Pods-CheckoutExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutExample.debug.xcconfig"; path = "Target Support Files/Pods-CheckoutExample/Pods-CheckoutExample.debug.xcconfig"; sourceTree = "<group>"; };
 		E825DD5824E938DB0074BF54 /* TapCheckoutSharedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckoutSharedManager.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				62570A0F24EA6F2500274C2C /* TapSettings.swift */,
+				62E4415A24FD132C00B0F87C /* UserDefaultsHelper.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -607,6 +610,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62E4415B24FD132C00B0F87C /* UserDefaultsHelper.swift in Sources */,
 				62B45FA124EBD6680094FB4B /* FormViewController.swift in Sources */,
 				E8811AEC24D4287400DE95D1 /* ViewController.swift in Sources */,
 				62B45FA224EBD6680094FB4B /* FormView.swift in Sources */,
