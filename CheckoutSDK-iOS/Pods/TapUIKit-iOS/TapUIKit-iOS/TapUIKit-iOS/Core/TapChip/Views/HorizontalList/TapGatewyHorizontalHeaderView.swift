@@ -116,6 +116,11 @@ class TapHorizontalHeaderView: UIView {
         localize()
     }
     
+    internal func reloadHeader() {
+        applyTheme()
+        localize()
+    }
+    
     public override func layoutSubviews() {
         super.layoutSubviews()
         self.contentView.frame = bounds

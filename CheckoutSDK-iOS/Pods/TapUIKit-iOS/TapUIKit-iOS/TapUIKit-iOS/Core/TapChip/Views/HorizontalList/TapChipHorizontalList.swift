@@ -225,6 +225,7 @@ extension TapChipHorizontalList:TapChipHorizontalViewModelDelegate {
     func showHeader(with type: TapHorizontalHeaderType) {
         handleHeaderView(with: type)
         headerView.showHeader(with: type)
+        headerView.reloadHeader()
     }
     
     func reload(new dataSource: [GenericTapChipViewModel]) {
