@@ -41,7 +41,13 @@ import CheckoutSDK_iOS
     }
     
     
-    static let localSavedKey = "localSavedKey_tap_settings"
+    private let languageSevedKey = "language_settings_key"
+    private let localisationSevedKey = "localisation_settings_key"
+    private let themeSevedKey = "theme_settings_key"
+    private let currencySevedKey = "currency_settings_key"
+    private let swipeToDismissFeatureSevedKey = "swipeToDismissFeature_settings_key"
+    private let paymentTypesSevedKey = "paymentTypes_settings_key"
+
     var language: String {
         didSet { self.updateSavedData() }
     }
@@ -63,8 +69,10 @@ import CheckoutSDK_iOS
     var onChangeBlock: (() -> ())?
     
     func updateSavedData() {
-        self.save()
         self.onChangeBlock?()
+        if (self.onChangeBlock != nil) {
+            self.save()
+        }
     }
     init(language: String, localisation: Bool, theme: String, currency: TapCurrencyCode, swipeToDismissFeature: Bool, paymentTypes: [TapPaymentType]) {
         self.language = language
@@ -74,12 +82,29 @@ import CheckoutSDK_iOS
         self.swipeToDismissFeature = swipeToDismissFeature
         self.paymentTypes = paymentTypes
     }
-    
     func save() {
-        do {
-            try UserDefaults.standard.setObject(self, forKey: TapSettings.localSavedKey)
-        } catch {
-            print("error")
+        UserDefaults.standard.set(language, forKey: languageSevedKey)
+        UserDefaults.standard.set(localisation, forKey: localisationSevedKey)
+        UserDefaults.standard.set(theme, forKey: themeSevedKey)
+        UserDefaults.standard.set(currency.appleRawValue, forKey: currencySevedKey)
+        UserDefaults.standard.set(swipeToDismissFeature, forKey: swipeToDismissFeatureSevedKey)
+        UserDefaults.standard.set(try? PropertyListEncoder().encode(paymentTypes), forKey: paymentTypesSevedKey)
+    }
+    func load() {
+        language = UserDefaults.standard.value(forKey: languageSevedKey) as? String ?? "English"
+        localisation = UserDefaults.standard.value(forKey: localisationSevedKey) as? Bool ?? false
+        theme = UserDefaults.standard.value(forKey: themeSevedKey) as? String ?? "Default"
+        currency = UserDefaults.standard.value(forKey: currencySevedKey) as? TapCurrencyCode ?? .USD
+        swipeToDismissFeature = UserDefaults.standard.value(forKey: swipeToDismissFeatureSevedKey) as? Bool ?? false
+//        paymentTypes = UserDefaults.standard.value(forKey: paymentTypesSevedKey) as? [TapPaymentType] ?? [.All]
+        
+        if let data = UserDefaults.standard.value(forKey:paymentTypesSevedKey) as? Data {
+            do {
+                paymentTypes = try PropertyListDecoder().decode([TapPaymentType].self, from: data)
+            } catch {
+                print("error paymentTypes: \(error.localizedDescription)")
+                paymentTypes = [.All]
+            }
         }
     }
 }

@@ -72,4 +72,5 @@ extension TapCurrencyCode:Codable {
         let rawValue = try container.decode(String.self)
         self = TapCurrencyCode.init(appleRawValue: rawValue) ??  TapCurrencyCode.undefined
     }
+    
 }

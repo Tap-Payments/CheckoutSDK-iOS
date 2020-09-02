@@ -2333,4 +2333,17 @@ public extension TapCurrencyCode {
         
     }
     
+    enum CodingKeys: String, CodingKey {
+        case emvcoRawValue = "emvcoRawValue"
+        case appleRawValue = "appleRawValue"
+//        case symbolRawValue = "symbolRawValue"
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encodeIfPresent(emvcoRawValue, forKey: .emvcoRawValue)
+        try container.encodeIfPresent(appleRawValue, forKey: .appleRawValue)
+//        try container.encodeIfPresent(symbolRawValue, forKey: .symbolRawValue)
+    }
+    
 }

@@ -21,13 +21,14 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        do {
-            let loadedSettings = try UserDefaults.standard.getObject(forKey: TapSettings.localSavedKey, castTo: TapSettings.self)
-            self.tapSettings = loadedSettings
-            self.refillTableView()
-        } catch {
-            print("error:\(error.localizedDescription)")
-        }
+//        do {
+            tapSettings.load()
+//            let loadedSettings = try UserDefaults.standard.getObject(forKey: TapSettings.localSavedKey, castTo: TapSettings.self)
+//            self.tapSettings = loadedSettings
+//            self.refillTableView()
+//        } catch {
+//            print("error:\(error.localizedDescription)")
+//        }
         tapSettings.onChangeBlock = {
             self.refillTableView()
         }
