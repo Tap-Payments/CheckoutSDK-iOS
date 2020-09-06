@@ -192,9 +192,10 @@ extension SettingsViewController  {
     func showCurrencyActionSheet() {
          //Create the AlertController and add Its action like button in Actionsheet
         let currencyActionSheet = UIAlertController(title: nil, message: "Select Currency", preferredStyle: .actionSheet)
-        [.USD,.AED,.KWD,.BHD,.QAR,.SAR,.OMR,.EGP,.JOD].forEach { (currency) in
+        let supportedCurrencies:[TapCurrencyCode] = [.USD,.AED,.KWD,.BHD,.QAR,.SAR,.OMR,.EGP,.JOD]
+        supportedCurrencies.forEach { (currency) in
             currencyActionSheet.addAction(UIAlertAction(title: "\(currency.appleRawValue)", style: .default) { [weak self] _ in
-//                self?.tapSettings.currency = currency
+                self?.tapSettings.currency = currency
                 self?.delegate?.didChangeCurrency(with: currency)
             })
         }
