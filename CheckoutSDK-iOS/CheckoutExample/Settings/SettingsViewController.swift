@@ -16,7 +16,7 @@ class SettingsViewController: UIViewController {
     /// The delegate used to fire events to the caller view
     public var delegate: SettingsDelegate?
     
-    private var settingsList: [[String: Any]] = []
+    private var settingsList: [SettingsSectionEnum] = []
     private var tapSettings = TapSettings(language: "English", localisation: false, theme: "Default", currency: .USD, swipeToDismissFeature: false, paymentTypes: [.All])
     
     override func viewDidLoad() {
@@ -36,18 +36,12 @@ class SettingsViewController: UIViewController {
     
     func fillDataSource() {
         settingsList.removeAll()
-        settingsList.append(["title": "Language",
-                             "rows":[["title": "Change Language", "selected":tapSettings.language]], "cellType":""])
-        settingsList.append(["title": "Custom Localisation",
-                             "rows": [["title": "Show Custom Localization", "selected": tapSettings.localisation]], "cellType":"switch"])
-        settingsList.append(["title": "Theme",
-                             "rows": [["title": "Change Theme", "selected": tapSettings.theme]], "cellType":""])
-        settingsList.append(["title": "Currency",
-                             "rows": [["title": "Change Currency", "selected": tapSettings.currency]], "cellType":""])
-        settingsList.append(["title": "Swipe to dismiss",
-        "rows": [["title": "Enable swipe to dismiss the checkout screen", "selected": tapSettings.swipeToDismissFeature]], "cellType":"switch"])
-        settingsList.append(["title": "Pyament Options",
-        "rows": [["title": "Select payment options", "selected": tapSettings.paymentTypes]], "cellType":""])
+        settingsList.append(.Language)
+        settingsList.append(.Localisation)
+        settingsList.append(.Theme)
+        settingsList.append(.Currency)
+        settingsList.append(.SwipeToDismiss)
+        settingsList.append(.PyamentOptions)
     }
 }
 
@@ -58,54 +52,52 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return settingsList[section]["title"] as? String
+        return settingsList[section].title
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let rows = settingsList[section]["rows"] as? [[String: Any]] else { return 0 }
-        return rows.count
+        return settingsList[section].rowsTitles.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let rows = settingsList[indexPath.section]["rows"] as? [[String: Any]] else { return UITableViewCell() }
-        let currentRow = rows[indexPath.row]
         
-        if settingsList[indexPath.section]["cellType"] as! String == "switch" {
+        let currentsection = settingsList[indexPath.section]
+        if currentsection.cellType == .SwitchButton {
             let cell = tableView.dequeueReusableCell(withIdentifier: "LocalisationSwitchTableViewCell") as! SwitchTableViewCell
-            cell.titleLabel.text = currentRow["title"] as? String
-            cell.switchButton.isOn = currentRow["selected"] as? Bool ?? false
+            cell.titleLabel.text = currentsection.rowsTitles[indexPath.row]
+            switch currentsection {
+            case .Localisation: cell.switchButton.isOn = tapSettings.localisation
+            case .SwipeToDismiss: cell.switchButton.isOn = tapSettings.swipeToDismissFeature
+            default: break
+            }
             cell.indexPath = indexPath
             cell.delegate = self
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")!
-            cell.textLabel?.text = currentRow["title"] as? String
-            let selectedValue = currentRow["selected"]
-           switch indexPath.section {
-            case 0: // Language
-            cell.detailTextLabel?.text = selectedValue as? String
-           case 2: // Theme
-            cell.detailTextLabel?.text = selectedValue as? String
-           case 3: // currency
-            cell.detailTextLabel?.text = (selectedValue as? TapCurrencyCode)?.appleRawValue
-           case 5:
-            var strings: [String] = []
-            (selectedValue as? [TapPaymentType])?.forEach{strings.append($0.stringValue)}
-            cell.detailTextLabel?.text = strings.joined(separator: ",")
+            cell.textLabel?.text = currentsection.rowsTitles[indexPath.row]
+            switch currentsection {
+            case .Language: cell.detailTextLabel?.text = tapSettings.language
+            case .Theme: cell.detailTextLabel?.text = tapSettings.theme
+            case .Currency: cell.detailTextLabel?.text = tapSettings.currency.appleRawValue
+            case .PyamentOptions:
+                var strings: [String] = []
+                tapSettings.paymentTypes.forEach{strings.append($0.stringValue)}
+                cell.detailTextLabel?.text = strings.joined(separator: ",")
             default: break
             }
             return cell
         }
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        switch indexPath.section {
-        case 0: showLanguageActionSheet()
-        case 2: showThemeActionSheet()
-        case 3: showCurrencyActionSheet()
-        case 5: showPaypentTypesList()
+        let settingSection = SettingsSectionEnum(rawValue: indexPath.section)! as SettingsSectionEnum
+        switch settingSection {
+        case .Language: showLanguageActionSheet()
+        case .Theme: showThemeActionSheet()
+        case .Currency: showCurrencyActionSheet()
+        case .PyamentOptions: showPaypentTypesList()
         default: break
         }
     }
@@ -116,12 +108,13 @@ extension SettingsViewController: SwitchTableViewCellDelegate, MultipleSelection
     func switchDidChange(enabled: Bool, at indexPath: IndexPath?) {
         let text = enabled ? "enabled" : "disabled"
         print("indexPath?.section: \(String(describing: indexPath?.section)) -- enabled \(text)")
-        switch indexPath?.section {
-        case 1:
+        let settingSection = SettingsSectionEnum(rawValue: indexPath?.section ?? 0)! as SettingsSectionEnum
+
+        switch settingSection {
+        case .Localisation:
             tapSettings.localisation = enabled
             self.delegate?.didUpdateLocalisation(to: enabled)
-        case 4:
-            
+        case .SwipeToDismiss:
             self.delegate?.didUpdateSwipeToDismiss(to: enabled)
         default: break
         }
