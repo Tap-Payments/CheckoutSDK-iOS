@@ -18,7 +18,7 @@ import CommonDataModelsKit_iOS
 
 /// Represents a standalone configurable view to show a drag handler at the top of the bottom sheet
 @objc public class TapDragHandlerView: UIView {
-
+    
     /// The container view that holds everything from the XIB
     @IBOutlet var containerView: UIView!
     /// The image view to show the drag handler
@@ -73,7 +73,7 @@ import CommonDataModelsKit_iOS
         if animated {
             UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveEaseInOut], animations: { [weak self] in
                 self?.layoutIfNeeded()
-            }, completion: nil)
+                }, completion: nil)
         }else{
             layoutIfNeeded()
         }

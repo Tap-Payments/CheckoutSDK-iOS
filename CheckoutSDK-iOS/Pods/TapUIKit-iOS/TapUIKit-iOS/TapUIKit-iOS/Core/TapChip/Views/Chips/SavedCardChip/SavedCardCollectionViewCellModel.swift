@@ -39,7 +39,7 @@ import class UIKit.UICollectionViewCell
     }
     
     public override func didDeselectItem() {
-       cellDelegate?.changeSelection(with: false)
+        cellDelegate?.changeSelection(with: false)
     }
     
     public override func changedEditMode(to: Bool) {

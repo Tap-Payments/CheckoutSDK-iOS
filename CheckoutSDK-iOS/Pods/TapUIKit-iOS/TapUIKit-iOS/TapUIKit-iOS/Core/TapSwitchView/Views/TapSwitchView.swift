@@ -11,7 +11,7 @@ import TapThemeManager2020
 
 /// Represents the Tap Switch View
 @objc public class TapSwitchView: UIView {
-
+    
     /// The container view that holds everything from the XIB
     @IBOutlet weak private var containerView: UIView!
     /// The stack view that holds all the switch views
@@ -32,28 +32,28 @@ import TapThemeManager2020
     private let themePath = "TapSwitchView"
     
     // Mark:- Init methods
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            commonInit()
-        }
-        
-        required init?(coder aDecoder: NSCoder) {
-            super.init(coder: aDecoder)
-            commonInit()
-        }
-        
-        /// Used as a consolidated method to do all the needed steps upon creating the view
-        private func commonInit() {
-            self.containerView = setupXIB()
-            applyTheme()
-        }
-        
-        /// Updates the container view frame to the parent view bounds
-        @objc public override func layoutSubviews() {
-            super.layoutSubviews()
-            self.containerView.frame = bounds
-        }
-
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    /// Used as a consolidated method to do all the needed steps upon creating the view
+    private func commonInit() {
+        self.containerView = setupXIB()
+        applyTheme()
+    }
+    
+    /// Updates the container view frame to the parent view bounds
+    @objc public override func layoutSubviews() {
+        super.layoutSubviews()
+        self.containerView.frame = bounds
+    }
+    
     /**
      Seup the hint view according to the view model
      - Parameter viewModel: The new required view model to attach the view to
@@ -165,7 +165,7 @@ extension TapSwitchView: TapSwitchViewDelegate {
                 merchantSwitchControl.isHidden = true
             }
         }
-            
+        
         self.mainSwitchControl.layer.cornerRadius = CGFloat(0)
         self.mainSwitchControl.clipsToBounds = false
         self.mainSwitchControl.isOn = false
@@ -210,7 +210,7 @@ extension TapSwitchView {
     private func matchThemeAttributes() {
         
         tap_theme_backgroundColor = .init(keyPath: "\(themePath).backgroundColor")
-
+        
         
         // main
         self.mainSwitchControl?.titleFont = TapThemeManager.fontValue(for: "\(themePath).main.title.textFont") ?? .systemFont(ofSize: 12)
@@ -245,7 +245,7 @@ extension TapSwitchView {
         self.goPaySwitchControl?.subtitleFont = TapThemeManager.fontValue(for: "\(themePath).goPay.subtitle.textFont") ?? .systemFont(ofSize: 12)
         
         self.goPaySwitchControl?.notesFont = TapThemeManager.fontValue(for: "\(themePath).goPay.notes.textFont") ?? .systemFont(ofSize: 12)
-
+        
         
         self.goPaySwitchControl?.titleTextColor = TapThemeManager.colorValue(for: "\(themePath).goPay.title.textColor") ?? .black
         

@@ -16,10 +16,12 @@ import Foundation
 @objc public class DiscountModel : NSObject, Codable {
     
     /// The type of the applied discount whether fixed or percentage
-    public let type : DiscountType?
+    let type : DiscountType?
     /// The value of the discount itself
-	public let value : Double?
-
+	let value : Double?
+    public var valuee: Double? {
+        return value
+    }
     /**
      - Parameter type: The type of the applied discount whether fixed or percentage
      - Parameter value: The value of the discount itself

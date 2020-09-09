@@ -54,7 +54,7 @@ internal protocol GenericChipViewModelDelegate {
 /// A protocl of methods to be applied to all generated chip cells to infom the view model with needed events
 internal protocol GenericCellChipViewModelDelegate {
     /**
-        Each view model should have an interface to know his cell is selected or nt. Fired from the cell itself
+     Each view model should have an interface to know his cell is selected or nt. Fired from the cell itself
      - parameter status: tTrue if it was just selected and false otherwise
      */
     func changeSelection(with status:Bool)
@@ -85,7 +85,7 @@ internal protocol GenericCellChipViewModelDelegate {
     
     /**
      Creates a view model with the provided data
-      - Parameter title: The title to be displayed if any in the Chip cell default is nil
+     - Parameter title: The title to be displayed if any in the Chip cell default is nil
      - Parameter icon:The icon if any to be displayed in the Chip cell default is nil
      */
     @objc public init(title:String? = nil, icon:String? = nil) {

@@ -111,6 +111,7 @@ internal protocol TapChipHorizontalViewModelDelegate {
     @objc public var attachedView:TapChipHorizontalList {
         return listView ?? .init()
     }
+    
     /// Represents if the attached view should be visible or not, based on the existence of items inside the list
     @objc public var shouldShow:Bool = false
     
@@ -166,7 +167,6 @@ internal protocol TapChipHorizontalViewModelDelegate {
     
     /// Call this method when you want to deselct all selected items inside the horizontal list
     @objc public func deselectAll() {
-        selectedChip = nil
         cellDelegate?.deselectAll()
     }
     

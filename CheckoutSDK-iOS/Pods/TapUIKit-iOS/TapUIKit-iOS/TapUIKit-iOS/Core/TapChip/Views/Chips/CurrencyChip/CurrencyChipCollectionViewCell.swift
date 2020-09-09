@@ -45,7 +45,8 @@ import Nuke
     
     override func selectStatusChaned(with status:Bool) {
         
-        // update the shadow for Currency cell
+        // update the shadow for GoPayCell
+        
         applyTheme()
     }
     

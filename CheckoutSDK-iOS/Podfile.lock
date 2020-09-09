@@ -4,7 +4,7 @@ PODS:
   - LocalisationManagerKit-iOS (1.0.2)
   - McPicker (2.0.1)
   - MOLH (1.4.1)
-  - Nuke (9.1.1)
+  - Nuke (9.1.2)
   - PayCardsRecognizer (1.1.7)
   - PullUpController (0.8.0)
   - RxCocoa (5.1.1):
@@ -13,9 +13,9 @@ PODS:
   - RxRelay (5.1.1):
     - RxSwift (~> 5)
   - RxSwift (5.1.1)
-  - SDWebImage (5.8.4):
-    - SDWebImage/Core (= 5.8.4)
-  - SDWebImage/Core (5.8.4)
+  - SDWebImage (5.9.0):
+    - SDWebImage/Core (= 5.9.0)
+  - SDWebImage/Core (5.9.0)
   - SimpleAnimation (0.4.2)
   - SnapKit (5.0.1)
   - TapAdditionsKit (1.3.6):
@@ -262,11 +262,11 @@ PODS:
   - TapThemeManager2020 (1.0.43):
     - LocalisationManagerKit-iOS
     - TapFontKit-iOS
-  - TapUIKit-iOS (1.0.24):
+  - TapUIKit-iOS (1.0.28):
     - CommonDataModelsKit-iOS
     - EasyAnimation
     - LocalisationManagerKit-iOS
-    - McPicker
+    - McPicker (~> 2.0.1)
     - MOLH
     - Nuke
     - PullUpController
@@ -317,13 +317,13 @@ SPEC CHECKSUMS:
   LocalisationManagerKit-iOS: cd702915c67faba899d4613d44ceb00cefccec6e
   McPicker: a0a6b8ece8f1642e05401a29867463aba501188b
   MOLH: 9ea6c0390f5963b2df9827ae64035fbc8598b092
-  Nuke: af4301b154d3afd8a3b045a5194a9a773a00b7a8
+  Nuke: dd2e6be6a34c042a7861e190632781d11f253026
   PayCardsRecognizer: 2e4d1b2fdd5f1528fb56064a91e1d58a1af7a2db
   PullUpController: 2f7ccaa0f35b31b47e3efbe1854c7f781552b3c7
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
-  SDWebImage: cf6922231e95550934da2ada0f20f2becf2ceba9
+  SDWebImage: 62ae4a18473520c67b79e9724c31a63599cc9423
   SimpleAnimation: 5430010b9548f392e7459290acce01c9ceba7171
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   TapAdditionsKit: 136b2174e775b105f8fd17eac6a4da2951e0f05b
@@ -335,7 +335,7 @@ SPEC CHECKSUMS:
   TapNetworkKit-iOS: 7635e2384961fc81588d5162abbbb742210002c4
   TapSwiftFixes: db2aeb21942dd81ee051a31ed319dab0d03547a2
   TapThemeManager2020: 220c39eb0170fc28e96bb11e941ec44781ecb601
-  TapUIKit-iOS: a20452d33f7c159254fc4be6bce114b31b9ea350
+  TapUIKit-iOS: ebc9735ba325e6a26631a75b1110c77b941af081
 
 PODFILE CHECKSUM: 2038c19c305b09908da314e1bb255d1c552935b4
 

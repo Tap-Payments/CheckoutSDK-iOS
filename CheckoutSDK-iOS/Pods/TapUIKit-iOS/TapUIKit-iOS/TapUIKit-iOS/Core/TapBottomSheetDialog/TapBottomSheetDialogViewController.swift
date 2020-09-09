@@ -18,27 +18,27 @@ import TapThemeManager2020
     @objc func tapBottomSheetBackGroundColor() -> UIColor?
     
     /**
-    Defines the blur visual effect if required
-    - Returns: The UIBlurEffect needed to be applied. Optional and default is none
-    */
+     Defines the blur visual effect if required
+     - Returns: The UIBlurEffect needed to be applied. Optional and default is none
+     */
     @objc optional func tapBottomSheetBlurEffect() -> UIBlurEffect?
     
     /**
-    Defines the actual controller you want to display as a popup modal
-    - Returns: The Viewcontroller to modally present. Optional and default is nil
-    */
+     Defines the actual controller you want to display as a popup modal
+     - Returns: The Viewcontroller to modally present. Optional and default is nil
+     */
     @objc optional func tapBottomSheetViewControllerToPresent() -> UIViewController?
     
     /**
-    Defines the radious value for the .topLeft and .topRight corners for the modal controller
-    - Returns: The radious value for the .topLeft and .topRight corners for the modal controller
-    */
+     Defines the radious value for the .topLeft and .topRight corners for the modal controller
+     - Returns: The radious value for the .topLeft and .topRight corners for the modal controller
+     */
     @objc optional func tapBottomSheetControllerRadious() -> CGFloat
     
     /**
      Defines the initial height to show the modal controller default is 100
-    - Returns: The height value initialy set the controller to
-    */
+     - Returns: The height value initialy set the controller to
+     */
     @objc optional func tapBottomSheetInitialHeight() -> CGFloat
     
     /**
@@ -48,15 +48,15 @@ import TapThemeManager2020
     @objc optional func tapBottomSheetDismissBelowHeight() -> CGFloat
     
     /**
-    Defines the corners you want to apply the radius value to
-    - Returns: The corners sides you want to apply the radius values to
-    */
+     Defines the corners you want to apply the radius value to
+     - Returns: The corners sides you want to apply the radius values to
+     */
     @objc optional func tapBottomSheetRadiousCorners() -> CACornerMask
     
     /**
      Defines if the popup should dismiss itself if the user clicked outside the presented controller
      - Returns: true to dismiss and false to ignore the clicks
-    */
+     */
     @objc optional func tapBottomSheetShouldAutoDismiss() -> Bool
     
     /**
@@ -105,7 +105,7 @@ import TapThemeManager2020
 
 /// This class represents the bottom sheet popup with all of its configuration
 @objc public class TapBottomSheetDialogViewController: UIViewController {
-
+    
     // MARK: Variables and attributes
     
     
@@ -120,6 +120,9 @@ import TapThemeManager2020
     
     /// The button that will fill the un filled area, will be used to listen to clicking outside the modal view to dismiss it if the caller asked for this
     private var dismissButton:UIButton = .init()
+    
+    /// A view that will show the background color abode the checkout sheet to  Fade out the dimming background to show it as fade in fade out as requested
+    private var backgroundView:UIView?
     
     // MARK: Default values for needed variables
     /// This defines in which path should we look into the theme based on the card input mode
@@ -171,8 +174,8 @@ import TapThemeManager2020
     
     ///Defines if the popup should dismiss itself if the user clicked outside the presented controller default is true
     private var tapBottomSheetShouldAutoDismiss:Bool {
-           guard let dataSource = dataSource, let shouldDismiss = dataSource.tapBottomSheetShouldAutoDismiss?() else { return true }
-           return shouldDismiss
+        guard let dataSource = dataSource, let shouldDismiss = dataSource.tapBottomSheetShouldAutoDismiss?() else { return true }
+        return shouldDismiss
     }
     
     ///Defines the points where you want the modal controller to jump to based on where the user dragged the controller default [50,100]
@@ -185,7 +188,13 @@ import TapThemeManager2020
     // MARK: Override methods
     public final override func viewDidLoad() {
         super.viewDidLoad()
-       
+        // Fade out the dimming background to show it as fade in fade out as requested
+        view.backgroundColor = .clear
+        backgroundView = .init(frame: self.view.frame)
+        backgroundView?.backgroundColor = .clear
+        backgroundView?.alpha = 0
+        view.addSubview(backgroundView!)
+        view.sendSubviewToBack(backgroundView!)
         // First thing to do is to apply the customisation data from the data source
         reloadDataSource()
     }
@@ -195,8 +204,8 @@ import TapThemeManager2020
         if let delegate = delegate {
             delegate.tapBottomSheetWillDismiss?()
         }
-        guard let nonNullPullUpController = addedPullUpController else { return }
-        self.removePullUpController(nonNullPullUpController, animated: false)
+        //guard let nonNullPullUpController = addedPullUpController else { return }
+        //self.removePullUpController(nonNullPullUpController, animated: false)
     }
     
     /// Call this method when you need the bottom controller to update its look based in reloading th configurations from the data source again
@@ -232,7 +241,7 @@ import TapThemeManager2020
         
         // Set the background color o use the theme manager one
         if let backgroundColor = backgroundColor {
-            view.backgroundColor = backgroundColor
+            backgroundView?.backgroundColor = backgroundColor
         }else {
             applyTheme()
         }
@@ -248,13 +257,13 @@ import TapThemeManager2020
     
     
     internal func applyTheme() {
-        view.tap_theme_backgroundColor = .init(keyPath: "\(themePath).dimmedColor")
+        backgroundView?.tap_theme_backgroundColor = .init(keyPath: "\(themePath).dimmedColor")
     }
     
     /**
-    Applies the blur effect
-    - Parameter blurEffect: The blurring effect we will set to the background
-    */
+     Applies the blur effect
+     - Parameter blurEffect: The blurring effect we will set to the background
+     */
     private func addBlurEffect(with blurEffect:UIBlurEffect? = nil) {
         // Make sure that there is a blur effect to add
         guard let blurEffect = blurEffect else { return }
@@ -272,8 +281,8 @@ import TapThemeManager2020
     }
     
     /**
-    Handles adding a modal controller with the needed configurations
-    */
+     Handles adding a modal controller with the needed configurations
+     */
     private func showPullUpController() {
         
         // first remove any added controller before, defennsive coding
@@ -301,6 +310,11 @@ import TapThemeManager2020
                 nonNullPullUpController.pullUpControllerMoveToVisiblePoint(self?.tapBottomSheetInitialHeight ?? 100, animated: true,completion: {
                     guard let delegate = self?.delegate else { return }
                     delegate.tapBottomSheetPresented?()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
+                        UIView.animate(withDuration: 0.25,animations: { [weak self] in
+                            self?.backgroundView?.alpha = 1
+                        })
+                    }
                 })
             }
         })
@@ -308,7 +322,7 @@ import TapThemeManager2020
     
     /**
      Handles the logic to create the sticky points for the modal controller
-    - Parameter pullUpController: The modal controller we want to adjust its sticky points
+     - Parameter pullUpController: The modal controller we want to adjust its sticky points
      */
     private func addStickyPoints(to pullUpController:TapPresentableViewController) {
         // Tell it the initial height, as this is a sticky point
@@ -349,17 +363,22 @@ import TapThemeManager2020
         guard let delegate = delegate else { return }
         delegate.tapBottomSheetDidTapOutside?()
     }
-     /// This method is responsible for the dismissal logic
-    @objc private func dismissBottomSheet() {
+    /// This method is responsible for the dismissal logic
+    @objc private func dismissBottomSheet(animationDuration:Double = 0.25) {
         //delegate?.tapBottomSheetWillDismiss?()
         DispatchQueue.main.async { [weak self] in
             // Check first if we have a pull up controller, we remove it first then we dismiss
-            guard let modalController = self?.addedPullUpController  else {
-                // Otherwise, we dismiss ourselves directly
-                self?.dismiss(animated: true, completion: nil)
-                return
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: animationDuration,animations: { [weak self] in
+                    self?.backgroundView?.alpha = 0
+                    //modalController.view.alpha = 0
+                    },completion: { _ in
+                        self?.dismiss(animated: true, completion: {
+                            self?.delegate?.tapBottomSheetDismissed?()
+                        })
+                })
             }
-            self?.dismiss(animated: true, completion: nil)
+            //self?.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -416,10 +435,11 @@ extension TapBottomSheetDialogViewController: TapPresentableViewControllerDelega
     }
     
     func willDismiss() {
-        UIView.animate(withDuration: 0.15) {
-            self.view.alpha = 0
-        }
         delegate?.tapBottomSheetWillDismiss?()
+        if let modalController = addedPullUpController {
+            modalController.view.alpha = 0
+        }
+        dismissBottomSheet(animationDuration: 0.5)
     }
     
     func dismissed() {

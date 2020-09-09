@@ -109,14 +109,9 @@ class TapHorizontalHeaderView: UIView {
     }
     
     /// Used as a consolidated method to do all the needed steps upon creating the view
-    private func commonInit() {
+    internal func commonInit() {
         self.contentView = setupXIB()
         translatesAutoresizingMaskIntoConstraints = false
-        applyTheme()
-        localize()
-    }
-    
-    internal func reloadHeader() {
         applyTheme()
         localize()
     }

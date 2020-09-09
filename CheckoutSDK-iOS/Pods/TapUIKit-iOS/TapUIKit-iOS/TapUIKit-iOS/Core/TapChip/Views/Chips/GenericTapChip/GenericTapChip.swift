@@ -59,6 +59,7 @@ import class UIKit.UICollectionViewCell
     /// Logout chip has the logout icon
     case LogoutChip = 6
     
+    
     /**
      Defines what is the theme path to look for to customise a cell based on its type
      - Returns: The theme entry location inside the Theme json file

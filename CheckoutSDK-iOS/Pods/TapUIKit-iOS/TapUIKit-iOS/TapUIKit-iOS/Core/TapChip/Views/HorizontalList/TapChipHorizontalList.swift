@@ -62,13 +62,13 @@ import SimpleAnimation
         self.viewModel = viewModel
     }
     
+    @objc override func shouldShowTapView() -> Bool {
+        return viewModel.shouldShow
+    }
+    
     public override func layoutSubviews() {
         super.layoutSubviews()
         self.contentView.frame = bounds
-    }
-    
-    @objc override func shouldShowTapView() -> Bool {
-        return viewModel.shouldShow
     }
     
     // Mark:- Private methods
@@ -192,12 +192,6 @@ extension TapChipHorizontalList:UICollectionViewDataSource,UICollectionViewDeleg
         let cell:GenericTapChip = viewModel.dequeuCell(in: collectionView, at: indexPath)
         cell.configureCell(with: model)
         
-        if viewModel.selectedChip == model {
-            model.didSelectItem()
-            cell.isSelected = true
-            collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .left)
-        }
-        //po cell.isSelected = viewModel.selectedChip == model
         return cell
     }
     
@@ -225,7 +219,6 @@ extension TapChipHorizontalList:TapChipHorizontalViewModelDelegate {
     func showHeader(with type: TapHorizontalHeaderType) {
         handleHeaderView(with: type)
         headerView.showHeader(with: type)
-        headerView.reloadHeader()
     }
     
     func reload(new dataSource: [GenericTapChipViewModel]) {
