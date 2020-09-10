@@ -13,7 +13,11 @@ class ViewController: UIViewController {
    
     @IBOutlet weak var tapPayButton: TapActionButton!
     let tapPayButtonViewModel:TapPayButtonViewModel = .init()
-    var localeID:String = "en"
+    var localeID:String = "en" {
+        didSet{
+            TapLocalisationManager.shared.localisationLocale = localeID
+        }
+    }
     var localisationFileName:String? = "CustomLocalisation"
     var customTheme:TapCheckOutTheme? = nil
     @IBOutlet weak var amountTextField: UITextField!
@@ -99,6 +103,7 @@ extension ViewController: SettingsDelegate {
     
     func didUpdateLocalisation(to enabled: Bool) {
         localisationFileName = (enabled) ? "CustomLocalisation" : nil
+        adjustTapButton()
     }
     
     func didChangeTheme(with themeName: String?) {
