@@ -79,7 +79,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter swipeDownToDismiss: If it is set then when the user swipes down the payment will close, otherwise, there will be a shown button to dismiss the screen. Default is false
      - Parameter paymentTypes: The allowed payment types inclyding cards, apple pay, web and telecom
      */
-    public func build(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil,currency:TapCurrencyCode = .USD,amount:Double = 1,items:[ItemModel] = [],applePayMerchantID:String = "merchant.tap.gosell",swipeDownToDismiss:Bool = false, paymentTypes:[TapPaymentType] = [.All], onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}){
+    public func build(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil,currency:TapCurrencyCode = .USD,amount:Double = 1,items:[ItemModel] = [],applePayMerchantID:String = "merchant.tap.gosell",swipeDownToDismiss:Bool = true, paymentTypes:[TapPaymentType] = [.All], onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}){
         TapCheckoutSharedManager.destroy()
         tapCheckoutScreenDelegate = delegate
         configureLocalisationManager(localiseFile: localiseFile)
