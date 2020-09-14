@@ -336,6 +336,9 @@ extension TapBottomCheckoutControllerViewController:TapChipHorizontalListViewMod
     }
     
     func headerRightButtonClicked(in headerType: TapHorizontalHeaderType) {
+        sharedCheckoutDataManager.tapGoPayChipsHorizontalListViewModel.deselectAll()
+        sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.deselectAll()
+        
         sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.editMode(changed: true)
         sharedCheckoutDataManager.tapGoPayChipsHorizontalListViewModel.editMode(changed: true)
     }

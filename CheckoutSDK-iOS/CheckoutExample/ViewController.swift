@@ -25,7 +25,7 @@ class ViewController: UIViewController {
     var amount:Double {
         return Double(amountTextField.text ?? "") ?? 1000
     }
-    var swipeToDismiss:Bool = false
+    var swipeToDismiss:Bool = true
     var items:[ItemModel] = []
     var paymentTypes:[TapPaymentType] = [.All]
     
