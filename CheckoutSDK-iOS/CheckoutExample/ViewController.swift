@@ -26,6 +26,7 @@ class ViewController: UIViewController {
         return Double(amountTextField.text ?? "") ?? 1000
     }
     var swipeToDismiss:Bool = true
+    var closeButtonTitleStyle:CheckoutCloseButtonEnum = .title
     var items:[ItemModel] = []
     var paymentTypes:[TapPaymentType] = [.All]
     
@@ -71,6 +72,7 @@ class ViewController: UIViewController {
             items: items,
             swipeDownToDismiss: swipeToDismiss,
             paymentTypes: paymentTypes,
+            closeButtonStyle: closeButtonTitleStyle
             onCheckOutReady: {[weak self] tapCheckOut in
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
                     tapCheckOut.start(presentIn: self)
