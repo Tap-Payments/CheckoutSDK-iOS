@@ -336,9 +336,14 @@ extension TapBottomCheckoutControllerViewController:TapChipHorizontalListViewMod
     }
     
     func headerRightButtonClicked(in headerType: TapHorizontalHeaderType) {
+        // Disable the pay button regarding its current state
+        sharedCheckoutDataManager.tapActionButtonViewModel.buttonStatus = .InvalidPayment
+        
+        // Deselect selected chips before starting the edit mode
         sharedCheckoutDataManager.tapGoPayChipsHorizontalListViewModel.deselectAll()
         sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.deselectAll()
         
+        // Inform the lists of saved chips to start editing
         sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.editMode(changed: true)
         sharedCheckoutDataManager.tapGoPayChipsHorizontalListViewModel.editMode(changed: true)
     }
