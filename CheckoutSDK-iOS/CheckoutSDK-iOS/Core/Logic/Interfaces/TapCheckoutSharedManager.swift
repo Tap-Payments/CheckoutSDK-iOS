@@ -68,6 +68,9 @@ internal class TapCheckoutSharedManager {
             parseIntentResponse()
         }
     }
+    /// Represents the required style of the sheet close button
+    var closeButtonStyle:CheckoutCloseButtonEnum = .title
+    
     /// Represents The allowed payment types inclyding cards, apple pay, web and telecom
     var paymentTypes:[TapPaymentType] = [.All]
     

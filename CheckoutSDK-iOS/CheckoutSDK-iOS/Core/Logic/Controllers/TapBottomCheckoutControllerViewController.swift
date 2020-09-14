@@ -80,6 +80,8 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
         createTabBarViewModel()
         createGatewaysViews()
         dragView.delegate = self
+        
+        dragView.changeCloseButton(to: sharedCheckoutDataManager.closeButtonStyle)
     }
     
     func createTabBarViewModel() {

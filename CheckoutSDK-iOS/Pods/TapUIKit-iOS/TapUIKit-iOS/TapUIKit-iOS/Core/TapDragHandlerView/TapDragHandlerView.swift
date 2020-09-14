@@ -79,6 +79,16 @@ import CommonDataModelsKit_iOS
         }
     }
     
+    @objc public func changeCloseButton(to closeButtonState:CheckoutCloseButtonEnum) {
+        if closeButtonState == .title {
+            cancelButton.setTitle(TapLocalisationManager.shared.localisedValue(for: "Common.close", with: TapCommonConstants.pathForDefaultLocalisation()), for: .normal)
+            cancelButton.setImage(nil, for: .normal)
+        }else{
+            cancelButton.setTitle("", for: .normal)
+            cancelButton.setImage(TapThemeManager.imageValue(for: "horizontalList.chips.savedCardChip.editMode.deleteIcon"), for: .normal)
+        }
+    }
+    
     @IBAction func cancelButtonClicked(_ sender: Any) {
         delegate?.closeButtonClicked()
     }
@@ -102,6 +112,7 @@ extension TapDragHandlerView {
                           and: CGFloat(TapThemeManager.numberValue(for: "\(themePath).height")?.floatValue ?? 2))
         tap_theme_backgroundColor = .init(keyPath: "\(themePath).backgroundColor")
         cancelButton.tap_theme_setTitleColor(selector: .init(keyPath: "\(themePath).cancelButton.titleLabelColor"), forState: .normal)
+        cancelButton.tap_theme_tintColor = .init(keyPath: "\(themePath).cancelButton.titleLabelColor")
         cancelButton.titleLabel?.tap_theme_font = .init(stringLiteral: "\(themePath).cancelButton.titleLabelFont")
     }
     
@@ -113,3 +124,11 @@ extension TapDragHandlerView {
     }
 }
 
+
+/// Defines the style of the checkout close button
+@objc public enum CheckoutCloseButtonEnum:Int {
+    /// Will show a close button icon only
+    case icon = 1
+    /// Will show the word "CLOSE" as a title only
+    case title = 2
+}
