@@ -72,7 +72,7 @@ class ViewController: UIViewController {
             items: items,
             swipeDownToDismiss: swipeToDismiss,
             paymentTypes: paymentTypes,
-            closeButtonStyle: closeButtonTitleStyle
+            closeButtonStyle: closeButtonTitleStyle,
             onCheckOutReady: {[weak self] tapCheckOut in
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
                     tapCheckOut.start(presentIn: self)
@@ -96,6 +96,10 @@ class ViewController: UIViewController {
 extension ViewController: SettingsDelegate {
     func didUpdatePaymentTypes(to types: [TapPaymentType]) {
         paymentTypes = types
+    }
+    
+    func didUpdateCloseButtonTitle(to enabled: Bool) {
+        closeButtonTitleStyle = enabled ? .title : .icon
     }
     
     func didUpdateLanguage(with locale: String) {

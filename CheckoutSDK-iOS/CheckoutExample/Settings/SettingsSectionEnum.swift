@@ -19,6 +19,7 @@ import Foundation
     case Theme
     case Currency
     case SwipeToDismiss
+    case CloseButtonTitle
     case PyamentOptions
     
     var title: String {
@@ -28,6 +29,7 @@ import Foundation
         case .Theme: return "Theme"
         case .Currency: return "Currency"
         case .SwipeToDismiss: return "Swipe to dismiss"
+        case .CloseButtonTitle: return "Close sheet as a title"
         case .PyamentOptions: return "Pyament Options"
         }
     }
@@ -39,13 +41,14 @@ import Foundation
         case .Theme: return ["Change Theme"]
         case .Currency: return ["Change Currency"]
         case .SwipeToDismiss: return ["Enable swipe to dismiss the checkout screen"]
+        case .CloseButtonTitle: return ["Enable to see it as title or disable it to be as an icon"]
         case .PyamentOptions: return ["Select payment options"]
         }
     }
     
     var cellType: SettingsCellType {
         switch self {
-        case .Localisation, .SwipeToDismiss:
+        case .Localisation, .SwipeToDismiss,.CloseButtonTitle:
             return .SwitchButton
         default:
             return .TitleSubtitle

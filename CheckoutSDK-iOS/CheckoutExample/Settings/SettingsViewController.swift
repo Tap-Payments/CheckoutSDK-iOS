@@ -17,7 +17,7 @@ class SettingsViewController: UIViewController {
     public var delegate: SettingsDelegate?
     
     private var settingsList: [SettingsSectionEnum] = []
-    private var tapSettings = TapSettings(language: "English", localisation: false, theme: "Default", currency: .USD, swipeToDismissFeature: false, paymentTypes: [.All])
+    private var tapSettings = TapSettings(language: "English", localisation: false, theme: "Default", currency: .USD, swipeToDismissFeature: true, paymentTypes: [.All],closeButtonTitleFeature: true)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +41,7 @@ class SettingsViewController: UIViewController {
         settingsList.append(.Theme)
         settingsList.append(.Currency)
         settingsList.append(.SwipeToDismiss)
+        settingsList.append(.CloseButtonTitle)
         settingsList.append(.PyamentOptions)
     }
 }
@@ -68,6 +69,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             switch currentsection {
             case .Localisation: cell.switchButton.isOn = tapSettings.localisation
             case .SwipeToDismiss: cell.switchButton.isOn = tapSettings.swipeToDismissFeature
+            case .CloseButtonTitle: cell.switchButton.isOn = tapSettings.closeButtonTitleFeature
             default: break
             }
             cell.indexPath = indexPath
@@ -116,6 +118,8 @@ extension SettingsViewController: SwitchTableViewCellDelegate, MultipleSelection
             self.delegate?.didUpdateLocalisation(to: enabled)
         case .SwipeToDismiss:
             self.delegate?.didUpdateSwipeToDismiss(to: enabled)
+        case .CloseButtonTitle:
+            self.delegate?.didUpdateCloseButtonTitle(to: enabled)
         default: break
         }
     }
