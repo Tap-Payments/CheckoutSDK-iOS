@@ -5,7 +5,7 @@
 //  Copyright © 2019 Tap Payments. All rights reserved.
 //
 
-import struct Foundation.NSData.Data
+import Foundation
 import class Foundation.NSJSONSerialization.JSONSerialization
 
 /// Tap JSON serializer class.

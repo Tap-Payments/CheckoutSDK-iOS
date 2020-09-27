@@ -13,226 +13,16 @@ PODS:
   - RxRelay (5.1.1):
     - RxSwift (~> 5)
   - RxSwift (5.1.1)
-  - SDWebImage (5.9.0):
-    - SDWebImage/Core (= 5.9.0)
-  - SDWebImage/Core (5.9.0)
+  - SDWebImage (5.9.1):
+    - SDWebImage/Core (= 5.9.1)
+  - SDWebImage/Core (5.9.1)
   - SimpleAnimation (0.4.2)
   - SnapKit (5.0.1)
-  - TapAdditionsKit (1.3.6):
-    - TapAdditionsKit/AVFoundation (= 1.3.6)
-    - TapAdditionsKit/CoreGraphics (= 1.3.6)
-    - TapAdditionsKit/Foundation (= 1.3.6)
-    - TapAdditionsKit/ObjectiveC (= 1.3.6)
-    - TapAdditionsKit/QuartzCore (= 1.3.6)
-    - TapAdditionsKit/SwiftStandartLibrary (= 1.3.6)
-    - TapAdditionsKit/Tap (= 1.3.6)
-    - TapAdditionsKit/UIKit (= 1.3.6)
-  - TapAdditionsKit/AVFoundation (1.3.6):
-    - TapAdditionsKit/AVFoundation/AVPlayer (= 1.3.6)
-  - TapAdditionsKit/AVFoundation/AVPlayer (1.3.6)
-  - TapAdditionsKit/CoreGraphics (1.3.6):
-    - TapAdditionsKit/CoreGraphics/CGContext (= 1.3.6)
-    - TapAdditionsKit/CoreGraphics/CGImage (= 1.3.6)
-    - TapAdditionsKit/CoreGraphics/CGPoint (= 1.3.6)
-    - TapAdditionsKit/CoreGraphics/CGRect (= 1.3.6)
-    - TapAdditionsKit/CoreGraphics/CGSize (= 1.3.6)
-  - TapAdditionsKit/CoreGraphics/CGContext (1.3.6)
-  - TapAdditionsKit/CoreGraphics/CGImage (1.3.6):
-    - TapAdditionsKit/CoreGraphics/CGContext
-  - TapAdditionsKit/CoreGraphics/CGPoint (1.3.6)
-  - TapAdditionsKit/CoreGraphics/CGRect (1.3.6):
-    - TapAdditionsKit/CoreGraphics/CGPoint
-    - TapAdditionsKit/CoreGraphics/CGSize
-  - TapAdditionsKit/CoreGraphics/CGSize (1.3.6):
-    - TapAdditionsKit/SwiftStandartLibrary/Numeric
-  - TapAdditionsKit/Foundation (1.3.6):
-    - TapAdditionsKit/Foundation/Bundle (= 1.3.6)
-    - TapAdditionsKit/Foundation/Calendar (= 1.3.6)
-    - TapAdditionsKit/Foundation/Data (= 1.3.6)
-    - TapAdditionsKit/Foundation/Date (= 1.3.6)
-    - TapAdditionsKit/Foundation/DateFormatter (= 1.3.6)
-    - TapAdditionsKit/Foundation/JSONSerialization (= 1.3.6)
-    - TapAdditionsKit/Foundation/Locale (= 1.3.6)
-    - TapAdditionsKit/Foundation/NSNumber (= 1.3.6)
-    - TapAdditionsKit/Foundation/NumberFormatter (= 1.3.6)
-    - TapAdditionsKit/Foundation/URL (= 1.3.6)
-    - TapAdditionsKit/Foundation/URLSession (= 1.3.6)
-    - TapAdditionsKit/Foundation/URLSessionDataTaskResult (= 1.3.6)
-    - TapAdditionsKit/Foundation/UserDefaults (= 1.3.6)
-  - TapAdditionsKit/Foundation/Bundle (1.3.6)
-  - TapAdditionsKit/Foundation/Calendar (1.3.6)
-  - TapAdditionsKit/Foundation/Data (1.3.6):
-    - TapAdditionsKit/SwiftStandartLibrary/String
-    - TapAdditionsKit/UIKit/UIImage
-  - TapAdditionsKit/Foundation/Date (1.3.6)
-  - TapAdditionsKit/Foundation/DateFormatter (1.3.6)
-  - TapAdditionsKit/Foundation/JSONSerialization (1.3.6):
-    - TapAdditionsKit/SwiftStandartLibrary/OptionSet
-    - TapAdditionsKit/SwiftStandartLibrary/String
-    - TapAdditionsKit/Tap/TypeAlias
-    - TapSwiftFixes/Exceptions (>= 1.0.9)
-  - TapAdditionsKit/Foundation/Locale (1.3.6)
-  - TapAdditionsKit/Foundation/NSNumber (1.3.6):
-    - TapAdditionsKit/Foundation/Locale
-    - TapAdditionsKit/SwiftStandartLibrary/String
-    - TapAdditionsKit/UIKit/UIDevice
-  - TapAdditionsKit/Foundation/NumberFormatter (1.3.6)
-  - TapAdditionsKit/Foundation/URL (1.3.6)
-  - TapAdditionsKit/Foundation/URLSession (1.3.6):
-    - TapAdditionsKit/Foundation/URLSessionDataTaskResult
-  - TapAdditionsKit/Foundation/URLSessionDataTaskResult (1.3.6)
-  - TapAdditionsKit/Foundation/UserDefaults (1.3.6)
-  - TapAdditionsKit/ObjectiveC (1.3.6):
-    - TapAdditionsKit/ObjectiveC/NSObject (= 1.3.6)
-  - TapAdditionsKit/ObjectiveC/NSObject (1.3.6)
-  - TapAdditionsKit/QuartzCore (1.3.6):
-    - TapAdditionsKit/QuartzCore/CAKeyframeAnimation (= 1.3.6)
-    - TapAdditionsKit/QuartzCore/CALayer (= 1.3.6)
-  - TapAdditionsKit/QuartzCore/CAKeyframeAnimation (1.3.6)
-  - TapAdditionsKit/QuartzCore/CALayer (1.3.6)
-  - TapAdditionsKit/SwiftStandartLibrary (1.3.6):
-    - TapAdditionsKit/SwiftStandartLibrary/Array (= 1.3.6)
-    - TapAdditionsKit/SwiftStandartLibrary/BinaryInteger (= 1.3.6)
-    - TapAdditionsKit/SwiftStandartLibrary/Bool (= 1.3.6)
-    - TapAdditionsKit/SwiftStandartLibrary/Comparable (= 1.3.6)
-    - TapAdditionsKit/SwiftStandartLibrary/CountableClosedRange (= 1.3.6)
-    - TapAdditionsKit/SwiftStandartLibrary/CustomStringConvertible (= 1.3.6)
-    - TapAdditionsKit/SwiftStandartLibrary/Decodable (= 1.3.6)
-    - TapAdditionsKit/SwiftStandartLibrary/Dictionary (= 1.3.6)
-    - TapAdditionsKit/SwiftStandartLibrary/Encodable (= 1.3.6)
-    - TapAdditionsKit/SwiftStandartLibrary/Float (= 1.3.6)
-    - TapAdditionsKit/SwiftStandartLibrary/Int (= 1.3.6)
-    - TapAdditionsKit/SwiftStandartLibrary/KeyedDecodingContainer (= 1.3.6)
-    - TapAdditionsKit/SwiftStandartLibrary/MemoryLayout (= 1.3.6)
-    - TapAdditionsKit/SwiftStandartLibrary/Numeric (= 1.3.6)
-    - TapAdditionsKit/SwiftStandartLibrary/OptionSet (= 1.3.6)
-    - TapAdditionsKit/SwiftStandartLibrary/Sequence (= 1.3.6)
-    - TapAdditionsKit/SwiftStandartLibrary/String (= 1.3.6)
-    - TapAdditionsKit/SwiftStandartLibrary/UInt8 (= 1.3.6)
-  - TapAdditionsKit/SwiftStandartLibrary/Array (1.3.6):
-    - TapAdditionsKit/SwiftStandartLibrary/Numeric
-  - TapAdditionsKit/SwiftStandartLibrary/BinaryInteger (1.3.6)
-  - TapAdditionsKit/SwiftStandartLibrary/Bool (1.3.6)
-  - TapAdditionsKit/SwiftStandartLibrary/Comparable (1.3.6)
-  - TapAdditionsKit/SwiftStandartLibrary/CountableClosedRange (1.3.6)
-  - TapAdditionsKit/SwiftStandartLibrary/CustomStringConvertible (1.3.6):
-    - TapAdditionsKit/SwiftStandartLibrary/String
-  - TapAdditionsKit/SwiftStandartLibrary/Decodable (1.3.6)
-  - TapAdditionsKit/SwiftStandartLibrary/Dictionary (1.3.6)
-  - TapAdditionsKit/SwiftStandartLibrary/Encodable (1.3.6)
-  - TapAdditionsKit/SwiftStandartLibrary/Float (1.3.6):
-    - TapAdditionsKit/SwiftStandartLibrary/Comparable
-  - TapAdditionsKit/SwiftStandartLibrary/Int (1.3.6)
-  - TapAdditionsKit/SwiftStandartLibrary/KeyedDecodingContainer (1.3.6)
-  - TapAdditionsKit/SwiftStandartLibrary/MemoryLayout (1.3.6)
-  - TapAdditionsKit/SwiftStandartLibrary/Numeric (1.3.6)
-  - TapAdditionsKit/SwiftStandartLibrary/OptionSet (1.3.6)
-  - TapAdditionsKit/SwiftStandartLibrary/Sequence (1.3.6)
-  - TapAdditionsKit/SwiftStandartLibrary/String (1.3.6):
-    - TapAdditionsKit/Foundation/Locale
-    - TapAdditionsKit/Foundation/NumberFormatter
-    - TapAdditionsKit/SwiftStandartLibrary/Int
-  - TapAdditionsKit/SwiftStandartLibrary/UInt8 (1.3.6)
-  - TapAdditionsKit/Tap (1.3.6):
-    - TapAdditionsKit/Tap/ClassProtocol (= 1.3.6)
-    - TapAdditionsKit/Tap/Line (= 1.3.6)
-    - TapAdditionsKit/Tap/Triangle (= 1.3.6)
-    - TapAdditionsKit/Tap/TypeAlias (= 1.3.6)
-  - TapAdditionsKit/Tap/ClassProtocol (1.3.6)
-  - TapAdditionsKit/Tap/Line (1.3.6):
-    - TapAdditionsKit/CoreGraphics/CGPoint
-  - TapAdditionsKit/Tap/Triangle (1.3.6):
-    - TapAdditionsKit/Tap/Line
-  - TapAdditionsKit/Tap/TypeAlias (1.3.6)
-  - TapAdditionsKit/UIKit (1.3.6):
-    - TapAdditionsKit/UIKit/NSLayoutConstraint (= 1.3.6)
-    - TapAdditionsKit/UIKit/UIBezierPath (= 1.3.6)
-    - TapAdditionsKit/UIKit/UIButton (= 1.3.6)
-    - TapAdditionsKit/UIKit/UICollectionView (= 1.3.6)
-    - TapAdditionsKit/UIKit/UIColor (= 1.3.6)
-    - TapAdditionsKit/UIKit/UIDevice (= 1.3.6)
-    - TapAdditionsKit/UIKit/UIEdgeInsets (= 1.3.6)
-    - TapAdditionsKit/UIKit/UIGestureRecognizer (= 1.3.6)
-    - TapAdditionsKit/UIKit/UIImage (= 1.3.6)
-    - TapAdditionsKit/UIKit/UIImageView (= 1.3.6)
-    - TapAdditionsKit/UIKit/UILabel (= 1.3.6)
-    - TapAdditionsKit/UIKit/UINavigationController (= 1.3.6)
-    - TapAdditionsKit/UIKit/UIResponder (= 1.3.6)
-    - TapAdditionsKit/UIKit/UIScreen (= 1.3.6)
-    - TapAdditionsKit/UIKit/UIScrollView (= 1.3.6)
-    - TapAdditionsKit/UIKit/UITableView (= 1.3.6)
-    - TapAdditionsKit/UIKit/UIView (= 1.3.6)
-    - TapAdditionsKit/UIKit/UIViewController (= 1.3.6)
-    - TapAdditionsKit/UIKit/UIWebView (= 1.3.6)
-    - TapAdditionsKit/UIKit/UIWindow (= 1.3.6)
-  - TapAdditionsKit/UIKit/NSLayoutConstraint (1.3.6):
-    - TapAdditionsKit/Tap/TypeAlias
-    - TapAdditionsKit/UIKit/UIView
-  - TapAdditionsKit/UIKit/UIBezierPath (1.3.6):
-    - TapAdditionsKit/CoreGraphics/CGPoint
-    - TapAdditionsKit/SwiftStandartLibrary/Array
-    - TapAdditionsKit/Tap/Line
-  - TapAdditionsKit/UIKit/UIButton (1.3.6):
-    - TapAdditionsKit/UIKit/UIImage
-  - TapAdditionsKit/UIKit/UICollectionView (1.3.6)
-  - TapAdditionsKit/UIKit/UIColor (1.3.6):
-    - TapAdditionsKit/SwiftStandartLibrary/Array
-    - TapAdditionsKit/SwiftStandartLibrary/Int
-    - TapAdditionsKit/SwiftStandartLibrary/String
-  - TapAdditionsKit/UIKit/UIDevice (1.3.6)
-  - TapAdditionsKit/UIKit/UIEdgeInsets (1.3.6)
-  - TapAdditionsKit/UIKit/UIGestureRecognizer (1.3.6)
-  - TapAdditionsKit/UIKit/UIImage (1.3.6):
-    - TapAdditionsKit/CoreGraphics/CGImage
-    - TapAdditionsKit/CoreGraphics/CGSize
-    - TapAdditionsKit/SwiftStandartLibrary/Array
-    - TapAdditionsKit/SwiftStandartLibrary/Sequence
-    - TapAdditionsKit/UIKit/UIColor
-  - TapAdditionsKit/UIKit/UIImageView (1.3.6):
-    - TapAdditionsKit/UIKit/UIImage
-    - TapAdditionsKit/UIKit/UIView
-  - TapAdditionsKit/UIKit/UILabel (1.3.6):
-    - TapAdditionsKit/Tap/TypeAlias
-  - TapAdditionsKit/UIKit/UINavigationController (1.3.6):
-    - TapAdditionsKit/Tap/TypeAlias
-    - TapSwiftFixes/Threading (>= 1.0.9)
-  - TapAdditionsKit/UIKit/UIResponder (1.3.6):
-    - TapAdditionsKit/Tap/TypeAlias
-    - TapAdditionsKit/UIKit/UIView
-  - TapAdditionsKit/UIKit/UIScreen (1.3.6)
-  - TapAdditionsKit/UIKit/UIScrollView (1.3.6):
-    - TapAdditionsKit/SwiftStandartLibrary/Comparable
-  - TapAdditionsKit/UIKit/UITableView (1.3.6):
-    - TapAdditionsKit/UIKit/UIView
-    - TapSwiftFixes/Exceptions (>= 1.0.9)
-  - TapAdditionsKit/UIKit/UIView (1.3.6):
-    - TapAdditionsKit/UIKit/UIView/AnimationOptions (= 1.3.6)
-    - TapAdditionsKit/UIKit/UIView/KeyframeAnimationOptions (= 1.3.6)
-    - TapAdditionsKit/UIKit/UIView/UIView (= 1.3.6)
-  - TapAdditionsKit/UIKit/UIView/AnimationOptions (1.3.6)
-  - TapAdditionsKit/UIKit/UIView/KeyframeAnimationOptions (1.3.6)
-  - TapAdditionsKit/UIKit/UIView/UIView (1.3.6):
-    - TapAdditionsKit/ObjectiveC/NSObject
-    - TapAdditionsKit/QuartzCore/CALayer
-    - TapAdditionsKit/SwiftStandartLibrary/String
-    - TapAdditionsKit/Tap/TypeAlias
-    - TapAdditionsKit/UIKit/UIImage
-    - TapAdditionsKit/UIKit/UIScreen
-  - TapAdditionsKit/UIKit/UIViewController (1.3.6):
-    - TapAdditionsKit/ObjectiveC/NSObject
-    - TapAdditionsKit/Tap/TypeAlias
-    - TapAdditionsKit/UIKit/UIResponder
-    - TapAdditionsKit/UIKit/UIView
-    - TapAdditionsKit/UIKit/UIWindow
-    - TapAdditionsKit/UIKit/UIWindow/Level
-  - TapAdditionsKit/UIKit/UIWebView (1.3.6):
-    - TapAdditionsKit/SwiftStandartLibrary/String
-  - TapAdditionsKit/UIKit/UIWindow (1.3.6):
-    - TapAdditionsKit/UIKit/UIWindow/Level (= 1.3.6)
-    - TapAdditionsKit/UIKit/UIWindow/UIWindow (= 1.3.6)
-  - TapAdditionsKit/UIKit/UIWindow/Level (1.3.6)
-  - TapAdditionsKit/UIKit/UIWindow/UIWindow (1.3.6):
-    - TapAdditionsKit/UIKit/UIWindow/Level
+  - SwiftLint (0.40.3)
+  - TapAdditionsKitV2 (0.0.3):
+    - SwiftLint
+    - TapSwiftFixes/Exceptions
+    - TapSwiftFixes/Threading
   - TapApplePayKit-iOS (1.0.5):
     - CommonDataModelsKit-iOS (~> 1.0.1)
   - TapCardInputKit-iOS (1.0.22):
@@ -247,11 +37,11 @@ PODS:
     - CommonDataModelsKit-iOS (~> 1.0.1)
     - PayCardsRecognizer (~> 1.1.7)
   - TapCardVlidatorKit-iOS (1.0.11)
-  - TapFontKit-iOS (0.0.6):
+  - TapFontKit-iOS (0.0.7):
     - TapSwiftFixes
-  - TapNetworkKit-iOS (1.0.0):
+  - TapNetworkKit-iOS (1.0.2):
     - SDWebImage
-    - TapAdditionsKit
+    - TapAdditionsKitV2
   - TapSwiftFixes (1.0.9):
     - TapSwiftFixes/CoreGraphics (= 1.0.9)
     - TapSwiftFixes/Exceptions (= 1.0.9)
@@ -300,7 +90,8 @@ SPEC REPOS:
     - SDWebImage
     - SimpleAnimation
     - SnapKit
-    - TapAdditionsKit
+    - SwiftLint
+    - TapAdditionsKitV2
     - TapApplePayKit-iOS
     - TapCardInputKit-iOS
     - TapCardScanner-iOS
@@ -323,16 +114,17 @@ SPEC CHECKSUMS:
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
-  SDWebImage: 62ae4a18473520c67b79e9724c31a63599cc9423
+  SDWebImage: a990c053fff71e388a10f3357edb0be17929c9c5
   SimpleAnimation: 5430010b9548f392e7459290acce01c9ceba7171
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
-  TapAdditionsKit: 136b2174e775b105f8fd17eac6a4da2951e0f05b
+  SwiftLint: dfd554ff0dff17288ee574814ccdd5cea85d76f7
+  TapAdditionsKitV2: 5752ee6837d690d4f38449d83155ab631fc4fc13
   TapApplePayKit-iOS: 3dfb3c8155cdf393ef3f00640a317c5147749306
   TapCardInputKit-iOS: dba2f3617cd02e6638519d3aeb1db4924ed86930
   TapCardScanner-iOS: b76229bf85071779a0a8631da76d933da608fb97
   TapCardVlidatorKit-iOS: ebdd38a2bef618f9eb09dc909d7bd6fcfdfd56c2
-  TapFontKit-iOS: 0c6ce54ee313299b7d5cc7adf18ac5ed84f61f91
-  TapNetworkKit-iOS: 7635e2384961fc81588d5162abbbb742210002c4
+  TapFontKit-iOS: 7eba5c8159f5ec22b8bfc8bf8718928ceb758323
+  TapNetworkKit-iOS: d1c174bea3c5ab3eae95980d7c23fbdd519b3b19
   TapSwiftFixes: db2aeb21942dd81ee051a31ed319dab0d03547a2
   TapThemeManager2020: 220c39eb0170fc28e96bb11e941ec44781ecb601
   TapUIKit-iOS: ebc9735ba325e6a26631a75b1110c77b941af081

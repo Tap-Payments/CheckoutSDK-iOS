@@ -13,7 +13,7 @@ ${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework
 ${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
 ${BUILT_PRODUCTS_DIR}/SimpleAnimation/SimpleAnimation.framework
 ${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework
-${BUILT_PRODUCTS_DIR}/TapAdditionsKit/TapAdditionsKit.framework
+${BUILT_PRODUCTS_DIR}/TapAdditionsKitV2/TapAdditionsKitV2.framework
 ${BUILT_PRODUCTS_DIR}/TapApplePayKit-iOS/TapApplePayKit_iOS.framework
 ${BUILT_PRODUCTS_DIR}/TapCardInputKit-iOS/TapCardInputKit_iOS.framework
 ${BUILT_PRODUCTS_DIR}/TapCardScanner-iOS/TapCardScanner_iOS.framework

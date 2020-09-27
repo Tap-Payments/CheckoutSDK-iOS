@@ -34,6 +34,8 @@ import CommonDataModelsKit_iOS
     /// The button that will dismiss the whole TAP sheet
     @IBOutlet weak var cancelButton: UIButton!
     
+    private var closeButtonState:CheckoutCloseButtonEnum = .icon
+    
     // Mark:- Init methods
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,7 +51,7 @@ import CommonDataModelsKit_iOS
     private func commonInit() {
         self.containerView = setupXIB()
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        self.heightAnchor.constraint(equalToConstant: 30).isActive = true
         self.layoutIfNeeded()
         handlerImageView.translatesAutoresizingMaskIntoConstraints = false
         applyTheme()
@@ -85,8 +87,9 @@ import CommonDataModelsKit_iOS
             cancelButton.setImage(nil, for: .normal)
         }else{
             cancelButton.setTitle("", for: .normal)
-            cancelButton.setImage(TapThemeManager.imageValue(for: "horizontalList.chips.savedCardChip.editMode.deleteIcon"), for: .normal)
+            cancelButton.setImage(TapThemeManager.imageValue(for: "merchantHeaderView.closeCheckoutIcon"), for: .normal)
         }
+        self.closeButtonState = closeButtonState
     }
     
     @IBAction func cancelButtonClicked(_ sender: Any) {
@@ -104,7 +107,9 @@ extension TapDragHandlerView {
     /// Match the UI attributes with the correct theming entries
     private func matchThemeAttributes() {
         
-        cancelButton.setTitle(TapLocalisationManager.shared.localisedValue(for: "Common.close", with: TapCommonConstants.pathForDefaultLocalisation()), for: .normal)
+        //cancelButton.setTitle(TapLocalisationManager.shared.localisedValue(for: "Common.close", with: TapCommonConstants.pathForDefaultLocalisation()), for: .normal)
+        
+        changeCloseButton(to: closeButtonState)
         
         handlerImageView.tap_theme_image = .init(keyPath: "\(themePath).image")
         handlerImageView.layer.tap_theme_cornerRadious = .init(keyPath: "\(themePath).corner")
