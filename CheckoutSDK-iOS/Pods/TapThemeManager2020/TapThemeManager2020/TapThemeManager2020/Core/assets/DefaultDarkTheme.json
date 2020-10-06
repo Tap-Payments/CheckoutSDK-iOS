@@ -327,6 +327,7 @@
             },
             "gatewayChip": {
                 "backgroundColor" : "white",
+                "logoutIcon": "logoutIcon",
                 "selected": {
                     "shadow": {
                         "color" : "vibrantGreenTwo",
