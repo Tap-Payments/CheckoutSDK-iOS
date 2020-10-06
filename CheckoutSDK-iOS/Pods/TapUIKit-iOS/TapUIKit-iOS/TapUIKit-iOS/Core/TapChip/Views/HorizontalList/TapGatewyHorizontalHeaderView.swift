@@ -61,10 +61,12 @@ class TapHorizontalHeaderView: UIView {
     
     @IBAction func rightButtonClicked(_ sender: Any) {
         delegate?.rightAccessoryClicked(with: self)
+        adjustRightButtonAccessory(with: true)
     }
     
     @IBAction func closeEditingClicked(_ sender: Any) {
         delegate?.endEditButtonClicked(with: self)
+        adjustRightButtonAccessory(with: false)
     }
     
     /// The path to look for theme entry in
