@@ -115,7 +115,11 @@ import SimpleAnimation
         flowLayout.sectionInset = .init(top: 0, left: 0, bottom: 0, right: 0)
         collectionView.setCollectionViewLayout(flowLayout, animated: false)
         // Give it a chance to breath and layout to correctly render the new assigned flow layout
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+        var delay = 2500
+        if #available(iOS 13, *) {
+            delay = 500
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(delay)) {
             self.collectionView.layoutIfNeeded()
             self.collectionView.reloadData()
         }
