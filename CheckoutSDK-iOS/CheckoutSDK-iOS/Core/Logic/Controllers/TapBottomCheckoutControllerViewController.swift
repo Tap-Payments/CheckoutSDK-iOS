@@ -173,10 +173,10 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         self.view.endEditing(true)
         self.tapVerticalView.remove(viewType: TapAmountSectionView.self, with: .init(), and: true, skipSelf: true)
         tapVerticalView.hideActionButton()
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(80), execute: { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(0), execute: { [weak self] in
             self!.sharedCheckoutDataManager.tapCurrienciesChipHorizontalListViewModel.attachedView.alpha = 0
             self!.sharedCheckoutDataManager.tapItemsTableViewModel.attachedView.alpha = 0
-            self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.tapCurrienciesChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapItemsTableViewModel.attachedView], with: [.init(for: .fadeIn)])
+            self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.tapCurrienciesChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapItemsTableViewModel.attachedView], with: [.init(for: .slideIn)])
             if let locale = TapLocalisationManager.shared.localisationLocale, locale == "ar" {
                 self?.sharedCheckoutDataManager.tapCurrienciesChipHorizontalListViewModel.refreshLayout()
             }
@@ -221,16 +221,23 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
     }
     
     func showWebView(with url:URL) {
+        // Stop the dismiss on swipe feature, because when we remove all views, the height will be minium than the threshold, ending up the whole sheet being dimissed
+        let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
+        let originalDismissOnSwipeValue = sharedManager.swipeDownToDismiss
+        sharedManager.swipeDownToDismiss = false
         
         self.tapVerticalView.remove(viewType: TapMerchantHeaderView.self, with: .init(), and: true)
         
         self.tapActionButtonViewModel.startLoading()
         webViewModel = .init()
         webViewModel.delegate = self
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) { [weak self] in
             self?.tapVerticalView.hideActionButton()
             self?.tapVerticalView.add(view: self!.webViewModel.attachedView, with: [.init(for: .fadeIn)],shouldFillHeight: true)
             self?.webViewModel.load(with: url)
+            // Set it back to swipe on dismiss
+            sharedManager.swipeDownToDismiss = originalDismissOnSwipeValue
         }
     }
     

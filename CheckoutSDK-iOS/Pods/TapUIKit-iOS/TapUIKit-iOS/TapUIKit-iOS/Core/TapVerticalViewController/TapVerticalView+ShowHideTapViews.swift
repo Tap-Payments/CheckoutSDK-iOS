@@ -50,7 +50,7 @@ extension TapVerticalView {
         remove(viewType: TapChipHorizontalList.self, with: .init(), and: true)
         DispatchQueue.main.async{ [weak self] in
             // Lastly.. add the goPay sign in view
-            self?.add(view: signGoPayView, with: [.init(for: .fadeIn)])
+            self?.add(view: signGoPayView, with: [.init(for: .slideIn)])
         }
     }
     
