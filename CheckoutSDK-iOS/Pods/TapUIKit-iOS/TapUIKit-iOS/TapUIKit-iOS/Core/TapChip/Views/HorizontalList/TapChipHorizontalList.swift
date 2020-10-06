@@ -27,6 +27,7 @@ import SimpleAnimation
     /// Refernce to the header height, to animate it in hide and showing if needed
     @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var collectionViewToHederConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewToHeaderConstraintLowPriority: NSLayoutConstraint!
     //@IBOutlet weak var collectionViewCenterConstraint: NSLayoutConstraint!
     
     /// Keeps track of the last applied theme value
@@ -146,12 +147,16 @@ import SimpleAnimation
     
     /// Animate hiding the header view
     internal func hideHeaderView() {
-        
         headerView.fadeOut{ (_) in
             DispatchQueue.main.async { [weak self] in
                 UIView.animate(withDuration: 0.2, animations: {
                     self?.headerViewHeightConstraint.constant = 0
-                    self?.collectionViewToHederConstraint.priority = .defaultLow
+                    if #available(iOS 13, *) {
+                        self?.collectionViewToHederConstraint.priority = .defaultLow
+                        self?.collectionViewToHeaderConstraintLowPriority.isActive = false
+                    } else {
+                        self?.collectionViewToHederConstraint.isActive = false
+                    }
                     self?.translatesAutoresizingMaskIntoConstraints = false
                     self?.myHeightAnchor?.constant = 80
                     self?.layoutIfNeeded()
