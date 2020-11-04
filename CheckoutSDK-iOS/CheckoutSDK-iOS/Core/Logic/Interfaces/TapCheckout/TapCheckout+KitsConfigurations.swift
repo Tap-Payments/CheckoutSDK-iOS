@@ -76,7 +76,7 @@ internal extension TapCheckout {
         var finalAmount:Double = amount
         // if items has no items, we need to add the default items
         if items == [] {
-            sharedManager.transactionItemsObserver.accept([ItemModel.init(title: "PAY TO TAP PAYMENTS",description: nil, price: amount, quantity: 1,discount: nil)])
+            sharedManager.transactionItemsObserver.accept([ItemModel.init(title: "PAY TO TAP PAYMENTS",description: "Total paid amount", price: amount, quantity: 1,discount: nil)])
         }else {
             sharedManager.transactionItemsObserver.accept(items)
             finalAmount = items.totalItemsPrices()
