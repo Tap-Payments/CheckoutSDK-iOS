@@ -63,8 +63,9 @@ internal extension TapCheckout {
      - Parameter swipeDownToDismiss: If it is set then when the user swipes down the payment will close, otherwise, there will be a shown button to dismiss the screen. Default is false
      - Parameter paymentTypes: The allowed payment types inclyding cards, apple pay, web and telecom
      - Parameter closeButtonStyle: Defines the required style of the sheet close button
+     - Parameter showDragHandler: Decide to show the drag handler or not
      */
-    func configureSharedManager(currency:TapCurrencyCode, amount:Double,items:[ItemModel],applePayMerchantID:String = "merchant.tap.gosell",intentModel:TapIntentResponseModel,swipeDownToDismiss:Bool = false,paymentTypes:[TapPaymentType], closeButtonStyle:CheckoutCloseButtonEnum = .title) {
+    func configureSharedManager(currency:TapCurrencyCode, amount:Double,items:[ItemModel],applePayMerchantID:String = "merchant.tap.gosell",intentModel:TapIntentResponseModel,swipeDownToDismiss:Bool = false,paymentTypes:[TapPaymentType], closeButtonStyle:CheckoutCloseButtonEnum = .title,showDragHandler:Bool = false) {
         let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
         sharedManager.transactionCurrencyObserver.accept(currency)
         sharedManager.applePayMerchantID = applePayMerchantID
@@ -72,6 +73,8 @@ internal extension TapCheckout {
         sharedManager.swipeDownToDismiss = swipeDownToDismiss
         sharedManager.intentModelResponse = intentModel
         sharedManager.closeButtonStyle = closeButtonStyle
+        sharedManager.showDragHandler = showDragHandler
+        
         // a variable used to hold the correct amount, which will be the passed amount in case no items or the total items' prices when items are passed
         var finalAmount:Double = amount
         // if items has no items, we need to add the default items

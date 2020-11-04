@@ -71,6 +71,9 @@ internal class TapCheckoutSharedManager {
     /// Represents the required style of the sheet close button
     var closeButtonStyle:CheckoutCloseButtonEnum = .title
     
+    /// Represents the drag handler to be shown or not
+    var showDragHandler:Bool = false
+    
     /// Represents The allowed payment types inclyding cards, apple pay, web and telecom
     var paymentTypes:[TapPaymentType] = [.All]
     

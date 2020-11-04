@@ -29,6 +29,9 @@ class ViewController: UIViewController {
     var closeButtonTitleStyle:CheckoutCloseButtonEnum = .title
     var items:[ItemModel] = []
     var paymentTypes:[TapPaymentType] = [.All]
+    var showDragHandler:Bool {
+        return closeButtonTitleStyle == .icon
+    }
     
     @IBOutlet weak var paymentItemsTableView: UITableView!
 
@@ -73,6 +76,7 @@ class ViewController: UIViewController {
             swipeDownToDismiss: swipeToDismiss,
             paymentTypes: paymentTypes,
             closeButtonStyle: closeButtonTitleStyle,
+            showDragHandler:showDragHandler,
             onCheckOutReady: {[weak self] tapCheckOut in
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
                     tapCheckOut.start(presentIn: self)

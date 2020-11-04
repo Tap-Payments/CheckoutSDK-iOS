@@ -22,7 +22,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tapHandlerImage" translatesAutoresizingMaskIntoConstraints="NO" id="xjO-eD-hmc">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tapHandlerImage" translatesAutoresizingMaskIntoConstraints="NO" id="xjO-eD-hmc">
                     <rect key="frame" x="169.66666666666666" y="13" width="75" height="4"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="4" id="GnK-4R-jyR"/>

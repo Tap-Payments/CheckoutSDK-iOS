@@ -79,8 +79,9 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter swipeDownToDismiss: If it is set then when the user swipes down the payment will close, otherwise, there will be a shown button to dismiss the screen. Default is false
      - Parameter paymentTypes: The allowed payment types inclyding cards, apple pay, web and telecom
      - Parameter closeButtonStyle: Defines the required style of the sheet close button
+     - Parameter showDragHandler: Decide to show the drag handler or not
      */
-    public func build(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil,currency:TapCurrencyCode = .USD,amount:Double = 1,items:[ItemModel] = [],applePayMerchantID:String = "merchant.tap.gosell",swipeDownToDismiss:Bool = true, paymentTypes:[TapPaymentType] = [.All],closeButtonStyle:CheckoutCloseButtonEnum = .title, onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}){
+    public func build(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil,currency:TapCurrencyCode = .USD,amount:Double = 1,items:[ItemModel] = [],applePayMerchantID:String = "merchant.tap.gosell",swipeDownToDismiss:Bool = true, paymentTypes:[TapPaymentType] = [.All],closeButtonStyle:CheckoutCloseButtonEnum = .title,showDragHandler:Bool = false, onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}){
         TapCheckoutSharedManager.destroy()
         tapCheckoutScreenDelegate = delegate
         configureLocalisationManager(localiseFile: localiseFile)
@@ -88,7 +89,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         
         NetworkManager.shared.makeApiCall(routing: .IntentAPI, resultType: TapIntentResponseModel.self) { (session, result, error) in
             guard let intentModel:TapIntentResponseModel = result as? TapIntentResponseModel else { return }
-            self.configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,intentModel:intentModel,swipeDownToDismiss:swipeDownToDismiss,paymentTypes:paymentTypes,closeButtonStyle: closeButtonStyle)
+            self.configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,intentModel:intentModel,swipeDownToDismiss:swipeDownToDismiss,paymentTypes:paymentTypes,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler)
             self.configureBottomSheet()
             onCheckOutReady(self)
         }
@@ -108,10 +109,11 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter swipeDownToDismiss: If it is set then when the user swipes down the payment will close, otherwise, there will be a shown button to dismiss the screen. Default is false
      - Parameter paymentTypes: The allowed payment types inclyding cards, apple pay, web and telecom
      - Parameter closeButtonStyle: Defines the required style of the sheet close button
+     - Parameter showDragHandler: Decide to show the drag handler or not
      */
-    @objc public func buildCheckout(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil,currency:TapCurrencyCode = .USD,amount:Double = 1,items:[ItemModel] = [],applePayMerchantID:String = "merchant.tap.gosell",swipeDownToDismiss:Bool = false, paymentTypes:[Int] = [TapPaymentType.All.rawValue], closeButtonStyle:CheckoutCloseButtonEnum = .title,onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
+    @objc public func buildCheckout(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil,currency:TapCurrencyCode = .USD,amount:Double = 1,items:[ItemModel] = [],applePayMerchantID:String = "merchant.tap.gosell",swipeDownToDismiss:Bool = false, paymentTypes:[Int] = [TapPaymentType.All.rawValue], closeButtonStyle:CheckoutCloseButtonEnum = .title,showDragHandler:Bool = false,onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
         
-        self.build(localiseFile: localiseFile, customTheme: customTheme, delegate: delegate, currency: currency, amount: amount, items: items, applePayMerchantID: applePayMerchantID, swipeDownToDismiss: swipeDownToDismiss, paymentTypes: paymentTypes.map{ TapPaymentType.init(rawValue: $0)! },closeButtonStyle: closeButtonStyle, onCheckOutReady: onCheckOutReady)
+        self.build(localiseFile: localiseFile, customTheme: customTheme, delegate: delegate, currency: currency, amount: amount, items: items, applePayMerchantID: applePayMerchantID, swipeDownToDismiss: swipeDownToDismiss, paymentTypes: paymentTypes.map{ TapPaymentType.init(rawValue: $0)! },closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler, onCheckOutReady: onCheckOutReady)
     }
     
     
