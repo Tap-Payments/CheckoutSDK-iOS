@@ -172,12 +172,12 @@ extension TapBottomCheckoutControllerViewController:TapMerchantHeaderViewDelegat
 extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDelegate {
     func showItemsClicked() {
         self.view.endEditing(true)
-        self.tapVerticalView.remove(viewType: TapAmountSectionView.self, with: .init(), and: true, skipSelf: true)
+        self.tapVerticalView.remove(viewType: TapAmountSectionView.self, with: .init(for: .fadeOut), and: true, skipSelf: true)
         tapVerticalView.hideActionButton()
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(0), execute: { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(700), execute: { [weak self] in
             self!.sharedCheckoutDataManager.tapCurrienciesChipHorizontalListViewModel.attachedView.alpha = 0
             self!.sharedCheckoutDataManager.tapItemsTableViewModel.attachedView.alpha = 0
-            self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.tapCurrienciesChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapItemsTableViewModel.attachedView], with: [.init(for: .slideIn)])
+            self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.tapCurrienciesChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapItemsTableViewModel.attachedView], with: [.init(for: .fadeIn)])
             if let locale = TapLocalisationManager.shared.localisationLocale, locale == "ar" {
                 self?.sharedCheckoutDataManager.tapCurrienciesChipHorizontalListViewModel.refreshLayout()
             }
@@ -192,12 +192,12 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
     
     func closeItemsClicked() {
         self.view.endEditing(true)
-        self.tapVerticalView.remove(viewType: TapChipHorizontalList.self, with: .init(), and: true)
+        self.tapVerticalView.remove(viewType: TapChipHorizontalList.self, with: .init(for: .fadeOut), and: true)
         
-        DispatchQueue.main.async{ [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(700), execute: { [weak self] in
             self?.tapVerticalView.showActionButton()
             self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapCardTelecomPaymentViewModel.attachedView,self!.sharedCheckoutDataManager.tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
-        }
+        })
     }
     
     func amountSectionClicked() {
