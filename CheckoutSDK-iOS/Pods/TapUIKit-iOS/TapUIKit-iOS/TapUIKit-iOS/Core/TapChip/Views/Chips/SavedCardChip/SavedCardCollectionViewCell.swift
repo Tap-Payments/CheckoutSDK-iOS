@@ -49,6 +49,8 @@ import SnapKit
         // Defensive coding it is the correct view model type
         guard let correctTypeModel:SavedCardCollectionViewCellModel = viewModel as? SavedCardCollectionViewCellModel else { return }
         self.viewModel = correctTypeModel
+        // Apply the editing ui if needed
+        changedEditMode(to: viewModel.editMode)
     }
     
      override func selectStatusChaned(with status:Bool) {
