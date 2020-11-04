@@ -180,6 +180,11 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
             if let locale = TapLocalisationManager.shared.localisationLocale, locale == "ar" {
                 self?.sharedCheckoutDataManager.tapCurrienciesChipHorizontalListViewModel.refreshLayout()
             }
+            
+            
+            
+            // We need to highlight the default currency of the user didn't select a new currency other than the default currency
+            self!.sharedCheckoutDataManager.highlightDefaultCurrency()
         })
     }
     

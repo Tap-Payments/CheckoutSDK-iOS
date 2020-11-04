@@ -251,6 +251,16 @@ internal class TapCheckoutSharedManager {
     }
     
     
+    /// We need to highlight the default currency of the user didn't select a new currency other than the default currency
+    internal func highlightDefaultCurrency() {
+        
+        guard transactionUserCurrencyObserver.value == transactionCurrencyObserver.value else { return }
+        DispatchQueue.main.async { [weak self] in
+            self?.tapCurrienciesChipHorizontalListViewModel.didSelectItem(at: 0,selectCell: true)
+        }
+    }
+    
+    
     /// Handles the logic to fetch different sections from the Intent API response
     private func parseIntentResponse() {
         
