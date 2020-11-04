@@ -83,7 +83,7 @@ import CommonDataModelsKit_iOS
     
     @objc public func changeCloseButton(to closeButtonState:CheckoutCloseButtonEnum) {
         if closeButtonState == .title {
-            cancelButton.setTitle(TapLocalisationManager.shared.localisedValue(for: "Common.close", with: TapCommonConstants.pathForDefaultLocalisation()), for: .normal)
+            cancelButton.setTitle(TapLocalisationManager.shared.localisedValue(for: "Common.close", with: TapCommonConstants.pathForDefaultLocalisation()).uppercased(), for: .normal)
             cancelButton.setImage(nil, for: .normal)
         }else{
             cancelButton.setTitle("", for: .normal)
