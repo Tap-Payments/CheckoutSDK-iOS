@@ -12,7 +12,7 @@ import RxSwift
 import SimpleAnimation
 
 @objc public class TapAmountSectionView: UIView {
-
+    
     /// The container view that holds everything from the XIB
     @IBOutlet var containerView: UIView!
     /// The label that will display the total amount of the transaction
@@ -82,7 +82,7 @@ import SimpleAnimation
                 self?.showHide(for: self!.convertedAmountLabel, show: true, at: 1)
             }
         }).disposed(by: disposeBag)
-
+        
         
         viewModel.itemsLabelObserver.distinctUntilChanged()
             .asDriver(onErrorJustReturn: "1 ITEM")

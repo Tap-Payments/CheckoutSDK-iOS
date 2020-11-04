@@ -11,7 +11,7 @@ import SimpleAnimation
 
 /// Represents Tap representation of Chip horizontal list view
 @objc public class TapChipHorizontalList: UIView {
-
+    
     // Mark:- Variables
     
     /// The reference to the backbone uicollectionview used to display the horizontal items
@@ -127,7 +127,7 @@ import SimpleAnimation
     
     /// The method handles the logic needed to update the displayed items and their statuses upon request
     private func reloadData() {
-         collectionView.reloadSections([0])
+        collectionView.reloadSections([0])
     }
     
     /**
@@ -179,11 +179,11 @@ import SimpleAnimation
             self?.translatesAutoresizingMaskIntoConstraints = false
             self?.myHeightAnchor?.constant = 100
             self?.layoutIfNeeded()
-            },completion: { [weak self] _ in
-                if self?.shouldShowHeader ?? false {
-                    self?.headerView.fadeIn()
-                    //self?.assignFlowLaout()
-                }
+        },completion: { [weak self] _ in
+            if self?.shouldShowHeader ?? false {
+                self?.headerView.fadeIn()
+                //self?.assignFlowLaout()
+            }
         })
     }
     

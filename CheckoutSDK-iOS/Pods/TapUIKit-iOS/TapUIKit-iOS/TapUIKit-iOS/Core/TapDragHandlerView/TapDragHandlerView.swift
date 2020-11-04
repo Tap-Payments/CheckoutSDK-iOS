@@ -75,7 +75,7 @@ import CommonDataModelsKit_iOS
         if animated {
             UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveEaseInOut], animations: { [weak self] in
                 self?.layoutIfNeeded()
-                }, completion: nil)
+            }, completion: nil)
         }else{
             layoutIfNeeded()
         }

@@ -42,7 +42,7 @@ import SnapKit
         self.viewModel = correctTypeModel
     }
     
-     override func selectStatusChaned(with status:Bool) {
+    override func selectStatusChaned(with status:Bool) {
         
         // update the shadow for GoPayCell
         applyTheme()

@@ -353,6 +353,7 @@ import TapCardScanner_iOS
                 completion()
             })
         case .slideIn:
+            
             view.slideIn(from: direction.animationKitDirection(),x:0,y:400, duration:duration, delay:delay, completion: { _ in
                 completion()
             })

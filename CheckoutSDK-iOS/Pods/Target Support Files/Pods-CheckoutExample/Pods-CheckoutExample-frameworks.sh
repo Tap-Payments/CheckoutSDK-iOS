@@ -219,6 +219,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/TapFontKit-iOS/TapFontKit_iOS.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TapNetworkKit-iOS/TapNetworkKit_iOS.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TapSwiftFixes/TapSwiftFixes.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/TapSwiftFixesV2/TapSwiftFixesV2.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TapThemeManager2020/TapThemeManager2020.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TapUIKit-iOS/TapUIKit_iOS.framework"
 fi
@@ -245,6 +246,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/TapFontKit-iOS/TapFontKit_iOS.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TapNetworkKit-iOS/TapNetworkKit_iOS.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TapSwiftFixes/TapSwiftFixes.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/TapSwiftFixesV2/TapSwiftFixesV2.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TapThemeManager2020/TapThemeManager2020.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TapUIKit-iOS/TapUIKit_iOS.framework"
 fi

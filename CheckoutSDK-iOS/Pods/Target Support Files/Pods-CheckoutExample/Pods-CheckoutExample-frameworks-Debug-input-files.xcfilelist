@@ -21,5 +21,6 @@ ${BUILT_PRODUCTS_DIR}/TapCardVlidatorKit-iOS/TapCardVlidatorKit_iOS.framework
 ${BUILT_PRODUCTS_DIR}/TapFontKit-iOS/TapFontKit_iOS.framework
 ${BUILT_PRODUCTS_DIR}/TapNetworkKit-iOS/TapNetworkKit_iOS.framework
 ${BUILT_PRODUCTS_DIR}/TapSwiftFixes/TapSwiftFixes.framework
+${BUILT_PRODUCTS_DIR}/TapSwiftFixesV2/TapSwiftFixesV2.framework
 ${BUILT_PRODUCTS_DIR}/TapThemeManager2020/TapThemeManager2020.framework
 ${BUILT_PRODUCTS_DIR}/TapUIKit-iOS/TapUIKit_iOS.framework

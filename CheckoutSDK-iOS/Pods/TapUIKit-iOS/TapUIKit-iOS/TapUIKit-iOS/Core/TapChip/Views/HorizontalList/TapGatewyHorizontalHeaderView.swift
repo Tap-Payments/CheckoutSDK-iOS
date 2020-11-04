@@ -160,8 +160,8 @@ class TapHorizontalHeaderView: UIView {
     /// Defines the theme entry based on the type
     func themePath() -> String {
         switch self {
-            case .GatewayListHeader,.GoPayListHeader,.GateWayListWithGoPayListHeader:
-                return "horizontalList.headers.gatewayHeader"
+        case .GatewayListHeader,.GoPayListHeader,.GateWayListWithGoPayListHeader:
+            return "horizontalList.headers.gatewayHeader"
         case .NoHeader:
             return ""
         }
@@ -188,8 +188,8 @@ class TapHorizontalHeaderView: UIView {
         
         // The left title will be GOPAY always for the case of GoPayListHeader
         return ( (self == .GoPayListHeader) ? "GOPAY" : sharedLocalisationManager.localisedValue(for: leftTitleKey, with:       TapCommonConstants.pathForDefaultLocalisation()),
-                sharedLocalisationManager.localisedValue(for: rightTitleKey, with: TapCommonConstants.pathForDefaultLocalisation()),
-                sharedLocalisationManager.localisedValue(for: endEditTitleKey, with: TapCommonConstants.pathForDefaultLocalisation()).uppercased()
+                 sharedLocalisationManager.localisedValue(for: rightTitleKey, with: TapCommonConstants.pathForDefaultLocalisation()),
+                 sharedLocalisationManager.localisedValue(for: endEditTitleKey, with: TapCommonConstants.pathForDefaultLocalisation()).uppercased()
         )
         
     }
