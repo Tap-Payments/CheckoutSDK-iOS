@@ -60,6 +60,7 @@
 		E8C58B4424E54AF400E1F04F /* GreenLightTheme.json in Resources */ = {isa = PBXBuildFile; fileRef = E8C58B4224E54AF400E1F04F /* GreenLightTheme.json */; };
 		E8EDD34725612A1200AFC0B3 /* TapPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD34625612A1200AFC0B3 /* TapPhone.swift */; };
 		E8EDD34A25612A3C00AFC0B3 /* TapIntentRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD34925612A3C00AFC0B3 /* TapIntentRequestModel.swift */; };
+		E8EDD34D25612B6600AFC0B3 /* TapCustomerMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD34C25612B6600AFC0B3 /* TapCustomerMetaData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,6 +147,7 @@
 		E8C58B4224E54AF400E1F04F /* GreenLightTheme.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GreenLightTheme.json; sourceTree = "<group>"; };
 		E8EDD34625612A1200AFC0B3 /* TapPhone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapPhone.swift; sourceTree = "<group>"; };
 		E8EDD34925612A3C00AFC0B3 /* TapIntentRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapIntentRequestModel.swift; sourceTree = "<group>"; };
+		E8EDD34C25612B6600AFC0B3 /* TapCustomerMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCustomerMetaData.swift; sourceTree = "<group>"; };
 		FF4A2E12A9944D1FED9040B6 /* Pods-CheckoutSDK-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutSDK-iOS.debug.xcconfig"; path = "Target Support Files/Pods-CheckoutSDK-iOS/Pods-CheckoutSDK-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -416,6 +418,7 @@
 			children = (
 				E8EDD34625612A1200AFC0B3 /* TapPhone.swift */,
 				E8EDD34925612A3C00AFC0B3 /* TapIntentRequestModel.swift */,
+				E8EDD34C25612B6600AFC0B3 /* TapCustomerMetaData.swift */,
 			);
 			path = TapIntentRequest;
 			sourceTree = "<group>";
@@ -623,6 +626,7 @@
 				E830B7FE24FA451600B62713 /* TapCheckoutConstants.swift in Sources */,
 				E8EDD34A25612A3C00AFC0B3 /* TapIntentRequestModel.swift in Sources */,
 				E8C2052624E3FEFA006653CA /* TapCheckoutFlipStatus.swift in Sources */,
+				E8EDD34D25612B6600AFC0B3 /* TapCustomerMetaData.swift in Sources */,
 				E8845E7C24D851FF009E8B73 /* TapCheckoutBlurView.swift in Sources */,
 				E8983DD124F1469700C34E50 /* TapEntitResponseModel.swift in Sources */,
 				E8983DCF24F0F7B800C34E50 /* TapNetworkPath.swift in Sources */,
