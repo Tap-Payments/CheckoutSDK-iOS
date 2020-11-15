@@ -61,6 +61,7 @@
 		E8EDD34725612A1200AFC0B3 /* TapPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD34625612A1200AFC0B3 /* TapPhone.swift */; };
 		E8EDD34A25612A3C00AFC0B3 /* TapIntentRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD34925612A3C00AFC0B3 /* TapIntentRequestModel.swift */; };
 		E8EDD34D25612B6600AFC0B3 /* TapCustomerMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD34C25612B6600AFC0B3 /* TapCustomerMetaData.swift */; };
+		E8EDD35025612BCD00AFC0B3 /* TapCustomer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD34F25612BCD00AFC0B3 /* TapCustomer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,6 +149,7 @@
 		E8EDD34625612A1200AFC0B3 /* TapPhone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapPhone.swift; sourceTree = "<group>"; };
 		E8EDD34925612A3C00AFC0B3 /* TapIntentRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapIntentRequestModel.swift; sourceTree = "<group>"; };
 		E8EDD34C25612B6600AFC0B3 /* TapCustomerMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCustomerMetaData.swift; sourceTree = "<group>"; };
+		E8EDD34F25612BCD00AFC0B3 /* TapCustomer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCustomer.swift; sourceTree = "<group>"; };
 		FF4A2E12A9944D1FED9040B6 /* Pods-CheckoutSDK-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutSDK-iOS.debug.xcconfig"; path = "Target Support Files/Pods-CheckoutSDK-iOS/Pods-CheckoutSDK-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -419,6 +421,7 @@
 				E8EDD34625612A1200AFC0B3 /* TapPhone.swift */,
 				E8EDD34925612A3C00AFC0B3 /* TapIntentRequestModel.swift */,
 				E8EDD34C25612B6600AFC0B3 /* TapCustomerMetaData.swift */,
+				E8EDD34F25612BCD00AFC0B3 /* TapCustomer.swift */,
 			);
 			path = TapIntentRequest;
 			sourceTree = "<group>";
@@ -614,6 +617,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E8C58B3824E5344700E1F04F /* TapCheckOutTheme.swift in Sources */,
+				E8EDD35025612BCD00AFC0B3 /* TapCustomer.swift in Sources */,
 				E89225EA24E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift in Sources */,
 				E830B7F324F3E96900B62713 /* TapPayButtonViewModel.swift in Sources */,
 				E825DD5924E938DB0074BF54 /* TapCheckoutSharedManager.swift in Sources */,
