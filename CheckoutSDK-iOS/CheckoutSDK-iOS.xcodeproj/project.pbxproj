@@ -58,6 +58,8 @@
 		E8C58B4024E53F8100E1F04F /* RedLightTheme.json in Resources */ = {isa = PBXBuildFile; fileRef = E8C58B3E24E53F8100E1F04F /* RedLightTheme.json */; };
 		E8C58B4324E54AF400E1F04F /* GreenDarkTheme.json in Resources */ = {isa = PBXBuildFile; fileRef = E8C58B4124E54AF400E1F04F /* GreenDarkTheme.json */; };
 		E8C58B4424E54AF400E1F04F /* GreenLightTheme.json in Resources */ = {isa = PBXBuildFile; fileRef = E8C58B4224E54AF400E1F04F /* GreenLightTheme.json */; };
+		E8EDD34725612A1200AFC0B3 /* TapPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD34625612A1200AFC0B3 /* TapPhone.swift */; };
+		E8EDD34A25612A3C00AFC0B3 /* TapIntentRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD34925612A3C00AFC0B3 /* TapIntentRequestModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -142,6 +144,8 @@
 		E8C58B3E24E53F8100E1F04F /* RedLightTheme.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RedLightTheme.json; sourceTree = "<group>"; };
 		E8C58B4124E54AF400E1F04F /* GreenDarkTheme.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GreenDarkTheme.json; sourceTree = "<group>"; };
 		E8C58B4224E54AF400E1F04F /* GreenLightTheme.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GreenLightTheme.json; sourceTree = "<group>"; };
+		E8EDD34625612A1200AFC0B3 /* TapPhone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapPhone.swift; sourceTree = "<group>"; };
+		E8EDD34925612A3C00AFC0B3 /* TapIntentRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapIntentRequestModel.swift; sourceTree = "<group>"; };
 		FF4A2E12A9944D1FED9040B6 /* Pods-CheckoutSDK-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutSDK-iOS.debug.xcconfig"; path = "Target Support Files/Pods-CheckoutSDK-iOS/Pods-CheckoutSDK-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -396,6 +400,7 @@
 		E8C58B3624E5342B00E1F04F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E8EDD34525612A0000AFC0B3 /* TapIntentRequest */,
 				E8983DD224F1469C00C34E50 /* Requests */,
 				E8C58B3724E5344700E1F04F /* TapCheckOutTheme.swift */,
 				E861286C24EA7F7F00774BAA /* CurrencyChipModel.swift */,
@@ -404,6 +409,15 @@
 				E830B7FD24FA451600B62713 /* TapCheckoutConstants.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		E8EDD34525612A0000AFC0B3 /* TapIntentRequest */ = {
+			isa = PBXGroup;
+			children = (
+				E8EDD34625612A1200AFC0B3 /* TapPhone.swift */,
+				E8EDD34925612A3C00AFC0B3 /* TapIntentRequestModel.swift */,
+			);
+			path = TapIntentRequest;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -600,12 +614,14 @@
 				E89225EA24E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift in Sources */,
 				E830B7F324F3E96900B62713 /* TapPayButtonViewModel.swift in Sources */,
 				E825DD5924E938DB0074BF54 /* TapCheckoutSharedManager.swift in Sources */,
+				E8EDD34725612A1200AFC0B3 /* TapPhone.swift in Sources */,
 				E830B7F724FA3BF100B62713 /* TapCheckoutSharedManager+UIKitDelegates.swift in Sources */,
 				E830B7FC24FA430800B62713 /* TapGoPayLoginResponseModel.swift in Sources */,
 				E830B7F524F6ACCC00B62713 /* TapPaymentType.swift in Sources */,
 				E861286F24EAA38A00774BAA /* CurrencyCardsTelecomModel.swift in Sources */,
 				E8983DCD24EEC3D900C34E50 /* NetworkManager.swift in Sources */,
 				E830B7FE24FA451600B62713 /* TapCheckoutConstants.swift in Sources */,
+				E8EDD34A25612A3C00AFC0B3 /* TapIntentRequestModel.swift in Sources */,
 				E8C2052624E3FEFA006653CA /* TapCheckoutFlipStatus.swift in Sources */,
 				E8845E7C24D851FF009E8B73 /* TapCheckoutBlurView.swift in Sources */,
 				E8983DD124F1469700C34E50 /* TapEntitResponseModel.swift in Sources */,
