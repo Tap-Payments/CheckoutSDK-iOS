@@ -2307,14 +2307,14 @@ import Foundation
 
 
 
-public extension TapCurrencyCode {
+extension TapCurrencyCode:Encodable {
     /**
      Converts the self currency from the provided currency
      - Parameter from: The currency that originaly has the amount
      - Parameter amount: The value you want to convert
      - Returns: The converted value to the self currency
      */
-    func convert(from:TapCurrencyCode?,for amount:Double) -> Double {
+    public func convert(from:TapCurrencyCode?,for amount:Double) -> Double {
         let rates:[String:[String:Double]] = ["USD":["USD":1,"KWD":0.30785,"EGP":16.179599,"SAR":3.750992,"QAR":3.640994,"BHD":0.377234,"JOD":0.709799,"AED":3.673099,"OMR":0.384529]]
         
         guard let fromCurrency = from else {
@@ -2339,11 +2339,20 @@ public extension TapCurrencyCode {
 //        case symbolRawValue = "symbolRawValue"
     }
     
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encodeIfPresent(emvcoRawValue, forKey: .emvcoRawValue)
-        try container.encodeIfPresent(appleRawValue, forKey: .appleRawValue)
-//        try container.encodeIfPresent(symbolRawValue, forKey: .symbolRawValue)
+    public func encode(to encoder: Encoder) throws {
+        
+        var container = encoder.singleValueContainer()
+        try container.encode(self.appleRawValue)
+    }
+    
+}
+
+/// Making Tap Currency Code codable direct from json data
+extension TapCurrencyCode:Decodable {
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let rawValue = try container.decode(String.self)
+        self = TapCurrencyCode.init(appleRawValue: rawValue) ??  TapCurrencyCode.undefined
     }
     
 }

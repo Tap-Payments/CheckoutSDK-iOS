@@ -84,13 +84,13 @@ import SimpleAnimation
             transition: .fadeIn(duration: 0.2)
         )
         // Time to load the image iconf rom the given URL
-        Nuke.loadImage(with: iconURL,options:options, into: iconImageView) { [weak self] _ in
+        Nuke.loadImage(with: iconURL,options:options, into: iconImageView, completion:  { [weak self] _ in
             // Then based on the status we see, we will use teh icon as is or we will convert to black and white version
             if status == .otherIconIsSelectedVerified {
                 // Another icon is specifically chosen, hence we need to show all others as grayscale
                 self?.iconImageView.image = self?.iconImageView.image?.toGrayScale()
             }
-        }
+        })
     }
     
     

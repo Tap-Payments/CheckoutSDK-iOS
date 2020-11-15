@@ -63,14 +63,3 @@ extension TapIntentResponseModel {
     }
     
 }
-
-
-/// Making Tap Currency Code codable direct from json data
-extension TapCurrencyCode:Codable {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        let rawValue = try container.decode(String.self)
-        self = TapCurrencyCode.init(appleRawValue: rawValue) ??  TapCurrencyCode.undefined
-    }
-    
-}

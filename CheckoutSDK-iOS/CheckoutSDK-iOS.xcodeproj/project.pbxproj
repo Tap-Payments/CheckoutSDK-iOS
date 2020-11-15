@@ -62,6 +62,16 @@
 		E8EDD34A25612A3C00AFC0B3 /* TapIntentRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD34925612A3C00AFC0B3 /* TapIntentRequestModel.swift */; };
 		E8EDD34D25612B6600AFC0B3 /* TapCustomerMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD34C25612B6600AFC0B3 /* TapCustomerMetaData.swift */; };
 		E8EDD35025612BCD00AFC0B3 /* TapCustomer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD34F25612BCD00AFC0B3 /* TapCustomer.swift */; };
+		E8EDD35325613FAB00AFC0B3 /* OptionallyIdentifiableWithString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD35225613FAB00AFC0B3 /* OptionallyIdentifiableWithString.swift */; };
+		E8EDD3562561414F00AFC0B3 /* ErrorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD3552561414F00AFC0B3 /* ErrorConstants.swift */; };
+		E8EDD35A256141B400AFC0B3 /* TapSDKError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD359256141B400AFC0B3 /* TapSDKError.swift */; };
+		E8EDD362256141DB00AFC0B3 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD35D256141DA00AFC0B3 /* APIError.swift */; };
+		E8EDD363256141DB00AFC0B3 /* TapSDKAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD35E256141DA00AFC0B3 /* TapSDKAPIError.swift */; };
+		E8EDD364256141DB00AFC0B3 /* TapSDKKnownError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD35F256141DA00AFC0B3 /* TapSDKKnownError.swift */; };
+		E8EDD365256141DB00AFC0B3 /* TapSDKUnknownError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD360256141DA00AFC0B3 /* TapSDKUnknownError.swift */; };
+		E8EDD366256141DB00AFC0B3 /* ErrorDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD361256141DB00AFC0B3 /* ErrorDetail.swift */; };
+		E8EDD3732561428600AFC0B3 /* TapSDKErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD3722561428600AFC0B3 /* TapSDKErrorType.swift */; };
+		E8EDD377256142A100AFC0B3 /* ErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD376256142A100AFC0B3 /* ErrorCode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,6 +160,21 @@
 		E8EDD34925612A3C00AFC0B3 /* TapIntentRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapIntentRequestModel.swift; sourceTree = "<group>"; };
 		E8EDD34C25612B6600AFC0B3 /* TapCustomerMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCustomerMetaData.swift; sourceTree = "<group>"; };
 		E8EDD34F25612BCD00AFC0B3 /* TapCustomer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCustomer.swift; sourceTree = "<group>"; };
+		E8EDD35225613FAB00AFC0B3 /* OptionallyIdentifiableWithString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionallyIdentifiableWithString.swift; sourceTree = "<group>"; };
+		E8EDD3552561414F00AFC0B3 /* ErrorConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorConstants.swift; sourceTree = "<group>"; };
+		E8EDD359256141B400AFC0B3 /* TapSDKError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapSDKError.swift; sourceTree = "<group>"; };
+		E8EDD35D256141DA00AFC0B3 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIError.swift; path = "../../../../../../../../goSellSDK-iOS/goSellSDK/Core/API/Public/Models/Errors/APIError.swift"; sourceTree = "<group>"; };
+		E8EDD35E256141DA00AFC0B3 /* TapSDKAPIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TapSDKAPIError.swift; path = "../../../../../../../../goSellSDK-iOS/goSellSDK/Core/API/Public/Models/Errors/TapSDKAPIError.swift"; sourceTree = "<group>"; };
+		E8EDD35F256141DA00AFC0B3 /* TapSDKKnownError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TapSDKKnownError.swift; path = "../../../../../../../../goSellSDK-iOS/goSellSDK/Core/API/Public/Models/Errors/TapSDKKnownError.swift"; sourceTree = "<group>"; };
+		E8EDD360256141DA00AFC0B3 /* TapSDKUnknownError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TapSDKUnknownError.swift; path = "../../../../../../../../goSellSDK-iOS/goSellSDK/Core/API/Public/Models/Errors/TapSDKUnknownError.swift"; sourceTree = "<group>"; };
+		E8EDD361256141DB00AFC0B3 /* ErrorDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrorDetail.swift; path = "../../../../../../../../goSellSDK-iOS/goSellSDK/Core/API/Public/Models/Errors/ErrorDetail.swift"; sourceTree = "<group>"; };
+		E8EDD369256141E900AFC0B3 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		E8EDD36A256141E900AFC0B3 /* ErrorDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDetail.swift; sourceTree = "<group>"; };
+		E8EDD36B256141E900AFC0B3 /* TapSDKAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapSDKAPIError.swift; sourceTree = "<group>"; };
+		E8EDD36C256141E900AFC0B3 /* TapSDKUnknownError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapSDKUnknownError.swift; sourceTree = "<group>"; };
+		E8EDD36D256141EA00AFC0B3 /* TapSDKKnownError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapSDKKnownError.swift; sourceTree = "<group>"; };
+		E8EDD3722561428600AFC0B3 /* TapSDKErrorType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapSDKErrorType.swift; sourceTree = "<group>"; };
+		E8EDD376256142A100AFC0B3 /* ErrorCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorCode.swift; sourceTree = "<group>"; };
 		FF4A2E12A9944D1FED9040B6 /* Pods-CheckoutSDK-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutSDK-iOS.debug.xcconfig"; path = "Target Support Files/Pods-CheckoutSDK-iOS/Pods-CheckoutSDK-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -397,6 +422,8 @@
 				E8C2052524E3FEFA006653CA /* TapCheckoutFlipStatus.swift */,
 				E8983DCE24F0F7B800C34E50 /* TapNetworkPath.swift */,
 				E830B7F424F6ACCC00B62713 /* TapPaymentType.swift */,
+				E8EDD3722561428600AFC0B3 /* TapSDKErrorType.swift */,
+				E8EDD376256142A100AFC0B3 /* ErrorCode.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -404,6 +431,7 @@
 		E8C58B3624E5342B00E1F04F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E8EDD3582561419B00AFC0B3 /* SharedModels */,
 				E8EDD34525612A0000AFC0B3 /* TapIntentRequest */,
 				E8983DD224F1469C00C34E50 /* Requests */,
 				E8C58B3724E5344700E1F04F /* TapCheckOutTheme.swift */,
@@ -422,8 +450,36 @@
 				E8EDD34925612A3C00AFC0B3 /* TapIntentRequestModel.swift */,
 				E8EDD34C25612B6600AFC0B3 /* TapCustomerMetaData.swift */,
 				E8EDD34F25612BCD00AFC0B3 /* TapCustomer.swift */,
+				E8EDD35225613FAB00AFC0B3 /* OptionallyIdentifiableWithString.swift */,
 			);
 			path = TapIntentRequest;
+			sourceTree = "<group>";
+		};
+		E8EDD3582561419B00AFC0B3 /* SharedModels */ = {
+			isa = PBXGroup;
+			children = (
+				E8EDD368256141E300AFC0B3 /* Errors */,
+				E8EDD35D256141DA00AFC0B3 /* APIError.swift */,
+				E8EDD361256141DB00AFC0B3 /* ErrorDetail.swift */,
+				E8EDD35E256141DA00AFC0B3 /* TapSDKAPIError.swift */,
+				E8EDD35F256141DA00AFC0B3 /* TapSDKKnownError.swift */,
+				E8EDD360256141DA00AFC0B3 /* TapSDKUnknownError.swift */,
+			);
+			path = SharedModels;
+			sourceTree = "<group>";
+		};
+		E8EDD368256141E300AFC0B3 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				E8EDD3552561414F00AFC0B3 /* ErrorConstants.swift */,
+				E8EDD359256141B400AFC0B3 /* TapSDKError.swift */,
+				E8EDD369256141E900AFC0B3 /* APIError.swift */,
+				E8EDD36A256141E900AFC0B3 /* ErrorDetail.swift */,
+				E8EDD36B256141E900AFC0B3 /* TapSDKAPIError.swift */,
+				E8EDD36D256141EA00AFC0B3 /* TapSDKKnownError.swift */,
+				E8EDD36C256141E900AFC0B3 /* TapSDKUnknownError.swift */,
+			);
+			path = Errors;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -487,7 +543,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1210;
 				ORGANIZATIONNAME = "Tap Payments";
 				TargetAttributes = {
 					E8811AD524D4283C00DE95D1 = {
@@ -619,25 +675,35 @@
 				E8C58B3824E5344700E1F04F /* TapCheckOutTheme.swift in Sources */,
 				E8EDD35025612BCD00AFC0B3 /* TapCustomer.swift in Sources */,
 				E89225EA24E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift in Sources */,
+				E8EDD3732561428600AFC0B3 /* TapSDKErrorType.swift in Sources */,
 				E830B7F324F3E96900B62713 /* TapPayButtonViewModel.swift in Sources */,
 				E825DD5924E938DB0074BF54 /* TapCheckoutSharedManager.swift in Sources */,
+				E8EDD366256141DB00AFC0B3 /* ErrorDetail.swift in Sources */,
 				E8EDD34725612A1200AFC0B3 /* TapPhone.swift in Sources */,
 				E830B7F724FA3BF100B62713 /* TapCheckoutSharedManager+UIKitDelegates.swift in Sources */,
+				E8EDD35325613FAB00AFC0B3 /* OptionallyIdentifiableWithString.swift in Sources */,
 				E830B7FC24FA430800B62713 /* TapGoPayLoginResponseModel.swift in Sources */,
 				E830B7F524F6ACCC00B62713 /* TapPaymentType.swift in Sources */,
 				E861286F24EAA38A00774BAA /* CurrencyCardsTelecomModel.swift in Sources */,
 				E8983DCD24EEC3D900C34E50 /* NetworkManager.swift in Sources */,
 				E830B7FE24FA451600B62713 /* TapCheckoutConstants.swift in Sources */,
+				E8EDD377256142A100AFC0B3 /* ErrorCode.swift in Sources */,
 				E8EDD34A25612A3C00AFC0B3 /* TapIntentRequestModel.swift in Sources */,
 				E8C2052624E3FEFA006653CA /* TapCheckoutFlipStatus.swift in Sources */,
 				E8EDD34D25612B6600AFC0B3 /* TapCustomerMetaData.swift in Sources */,
 				E8845E7C24D851FF009E8B73 /* TapCheckoutBlurView.swift in Sources */,
+				E8EDD35A256141B400AFC0B3 /* TapSDKError.swift in Sources */,
 				E8983DD124F1469700C34E50 /* TapEntitResponseModel.swift in Sources */,
 				E8983DCF24F0F7B800C34E50 /* TapNetworkPath.swift in Sources */,
 				E861286D24EA7F7F00774BAA /* CurrencyChipModel.swift in Sources */,
 				E86128B424ED23EF00774BAA /* TapCheckoutExtensions.swift in Sources */,
+				E8EDD365256141DB00AFC0B3 /* TapSDKUnknownError.swift in Sources */,
 				E8845E7024D83D7B009E8B73 /* TapCheckout.swift in Sources */,
+				E8EDD3562561414F00AFC0B3 /* ErrorConstants.swift in Sources */,
+				E8EDD363256141DB00AFC0B3 /* TapSDKAPIError.swift in Sources */,
 				E8845E7224D83FA3009E8B73 /* TapBottomCheckoutControllerViewController.swift in Sources */,
+				E8EDD362256141DB00AFC0B3 /* APIError.swift in Sources */,
+				E8EDD364256141DB00AFC0B3 /* TapSDKKnownError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -720,6 +786,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -783,6 +850,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
