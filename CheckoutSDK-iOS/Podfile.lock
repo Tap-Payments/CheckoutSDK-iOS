@@ -1,9 +1,12 @@
 PODS:
   - CommonDataModelsKit-iOS (1.0.31)
   - EasyAnimation (2.2.1)
+  - Kingfisher (5.15.7):
+    - Kingfisher/Core (= 5.15.7)
+  - Kingfisher/Core (5.15.7)
   - LocalisationManagerKit-iOS (1.0.2)
   - McPicker (3.0.0)
-  - MOLH (1.4.1)
+  - MOLH (1.4.3)
   - Nuke (9.1.2)
   - PayCardsRecognizer (1.1.7)
   - PullUpController (0.8.0)
@@ -13,12 +16,9 @@ PODS:
   - RxRelay (5.1.1):
     - RxSwift (~> 5)
   - RxSwift (5.1.1)
-  - SDWebImage (5.9.4):
-    - SDWebImage/Core (= 5.9.4)
-  - SDWebImage/Core (5.9.4)
   - SimpleAnimation (0.4.2)
   - SnapKit (5.0.1)
-  - SwiftLint (0.40.3)
+  - SwiftLint (0.41.0)
   - TapAdditionsKitV2 (0.0.6):
     - SwiftLint
     - TapSwiftFixesV2
@@ -38,8 +38,8 @@ PODS:
   - TapCardVlidatorKit-iOS (1.0.11)
   - TapFontKit-iOS (0.0.7):
     - TapSwiftFixes
-  - TapNetworkKit-iOS (1.0.2):
-    - SDWebImage
+  - TapNetworkKit-iOS (1.0.4):
+    - Kingfisher
     - TapAdditionsKitV2
   - TapSwiftFixes (1.0.9):
     - TapSwiftFixes/CoreGraphics (= 1.0.9)
@@ -84,6 +84,7 @@ SPEC REPOS:
   trunk:
     - CommonDataModelsKit-iOS
     - EasyAnimation
+    - Kingfisher
     - LocalisationManagerKit-iOS
     - McPicker
     - MOLH
@@ -93,7 +94,6 @@ SPEC REPOS:
     - RxCocoa
     - RxRelay
     - RxSwift
-    - SDWebImage
     - SimpleAnimation
     - SnapKit
     - SwiftLint
@@ -112,26 +112,26 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   CommonDataModelsKit-iOS: 4b1a33cd07686bcd8117f1f1ebe18373bda16af5
   EasyAnimation: 226d133d23ef0ef99ddfb8928ff2a9a4a77d1cfd
+  Kingfisher: 6e1a13523fcb1c86924ce53affe4ac957e544d59
   LocalisationManagerKit-iOS: cd702915c67faba899d4613d44ceb00cefccec6e
   McPicker: ba38be56a8194faa5249eca4226c364eed628044
-  MOLH: 9ea6c0390f5963b2df9827ae64035fbc8598b092
+  MOLH: e45827d200aeb1310641090fd8cd03ad2b42ae72
   Nuke: dd2e6be6a34c042a7861e190632781d11f253026
   PayCardsRecognizer: 2e4d1b2fdd5f1528fb56064a91e1d58a1af7a2db
   PullUpController: 2f7ccaa0f35b31b47e3efbe1854c7f781552b3c7
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
-  SDWebImage: b69257f4ab14e9b6a2ef53e910fdf914d8f757c1
   SimpleAnimation: 5430010b9548f392e7459290acce01c9ceba7171
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
-  SwiftLint: dfd554ff0dff17288ee574814ccdd5cea85d76f7
+  SwiftLint: c585ebd615d9520d7fbdbe151f527977b0534f1e
   TapAdditionsKitV2: 95c95584ecc4b3ab8fd777eade780b5c82aee996
   TapApplePayKit-iOS: 3dfb3c8155cdf393ef3f00640a317c5147749306
   TapCardInputKit-iOS: 26c52bde9285c79e1a58144c67dd45dde2a010df
   TapCardScanner-iOS: 3edd14a48acce8e9e663a816f5e1b146b668aadd
   TapCardVlidatorKit-iOS: ebdd38a2bef618f9eb09dc909d7bd6fcfdfd56c2
   TapFontKit-iOS: 7eba5c8159f5ec22b8bfc8bf8718928ceb758323
-  TapNetworkKit-iOS: d1c174bea3c5ab3eae95980d7c23fbdd519b3b19
+  TapNetworkKit-iOS: b603fdf4559007d0bc1938ef631eb8b8c1376924
   TapSwiftFixes: db2aeb21942dd81ee051a31ed319dab0d03547a2
   TapSwiftFixesV2: a8623a7273c6790b9754ec7e272e96fce7d3a800
   TapThemeManager2020: d2121513f434ac656cbf74893450ddb592b39976

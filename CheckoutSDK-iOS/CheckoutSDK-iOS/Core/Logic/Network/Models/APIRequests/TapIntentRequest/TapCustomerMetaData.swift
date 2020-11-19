@@ -16,16 +16,20 @@ import Foundation
  */
 @objc public class TapCustomerMetaData : NSObject,Codable {
     /// this is whatever  metadat merchant can send i.e pspReference: This is a value we send you in the SALE and in the Refunds, under metadata.pspReference.
-    @objc public let udf1 : String?
+    @objc public let udf1 : String
     
     enum CodingKeys: String, CodingKey {
         
         case udf1 = "udf1"
     }
     
+    @objc public init(udf1: String = "") {
+        self.udf1 = udf1
+    }
+    
     required public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        udf1 = try values.decodeIfPresent(String.self, forKey: .udf1)
+        udf1 = try values.decodeIfPresent(String.self, forKey: .udf1) ?? ""
     }
     
 }
