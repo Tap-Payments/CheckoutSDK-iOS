@@ -9,7 +9,6 @@
 import Foundation
 import LocalisationManagerKit_iOS
 import MOLH
-import class RxSwift.DisposeBag
 /// A protocol to communicate with the Presente tap sheet controller
 @objc public protocol CheckoutScreenDelegate {
     /**
@@ -51,8 +50,6 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
     internal var sharedLocalisationManager = TapLocalisationManager.shared
     /// A reference to the TapCheckoutController that will present the TapSheet
     internal var tapCheckoutControllerViewController:TapBottomCheckoutControllerViewController?
-    /// A RX garbage collector
-    internal let disposeBag:DisposeBag = .init()
     
     // MARK:- Public varibales
     /// A protocol to communicate with the Presente tap sheet controller
