@@ -8,6 +8,8 @@
 
 import Foundation
 import PassKit
+import CommonDataModelsKit_iOS
+import TapUIKit_iOS
 
 internal extension Array where Element: CurrencyCardsTelecomModel {
     /**

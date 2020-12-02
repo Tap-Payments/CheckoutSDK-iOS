@@ -12,6 +12,8 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 */
 
 import Foundation
+import CommonDataModelsKit_iOS
+import TapUIKit_iOS
 /// Represents the model to parse the Intent API response
 internal struct TapIntentResponseModel : Codable {
     /// Represents the merchant header info section

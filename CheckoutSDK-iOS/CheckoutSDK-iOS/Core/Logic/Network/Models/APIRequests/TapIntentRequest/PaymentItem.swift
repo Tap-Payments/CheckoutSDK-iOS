@@ -5,6 +5,8 @@
 //  Created by Osama Rabie on 11/15/20.
 //  Copyright © 2020 Tap Payments. All rights reserved.
 //
+import CommonDataModelsKit_iOS
+import TapUIKit_iOS
 /** Represents the model for parsing the a payment item from and to the backend
  {
  "amount": 10,

@@ -8,6 +8,10 @@
 
 import Foundation
 import MOLH
+import CommonDataModelsKit_iOS
+import TapUIKit_iOS
+import TapThemeManager2020
+
 /// An extensions that groups methods related to configuring other Tap Kits before starting the checkout SDK itself
 internal extension TapCheckout {
  

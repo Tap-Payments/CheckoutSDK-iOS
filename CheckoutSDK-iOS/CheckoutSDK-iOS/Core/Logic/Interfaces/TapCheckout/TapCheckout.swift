@@ -9,6 +9,8 @@
 import Foundation
 import LocalisationManagerKit_iOS
 import MOLH
+import CommonDataModelsKit_iOS
+import TapUIKit_iOS
 /// A protocol to communicate with the Presente tap sheet controller
 @objc public protocol CheckoutScreenDelegate {
     /**

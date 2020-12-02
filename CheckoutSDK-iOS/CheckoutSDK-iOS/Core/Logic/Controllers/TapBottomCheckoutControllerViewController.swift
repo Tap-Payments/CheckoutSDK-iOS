@@ -8,6 +8,15 @@
 
 import UIKit
 import SnapKit
+import CommonDataModelsKit_iOS
+import TapUIKit_iOS
+import WebKit
+import TapApplePayKit_iOS
+import TapCardVlidatorKit_iOS
+import TapCardInputKit_iOS
+import LocalisationManagerKit_iOS
+import AVFoundation
+import TapCardScanner_iOS
 
 internal class TapBottomCheckoutControllerViewController: UIViewController {
     

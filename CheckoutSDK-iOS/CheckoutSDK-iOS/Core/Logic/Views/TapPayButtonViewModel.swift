@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import TapUIKit_iOS
 
 @objc public class TapPayButtonViewModel:TapActionButtonViewModel {
     

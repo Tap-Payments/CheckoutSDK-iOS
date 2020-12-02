@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import CommonDataModelsKit_iOS
+import TapUIKit_iOS
 /** Represents the model for parsing the a customer object coming from Tap backend
  {
  "customer": {

@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import CommonDataModelsKit_iOS
+import TapUIKit_iOS
 
 /// Represents a model that will link the different chips models with their approved currencies
 internal class ChipWithCurrencyModel:Codable {

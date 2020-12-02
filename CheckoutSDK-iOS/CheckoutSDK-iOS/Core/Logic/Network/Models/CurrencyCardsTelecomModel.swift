@@ -7,8 +7,10 @@
 //
 
 import Foundation
+import TapUIKit_iOS
 import CommonDataModelsKit_iOS
-
+import TapUIKit_iOS
+import TapCardVlidatorKit_iOS
 /// Represents a model that will link the different Cards and Telecom bar item view models with their approved currencies and countries
 internal class CurrencyCardsTelecomModel:Codable {
     
