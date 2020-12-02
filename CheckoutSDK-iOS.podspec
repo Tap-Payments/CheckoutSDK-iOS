@@ -1,5 +1,5 @@
 #
-#  Be sure to run `pod spec lint TapUIKit-iOS.podspec' to ensure this is a
+#  Be sure to run `pod spec lint CheckoutSDK-iOS.podspec' to ensure this is a
 #  valid spec and to remove all comments including this before submitting the spec.
 #
 #  To learn more about Podspec attributes see https://guides.cocoapods.org/syntax/podspec.html
@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "CheckoutSDK-iOS"
-  spec.version      = "0.0.2"
+  spec.version      = "0.0.3"
   spec.summary      = "The new era of mobile payments is here with Tap."
 
   # This description is used to generate tags and improve search results.
@@ -24,7 +24,7 @@ Pod::Spec.new do |spec|
   #   * Try to keep it short, snappy and to the point.
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
-  spec.description  = "A full checkout experience across boundaries provided to you with a single tap by TAP."
+  spec.description  = "The new era of mobile payments is here with Tap.The new era of mobile payments is here with Tap."
 
   spec.homepage     = "https://github.com/Tap-Payments/CheckoutSDK-iOS"
   # spec.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
@@ -37,6 +37,7 @@ Pod::Spec.new do |spec|
   #  Popular ones are 'MIT', 'BSD' and 'Apache License, Version 2.0'.
   #
 
+  # spec.license      = "MIT (example)"
   spec.license      = { :type => "MIT", :file => "LICENSE" }
 
 
@@ -88,7 +89,7 @@ Pod::Spec.new do |spec|
   #  Not including the public_header_files will make all headers public.
   #
 
-  spec.source_files  = "CheckoutSDK-iOS/CheckoutSDK-iOS/Core/**/*.{h,m,swift}"
+  spec.source_files  = "CheckoutSDK-iOS/CheckoutSDK-iOS/Core/Logic/**/*.{swift,h,m}"
   spec.exclude_files = "Classes/Exclude"
 
   # spec.public_header_files = "Classes/**/*.h"
@@ -130,12 +131,9 @@ Pod::Spec.new do |spec|
   # spec.requires_arc = true
 
   # spec.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
+  # spec.dependency "JSONKit", "~> 1.4"
   spec.dependency "TapUIKit-iOS"
   spec.dependency "TapNetworkKit-iOS"
-
-  spec.pod_target_xcconfig = {
-    'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64'
-  }
-  spec.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
-
+  spec.dependency "CommonDataModelsKit-iOS"
+  
 end
