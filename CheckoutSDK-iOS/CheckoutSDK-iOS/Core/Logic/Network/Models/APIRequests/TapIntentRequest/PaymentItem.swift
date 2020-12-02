@@ -63,4 +63,8 @@ import TapUIKit_iOS
         name = try values.decodeIfPresent(String.self, forKey: .name)
         quantity = try values.decodeIfPresent(Double.self, forKey: .quantity)
     }
+    
+    public func encode(to encoder: Encoder) throws {
+       
+    }
 }

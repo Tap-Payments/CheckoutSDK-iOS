@@ -232,6 +232,12 @@ import TapUIKit_iOS
         
         self.validateFields()
     }
+    
+    required public init(from decoder:Decoder) throws {
+        //let values = try decoder.container(keyedBy: CodingKeys.self)
+        //indexPath = try values.decode([Int].self, forKey: .indexPath)
+        //locationInText = try values.decode(Int.self, forKey: .locationInText)
+    }
 }
 
 // MARK: - NSCopying
