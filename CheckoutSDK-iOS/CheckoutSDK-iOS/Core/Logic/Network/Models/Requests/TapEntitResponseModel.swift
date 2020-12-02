@@ -49,6 +49,10 @@ internal struct TapIntentResponseModel : Codable {
         paymentChips = try values.decodeIfPresent([ChipWithCurrencyModel].self, forKey: .paymentChips)
         tapCardPhoneListDataSource = try values.decodeIfPresent([CurrencyCardsTelecomModel].self, forKey: .tapCardPhoneListDataSource)
 	}
+    
+    public func encode(to encoder: Encoder) throws {
+        
+    }
 
 }
 
