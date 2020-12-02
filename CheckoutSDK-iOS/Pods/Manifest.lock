@@ -1,5 +1,5 @@
 PODS:
-  - CommonDataModelsKit-iOS (1.0.31)
+  - CommonDataModelsKit-iOS (1.0.32)
   - EasyAnimation (2.2.1)
   - Kingfisher (5.15.8):
     - Kingfisher/Core (= 5.15.8)
@@ -67,7 +67,6 @@ PODS:
     - TapThemeManager2020
 
 DEPENDENCIES:
-  - CommonDataModelsKit-iOS
   - TapNetworkKit-iOS
   - TapUIKit-iOS
 
@@ -97,7 +96,7 @@ SPEC REPOS:
     - TapUIKit-iOS
 
 SPEC CHECKSUMS:
-  CommonDataModelsKit-iOS: 4b1a33cd07686bcd8117f1f1ebe18373bda16af5
+  CommonDataModelsKit-iOS: 515915cba960adc36213d4d6972a8f9014c3f82a
   EasyAnimation: 226d133d23ef0ef99ddfb8928ff2a9a4a77d1cfd
   Kingfisher: a3c03d702433fa6cfedabb2bddbe076fb8f2e902
   LocalisationManagerKit-iOS: cd702915c67faba899d4613d44ceb00cefccec6e
@@ -120,6 +119,6 @@ SPEC CHECKSUMS:
   TapThemeManager2020: 3a642e05b2868f613ffb0623725ea5a6a0fa71c5
   TapUIKit-iOS: 48f2463b9b2906f97fd36b0c4ddc52a54b7691b4
 
-PODFILE CHECKSUM: 0f1d11d5480fa7a898232eed7b7d1ce9dc47a3f1
+PODFILE CHECKSUM: 2038c19c305b09908da314e1bb255d1c552935b4
 
 COCOAPODS: 1.9.3

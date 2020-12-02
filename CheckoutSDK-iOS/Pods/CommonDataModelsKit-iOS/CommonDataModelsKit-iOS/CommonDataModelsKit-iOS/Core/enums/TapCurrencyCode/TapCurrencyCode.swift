@@ -2336,7 +2336,7 @@ extension TapCurrencyCode:Encodable {
     enum CodingKeys: String, CodingKey {
         case emvcoRawValue = "emvcoRawValue"
         case appleRawValue = "appleRawValue"
-//        case symbolRawValue = "symbolRawValue"
+        //        case symbolRawValue = "symbolRawValue"
     }
     
     public func encode(to encoder: Encoder) throws {

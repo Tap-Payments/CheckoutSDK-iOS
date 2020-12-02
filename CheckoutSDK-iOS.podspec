@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "CheckoutSDK-iOS"
-  spec.version      = "0.0.7"
+  spec.version      = "0.0.8"
   spec.summary      = "The new era of mobile payments is here with Tap."
 
   # This description is used to generate tags and improve search results.
@@ -132,7 +132,14 @@ Pod::Spec.new do |spec|
 
   # spec.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   # spec.dependency "JSONKit", "~> 1.4"
+
   spec.dependency "TapUIKit-iOS"
   spec.dependency "TapNetworkKit-iOS"
   
+  spec.pod_target_xcconfig = {
+    'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64'
+  }
+  spec.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
+
+
 end
