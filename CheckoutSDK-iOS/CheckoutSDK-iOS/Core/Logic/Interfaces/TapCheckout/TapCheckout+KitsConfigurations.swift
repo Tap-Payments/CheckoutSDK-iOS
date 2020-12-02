@@ -67,7 +67,7 @@ internal extension TapCheckout {
      */
     func configureSharedManager(currency:TapCurrencyCode, amount:Double,items:[ItemModel],applePayMerchantID:String = "merchant.tap.gosell",intentModel:TapIntentResponseModel,swipeDownToDismiss:Bool = false,paymentTypes:[TapPaymentType], closeButtonStyle:CheckoutCloseButtonEnum = .title,showDragHandler:Bool = false) {
         let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
-        sharedManager.transactionCurrencyObserver.accept(currency)
+        sharedManager.transactionCurrencyValue = currency
         sharedManager.applePayMerchantID = applePayMerchantID
         sharedManager.paymentTypes = paymentTypes
         sharedManager.swipeDownToDismiss = swipeDownToDismiss
@@ -79,13 +79,13 @@ internal extension TapCheckout {
         var finalAmount:Double = amount
         // if items has no items, we need to add the default items
         if items == [] {
-            sharedManager.transactionItemsObserver.accept([ItemModel.init(title: "PAY TO TAP PAYMENTS",description: "Total paid amount", price: amount, quantity: 1,discount: nil)])
+            sharedManager.transactionItemsValue = [ItemModel.init(title: "PAY TO TAP PAYMENTS",description: "Total paid amount", price: amount, quantity: 1,discount: nil)]
         }else {
-            sharedManager.transactionItemsObserver.accept(items)
+            sharedManager.transactionItemsValue = items
             finalAmount = items.totalItemsPrices()
         }
         // Tell the manager what is the final amount based on given items prices or a given total amount
-        sharedManager.transactionTotalAmountObserver.accept(finalAmount)
+        sharedManager.transactionTotalAmountValue = finalAmount
         
         
     }

@@ -301,7 +301,7 @@ extension TapBottomCheckoutControllerViewController:TapChipHorizontalListViewMod
     
     
     func currencyChip(for viewModel: CurrencyChipViewModel) {
-        sharedCheckoutDataManager.transactionUserCurrencyObserver.accept(viewModel.currency)
+        sharedCheckoutDataManager.transactionUserCurrencyValue = viewModel.currency
     }
     
     func applePayAuthoized(for viewModel: ApplePayChipViewCellModel, with token: TapApplePayToken) {

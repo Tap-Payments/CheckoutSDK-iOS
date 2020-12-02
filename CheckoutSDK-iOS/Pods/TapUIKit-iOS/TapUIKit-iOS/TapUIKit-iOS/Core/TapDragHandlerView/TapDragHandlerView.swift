@@ -42,14 +42,6 @@ import CommonDataModelsKit_iOS
         commonInit()
     }
     
-    /**
-     Update the visibility of the tap handler dragger with the given status
-     - Parameter visiblity: If set, the handler will be shown. Will be hidden otherwise.
-     */
-    @objc public func updateHandler(visiblity to:Bool) {
-        handlerImageView.isHidden = !to
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
@@ -110,6 +102,14 @@ extension TapDragHandlerView {
     /// Consolidated one point to apply all needed theme methods
     public func applyTheme() {
         matchThemeAttributes()
+    }
+    
+    /**
+     Update the visibility of the tap handler dragger with the given status
+     - Parameter visiblity: If set, the handler will be shown. Will be hidden otherwise.
+     */
+    @objc public func updateHandler(visiblity to:Bool) {
+        handlerImageView.isHidden = !to
     }
     
     /// Match the UI attributes with the correct theming entries

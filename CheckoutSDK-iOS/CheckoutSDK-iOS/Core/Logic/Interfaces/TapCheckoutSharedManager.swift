@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import RxCocoa
-import RxSwift
 
 /// A protocol to comminicate between the UIManager and the data manager
 internal protocol TapCheckoutSharedManagerUIDelegate {
@@ -32,7 +30,6 @@ internal class TapCheckoutSharedManager {
     /// A protocol to comminicate between the UIManager and the data manager
     var UIDelegate:TapCheckoutSharedManagerUIDelegate?
 
-    let disposeBag:DisposeBag = .init()
     /// Rerpesents the view model that controls the Merchant header section view
     var tapMerchantViewModel:TapMerchantHeaderViewModel = .init()
     /// Rerpesents the view model that controls the Amount section view
@@ -96,13 +93,68 @@ internal class TapCheckoutSharedManager {
     
     // MARK:- RxSwift Variables
     /// Represents the original transaction currency stated by the merchant on checkout start
-    var transactionCurrencyObserver:BehaviorRelay<TapCurrencyCode> = .init(value: .undefined)
+    var transactionCurrencyObserver:(TapCurrencyCode)->() = { _ in } {
+        didSet{
+            transactionCurrencyObserver(transactionCurrencyValue)
+        }
+    }
+    /// Represents the original transaction currency stated by the merchant on checkout start
+    var transactionCurrencyValue:TapCurrencyCode = .undefined {
+        didSet{
+            guard oldValue != transactionCurrencyValue else { return }
+            transactionCurrencyObserver(transactionCurrencyValue)
+            if transactionCurrencyValue != .undefined {
+                // Listen to the changes in transaction currency
+                self.transactionCurrencyUpdated()
+            }
+        }
+    }
     /// Represents the transaction currency selected by the user
-    var transactionUserCurrencyObserver:BehaviorRelay<TapCurrencyCode> = .init(value: .undefined)
+    var transactionUserCurrencyObserver:(TapCurrencyCode)->() = { _ in } {
+        didSet{
+            transactionUserCurrencyObserver(transactionCurrencyValue)
+        }
+    }
+    /// Represents the transaction currency selected by the user
+    var transactionUserCurrencyValue:TapCurrencyCode = .undefined {
+        didSet{
+            guard oldValue != transactionUserCurrencyValue else { return }
+            transactionUserCurrencyObserver(transactionCurrencyValue)
+            handleChangeAmountAndCurrency()
+        }
+    }
     /// Represents the original transaction total amount stated by the merchant on checkout start
-    var transactionTotalAmountObserver:BehaviorRelay<Double> = .init(value: 0)
+    var transactionTotalAmountObserver:(Double)->() = { _ in } {
+        didSet{
+            transactionTotalAmountObserver(transactionTotalAmountValue)
+        }
+    }
+    /// Represents the original transaction total amount stated by the merchant on checkout start
+    var transactionTotalAmountValue:Double = 0 {
+        didSet{
+            guard oldValue != transactionTotalAmountValue else { return }
+            transactionTotalAmountObserver(transactionTotalAmountValue)
+            handleChangeAmountAndCurrency()
+        }
+    }
     /// Represents the list of items passed by the merchant on load
-    var transactionItemsObserver:BehaviorRelay<[ItemModel]> = .init(value: [])
+    var transactionItemsObserver:([ItemModel])->() = { _ in } {
+        didSet{
+            transactionItemsObserver(transactionItemsValue)
+        }
+    }
+    /// Represents the list of items passed by the merchant on load
+    var transactionItemsValue:[ItemModel] = [] {
+        didSet{
+            transactionItemsObserver(transactionItemsValue)
+            // We only create items list when we have both elements, items and original currency
+            if transactionItemsValue != [] {
+                createTapItemsViewModel()
+            }
+        }
+    }
+    
+    
     // MARK:- Methods
     /**
      Creates a shared instance of the CheckoutDataManager
@@ -137,37 +189,21 @@ internal class TapCheckoutSharedManager {
     
     /// Resetting and disposing all previous subscribers to the observables
     private func resetObservables() {
-        transactionCurrencyObserver = .init(value: .undefined)
-        transactionUserCurrencyObserver = .init(value: .undefined)
-        transactionTotalAmountObserver = .init(value: 0)
-        transactionItemsObserver = .init(value: [])
+        transactionCurrencyValue = .undefined
+        transactionUserCurrencyValue = .undefined
+        transactionTotalAmountValue = 0
+        transactionItemsValue = []
     }
     
     /// Responsible for wiring up the observables to fire the correct methods upon the correct data changes
     private func bindTheObservables() {
-        // Listen to the changes in transaction currency
-        transactionCurrencyObserver
-        .filter{ $0 != .undefined }
-        .share().subscribe(onNext: { [weak self] (newTransactionCurrency) in
-            self?.transactionCurrencyUpdated()
-        }).disposed(by: disposeBag)
         
-        // We only create items list when we have both elements, items and original currency
-        transactionItemsObserver.filter{ $0 != [] }.distinctUntilChanged()
-            .subscribe(onNext: { [weak self] _ in
-                self?.createTapItemsViewModel()
-            }).disposed(by: disposeBag)
-        
-        // The amount section and items list will be changed if total amount or the selected currency is changed one of them or both
-        Observable.combineLatest(transactionTotalAmountObserver, transactionUserCurrencyObserver).share()
-            .distinctUntilChanged { (arg0, arg1) -> Bool in
-                let (lastAmount, lastUserCurrency) = arg0
-                let (newAmount, newUserCurrency) = arg1
-                return (lastAmount == newAmount) && (lastUserCurrency == newUserCurrency)
-            }.filter{ $0 != 0 && $1 != .undefined }
-            .subscribe(onNext: { [weak self] (_,_) in
-                self?.updateManager()
-        }).disposed(by: disposeBag)
+    }
+    
+    /// The amount section and items list will be changed if total amount or the selected currency is changed one of them or both
+    private func handleChangeAmountAndCurrency() {
+        guard transactionTotalAmountValue != 0 && transactionUserCurrencyValue != .undefined else { return }
+        updateManager()
     }
     
     /// Handles the logic required to update all required fields and variables upon a change in the current shared data manager state
@@ -183,9 +219,9 @@ internal class TapCheckoutSharedManager {
     /// Handles the logic needed to create the tap items view model by utilising the original currency and the items list passed by the merchant
     private func createTapItemsViewModel() {
         // Convert the passed items models into the ItemCellViewModels and update the items table view model with the new created list
-        let itemsModels:[ItemCellViewModel] = transactionItemsObserver.value.map{ ItemCellViewModel.init(itemModel: $0, originalCurrency:transactionCurrencyObserver.value) }
+        let itemsModels:[ItemCellViewModel] = transactionItemsValue.map{ ItemCellViewModel.init(itemModel: $0, originalCurrency:transactionCurrencyValue) }
         tapItemsTableViewModel = .init(dataSource: itemsModels)
-        tapAmountSectionViewModel.numberOfItems = transactionItemsObserver.value.count
+        tapAmountSectionViewModel.numberOfItems = transactionItemsValue.count
     }
     
     /// Handles the logic to determine the visibility and the status of the save card/ohone switch depending on the current card/telecom data source
@@ -199,22 +235,22 @@ internal class TapCheckoutSharedManager {
     /// Handles all the logic needed when the original transaction currency changed
     private func transactionCurrencyUpdated() {
         // Change in the original transaction currency, means this is the basic configuration called from the merchanr on load, so we initialy set it to be the same as the selected user currency
-        transactionUserCurrencyObserver.accept(transactionCurrencyObserver.value)
+        transactionUserCurrencyValue = transactionCurrencyValue
         
         // Apply the change into the Amount view model
-        tapAmountSectionViewModel.originalTransactionCurrency = transactionCurrencyObserver.value
+        tapAmountSectionViewModel.originalTransactionCurrency = transactionCurrencyValue
     }
     
     /// Handles all the logic needed when the amount or the user selected currency changed to reflect in the Amount Section View
     private func updateAmountSection() {
         // Apply the changes of user currency and total amount into the Amount view model
-        tapAmountSectionViewModel.convertedTransactionCurrency = transactionUserCurrencyObserver.value
-        tapAmountSectionViewModel.originalTransactionAmount = transactionTotalAmountObserver.value
+        tapAmountSectionViewModel.convertedTransactionCurrency = transactionUserCurrencyValue
+        tapAmountSectionViewModel.originalTransactionAmount = transactionTotalAmountValue
     }
     
     /// Handles all the logic needed when the user selected currency changed to reflect in the items list view
     private func updateItemsList() {
-        tapItemsTableViewModel.dataSource.map{ $0 as! ItemCellViewModel }.forEach{ $0.convertCurrency = transactionUserCurrencyObserver.value }
+        tapItemsTableViewModel.dataSource.map{ $0 as! ItemCellViewModel }.forEach{ $0.convertCurrency = transactionUserCurrencyValue }
     }
     
     /// Handles all the logic needed when the user selected currency changed to reflect in the supported gateways chips for the new currency
@@ -222,8 +258,8 @@ internal class TapCheckoutSharedManager {
         tapGatewayChipHorizontalListViewModel.deselectAll()
         tapGoPayChipsHorizontalListViewModel.deselectAll()
         
-        tapGatewayChipHorizontalListViewModel.dataSource = gatewayChipsViewModel.filter(for: transactionUserCurrencyObserver.value)
-        tapGoPayChipsHorizontalListViewModel.dataSource = goPayChipsViewModel.filter(for: transactionUserCurrencyObserver.value)
+        tapGatewayChipHorizontalListViewModel.dataSource = gatewayChipsViewModel.filter(for: transactionUserCurrencyValue)
+        tapGoPayChipsHorizontalListViewModel.dataSource = goPayChipsViewModel.filter(for: transactionUserCurrencyValue)
         updateGoPayAndGatewayLists()
     }
     
@@ -237,9 +273,9 @@ internal class TapCheckoutSharedManager {
     
     /// Handles all the logic needed when the user selected currency changed to reflect in the supported cards/telecom tabbar items for the new currency
     private func updateCardTelecomList() {
-        tapCardPhoneListViewModel.dataSource = tapCardPhoneListDataSource.filter(for: transactionUserCurrencyObserver.value)
+        tapCardPhoneListViewModel.dataSource = tapCardPhoneListDataSource.filter(for: transactionUserCurrencyValue)
         tapCardTelecomPaymentViewModel.tapCardPhoneListViewModel = tapCardPhoneListViewModel
-        tapCardTelecomPaymentViewModel.changeTapCountry(to: tapCardPhoneListDataSource.telecomCountry(for: transactionUserCurrencyObserver.value))
+        tapCardTelecomPaymentViewModel.changeTapCountry(to: tapCardPhoneListDataSource.telecomCountry(for: transactionUserCurrencyValue))
     }
     
     /// Handles all the logic needed to correctly parse the passed data into a correct Apple Pay request format
@@ -249,7 +285,7 @@ internal class TapCheckoutSharedManager {
         guard applePayChips.count > 0, let applePayChipViewModel:ApplePayChipViewCellModel = applePayChips[0].tapChipViewModel as? ApplePayChipViewCellModel else { // meaning no apple pay chip is there
             return }
         
-        applePayChipViewModel.configureApplePayRequest(currencyCode: transactionUserCurrencyObserver.value,paymentItems: transactionItemsObserver.value.toApplePayItems(convertFromCurrency: transactionCurrencyObserver.value, convertToCurrenct: transactionUserCurrencyObserver.value), amount: transactionUserCurrencyObserver.value.convert(from: transactionCurrencyObserver.value, for: transactionTotalAmountObserver.value), merchantID: applePayMerchantID)
+        applePayChipViewModel.configureApplePayRequest(currencyCode: transactionUserCurrencyValue,paymentItems: transactionItemsValue.toApplePayItems(convertFromCurrency: transactionCurrencyValue, convertToCurrenct: transactionUserCurrencyValue), amount: transactionUserCurrencyValue.convert(from: transactionCurrencyValue, for: transactionTotalAmountValue), merchantID: applePayMerchantID)
         
     }
     
@@ -257,7 +293,7 @@ internal class TapCheckoutSharedManager {
     /// We need to highlight the default currency of the user didn't select a new currency other than the default currency
     internal func highlightDefaultCurrency() {
         
-        guard transactionUserCurrencyObserver.value == transactionCurrencyObserver.value else { return }
+        guard transactionUserCurrencyValue == transactionCurrencyValue else { return }
         DispatchQueue.main.async { [weak self] in
             self?.tapCurrienciesChipHorizontalListViewModel.didSelectItem(at: 0,selectCell: true)
         }
@@ -274,7 +310,7 @@ internal class TapCheckoutSharedManager {
         
         // Fetch the list of supported currencies
         self.currenciesChipsViewModel = intentModel.currencies.map{ CurrencyChipViewModel.init(currency: $0) }
-        self.tapCurrienciesChipHorizontalListViewModel = .init(dataSource: currenciesChipsViewModel, headerType: .NoHeader,selectedChip: currenciesChipsViewModel.filter{ $0.currency == transactionUserCurrencyObserver.value }[0])
+        self.tapCurrienciesChipHorizontalListViewModel = .init(dataSource: currenciesChipsViewModel, headerType: .NoHeader,selectedChip: currenciesChipsViewModel.filter{ $0.currency == transactionUserCurrencyValue }[0])
         
         // Fetch the list of the goPay supported login countries
         self.goPayLoginCountries = intentModel.goPayLoginCountries ?? []

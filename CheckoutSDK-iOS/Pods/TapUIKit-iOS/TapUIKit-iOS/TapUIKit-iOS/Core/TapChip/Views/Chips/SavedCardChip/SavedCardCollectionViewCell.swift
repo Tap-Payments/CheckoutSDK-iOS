@@ -51,6 +51,7 @@ import SnapKit
         self.viewModel = correctTypeModel
         // Apply the editing ui if needed
         changedEditMode(to: viewModel.editMode)
+        changedEditMode(to: viewModel.editMode)
     }
     
      override func selectStatusChaned(with status:Bool) {

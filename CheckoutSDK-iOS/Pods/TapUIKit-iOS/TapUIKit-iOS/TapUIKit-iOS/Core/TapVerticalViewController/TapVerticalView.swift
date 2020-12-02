@@ -125,9 +125,9 @@ import TapCardScanner_iOS
         // Inform the delegate if any, that the view has new size
         // Take in consideration the safe margins :)
         /*var bottomPadding:CGFloat = 0.0
-        if let window = UIApplication.shared.keyWindow {
-            bottomPadding = window.safeAreaInsets.bottom
-        }*/
+         if let window = UIApplication.shared.keyWindow {
+         bottomPadding = window.safeAreaInsets.bottom
+         }*/
         let contentSize = scrollView.contentSize
         var newSize = contentSize
         //newSize.height += bottomPadding
@@ -252,7 +252,7 @@ import TapCardScanner_iOS
         stackView.removeArrangedSubview(view)
         itemsBeingRemoved = false
     }
-   
+    
     internal func adjustAnimationList(view:UIView, for animations:[TapSheetAnimation], with sequence:TapAnimationSequence, then completion:@escaping () -> () = {  }) {
         // Create mutable instance of the animation list to be able to change the required values
         var delayUpToCurrentAnimation:Double = 0
