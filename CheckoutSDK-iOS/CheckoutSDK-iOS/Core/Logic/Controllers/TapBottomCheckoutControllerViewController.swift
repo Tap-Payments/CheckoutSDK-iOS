@@ -193,7 +193,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
             self!.sharedCheckoutDataManager.tapItemsTableViewModel.attachedView.alpha = 0
             self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.tapCurrienciesChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapItemsTableViewModel.attachedView], with: [.init(for: .fadeIn, with:self!.fadeInAnimationDuration, wait: self!.fadeInAnimationDelay)])
             if let locale = TapLocalisationManager.shared.localisationLocale, locale == "ar" {
-                self?.sharedCheckoutDataManager.tapCurrienciesChipHorizontalListViewModel.refreshLayout()
+                //self?.sharedCheckoutDataManager.tapCurrienciesChipHorizontalListViewModel.refreshLayout()
             }
             
             

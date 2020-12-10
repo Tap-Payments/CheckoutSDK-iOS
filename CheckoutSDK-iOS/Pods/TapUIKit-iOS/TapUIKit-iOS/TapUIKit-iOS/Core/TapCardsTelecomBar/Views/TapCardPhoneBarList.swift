@@ -196,6 +196,8 @@ extension TapCardPhoneBarList:TapCardPhoneBarListViewModelDelegate {
         self.underLineLeadingConstraint.constant = (sharedLocalisationManager.localisationLocale == "ar") ? (frame.width - x) : x
         self.underLineWidthConstraint.constant = width
         
+        // Fix the issue of one segment, Arabic where we need to cover the whole tab length
+        
         UIView.animate(withDuration: 0.3, animations: {
                         self.underLineBar.alpha = 1
                         self.underLineBar.layoutIfNeeded()

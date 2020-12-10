@@ -294,9 +294,14 @@ internal class TapCheckoutSharedManager {
     /// We need to highlight the default currency of the user didn't select a new currency other than the default currency
     internal func highlightDefaultCurrency() {
         
-        guard transactionUserCurrencyValue == transactionCurrencyValue else { return }
+        //guard transactionUserCurrencyValue == transactionCurrencyValue else { return }
         DispatchQueue.main.async { [weak self] in
-            self?.tapCurrienciesChipHorizontalListViewModel.didSelectItem(at: 0,selectCell: true)
+            let selectedIndex:Int = self?.tapCurrienciesChipHorizontalListViewModel.dataSource.map({ (genericTapChipViewModel) -> TapCurrencyCode in
+                guard let currencyChipModel:CurrencyChipViewModel = genericTapChipViewModel as? CurrencyChipViewModel else { return .KWD }
+                return currencyChipModel.currency
+            }).firstIndex(of: self!.transactionUserCurrencyValue) ?? 0
+            
+            self?.tapCurrienciesChipHorizontalListViewModel.didSelectItem(at: selectedIndex,selectCell: true)
         }
     }
     
