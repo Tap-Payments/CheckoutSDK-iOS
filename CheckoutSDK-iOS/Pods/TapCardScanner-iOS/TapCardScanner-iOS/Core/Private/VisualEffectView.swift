@@ -16,7 +16,7 @@ import class UIKit.UIBlurEffect
 public class VisualEffectView: UIVisualEffectView {
     
     /// Returns the instance of UIBlurEffect.
-    private let blurEffect = (NSClassFromString("_UICustomBlurEffect") as! UIBlurEffect.Type).init()
+   // private let blurEffect = (NSClassFromString("_UICustomBlurEffect") as! UIBlurEffect.Type).init()
     
     /**
      Tint color.
@@ -74,6 +74,17 @@ public class VisualEffectView: UIVisualEffectView {
         scale = 1
     }
     
+    
+    /// Listen to light/dark mde changes and apply the correct theme based on the new style
+    override public func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        adjustBlurType()
+    }
+    
+     internal func adjustBlurType() {
+        self.effect = (self.traitCollection.userInterfaceStyle == .dark) ? UIBlurEffect(style: .dark) : UIBlurEffect(style: .light)
+    }
+    
 }
 
 // MARK: - Helpers
@@ -82,13 +93,13 @@ private extension VisualEffectView {
     
     /// Returns the value for the key on the blurEffect.
     func _value(forKey key: String) -> Any? {
-        return blurEffect.value(forKeyPath: key)
+        return effect
     }
     
     /// Sets the value for the key on the blurEffect.
     func _setValue(_ value: Any?, forKey key: String) {
-        blurEffect.setValue(value, forKeyPath: key)
-        self.effect = blurEffect
+        //blurEffect.setValue(value, forKeyPath: key)
+        //self.effect = blurEffect
     }
     
 }

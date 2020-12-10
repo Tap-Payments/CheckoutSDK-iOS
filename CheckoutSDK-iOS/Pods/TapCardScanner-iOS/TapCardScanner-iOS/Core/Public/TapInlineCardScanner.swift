@@ -280,13 +280,15 @@ import class CommonDataModelsKit_iOS.TapCard
         // Make sure we have a valid uiview
         guard let view = previewView, blurBackground else { return }
         
-        let blurEffectView: VisualEffectView = .init()
+        let blurEffectView: VisualEffectView = .init(effect: UIBlurEffect(style: .light))
+        blurEffectView.adjustBlurType()
+        //blurEffectView.effect = UIBlurEffect(style: .dark)
         blurEffectView.translatesAutoresizingMaskIntoConstraints = false
         blurEffectView.tag = 1010
-        blurEffectView.colorTint = .black
+        /*blurEffectView.colorTint = .yellow
         blurEffectView.colorTintAlpha = 0.48
         blurEffectView.blurRadius = 10
-        blurEffectView.scale = 1
+        blurEffectView.scale = 1*/
         view.addSubview(blurEffectView)
         view.bringSubviewToFront(blurEffectView)
         

@@ -11,6 +11,7 @@ import UIKit
 class BlurHoleCorners: UIView {
 
     @IBOutlet var contentView:UIView!
+    var reverseCorners:Bool = false
     
     // Mark:- Init methods
     override init(frame: CGRect) {
