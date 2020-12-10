@@ -8,6 +8,7 @@
 
 import TapThemeManager2020
 import SimpleAnimation
+import LocalisationManagerKit_iOS
 
 /// Represents Tap representation of Chip horizontal list view
 @objc public class TapChipHorizontalList: UIView {
@@ -118,6 +119,9 @@ import SimpleAnimation
         var delay = 2500
         if #available(iOS 13, *) {
             delay = 500
+        }
+        if TapLocalisationManager.shared.localisationLocale ?? "en" == "ar" {
+            delay = 2500
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(delay)) {
             self.collectionView.layoutIfNeeded()
