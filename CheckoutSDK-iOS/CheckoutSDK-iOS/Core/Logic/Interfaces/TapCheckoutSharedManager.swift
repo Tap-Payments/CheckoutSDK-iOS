@@ -108,6 +108,9 @@ internal class TapCheckoutSharedManager {
     /// Decides which destination(s) this transaction's amount should split to. Please check [Destination](x-source-tag://Destination)
     var destinations: [Destination]?
     
+    /// Merchant ID. Optional. Useful when you have multiple Tap accounts and would like to do the `switch` on the fly within the single app.
+    var tapMerchantID:String?
+    
     // MARK:- RxSwift Variables
     /// Represents an observer function to perform when setting the original transaction currency stated by the merchant on checkout start
     var transactionCurrencyObserver:(TapCurrencyCode)->() = { _ in } {
