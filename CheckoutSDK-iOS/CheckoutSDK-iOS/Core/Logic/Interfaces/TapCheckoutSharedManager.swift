@@ -27,10 +27,14 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
 /// Represents a global accessable common data gathered by the merchant when loading the checkout sdk like amount, currency, etc
 internal class TapCheckoutSharedManager {
     
-    // MARK:- Normal Swift Variables
+    
     /// A protocol to comminicate between the UIManager and the data manager
     var UIDelegate:TapCheckoutSharedManagerUIDelegate?
-
+    /// Represents a global accessable common data gathered by the merchant when loading the checkout sdk like amount, currency, etc
+    private static var privateShared : TapCheckoutSharedManager?
+    
+    // MARK:- View Models Variables
+    
     /// Rerpesents the view model that controls the Merchant header section view
     var tapMerchantViewModel:TapMerchantHeaderViewModel = .init()
     /// Rerpesents the view model that controls the Amount section view
@@ -66,11 +70,17 @@ internal class TapCheckoutSharedManager {
             parseIntentResponse()
         }
     }
+    
+    // MARK:- UI Related Variables
+    
     /// Represents the required style of the sheet close button
     var closeButtonStyle:CheckoutCloseButtonEnum = .title
     
     /// Represents the drag handler to be shown or not
     var showDragHandler:Bool = false
+    
+    
+    // MARK:- Transaction Configuration Variables
     
     /// Represents The allowed payment types inclyding cards, apple pay, web and telecom
     var paymentTypes:[TapPaymentType] = [.All]
@@ -89,11 +99,14 @@ internal class TapCheckoutSharedManager {
             updateGatewayChipsList()
         }
     }
-    /// Represents a global accessable common data gathered by the merchant when loading the checkout sdk like amount, currency, etc
-    private static var privateShared : TapCheckoutSharedManager?
+    /// Which transaction mode will be used in this call. Purchase, Authorization, Card Saving and Toknization. Please check [TransactionMode](x-source-tag://TransactionModeEnum)
+    var transactionMode:TransactionMode = .purchase
+    
+     /// Decides which customer is performing this transaction. It will help you as a merchant to define the payer afterwards. Please check [TapCustomer](x-source-tag://TapCustomer)
+    var customer:TapCustomer = TapCustomer.defaultCustomer()
     
     // MARK:- RxSwift Variables
-    /// Represents the original transaction currency stated by the merchant on checkout start
+    /// Represents an observer function to perform when setting the original transaction currency stated by the merchant on checkout start
     var transactionCurrencyObserver:(TapCurrencyCode)->() = { _ in } {
         didSet{
             transactionCurrencyObserver(transactionCurrencyValue)
@@ -110,7 +123,7 @@ internal class TapCheckoutSharedManager {
             }
         }
     }
-    /// Represents the transaction currency selected by the user
+    /// Represents an observer function to perform when setting the transaction currency selected by the user
     var transactionUserCurrencyObserver:(TapCurrencyCode)->() = { _ in } {
         didSet{
             transactionUserCurrencyObserver(transactionCurrencyValue)
@@ -343,4 +356,9 @@ internal class TapCheckoutSharedManager {
         // Load the goPayLogin status
         loggedInToGoPay = UserDefaults.standard.bool(forKey: TapCheckoutConstants.GoPayLoginUserDefaultsKey)
     }
+}
+
+
+extension TapCheckoutSharedManager {
+    
 }

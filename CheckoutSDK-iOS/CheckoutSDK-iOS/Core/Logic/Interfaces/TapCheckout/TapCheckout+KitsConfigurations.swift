@@ -68,8 +68,10 @@ internal extension TapCheckout {
      - Parameter paymentTypes: The allowed payment types inclyding cards, apple pay, web and telecom
      - Parameter closeButtonStyle: Defines the required style of the sheet close button
      - Parameter showDragHandler: Decide to show the drag handler or not
+     - Parameter transactionMode: Decide which transaction mode will be used in this call. Purchase, Authorization, Card Saving and Toknization. Please check [TransactionMode](x-source-tag://TransactionModeEnum)
+     - Parameter customer: Decides which customer is performing this transaction. It will help you as a merchant to define the payer afterwards. Please check [TapCustomer](x-source-tag://TapCustomer)
      */
-    func configureSharedManager(currency:TapCurrencyCode, amount:Double,items:[ItemModel],applePayMerchantID:String = "merchant.tap.gosell",intentModel:TapIntentResponseModel,swipeDownToDismiss:Bool = false,paymentTypes:[TapPaymentType], closeButtonStyle:CheckoutCloseButtonEnum = .title,showDragHandler:Bool = false) {
+    func configureSharedManager(currency:TapCurrencyCode, amount:Double,items:[ItemModel],applePayMerchantID:String = "merchant.tap.gosell",intentModel:TapIntentResponseModel,swipeDownToDismiss:Bool = false,paymentTypes:[TapPaymentType], closeButtonStyle:CheckoutCloseButtonEnum = .title,showDragHandler:Bool = false, transactionMode: TransactionMode, customer: TapCustomer) {
         let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
         sharedManager.transactionCurrencyValue = currency
         sharedManager.applePayMerchantID = applePayMerchantID
@@ -78,12 +80,14 @@ internal extension TapCheckout {
         sharedManager.intentModelResponse = intentModel
         sharedManager.closeButtonStyle = closeButtonStyle
         sharedManager.showDragHandler = showDragHandler
+        sharedManager.transactionMode = transactionMode
+        sharedManager.customer = customer
         
         // a variable used to hold the correct amount, which will be the passed amount in case no items or the total items' prices when items are passed
         var finalAmount:Double = amount
         // if items has no items, we need to add the default items
         if items == [] {
-            sharedManager.transactionItemsValue = [ItemModel.init(title: "PAY TO TAP PAYMENTS",description: "Total paid amount", price: amount, quantity: 1,discount: nil)]
+            sharedManager.transactionItemsValue = [ItemModel.init(title: "PAY TO TAP PAYMENTS",description: "Total paid amount", price: amount, quantity: 1,discount: nil,totalAmount: 0)]
         }else {
             sharedManager.transactionItemsValue = items
             finalAmount = items.totalItemsPrices()

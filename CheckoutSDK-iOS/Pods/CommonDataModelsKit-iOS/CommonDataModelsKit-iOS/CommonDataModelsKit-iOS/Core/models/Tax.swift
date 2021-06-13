@@ -1,11 +1,13 @@
 //
 //  Tax.swift
-//  goSellSDK
+//  CommonDataModelsKit-iOS
 //
-//  Copyright © 2019 Tap Payments. All rights reserved.
+//  Created by Osama Rabie on 6/13/21.
+//  Copyright © 2021 Tap Payments. All rights reserved.
 //
 
-/// Tax data model.
+import Foundation
+/// Tax data model to be added to the payment items
 @objcMembers public final class Tax: NSObject, Codable {
     
     // MARK: - Public -
@@ -17,8 +19,8 @@
     /// Tax description.
     public var descriptionText: String?
     
-    /// Tax amount.
-    public var amount: AmountModificator
+    /// Tax amount and type whether fixed or percentage
+    public var amount: AmountModificatorModel
     
     // MARK: Methods
     
@@ -27,7 +29,7 @@
     /// - Parameters:
     ///   - title: Tax title.
     ///   - amount: Tax amount.
-    public convenience init(title: String, amount: AmountModificator) {
+    public convenience init(title: String, amount: AmountModificatorModel) {
         
         self.init(title: title, descriptionText: nil, amount: amount)
     }
@@ -38,7 +40,7 @@
     ///   - title: Tax title.
     ///   - descriptionText: Tax description.
     ///   - amount: Tax amount.
-    public required init(title: String, descriptionText: String?, amount: AmountModificator) {
+    public required init(title: String, descriptionText: String?, amount: AmountModificatorModel) {
         
         self.title = title
         self.amount = amount
@@ -66,7 +68,7 @@ extension Tax: NSCopying {
     /// - Returns: Copy of the receiver.
     public func copy(with zone: NSZone? = nil) -> Any {
         
-        let amountCopy = self.amount.copy() as! AmountModificator
+        let amountCopy = self.amount.copy() as! AmountModificatorModel
         
         return Tax(title: self.title, descriptionText: self.descriptionText, amount: amountCopy)
     }

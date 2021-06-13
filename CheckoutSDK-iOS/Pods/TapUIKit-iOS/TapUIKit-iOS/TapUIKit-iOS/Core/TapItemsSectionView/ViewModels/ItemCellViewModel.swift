@@ -6,10 +6,7 @@
 //  Copyright © 2020 Tap Payments. All rights reserved.
 //
 
-import class CommonDataModelsKit_iOS.TapAmountedCurrencyFormatter
-import enum CommonDataModelsKit_iOS.CurrencyLocale
-import enum CommonDataModelsKit_iOS.TapCurrencyCode
-import class CommonDataModelsKit_iOS.TapCommonConstants
+import CommonDataModelsKit_iOS
 import class LocalisationManagerKit_iOS.TapLocalisationManager
 
 import class UIKit.UIColor
