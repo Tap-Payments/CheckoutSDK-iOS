@@ -80,8 +80,9 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter closeButtonStyle: Defines the required style of the sheet close button
      - Parameter showDragHandler: Decide to show the drag handler or not
      - Parameter transactionMode: Decide which transaction mode will be used in this call. Purchase, Authorization, Card Saving and Toknization. Please check [TransactionMode](x-source-tag://TransactionModeEnum)
+     - Parameter customer: Decides which customer is performing this transaction. It will help you as a merchant to define the payer afterwards. Please check [TapCustomer](x-source-tag://TapCustomer)
      */
-    public func build(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil,currency:TapCurrencyCode = .USD,amount:Double = 1,items:[ItemModel] = [],applePayMerchantID:String = "merchant.tap.gosell",swipeDownToDismiss:Bool = true, paymentTypes:[TapPaymentType] = [.All],closeButtonStyle:CheckoutCloseButtonEnum = .title,showDragHandler:Bool = false,transactionMode: TransactionMode = .purchase, onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}){
+    public func build(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil,currency:TapCurrencyCode = .USD,amount:Double = 1,items:[ItemModel] = [],applePayMerchantID:String = "merchant.tap.gosell",swipeDownToDismiss:Bool = true, paymentTypes:[TapPaymentType] = [.All],closeButtonStyle:CheckoutCloseButtonEnum = .title,showDragHandler:Bool = false,transactionMode: TransactionMode = .purchase, customer: TapCustomer = try! .init(emailAddress: TapEmailAddress(emailAddressString: "taptestingemail@gmail.com"), phoneNumber: nil, name: "Tap Testing Default"), onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}){
         TapCheckoutSharedManager.destroy()
         tapCheckoutScreenDelegate = delegate
         configureLocalisationManager(localiseFile: localiseFile)
@@ -111,10 +112,11 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter closeButtonStyle: Defines the required style of the sheet close button
      - Parameter showDragHandler: Decide to show the drag handler or not
      - Parameter transactionMode: Decide which transaction mode will be used in this call. Purchase, Authorization, Card Saving and Toknization. Please check [TransactionMode](x-source-tag://TransactionModeEnum)
+     - Parameter customer: Decides which customer is performing this transaction. It will help you as a merchant to define the payer afterwards. Please check [TapCustomer](x-source-tag://TapCustomer)
      */
-    @objc public func buildCheckout(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil,currency:TapCurrencyCode = .USD,amount:Double = 1,items:[ItemModel] = [],applePayMerchantID:String = "merchant.tap.gosell",swipeDownToDismiss:Bool = false, paymentTypes:[Int] = [TapPaymentType.All.rawValue], closeButtonStyle:CheckoutCloseButtonEnum = .title,showDragHandler:Bool = false, transactionMode:TransactionMode = .purchase, onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
+    @objc public func buildCheckout(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil,currency:TapCurrencyCode = .USD,amount:Double = 1,items:[ItemModel] = [],applePayMerchantID:String = "merchant.tap.gosell",swipeDownToDismiss:Bool = false, paymentTypes:[Int] = [TapPaymentType.All.rawValue], closeButtonStyle:CheckoutCloseButtonEnum = .title,showDragHandler:Bool = false, transactionMode:TransactionMode = .purchase,customer: TapCustomer = try! .init(emailAddress: TapEmailAddress(emailAddressString: "taptestingemail@gmail.com"), phoneNumber: nil, name: "Tap Testing Default"), onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
         
-        self.build(localiseFile: localiseFile, customTheme: customTheme, delegate: delegate, currency: currency, amount: amount, items: items, applePayMerchantID: applePayMerchantID, swipeDownToDismiss: swipeDownToDismiss, paymentTypes: paymentTypes.map{ TapPaymentType.init(rawValue: $0)! },closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler, transactionMode:transactionMode, onCheckOutReady: onCheckOutReady)
+        self.build(localiseFile: localiseFile, customTheme: customTheme, delegate: delegate, currency: currency, amount: amount, items: items, applePayMerchantID: applePayMerchantID, swipeDownToDismiss: swipeDownToDismiss, paymentTypes: paymentTypes.map{ TapPaymentType.init(rawValue: $0)! },closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler, transactionMode:transactionMode, customer: customer, onCheckOutReady: onCheckOutReady)
     }
     
     

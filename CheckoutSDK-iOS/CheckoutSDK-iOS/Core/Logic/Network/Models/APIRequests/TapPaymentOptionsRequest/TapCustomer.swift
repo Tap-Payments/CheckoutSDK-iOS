@@ -71,6 +71,16 @@ import TapUIKit_iOS
     
     // MARK: Methods
     
+    
+    /**
+     Used internally to create a default testing customer.
+     - Returns: A default tap customer for testing with the email of "taptestingemail@gmail.com"
+     */
+    internal static func defaultCustomer() -> TapCustomer {
+        return try! .init(emailAddress: TapEmailAddress(emailAddressString: "taptestingemail@gmail.com"), phoneNumber: nil, name: "Tap Testing Default")
+    }
+    
+    
     /// Initializes the customer with email address, phone number and a name.
     ///
     /// - Parameters:
