@@ -62,7 +62,7 @@
 		E8C58B4424E54AF400E1F04F /* GreenLightTheme.json in Resources */ = {isa = PBXBuildFile; fileRef = E8C58B4224E54AF400E1F04F /* GreenLightTheme.json */; };
 		E8EDD34725612A1200AFC0B3 /* TapPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD34625612A1200AFC0B3 /* TapPhone.swift */; };
 		E8EDD34A25612A3C00AFC0B3 /* TapIntentRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD34925612A3C00AFC0B3 /* TapIntentRequestModel.swift */; };
-		E8EDD34D25612B6600AFC0B3 /* TapCustomerMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD34C25612B6600AFC0B3 /* TapCustomerMetaData.swift */; };
+		E8EDD34D25612B6600AFC0B3 /* TapMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD34C25612B6600AFC0B3 /* TapMetaData.swift */; };
 		E8EDD35025612BCD00AFC0B3 /* TapCustomer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD34F25612BCD00AFC0B3 /* TapCustomer.swift */; };
 		E8EDD35325613FAB00AFC0B3 /* OptionallyIdentifiableWithString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD35225613FAB00AFC0B3 /* OptionallyIdentifiableWithString.swift */; };
 		E8EDD3562561414F00AFC0B3 /* ErrorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD3552561414F00AFC0B3 /* ErrorConstants.swift */; };
@@ -176,7 +176,7 @@
 		E8C58B4224E54AF400E1F04F /* GreenLightTheme.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GreenLightTheme.json; sourceTree = "<group>"; };
 		E8EDD34625612A1200AFC0B3 /* TapPhone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapPhone.swift; sourceTree = "<group>"; };
 		E8EDD34925612A3C00AFC0B3 /* TapIntentRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapIntentRequestModel.swift; sourceTree = "<group>"; };
-		E8EDD34C25612B6600AFC0B3 /* TapCustomerMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCustomerMetaData.swift; sourceTree = "<group>"; };
+		E8EDD34C25612B6600AFC0B3 /* TapMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapMetaData.swift; sourceTree = "<group>"; };
 		E8EDD34F25612BCD00AFC0B3 /* TapCustomer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCustomer.swift; sourceTree = "<group>"; };
 		E8EDD35225613FAB00AFC0B3 /* OptionallyIdentifiableWithString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionallyIdentifiableWithString.swift; sourceTree = "<group>"; };
 		E8EDD3552561414F00AFC0B3 /* ErrorConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorConstants.swift; sourceTree = "<group>"; };
@@ -403,6 +403,27 @@
 			path = private;
 			sourceTree = "<group>";
 		};
+		E8844B9D2675E93F0073D777 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E8844B9E2675E9E40073D777 /* TapPaymentOptionsRequest */ = {
+			isa = PBXGroup;
+			children = (
+				E8EDD34625612A1200AFC0B3 /* TapPhone.swift */,
+				E8EDD34C25612B6600AFC0B3 /* TapMetaData.swift */,
+				E8EDD34F25612BCD00AFC0B3 /* TapCustomer.swift */,
+				E8EDD3B12561498700AFC0B3 /* AmountModificator.swift */,
+				E8EDD3B4256149C400AFC0B3 /* Tax.swift */,
+				E8EDD3B725614AAB00AFC0B3 /* PaymentItem.swift */,
+				E8EDD35225613FAB00AFC0B3 /* OptionallyIdentifiableWithString.swift */,
+			);
+			path = TapPaymentOptionsRequest;
+			sourceTree = "<group>";
+		};
 		E8845E7324D84596009E8B73 /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -415,6 +436,7 @@
 		E8845E7424D8459E009E8B73 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				E8844B9D2675E93F0073D777 /* Models */,
 				E8C2052424E3FDCC006653CA /* Enums */,
 				62CF141824EE8F040036015C /* Network */,
 				E80F426C24DFFB64001A9E8D /* Controllers */,
@@ -483,19 +505,12 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		E8EDD34525612A0000AFC0B3 /* TapIntentRequest */ = {
+		E8EDD34525612A0000AFC0B3 /* TapInitRequest */ = {
 			isa = PBXGroup;
 			children = (
-				E8EDD34625612A1200AFC0B3 /* TapPhone.swift */,
 				E8EDD34925612A3C00AFC0B3 /* TapIntentRequestModel.swift */,
-				E8EDD34C25612B6600AFC0B3 /* TapCustomerMetaData.swift */,
-				E8EDD34F25612BCD00AFC0B3 /* TapCustomer.swift */,
-				E8EDD35225613FAB00AFC0B3 /* OptionallyIdentifiableWithString.swift */,
-				E8EDD3B12561498700AFC0B3 /* AmountModificator.swift */,
-				E8EDD3B4256149C400AFC0B3 /* Tax.swift */,
-				E8EDD3B725614AAB00AFC0B3 /* PaymentItem.swift */,
 			);
-			path = TapIntentRequest;
+			path = TapInitRequest;
 			sourceTree = "<group>";
 		};
 		E8EDD3582561419B00AFC0B3 /* SharedModels */ = {
@@ -528,7 +543,8 @@
 		E8EDD3BA256158C700AFC0B3 /* APIRequests */ = {
 			isa = PBXGroup;
 			children = (
-				E8EDD34525612A0000AFC0B3 /* TapIntentRequest */,
+				E8844B9E2675E9E40073D777 /* TapPaymentOptionsRequest */,
+				E8EDD34525612A0000AFC0B3 /* TapInitRequest */,
 			);
 			path = APIRequests;
 			sourceTree = "<group>";
@@ -744,7 +760,7 @@
 				E8EDD377256142A100AFC0B3 /* ErrorCode.swift in Sources */,
 				E8EDD34A25612A3C00AFC0B3 /* TapIntentRequestModel.swift in Sources */,
 				E8C2052624E3FEFA006653CA /* TapCheckoutFlipStatus.swift in Sources */,
-				E8EDD34D25612B6600AFC0B3 /* TapCustomerMetaData.swift in Sources */,
+				E8EDD34D25612B6600AFC0B3 /* TapMetaData.swift in Sources */,
 				E8845E7C24D851FF009E8B73 /* TapCheckoutBlurView.swift in Sources */,
 				E8EDD35A256141B400AFC0B3 /* TapSDKError.swift in Sources */,
 				E8EDD3AF2561495400AFC0B3 /* AmountModificatorType.swift in Sources */,
