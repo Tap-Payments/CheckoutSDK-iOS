@@ -79,8 +79,9 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter paymentTypes: The allowed payment types inclyding cards, apple pay, web and telecom
      - Parameter closeButtonStyle: Defines the required style of the sheet close button
      - Parameter showDragHandler: Decide to show the drag handler or not
+     - Parameter transactionMode: Decide which transaction mode will be used in this call. Purchase, Authorization, Card Saving and Toknization. Please check [TransactionMode](x-source-tag://TransactionModeEnum)
      */
-    public func build(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil,currency:TapCurrencyCode = .USD,amount:Double = 1,items:[ItemModel] = [],applePayMerchantID:String = "merchant.tap.gosell",swipeDownToDismiss:Bool = true, paymentTypes:[TapPaymentType] = [.All],closeButtonStyle:CheckoutCloseButtonEnum = .title,showDragHandler:Bool = false, onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}){
+    public func build(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil,currency:TapCurrencyCode = .USD,amount:Double = 1,items:[ItemModel] = [],applePayMerchantID:String = "merchant.tap.gosell",swipeDownToDismiss:Bool = true, paymentTypes:[TapPaymentType] = [.All],closeButtonStyle:CheckoutCloseButtonEnum = .title,showDragHandler:Bool = false,transactionMode: TransactionMode = .purchase, onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}){
         TapCheckoutSharedManager.destroy()
         tapCheckoutScreenDelegate = delegate
         configureLocalisationManager(localiseFile: localiseFile)
@@ -109,10 +110,11 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter paymentTypes: The allowed payment types inclyding cards, apple pay, web and telecom
      - Parameter closeButtonStyle: Defines the required style of the sheet close button
      - Parameter showDragHandler: Decide to show the drag handler or not
+     - Parameter transactionMode: Decide which transaction mode will be used in this call. Purchase, Authorization, Card Saving and Toknization. Please check [TransactionMode](x-source-tag://TransactionModeEnum)
      */
-    @objc public func buildCheckout(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil,currency:TapCurrencyCode = .USD,amount:Double = 1,items:[ItemModel] = [],applePayMerchantID:String = "merchant.tap.gosell",swipeDownToDismiss:Bool = false, paymentTypes:[Int] = [TapPaymentType.All.rawValue], closeButtonStyle:CheckoutCloseButtonEnum = .title,showDragHandler:Bool = false,onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
+    @objc public func buildCheckout(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil,currency:TapCurrencyCode = .USD,amount:Double = 1,items:[ItemModel] = [],applePayMerchantID:String = "merchant.tap.gosell",swipeDownToDismiss:Bool = false, paymentTypes:[Int] = [TapPaymentType.All.rawValue], closeButtonStyle:CheckoutCloseButtonEnum = .title,showDragHandler:Bool = false, transactionMode:TransactionMode = .purchase, onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
         
-        self.build(localiseFile: localiseFile, customTheme: customTheme, delegate: delegate, currency: currency, amount: amount, items: items, applePayMerchantID: applePayMerchantID, swipeDownToDismiss: swipeDownToDismiss, paymentTypes: paymentTypes.map{ TapPaymentType.init(rawValue: $0)! },closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler, onCheckOutReady: onCheckOutReady)
+        self.build(localiseFile: localiseFile, customTheme: customTheme, delegate: delegate, currency: currency, amount: amount, items: items, applePayMerchantID: applePayMerchantID, swipeDownToDismiss: swipeDownToDismiss, paymentTypes: paymentTypes.map{ TapPaymentType.init(rawValue: $0)! },closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler, transactionMode:transactionMode, onCheckOutReady: onCheckOutReady)
     }
     
     
