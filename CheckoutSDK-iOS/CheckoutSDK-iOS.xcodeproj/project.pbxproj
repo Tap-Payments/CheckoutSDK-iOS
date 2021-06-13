@@ -42,6 +42,7 @@
 		E8811AF124D4287500DE95D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E8811AF024D4287500DE95D1 /* Assets.xcassets */; };
 		E8811AF424D4287500DE95D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8811AF224D4287500DE95D1 /* LaunchScreen.storyboard */; };
 		E8844B822675E33F0073D777 /* TransactionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844B812675E33F0073D777 /* TransactionMode.swift */; };
+		E8844BA02675EAC90073D777 /* TapEmailAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844B9F2675EAC90073D777 /* TapEmailAddress.swift */; };
 		E8845E6A24D835B1009E8B73 /* CheckoutSDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8811AD624D4283C00DE95D1 /* CheckoutSDK_iOS.framework */; };
 		E8845E6B24D835B1009E8B73 /* CheckoutSDK_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E8811AD624D4283C00DE95D1 /* CheckoutSDK_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E8845E7024D83D7B009E8B73 /* TapCheckout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8845E6F24D83D7B009E8B73 /* TapCheckout.swift */; };
@@ -159,6 +160,7 @@
 		E8811AF324D4287500DE95D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E8811AF524D4287500DE95D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E8844B812675E33F0073D777 /* TransactionMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionMode.swift; sourceTree = "<group>"; };
+		E8844B9F2675EAC90073D777 /* TapEmailAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapEmailAddress.swift; sourceTree = "<group>"; };
 		E8845E6F24D83D7B009E8B73 /* TapCheckout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckout.swift; sourceTree = "<group>"; };
 		E8845E7124D83FA3009E8B73 /* TapBottomCheckoutControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapBottomCheckoutControllerViewController.swift; sourceTree = "<group>"; };
 		E8845E7824D851E2009E8B73 /* TapCheckoutBlurView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TapCheckoutBlurView.xib; sourceTree = "<group>"; };
@@ -420,6 +422,7 @@
 				E8EDD3B4256149C400AFC0B3 /* Tax.swift */,
 				E8EDD3B725614AAB00AFC0B3 /* PaymentItem.swift */,
 				E8EDD35225613FAB00AFC0B3 /* OptionallyIdentifiableWithString.swift */,
+				E8844B9F2675EAC90073D777 /* TapEmailAddress.swift */,
 			);
 			path = TapPaymentOptionsRequest;
 			sourceTree = "<group>";
@@ -749,6 +752,7 @@
 				E825DD5924E938DB0074BF54 /* TapCheckoutSharedManager.swift in Sources */,
 				E8EDD366256141DB00AFC0B3 /* ErrorDetail.swift in Sources */,
 				E8EDD34725612A1200AFC0B3 /* TapPhone.swift in Sources */,
+				E8844BA02675EAC90073D777 /* TapEmailAddress.swift in Sources */,
 				E830B7F724FA3BF100B62713 /* TapCheckoutSharedManager+UIKitDelegates.swift in Sources */,
 				E8EDD35325613FAB00AFC0B3 /* OptionallyIdentifiableWithString.swift in Sources */,
 				E830B7FC24FA430800B62713 /* TapGoPayLoginResponseModel.swift in Sources */,

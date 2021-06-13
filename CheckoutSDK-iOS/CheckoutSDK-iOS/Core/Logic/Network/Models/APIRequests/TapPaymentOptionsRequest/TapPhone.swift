@@ -14,6 +14,7 @@ import Foundation
         "number": "00000000"
     }
  }
+ - tag: TapPhone
  */
 @objc public class TapPhone : NSObject,Codable {
   
