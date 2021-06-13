@@ -105,6 +105,9 @@ internal class TapCheckoutSharedManager {
      /// Decides which customer is performing this transaction. It will help you as a merchant to define the payer afterwards. Please check [TapCustomer](x-source-tag://TapCustomer)
     var customer:TapCustomer = TapCustomer.defaultCustomer()
     
+    /// Decides which destination(s) this transaction's amount should split to. Please check [Destination](x-source-tag://Destination)
+    var destinations: [Destination]?
+    
     // MARK:- RxSwift Variables
     /// Represents an observer function to perform when setting the original transaction currency stated by the merchant on checkout start
     var transactionCurrencyObserver:(TapCurrencyCode)->() = { _ in } {

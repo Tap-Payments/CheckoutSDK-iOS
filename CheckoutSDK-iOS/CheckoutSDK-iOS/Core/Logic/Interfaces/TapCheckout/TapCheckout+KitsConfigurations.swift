@@ -70,8 +70,9 @@ internal extension TapCheckout {
      - Parameter showDragHandler: Decide to show the drag handler or not
      - Parameter transactionMode: Decide which transaction mode will be used in this call. Purchase, Authorization, Card Saving and Toknization. Please check [TransactionMode](x-source-tag://TransactionModeEnum)
      - Parameter customer: Decides which customer is performing this transaction. It will help you as a merchant to define the payer afterwards. Please check [TapCustomer](x-source-tag://TapCustomer)
+     - Parameter destinations: Decides which destination(s) this transaction's amount should split to. Please check [Destination](x-source-tag://Destination)
      */
-    func configureSharedManager(currency:TapCurrencyCode, amount:Double,items:[ItemModel],applePayMerchantID:String = "merchant.tap.gosell",intentModel:TapIntentResponseModel,swipeDownToDismiss:Bool = false,paymentTypes:[TapPaymentType], closeButtonStyle:CheckoutCloseButtonEnum = .title,showDragHandler:Bool = false, transactionMode: TransactionMode, customer: TapCustomer) {
+    func configureSharedManager(currency:TapCurrencyCode, amount:Double,items:[ItemModel],applePayMerchantID:String = "merchant.tap.gosell",intentModel:TapIntentResponseModel,swipeDownToDismiss:Bool = false,paymentTypes:[TapPaymentType], closeButtonStyle:CheckoutCloseButtonEnum = .title,showDragHandler:Bool = false, transactionMode: TransactionMode, customer: TapCustomer, destinations: [Destination]?) {
         let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
         sharedManager.transactionCurrencyValue = currency
         sharedManager.applePayMerchantID = applePayMerchantID
@@ -82,7 +83,7 @@ internal extension TapCheckout {
         sharedManager.showDragHandler = showDragHandler
         sharedManager.transactionMode = transactionMode
         sharedManager.customer = customer
-        
+        sharedManager.destinations = destinations
         // a variable used to hold the correct amount, which will be the passed amount in case no items or the total items' prices when items are passed
         var finalAmount:Double = amount
         // if items has no items, we need to add the default items
