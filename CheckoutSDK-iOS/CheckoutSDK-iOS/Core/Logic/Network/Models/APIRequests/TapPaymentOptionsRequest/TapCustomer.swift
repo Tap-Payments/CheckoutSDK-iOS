@@ -39,10 +39,10 @@ import TapUIKit_iOS
     /// Customer identifier (if you know it).
     public var identifier: String?
     
-    /// Customer's email address.
+    /// Customer's email address. Please check [TapEmailAddress](x-source-tag://TapEmailAddress)
     public var emailAddress: TapEmailAddress?
     
-    /// Customer's phone number.
+    /// Customer's phone number. Please check [TapPhone](x-source-tag://TapPhone)
     public var phoneNumber: TapPhone?
     
     /// Customer's first name.
@@ -57,7 +57,7 @@ import TapUIKit_iOS
     /// An arbitrary string attached to the object. Often useful for displaying to users.
     public var descriptionText: String?
     
-    /// Set of key/value pairs that you can attach to an object. It can be useful for storing additional information about the object in a structured format.
+    /// Set of key/value pairs that you can attach to an object. It can be useful for storing additional information about the object in a structured format. Please check [TapMetadata](x-source-tag://TapMetadata)
     public var metadata: TapMetadata?
     
     /// Customer title.
@@ -74,8 +74,8 @@ import TapUIKit_iOS
     /// Initializes the customer with email address, phone number and a name.
     ///
     /// - Parameters:
-    ///   - emailAddress: Email address.
-    ///   - phoneNumber: Phone number.
+    ///   - emailAddress: Email address. Please check [TapEmailAddress](x-source-tag://TapEmailAddress)
+    ///   - phoneNumber: Phone number. Please check [TapPhone](x-source-tag://TapPhone)
     ///   - name: Name.
     /// - Throws: Invalid customer info error.
     public convenience init(emailAddress: TapEmailAddress?, phoneNumber: TapPhone?, name: String) throws {
@@ -85,8 +85,8 @@ import TapUIKit_iOS
     /// Initializes the customer with email address, phone number and a name.
     ///
     /// - Parameters:
-    ///   - emailAddress: Email address.
-    ///   - phoneNumber: Phone number.
+    ///   - emailAddress: Email address. Please check [TapEmailAddress](x-source-tag://TapEmailAddress)
+    ///   - phoneNumber: Phone number. Please check [TapPhone](x-source-tag://TapPhone)
     ///   - name: Name.
     /// - Warning: This method returns `nil` if you pass invalid customer data.
     @available(swift, obsoleted: 1.0)
@@ -99,8 +99,8 @@ import TapUIKit_iOS
     /// Initializes the customer with email address, phone number, first name, middle name and last name.
     ///
     /// - Parameters:
-    ///   - emailAddress: Email address.
-    ///   - phoneNumber: Phone number.
+    ///   - emailAddress: Email address. Please check [TapEmailAddress](x-source-tag://TapEmailAddress)
+    ///   - phoneNumber: Phone number. Please check [TapPhone](x-source-tag://TapPhone)
     ///   - firstName: First name.
     ///   - middleName: Middle name.
     ///   - lastName: Last name.
@@ -115,8 +115,8 @@ import TapUIKit_iOS
     /// Initializes the customer with email address, phone number, first name, middle name and last name.
     ///
     /// - Parameters:
-    ///   - emailAddress: Email address.
-    ///   - phoneNumber: Phone number.
+    ///   - emailAddress: Email address. Please check [TapEmailAddress](x-source-tag://TapEmailAddress)
+    ///   - phoneNumber: Phone number. Please check [TapPhone](x-source-tag://TapPhone)
     ///   - firstName: First name.
     ///   - middleName: Middle name.
     ///   - lastName: Last name.
