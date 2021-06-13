@@ -111,6 +111,12 @@ internal class TapCheckoutSharedManager {
     /// Merchant ID. Optional. Useful when you have multiple Tap accounts and would like to do the `switch` on the fly within the single app.
     var tapMerchantID:String?
     
+    /// Optional. List of Taxes you want to apply to the order if any.
+    var taxes:[Tax] = []
+    
+    /// Optional. List of Shipping you want to apply to the order if any.
+    var shipping:[Shipping] = []
+    
     // MARK:- RxSwift Variables
     /// Represents an observer function to perform when setting the original transaction currency stated by the merchant on checkout start
     var transactionCurrencyObserver:(TapCurrencyCode)->() = { _ in } {

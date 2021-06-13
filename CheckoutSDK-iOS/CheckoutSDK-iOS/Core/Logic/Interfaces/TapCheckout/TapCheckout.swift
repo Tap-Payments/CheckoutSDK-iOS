@@ -83,8 +83,29 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter customer: Decides which customer is performing this transaction. It will help you as a merchant to define the payer afterwards. Please check [TapCustomer](x-source-tag://TapCustomer)
      - Parameter destinations: Decides which destination(s) this transaction's amount should split to. Please check [Destination](x-source-tag://Destination)
      - Parameter tapMerchantID: Optional. Useful when you have multiple Tap accounts and would like to do the `switch` on the fly within the single app.
+     - Parameter taxes: Optional. List of Taxes you want to apply to the order if any.
+     - Parameter shipping: Optional. List of Shipping you want to apply to the order if any.
      */
-    public func build(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil,currency:TapCurrencyCode = .USD,amount:Double = 1,items:[ItemModel] = [],applePayMerchantID:String = "merchant.tap.gosell",swipeDownToDismiss:Bool = true, paymentTypes:[TapPaymentType] = [.All],closeButtonStyle:CheckoutCloseButtonEnum = .title,showDragHandler:Bool = false,transactionMode: TransactionMode = .purchase, customer: TapCustomer = try! .init(emailAddress: TapEmailAddress(emailAddressString: "taptestingemail@gmail.com"), phoneNumber: nil, name: "Tap Testing Default"),destinations: [Destination]? = nil, tapMerchantID: String? = nil, onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}){
+    public func build(
+        localiseFile:String? = nil,
+        customTheme:TapCheckOutTheme? = nil,
+        delegate: CheckoutScreenDelegate? = nil,
+        currency:TapCurrencyCode = .USD,
+        amount:Double = 1,
+        items:[ItemModel] = [],
+        applePayMerchantID:String = "merchant.tap.gosell",
+        swipeDownToDismiss:Bool = true,
+        paymentTypes:[TapPaymentType] = [.All],
+        closeButtonStyle:CheckoutCloseButtonEnum = .title,
+        showDragHandler:Bool = false,
+        transactionMode: TransactionMode = .purchase,
+        customer: TapCustomer = try! .init(emailAddress: TapEmailAddress(emailAddressString: "taptestingemail@gmail.com"), phoneNumber: nil, name: "Tap Testing Default"),
+        destinations: [Destination]? = nil,
+        tapMerchantID: String? = nil,
+        taxes:[Tax] = [],
+        shipping:[Shipping] = [],
+        onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}){
+        
         TapCheckoutSharedManager.destroy()
         tapCheckoutScreenDelegate = delegate
         configureLocalisationManager(localiseFile: localiseFile)
@@ -118,7 +139,22 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter destinations: Decides which destination(s) this transaction's amount should split to. Please check [Destination](x-source-tag://Destination)
      - Parameter tapMerchantID: Optional. Useful when you have multiple Tap accounts and would like to do the `switch` on the fly within the single app.
      */
-    @objc public func buildCheckout(localiseFile:String? = nil,customTheme:TapCheckOutTheme? = nil,delegate: CheckoutScreenDelegate? = nil,currency:TapCurrencyCode = .USD,amount:Double = 1,items:[ItemModel] = [],applePayMerchantID:String = "merchant.tap.gosell",swipeDownToDismiss:Bool = false, paymentTypes:[Int] = [TapPaymentType.All.rawValue], closeButtonStyle:CheckoutCloseButtonEnum = .title,showDragHandler:Bool = false, transactionMode:TransactionMode = .purchase,customer: TapCustomer = try! .init(emailAddress: TapEmailAddress(emailAddressString: "taptestingemail@gmail.com"), phoneNumber: nil, name: "Tap Testing Default"),destinations: [Destination]?, tapMerchantID: String? = nil, onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
+    @objc public func buildCheckout(
+        localiseFile:String? = nil,
+        customTheme:TapCheckOutTheme? = nil,
+        delegate: CheckoutScreenDelegate? = nil,
+        currency:TapCurrencyCode = .USD,
+        amount:Double = 1,
+        items:[ItemModel] = [],
+        applePayMerchantID:String = "merchant.tap.gosell",
+        swipeDownToDismiss:Bool = true,
+        paymentTypes:[Int] = [TapPaymentType.All.rawValue],
+        closeButtonStyle:CheckoutCloseButtonEnum = .title,
+        showDragHandler:Bool = false,
+        transactionMode: TransactionMode = .purchase,
+        customer: TapCustomer = try! .init(emailAddress: TapEmailAddress(emailAddressString: "taptestingemail@gmail.com"), phoneNumber: nil, name: "Tap Testing Default"),
+        destinations: [Destination]? = nil,
+        tapMerchantID: String? = nil, onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
         
         self.build(localiseFile: localiseFile, customTheme: customTheme, delegate: delegate, currency: currency, amount: amount, items: items, applePayMerchantID: applePayMerchantID, swipeDownToDismiss: swipeDownToDismiss, paymentTypes: paymentTypes.map{ TapPaymentType.init(rawValue: $0)! },closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler, transactionMode:transactionMode, customer: customer, destinations: destinations,tapMerchantID: tapMerchantID, onCheckOutReady: onCheckOutReady)
     }

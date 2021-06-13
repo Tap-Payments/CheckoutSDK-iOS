@@ -72,8 +72,23 @@ internal extension TapCheckout {
      - Parameter customer: Decides which customer is performing this transaction. It will help you as a merchant to define the payer afterwards. Please check [TapCustomer](x-source-tag://TapCustomer)
      - Parameter destinations: Decides which destination(s) this transaction's amount should split to. Please check [Destination](x-source-tag://Destination)
      - Parameter tapMerchantID: Optional. Useful when you have multiple Tap accounts and would like to do the `switch` on the fly within the single app.
+     - Parameter taxes: Optional. List of Taxes you want to apply to the order if any.
+     - Parameter shipping: Optional. List of Shipping you want to apply to the order if any.
      */
-    func configureSharedManager(currency:TapCurrencyCode, amount:Double,items:[ItemModel],applePayMerchantID:String = "merchant.tap.gosell",intentModel:TapIntentResponseModel,swipeDownToDismiss:Bool = false,paymentTypes:[TapPaymentType], closeButtonStyle:CheckoutCloseButtonEnum = .title,showDragHandler:Bool = false, transactionMode: TransactionMode, customer: TapCustomer, destinations: [Destination]?, tapMerchantID: String? = nil) {
+    func configureSharedManager(currency:TapCurrencyCode,
+                                amount:Double,
+                                items:[ItemModel],applePayMerchantID:String = "merchant.tap.gosell",
+                                intentModel:TapIntentResponseModel,
+                                swipeDownToDismiss:Bool = false,
+                                paymentTypes:[TapPaymentType],
+                                closeButtonStyle:CheckoutCloseButtonEnum = .title,
+                                showDragHandler:Bool = false,
+                                transactionMode: TransactionMode,
+                                customer: TapCustomer,
+                                destinations: [Destination]?,
+                                tapMerchantID: String? = nil,
+                                taxes:[Tax] = [],
+                                shipping:[Shipping] = []) {
         let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
         sharedManager.transactionCurrencyValue = currency
         sharedManager.applePayMerchantID = applePayMerchantID
