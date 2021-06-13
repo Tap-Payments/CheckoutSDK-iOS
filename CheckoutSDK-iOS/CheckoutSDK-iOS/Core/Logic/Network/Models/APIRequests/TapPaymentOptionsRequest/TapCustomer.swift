@@ -29,6 +29,7 @@ import TapUIKit_iOS
  "currency": "KWD"
  }
  }
+ - tag: TapCustomer
  */
 @objcMembers public class TapCustomer : NSObject, Decodable, OptionallyIdentifiableWithString {
     
@@ -39,7 +40,7 @@ import TapUIKit_iOS
     public var identifier: String?
     
     /// Customer's email address.
-    public var emailAddress: String?
+    public var emailAddress: TapEmailAddress?
     
     /// Customer's phone number.
     public var phoneNumber: TapPhone?
@@ -57,7 +58,7 @@ import TapUIKit_iOS
     public var descriptionText: String?
     
     /// Set of key/value pairs that you can attach to an object. It can be useful for storing additional information about the object in a structured format.
-    public var metadata: TapCustomerMetaData?
+    public var metadata: TapMetadata?
     
     /// Customer title.
     public var title: String?
@@ -77,7 +78,7 @@ import TapUIKit_iOS
     ///   - phoneNumber: Phone number.
     ///   - name: Name.
     /// - Throws: Invalid customer info error.
-    public convenience init(emailAddress: String?, phoneNumber: TapPhone?, name: String) throws {
+    public convenience init(emailAddress: TapEmailAddress?, phoneNumber: TapPhone?, name: String) throws {
         try self.init(emailAddress: emailAddress, phoneNumber: phoneNumber, firstName: name, middleName: nil, lastName: nil)
     }
     
@@ -90,7 +91,7 @@ import TapUIKit_iOS
     /// - Warning: This method returns `nil` if you pass invalid customer data.
     @available(swift, obsoleted: 1.0)
     @objc(initWithEmailAddress:phoneNumber:name:)
-    public convenience init?(with emailAddress: String, phoneNumber: TapPhone, name: String) {
+    public convenience init?(with emailAddress: TapEmailAddress, phoneNumber: TapPhone, name: String) {
         
         try? self.init(emailAddress: emailAddress, phoneNumber: phoneNumber, name: name)
     }
@@ -104,7 +105,7 @@ import TapUIKit_iOS
     ///   - middleName: Middle name.
     ///   - lastName: Last name.
     /// - Throws: Invalid customer info error.
-    public convenience init(emailAddress: String?, phoneNumber: TapPhone?, firstName: String, middleName: String?, lastName: String?) throws {
+    public convenience init(emailAddress: TapEmailAddress?, phoneNumber: TapPhone?, firstName: String, middleName: String?, lastName: String?) throws {
         if emailAddress == nil && phoneNumber == nil {
             throw("A customer must have at least an email or a phone number")
         }
@@ -122,7 +123,7 @@ import TapUIKit_iOS
     /// - Warning: This method returns `nil` if you pass invalid customer data.
     @available(swift, obsoleted: 1.0)
     @objc(initWithEmailAddress:phoneNumber:firstName:middleName:lastName:)
-    public convenience init?(with emailAddress: String, phoneNumber: TapPhone, firstName: String, middleName: String?, lastName: String?) {
+    public convenience init?(with emailAddress: TapEmailAddress, phoneNumber: TapPhone, firstName: String, middleName: String?, lastName: String?) {
         
         try? self.init(emailAddress: emailAddress, phoneNumber: phoneNumber, firstName: firstName, middleName: middleName, lastName: lastName)
     }
@@ -219,7 +220,7 @@ import TapUIKit_iOS
     
     @available(*, unavailable) private override init() { super.init() }
     
-    private init(identifier: String?, emailAddress: String?, phoneNumber: TapPhone?, firstName: String?, middleName: String?, lastName: String?) throws {
+    private init(identifier: String?, emailAddress: TapEmailAddress?, phoneNumber: TapPhone?, firstName: String?, middleName: String?, lastName: String?) throws {
         
         self.identifier        = identifier
         self.emailAddress    = emailAddress
@@ -249,7 +250,7 @@ extension TapCustomer: NSCopying {
     /// - Returns: Copy of the receiver.
     public func copy(with zone: NSZone? = nil) -> Any {
         
-        let emailAddressCopy    = self.emailAddress?.copy() as? String
+        let emailAddressCopy    = self.emailAddress?.copy() as? TapEmailAddress
         let phoneNumberCopy        = self.phoneNumber?.copy() as? TapPhone
         let currencyCopy        = self.currency
         
