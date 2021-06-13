@@ -85,6 +85,8 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter tapMerchantID: Optional. Useful when you have multiple Tap accounts and would like to do the `switch` on the fly within the single app.
      - Parameter taxes: Optional. List of Taxes you want to apply to the order if any.
      - Parameter shipping: Optional. List of Shipping you want to apply to the order if any.
+     - Parameter allowedCadTypes: Decides the allowed card types whether Credit or Debit or All. If not set all will be accepeted.
+     - Parameter postURL: The URL that will be called by Tap system notifying that payment has succeed or failed.
      */
     public func build(
         localiseFile:String? = nil,
@@ -104,7 +106,9 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         tapMerchantID: String? = nil,
         taxes:[Tax] = [],
         shipping:[Shipping] = [],
-        onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}){
+        allowedCardTypes: [CardType] = [CardType(cardType: .All)],
+        postURL:URL? = nil,
+        onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
         
         TapCheckoutSharedManager.destroy()
         tapCheckoutScreenDelegate = delegate
@@ -113,7 +117,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         
         NetworkManager.shared.makeApiCall(routing: .IntentAPI, resultType: TapIntentResponseModel.self) { (session, result, error) in
             guard let intentModel:TapIntentResponseModel = result as? TapIntentResponseModel else { return }
-            self.configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,intentModel:intentModel,swipeDownToDismiss:swipeDownToDismiss,paymentTypes:paymentTypes,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID)
+            self.configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,intentModel:intentModel,swipeDownToDismiss:swipeDownToDismiss,paymentTypes:paymentTypes,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID,taxes: taxes, shipping: shipping, allowedCardTypes:allowedCardTypes)
             self.configureBottomSheet()
             onCheckOutReady(self)
         }
@@ -138,6 +142,10 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter customer: Decides which customer is performing this transaction. It will help you as a merchant to define the payer afterwards. Please check [TapCustomer](x-source-tag://TapCustomer)
      - Parameter destinations: Decides which destination(s) this transaction's amount should split to. Please check [Destination](x-source-tag://Destination)
      - Parameter tapMerchantID: Optional. Useful when you have multiple Tap accounts and would like to do the `switch` on the fly within the single app.
+     - Parameter taxes: Optional. List of Taxes you want to apply to the order if any.
+     - Parameter shipping: Optional. List of Shipping you want to apply to the order if any.
+     - Parameter allowedCadTypes: Decides the allowed card types whether Credit or Debit or All. If not set all will be accepeted.
+     - Parameter postURL: The URL that will be called by Tap system notifying that payment has succeed or failed.
      */
     @objc public func buildCheckout(
         localiseFile:String? = nil,
@@ -154,9 +162,14 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         transactionMode: TransactionMode = .purchase,
         customer: TapCustomer = try! .init(emailAddress: TapEmailAddress(emailAddressString: "taptestingemail@gmail.com"), phoneNumber: nil, name: "Tap Testing Default"),
         destinations: [Destination]? = nil,
-        tapMerchantID: String? = nil, onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
+        tapMerchantID: String? = nil,
+        taxes:[Tax] = [],
+        shipping:[Shipping] = [],
+        allowedCardTypes: [CardType] = [CardType(cardType: .All)],
+        postURL:URL? = nil,
+        onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
         
-        self.build(localiseFile: localiseFile, customTheme: customTheme, delegate: delegate, currency: currency, amount: amount, items: items, applePayMerchantID: applePayMerchantID, swipeDownToDismiss: swipeDownToDismiss, paymentTypes: paymentTypes.map{ TapPaymentType.init(rawValue: $0)! },closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler, transactionMode:transactionMode, customer: customer, destinations: destinations,tapMerchantID: tapMerchantID, onCheckOutReady: onCheckOutReady)
+        self.build(localiseFile: localiseFile, customTheme: customTheme, delegate: delegate, currency: currency, amount: amount, items: items, applePayMerchantID: applePayMerchantID, swipeDownToDismiss: swipeDownToDismiss, paymentTypes: paymentTypes.map{ TapPaymentType.init(rawValue: $0)! },closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler, transactionMode:transactionMode, customer: customer, destinations: destinations,tapMerchantID: tapMerchantID, taxes: taxes, shipping: shipping,allowedCardTypes:allowedCardTypes,postURL: postURL, onCheckOutReady: onCheckOutReady)
     }
     
     

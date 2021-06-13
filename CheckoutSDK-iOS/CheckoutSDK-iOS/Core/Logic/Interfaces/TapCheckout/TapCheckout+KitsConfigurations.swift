@@ -74,6 +74,8 @@ internal extension TapCheckout {
      - Parameter tapMerchantID: Optional. Useful when you have multiple Tap accounts and would like to do the `switch` on the fly within the single app.
      - Parameter taxes: Optional. List of Taxes you want to apply to the order if any.
      - Parameter shipping: Optional. List of Shipping you want to apply to the order if any.
+     - Parameter allowedCadTypes: Decides the allowed card types whether Credit or Debit or All. If not set all will be accepeted.
+     - Parameter postURL: The URL that will be called by Tap system notifying that payment has succeed or failed.
      */
     func configureSharedManager(currency:TapCurrencyCode,
                                 amount:Double,
@@ -88,7 +90,10 @@ internal extension TapCheckout {
                                 destinations: [Destination]?,
                                 tapMerchantID: String? = nil,
                                 taxes:[Tax] = [],
-                                shipping:[Shipping] = []) {
+                                shipping:[Shipping] = [],
+                                allowedCardTypes: [CardType] = [CardType(cardType: .All)],
+                                postURL:URL? = nil) {
+        
         let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
         sharedManager.transactionCurrencyValue = currency
         sharedManager.applePayMerchantID = applePayMerchantID
@@ -101,6 +106,9 @@ internal extension TapCheckout {
         sharedManager.customer = customer
         sharedManager.destinations = destinations
         sharedManager.tapMerchantID = tapMerchantID
+        sharedManager.taxes = taxes
+        sharedManager.shipping = shipping
+        sharedManager.allowedCardTypes = allowedCardTypes
         // a variable used to hold the correct amount, which will be the passed amount in case no items or the total items' prices when items are passed
         var finalAmount:Double = amount
         // if items has no items, we need to add the default items

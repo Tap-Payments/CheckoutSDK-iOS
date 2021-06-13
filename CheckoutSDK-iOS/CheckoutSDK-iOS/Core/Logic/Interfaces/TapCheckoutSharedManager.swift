@@ -117,6 +117,18 @@ internal class TapCheckoutSharedManager {
     /// Optional. List of Shipping you want to apply to the order if any.
     var shipping:[Shipping] = []
     
+    /// allowed Card Types, if not set all will be accepeted.
+    var allowedCardTypes:[CardType] = [CardType(cardType: .Debit), CardType(cardType: .Credit)] {
+        didSet {
+            if allowedCardTypes.count == 1 && allowedCardTypes[0].cardType == .All {
+                allowedCardTypes = [CardType(cardType: .Debit), CardType(cardType: .Credit)]
+            }
+        }
+    }
+    
+    /// The URL that will be called by Tap system notifying that payment has succeed or failed.
+    var postURL:URL?
+    
     // MARK:- RxSwift Variables
     /// Represents an observer function to perform when setting the original transaction currency stated by the merchant on checkout start
     var transactionCurrencyObserver:(TapCurrencyCode)->() = { _ in } {
