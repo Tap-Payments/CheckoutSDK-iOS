@@ -82,6 +82,9 @@ internal class TapCheckoutSharedManager {
     
     // MARK:- Transaction Configuration Variables
     
+    /// Defines the mode sandbox or production the sdk will perform this transaction on. Please check [SDKMode](x-source-tag://SDKMode)
+    var sdkMode:SDKMode = .sandbox
+    
     /// Represents The allowed payment types inclyding cards, apple pay, web and telecom
     var paymentTypes:[TapPaymentType] = [.All]
     

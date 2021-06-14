@@ -60,6 +60,8 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
     @objc public static var flippingStatus:TapCheckoutFlipStatus = .FlipOnLoadWithFlippingBack
     /// The ISO 639-1 Code language identefier, please note if the passed locale is wrong or not found in the localisation files, we will show the keys instead of the values
     @objc public static var localeIdentifier:String = "en"
+    /// The secret keys providede to your business from TAP.
+    @objc public static var secretKey:SecretKey = .init(sandbox: "", production: "")
     
     // MARK:- Internal functions
     
@@ -97,6 +99,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter allowsToSaveSameCardMoreThanOnce: Defines if same card can be saved more than once. Default is `true`.
      - Parameter enableSaveCard: Defines if the customer can save his card for upcoming payments. Default is `true`.
      - Parameter isSaveCardSwitchOnByDefault: Defines if save card switch is on by default.. Default is `true`.
+     - Parameter sdkMode: Defines the mode sandbox or production the sdk will perform this transaction on. Please check [SDKMode](x-source-tag://SDKMode)
      */
     public func build(
         localiseFile:String? = nil,
@@ -128,12 +131,11 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         allowsToSaveSameCardMoreThanOnce: Bool = true,
         enableSaveCard: Bool = true,
         isSaveCardSwitchOnByDefault: Bool = true,
+        sdkMode:SDKMode = .sandbox,
         onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
         
-        TapCheckoutSharedManager.destroy()
-        tapCheckoutScreenDelegate = delegate
-        configureLocalisationManager(localiseFile: localiseFile)
-        configureThemeManager(customTheme:customTheme)
+        // Do the pre steps needed before starting a new SDK session
+        prepareSDK(with: sdkMode,delegate:delegate, localiseFile:localiseFile,customTheme:customTheme)
         
         NetworkManager.shared.makeApiCall(routing: .IntentAPI, resultType: TapIntentResponseModel.self) { (session, result, error) in
             guard let intentModel:TapIntentResponseModel = result as? TapIntentResponseModel else { return }
@@ -176,6 +178,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter allowsToSaveSameCardMoreThanOnce: Defines if same card can be saved more than once. Default is `true`.
      - Parameter enableSaveCard: Defines if the customer can save his card for upcoming payments. Default is `true`.
      - Parameter isSaveCardSwitchOnByDefault: Defines if save card switch is on by default.. Default is `true`.
+     - Parameter sdkMode: Defines the mode sandbox or production the sdk will perform this transaction on. Please check [SDKMode](x-source-tag://SDKMode)
      */
     @objc public func buildCheckout(
         localiseFile:String? = nil,
@@ -207,9 +210,10 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         allowsToSaveSameCardMoreThanOnce: Bool = true,
         enableSaveCard: Bool = true,
         isSaveCardSwitchOnByDefault: Bool = true,
+        sdkMode:SDKMode = .sandbox,
         onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
         
-        self.build(localiseFile: localiseFile, customTheme: customTheme, delegate: delegate, currency: currency, amount: amount, items: items, applePayMerchantID: applePayMerchantID, swipeDownToDismiss: swipeDownToDismiss, paymentTypes: paymentTypes.map{ TapPaymentType.init(rawValue: $0)! },closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler, transactionMode:transactionMode, customer: customer, destinations: destinations,tapMerchantID: tapMerchantID, taxes: taxes, shipping: shipping,allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata,paymentReference: paymentReference, paymentStatementDescriptor:paymentStatementDescriptor,require3DSecure: require3DSecure, receiptSettings: receiptSettings, authorizeAction: authorizeAction,allowsToSaveSameCardMoreThanOnce: allowsToSaveSameCardMoreThanOnce,enableSaveCard: enableSaveCard,isSaveCardSwitchOnByDefault: isSaveCardSwitchOnByDefault, onCheckOutReady: onCheckOutReady)
+        self.build(localiseFile: localiseFile, customTheme: customTheme, delegate: delegate, currency: currency, amount: amount, items: items, applePayMerchantID: applePayMerchantID, swipeDownToDismiss: swipeDownToDismiss, paymentTypes: paymentTypes.map{ TapPaymentType.init(rawValue: $0)! },closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler, transactionMode:transactionMode, customer: customer, destinations: destinations,tapMerchantID: tapMerchantID, taxes: taxes, shipping: shipping,allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata,paymentReference: paymentReference, paymentStatementDescriptor:paymentStatementDescriptor,require3DSecure: require3DSecure, receiptSettings: receiptSettings, authorizeAction: authorizeAction,allowsToSaveSameCardMoreThanOnce: allowsToSaveSameCardMoreThanOnce,enableSaveCard: enableSaveCard,isSaveCardSwitchOnByDefault: isSaveCardSwitchOnByDefault, sdkMode: sdkMode, onCheckOutReady: onCheckOutReady)
     }
     
     
@@ -222,6 +226,29 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         DispatchQueue.main.async { [weak self] in
             controller.present(self!.bottomSheetController, animated: true, completion: nil)
         }
+    }
+    
+    /**
+     Used to do the pre steps before initiating a new SDK session
+     - Parameter localiseFile: Please pass the name of the custom localisation file if needed. If not set, the normal and default TAP localisations will be used
+     - Parameter customTheme: Please pass the tap checkout theme object with the names of your custom theme files if needed. If not set, the normal and default TAP theme will be used
+     - Parameter delegate: A protocol to communicate with the Presente tap sheet controller
+     - Parameter sdkMode: Defines the mode sandbox or production the sdk will perform this transaction on. Please check [SDKMode](x-source-tag://SDKMode)
+     */
+    internal func prepareSDK(with sdkMode:SDKMode = .sandbox,
+                             delegate:CheckoutScreenDelegate? = nil,
+                             localiseFile:String? = nil,
+                             customTheme:TapCheckOutTheme? = nil) {
+        
+        // remove any pending things from an old session
+        TapCheckoutSharedManager.destroy()
+        // Set the SDK mode and the delegate
+        TapCheckoutSharedManager.sharedCheckoutManager().sdkMode = sdkMode
+        tapCheckoutScreenDelegate = delegate
+        // Init the localsiation manager
+        configureLocalisationManager(localiseFile: localiseFile)
+        // Init the theme manager
+        configureThemeManager(customTheme:customTheme)
     }
 }
 
