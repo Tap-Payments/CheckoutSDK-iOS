@@ -10,6 +10,7 @@ ${PODS_ROOT}/PayCardsRecognizer/Source/PayCardsRecognizer.framework
 ${BUILT_PRODUCTS_DIR}/PullUpController/PullUpController.framework
 ${BUILT_PRODUCTS_DIR}/SimpleAnimation/SimpleAnimation.framework
 ${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework
+${BUILT_PRODUCTS_DIR}/SwiftyRSA/SwiftyRSA.framework
 ${BUILT_PRODUCTS_DIR}/TapAdditionsKitV2/TapAdditionsKitV2.framework
 ${BUILT_PRODUCTS_DIR}/TapApplePayKit-iOS/TapApplePayKit_iOS.framework
 ${BUILT_PRODUCTS_DIR}/TapApplicationV2/TapApplicationV2.framework
@@ -17,6 +18,7 @@ ${BUILT_PRODUCTS_DIR}/TapCardInputKit-iOS/TapCardInputKit_iOS.framework
 ${BUILT_PRODUCTS_DIR}/TapCardScanner-iOS/TapCardScanner_iOS.framework
 ${BUILT_PRODUCTS_DIR}/TapCardVlidatorKit-iOS/TapCardVlidatorKit_iOS.framework
 ${BUILT_PRODUCTS_DIR}/TapFontKit-iOS/TapFontKit_iOS.framework
+${BUILT_PRODUCTS_DIR}/TapKeychain/TapKeychain.framework
 ${BUILT_PRODUCTS_DIR}/TapNetworkKit-iOS/TapNetworkKit_iOS.framework
 ${BUILT_PRODUCTS_DIR}/TapSwiftFixes/TapSwiftFixes.framework
 ${BUILT_PRODUCTS_DIR}/TapSwiftFixesV2/TapSwiftFixesV2.framework

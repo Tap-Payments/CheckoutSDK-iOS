@@ -3,4 +3,54 @@
    uuid = "51793A65-FEC8-406C-9954-D9C03F638AB7"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "64EF3B5E-799C-4A56-BE92-856B01D2711D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Interfaces/TapCheckout/TapCheckout.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
+            landmarkName = "build(localiseFile:customTheme:delegate:currency:amount:items:applePayMerchantID:swipeDownToDismiss:paymentTypes:closeButtonStyle:showDragHandler:transactionMode:customer:destinations:tapMerchantID:taxes:shipping:allowedCardTypes:postURL:paymentDescription:paymentMetadata:paymentReference:paymentStatementDescriptor:require3DSecure:receiptSettings:authorizeAction:allowsToSaveSameCardMoreThanOnce:enableSaveCard:isSaveCardSwitchOnByDefault:sdkMode:onCheckOutReady:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0F335827-893F-411D-B7EE-59C7C22282EE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Interfaces/TapCheckout/TapCheckout.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
+            landmarkName = "build(localiseFile:customTheme:delegate:currency:amount:items:applePayMerchantID:swipeDownToDismiss:paymentTypes:closeButtonStyle:showDragHandler:transactionMode:customer:destinations:tapMerchantID:taxes:shipping:allowedCardTypes:postURL:paymentDescription:paymentMetadata:paymentReference:paymentStatementDescriptor:require3DSecure:receiptSettings:authorizeAction:allowsToSaveSameCardMoreThanOnce:enableSaveCard:isSaveCardSwitchOnByDefault:sdkMode:onCheckOutReady:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7807EC45-1E95-49B4-9980-341AE006B74B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Network/NetworkManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "detectError(from:and:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

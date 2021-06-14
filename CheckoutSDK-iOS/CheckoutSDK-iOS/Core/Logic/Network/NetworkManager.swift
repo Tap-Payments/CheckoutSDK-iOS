@@ -15,7 +15,7 @@ internal class NetworkManager: NSObject {
     /// The singletong network manager
     static let shared = NetworkManager()
     /// The static headers to be sent with every call/request
-    private var headers:[String:String] = NetworkManager.applicationStaticDetails()
+    private var headers:[String:String] = NetworkManager.staticHTTPHeaders
     private var networkManager: TapNetworkManager
     /// The server base url
     private let baseURL = "https://api.tap.company/v2/"
@@ -32,8 +32,9 @@ internal class NetworkManager: NSObject {
      - Parameter body: A dictionay to pass any more data you want to pass as a body of the request.
      - Parameter httpMethod: The type of the http request.
      - Parameter completion: A block to be executed upon finishing the network call
+     - Parameter onError: A block to be executed upon error
      */
-    internal func makeApiCall<T:Decodable>(routing: TapNetworkPath, resultType:T.Type,body:[String:Any] = [:],httpMethod: TapHTTPMethod = .GET, completion: TapNetworkManager.RequestCompletionClosure?) {
+    internal func makeApiCall<T:Decodable>(routing: TapNetworkPath, resultType:T.Type,body:[String:Any] = [:],httpMethod: TapHTTPMethod = .GET, completion: TapNetworkManager.RequestCompletionClosure?,onError:TapNetworkManager.RequestCompletionClosure?) {
         // Inform th network manager if we are going to log or not
         networkManager.isRequestLoggingEnabled = enableLogging
         
@@ -44,7 +45,40 @@ internal class NetworkManager: NSObject {
         networkManager.performRequest(requestOperation, completion: { (session, result, error) in
             print("result is: \(String(describing: result))")
             print("error: \(String(describing: error))")
-            completion?(session, result, error)
+            
+            // Check we need to do the on error callbak or not
+            guard let detectedError = self.detectError(from: result, and: error) else {
+                completion?(session, result, error)
+                return
+            }
+            onError?(session,result,detectedError)
         }, codableType: resultType)
+    }
+    
+    
+    /**
+     Used to detect if an error occured whether a straight forward error like invalid parsing or a backend error
+     - Parameter response: The data came from the backend, to check if itself has a backend error like "Invalid api key", this will have the highest prioirty to display
+     - Parameter error: The error if any came from the network manager parser like invalid json, malformed data, etc.
+     - Returns: An error that will have response error as a priority and nil of non of them containted a valid error
+     */
+    internal func detectError(from response:Any?,and error:Error?) -> Error? {
+        // First check the error coming from backend
+        if let response = response {
+            // Try to parse it into our error backend model
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: response, options: .fragmentsAllowed)
+                let decodedErrorResponse:ApiErrorModel = try JSONDecoder().decode(ApiErrorModel.self, from: jsonData)
+                // Check if an error from backend was actually sent
+                if !decodedErrorResponse.errors.isEmpty {
+                    return decodedErrorResponse.errors[0].description
+                }
+            }catch{}
+        }else if let error = error {
+            // Now as there is no a backend error, time to check if there was a local error by parsing the json data
+            return error
+        }
+        // All good!
+        return nil
     }
 }

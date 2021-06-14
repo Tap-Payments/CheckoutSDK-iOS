@@ -52,6 +52,8 @@ internal extension TapCheckoutSharedManager {
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500)) { [weak self] in
                 self?.UIDelegate?.goPaySignIn(status: goPayLoginModel.success)
             }
+        } onError: { (session, result, error) in
+            
         }
     }
 }

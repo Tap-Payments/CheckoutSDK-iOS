@@ -13,8 +13,58 @@ import TapApplicationV2
 /// Extension to the network manager when needed. To keep the network manager class itself clean and readable
 internal extension NetworkManager {
     
+    
+    /// Static HTTP headers sent with each request. including device info, language and SDK secret keys
+    static var staticHTTPHeaders: [String: String] {
+        
+        let secretKey = NetworkManager.secretKey()
+        
+        guard secretKey.tap_length > 0 else {
+            
+            fatalError("Secret key must be set in order to use goSellSDK.")
+        }
+        
+        let applicationValue = applicationHeaderValue
+        
+        let result = [
+            
+            Constants.HTTPHeaderKey.authorization: "Bearer \(secretKey)",
+            Constants.HTTPHeaderKey.application: applicationValue
+        ]
+        
+        return result
+    }
+    
+    /// HTTP headers that contains the device and app info
+    static private var applicationHeaderValue: String {
+        
+        var applicationDetails = NetworkManager.applicationStaticDetails()
+        
+        let localeIdentifier = TapCheckout.localeIdentifier
+        
+        applicationDetails[Constants.HTTPHeaderValueKey.appLocale] = localeIdentifier
+        
+        if let deviceID = KeychainManager.deviceID {
+            
+            applicationDetails[Constants.HTTPHeaderValueKey.deviceID] = deviceID
+        }
+        
+        let result = (applicationDetails.map { "\($0.key)=\($0.value)" }).joined(separator: "|")
+        
+        return result
+    }
+    
+    /**
+     Used to fetch the correct secret key based on the selected SDK mode
+     - Returns: The sandbox or production secret key based on the SDK mode
+     */
+    static func secretKey() -> String {
+        return (TapCheckoutSharedManager.sharedCheckoutManager().sdkMode == .sandbox) ? TapCheckout.secretKey.sandbox : TapCheckout.secretKey.production
+    }
+    
+    
     /// A computed variable that generates at access time the required static headers by the server.
-    static func applicationStaticDetails() -> [String: String] {
+    static private func applicationStaticDetails() -> [String: String] {
         
         guard let bundleID = TapApplicationPlistInfo.shared.bundleIdentifier, !bundleID.isEmpty else {
             

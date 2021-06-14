@@ -49,6 +49,14 @@
 		E8844DF926776C580073D777 /* SDKMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844DF826776C580073D777 /* SDKMode.swift */; };
 		E8844DFB26776C860073D777 /* SecretKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844DFA26776C860073D777 /* SecretKey.swift */; };
 		E8844E6826777B7B0073D777 /* NetworkManagerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844E6726777B7B0073D777 /* NetworkManagerExtensions.swift */; };
+		E8844E6E267788D20073D777 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844E6B267788D20073D777 /* KeychainManager.swift */; };
+		E8844E6F267788D20073D777 /* RSAUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844E6C267788D20073D777 /* RSAUtils.swift */; };
+		E8844E70267788D20073D777 /* Crypter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844E6D267788D20073D777 /* Crypter.swift */; };
+		E8844F15267793A60073D777 /* TapInitResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844F14267793A60073D777 /* TapInitResponseModel.swift */; };
+		E8844F17267793F60073D777 /* Permissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844F16267793F60073D777 /* Permissions.swift */; };
+		E8844F19267794700073D777 /* Merchant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844F18267794700073D777 /* Merchant.swift */; };
+		E8844F1B267794960073D777 /* InternalSDKSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844F1A267794960073D777 /* InternalSDKSettings.swift */; };
+		E8844F1D2677A4C50073D777 /* ApiErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844F1C2677A4C50073D777 /* ApiErrorModel.swift */; };
 		E8845E6A24D835B1009E8B73 /* CheckoutSDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8811AD624D4283C00DE95D1 /* CheckoutSDK_iOS.framework */; };
 		E8845E6B24D835B1009E8B73 /* CheckoutSDK_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E8811AD624D4283C00DE95D1 /* CheckoutSDK_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E8845E7024D83D7B009E8B73 /* TapCheckout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8845E6F24D83D7B009E8B73 /* TapCheckout.swift */; };
@@ -157,6 +165,14 @@
 		E8844DF826776C580073D777 /* SDKMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDKMode.swift; sourceTree = "<group>"; };
 		E8844DFA26776C860073D777 /* SecretKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecretKey.swift; sourceTree = "<group>"; };
 		E8844E6726777B7B0073D777 /* NetworkManagerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerExtensions.swift; sourceTree = "<group>"; };
+		E8844E6B267788D20073D777 /* KeychainManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		E8844E6C267788D20073D777 /* RSAUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSAUtils.swift; sourceTree = "<group>"; };
+		E8844E6D267788D20073D777 /* Crypter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crypter.swift; sourceTree = "<group>"; };
+		E8844F14267793A60073D777 /* TapInitResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapInitResponseModel.swift; sourceTree = "<group>"; };
+		E8844F16267793F60073D777 /* Permissions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Permissions.swift; sourceTree = "<group>"; };
+		E8844F18267794700073D777 /* Merchant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Merchant.swift; sourceTree = "<group>"; };
+		E8844F1A267794960073D777 /* InternalSDKSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalSDKSettings.swift; sourceTree = "<group>"; };
+		E8844F1C2677A4C50073D777 /* ApiErrorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiErrorModel.swift; sourceTree = "<group>"; };
 		E8845E6F24D83D7B009E8B73 /* TapCheckout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckout.swift; sourceTree = "<group>"; };
 		E8845E7124D83FA3009E8B73 /* TapBottomCheckoutControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapBottomCheckoutControllerViewController.swift; sourceTree = "<group>"; };
 		E8845E7824D851E2009E8B73 /* TapCheckoutBlurView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TapCheckoutBlurView.xib; sourceTree = "<group>"; };
@@ -410,6 +426,10 @@
 		E8844DF726776C090073D777 /* Private */ = {
 			isa = PBXGroup;
 			children = (
+				E8844F16267793F60073D777 /* Permissions.swift */,
+				E8844F18267794700073D777 /* Merchant.swift */,
+				E8844F1A267794960073D777 /* InternalSDKSettings.swift */,
+				E8844F1C2677A4C50073D777 /* ApiErrorModel.swift */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -438,6 +458,24 @@
 			path = Private;
 			sourceTree = "<group>";
 		};
+		E8844E69267788C20073D777 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				E8844E6A267788C80073D777 /* Private */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		E8844E6A267788C80073D777 /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				E8844E6D267788D20073D777 /* Crypter.swift */,
+				E8844E6B267788D20073D777 /* KeychainManager.swift */,
+				E8844E6C267788D20073D777 /* RSAUtils.swift */,
+			);
+			path = Private;
+			sourceTree = "<group>";
+		};
 		E8845E7324D84596009E8B73 /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -450,6 +488,7 @@
 		E8845E7424D8459E009E8B73 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				E8844E69267788C20073D777 /* Utils */,
 				E8844E6426777B590073D777 /* Extensions */,
 				E8844B9D2675E93F0073D777 /* Models */,
 				E8C2052424E3FDCC006653CA /* Enums */,
@@ -492,6 +531,7 @@
 			children = (
 				E8983DD024F1469700C34E50 /* TapEntitResponseModel.swift */,
 				E830B7FB24FA430800B62713 /* TapGoPayLoginResponseModel.swift */,
+				E8844F14267793A60073D777 /* TapInitResponseModel.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -756,8 +796,12 @@
 				E8844D072676979D0073D777 /* DestinationGroup.swift in Sources */,
 				E830B7FC24FA430800B62713 /* TapGoPayLoginResponseModel.swift in Sources */,
 				E861286F24EAA38A00774BAA /* CurrencyCardsTelecomModel.swift in Sources */,
+				E8844E70267788D20073D777 /* Crypter.swift in Sources */,
+				E8844F15267793A60073D777 /* TapInitResponseModel.swift in Sources */,
+				E8844E6E267788D20073D777 /* KeychainManager.swift in Sources */,
 				E8983DCD24EEC3D900C34E50 /* NetworkManager.swift in Sources */,
 				E830B7FE24FA451600B62713 /* TapCheckoutConstants.swift in Sources */,
+				E8844E6F267788D20073D777 /* RSAUtils.swift in Sources */,
 				E8EDD34A25612A3C00AFC0B3 /* TapIntentRequestModel.swift in Sources */,
 				E8C2052624E3FEFA006653CA /* TapCheckoutFlipStatus.swift in Sources */,
 				E8845E7C24D851FF009E8B73 /* TapCheckoutBlurView.swift in Sources */,
@@ -770,6 +814,10 @@
 				E8844D28267744CD0073D777 /* Reference.swift in Sources */,
 				E8845E7024D83D7B009E8B73 /* TapCheckout.swift in Sources */,
 				E8844E6826777B7B0073D777 /* NetworkManagerExtensions.swift in Sources */,
+				E8844F1D2677A4C50073D777 /* ApiErrorModel.swift in Sources */,
+				E8844F19267794700073D777 /* Merchant.swift in Sources */,
+				E8844F17267793F60073D777 /* Permissions.swift in Sources */,
+				E8844F1B267794960073D777 /* InternalSDKSettings.swift in Sources */,
 				E8845E7224D83FA3009E8B73 /* TapBottomCheckoutControllerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

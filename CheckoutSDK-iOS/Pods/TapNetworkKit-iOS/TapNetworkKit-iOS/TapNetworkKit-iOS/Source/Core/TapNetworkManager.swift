@@ -125,7 +125,7 @@ public class TapNetworkManager {
                 } catch {
                     TapLogger.log(urlRequest: dataTask?.originalRequest, error: error)
                     DispatchQueue.main.async {
-                        completion?(dataTask, nil, error)
+                        completion?(dataTask, jsonObject, error)
                     }
                 }
             }else {
