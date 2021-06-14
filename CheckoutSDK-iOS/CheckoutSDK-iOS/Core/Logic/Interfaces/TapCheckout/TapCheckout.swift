@@ -89,6 +89,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter postURL: The URL that will be called by Tap system notifying that payment has succeed or failed.
      - Parameter paymentDescription: Description of the payment to use for further analysis and processing in reports.
      - Parameter TapMetadata: Additional information you would like to pass along with the transaction. Please check [TapMetaData](x-source-tag://TapMetaData)
+     - Parameter paymentReference: Implement this property to keep a reference to the transaction on your backend. Please check [Reference](x-source-tag://Reference)
      */
     public func build(
         localiseFile:String? = nil,
@@ -112,6 +113,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         postURL:URL? = nil,
         paymentDescription: String? = nil,
         paymentMetadata: TapMetadata = [:],
+        paymentReference: Reference? = nil,
         onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
         
         TapCheckoutSharedManager.destroy()
@@ -152,6 +154,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter postURL: The URL that will be called by Tap system notifying that payment has succeed or failed.
      - Parameter paymentDescription: Description of the payment to use for further analysis and processing in reports.
      - Parameter TapMetadata: Additional information you would like to pass along with the transaction. Please check [TapMetaData](x-source-tag://TapMetaData)
+     - Parameter paymentReference: Implement this property to keep a reference to the transaction on your backend. Please check [Reference](x-source-tag://Reference)
      */
     @objc public func buildCheckout(
         localiseFile:String? = nil,
@@ -175,9 +178,10 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         postURL:URL? = nil,
         paymentDescription: String? = nil,
         paymentMetadata: TapMetadata = [:],
+        paymentReference: Reference? = nil,
         onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
         
-        self.build(localiseFile: localiseFile, customTheme: customTheme, delegate: delegate, currency: currency, amount: amount, items: items, applePayMerchantID: applePayMerchantID, swipeDownToDismiss: swipeDownToDismiss, paymentTypes: paymentTypes.map{ TapPaymentType.init(rawValue: $0)! },closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler, transactionMode:transactionMode, customer: customer, destinations: destinations,tapMerchantID: tapMerchantID, taxes: taxes, shipping: shipping,allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, onCheckOutReady: onCheckOutReady)
+        self.build(localiseFile: localiseFile, customTheme: customTheme, delegate: delegate, currency: currency, amount: amount, items: items, applePayMerchantID: applePayMerchantID, swipeDownToDismiss: swipeDownToDismiss, paymentTypes: paymentTypes.map{ TapPaymentType.init(rawValue: $0)! },closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler, transactionMode:transactionMode, customer: customer, destinations: destinations,tapMerchantID: tapMerchantID, taxes: taxes, shipping: shipping,allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata,paymentReference: paymentReference, onCheckOutReady: onCheckOutReady)
     }
     
     
