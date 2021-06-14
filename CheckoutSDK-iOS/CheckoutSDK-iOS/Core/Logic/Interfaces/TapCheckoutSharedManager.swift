@@ -129,6 +129,9 @@ internal class TapCheckoutSharedManager {
     /// The URL that will be called by Tap system notifying that payment has succeed or failed.
     var postURL:URL?
     
+    /// Description of the payment to use for further analysis and processing in reports.
+    var paymentDescription:String?
+    
     // MARK:- RxSwift Variables
     /// Represents an observer function to perform when setting the original transaction currency stated by the merchant on checkout start
     var transactionCurrencyObserver:(TapCurrencyCode)->() = { _ in } {

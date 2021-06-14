@@ -87,6 +87,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter shipping: Optional. List of Shipping you want to apply to the order if any.
      - Parameter allowedCadTypes: Decides the allowed card types whether Credit or Debit or All. If not set all will be accepeted.
      - Parameter postURL: The URL that will be called by Tap system notifying that payment has succeed or failed.
+     - Parameter paymentDescription: Description of the payment to use for further analysis and processing in reports.
      */
     public func build(
         localiseFile:String? = nil,
@@ -108,6 +109,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         shipping:[Shipping] = [],
         allowedCardTypes: [CardType] = [CardType(cardType: .All)],
         postURL:URL? = nil,
+        paymentDescription: String? = nil,
         onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
         
         TapCheckoutSharedManager.destroy()
@@ -146,6 +148,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter shipping: Optional. List of Shipping you want to apply to the order if any.
      - Parameter allowedCadTypes: Decides the allowed card types whether Credit or Debit or All. If not set all will be accepeted.
      - Parameter postURL: The URL that will be called by Tap system notifying that payment has succeed or failed.
+     - Parameter paymentDescription: Description of the payment to use for further analysis and processing in reports.
      */
     @objc public func buildCheckout(
         localiseFile:String? = nil,
@@ -167,9 +170,10 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         shipping:[Shipping] = [],
         allowedCardTypes: [CardType] = [CardType(cardType: .All)],
         postURL:URL? = nil,
+        paymentDescription: String? = nil,
         onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
         
-        self.build(localiseFile: localiseFile, customTheme: customTheme, delegate: delegate, currency: currency, amount: amount, items: items, applePayMerchantID: applePayMerchantID, swipeDownToDismiss: swipeDownToDismiss, paymentTypes: paymentTypes.map{ TapPaymentType.init(rawValue: $0)! },closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler, transactionMode:transactionMode, customer: customer, destinations: destinations,tapMerchantID: tapMerchantID, taxes: taxes, shipping: shipping,allowedCardTypes:allowedCardTypes,postURL: postURL, onCheckOutReady: onCheckOutReady)
+        self.build(localiseFile: localiseFile, customTheme: customTheme, delegate: delegate, currency: currency, amount: amount, items: items, applePayMerchantID: applePayMerchantID, swipeDownToDismiss: swipeDownToDismiss, paymentTypes: paymentTypes.map{ TapPaymentType.init(rawValue: $0)! },closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler, transactionMode:transactionMode, customer: customer, destinations: destinations,tapMerchantID: tapMerchantID, taxes: taxes, shipping: shipping,allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, onCheckOutReady: onCheckOutReady)
     }
     
     
