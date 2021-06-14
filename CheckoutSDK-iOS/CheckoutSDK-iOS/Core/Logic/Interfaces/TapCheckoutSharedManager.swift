@@ -150,6 +150,20 @@ internal class TapCheckoutSharedManager {
     /// Authorize action model to state what to do with the authorized amount after being authorized for a certain time interval. Please check [AuthorizeAction](x-source-tag://AuthorizeAction)
     var authorizeAction: AuthorizeAction = AuthorizeAction.default
     
+    /// Defines if same card can be saved more than once.
+    /// Default is `true`.
+    var allowsToSaveSameCardMoreThanOnce: Bool = true
+    
+    
+    /// Defines if the customer can save his card for upcoming payments
+    /// Default is `true`.
+    var enableSaveCard: Bool = true
+    
+    /// Defines if save card switch is on by default.
+    /// - Note: If value of this property is `true`, then switch will be remaining off until card information is filled and valid.
+    ///         And after will be toggled on automatically.
+    var isSaveCardSwitchOnByDefault: Bool = true
+    
     // MARK:- RxSwift Variables
     /// Represents an observer function to perform when setting the original transaction currency stated by the merchant on checkout start
     var transactionCurrencyObserver:(TapCurrencyCode)->() = { _ in } {

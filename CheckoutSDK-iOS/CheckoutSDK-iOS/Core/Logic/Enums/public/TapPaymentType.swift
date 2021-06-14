@@ -20,6 +20,8 @@ import Foundation
     case Telecom = 4
     /// Meaning, only Apple pay will be visible
     case ApplePay = 5
+    /// Only device payments. (e.g. Apple pay)
+    case Device = 6
     
     public init(stringValue:String) {
         switch stringValue.lowercased() {
@@ -31,6 +33,8 @@ import Foundation
             self = .Telecom
         case "apple_pay":
             self = .ApplePay
+        case "device":
+            self = .Device
         default:
             self = .All
         }
@@ -53,6 +57,8 @@ import Foundation
             return "telecom"
         case .ApplePay:
             return "apple_pay"
+        case .Device:
+            return "device"
         default:
             return "all"
         }

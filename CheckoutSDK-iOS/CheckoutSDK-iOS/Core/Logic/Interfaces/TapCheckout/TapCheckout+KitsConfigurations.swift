@@ -83,6 +83,9 @@ internal extension TapCheckout {
      - Parameter require3DSecure: Defines if you want to apply 3DS for this transaction. By default it is set to true.
      - Parameter receiptSettings: Defines how you want to notify about the status of transaction reciept by email, sms or both. Please check [Receipt](x-source-tag://Receipt)
      - Parameter authorizeAction: Defines what to do with the authorized amount after being authorized for a certain time interval. Please check [AuthorizeAction](x-source-tag://AuthorizeAction)
+     - Parameter allowsToSaveSameCardMoreThanOnce: Defines if same card can be saved more than once. Default is `true`.
+     - Parameter enableSaveCard: Defines if the customer can save his card for upcoming payments. Default is `true`.
+     - Parameter isSaveCardSwitchOnByDefault: Defines if save card switch is on by default.. Default is `true`.
      */
     func configureSharedManager(currency:TapCurrencyCode,
                                 amount:Double,
@@ -106,7 +109,10 @@ internal extension TapCheckout {
                                 paymentStatementDescriptor: String? = nil,
                                 require3DSecure: Bool = true,
                                 receiptSettings: Receipt? = nil,
-                                authorizeAction: AuthorizeAction? = AuthorizeAction.default) {
+                                authorizeAction: AuthorizeAction = AuthorizeAction.default,
+                                allowsToSaveSameCardMoreThanOnce: Bool = true,
+                                enableSaveCard: Bool = true,
+                                isSaveCardSwitchOnByDefault: Bool = true) {
         
         let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
         sharedManager.transactionCurrencyValue = currency

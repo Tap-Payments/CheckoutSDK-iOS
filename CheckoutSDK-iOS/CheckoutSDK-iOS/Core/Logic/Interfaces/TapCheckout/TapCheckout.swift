@@ -94,6 +94,9 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter require3DSecure: Defines if you want to apply 3DS for this transaction. By default it is set to true.
      - Parameter receiptSettings: Defines how you want to notify about the status of transaction reciept by email, sms or both. Please check [Receipt](x-source-tag://Receipt)
      - Parameter authorizeAction: Defines what to do with the authorized amount after being authorized for a certain time interval. Please check [AuthorizeAction](x-source-tag://AuthorizeAction)
+     - Parameter allowsToSaveSameCardMoreThanOnce: Defines if same card can be saved more than once. Default is `true`.
+     - Parameter enableSaveCard: Defines if the customer can save his card for upcoming payments. Default is `true`.
+     - Parameter isSaveCardSwitchOnByDefault: Defines if save card switch is on by default.. Default is `true`.
      */
     public func build(
         localiseFile:String? = nil,
@@ -121,7 +124,10 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         paymentStatementDescriptor: String? = nil,
         require3DSecure: Bool = true,
         receiptSettings: Receipt? = nil,
-        authorizeAction: AuthorizeAction? = AuthorizeAction.default,
+        authorizeAction: AuthorizeAction = AuthorizeAction.default,
+        allowsToSaveSameCardMoreThanOnce: Bool = true,
+        enableSaveCard: Bool = true,
+        isSaveCardSwitchOnByDefault: Bool = true,
         onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
         
         TapCheckoutSharedManager.destroy()
@@ -167,6 +173,9 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter require3DSecure: Defines if you want to apply 3DS for this transaction. By default it is set to true.
      - Parameter receiptSettings: Defines how you want to notify about the status of transaction reciept by email, sms or both. Please check [Receipt](x-source-tag://Receipt)
      - Parameter authorizeAction: Defines what to do with the authorized amount after being authorized for a certain time interval. Please check [AuthorizeAction](x-source-tag://AuthorizeAction)
+     - Parameter allowsToSaveSameCardMoreThanOnce: Defines if same card can be saved more than once. Default is `true`.
+     - Parameter enableSaveCard: Defines if the customer can save his card for upcoming payments. Default is `true`.
+     - Parameter isSaveCardSwitchOnByDefault: Defines if save card switch is on by default.. Default is `true`.
      */
     @objc public func buildCheckout(
         localiseFile:String? = nil,
@@ -194,10 +203,13 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         paymentStatementDescriptor: String? = nil,
         require3DSecure: Bool = true,
         receiptSettings: Receipt? = nil,
-        authorizeAction: AuthorizeAction? = AuthorizeAction.default
+        authorizeAction: AuthorizeAction = AuthorizeAction.default,
+        allowsToSaveSameCardMoreThanOnce: Bool = true,
+        enableSaveCard: Bool = true,
+        isSaveCardSwitchOnByDefault: Bool = true,
         onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
         
-        self.build(localiseFile: localiseFile, customTheme: customTheme, delegate: delegate, currency: currency, amount: amount, items: items, applePayMerchantID: applePayMerchantID, swipeDownToDismiss: swipeDownToDismiss, paymentTypes: paymentTypes.map{ TapPaymentType.init(rawValue: $0)! },closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler, transactionMode:transactionMode, customer: customer, destinations: destinations,tapMerchantID: tapMerchantID, taxes: taxes, shipping: shipping,allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata,paymentReference: paymentReference, paymentStatementDescriptor:paymentStatementDescriptor,require3DSecure: require3DSecure, receiptSettings: receiptSettings, authorizeAction: authorizeAction, onCheckOutReady: onCheckOutReady)
+        self.build(localiseFile: localiseFile, customTheme: customTheme, delegate: delegate, currency: currency, amount: amount, items: items, applePayMerchantID: applePayMerchantID, swipeDownToDismiss: swipeDownToDismiss, paymentTypes: paymentTypes.map{ TapPaymentType.init(rawValue: $0)! },closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler, transactionMode:transactionMode, customer: customer, destinations: destinations,tapMerchantID: tapMerchantID, taxes: taxes, shipping: shipping,allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata,paymentReference: paymentReference, paymentStatementDescriptor:paymentStatementDescriptor,require3DSecure: require3DSecure, receiptSettings: receiptSettings, authorizeAction: authorizeAction,allowsToSaveSameCardMoreThanOnce: allowsToSaveSameCardMoreThanOnce,enableSaveCard: enableSaveCard,isSaveCardSwitchOnByDefault: isSaveCardSwitchOnByDefault, onCheckOutReady: onCheckOutReady)
     }
     
     
