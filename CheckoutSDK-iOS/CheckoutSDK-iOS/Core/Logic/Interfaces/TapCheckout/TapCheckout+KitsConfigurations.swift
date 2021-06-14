@@ -79,6 +79,7 @@ internal extension TapCheckout {
      - Parameter paymentDescription: Description of the payment to use for further analysis and processing in reports.
      - Parameter TapMetadata: Additional information you would like to pass along with the transaction. Please check [TapMetaData](x-source-tag://TapMetaData)
      - Parameter paymentReference: Implement this property to keep a reference to the transaction on your backend. Please check [Reference](x-source-tag://Reference)
+     - Parameter paymentStatementDescriptor: Description of the payment  to appear on your settlemenets statement.
      */
     func configureSharedManager(currency:TapCurrencyCode,
                                 amount:Double,
@@ -98,7 +99,8 @@ internal extension TapCheckout {
                                 postURL:URL? = nil,
                                 paymentDescription:String? = nil,
                                 paymentMetadata: TapMetadata = [:],
-                                paymentReference: Reference? = nil) {
+                                paymentReference: Reference? = nil,
+                                paymentStatementDescriptor: String? = nil) {
         
         let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
         sharedManager.transactionCurrencyValue = currency
@@ -118,6 +120,7 @@ internal extension TapCheckout {
         sharedManager.paymentDescription = paymentDescription
         sharedManager.paymentMetadata = paymentMetadata
         sharedManager.paymentReference = paymentReference
+        sharedManager.paymentStatementDescriptor = paymentStatementDescriptor
         
         // a variable used to hold the correct amount, which will be the passed amount in case no items or the total items' prices when items are passed
         var finalAmount:Double = amount

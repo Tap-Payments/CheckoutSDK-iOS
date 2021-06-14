@@ -138,6 +138,9 @@ internal class TapCheckoutSharedManager {
     /// Payment reference. Implement this property to keep a reference to the transaction on your backend.
     var paymentReference: Reference?
     
+    /// Description of the payment  to appear on your settlemenets statement.
+    var paymentStatementDescriptor: String?
+    
     // MARK:- RxSwift Variables
     /// Represents an observer function to perform when setting the original transaction currency stated by the merchant on checkout start
     var transactionCurrencyObserver:(TapCurrencyCode)->() = { _ in } {
