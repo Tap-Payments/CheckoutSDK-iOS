@@ -18,7 +18,7 @@ internal struct Merchant: Codable {
     internal private(set) var name: String?
     
     /// Merchant logo URL
-    internal private(set) var logoURL: URL?
+    internal private(set) var logoURL: String?
 	
 	// MARK: Methods
 	

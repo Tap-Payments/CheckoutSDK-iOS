@@ -21,6 +21,10 @@ import TapUIKit_iOS
      Will be fired once the controller is presented
      */
     @objc optional func tapBottomSheetPresented()
+    /**
+     Will be fired once the checkout fails for any error
+     */
+    @objc optional func checkoutFailed(with error:Error)
 }
 
 
@@ -139,8 +143,10 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         
         NetworkManager.shared.makeApiCall(routing: .InitAPI, resultType: TapInitResponseModel.self) { (session, result, error) in
             print(result)
-        } onError: { (session, result, error) in
-            print(error)
+        } onError: { (session, result, errorr) in
+            //let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
+            //sharedManager.handleSDK(for: errorr)
+            self.handleError(error: errorr)
         }
         
         /*NetworkManager.shared.makeApiCall(routing: .IntentAPI, resultType: TapIntentResponseModel.self) { (session, result, error) in
@@ -255,6 +261,25 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         configureLocalisationManager(localiseFile: localiseFile)
         // Init the theme manager
         configureThemeManager(customTheme:customTheme)
+    }
+    
+    /**
+     Used to deal with runtime errors in the SDK
+     - Parameter error: The error we need to handle and deal with
+     */
+    internal func handleError(error:Error?) {
+        if tapCheckoutControllerViewController?.isBeingPresented ?? false {
+            // The sheet is visible and we need to handle this ourselves
+            let tapActionButton = TapCheckoutSharedManager.sharedCheckoutManager().tapActionButtonViewModel
+            tapActionButton.endLoading(with: false) {
+                self.dismissMySelfClicked()
+                self.tapCheckoutScreenDelegate?.checkoutFailed?(with: error!)
+            }
+        }else{
+            // The sheet is not yet presented (propaly error occured on init api)
+            tapCheckoutScreenDelegate?.checkoutFailed?(with: error!)
+        }
+        
     }
 }
 

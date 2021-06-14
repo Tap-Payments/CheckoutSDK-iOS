@@ -12,7 +12,7 @@ import CheckoutSDK_iOS
 class ViewController: UIViewController {
    
     @IBOutlet weak var tapPayButton: TapActionButton!
-    let tapPayButtonViewModel:TapPayButtonViewModel = .init()
+    let tapPayButtonViewModel:TapActionButtonViewModel = .init()
     var localeID:String = "en" {
         didSet{
             TapLocalisationManager.shared.localisationLocale = localeID
@@ -66,7 +66,7 @@ class ViewController: UIViewController {
         let checkout:TapCheckout = .init()
         TapCheckout.flippingStatus = .FlipOnLoadWithFlippingBack
         TapCheckout.localeIdentifier = localeID
-        TapCheckout.secretKey = .init(sandbox: "sk_test_cvSHaplrPNkJO7dhoUxDYjqA", production: "sk_live_V4UDhitI0r7sFwHCfNB6xMKp")
+        TapCheckout.secretKey = .init(sandbox: "7dhoUxDYjqA", production: "sFwHCfNB6xMKp")
         
         checkout.build(
             localiseFile: localisationFileName,
@@ -145,6 +145,11 @@ extension ViewController:CheckoutScreenDelegate {
     func tapBottomSheetWillDismiss() {
         tapPayButtonViewModel.expandButton()
         adjustTapButton()
+    }
+    func checkoutFailed(with error:Error) {
+        tapPayButtonViewModel.endLoading(with: false) {
+            self.tapBottomSheetWillDismiss()
+        }
     }
 }
 

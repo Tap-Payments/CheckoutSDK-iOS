@@ -7,8 +7,9 @@
 //
 
 import Foundation
-/// goSell SDK settings data model.
-internal struct TapInitResponseModel {
+
+/// goSell SDK Settings model.
+internal struct SDKSettings {
     
     // MARK: - Internal -
     // MARK: Properties
@@ -54,7 +55,7 @@ internal struct TapInitResponseModel {
 }
 
 // MARK: - Decodable
-extension TapInitResponseModel: Decodable {
+extension SDKSettings: Decodable {
     
     internal init(from decoder: Decoder) throws {
         
@@ -83,5 +84,23 @@ extension TapInitResponseModel: Decodable {
                   internalSettings:     internalSettings,
                   sessionToken:         sessionToken,
                   verifiedApplication:  verifiedApplication)
+    }
+}
+
+
+/// goSell SDK settings data model.
+internal struct TapInitResponseModel:Decodable {
+    
+    // MARK: - Internal -
+    // MARK: Properties
+    
+    /// Data.
+    internal var data: SDKSettings
+    
+    // MARK: - Private -
+    
+    private enum CodingKeys: String, CodingKey {
+        
+        case data = "data"
     }
 }

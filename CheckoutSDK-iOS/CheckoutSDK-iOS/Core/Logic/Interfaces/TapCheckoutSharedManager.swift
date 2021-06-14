@@ -249,10 +249,7 @@ internal class TapCheckoutSharedManager {
         privateShared = nil
     }
     
-    private init() {
-        // Bind the observables
-        bindTheObservables()
-    }
+    private init() {}
     
     deinit {}
     
@@ -269,11 +266,6 @@ internal class TapCheckoutSharedManager {
         transactionUserCurrencyValue = .undefined
         transactionTotalAmountValue = 0
         transactionItemsValue = []
-    }
-    
-    /// Responsible for wiring up the observables to fire the correct methods upon the correct data changes
-    private func bindTheObservables() {
-        
     }
     
     /// The amount section and items list will be changed if total amount or the selected currency is changed one of them or both

@@ -47,11 +47,15 @@ internal class NetworkManager: NSObject {
             print("error: \(String(describing: error))")
             
             // Check we need to do the on error callbak or not
-            guard let detectedError = self.detectError(from: result, and: error) else {
-                completion?(session, result, error)
+            guard let correctParsing = result as? T else {
+                guard let detectedError = self.detectError(from: result, and: error) else {
+                    return
+                }
+                onError?(session,result,detectedError)
                 return
             }
-            onError?(session,result,detectedError)
+            completion?(session, correctParsing, error)
+            
         }, codableType: resultType)
     }
     
