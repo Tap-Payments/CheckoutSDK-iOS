@@ -82,6 +82,7 @@ internal extension TapCheckout {
      - Parameter paymentStatementDescriptor: Description of the payment  to appear on your settlemenets statement.
      - Parameter require3DSecure: Defines if you want to apply 3DS for this transaction. By default it is set to true.
      - Parameter receiptSettings: Defines how you want to notify about the status of transaction reciept by email, sms or both. Please check [Receipt](x-source-tag://Receipt)
+     - Parameter authorizeAction: Defines what to do with the authorized amount after being authorized for a certain time interval. Please check [AuthorizeAction](x-source-tag://AuthorizeAction)
      */
     func configureSharedManager(currency:TapCurrencyCode,
                                 amount:Double,
@@ -104,7 +105,8 @@ internal extension TapCheckout {
                                 paymentReference: Reference? = nil,
                                 paymentStatementDescriptor: String? = nil,
                                 require3DSecure: Bool = true,
-                                receiptSettings: Receipt? = nil) {
+                                receiptSettings: Receipt? = nil,
+                                authorizeAction: AuthorizeAction? = AuthorizeAction.default) {
         
         let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
         sharedManager.transactionCurrencyValue = currency
@@ -127,6 +129,7 @@ internal extension TapCheckout {
         sharedManager.paymentStatementDescriptor = paymentStatementDescriptor
         sharedManager.require3DSecure = require3DSecure
         sharedManager.receiptSettings = receiptSettings
+        sharedManager.authorizeAction = authorizeAction
         
         // a variable used to hold the correct amount, which will be the passed amount in case no items or the total items' prices when items are passed
         var finalAmount:Double = amount

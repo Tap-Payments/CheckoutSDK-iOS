@@ -51,6 +51,8 @@
 		E8844D262676A3E90073D777 /* cardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844D252676A3E90073D777 /* cardType.swift */; };
 		E8844D28267744CD0073D777 /* Reference.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844D27267744CC0073D777 /* Reference.swift */; };
 		E8844D2A26774B1C0073D777 /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844D2926774B1C0073D777 /* Receipt.swift */; };
+		E8844D2C26774CC40073D777 /* AuthorizeAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844D2B26774CC40073D777 /* AuthorizeAction.swift */; };
+		E8844D2E26774CEC0073D777 /* AuthorizeActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844D2D26774CEC0073D777 /* AuthorizeActionType.swift */; };
 		E8845E6A24D835B1009E8B73 /* CheckoutSDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8811AD624D4283C00DE95D1 /* CheckoutSDK_iOS.framework */; };
 		E8845E6B24D835B1009E8B73 /* CheckoutSDK_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E8811AD624D4283C00DE95D1 /* CheckoutSDK_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E8845E7024D83D7B009E8B73 /* TapCheckout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8845E6F24D83D7B009E8B73 /* TapCheckout.swift */; };
@@ -173,6 +175,8 @@
 		E8844D252676A3E90073D777 /* cardType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = cardType.swift; path = "../../../../../../../goSellSDK-iOS/goSellSDK/Core/API/Public/Enums/cardType.swift"; sourceTree = "<group>"; };
 		E8844D27267744CC0073D777 /* Reference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reference.swift; sourceTree = "<group>"; };
 		E8844D2926774B1C0073D777 /* Receipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Receipt.swift; sourceTree = "<group>"; };
+		E8844D2B26774CC40073D777 /* AuthorizeAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizeAction.swift; sourceTree = "<group>"; };
+		E8844D2D26774CEC0073D777 /* AuthorizeActionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizeActionType.swift; sourceTree = "<group>"; };
 		E8845E6F24D83D7B009E8B73 /* TapCheckout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckout.swift; sourceTree = "<group>"; };
 		E8845E7124D83FA3009E8B73 /* TapBottomCheckoutControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapBottomCheckoutControllerViewController.swift; sourceTree = "<group>"; };
 		E8845E7824D851E2009E8B73 /* TapCheckoutBlurView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TapCheckoutBlurView.xib; sourceTree = "<group>"; };
@@ -395,6 +399,7 @@
 		E8844B832675E36B0073D777 /* public */ = {
 			isa = PBXGroup;
 			children = (
+				E8844D2D26774CEC0073D777 /* AuthorizeActionType.swift */,
 				E8844D252676A3E90073D777 /* cardType.swift */,
 				E8844D232676A2860073D777 /* CardType.swift */,
 				E8C2052524E3FEFA006653CA /* TapCheckoutFlipStatus.swift */,
@@ -424,6 +429,7 @@
 		E8844B9E2675E9E40073D777 /* TapPaymentOptionsRequest */ = {
 			isa = PBXGroup;
 			children = (
+				E8844D2B26774CC40073D777 /* AuthorizeAction.swift */,
 				E8844D2926774B1C0073D777 /* Receipt.swift */,
 				E8844D27267744CC0073D777 /* Reference.swift */,
 				E8EDD34625612A1200AFC0B3 /* TapPhone.swift */,
@@ -766,6 +772,7 @@
 				E8EDD366256141DB00AFC0B3 /* ErrorDetail.swift in Sources */,
 				E8EDD34725612A1200AFC0B3 /* TapPhone.swift in Sources */,
 				E8844BA02675EAC90073D777 /* TapEmailAddress.swift in Sources */,
+				E8844D2C26774CC40073D777 /* AuthorizeAction.swift in Sources */,
 				E830B7F724FA3BF100B62713 /* TapCheckoutSharedManager+UIKitDelegates.swift in Sources */,
 				E8EDD35325613FAB00AFC0B3 /* OptionallyIdentifiableWithString.swift in Sources */,
 				E8844D262676A3E90073D777 /* cardType.swift in Sources */,
@@ -789,6 +796,7 @@
 				E861286D24EA7F7F00774BAA /* CurrencyChipModel.swift in Sources */,
 				E86128B424ED23EF00774BAA /* TapCheckoutExtensions.swift in Sources */,
 				E8EDD365256141DB00AFC0B3 /* TapSDKUnknownError.swift in Sources */,
+				E8844D2E26774CEC0073D777 /* AuthorizeActionType.swift in Sources */,
 				E8844D28267744CD0073D777 /* Reference.swift in Sources */,
 				E8845E7024D83D7B009E8B73 /* TapCheckout.swift in Sources */,
 				E8EDD3562561414F00AFC0B3 /* ErrorConstants.swift in Sources */,

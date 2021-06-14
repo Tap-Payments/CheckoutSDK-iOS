@@ -93,6 +93,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter paymentStatementDescriptor: Description of the payment  to appear on your settlemenets statement.
      - Parameter require3DSecure: Defines if you want to apply 3DS for this transaction. By default it is set to true.
      - Parameter receiptSettings: Defines how you want to notify about the status of transaction reciept by email, sms or both. Please check [Receipt](x-source-tag://Receipt)
+     - Parameter authorizeAction: Defines what to do with the authorized amount after being authorized for a certain time interval. Please check [AuthorizeAction](x-source-tag://AuthorizeAction)
      */
     public func build(
         localiseFile:String? = nil,
@@ -120,6 +121,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         paymentStatementDescriptor: String? = nil,
         require3DSecure: Bool = true,
         receiptSettings: Receipt? = nil,
+        authorizeAction: AuthorizeAction? = AuthorizeAction.default,
         onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
         
         TapCheckoutSharedManager.destroy()
@@ -129,7 +131,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         
         NetworkManager.shared.makeApiCall(routing: .IntentAPI, resultType: TapIntentResponseModel.self) { (session, result, error) in
             guard let intentModel:TapIntentResponseModel = result as? TapIntentResponseModel else { return }
-            self.configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,intentModel:intentModel,swipeDownToDismiss:swipeDownToDismiss,paymentTypes:paymentTypes,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID,taxes: taxes, shipping: shipping, allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor,require3DSecure:require3DSecure,receiptSettings:receiptSettings)
+            self.configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,intentModel:intentModel,swipeDownToDismiss:swipeDownToDismiss,paymentTypes:paymentTypes,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID,taxes: taxes, shipping: shipping, allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor,require3DSecure:require3DSecure,receiptSettings:receiptSettings, authorizeAction: authorizeAction)
             self.configureBottomSheet()
             onCheckOutReady(self)
         }
@@ -164,6 +166,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter paymentStatementDescriptor: Description of the payment  to appear on your settlemenets statement.
      - Parameter require3DSecure: Defines if you want to apply 3DS for this transaction. By default it is set to true.
      - Parameter receiptSettings: Defines how you want to notify about the status of transaction reciept by email, sms or both. Please check [Receipt](x-source-tag://Receipt)
+     - Parameter authorizeAction: Defines what to do with the authorized amount after being authorized for a certain time interval. Please check [AuthorizeAction](x-source-tag://AuthorizeAction)
      */
     @objc public func buildCheckout(
         localiseFile:String? = nil,
@@ -191,9 +194,10 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         paymentStatementDescriptor: String? = nil,
         require3DSecure: Bool = true,
         receiptSettings: Receipt? = nil,
+        authorizeAction: AuthorizeAction? = AuthorizeAction.default
         onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
         
-        self.build(localiseFile: localiseFile, customTheme: customTheme, delegate: delegate, currency: currency, amount: amount, items: items, applePayMerchantID: applePayMerchantID, swipeDownToDismiss: swipeDownToDismiss, paymentTypes: paymentTypes.map{ TapPaymentType.init(rawValue: $0)! },closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler, transactionMode:transactionMode, customer: customer, destinations: destinations,tapMerchantID: tapMerchantID, taxes: taxes, shipping: shipping,allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata,paymentReference: paymentReference, paymentStatementDescriptor:paymentStatementDescriptor,require3DSecure: require3DSecure, receiptSettings: receiptSettings, onCheckOutReady: onCheckOutReady)
+        self.build(localiseFile: localiseFile, customTheme: customTheme, delegate: delegate, currency: currency, amount: amount, items: items, applePayMerchantID: applePayMerchantID, swipeDownToDismiss: swipeDownToDismiss, paymentTypes: paymentTypes.map{ TapPaymentType.init(rawValue: $0)! },closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler, transactionMode:transactionMode, customer: customer, destinations: destinations,tapMerchantID: tapMerchantID, taxes: taxes, shipping: shipping,allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata,paymentReference: paymentReference, paymentStatementDescriptor:paymentStatementDescriptor,require3DSecure: require3DSecure, receiptSettings: receiptSettings, authorizeAction: authorizeAction, onCheckOutReady: onCheckOutReady)
     }
     
     
