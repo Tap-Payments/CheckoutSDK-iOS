@@ -48,6 +48,7 @@
 		E8844D2C26774CC40073D777 /* AuthorizeAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844D2B26774CC40073D777 /* AuthorizeAction.swift */; };
 		E8844DF926776C580073D777 /* SDKMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844DF826776C580073D777 /* SDKMode.swift */; };
 		E8844DFB26776C860073D777 /* SecretKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844DFA26776C860073D777 /* SecretKey.swift */; };
+		E8844E6826777B7B0073D777 /* NetworkManagerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844E6726777B7B0073D777 /* NetworkManagerExtensions.swift */; };
 		E8845E6A24D835B1009E8B73 /* CheckoutSDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8811AD624D4283C00DE95D1 /* CheckoutSDK_iOS.framework */; };
 		E8845E6B24D835B1009E8B73 /* CheckoutSDK_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E8811AD624D4283C00DE95D1 /* CheckoutSDK_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E8845E7024D83D7B009E8B73 /* TapCheckout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8845E6F24D83D7B009E8B73 /* TapCheckout.swift */; };
@@ -155,6 +156,7 @@
 		E8844D2B26774CC40073D777 /* AuthorizeAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizeAction.swift; sourceTree = "<group>"; };
 		E8844DF826776C580073D777 /* SDKMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDKMode.swift; sourceTree = "<group>"; };
 		E8844DFA26776C860073D777 /* SecretKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecretKey.swift; sourceTree = "<group>"; };
+		E8844E6726777B7B0073D777 /* NetworkManagerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerExtensions.swift; sourceTree = "<group>"; };
 		E8845E6F24D83D7B009E8B73 /* TapCheckout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckout.swift; sourceTree = "<group>"; };
 		E8845E7124D83FA3009E8B73 /* TapBottomCheckoutControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapBottomCheckoutControllerViewController.swift; sourceTree = "<group>"; };
 		E8845E7824D851E2009E8B73 /* TapCheckoutBlurView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TapCheckoutBlurView.xib; sourceTree = "<group>"; };
@@ -412,6 +414,30 @@
 			path = Private;
 			sourceTree = "<group>";
 		};
+		E8844E6426777B590073D777 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E8844E6626777B670073D777 /* Private */,
+				E8844E6526777B630073D777 /* Public */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E8844E6526777B630073D777 /* Public */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Public;
+			sourceTree = "<group>";
+		};
+		E8844E6626777B670073D777 /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				E8844E6726777B7B0073D777 /* NetworkManagerExtensions.swift */,
+			);
+			path = Private;
+			sourceTree = "<group>";
+		};
 		E8845E7324D84596009E8B73 /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -424,6 +450,7 @@
 		E8845E7424D8459E009E8B73 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				E8844E6426777B590073D777 /* Extensions */,
 				E8844B9D2675E93F0073D777 /* Models */,
 				E8C2052424E3FDCC006653CA /* Enums */,
 				62CF141824EE8F040036015C /* Network */,
@@ -742,6 +769,7 @@
 				E86128B424ED23EF00774BAA /* TapCheckoutExtensions.swift in Sources */,
 				E8844D28267744CD0073D777 /* Reference.swift in Sources */,
 				E8845E7024D83D7B009E8B73 /* TapCheckout.swift in Sources */,
+				E8844E6826777B7B0073D777 /* NetworkManagerExtensions.swift in Sources */,
 				E8845E7224D83FA3009E8B73 /* TapBottomCheckoutControllerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

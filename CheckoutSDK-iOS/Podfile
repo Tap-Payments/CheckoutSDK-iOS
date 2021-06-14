@@ -15,4 +15,5 @@ target 'CheckoutSDK-iOS' do
   # Pods for CheckoutSDK-iOS
 pod 'TapUIKit-iOS'
 pod 'TapNetworkKit-iOS'
+pod 'TapApplicationV2'
 end
