@@ -15,4 +15,6 @@ internal enum TapNetworkPath : String {
     //case IntentAPI = "7b0b86c3-1e22-40f7-bf28-ad0ae58c391d" // case IntentAPI = "5720fa1c-9b7e-4b68-810f-dbb79228405c"
     /// Login to GoPay
     case GoPayLoginAPI = "7ffceaa7-0b86-4a18-88bb-c157c9a27aae"
+    /// Calling INIT api which is the kickstart for a starting a new session and construct a connection with the backend
+    case InitAPI = "init"
 }

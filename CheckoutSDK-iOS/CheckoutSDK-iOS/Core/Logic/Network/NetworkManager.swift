@@ -12,7 +12,7 @@ internal class NetworkManager: NSObject {
     static let shared = NetworkManager()
     private var headers = ["decive_model": "iphone", "os_version": "ios 13"]
     private var networkManager: TapNetworkManager
-    private let baseURL = "https://run.mocky.io/v3/"
+    private let baseURL = "https://api.tap.company/v2/"
     public var enableLogging = false
     
     private override init () {
