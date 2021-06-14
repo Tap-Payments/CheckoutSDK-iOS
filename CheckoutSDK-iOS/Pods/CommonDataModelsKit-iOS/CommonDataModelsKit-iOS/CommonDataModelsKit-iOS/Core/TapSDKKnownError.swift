@@ -32,7 +32,7 @@
 		let fifthLine	= "Body: " + self.responseBodyDescription
         
         let lines: [String] = [firstLine, secondLine, thirdLine, fourthLine,fifthLine]
-        
+        // Error description
         return lines.joined(separator: "\n")
     }
 	
@@ -83,6 +83,7 @@
         self.error			= error
         self.urlResponse	= response
 		self.responseBody	= body
+        // Error description
         self.customDescription = "TAP SDK KNOWN ERROR : \(type.description) \n Error description : \(self.errorDescription) \(error) \n URL : \(response?.url?.absoluteString ?? "") \n Error Response Body : \(self.responseBodyDescription)\n Error URL Body : \(self.urlResponseDescription)"
         
         print(self.customDescription)

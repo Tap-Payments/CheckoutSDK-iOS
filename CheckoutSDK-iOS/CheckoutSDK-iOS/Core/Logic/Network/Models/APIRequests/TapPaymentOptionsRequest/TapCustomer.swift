@@ -31,7 +31,7 @@ import TapUIKit_iOS
  }
  - tag: TapCustomer
  */
-@objcMembers public class TapCustomer : NSObject, Decodable, OptionallyIdentifiableWithString {
+@objcMembers public class TapCustomer : NSObject, Decodable {
     
     // MARK: - Public -
     // MARK: Properties

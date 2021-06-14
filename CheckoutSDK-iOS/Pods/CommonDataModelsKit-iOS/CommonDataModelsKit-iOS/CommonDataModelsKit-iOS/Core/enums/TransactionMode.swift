@@ -39,10 +39,10 @@ import Foundation
         
         switch self {
         
-        case .purchase:         return "PURCHASE"
-        case .authorizeCapture: return "AUTHORIZE_CAPTURE"
-        case .cardSaving:        return "SAVE_CARD"
-        case .cardTokenization:    return "TOKENIZE_CARD"
+            case .purchase:             return "PURCHASE"
+            case .authorizeCapture:     return "AUTHORIZE_CAPTURE"
+            case .cardSaving:           return "SAVE_CARD"
+            case .cardTokenization:     return "TOKENIZE_CARD"
             
         }
     }
@@ -82,12 +82,10 @@ extension TransactionMode: CustomStringConvertible {
     public var description: String {
         
         switch self {
-        
-        case .purchase:            return "Payment"
-        case .authorizeCapture:    return "Authorize only"
-        case .cardSaving:        return "Save Card"
-        case .cardTokenization:    return "Tokenize Card"
-            
+            case .purchase:             return "Payment"
+            case .authorizeCapture:     return "Authorize only"
+            case .cardSaving:           return "Save Card"
+            case .cardTokenization:     return "Tokenize Card"
         }
     }
 }
