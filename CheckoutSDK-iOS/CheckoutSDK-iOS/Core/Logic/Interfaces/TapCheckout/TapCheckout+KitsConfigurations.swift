@@ -77,6 +77,7 @@ internal extension TapCheckout {
      - Parameter allowedCadTypes: Decides the allowed card types whether Credit or Debit or All. If not set all will be accepeted.
      - Parameter postURL: The URL that will be called by Tap system notifying that payment has succeed or failed.
      - Parameter paymentDescription: Description of the payment to use for further analysis and processing in reports.
+     - Parameter TapMetadata: Additional information you would like to pass along with the transaction. Please check [TapMetaData](x-source-tag://TapMetaData)
      */
     func configureSharedManager(currency:TapCurrencyCode,
                                 amount:Double,
@@ -94,7 +95,8 @@ internal extension TapCheckout {
                                 shipping:[Shipping] = [],
                                 allowedCardTypes: [CardType] = [CardType(cardType: .All)],
                                 postURL:URL? = nil,
-                                paymentDescription:String? = nil) {
+                                paymentDescription:String? = nil,
+                                paymentMetadata: TapMetadata = [:]) {
         
         let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
         sharedManager.transactionCurrencyValue = currency
@@ -112,6 +114,7 @@ internal extension TapCheckout {
         sharedManager.shipping = shipping
         sharedManager.allowedCardTypes = allowedCardTypes
         sharedManager.paymentDescription = paymentDescription
+        sharedManager.paymentMetadata = paymentMetadata
         
         // a variable used to hold the correct amount, which will be the passed amount in case no items or the total items' prices when items are passed
         var finalAmount:Double = amount
