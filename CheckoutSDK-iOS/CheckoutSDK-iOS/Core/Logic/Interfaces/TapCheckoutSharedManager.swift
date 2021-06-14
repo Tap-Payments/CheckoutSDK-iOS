@@ -141,6 +141,9 @@ internal class TapCheckoutSharedManager {
     /// Description of the payment  to appear on your settlemenets statement.
     var paymentStatementDescriptor: String?
     
+    /// Defines if you want to apply 3DS for this transaction. By default it is set to true.
+    var require3DSecure: Bool = true
+    
     // MARK:- RxSwift Variables
     /// Represents an observer function to perform when setting the original transaction currency stated by the merchant on checkout start
     var transactionCurrencyObserver:(TapCurrencyCode)->() = { _ in } {

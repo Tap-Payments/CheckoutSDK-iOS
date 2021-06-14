@@ -91,6 +91,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter TapMetadata: Additional information you would like to pass along with the transaction. Please check [TapMetaData](x-source-tag://TapMetaData)
      - Parameter paymentReference: Implement this property to keep a reference to the transaction on your backend. Please check [Reference](x-source-tag://Reference)
      - Parameter paymentStatementDescriptor: Description of the payment  to appear on your settlemenets statement.
+     - Parameter require3DSecure: Defines if you want to apply 3DS for this transaction. By default it is set to true.
      */
     public func build(
         localiseFile:String? = nil,
@@ -116,6 +117,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         paymentMetadata: TapMetadata = [:],
         paymentReference: Reference? = nil,
         paymentStatementDescriptor: String? = nil,
+        require3DSecure: Bool = true,
         onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
         
         TapCheckoutSharedManager.destroy()
@@ -125,7 +127,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         
         NetworkManager.shared.makeApiCall(routing: .IntentAPI, resultType: TapIntentResponseModel.self) { (session, result, error) in
             guard let intentModel:TapIntentResponseModel = result as? TapIntentResponseModel else { return }
-            self.configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,intentModel:intentModel,swipeDownToDismiss:swipeDownToDismiss,paymentTypes:paymentTypes,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID,taxes: taxes, shipping: shipping, allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor)
+            self.configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,intentModel:intentModel,swipeDownToDismiss:swipeDownToDismiss,paymentTypes:paymentTypes,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID,taxes: taxes, shipping: shipping, allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor,require3DSecure:require3DSecure)
             self.configureBottomSheet()
             onCheckOutReady(self)
         }
@@ -158,6 +160,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter TapMetadata: Additional information you would like to pass along with the transaction. Please check [TapMetaData](x-source-tag://TapMetaData)
      - Parameter paymentReference: Implement this property to keep a reference to the transaction on your backend. Please check [Reference](x-source-tag://Reference)
      - Parameter paymentStatementDescriptor: Description of the payment  to appear on your settlemenets statement.
+     - Parameter require3DSecure: Defines if you want to apply 3DS for this transaction. By default it is set to true.
      */
     @objc public func buildCheckout(
         localiseFile:String? = nil,
@@ -183,9 +186,10 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         paymentMetadata: TapMetadata = [:],
         paymentReference: Reference? = nil,
         paymentStatementDescriptor: String? = nil,
+        require3DSecure: Bool = true,
         onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
         
-        self.build(localiseFile: localiseFile, customTheme: customTheme, delegate: delegate, currency: currency, amount: amount, items: items, applePayMerchantID: applePayMerchantID, swipeDownToDismiss: swipeDownToDismiss, paymentTypes: paymentTypes.map{ TapPaymentType.init(rawValue: $0)! },closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler, transactionMode:transactionMode, customer: customer, destinations: destinations,tapMerchantID: tapMerchantID, taxes: taxes, shipping: shipping,allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata,paymentReference: paymentReference, paymentStatementDescriptor:paymentStatementDescriptor, onCheckOutReady: onCheckOutReady)
+        self.build(localiseFile: localiseFile, customTheme: customTheme, delegate: delegate, currency: currency, amount: amount, items: items, applePayMerchantID: applePayMerchantID, swipeDownToDismiss: swipeDownToDismiss, paymentTypes: paymentTypes.map{ TapPaymentType.init(rawValue: $0)! },closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler, transactionMode:transactionMode, customer: customer, destinations: destinations,tapMerchantID: tapMerchantID, taxes: taxes, shipping: shipping,allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata,paymentReference: paymentReference, paymentStatementDescriptor:paymentStatementDescriptor,require3DSecure: require3DSecure, onCheckOutReady: onCheckOutReady)
     }
     
     
