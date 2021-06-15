@@ -29,7 +29,7 @@ internal extension TapCheckout {
     }
     /// Responsible for making the network call to payment options api
     func callPaymentOptionsAPI() {
-        // As per the backend logic, we will have to hit INIT then Payment options APIs
+        // As per the backend logic, we will have to hit PAYMENT OPTIONS API after the INIT call
         NetworkManager.shared.makeApiCall(routing: .PaymentOptionsAPI, resultType: TapInitResponseModel.self) { [weak self] (session, result, error) in
             guard let initModel:TapInitResponseModel = result as? TapInitResponseModel else { self?.handleError(error: "Unexpected error")
                 return }

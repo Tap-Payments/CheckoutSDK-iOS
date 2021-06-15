@@ -14,7 +14,7 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 import Foundation
 
 /// Represent the model of an amount modification object for a payment item
-@objc public class AmountModificatorModel : NSObject, Codable {
+@objc open class AmountModificatorModel : NSObject, Codable {
     
     /// The type of the applied discount whether fixed or percentage
     let type : AmountModificationType?
@@ -45,11 +45,11 @@ import Foundation
     
 
     required public init(from decoder: Decoder) throws {
-		let values = try decoder.container(keyedBy: CodingKeys.self)
-        type = AmountModificationType.init(rawValue:(try values.decodeIfPresent(String.self, forKey: .type)) ?? "Fixed")
-		value = try values.decodeIfPresent(Double.self, forKey: .value)
-        minFee = try values.decodeIfPresent(Decimal.self, forKey: .minFee) ?? 0
-        maxFee = try values.decodeIfPresent(Decimal.self, forKey: .maxFee) ?? 0
+		let values  = try decoder.container(keyedBy: CodingKeys.self)
+        type        = try values.decodeIfPresent(AmountModificationType.self, forKey: .type) ?? .Fixed
+		value       = try values.decodeIfPresent(Double.self, forKey: .value)
+        minFee      = try values.decodeIfPresent(Decimal.self, forKey: .minFee) ?? 0
+        maxFee      = try values.decodeIfPresent(Decimal.self, forKey: .maxFee) ?? 0
 	}
     
     /**
