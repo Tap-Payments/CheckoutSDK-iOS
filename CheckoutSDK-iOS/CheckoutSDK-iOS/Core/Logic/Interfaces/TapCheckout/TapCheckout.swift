@@ -141,7 +141,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         // Do the pre steps needed before starting a new SDK session
         prepareSDK(with: sdkMode,delegate:delegate, localiseFile:localiseFile,customTheme:customTheme)
         // Initiate the needed calls to server to start the session
-        initialiseSDKFromApi()
+        initialiseSDKFromAPI()
         
         
         /*NetworkManager.shared.makeApiCall(routing: .IntentAPI, resultType: TapIntentResponseModel.self) { (session, result, error) in

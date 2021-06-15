@@ -14,12 +14,28 @@ internal extension TapCheckout {
     //MARK:- Methods for making the api calls
     
     /// Responsible for making the network calls needed to boot the SDK like init and payment options
-    private func initialiseSDKFromApi() {
+    func initialiseSDKFromAPI() {
         // As per the backend logic, we will have to hit INIT then Payment options APIs
         NetworkManager.shared.makeApiCall(routing: .InitAPI, resultType: TapInitResponseModel.self) { [weak self] (session, result, error) in
-            guard let initModel:TapInitResponseModel = result as? TapInitResponseModel else { self.handleError(error: "Unexpected error")
+            guard let initModel:TapInitResponseModel = result as? TapInitResponseModel else { self?.handleError(error: "Unexpected error")
                 return }
             self?.handleInitResponse(initModel: initModel)
+            // Let us now load the payment options
+            
+            
+        } onError: { (session, result, errorr) in
+            self.handleError(error: errorr)
+        }
+    }
+    /// Responsible for making the network call to payment options api
+    func callPaymentOptionsAPI() {
+        // As per the backend logic, we will have to hit INIT then Payment options APIs
+        NetworkManager.shared.makeApiCall(routing: .PaymentOptionsAPI, resultType: TapInitResponseModel.self) { [weak self] (session, result, error) in
+            guard let initModel:TapInitResponseModel = result as? TapInitResponseModel else { self?.handleError(error: "Unexpected error")
+                return }
+            self?.handleInitResponse(initModel: initModel)
+            // Let us now load the payment options
+            
             
         } onError: { (session, result, errorr) in
             self.handleError(error: errorr)
@@ -32,9 +48,9 @@ internal extension TapCheckout {
      Handles the result of the init api by storing it in the right place to be further processed
      - Parameter initModel: The response model from backend we need to deal with
      */
-    private func handleInitResponse(initModel:TapInitResponseModel) {
+    func handleInitResponse(initModel:TapInitResponseModel) {
         // Store the init model for further access
-        TapCheckoutSharedManager.sharedCheckoutManager().
+        TapCheckoutSharedManager.sharedCheckoutManager().intitModelResponse = initModel
     }
     
 }
