@@ -22,6 +22,9 @@ import Foundation
     /// Tax amount and type whether fixed or percentage
     public var amount: AmountModificatorModel
     
+    public var taxAmount:Double {
+        return amount.value ?? 0
+    }
     // MARK: Methods
     
     /// Initializes `Tax` with `title` and `amount`.

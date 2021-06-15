@@ -82,7 +82,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter applePayMerchantID: The Apple pay merchant id to be used inside the apple pay kit
      - Parameter onCheckOutReady: This will be called once the checkout is ready so you can use it to present it or cancel it
      - Parameter swipeDownToDismiss: If it is set then when the user swipes down the payment will close, otherwise, there will be a shown button to dismiss the screen. Default is false
-     - Parameter paymentTypes: The allowed payment types inclyding cards, apple pay, web and telecom
+     - Parameter paymentType: The allowed payment type inclyding cards, apple pay, web and telecom or ALL
      - Parameter closeButtonStyle: Defines the required style of the sheet close button
      - Parameter showDragHandler: Decide to show the drag handler or not
      - Parameter transactionMode: Decide which transaction mode will be used in this call. Purchase, Authorization, Card Saving and Toknization. Please check [TransactionMode](x-source-tag://TransactionModeEnum)
@@ -105,7 +105,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
      - Parameter isSaveCardSwitchOnByDefault: Defines if save card switch is on by default.. Default is `true`.
      - Parameter sdkMode: Defines the mode sandbox or production the sdk will perform this transaction on. Please check [SDKMode](x-source-tag://SDKMode)
      */
-    public func build(
+    @objc public func build(
         localiseFile:String? = nil,
         customTheme:TapCheckOutTheme? = nil,
         delegate: CheckoutScreenDelegate? = nil,
@@ -114,7 +114,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         items:[ItemModel] = [],
         applePayMerchantID:String = "merchant.tap.gosell",
         swipeDownToDismiss:Bool = true,
-        paymentTypes:[TapPaymentType] = [.All],
+        paymentType:TapPaymentType = .All,
         closeButtonStyle:CheckoutCloseButtonEnum = .title,
         showDragHandler:Bool = false,
         transactionMode: TransactionMode = .purchase,
@@ -140,87 +140,10 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         
         // Do the pre steps needed before starting a new SDK session
         prepareSDK(with: sdkMode,delegate:delegate, localiseFile:localiseFile,customTheme:customTheme)
+        // Store the passed configurations for further processing
+        configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,swipeDownToDismiss:swipeDownToDismiss,paymentType:paymentType,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID,taxes: taxes, shipping: shipping, allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor,require3DSecure:require3DSecure,receiptSettings:receiptSettings, authorizeAction: authorizeAction)
         // Initiate the needed calls to server to start the session
         initialiseSDKFromAPI()
-        
-        
-        /*NetworkManager.shared.makeApiCall(routing: .IntentAPI, resultType: TapIntentResponseModel.self) { (session, result, error) in
-            guard let intentModel:TapIntentResponseModel = result as? TapIntentResponseModel else { return }
-            self.configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,intentModel:intentModel,swipeDownToDismiss:swipeDownToDismiss,paymentTypes:paymentTypes,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID,taxes: taxes, shipping: shipping, allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor,require3DSecure:require3DSecure,receiptSettings:receiptSettings, authorizeAction: authorizeAction)
-            self.configureBottomSheet()
-            onCheckOutReady(self)
-        }*/
-    }
-    
-    
-    /**
-     Defines the tap checkout bottom sheet controller
-     - Parameter localiseFile: Please pass the name of the custom localisation file if needed. If not set, the normal and default TAP localisations will be used
-     - Parameter customTheme: Please pass the tap checkout theme object with the names of your custom theme files if needed. If not set, the normal and default TAP theme will be used
-     - Parameter delegate: A protocol to communicate with the Presente tap sheet controller
-     - Parameter currency: Represents the original transaction currency stated by the merchant on checkout start
-     - Parameter amount: Represents the original total transaction amount stated by the merchant on checkout start
-     - Parameter items: Represents the List of payment items if any. If no items are provided one will be created by default as PAY TO [MERCHANT NAME] -- Total value
-     - Parameter applePayMerchantID: The Apple pay merchant id to be used inside the apple pay kit
-     - Parameter onCheckOutReady: This will be called once the checkout is ready so you can use it to present it or cancel it
-     - Parameter swipeDownToDismiss: If it is set then when the user swipes down the payment will close, otherwise, there will be a shown button to dismiss the screen. Default is false
-     - Parameter paymentTypes: The allowed payment types inclyding cards, apple pay, web and telecom
-     - Parameter closeButtonStyle: Defines the required style of the sheet close button
-     - Parameter showDragHandler: Decide to show the drag handler or not
-     - Parameter transactionMode: Decide which transaction mode will be used in this call. Purchase, Authorization, Card Saving and Toknization. Please check [TransactionMode](x-source-tag://TransactionModeEnum)
-     - Parameter customer: Decides which customer is performing this transaction. It will help you as a merchant to define the payer afterwards. Please check [TapCustomer](x-source-tag://TapCustomer)
-     - Parameter destinations: Decides which destination(s) this transaction's amount should split to. Please check [Destination](x-source-tag://Destination)
-     - Parameter tapMerchantID: Optional. Useful when you have multiple Tap accounts and would like to do the `switch` on the fly within the single app.
-     - Parameter taxes: Optional. List of Taxes you want to apply to the order if any.
-     - Parameter shipping: Optional. List of Shipping you want to apply to the order if any.
-     - Parameter allowedCadTypes: Decides the allowed card types whether Credit or Debit or All. If not set all will be accepeted.
-     - Parameter postURL: The URL that will be called by Tap system notifying that payment has succeed or failed.
-     - Parameter paymentDescription: Description of the payment to use for further analysis and processing in reports.
-     - Parameter TapMetadata: Additional information you would like to pass along with the transaction. Please check [TapMetaData](x-source-tag://TapMetaData)
-     - Parameter paymentReference: Implement this property to keep a reference to the transaction on your backend. Please check [Reference](x-source-tag://Reference)
-     - Parameter paymentStatementDescriptor: Description of the payment  to appear on your settlemenets statement.
-     - Parameter require3DSecure: Defines if you want to apply 3DS for this transaction. By default it is set to true.
-     - Parameter receiptSettings: Defines how you want to notify about the status of transaction reciept by email, sms or both. Please check [Receipt](x-source-tag://Receipt)
-     - Parameter authorizeAction: Defines what to do with the authorized amount after being authorized for a certain time interval. Please check [AuthorizeAction](x-source-tag://AuthorizeAction)
-     - Parameter allowsToSaveSameCardMoreThanOnce: Defines if same card can be saved more than once. Default is `true`.
-     - Parameter enableSaveCard: Defines if the customer can save his card for upcoming payments. Default is `true`.
-     - Parameter isSaveCardSwitchOnByDefault: Defines if save card switch is on by default.. Default is `true`.
-     - Parameter sdkMode: Defines the mode sandbox or production the sdk will perform this transaction on. Please check [SDKMode](x-source-tag://SDKMode)
-     */
-    @objc public func buildCheckout(
-        localiseFile:String? = nil,
-        customTheme:TapCheckOutTheme? = nil,
-        delegate: CheckoutScreenDelegate? = nil,
-        currency:TapCurrencyCode = .USD,
-        amount:Double = 1,
-        items:[ItemModel] = [],
-        applePayMerchantID:String = "merchant.tap.gosell",
-        swipeDownToDismiss:Bool = true,
-        paymentTypes:[Int] = [TapPaymentType.All.rawValue],
-        closeButtonStyle:CheckoutCloseButtonEnum = .title,
-        showDragHandler:Bool = false,
-        transactionMode: TransactionMode = .purchase,
-        customer: TapCustomer = try! .init(emailAddress: TapEmailAddress(emailAddressString: "taptestingemail@gmail.com"), phoneNumber: nil, name: "Tap Testing Default"),
-        destinations: [Destination]? = nil,
-        tapMerchantID: String? = nil,
-        taxes:[Tax] = [],
-        shipping:[Shipping] = [],
-        allowedCardTypes: [CardType] = [CardType(cardType: .All)],
-        postURL:URL? = nil,
-        paymentDescription: String? = nil,
-        paymentMetadata: TapMetadata = [:],
-        paymentReference: Reference? = nil,
-        paymentStatementDescriptor: String? = nil,
-        require3DSecure: Bool = true,
-        receiptSettings: Receipt? = nil,
-        authorizeAction: AuthorizeAction = AuthorizeAction.default,
-        allowsToSaveSameCardMoreThanOnce: Bool = true,
-        enableSaveCard: Bool = true,
-        isSaveCardSwitchOnByDefault: Bool = true,
-        sdkMode:SDKMode = .sandbox,
-        onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
-        
-        self.build(localiseFile: localiseFile, customTheme: customTheme, delegate: delegate, currency: currency, amount: amount, items: items, applePayMerchantID: applePayMerchantID, swipeDownToDismiss: swipeDownToDismiss, paymentTypes: paymentTypes.map{ TapPaymentType.init(rawValue: $0)! },closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler, transactionMode:transactionMode, customer: customer, destinations: destinations,tapMerchantID: tapMerchantID, taxes: taxes, shipping: shipping,allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata,paymentReference: paymentReference, paymentStatementDescriptor:paymentStatementDescriptor,require3DSecure: require3DSecure, receiptSettings: receiptSettings, authorizeAction: authorizeAction,allowsToSaveSameCardMoreThanOnce: allowsToSaveSameCardMoreThanOnce,enableSaveCard: enableSaveCard,isSaveCardSwitchOnByDefault: isSaveCardSwitchOnByDefault, sdkMode: sdkMode, onCheckOutReady: onCheckOutReady)
     }
     
     

@@ -63,9 +63,8 @@ internal extension TapCheckout {
      - Parameter amount: Represents the original transaction amount stated by the merchant on checkout start
      - Parameter items: Represents the List of payment items if any. If no items are provided one will be created by default as PAY TO [MERCHANT NAME] -- Total value
      - Parameter applePayMerchantID: The Apple pay merchant id to be used inside the apple pay kit
-     - Parameter intentModel: The loaded Intent API response model
      - Parameter swipeDownToDismiss: If it is set then when the user swipes down the payment will close, otherwise, there will be a shown button to dismiss the screen. Default is false
-     - Parameter paymentTypes: The allowed payment types inclyding cards, apple pay, web and telecom
+     - Parameter paymentType: The allowed payment types inclyding cards, apple pay, web and telecom
      - Parameter closeButtonStyle: Defines the required style of the sheet close button
      - Parameter showDragHandler: Decide to show the drag handler or not
      - Parameter transactionMode: Decide which transaction mode will be used in this call. Purchase, Authorization, Card Saving and Toknization. Please check [TransactionMode](x-source-tag://TransactionModeEnum)
@@ -90,9 +89,8 @@ internal extension TapCheckout {
     func configureSharedManager(currency:TapCurrencyCode,
                                 amount:Double,
                                 items:[ItemModel],applePayMerchantID:String = "merchant.tap.gosell",
-                                intentModel:TapIntentResponseModel,
                                 swipeDownToDismiss:Bool = false,
-                                paymentTypes:[TapPaymentType],
+                                paymentType:TapPaymentType,
                                 closeButtonStyle:CheckoutCloseButtonEnum = .title,
                                 showDragHandler:Bool = false,
                                 transactionMode: TransactionMode,
@@ -117,9 +115,8 @@ internal extension TapCheckout {
         let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
         sharedManager.transactionCurrencyValue = currency
         sharedManager.applePayMerchantID = applePayMerchantID
-        sharedManager.paymentTypes = paymentTypes
+        sharedManager.paymentType = paymentType
         sharedManager.swipeDownToDismiss = swipeDownToDismiss
-        sharedManager.intentModelResponse = intentModel
         sharedManager.closeButtonStyle = closeButtonStyle
         sharedManager.showDragHandler = showDragHandler
         sharedManager.transactionMode = transactionMode
@@ -137,19 +134,12 @@ internal extension TapCheckout {
         sharedManager.receiptSettings = receiptSettings
         sharedManager.authorizeAction = authorizeAction
         
-        // a variable used to hold the correct amount, which will be the passed amount in case no items or the total items' prices when items are passed
-        var finalAmount:Double = amount
+        
         // if items has no items, we need to add the default items
         if items == [] {
             sharedManager.transactionItemsValue = [ItemModel.init(title: "PAY TO TAP PAYMENTS",description: "Total paid amount", price: amount, quantity: 1,discount: nil,totalAmount: 0)]
         }else {
             sharedManager.transactionItemsValue = items
-            finalAmount = items.totalItemsPrices()
         }
-        // Tell the manager what is the final amount based on given items prices or a given total amount
-        sharedManager.transactionTotalAmountValue = finalAmount
-        
-        
     }
-    
 }

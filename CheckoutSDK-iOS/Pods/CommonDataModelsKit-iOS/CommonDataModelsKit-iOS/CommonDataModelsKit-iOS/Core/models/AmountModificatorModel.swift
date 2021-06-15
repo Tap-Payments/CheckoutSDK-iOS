@@ -57,7 +57,7 @@ import Foundation
      - Parameter originalPrice: The original price the modification will be applied to
      - Returns: The modification value to be applied. Whether the original value if it is a fixed based or the correct value if percentage modification based
      */
-    internal func caluclateActualModificationValue(with originalPrice:Double) -> Double {
+    public func caluclateActualModificationValue(with originalPrice:Double) -> Double {
         
         var modificationValue:Double = 0
         

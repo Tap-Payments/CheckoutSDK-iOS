@@ -93,7 +93,7 @@ internal class TapCheckoutSharedManager {
     var sdkMode:SDKMode = .sandbox
     
     /// Represents The allowed payment types inclyding cards, apple pay, web and telecom
-    var paymentTypes:[TapPaymentType] = [.All]
+    var paymentType:TapPaymentType = .All
     
     /// Represents the list of ALL allowed telecom/cards payments for the logged in merchant
     var tapCardPhoneListDataSource:[CurrencyCardsTelecomModel] = []
@@ -213,12 +213,8 @@ internal class TapCheckoutSharedManager {
         }
     }
     /// Represents the original transaction total amount stated by the merchant on checkout start
-    var transactionTotalAmountValue:Double = 0 {
-        didSet{
-            guard oldValue != transactionTotalAmountValue else { return }
-            transactionTotalAmountObserver(transactionTotalAmountValue)
-            handleChangeAmountAndCurrency()
-        }
+    var transactionTotalAmountValue:Double {
+        return calculateFinalAmount()
     }
     /// Represents the list of items passed by the merchant on load
     var transactionItemsObserver:([ItemModel])->() = { _ in } {
@@ -260,6 +256,27 @@ internal class TapCheckoutSharedManager {
     
     deinit {}
     
+    /**
+     Used to calclate the total price to be paid by the user, taking in consideration the items (each item with price. quantity, discounts, taxes) a transaction level shipping and taxes
+     */
+    func calculateFinalAmount() -> Double {
+        let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
+        
+        let items:[ItemModel] = sharedManager.transactionItemsValue
+        let transactionShipping:[Shipping] = sharedManager.shipping
+        let transactionTaxes:[Tax] = sharedManager.taxes
+        
+        // First calculate the plain total amount from the items inclyding for each item X : (X's price * Quantity) - X's Discounty + X's Shipping + X's Taxes
+        let totalItemsPrices:Double =   items.totalItemsPrices()
+        // Second calculate the total shipping fees for the transaction level
+        let shippingFees:Double     =   Double(truncating: transactionShipping.reduce(0.0, { $0 + $1.amount }) as NSNumber)
+        // Third calculate the total Taxes fees for the transaction level
+        let taxesFees = transactionTaxes.reduce(0) { $0 + $1.amount.caluclateActualModificationValue(with: totalItemsPrices+shippingFees) }
+        // Now we can get the final amount
+        let result = totalItemsPrices + shippingFees + taxesFees
+        return result
+    }
+    
     /// Resetting all view models to the initial state
     private func resetViewModels() {
         tapMerchantViewModel = .init()
@@ -271,7 +288,6 @@ internal class TapCheckoutSharedManager {
     private func resetObservables() {
         transactionCurrencyValue = .undefined
         transactionUserCurrencyValue = .undefined
-        transactionTotalAmountValue = 0
         transactionItemsValue = []
     }
     
@@ -394,7 +410,7 @@ internal class TapCheckoutSharedManager {
     /// Handles the logic to fetch different sections from the Intent API response
     private func parseIntentResponse() {
         
-        guard let intentModel = intentModelResponse else { return }
+        /*guard let intentModel = intentModelResponse else { return }
         
         // Fetch the merchant header info
         self.tapMerchantViewModel = .init(title: nil, subTitle: intentModel.merchant?.name, iconURL: intentModel.merchant?.logo)
@@ -426,7 +442,7 @@ internal class TapCheckoutSharedManager {
         self.tapCardPhoneListDataSource = (intentModel.tapCardPhoneListDataSource ?? []).filter{ paymentTypes.contains(.All) || paymentTypes.contains($0.paymentType) }
         
         // Load the goPayLogin status
-        loggedInToGoPay = UserDefaults.standard.bool(forKey: TapCheckoutConstants.GoPayLoginUserDefaultsKey)
+        loggedInToGoPay = UserDefaults.standard.bool(forKey: TapCheckoutConstants.GoPayLoginUserDefaultsKey)*/
     }
     
     

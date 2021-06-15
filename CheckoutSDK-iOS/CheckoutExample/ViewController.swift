@@ -76,7 +76,7 @@ class ViewController: UIViewController {
             amount: amount,
             items: items,
             swipeDownToDismiss: swipeToDismiss,
-            paymentTypes: paymentTypes,
+            paymentType: paymentTypes.first ?? .All,
             closeButtonStyle: closeButtonTitleStyle,
             showDragHandler:showDragHandler,
             transactionMode: .purchase,
