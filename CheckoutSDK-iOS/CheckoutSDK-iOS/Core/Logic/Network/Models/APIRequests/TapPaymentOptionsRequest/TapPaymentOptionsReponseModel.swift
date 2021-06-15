@@ -64,14 +64,14 @@ internal struct TapPaymentOptionsReponseModel: IdentifiableWithString {
                  savedCards:                        [SavedCard]?,
                  merchantCountryCode:               String?) {
         
-        self.identifier                    = identifier
-        self.orderIdentifier            = orderIdentifier
-        self.object                        = object
-        self.paymentOptions                = paymentOptions
-        self.currency                    = currency
-        self.supportedCurrenciesAmounts    = supportedCurrenciesAmounts
-        self.savedCards                    = savedCards
-        self.merchantCountryCode        = merchantCountryCode
+        self.identifier                     = identifier
+        self.orderIdentifier                = orderIdentifier
+        self.object                         = object
+        self.paymentOptions                 = paymentOptions
+        self.currency                       = currency
+        self.supportedCurrenciesAmounts     = supportedCurrenciesAmounts
+        self.savedCards                     = savedCards
+        self.merchantCountryCode            = merchantCountryCode
     }
 }
 
@@ -91,19 +91,13 @@ extension TapPaymentOptionsReponseModel: Decodable {
         var savedCards                      = try container.decodeIfPresent([SavedCard].self, forKey: .savedCards)
         let merchantCountryCode             = try container.decodeIfPresent(String.self, forKey: .merchantCountryCode)
         
-        /*let applePayPaymentOption:PaymentOption = PaymentOption(identifier: "2", brand: .apple, title: "APPLE PAY", imageURL: URL(string: "https://i.ibb.co/sP9Tkck/Apple-Pay-Pay-With-2x.png")!, paymentType: .apple, sourceIdentifier: "src_kw.knet", supportedCardBrands: [.apple], extraFees: [], supportedCurrencies: [try! Currency.init(isoCode: "KWD"),try! Currency.init(isoCode: "SAR"),try! Currency.init(isoCode: "AED"),try! Currency.init(isoCode: "BHD")], orderBy: 2)
-         
-         paymentOptions.append(applePayPaymentOption)*/
-        paymentOptions = paymentOptions.filter { ($0.brand != .unknown || $0.paymentType == .apple) }
+        
+        paymentOptions = paymentOptions.filter { ($0.brand != .unknown || $0.paymentType == .ApplePay) }
         
         
-        // Filter saved cards based on allowed card types if any
-        
-        
-        if let merchnantAllowedCards = Process.shared.allowedCardTypes
-        {
-            savedCards     = savedCards?.filter { (merchnantAllowedCards.contains($0.cardType ?? CardType(cardType: .All))) }
-        }
+        // Filter saved cards based on allowed card types passed by the user when loading the SDK session
+        let merchnantAllowedCards = TapCheckoutSharedManager.sharedCheckoutManager().allowedCardTypes
+        savedCards = savedCards?.filter { (merchnantAllowedCards.contains($0.cardType ?? CardType(cardType: .All))) }
         
         self.init(identifier:                    identifier,
                   orderIdentifier:                orderIdentifier,
