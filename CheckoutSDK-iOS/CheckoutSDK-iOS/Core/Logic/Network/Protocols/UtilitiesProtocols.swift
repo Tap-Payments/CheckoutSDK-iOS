@@ -32,6 +32,17 @@ internal protocol IdentifiableWithString {
 }
 
 
+/// All models that have identifier are conforming to this protocol.
+internal protocol OptionallyIdentifiableWithString {
+    
+    // MARK: Properties
+    
+    /// Unique identifier of an object.
+    var identifier: String? { get }
+}
+
+
+
 extension Array where Element: Hashable {
     func removingDuplicates() -> [Element] {
         var addedDict = [Element: Bool]()
