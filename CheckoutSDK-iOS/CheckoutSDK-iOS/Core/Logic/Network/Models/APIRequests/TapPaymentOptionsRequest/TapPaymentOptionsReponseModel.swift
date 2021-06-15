@@ -8,8 +8,8 @@
 
 import Foundation
 /// Payment Options Response model.
-internal struct TapPaymentOptionsReponseModel {
-    /*
+internal struct TapPaymentOptionsReponseModel: IdentifiableWithString {
+    
     // MARK: - Internal -
     // MARK: Properties
     
@@ -26,7 +26,7 @@ internal struct TapPaymentOptionsReponseModel {
     internal let paymentOptions: [PaymentOption]
     
     /// Transaction currency.
-    internal let currency: Currency
+    internal let currency: TapCurrencyCode
     
     /// Merchant iso country code.
     internal let merchantCountryCode: String?
@@ -55,14 +55,14 @@ internal struct TapPaymentOptionsReponseModel {
     
     // MARK: Methods
     
-    private init(identifier:                    String,
-                 orderIdentifier:                String?,
-                 object:                        String,
-                 paymentOptions:                [PaymentOption],
-                 currency:                        Currency,
-                 supportedCurrenciesAmounts:    [AmountedCurrency],
-                 savedCards:                    [SavedCard]?,
-                 merchantCountryCode:           String?) {
+    private init(identifier:                        String,
+                 orderIdentifier:                   String?,
+                 object:                            String,
+                 paymentOptions:                    [PaymentOption],
+                 currency:                          TapCurrencyCode,
+                 supportedCurrenciesAmounts:        [AmountedCurrency],
+                 savedCards:                        [SavedCard]?,
+                 merchantCountryCode:               String?) {
         
         self.identifier                    = identifier
         self.orderIdentifier            = orderIdentifier
@@ -82,14 +82,14 @@ extension TapPaymentOptionsReponseModel: Decodable {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        let identifier                     = try container.decode(String.self, forKey: .identifier)
-        let orderIdentifier                = try container.decodeIfPresent(String.self, forKey: .orderIdentifier)
-        let object                        = try container.decode(String.self, forKey: .object)
-        var paymentOptions                = try container.decode([PaymentOption].self, forKey: .paymentOptions)
-        let currency                    = try container.decode(Currency.self, forKey: .currency)
-        let supportedCurrenciesAmounts    = try container.decode([AmountedCurrency].self, forKey: .supportedCurrenciesAmounts)
-        var savedCards                    = try container.decodeIfPresent([SavedCard].self, forKey: .savedCards)
-        let merchantCountryCode         = try container.decodeIfPresent(String.self, forKey: .merchantCountryCode)
+        let identifier                      = try container.decode(String.self, forKey: .identifier)
+        let orderIdentifier                 = try container.decodeIfPresent(String.self, forKey: .orderIdentifier)
+        let object                          = try container.decode(String.self, forKey: .object)
+        var paymentOptions                  = try container.decode([PaymentOption].self, forKey: .paymentOptions)
+        let currency                        = try container.decode(TapCurrencyCode.self, forKey: .currency)
+        let supportedCurrenciesAmounts      = try container.decode([AmountedCurrency].self, forKey: .supportedCurrenciesAmounts)
+        var savedCards                      = try container.decodeIfPresent([SavedCard].self, forKey: .savedCards)
+        let merchantCountryCode             = try container.decodeIfPresent(String.self, forKey: .merchantCountryCode)
         
         /*let applePayPaymentOption:PaymentOption = PaymentOption(identifier: "2", brand: .apple, title: "APPLE PAY", imageURL: URL(string: "https://i.ibb.co/sP9Tkck/Apple-Pay-Pay-With-2x.png")!, paymentType: .apple, sourceIdentifier: "src_kw.knet", supportedCardBrands: [.apple], extraFees: [], supportedCurrencies: [try! Currency.init(isoCode: "KWD"),try! Currency.init(isoCode: "SAR"),try! Currency.init(isoCode: "AED"),try! Currency.init(isoCode: "BHD")], orderBy: 2)
          
@@ -113,5 +113,5 @@ extension TapPaymentOptionsReponseModel: Decodable {
                   supportedCurrenciesAmounts:    supportedCurrenciesAmounts,
                   savedCards:                    savedCards,
                   merchantCountryCode:          merchantCountryCode)
-    }*/
+    }
 }
