@@ -142,7 +142,8 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         prepareSDK(with: sdkMode,delegate:delegate, localiseFile:localiseFile,customTheme:customTheme)
         
         NetworkManager.shared.makeApiCall(routing: .InitAPI, resultType: TapInitResponseModel.self) { (session, result, error) in
-            print(result)
+            guard let initModel:TapInitResponseModel = result as? TapInitResponseModel else { return }
+            
         } onError: { (session, result, errorr) in
             //let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
             //sharedManager.handleSDK(for: errorr)
