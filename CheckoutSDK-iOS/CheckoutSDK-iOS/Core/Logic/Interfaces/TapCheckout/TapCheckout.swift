@@ -140,15 +140,9 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         
         // Do the pre steps needed before starting a new SDK session
         prepareSDK(with: sdkMode,delegate:delegate, localiseFile:localiseFile,customTheme:customTheme)
+        // Initiate the needed calls to server to start the session
+        initialiseSDKFromApi()
         
-        NetworkManager.shared.makeApiCall(routing: .InitAPI, resultType: TapInitResponseModel.self) { (session, result, error) in
-            guard let initModel:TapInitResponseModel = result as? TapInitResponseModel else { return }
-            
-        } onError: { (session, result, errorr) in
-            //let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
-            //sharedManager.handleSDK(for: errorr)
-            self.handleError(error: errorr)
-        }
         
         /*NetworkManager.shared.makeApiCall(routing: .IntentAPI, resultType: TapIntentResponseModel.self) { (session, result, error) in
             guard let intentModel:TapIntentResponseModel = result as? TapIntentResponseModel else { return }

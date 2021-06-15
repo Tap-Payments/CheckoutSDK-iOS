@@ -63,6 +63,13 @@ internal class TapCheckoutSharedManager {
     var currenciesChipsViewModel:[CurrencyChipViewModel] = []
     /// Repreents the list fof supported currencies
     var goPayLoginCountries:[TapCountry] = []
+    /// Represents the data loaded from the Init api on checkout start
+    var intitModelResponse:TapInitResponseModel?{
+        didSet{
+            // Now it is time to fetch needed data from the model parsed
+            parseInitResponse()
+        }
+    }
     /// Represents the data loaded from the Intent api on checkout start
     var intentModelResponse:TapIntentResponseModel?{
         didSet{
@@ -373,6 +380,17 @@ internal class TapCheckoutSharedManager {
     }
     
     
+    /// Handles the logic to fetch different sections from the Init API response
+    private func parseInitResponse() {
+        // Double check..
+        guard let initModel = intitModelResponse else { return }
+        
+        // Fetch the merchant header info
+        self.tapMerchantViewModel = .init(title: nil, subTitle: initModel.data.merchant?.name, iconURL: initModel.data.merchant?.logoURL)
+        
+    }
+    
+    
     /// Handles the logic to fetch different sections from the Intent API response
     private func parseIntentResponse() {
         
@@ -410,6 +428,8 @@ internal class TapCheckoutSharedManager {
         // Load the goPayLogin status
         loggedInToGoPay = UserDefaults.standard.bool(forKey: TapCheckoutConstants.GoPayLoginUserDefaultsKey)
     }
+    
+    
 }
 
 

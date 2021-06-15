@@ -26,11 +26,16 @@ internal extension NetworkManager {
         
         let applicationValue = applicationHeaderValue
         
-        let result = [
+        var result = [
             
             Constants.HTTPHeaderKey.authorization: "Bearer \(secretKey)",
             Constants.HTTPHeaderKey.application: applicationValue
         ]
+        
+        if let sessionToken = TapCheckoutSharedManager.sharedCheckoutManager().intitModelResponse?.data.sessionToken, !sessionToken.isEmpty {
+            
+            result[Constants.HTTPHeaderKey.sessionToken] = sessionToken
+        }
         
         return result
     }
