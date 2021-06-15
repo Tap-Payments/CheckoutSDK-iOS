@@ -29,7 +29,12 @@ import Foundation
     /// The list of Taxes to be applied to the item's price after discount
     public let taxes : [Tax]
     /// The price final amount after applyig discount & taxes
-    public var totalAmount:Double
+    public var totalAmount:Double {
+        didSet {
+            // Check if we need to auto compute it
+            if totalAmount == 0 { totalAmount = itemFinalPrice() }
+        }
+    }
     
     /**
      - Parameter title: The title of the item
@@ -40,7 +45,7 @@ import Foundation
      - Parameter taxes: The list of Taxs to be applied to the item's price after discount
      - Parameter totalAmount: The price final amount after applyig discount & taxes
      */
-    @objc public init(title: String?, description: String?, price: Double = 0, quantity: Int = 0, discount: AmountModificatorModel?,taxes:[Tax] = [],totalAmount:Double) {
+    @objc public init(title: String?, description: String?, price: Double = 0, quantity: Int = 0, discount: AmountModificatorModel?,taxes:[Tax] = [],totalAmount:Double = 0) {
         self.title = title
         self.itemDescription = description
         self.price = price
@@ -48,6 +53,10 @@ import Foundation
         self.discount = discount
         self.taxes = taxes
         self.totalAmount = totalAmount
+        super.init()
+        defer {
+            self.totalAmount = totalAmount
+        }
     }
     
     enum CodingKeys: String, CodingKey {

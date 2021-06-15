@@ -137,7 +137,7 @@ internal extension TapCheckout {
         
         // if items has no items, we need to add the default items
         if items == [] {
-            sharedManager.transactionItemsValue = [ItemModel.init(title: "PAY TO TAP PAYMENTS",description: "Total paid amount", price: amount, quantity: 1,discount: nil,totalAmount: 0)]
+            sharedManager.transactionItemsValue = [ItemModel.init(title: "PAY TO TAP PAYMENTS",description: "Total paid amount", price: amount, quantity: 1,discount: nil)]
         }else {
             sharedManager.transactionItemsValue = items
         }
