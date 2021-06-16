@@ -45,9 +45,9 @@ import Foundation
     
 
     required public init(from decoder: Decoder) throws {
-		let values  = try decoder.container(keyedBy: CodingKeys.self)
+        let values  = try decoder.container(keyedBy: CodingKeys.self)
         type        = try values.decodeIfPresent(AmountModificationType.self, forKey: .type) ?? .Fixed
-		value       = try values.decodeIfPresent(Double.self, forKey: .value)
+        value       = try values.decodeIfPresent(Double.self, forKey: .value)
         minFee      = try values.decodeIfPresent(Decimal.self, forKey: .minFee) ?? 0
         maxFee      = try values.decodeIfPresent(Decimal.self, forKey: .maxFee) ?? 0
 	}

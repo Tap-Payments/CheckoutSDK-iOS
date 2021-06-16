@@ -39,13 +39,13 @@ internal struct TapPaymentOptionsRequestModel {
     internal private(set) var destinationGroup: DestinationGroup?
     
     /// Payment type.
-    internal private(set) var paymentType: TapPaymentType?
+    internal private(set) var paymentType: TapPaymentType = .All
     
     // MARK: Methods
     
     internal init(customer: TapCustomer?) {
         
-        self.init(transactionMode: nil, amount: nil, items: nil, shipping: nil, taxes: nil, currency: nil, merchantID: nil, customer: customer, destinationGroup: nil, paymentType: nil)
+        self.init(transactionMode: nil, amount: nil, items: nil, shipping: nil, taxes: nil, currency: nil, merchantID: nil, customer: customer, destinationGroup: nil, paymentType: .All)
     }
     
     internal init(transactionMode:      TransactionMode?,
@@ -57,7 +57,7 @@ internal struct TapPaymentOptionsRequestModel {
                   merchantID:           String?,
                   customer:             TapCustomer?,
                   destinationGroup:     DestinationGroup?,
-                  paymentType:          TapPaymentType?
+                  paymentType:          TapPaymentType
                   
     ) {
         
@@ -116,6 +116,7 @@ extension TapPaymentOptionsRequestModel: Encodable {
         
         try container.encodeIfPresent(self.transactionMode, forKey: .transactionMode)
         try container.encodeIfPresent(self.items, forKey: .items)
+        try container.encodeIfPresent(self.paymentType, forKey: .paymentType)
         
         if self.shipping?.count ?? 0 > 0 {
             

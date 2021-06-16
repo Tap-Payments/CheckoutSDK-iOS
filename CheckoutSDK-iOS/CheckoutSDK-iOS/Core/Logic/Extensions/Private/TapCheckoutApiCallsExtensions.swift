@@ -14,14 +14,14 @@ internal extension TapCheckout {
     //MARK:- Methods for making the api calls
     
     /// Responsible for making the network calls needed to boot the SDK like init and payment options
-    func initialiseSDKFromAPI() {
+    func initialiseSDKFromAPI(onCheckOutReady: @escaping () -> () = {}) {
         // As per the backend logic, we will have to hit INIT then Payment options APIs
         NetworkManager.shared.makeApiCall(routing: .InitAPI, resultType: TapInitResponseModel.self) { [weak self] (session, result, error) in
             guard let initModel:TapInitResponseModel = result as? TapInitResponseModel else { self?.handleError(error: "Unexpected error")
                 return }
             self?.handleInitResponse(initModel: initModel)
             // Let us now load the payment options
-            self?.callPaymentOptionsAPI()
+            self?.callPaymentOptionsAPI(onCheckOutReady: onCheckOutReady)
             
             
         } onError: { (session, result, errorr) in
@@ -29,7 +29,7 @@ internal extension TapCheckout {
         }
     }
     /// Responsible for making the network call to payment options api
-    func callPaymentOptionsAPI() {
+    func callPaymentOptionsAPI(onCheckOutReady: @escaping () -> () = {}) {
         // As per the backend logic, we will have to hit PAYMENT OPTIONS API after the INIT call
         let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
         
@@ -44,11 +44,12 @@ internal extension TapCheckout {
         
         
         NetworkManager.shared.makeApiCall(routing: .PaymentOptionsAPI, resultType: TapPaymentOptionsReponseModel.self, body: bodyDictionary, httpMethod: .POST) { [weak self] (session, result, error) in
-            guard let initModel:TapPaymentOptionsReponseModel = result as? TapPaymentOptionsReponseModel else { self?.handleError(error: "Unexpected error")
+            guard let paymentOptionsResponse:TapPaymentOptionsReponseModel = result as? TapPaymentOptionsReponseModel else { self?.handleError(error: "Unexpected error")
                 return }
             // Let us now load the payment options
                 print("OSAMA")
-            
+            TapCheckoutSharedManager.sharedCheckoutManager().paymentOptionsModelResponse = paymentOptionsResponse
+            onCheckOutReady()
         } onError: { (session, result, errorr) in
             self.handleError(error: errorr)
         }

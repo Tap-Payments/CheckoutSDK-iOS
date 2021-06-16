@@ -70,6 +70,13 @@ internal class TapCheckoutSharedManager {
             parseInitResponse()
         }
     }
+    /// Represents the data loaded from the Init api on checkout start
+    var paymentOptionsModelResponse:TapPaymentOptionsReponseModel?{
+        didSet{
+            // Now it is time to fetch needed data from the model parsed
+            parsePaymentOptionsResponse()
+        }
+    }
     /// Represents the data loaded from the Intent api on checkout start
     var intentModelResponse:TapIntentResponseModel?{
         didSet{
@@ -122,7 +129,7 @@ internal class TapCheckoutSharedManager {
     var tapMerchantID:String?
     
     /// Optional. List of Taxes you want to apply to the order if any.
-    var taxes:[Tax] = []
+    var taxes:[Tax]? = nil
     
     /// Optional. List of Shipping you want to apply to the order if any.
     var shipping:[Shipping] = []
@@ -264,7 +271,7 @@ internal class TapCheckoutSharedManager {
         
         let items:[ItemModel] = sharedManager.transactionItemsValue
         let transactionShipping:[Shipping] = sharedManager.shipping
-        let transactionTaxes:[Tax] = sharedManager.taxes
+        let transactionTaxes:[Tax] = sharedManager.taxes ?? []
         
         // First calculate the plain total amount from the items inclyding for each item X : (X's price * Quantity) - X's Discounty + X's Shipping + X's Taxes
         let totalItemsPrices:Double =   items.totalItemsPrices()
@@ -404,6 +411,41 @@ internal class TapCheckoutSharedManager {
         // Fetch the merchant header info
         self.tapMerchantViewModel = .init(title: nil, subTitle: initModel.data.merchant?.name, iconURL: initModel.data.merchant?.logoURL)
         
+    }
+    
+    private func parsePaymentOptionsResponse() {
+        
+        guard let paymentOptions = paymentOptionsModelResponse else { return }
+         
+         // Fetch the list of supported currencies
+        self.currenciesChipsViewModel = paymentOptions.supportedCurrenciesAmounts.map{ CurrencyChipViewModel.init(currency: $0.currency) }
+         self.tapCurrienciesChipHorizontalListViewModel = .init(dataSource: currenciesChipsViewModel, headerType: .NoHeader,selectedChip: currenciesChipsViewModel.filter{ $0.currency == transactionUserCurrencyValue }[0])
+         
+         // Fetch the list of the goPay supported login countries
+        self.goPayLoginCountries = [.init(nameAR: "مصر", nameEN: "Egypt", code: "20", phoneLength: 10)]//paymentOptions.goPayLoginCountries ?? []
+         self.goPayBarViewModel = .init(countries: goPayLoginCountries)
+         
+         // Fetch the list of goPay Saved Cards
+         // First check if cards are allowed
+        if paymentType == .All || paymentType == .Card {
+            self.goPayChipsViewModel =  []
+            goPayChipsViewModel.append(.init(tapChipViewModel:TapLogoutChipViewModel()))
+         }else{
+            self.goPayChipsViewModel = []
+         }
+         
+         // Fetch the merchant based saved cards + differnt payment types
+        self.gatewayChipsViewModel = paymentOptions.paymentOptions.filter{ paymentType == .All || paymentType == $0.paymentType || $0.paymentType == .All }.map{ ChipWithCurrencyModel.init(paymentOption: $0) }
+         
+         // Fetch the save card/phone switch data
+         tapSaveCardSwitchViewModel = .init(with: .invalidCard, merchant: tapMerchantViewModel.subTitle ?? "")
+         
+         // Fetch the cards + telecom payments options
+         //self.tapCardPhoneListDataSource = (paymentOptions.tapCardPhoneListDataSource ?? []).filter{ paymentTypes.contains(.All) || paymentTypes.contains($0.paymentType) }
+        self.tapCardPhoneListDataSource = []
+         
+         // Load the goPayLogin status
+         loggedInToGoPay = false//UserDefaults.standard.bool(forKey: TapCheckoutConstants.GoPayLoginUserDefaultsKey)
     }
     
     

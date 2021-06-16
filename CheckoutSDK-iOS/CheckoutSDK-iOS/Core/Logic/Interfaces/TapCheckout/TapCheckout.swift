@@ -121,7 +121,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         customer: TapCustomer = try! .init(emailAddress: TapEmailAddress(emailAddressString: "taptestingemail@gmail.com"), phoneNumber: nil, name: "Tap Testing Default"),
         destinations: [Destination]? = nil,
         tapMerchantID: String? = nil,
-        taxes:[Tax] = [],
+        taxes:[Tax]? = nil,
         shipping:[Shipping] = [],
         allowedCardTypes: [CardType] = [CardType(cardType: .All)],
         postURL:URL? = nil,
@@ -143,7 +143,11 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         // Store the passed configurations for further processing
         configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,swipeDownToDismiss:swipeDownToDismiss,paymentType:paymentType,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID,taxes: taxes, shipping: shipping, allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor,require3DSecure:require3DSecure,receiptSettings:receiptSettings, authorizeAction: authorizeAction)
         // Initiate the needed calls to server to start the session
-        initialiseSDKFromAPI()
+        initialiseSDKFromAPI { [weak self] in
+            guard let nonNullSelf = self else { return }
+            nonNullSelf.configureBottomSheet()
+            onCheckOutReady(nonNullSelf)
+        }
     }
     
     

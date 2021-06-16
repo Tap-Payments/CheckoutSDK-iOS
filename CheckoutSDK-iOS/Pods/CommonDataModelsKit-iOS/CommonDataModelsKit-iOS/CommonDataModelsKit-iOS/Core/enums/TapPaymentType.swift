@@ -40,6 +40,7 @@ import Foundation
         }
     }
     
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         let rawValue = try container.decode(String.self)
@@ -68,8 +69,9 @@ import Foundation
     }
     
     public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(stringValue, forKey: .stringValue)
+        
+        var container = encoder.singleValueContainer()
+        try container.encode(self.stringValue)
     }
     
 }

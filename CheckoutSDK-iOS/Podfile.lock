@@ -1,5 +1,5 @@
 PODS:
-  - CommonDataModelsKit-iOS (1.0.35):
+  - CommonDataModelsKit-iOS (1.0.36):
     - TapAdditionsKitV2
   - EasyAnimation (2.2.1)
   - Kingfisher (6.3.0)
@@ -107,7 +107,7 @@ SPEC REPOS:
     - TapUIKit-iOS
 
 SPEC CHECKSUMS:
-  CommonDataModelsKit-iOS: 1515b376cab5aeb63fc468c3393116302f426c56
+  CommonDataModelsKit-iOS: 4589081682f1e304feccc8b3851e5275b1d66a09
   EasyAnimation: 226d133d23ef0ef99ddfb8928ff2a9a4a77d1cfd
   Kingfisher: 6c3df386db71d82c0817a429d2c9421a77396529
   LocalisationManagerKit-iOS: cd702915c67faba899d4613d44ceb00cefccec6e

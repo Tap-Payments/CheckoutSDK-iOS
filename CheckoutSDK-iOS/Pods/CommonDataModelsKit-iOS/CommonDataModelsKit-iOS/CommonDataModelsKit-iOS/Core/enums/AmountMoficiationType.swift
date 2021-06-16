@@ -32,8 +32,8 @@ import Foundation
         
         switch self {
         
-        case .Percentage:        return Constants.percentBasedKey
-        case .Fixed:             return Constants.fixedAmountKey
+        case .Percentage:           return Constants.percentBasedKey
+        case .Fixed:          return Constants.fixedAmountKey
             
         }
     }

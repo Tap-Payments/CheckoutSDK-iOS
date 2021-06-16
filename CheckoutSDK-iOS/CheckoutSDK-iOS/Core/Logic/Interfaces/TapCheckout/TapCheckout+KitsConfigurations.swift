@@ -97,7 +97,7 @@ internal extension TapCheckout {
                                 customer: TapCustomer,
                                 destinations: [Destination]?,
                                 tapMerchantID: String? = nil,
-                                taxes:[Tax] = [],
+                                taxes:[Tax]? = nil,
                                 shipping:[Shipping] = [],
                                 allowedCardTypes: [CardType] = [CardType(cardType: .All)],
                                 postURL:URL? = nil,
@@ -137,7 +137,7 @@ internal extension TapCheckout {
         
         // if items has no items, we need to add the default items
         if items == [] {
-            sharedManager.transactionItemsValue = [ItemModel.init(title: "PAY TO TAP PAYMENTS",description: "Total paid amount", price: amount, quantity: 1,discount: nil)]
+            sharedManager.transactionItemsValue = [ItemModel.init(title: "PAY TO TAP PAYMENTS",description: "Total paid amount", price: amount, quantity: .init(value: 1, unitOfMeasurement: .units),discount: nil, totalAmount: 0)]
         }else {
             sharedManager.transactionItemsValue = items
         }
