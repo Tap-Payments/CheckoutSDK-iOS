@@ -55,17 +55,33 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BF9F221F-1790-4734-8340-B60AA0DD9530"
+            uuid = "AC2E568D-4545-43CA-B3DB-A6E013639EF7"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pods/CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/models/ItemModel.swift"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Network/NetworkManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "totalAmount"
-            landmarkType = "24">
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "makeApiCall(routing:resultType:body:httpMethod:completion:onError:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "874409FA-0366-4795-A462-B1F5682A0155"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pods/TapNetworkKit-iOS/TapNetworkKit-iOS/TapNetworkKit-iOS/Source/Core/TapNetworkManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
+            landmarkName = "performRequest(_:completion:codableType:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
