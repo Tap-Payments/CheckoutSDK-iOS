@@ -22,6 +22,8 @@ internal class CurrencyCardsTelecomModel:Codable {
     lazy var supportedTelecomCountry:TapCountry? = nil
     /// Represents the payment type
     lazy var paymentType:TapPaymentType = .All
+    /// Corresponding PaymentOption model
+    lazy var tapPaymentOption:PaymentOption? = nil
     
     /**
      Creates a new instance that links the bar view model with certain currencies
@@ -35,6 +37,40 @@ internal class CurrencyCardsTelecomModel:Codable {
         self.supportedCurrencies = supportedCurrencies
         self.supportedTelecomCountry = supportedTelecomCountry
         self.paymentType = paymentType
+    }
+    
+    
+    
+    /**
+     Creates a new instance that links the chip model with certain Backend tap payment option
+     - Parameter paymentOption:Represnts the payment option model backend
+     */
+    init(paymentOption:PaymentOption) {
+        
+        self.tapCardPhoneViewModel = TapCardPhoneIconViewModel.init(associatedCardBrand: paymentOption.brand, tapCardPhoneIconUrl: paymentOption.imageURL.absoluteString)
+        
+        self.supportedCurrencies = paymentOption.supportedCurrencies
+        self.supportedTelecomCountry = nil
+        self.paymentType = paymentOption.paymentType
+        self.tapPaymentOption = paymentOption
+    }
+    
+    /**
+     Creates a correct chip model with respect to the payment option type
+     - Parameter paymentOption:Represnts the payment option model backend
+     */
+    private func generateCorrectChipType(from paymentOption:PaymentOption) -> GenericTapChipViewModel {
+        let genericChipModel:GenericTapChipViewModel = .init(title: paymentOption.title, icon: paymentOption.imageURL.absoluteString)
+        switch paymentOption.paymentType {
+        case .ApplePay,.Device:
+            return ApplePayChipViewCellModel.init(title: paymentOption.title, icon: paymentOption.imageURL.absoluteString)
+        case .Card:
+            return SavedCardCollectionViewCellModel.init(title: paymentOption.title, icon: paymentOption.imageURL.absoluteString)
+        case .Web:
+            return GatewayChipViewModel.init(title: paymentOption.title, icon: paymentOption.imageURL.absoluteString)
+        default:
+            return genericChipModel
+        }
     }
     
     /**

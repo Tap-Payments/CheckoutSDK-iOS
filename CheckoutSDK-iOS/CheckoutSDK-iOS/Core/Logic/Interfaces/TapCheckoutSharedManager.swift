@@ -435,17 +435,17 @@ internal class TapCheckoutSharedManager {
          }
          
          // Fetch the merchant based saved cards + differnt payment types
-        self.gatewayChipsViewModel = paymentOptions.paymentOptions.filter{ paymentType == .All || paymentType == $0.paymentType || $0.paymentType == .All }.map{ ChipWithCurrencyModel.init(paymentOption: $0) }
+        self.gatewayChipsViewModel = paymentOptions.paymentOptions.filter{ (paymentType == .All || paymentType == $0.paymentType || $0.paymentType == .All) && $0.paymentType != .Card }.map{ ChipWithCurrencyModel.init(paymentOption: $0) }
          
          // Fetch the save card/phone switch data
          tapSaveCardSwitchViewModel = .init(with: .invalidCard, merchant: tapMerchantViewModel.subTitle ?? "")
-         
-         // Fetch the cards + telecom payments options
-         //self.tapCardPhoneListDataSource = (paymentOptions.tapCardPhoneListDataSource ?? []).filter{ paymentTypes.contains(.All) || paymentTypes.contains($0.paymentType) }
-        self.tapCardPhoneListDataSource = []
+        
+        // Fetch the cards + telecom payments options
+        self.tapCardPhoneListDataSource = paymentOptions.paymentOptions.filter{ (paymentType == .Card || paymentType == .All) && $0.paymentType == .Card }.map{ CurrencyCardsTelecomModel.init(paymentOption: $0) }
          
          // Load the goPayLogin status
          loggedInToGoPay = false//UserDefaults.standard.bool(forKey: TapCheckoutConstants.GoPayLoginUserDefaultsKey)
+        updateManager()
     }
     
     
