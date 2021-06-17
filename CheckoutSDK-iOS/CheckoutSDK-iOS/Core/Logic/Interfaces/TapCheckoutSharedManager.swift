@@ -263,7 +263,7 @@ internal class TapCheckoutSharedManager {
         let transactionTaxes:[Tax] = sharedManager.taxes ?? []
         
         // First calculate the plain total amount from the items inclyding for each item X : (X's price * Quantity) - X's Discounty + X's Shipping + X's Taxes
-        let totalItemsPrices:Double =   items.totalItemsPrices()
+        let totalItemsPrices:Double =   items.totalItemsPrices(convertFromCurrency: transactionCurrencyValue, convertToCurrenct: transactionUserCurrencyValue)
         // Second calculate the total shipping fees for the transaction level
         let shippingFees:Double     =   Double(truncating: transactionShipping.reduce(0.0, { $0 + $1.amount }) as NSNumber)
         // Third calculate the total Taxes fees for the transaction level
@@ -306,7 +306,7 @@ internal class TapCheckoutSharedManager {
     /// Handles the logic needed to create the tap items view model by utilising the original currency and the items list passed by the merchant
     private func createTapItemsViewModel() {
         // Convert the passed items models into the ItemCellViewModels and update the items table view model with the new created list
-        let itemsModels:[ItemCellViewModel] = transactionItemsValue.map{ ItemCellViewModel.init(itemModel: $0, originalCurrency:transactionCurrencyValue.currency) }
+        let itemsModels:[ItemCellViewModel] = transactionItemsValue.map{ ItemCellViewModel.init(itemModel: $0, originalCurrency:transactionCurrencyValue) }
         tapItemsTableViewModel = .init(dataSource: itemsModels)
         tapAmountSectionViewModel.numberOfItems = transactionItemsValue.count
     }
@@ -337,7 +337,7 @@ internal class TapCheckoutSharedManager {
     
     /// Handles all the logic needed when the user selected currency changed to reflect in the items list view
     private func updateItemsList() {
-        tapItemsTableViewModel.dataSource.map{ $0 as! ItemCellViewModel }.forEach{ $0.convertCurrency = transactionUserCurrencyValue.currency }
+        tapItemsTableViewModel.dataSource.map{ $0 as! ItemCellViewModel }.forEach{ $0.convertCurrency = transactionUserCurrencyValue }
     }
     
     /// Handles all the logic needed when the user selected currency changed to reflect in the supported gateways chips for the new currency
@@ -372,7 +372,7 @@ internal class TapCheckoutSharedManager {
         guard applePayChips.count > 0, let applePayChipViewModel:ApplePayChipViewCellModel = applePayChips[0].tapChipViewModel as? ApplePayChipViewCellModel else { // meaning no apple pay chip is there
             return }
         
-        applePayChipViewModel.configureApplePayRequest(currencyCode: transactionUserCurrencyValue.currency,paymentItems: transactionItemsValue.toApplePayItems(convertFromCurrency: transactionCurrencyValue.currency, convertToCurrenct: transactionUserCurrencyValue.currency), amount: transactionUserCurrencyValue.currency.convert(from: transactionCurrencyValue.currency, for: transactionTotalAmountValue), merchantID: applePayMerchantID)
+        applePayChipViewModel.configureApplePayRequest(currencyCode: transactionUserCurrencyValue.currency,paymentItems: transactionItemsValue.toApplePayItems(convertFromCurrency: transactionCurrencyValue, convertToCurrenct: transactionUserCurrencyValue), amount: transactionUserCurrencyValue.currency.convert(from: transactionCurrencyValue.currency, for: transactionTotalAmountValue), merchantID: applePayMerchantID)
         
     }
     
