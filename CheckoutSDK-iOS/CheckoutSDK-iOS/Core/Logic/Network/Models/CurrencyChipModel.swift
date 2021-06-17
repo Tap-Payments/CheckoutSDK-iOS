@@ -23,6 +23,8 @@ internal class ChipWithCurrencyModel:Codable {
     lazy var paymentType:TapPaymentType = .All
     /// Corresponding PaymentOption model
     lazy var tapPaymentOption:PaymentOption? = nil
+    /// Corresponding Saved Card model if this is a saved card chip
+    lazy var savedCard:SavedCard? = nil
     /**
      Creates a new instance that links the chip model with certain currencies
      - Parameter tapChipViewModel: Represents the chip view model itself (Apple, goPay & saved card)
@@ -49,6 +51,20 @@ internal class ChipWithCurrencyModel:Codable {
         self.supportedCountry = nil
         self.paymentType = paymentOption.paymentType
         self.tapPaymentOption = paymentOption
+    }
+    
+    
+    /**
+     Creates a new instance that links the chip model with certain Backend tap saved card
+     - Parameter savedCard:Represnts the saved card option model backend
+     */
+    init(savedCard:SavedCard) {
+        self.tapPaymentOption = PaymentOption.init(identifier: savedCard.paymentOptionIdentifier ?? "", brand: savedCard.brand, title: savedCard.lastFourDigits, imageURL: URL(string:savedCard.image ?? "")!, isAsync: false, paymentType: .Card, sourceIdentifier: nil, supportedCardBrands: [savedCard.brand], extraFees: [], supportedCurrencies: savedCard.supportedCurrencies, orderBy: 1, threeDLevel: .always)
+        self.savedCard = savedCard
+        self.tapChipViewModel = generateCorrectChipType(from: tapPaymentOption!)
+        self.supportedCurrencies = tapPaymentOption!.supportedCurrencies
+        self.supportedCountry = nil
+        self.paymentType = tapPaymentOption!.paymentType
     }
     
     /**

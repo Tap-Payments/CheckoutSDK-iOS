@@ -65,6 +65,9 @@
 	/// Cardholder name.
 	public let cardholderName: String?
     
+    /// Card logo
+    public let image: String?
+    
     
     /// Card Type
     public let cardType: CardType?
@@ -123,6 +126,7 @@
 		case expirationMonth			= "exp_month"
 		case expirationYear				= "exp_year"
         case cardType                   = "funding"
+        case image                      = "image"
 	}
 	
 	// MARK: Properties
@@ -133,7 +137,7 @@
 	
 	// MARK: Methods
 	
-    private init(identifier: String?, object: String, firstSixDigits: String, lastFourDigits: String, brand: CardBrand, paymentOptionIdentifier: String?, expiry: ExpirationDate?, cardholderName: String?, fingerprint: String?, currency: TapCurrencyCode?, scheme: CardScheme?, supportedCurrencies: [TapCurrencyCode], orderBy: Int, expirationMonth: Int?, expirationYear: Int?, cardType:CardType?) {
+    private init(identifier: String?, object: String, firstSixDigits: String, lastFourDigits: String, brand: CardBrand, paymentOptionIdentifier: String?, expiry: ExpirationDate?, cardholderName: String?, fingerprint: String?, currency: TapCurrencyCode?, scheme: CardScheme?, supportedCurrencies: [TapCurrencyCode], orderBy: Int, expirationMonth: Int?, expirationYear: Int?, cardType:CardType?, image:String?) {
 		
 		self.identifier                 = identifier
 		self.object                     = object
@@ -151,6 +155,7 @@
 		self.exp_month					= expirationMonth
 		self.exp_year					= expirationYear
         self.cardType                   = cardType
+        self.image                      = image
 		
 		super.init()
 	}
@@ -172,12 +177,13 @@ extension SavedCard: Decodable {
 		let expiry              = try container.decodeIfPresent(ExpirationDate.self,    forKey: .expiry)
 		let cardholderName      = try container.decodeIfPresent(String.self,            forKey: .cardholderName)
 		let fingerprint			= try container.decodeIfPresent(String.self,			forKey: .fingerprint)
-		let currency            = try container.decodeIfPresent(TapCurrencyCode.self,          forKey: .currency)
+		let currency            = try container.decodeIfPresent(TapCurrencyCode.self,   forKey: .currency)
 		let scheme              = try container.decodeIfPresent(CardScheme.self,        forKey: .scheme)
-		let supportedCurrencies = try container.decodeIfPresent([TapCurrencyCode].self,        forKey: .supportedCurrencies) ?? []
+		let supportedCurrencies = try container.decodeIfPresent([TapCurrencyCode].self, forKey: .supportedCurrencies) ?? []
 		let orderBy             = try container.decodeIfPresent(Int.self,               forKey: .orderBy) ?? 0
 		let expirationMonth		= try container.decodeIfPresent(Int.self,				forKey: .expirationMonth)
 		let expirationYear		= try container.decodeIfPresent(Int.self,				forKey: .expirationYear)
+        let image               = try container.decodeIfPresent(String.self,            forKey: .image)
         var cardType:CardType?            = nil
         if let cardFunding = (try container.decodeIfPresent(String.self,  forKey: .cardType) ?? nil)
         {
@@ -199,7 +205,8 @@ extension SavedCard: Decodable {
 				  orderBy:                  orderBy,
 				  expirationMonth:			expirationMonth,
 				  expirationYear:			expirationYear,
-                  cardType:                 cardType)
+                  cardType:                 cardType,
+                  image:                    image)
 	}
 }
 

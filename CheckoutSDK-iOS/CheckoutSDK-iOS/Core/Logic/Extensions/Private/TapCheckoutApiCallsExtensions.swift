@@ -47,8 +47,8 @@ internal extension TapCheckout {
             guard let paymentOptionsResponse:TapPaymentOptionsReponseModel = result as? TapPaymentOptionsReponseModel else { self?.handleError(error: "Unexpected error")
                 return }
             // Let us now load the payment options
-                print("OSAMA")
-            TapCheckoutSharedManager.sharedCheckoutManager().paymentOptionsModelResponse = paymentOptionsResponse
+            let paymentOptionsResponseWithSavedCards:TapPaymentOptionsReponseModel = self!.addDummySavedCards(to: paymentOptionsResponse)
+            TapCheckoutSharedManager.sharedCheckoutManager().paymentOptionsModelResponse = paymentOptionsResponseWithSavedCards
             onCheckOutReady()
         } onError: { (session, result, errorr) in
             self.handleError(error: errorr)
@@ -92,4 +92,76 @@ internal extension TapCheckout {
         return modelDictionary
     }
     typealias CompletionOnFailure = (TapSDKError?) -> Void
+    
+    
+    /// Ha3mel eh tayeb!??? i have to find a way myself to test :)
+    private func addDummySavedCards(to: TapPaymentOptionsReponseModel) -> TapPaymentOptionsReponseModel {
+        var responseWithSavedCard = to
+        let jsonString = """
+            [
+            {
+            "bank_logo" : "",
+            "brand" : "MASTERCARD",
+            "currency" : "USD",
+            "expiry" : {
+            "month" : "3",
+            "year" : "21"
+            },
+            "fingerprint" : "IYc8smHEIhbTgMxQA8xchvMNSpRPCY2fH%2FxduJjRu2U%3D",
+            "first_six" : "558848",
+            "funding" : "DEBIT",
+            "id" : "card_CyDBR1311012az4Q527395",
+            "image" : "https://sandbox.payments.tap.company/images/MADA.png",
+            "last_four" : "0003",
+            "name" : "OSAMA",
+            "object" : "card",
+            "order_by" : 1,
+            "payment_method_id" : "28",
+            "scheme" : "MADA",
+            "supported_currencies" : [
+            "SAR"
+            ]
+            },
+            {
+            "bank_logo" : "",
+            "brand" : "VISA",
+            "currency" : "USD",
+            "expiry" : {
+            "month" : "3",
+            "year" : "21"
+            },
+            "fingerprint" : "gRkNTnMrJPtVYkFDVU485FgQm1SthWhnL0fDw88%2Bgvw%3D",
+            "first_six" : "424242",
+            "funding" : "CREDIT",
+            "id" : "card_C3eME13110123kSO527400",
+            "image" : "https://sandbox.payments.tap.company/images/VISA.png",
+            "last_four" : "4242",
+            "name" : "OSAMA",
+            "object" : "card",
+            "order_by" : 0,
+            "payment_method_id" : "3",
+            "scheme" : "VISA",
+            "supported_currencies" : [
+            "AED",
+            "BHD",
+            "EUR",
+            "GBP",
+            "INR",
+            "JOD",
+            "KWD",
+            "OMR",
+            "PKR",
+            "QAR",
+            "SAR",
+            "USD",
+            "EGP"
+            ]
+            }
+            ]
+            """
+        let jsonData = jsonString.data(using: .utf8)!
+        let savedCards:[SavedCard] = try! JSONDecoder().decode([SavedCard].self, from: jsonData)
+        responseWithSavedCard.savedCards = savedCards
+        return responseWithSavedCard
+    }
 }

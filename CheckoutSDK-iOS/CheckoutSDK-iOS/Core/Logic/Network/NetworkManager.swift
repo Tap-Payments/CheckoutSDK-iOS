@@ -15,7 +15,9 @@ internal class NetworkManager: NSObject {
     /// The singletong network manager
     static let shared = NetworkManager()
     /// The static headers to be sent with every call/request
-    private var headers:[String:String] = NetworkManager.staticHTTPHeaders
+    private var headers:[String:String] {
+      return  NetworkManager.staticHTTPHeaders
+    }
     private var networkManager: TapNetworkManager
     /// The server base url
     private let baseURL = "https://api.tap.company/v2/"
@@ -41,10 +43,19 @@ internal class NetworkManager: NSObject {
         // Group all the configurations and pass it to the network manager
         let requestOperation = TapNetworkRequestOperation(path: "\(baseURL)\(routing.rawValue)", method: httpMethod, headers: headers, urlModel: .none, bodyModel: .none, responseType: .json)
         
+        print("Request :\n========\n")
+        print("\(httpMethod.rawValue) \(requestOperation.path)\n")
+        print("Headers :\n------\n")
+        print(String(data: try! JSONSerialization.data(withJSONObject: headers, options: .prettyPrinted), encoding: .utf8 )!)
+        print("Body :\n-----\n")
+        print(String(data: try! JSONSerialization.data(withJSONObject: body, options: .prettyPrinted), encoding: .utf8 )!)
+        print("\n---------------\n")
+        
+        
         // Perform the actual request
         networkManager.performRequest(requestOperation, completion: { (session, result, error) in
-            print("result is: \(String(describing: result))")
-            print("error: \(String(describing: error))")
+            //print("result is: \(String(describing: result))")
+            //print("error: \(String(describing: error))")
             
             // Check we need to do the on error callbak or not
             guard let correctParsing = result as? T else {

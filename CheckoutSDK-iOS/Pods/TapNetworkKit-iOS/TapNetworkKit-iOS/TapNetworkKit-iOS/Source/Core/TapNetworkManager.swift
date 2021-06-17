@@ -46,7 +46,7 @@ public class TapNetworkManager {
         do {
 
             request = try self.createURLRequest(from: operation)
-            TapLogger.log(with: request, bodyParmeters: operation.bodyModel?.body)
+            //TapLogger.log(with: request, bodyParmeters: operation.bodyModel?.body)
 
             if self.isRequestLoggingEnabled {
 
@@ -111,25 +111,39 @@ public class TapNetworkManager {
     public func performRequest<T:Decodable>(_ operation: TapNetworkRequestOperation, completion: RequestCompletionClosure?,codableType:T.Type) {
         
         performRequest(operation) { (dataTask, data, error) in
+            print("Response :\n========\n")
+            print("\(operation.httpMethod.rawValue) \(operation.path)\n")
+            if let httpUrlResponse = dataTask?.response as? HTTPURLResponse
+            {
+                print("\nHeaders :\n------\n")
+                print(String(data: try! JSONSerialization.data(withJSONObject: httpUrlResponse.allHeaderFields, options: .prettyPrinted), encoding: .utf8 )!)
+            }
+            
+            
+            
+            
             if let nonNullError = error {
-                TapLogger.log(urlRequest: dataTask?.originalRequest, error: nonNullError)
+                //TapLogger.log(urlRequest: dataTask?.originalRequest, error: nonNullError)
                 completion?(dataTask, nil, nonNullError)
             }else if let jsonObject = data {
+                print("\nBody :\n-----\n")
+                print(String(data: try! JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted), encoding: .utf8 )!)
+                print("\n---------------\n")
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: .fragmentsAllowed)
                     let decodedResponse = try JSONDecoder().decode(codableType, from: jsonData)
-                    TapLogger.log(urlRequest: dataTask?.originalRequest, apiResponse: jsonObject)
+                    //TapLogger.log(urlRequest: dataTask?.originalRequest, apiResponse: jsonObject)
                     DispatchQueue.main.async {
                         completion?(dataTask, decodedResponse, error)
                     }
                 } catch {
-                    TapLogger.log(urlRequest: dataTask?.originalRequest, error: error)
+                    //TapLogger.log(urlRequest: dataTask?.originalRequest, error: error)
                     DispatchQueue.main.async {
                         completion?(dataTask, jsonObject, error)
                     }
                 }
             }else {
-                TapLogger.log(urlRequest: dataTask?.originalRequest, error: error)
+                //TapLogger.log(urlRequest: dataTask?.originalRequest, error: error)
                 DispatchQueue.main.async {
                     completion?(nil, nil, error)
                 }

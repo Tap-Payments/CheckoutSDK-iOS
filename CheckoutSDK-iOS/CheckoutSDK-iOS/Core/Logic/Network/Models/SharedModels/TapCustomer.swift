@@ -201,12 +201,12 @@ import TapUIKit_iOS
             self.identifier = nil
         }
         
-        self.firstName            = self.firstName?.tap_trimWhitespacesAndNewlines(nullifyIfResultIsEmpty: true)
-        self.middleName            = self.middleName?.tap_trimWhitespacesAndNewlines(nullifyIfResultIsEmpty: true)
-        self.lastName            = self.lastName?.tap_trimWhitespacesAndNewlines(nullifyIfResultIsEmpty: true)
-        self.descriptionText    = self.descriptionText?.tap_trimWhitespacesAndNewlines(nullifyIfResultIsEmpty: true)
-        self.title                = self.title?.tap_trimWhitespacesAndNewlines(nullifyIfResultIsEmpty: true)
-        self.nationality        = self.nationality?.tap_trimWhitespacesAndNewlines(nullifyIfResultIsEmpty: true)
+        self.firstName              = self.firstName?.tap_trimWhitespacesAndNewlines(nullifyIfResultIsEmpty: true)
+        self.middleName             = self.middleName?.tap_trimWhitespacesAndNewlines(nullifyIfResultIsEmpty: true)
+        self.lastName               = self.lastName?.tap_trimWhitespacesAndNewlines(nullifyIfResultIsEmpty: true)
+        self.descriptionText        = self.descriptionText?.tap_trimWhitespacesAndNewlines(nullifyIfResultIsEmpty: true)
+        self.title                  = self.title?.tap_trimWhitespacesAndNewlines(nullifyIfResultIsEmpty: true)
+        self.nationality            = self.nationality?.tap_trimWhitespacesAndNewlines(nullifyIfResultIsEmpty: true)
     }
     
     // MARK: - Private -
@@ -220,10 +220,10 @@ import TapUIKit_iOS
         case middleName         = "middle_name"
         case lastName           = "last_name"
         case descriptionText    = "description"
-        case metadata            = "metadata"
-        case title                = "title"
+        case metadata           = "metadata"
+        case title              = "title"
         case nationality        = "nationality"
-        case currency            = "currency"
+        case currency           = "currency"
     }
     
     // MARK: Methods
@@ -232,12 +232,12 @@ import TapUIKit_iOS
     
     private init(identifier: String?, emailAddress: TapEmailAddress?, phoneNumber: TapPhone?, firstName: String?, middleName: String?, lastName: String?) throws {
         
-        self.identifier        = identifier
-        self.emailAddress    = emailAddress
-        self.phoneNumber    = phoneNumber
-        self.firstName        = firstName
-        self.middleName        = middleName
-        self.lastName        = lastName
+        self.identifier         = identifier
+        self.emailAddress       = emailAddress
+        self.phoneNumber        = phoneNumber
+        self.firstName          = firstName
+        self.middleName         = middleName
+        self.lastName           = lastName
         
         super.init()
         
@@ -292,18 +292,29 @@ extension TapCustomer: Encodable {
         
         self.validateFields()
         
-        var container = encoder.container(keyedBy: CodingKeys.self)
+        // If the customer was done through ID then it is encoded as "customer" : "id", otherwise, we represent it fully
+        if let customerID = self.identifier {
+            
+            var container = encoder.singleValueContainer()
+            try container.encode(customerID)
+            
+        }else{
+            
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            
+            try container.encodeIfPresent(self.identifier,      forKey: .identifier)
+            try container.encodeIfPresent(self.emailAddress,    forKey: .emailAddress)
+            try container.encodeIfPresent(self.phoneNumber,     forKey: .phoneNumber)
+            try container.encodeIfPresent(self.firstName,       forKey: .firstName)
+            try container.encodeIfPresent(self.middleName,      forKey: .middleName)
+            try container.encodeIfPresent(self.lastName,        forKey: .lastName)
+            try container.encodeIfPresent(self.descriptionText, forKey: .descriptionText)
+            try container.encodeIfPresent(self.metadata,        forKey: .metadata)
+            try container.encodeIfPresent(self.title,           forKey: .title)
+            try container.encodeIfPresent(self.nationality,     forKey: .nationality)
+            try container.encodeIfPresent(self.currency,        forKey: .currency)
+        }
         
-        try container.encodeIfPresent(self.identifier,      forKey: .identifier)
-        try container.encodeIfPresent(self.emailAddress,    forKey: .emailAddress)
-        try container.encodeIfPresent(self.phoneNumber,     forKey: .phoneNumber)
-        try container.encodeIfPresent(self.firstName,       forKey: .firstName)
-        try container.encodeIfPresent(self.middleName,      forKey: .middleName)
-        try container.encodeIfPresent(self.lastName,        forKey: .lastName)
-        try container.encodeIfPresent(self.descriptionText, forKey: .descriptionText)
-        try container.encodeIfPresent(self.metadata,        forKey: .metadata)
-        try container.encodeIfPresent(self.title,            forKey: .title)
-        try container.encodeIfPresent(self.nationality,        forKey: .nationality)
-        try container.encodeIfPresent(self.currency,        forKey: .currency)
+        
     }
 }

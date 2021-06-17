@@ -84,7 +84,7 @@ extension NSObject {
             statePicker.values.forEach {
                 // Make sure that currwnt object has the specified state
                 guard let value = $1.value() else {
-                    print("TapThemeManager WARNING: Missing value for ThemeState Selector: \(String(describing: selectorToPerform))")
+                    //print("TapThemeManager WARNING: Missing value for ThemeState Selector: \(String(describing: selectorToPerform))")
                     return
                 }
                 // Apply the value to the matching state

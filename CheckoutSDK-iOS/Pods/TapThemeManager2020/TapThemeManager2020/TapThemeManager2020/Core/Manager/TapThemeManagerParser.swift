@@ -32,7 +32,7 @@ import class LocalisationManagerKit_iOS.TapLocalisationManager
      */
     public class func stringValue(for keyPath: String) -> String? {
         guard let parsedString = currentTheme?.value(forKeyPath: keyPath) as? String else {
-            print("TapThemeManager WARNING: Not found string key path: \(keyPath)")
+            //print("TapThemeManager WARNING: Not found string key path: \(keyPath)")
             return nil
         }
         return parsedString
@@ -45,7 +45,7 @@ import class LocalisationManagerKit_iOS.TapLocalisationManager
      */
     public class func numberValue(for keyPath: String) -> NSNumber? {
         guard let parsedNumber = currentTheme?.value(forKeyPath: keyPath) as? NSNumber else {
-            print("TapThemeManager WARNING: Not found number key path: \(keyPath)")
+            //print("TapThemeManager WARNING: Not found number key path: \(keyPath)")
             return nil
         }
         return parsedNumber
@@ -58,7 +58,7 @@ import class LocalisationManagerKit_iOS.TapLocalisationManager
      */
     public class func dictionaryValue(for keyPath: String) -> NSDictionary? {
         guard let parsedDictionary = currentTheme?.value(forKeyPath: keyPath) as? NSDictionary else {
-            print("TapThemeManager WARNING: Not found dictionary key path: \(keyPath)")
+            //print("TapThemeManager WARNING: Not found dictionary key path: \(keyPath)")
             return nil
         }
         return parsedDictionary
@@ -76,7 +76,7 @@ import class LocalisationManagerKit_iOS.TapLocalisationManager
         // We need to check did the theme pass a hex color or a name of a saved color
         guard let parsedColor = try? UIColor(tap_hex: parsedRGBString) else {
             // This means, the user didn't pass a valid HEX value, could be the a name of a registered color in theme file in the path Global.Colors
-            // print("TapThemeManager WARNING: Not convert RGBA Hex string \(parsedRGBString) at key path: \(keyPath). Will check if there is a valid color provided in the path GlobalValues.Colors.\(parsedRGBString)")
+            // //print("TapThemeManager WARNING: Not convert RGBA Hex string \(parsedRGBString) at key path: \(keyPath). Will check if there is a valid color provided in the path GlobalValues.Colors.\(parsedRGBString)")
             return globalColorValue(for: "GlobalValues.Colors.\(parsedRGBString)")
         }
         return parsedColor
@@ -92,7 +92,7 @@ import class LocalisationManagerKit_iOS.TapLocalisationManager
         guard let parsedRGBString = stringValue(for: keyPath) else { return nil }
         // let us check if the user provided a valid hex color
         guard let parsedColor = try? UIColor(tap_hex: parsedRGBString) else {
-            //print("TapThemeManager WARNING: Not convert RGBA Hex string \(parsedRGBString) at key path: \(keyPath)")
+            ////print("TapThemeManager WARNING: Not convert RGBA Hex string \(parsedRGBString) at key path: \(keyPath)")
             return nil
         }
         return parsedColor
@@ -165,7 +165,7 @@ import class LocalisationManagerKit_iOS.TapLocalisationManager
                 if let fontFromMainBundle = UIFont(name: elements[0], size: CGFloat(Float(elements[1])!)) {
                     return fontFromMainBundle
                 }
-                print("TapThemeManager WARNING: Not found font \(string)")
+                //print("TapThemeManager WARNING: Not found font \(string)")
             }
         }
         
@@ -186,7 +186,7 @@ import class LocalisationManagerKit_iOS.TapLocalisationManager
      */
     internal class func imageValue(fromLocalURL:String) -> UIImage? {
         guard let parsedImage = UIImage(contentsOfFile: fromLocalURL) else {
-            print("TapThemeManager WARNING: Not found image at file path: \(fromLocalURL)")
+            //print("TapThemeManager WARNING: Not found image at file path: \(fromLocalURL)")
             return nil
         }
         return parsedImage
@@ -200,7 +200,7 @@ import class LocalisationManagerKit_iOS.TapLocalisationManager
      */
     internal class func imageValue(imageName:String) -> UIImage? {
         guard let parsedImage = UIImage(named: imageName) else {
-            print("TapThemeManager WARNING: Not found image name at main bundle: \(imageName)")
+            //print("TapThemeManager WARNING: Not found image name at main bundle: \(imageName)")
             return nil
         }
         return parsedImage

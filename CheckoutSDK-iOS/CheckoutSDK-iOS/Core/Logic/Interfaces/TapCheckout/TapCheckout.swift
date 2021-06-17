@@ -118,7 +118,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         closeButtonStyle:CheckoutCloseButtonEnum = .title,
         showDragHandler:Bool = false,
         transactionMode: TransactionMode = .purchase,
-        customer: TapCustomer = try! .init(emailAddress: TapEmailAddress(emailAddressString: "taptestingemail@gmail.com"), phoneNumber: nil, name: "Tap Testing Default"),
+        customer: TapCustomer = try! .init(identifier: "cus_TS031720211012r4RM0403926"),
         destinations: [Destination]? = nil,
         tapMerchantID: String? = nil,
         taxes:[Tax]? = nil,

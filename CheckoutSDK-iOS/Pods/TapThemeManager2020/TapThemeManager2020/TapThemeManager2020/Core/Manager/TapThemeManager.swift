@@ -54,12 +54,12 @@ public extension TapThemeManager {
     @objc class func setTapTheme(plistName: String) {
         // Check if the file exists
         guard let plistPath = TapThemePath.themePlistPath(fileName: plistName) else {
-            print("TapThemeManager WARNING: Can't find plist '\(plistName)'")
+            //print("TapThemeManager WARNING: Can't find plist '\(plistName)'")
             return
         }
         // Check if the file is correctly parsable
         guard let plistDict = NSDictionary(contentsOfFile: plistPath) else {
-            print("TapThemeManager WARNING: Can't read plist '\(plistName)'")
+            //print("TapThemeManager WARNING: Can't read plist '\(plistName)'")
             return
         }
         // All good, now change the theme :)
@@ -74,7 +74,7 @@ public extension TapThemeManager {
     @objc class func setTapTheme(jsonName: String) {
         // Check if the file exists
         guard let jsonDict = loadThemeDict(from: jsonName) else {
-            print("TapThemeManager WARNING: Can't find json '\(jsonName)'")
+            //print("TapThemeManager WARNING: Can't find json '\(jsonName)'")
             return
         }
        
@@ -91,7 +91,7 @@ public extension TapThemeManager {
     internal class func loadThemeDict(from jsonName:String,in bundle:Bundle = Bundle.main) -> NSDictionary? {
         // Check if the file exists
         guard let jsonPath = TapThemePath.themeJsonPath(fileName: jsonName, in: bundle) else {
-            print("TapThemeManager WARNING: Can't find json '\(jsonName)'")
+            //print("TapThemeManager WARNING: Can't find json '\(jsonName)'")
             return nil
         }
         // Check if the file is correctly parsable
@@ -99,7 +99,7 @@ public extension TapThemeManager {
             let data = try? Data(contentsOf: URL(fileURLWithPath: jsonPath)),
             let json = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed),
             let jsonDict = json as? NSDictionary else {
-                print("TapThemeManager WARNING: Can't read json '\(jsonName)' at: \(jsonPath)")
+                //print("TapThemeManager WARNING: Can't read json '\(jsonName)' at: \(jsonPath)")
                 return nil
         }
         return jsonDict
@@ -137,7 +137,7 @@ public extension TapThemeManager {
         // Check if the file exists
         guard let lightJSONDict = loadThemeDict(from: lightModeJSONTheme, in: bundle),
               let darkJSONDict = loadThemeDict(from: darkModeJSONTheme, in: bundle) else {
-                print("TapThemeManager WARNING: Can't find json files '\(lightModeJSONTheme)' and '\(darkModeJSONTheme)'")
+                //print("TapThemeManager WARNING: Can't find json files '\(lightModeJSONTheme)' and '\(darkModeJSONTheme)'")
                 // As a fallback we set the default theme
                 setDefaultTapTheme()
                 return

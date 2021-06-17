@@ -186,7 +186,7 @@ extension TapBottomCheckoutControllerViewController:TapMerchantHeaderViewDelegat
 extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDelegate {
     func showItemsClicked() {
         self.view.endEditing(true)
-        self.tapVerticalView.remove(viewType: TapAmountSectionView.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true, skipSelf: true)
+        self.removeView(viewType: TapAmountSectionView.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true, skipSelf: true)
         tapVerticalView.hideActionButton()
         DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [weak self] in
             self!.sharedCheckoutDataManager.tapCurrienciesChipHorizontalListViewModel.attachedView.alpha = 0
@@ -206,7 +206,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
     
     func closeItemsClicked() {
         self.view.endEditing(true)
-        self.tapVerticalView.remove(viewType: TapChipHorizontalList.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true)
+        self.removeView(viewType: TapChipHorizontalList.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true)
         
         DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [weak self] in
             self?.tapVerticalView.showActionButton(fadeInDuation:self!.fadeInAnimationDuration,fadeInDelay:self!.fadeInAnimationDelay)
@@ -246,7 +246,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         let originalDismissOnSwipeValue = sharedManager.swipeDownToDismiss
         sharedManager.swipeDownToDismiss = false
         
-        self.tapVerticalView.remove(viewType: TapMerchantHeaderView.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true)
+        self.removeView(viewType: TapMerchantHeaderView.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true)
         
         self.tapActionButtonViewModel.startLoading()
         webViewModel = .init()
@@ -421,7 +421,7 @@ extension TapBottomCheckoutControllerViewController:TapChipHorizontalListViewMod
     
     func startPayment(then success:Bool) {
         view.endEditing(true)
-        self.tapVerticalView.remove(viewType: TapAmountSectionView.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true, skipSelf: true)
+        self.removeView(viewType: TapAmountSectionView.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true, skipSelf: true)
         self.tapActionButtonViewModel.startLoading()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(3500)) {
@@ -433,6 +433,24 @@ extension TapBottomCheckoutControllerViewController:TapChipHorizontalListViewMod
         }
         
         
+    }
+    
+    /**
+     Removes an arranged subview from the vertical hierarchy
+     - Parameter view: The view to be deleted
+     - Parameter animation: The animation to be applied while doing the view removal. Default is nil
+     - Parameter deleteAfterViews: If true, all views below the mentioned view will be deleted
+     - Parameter skipSelf: If true, then the mentioned view WILL not be deleted and all views below the mentioned view will be deleted
+     */
+    internal func removeView(viewType:AnyClass, with animation:TapSheetAnimation? = nil, and deleteAfterViews:Bool = false,skipSelf:Bool = false) {
+        let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
+        let originalDismissOnSwipeValue = sharedManager.swipeDownToDismiss
+        sharedManager.swipeDownToDismiss = false
+        
+        self.tapVerticalView.remove(viewType: TapAmountSectionView.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true, skipSelf: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+            sharedManager.swipeDownToDismiss = originalDismissOnSwipeValue
+        }
     }
 }
 

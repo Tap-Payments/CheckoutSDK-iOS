@@ -427,15 +427,15 @@ internal class TapCheckoutSharedManager {
          
          // Fetch the list of goPay Saved Cards
          // First check if cards are allowed
-        if paymentType == .All || paymentType == .Card {
-            self.goPayChipsViewModel =  []
-            goPayChipsViewModel.append(.init(tapChipViewModel:TapLogoutChipViewModel()))
-         }else{
-            self.goPayChipsViewModel = []
-         }
+         self.goPayChipsViewModel = []
          
-         // Fetch the merchant based saved cards + differnt payment types
+         // Fetch the merchant payment gateways
         self.gatewayChipsViewModel = paymentOptions.paymentOptions.filter{ (paymentType == .All || paymentType == $0.paymentType || $0.paymentType == .All) && $0.paymentType != .Card }.map{ ChipWithCurrencyModel.init(paymentOption: $0) }
+        
+        // Fetch the merchant saved card if cards are allowed
+        if paymentType == .All || paymentType == .Card {
+            self.gatewayChipsViewModel.append(contentsOf: (paymentOptions.savedCards ?? []).filter{ allowedCardTypes.contains($0.cardType ?? .init(cardType: .All)) }.map{ ChipWithCurrencyModel.init(savedCard: $0) })
+        }
          
          // Fetch the save card/phone switch data
          tapSaveCardSwitchViewModel = .init(with: .invalidCard, merchant: tapMerchantViewModel.subTitle ?? "")

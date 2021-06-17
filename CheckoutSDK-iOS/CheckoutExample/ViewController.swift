@@ -80,7 +80,7 @@ class ViewController: UIViewController {
             closeButtonStyle: closeButtonTitleStyle,
             showDragHandler:showDragHandler,
             transactionMode: .purchase,
-            customer: try! .init(emailAddress: nil, phoneNumber: .init(isdNumber: "965", phoneNumber: "90064542"), name: "Tap Testing Customer"),
+            customer: try! .init(identifier: "cus_TS031720211012r4RM0403926"),
             onCheckOutReady: {[weak self] tapCheckOut in
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
                     tapCheckOut.start(presentIn: self)
