@@ -7,49 +7,81 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "832E07E8-CCCE-480D-9C2E-506313071036"
-            shouldBeEnabled = "Yes"
+            uuid = "DDE02344-FBE4-495C-B88F-261002E3AEC1"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CheckoutSDK-iOS/Core/Logic/Interfaces/TapCheckoutSharedManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "422"
-            endingLineNumber = "422"
-            landmarkName = "parsePaymentOptionsResponse()"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
+            landmarkName = "transactionUserCurrencyValue"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4225FA38-40F7-4570-8469-0CEE86C09B63"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Interfaces/TapCheckoutSharedManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "292"
+            endingLineNumber = "292"
+            landmarkName = "handleChangeAmountAndCurrency()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "832E07E8-CCCE-480D-9C2E-506313071036 - 8acb34a437a1533a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "CheckoutSDK_iOS.TapCheckoutSharedManager.(parsePaymentOptionsResponse in _DF0F79D34F3B0454B1B0673551463053)() -&gt; ()"
-                  moduleName = "CheckoutSDK_iOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/CheckoutSDK-iOS/Core/Logic/Interfaces/TapCheckoutSharedManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "422"
-                  endingLineNumber = "422"
-                  offsetFromSymbolStart = "140">
-               </Location>
-               <Location
-                  uuid = "832E07E8-CCCE-480D-9C2E-506313071036 - f115b1cd391f64c0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (CheckoutSDK_iOS.AmountedCurrency) -&gt; TapUIKit_iOS.CurrencyChipViewModel in CheckoutSDK_iOS.TapCheckoutSharedManager.(parsePaymentOptionsResponse in _DF0F79D34F3B0454B1B0673551463053)() -&gt; ()"
-                  moduleName = "CheckoutSDK_iOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/CheckoutSDK-iOS/Core/Logic/Interfaces/TapCheckoutSharedManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "422"
-                  endingLineNumber = "422"
-                  offsetFromSymbolStart = "30">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "ACFB843F-CA29-4CF9-8EBE-2E8B17DDF5D6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapAmountSectionView/ViewModels/TapAmountSectionViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
+            landmarkName = "convertedTransactionCurrency"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4AF48147-D309-432E-86C3-EBCF6BD20AE9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapAmountSectionView/ViewModels/TapAmountSectionViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
+            landmarkName = "updateAmountObserver(for:with:on:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EF7B3D1F-6CAB-4DD8-8F73-F87EEC8E1F7D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapAmountSectionView/Views/TapAmountSectionView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "bindLabels()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

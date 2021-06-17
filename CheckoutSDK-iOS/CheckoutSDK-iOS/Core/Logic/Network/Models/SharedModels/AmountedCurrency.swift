@@ -6,6 +6,7 @@
 //
 
 /// Structure holding currency and the amount.
+/*
 internal struct AmountedCurrency: Decodable {
     
     // MARK: - Internal -
@@ -80,3 +81,4 @@ extension AmountedCurrency: Equatable {
         return lhs.currency == rhs.currency && lhs.amount == rhs.amount
     }
 }
+*/

@@ -20,7 +20,7 @@ internal final class ExtraFee: AmountModificatorModel {
     
     // MARK: Methods
     
-    internal required init(type: AmountModificationType, value: Double, currency: TapCurrencyCode, minFee:Decimal = 0, maxFee:Decimal = 0) {
+    internal required init(type: AmountModificationType, value: Double, currency: TapCurrencyCode, minFee:Double = 0, maxFee:Double = 0) {
         self.currency = currency
         super.init(type: type, value: value, minFee: minFee, maxFee: maxFee)
     }
@@ -31,8 +31,8 @@ internal final class ExtraFee: AmountModificatorModel {
         
         let type = try container.decode(AmountModificationType.self, forKey: .type)
         let value = try container.decode(Double.self, forKey: .value)
-        let maxFee = try container.decodeIfPresent(Decimal.self, forKey: .maxFee) ?? 0
-        let minFee = try container.decodeIfPresent(Decimal.self, forKey: .minFee) ?? 0
+        let maxFee = try container.decodeIfPresent(Double.self, forKey: .maxFee) ?? 0
+        let minFee = try container.decodeIfPresent(Double.self, forKey: .minFee) ?? 0
         let currency = try container.decode(TapCurrencyCode.self, forKey: .currency)
         
         self.init(type: type, value: value, currency: currency,minFee:minFee, maxFee: maxFee)
