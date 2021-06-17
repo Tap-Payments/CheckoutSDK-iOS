@@ -344,6 +344,7 @@ internal class TapCheckoutSharedManager {
         // Apply the changes of user currency and total amount into the Amount view model
         tapAmountSectionViewModel.convertedTransactionCurrency = transactionUserCurrencyValue
         tapAmountSectionViewModel.originalTransactionAmount = transactionTotalAmountValue
+        tapAmountSectionViewModel.convertedTransactionAmount = fetchTotalAmount(for: transactionCurrencyValue)
     }
     
     /// Handles all the logic needed when the user selected currency changed to reflect in the items list view

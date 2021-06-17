@@ -128,7 +128,8 @@ import enum CommonDataModelsKit_iOS.TapCurrencyCode
                 convertedTransactionCurrency = .undefined
                 convertedTransactionAmount = 0
             }else {
-                convertedTransactionAmount = (convertedTransactionCurrency.convert(from: originalTransactionCurrency, for: originalTransactionAmount))
+                #warning("POD CHANGE")
+                //convertedTransactionAmount = (convertedTransactionCurrency.convert(from: originalTransactionCurrency, for: originalTransactionAmount))
             }
             //updateAmountObserver(for: convertedTransactionAmount, with: convertedTransactionCurrency, on: convertedAmountLabelObserver)
         }

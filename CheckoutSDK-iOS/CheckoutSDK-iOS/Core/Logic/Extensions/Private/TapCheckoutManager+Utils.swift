@@ -20,4 +20,20 @@ internal extension TapCheckoutSharedManager {
         guard let paymentOptionsResponse = paymentOptionsModelResponse, let paymentOptionIdentifier = savedCard.paymentOptionIdentifier else { return nil }
         return paymentOptionsResponse.fetchPaymentOption(with: paymentOptionIdentifier)
     }
+    
+    
+    /**
+     Gets the transaction total amount for a given currency
+     - Parameter for: The currency you want to know the total amount regards
+     - Returns: The total amount for the currency as stated in the payment options api response
+     */
+    func fetchTotalAmount(for currency:TapCurrencyCode) -> Double {
+        guard let paymentOptionsResponse = paymentOptionsModelResponse else { return 0 }
+        
+        // get the amounted currency related to tthe tap currency code model
+        let filteredCurrenciesList = paymentOptionsResponse.supportedCurrenciesAmounts.filter{ $0.currency == currency }
+        guard !filteredCurrenciesList.isEmpty, let amount = filteredCurrenciesList.first?.amount  else { return 0 }
+        
+        return amount
+    }
 }
