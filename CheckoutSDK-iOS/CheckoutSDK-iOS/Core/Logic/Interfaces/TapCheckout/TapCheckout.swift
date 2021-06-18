@@ -38,12 +38,10 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
     func dismissMySelfClicked()
 }
 
-
 /// The public interface to deal and start the TapCheckout SDK/UI
 @objc public class TapCheckout: NSObject {
     
     // MARK:- Internal varibales
-    
     /// Reference to the color of the dimming of the tap sheet controller
     internal var bottomSheetBackgroundColor:UIColor? = .init(white: 0, alpha: 0.5)
     /// Initial height to start the sheet with

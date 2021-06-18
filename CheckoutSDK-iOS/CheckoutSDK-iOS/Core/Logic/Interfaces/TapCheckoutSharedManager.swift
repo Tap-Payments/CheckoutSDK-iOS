@@ -22,11 +22,16 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      */
     func goPaySignIn(status:Bool)
     
+    /**
+     Will be fired once the tap sheet content changed its height
+     - Parameter newHeight: The new height the content of the Tap sheet has
+     */
+    func show(alert:UIAlertController)
+    
 }
 
 /// Represents a global accessable common data gathered by the merchant when loading the checkout sdk like amount, currency, etc
 internal class TapCheckoutSharedManager {
-    
     
     /// A protocol to comminicate between the UIManager and the data manager
     var UIDelegate:TapCheckoutSharedManagerUIDelegate?

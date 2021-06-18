@@ -28,7 +28,7 @@ internal extension TapCheckoutSharedManager {
         // get the extra fees value
         let extraFeesValue:Double = calculateExtraFees(for: paymentOption)
         // check if there is an extra fee to pay or not
-        guard extraFeesValue > 0 else { return }
+        //guard extraFeesValue > 0 else { return }
         // Create the formatted extra fee + the formatted new total amount
         let formatter = TapAmountedCurrencyFormatter { [weak self] in
             $0.currency = self?.transactionUserCurrencyValue.currency ?? .USD
@@ -38,6 +38,21 @@ internal extension TapCheckoutSharedManager {
         let newTotalAmountString = formatter.string(from: extraFeesValue + calculateFinalAmount()) ?? "KD0.000"
         
         // Create the formatted confirmation message
+        let alertTitle      = TapLocalisationManager.shared.localisedValue(for: "ExtraFees.title",with: TapCommonConstants.pathForDefaultLocalisation())
+        let alertMessage    = String(format: TapLocalisationManager.shared.localisedValue(for: "ExtraFees.message",with: TapCommonConstants.pathForDefaultLocalisation()), extraFeesFormattedString,newTotalAmountString)
+        let alertConfirm    = TapLocalisationManager.shared.localisedValue(for: "ExtraFees.confirm",with: TapCommonConstants.pathForDefaultLocalisation())
+        let alertCancel     = TapLocalisationManager.shared.localisedValue(for: "ExtraFees.cancel",with: TapCommonConstants.pathForDefaultLocalisation())
+        
+        // Display the confirmation alert
+        let alertController:UIAlertController = .init(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+        alertController.addAction(.init(title: alertConfirm, style: .destructive, handler: { _ in
+            
+        }))
+        alertController.addAction(.init(title: alertCancel, style: .cancel, handler: { _ in
+            
+        }))
+        UIDelegate?.show(alert: alertController)
+
     }
     
 }

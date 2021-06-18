@@ -347,13 +347,17 @@ extension TapBottomCheckoutControllerViewController:TapChipHorizontalListViewMod
         sharedCheckoutManager.selectedPaymentOption = sharedCheckoutManager.fetchPaymentOption(with: viewModel.paymentOptionIdentifier)
         
         // Start the payment with the selected payment option
+        
+        sharedCheckoutManager.processCheckout(with: sharedCheckoutManager.selectedPaymentOption!)
+        
+        /*
         NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetStatusNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetStatusNotification:TapActionButtonStatusEnum.ValidPayment] )
         
         let gatewayActionBlock:()->() = { [weak self] in
             self?.showWebView(with: URL(string: "https://www.google.com")!)
         }
         
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetBlockNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetBlockNotification:gatewayActionBlock] )
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetBlockNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetBlockNotification:gatewayActionBlock] )*/
     }
     
     func goPay(for viewModel: TapGoPayViewModel) {
@@ -654,5 +658,13 @@ extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDe
     
     func removeView(view: UIView) {
         tapVerticalView.remove(view: view)
+    }
+    
+    /**
+     Will call the root controller to display a needed alert controller
+     - Parameter alert: The UIAlertController to be displayed
+     */
+    func show(alert:UIAlertController) {
+        present(alert, animated: true, completion: nil)
     }
 }
