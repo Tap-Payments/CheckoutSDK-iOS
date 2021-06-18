@@ -107,6 +107,7 @@
 		E8EC819C267CFFB70080E760 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC819A267CFFB70080E760 /* Address.swift */; };
 		E8EC819D267CFFB70080E760 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC819B267CFFB70080E760 /* Country.swift */; };
 		E8EC819F267CFFEC0080E760 /* AddressType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC819E267CFFEC0080E760 /* AddressType.swift */; };
+		E8EC81A1267D00210080E760 /* TokenType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC81A0267D00210080E760 /* TokenType.swift */; };
 		E8EDD34A25612A3C00AFC0B3 /* TapIntentRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD34925612A3C00AFC0B3 /* TapIntentRequestModel.swift */; };
 		E8EDD35025612BCD00AFC0B3 /* TapCustomer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD34F25612BCD00AFC0B3 /* TapCustomer.swift */; };
 /* End PBXBuildFile section */
@@ -252,6 +253,7 @@
 		E8EC819A267CFFB70080E760 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		E8EC819B267CFFB70080E760 /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		E8EC819E267CFFEC0080E760 /* AddressType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressType.swift; sourceTree = "<group>"; };
+		E8EC81A0267D00210080E760 /* TokenType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenType.swift; sourceTree = "<group>"; };
 		E8EDD34925612A3C00AFC0B3 /* TapIntentRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapIntentRequestModel.swift; sourceTree = "<group>"; };
 		E8EDD34F25612BCD00AFC0B3 /* TapCustomer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCustomer.swift; sourceTree = "<group>"; };
 		FF4A2E12A9944D1FED9040B6 /* Pods-CheckoutSDK-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutSDK-iOS.debug.xcconfig"; path = "Target Support Files/Pods-CheckoutSDK-iOS/Pods-CheckoutSDK-iOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -443,6 +445,7 @@
 		E8844B832675E36B0073D777 /* public */ = {
 			isa = PBXGroup;
 			children = (
+				E8EC81A0267D00210080E760 /* TokenType.swift */,
 				E8EC819E267CFFEC0080E760 /* AddressType.swift */,
 				E8EC8190267CFE3D0080E760 /* ChargeStatus.swift */,
 				E8EC818C267CFD490080E760 /* URLStatus.swift */,
@@ -944,6 +947,7 @@
 				E8EC8179267CB7100080E760 /* TapCheckoutManager+PaymentProcesses.swift in Sources */,
 				E88450EC267B33E20073D777 /* TapCheckoutManager+Utils.swift in Sources */,
 				E8844F692678BA530073D777 /* TapPaymentOptionsRequestModel.swift in Sources */,
+				E8EC81A1267D00210080E760 /* TokenType.swift in Sources */,
 				E8844F1D2677A4C50073D777 /* ApiErrorModel.swift in Sources */,
 				E8844F632678B3130073D777 /* SavedCard.swift in Sources */,
 				E8844F19267794700073D777 /* Merchant.swift in Sources */,
