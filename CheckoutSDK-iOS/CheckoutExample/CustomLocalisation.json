@@ -22,6 +22,13 @@
             "hideDesc": "Hide Description",
             "Discount": "Discount"
         },
+        "ExtraFees":
+        {
+            "title": "Confirm Extra Charges",
+            "message": "You will be charged an additional fee of %@ for this type of payment, totalling an amount of %@",
+            "cancel": "Cancel",
+            "confirm": "Confirm"
+        },
         "Hints":
         {
             "Warning":
@@ -133,6 +140,13 @@
                 "Expired": ""
             }
         },
+        "ExtraFees":
+        {
+            "title": "تأكيد الرسوم الإضافية",
+            "message": "سوف تتم إضافة  %@ لهذا النوع العملية، إجمالي المبلغ المطلوب   %@",
+            "cancel": "إلغاء",
+            "confirm": "تأكيد"
+        },
         "Hints":
         {
             "Warning":
@@ -229,6 +243,13 @@
             "showDesc": "Montrer la description",
             "hideDesc": "Masquer la description",
             "Discount": "Remise"
+        },
+        "ExtraFees":
+        {
+            "title": "Confirmer les frais supplémentaires",
+            "message": "Des frais supplémentaires de %@ vous seront facturés pour ce type de paiement, totalisant un montant de %@",
+            "cancel": "Annuler",
+            "confirm": "Confirmer"
         },
         "Hints":
         {
@@ -333,6 +354,13 @@
             "showDesc": "विवरण दिखाएं",
             "hideDesc": "विवरण छिपाएँ",
             "Discount": "छूट"
+        },
+        "ExtraFees":
+        {
+            "title": "अतिरिक्त शुल्क की पुष्टि करें",
+            "message": "इस प्रकार के भुगतान के लिए आपसे %@ का अतिरिक्त शुल्क लिया जाएगा, कुल राशि %@",
+            "cancel": "रद्द करना",
+            "confirm": "पुष्टि करें"
         },
         "Hints":
         {

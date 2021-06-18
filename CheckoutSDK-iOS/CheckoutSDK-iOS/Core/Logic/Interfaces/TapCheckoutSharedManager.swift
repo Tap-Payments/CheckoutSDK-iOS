@@ -229,6 +229,9 @@ internal class TapCheckoutSharedManager {
         }
     }
     
+    /// Represents the payment option the user is actively selecting right now
+    var selectedPaymentOption:PaymentOption?
+    
     
     // MARK:- Methods
     /**

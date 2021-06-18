@@ -47,7 +47,7 @@ internal class CurrencyCardsTelecomModel:Codable {
      */
     init(paymentOption:PaymentOption) {
         
-        self.tapCardPhoneViewModel = TapCardPhoneIconViewModel.init(associatedCardBrand: paymentOption.brand, tapCardPhoneIconUrl: paymentOption.imageURL.absoluteString)
+        self.tapCardPhoneViewModel = TapCardPhoneIconViewModel.init(associatedCardBrand: paymentOption.brand, tapCardPhoneIconUrl: paymentOption.imageURL.absoluteString, paymentOptionIdentifier: paymentOption.identifier)
         
         self.supportedCurrencies = paymentOption.supportedCurrencies
         self.supportedTelecomCountry = nil

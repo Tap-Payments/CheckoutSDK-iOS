@@ -2,7 +2,7 @@ PODS:
   - CocoaLumberjack (3.7.2):
     - CocoaLumberjack/Core (= 3.7.2)
   - CocoaLumberjack/Core (3.7.2)
-  - CommonDataModelsKit-iOS (1.0.38):
+  - CommonDataModelsKit-iOS (1.0.39):
     - TapAdditionsKitV2
   - EasyAnimation (2.2.1)
   - Kingfisher (6.3.0)
@@ -64,7 +64,7 @@ PODS:
   - TapThemeManager2020 (1.0.46):
     - LocalisationManagerKit-iOS
     - TapFontKit-iOS
-  - TapUIKit-iOS (1.0.40):
+  - TapUIKit-iOS (1.0.41):
     - CommonDataModelsKit-iOS
     - EasyAnimation
     - LocalisationManagerKit-iOS
@@ -122,7 +122,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   CocoaLumberjack: b7e05132ff94f6ae4dfa9d5bce9141893a21d9da
-  CommonDataModelsKit-iOS: 9556effbb2d4ba93d96e4c44474fd3902f841e7d
+  CommonDataModelsKit-iOS: 68cbbeb6deba089aefe4be1fd1613354b2c0e7a9
   EasyAnimation: 226d133d23ef0ef99ddfb8928ff2a9a4a77d1cfd
   Kingfisher: 6c3df386db71d82c0817a429d2c9421a77396529
   LocalisationManagerKit-iOS: cd702915c67faba899d4613d44ceb00cefccec6e
@@ -149,7 +149,7 @@ SPEC CHECKSUMS:
   TapSwiftFixes: db2aeb21942dd81ee051a31ed319dab0d03547a2
   TapSwiftFixesV2: a8623a7273c6790b9754ec7e272e96fce7d3a800
   TapThemeManager2020: 3a642e05b2868f613ffb0623725ea5a6a0fa71c5
-  TapUIKit-iOS: 3d642d48c5178f67cb5e26c43cd3de9003ce0b30
+  TapUIKit-iOS: 963161f4bdf7ac1680e878287180c6ad0a2c7f66
 
 PODFILE CHECKSUM: 918c204e757c4da9d6722ebfd2bf5af9e2232c1a
 

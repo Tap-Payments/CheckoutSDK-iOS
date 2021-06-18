@@ -341,9 +341,12 @@ extension TapBottomCheckoutControllerViewController:TapChipHorizontalListViewMod
     }
     
     func gateway(for viewModel: GatewayChipViewModel) {
-        //showAlert(title: "gateway cell clicked", message: "You clicked on a \(viewModel.title ?? ""). In real life example, this will open a web view to complete the payment")
-        //tapActionButtonViewModel.buttonStatus = .ValidPayment
         
+        // Save the selected payment option model for further processing
+        let sharedCheckoutManager = TapCheckoutSharedManager.sharedCheckoutManager()
+        sharedCheckoutManager.selectedPaymentOption = sharedCheckoutManager.fetchPaymentOption(with: viewModel.paymentOptionIdentifier)
+        
+        // Start the payment with the selected payment option
         NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetStatusNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetStatusNotification:TapActionButtonStatusEnum.ValidPayment] )
         
         let gatewayActionBlock:()->() = { [weak self] in

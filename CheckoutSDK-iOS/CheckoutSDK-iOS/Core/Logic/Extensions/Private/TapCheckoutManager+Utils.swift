@@ -23,6 +23,17 @@ internal extension TapCheckoutSharedManager {
     
     
     /**
+     Gets the related payment option by id
+     - Parameter with: The id of the needed payment option
+     - Returns: Payment option if found with the specified id, else nil
+     */
+    func fetchPaymentOption(with paymentOptionIdentifier:String) -> PaymentOption? {
+        guard let paymentOptionsResponse = paymentOptionsModelResponse, let paymentOption:PaymentOption = paymentOptionsResponse.paymentOptions.filter({ $0.identifier == paymentOptionIdentifier }).first else { return nil }
+        return paymentOption
+    }
+    
+    
+    /**
      Gets the transaction total amount for a given currency
      - Parameter for: The currency you want to know the total amount regards
      - Returns: The total amount for the currency as stated in the payment options api response

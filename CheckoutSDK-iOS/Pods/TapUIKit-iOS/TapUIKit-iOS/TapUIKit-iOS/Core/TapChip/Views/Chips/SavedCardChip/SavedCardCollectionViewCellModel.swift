@@ -18,8 +18,8 @@ import class UIKit.UICollectionViewCell
     
     @objc public var listSource:TapHorizontalHeaderType = .GatewayListHeader
     
-    @objc public init(title: String? = nil, icon: String? = nil, listSource:TapHorizontalHeaderType = .GatewayListHeader) {
-        super.init(title: title, icon: icon)
+    @objc public init(title: String? = nil, icon: String? = nil, listSource:TapHorizontalHeaderType = .GatewayListHeader, paymentOptionIdentifier:String = "") {
+        super.init(title: title, icon: icon, paymentOptionIdentifier: paymentOptionIdentifier)
         self.listSource = listSource
     }
     
