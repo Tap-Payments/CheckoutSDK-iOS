@@ -17,10 +17,8 @@ internal extension TapCheckoutSharedManager {
      - Returns: The correct extra fees to be allowed with regarding the extra fees type of the payment option and the transaction total amount
      */
     func calculateExtraFees(for paymentOption:PaymentOption) -> Double {
-        
         // Get the correct extra fees value for the payment option
-        let extraFeesValue:Double = paymentOption.extraFees.reduce(0.0, { $0 + $1.extraFeeValue(for: calculateFinalAmount()) })
-        
+        return paymentOption.extraFees.reduce(0.0, { $0 + $1.extraFeeValue(for: calculateFinalAmount()) })
     }
     
 }
