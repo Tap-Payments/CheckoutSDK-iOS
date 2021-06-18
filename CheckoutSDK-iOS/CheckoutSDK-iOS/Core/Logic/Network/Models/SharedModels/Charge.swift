@@ -9,6 +9,7 @@
 /// To charge a credit or a debit card, you create a charge object.
 /// You can retrieve and refund individual charges as well as list all charges.
 /// Charges are identified by a unique random ID.
+import CommonDataModelsKit_iOS
 @objcMembers public final class Charge: NSObject, ChargeProtocol, IdentifiableWithString {
     
     
@@ -27,10 +28,10 @@
     public let amount: Decimal
     
     /// Three-letter ISO currency code, in lowercase. Must be a supported currency.
-    public let currency: Currency
+    public let currency: TapCurrencyCode
     
     /// Customer.
-    public let customer: Customer
+    public let customer: TapCustomer
     
     /// Flag indicating whether the object exists in live mode or test mode.
     public let isLiveMode: Bool
@@ -73,7 +74,7 @@
     
     /// Set of key/value pairs that you can attach to an object.
     /// It can be useful for storing additional information about the object in a structured format.
-    public private(set) var metadata: Metadata?
+    public private(set) var metadata: TapMetadata?
     
     /// Charge reference.
     public private(set) var reference: Reference?
@@ -124,7 +125,7 @@
     
     // MARK: Methods
     
-	internal init(identifier: String, apiVersion: String, amount: Decimal, currency: Currency, customer: Customer, isLiveMode: Bool, cardSaved: Bool, object: String, authentication: Authentication?, redirect: TrackingURL, post: TrackingURL?, card: SavedCard?, source: Source, destinations: DestinationGroup?, status: ChargeStatus, requires3DSecure: Bool, transactionDetails: TransactionDetails, descriptionText: String?, metadata: Metadata?, reference: Reference?, receiptSettings: Receipt?, acquirer: Acquirer?, response: Response?, statementDescriptor: String?) {
+	internal init(identifier: String, apiVersion: String, amount: Decimal, currency: TapCurrencyCode, customer: TapCustomer, isLiveMode: Bool, cardSaved: Bool, object: String, authentication: Authentication?, redirect: TrackingURL, post: TrackingURL?, card: SavedCard?, source: Source, destinations: DestinationGroup?, status: ChargeStatus, requires3DSecure: Bool, transactionDetails: TransactionDetails, descriptionText: String?, metadata: TapMetadata?, reference: Reference?, receiptSettings: Receipt?, acquirer: Acquirer?, response: Response?, statementDescriptor: String?) {
         
         self.identifier             = identifier
         self.apiVersion             = apiVersion
@@ -165,8 +166,8 @@ extension Charge: Decodable {
         let identifier          = try container.decode          (String.self,               forKey: .identifier)
         let apiVersion          = try container.decode          (String.self,               forKey: .apiVersion)
         let amount              = try container.decode          (Decimal.self,              forKey: .amount)
-        let currency            = try container.decode          (Currency.self,             forKey: .currency)
-        let customer            = try container.decode          (Customer.self,         	forKey: .customer)
+        let currency            = try container.decode          (TapCurrencyCode.self,      forKey: .currency)
+        let customer            = try container.decode          (TapCustomer.self,         	forKey: .customer)
         let isLiveMode          = try container.decode          (Bool.self,                 forKey: .isLiveMode)
         let cardSaved           = try container.decodeIfPresent (Bool.self,                 forKey: .cardSaved) ?? false
         let object              = try container.decode          (String.self,               forKey: .object)
@@ -180,7 +181,7 @@ extension Charge: Decodable {
         let requires3DSecure    = try container.decode          (Bool.self,                 forKey: .requires3DSecure)
         let transactionDetails  = try container.decode          (TransactionDetails.self,   forKey: .transactionDetails)
         let descriptionText     = try container.decodeIfPresent (String.self,               forKey: .descriptionText)
-        let metadata            = try container.decodeIfPresent (Metadata.self,				forKey: .metadata)
+        let metadata            = try container.decodeIfPresent (TapMetadata.self,	        forKey: .metadata)
         let reference           = try container.decodeIfPresent (Reference.self,            forKey: .reference)
         let receiptSettings     = try container.decodeIfPresent (Receipt.self,              forKey: .receiptSettings)
         let acquirer            = try container.decodeIfPresent (Acquirer.self,             forKey: .acquirer)
@@ -217,11 +218,11 @@ extension Charge: Decodable {
 // MARK: - Authenticatable
 extension Charge: Authenticatable {
     
-    internal static var authenticationRoute: Route { return .charges }
+    internal static var authenticationRoute: TapNetworkPath { return .charges }
 }
 
 // MARK: - Retrievable
 extension Charge: Retrievable {
     
-    internal static var retrieveRoute: Route { return .charges }
+    internal static var retrieveRoute: TapNetworkPath { return .charges }
 }
