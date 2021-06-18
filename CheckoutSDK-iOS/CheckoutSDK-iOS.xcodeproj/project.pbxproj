@@ -112,6 +112,10 @@
 		E8EC81A7267D00C10080E760 /* SourceChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC81A3267D00C10080E760 /* SourceChannel.swift */; };
 		E8EC81A8267D00C10080E760 /* SourcePaymentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC81A4267D00C10080E760 /* SourcePaymentType.swift */; };
 		E8EC81A9267D00C10080E760 /* SourceObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC81A5267D00C10080E760 /* SourceObject.swift */; };
+		E8EC81AB267D01100080E760 /* AddressFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC81AA267D01100080E760 /* AddressFormat.swift */; };
+		E8EC81AD267D013C0080E760 /* TransactionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC81AC267D013C0080E760 /* TransactionDetails.swift */; };
+		E8EC81B0267D01480080E760 /* TransactionExpiry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC81AE267D01480080E760 /* TransactionExpiry.swift */; };
+		E8EC81B1267D01480080E760 /* TransactionOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC81AF267D01480080E760 /* TransactionOrder.swift */; };
 		E8EDD34A25612A3C00AFC0B3 /* TapIntentRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD34925612A3C00AFC0B3 /* TapIntentRequestModel.swift */; };
 		E8EDD35025612BCD00AFC0B3 /* TapCustomer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD34F25612BCD00AFC0B3 /* TapCustomer.swift */; };
 /* End PBXBuildFile section */
@@ -262,6 +266,10 @@
 		E8EC81A3267D00C10080E760 /* SourceChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceChannel.swift; sourceTree = "<group>"; };
 		E8EC81A4267D00C10080E760 /* SourcePaymentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourcePaymentType.swift; sourceTree = "<group>"; };
 		E8EC81A5267D00C10080E760 /* SourceObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceObject.swift; sourceTree = "<group>"; };
+		E8EC81AA267D01100080E760 /* AddressFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressFormat.swift; sourceTree = "<group>"; };
+		E8EC81AC267D013C0080E760 /* TransactionDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionDetails.swift; sourceTree = "<group>"; };
+		E8EC81AE267D01480080E760 /* TransactionExpiry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionExpiry.swift; sourceTree = "<group>"; };
+		E8EC81AF267D01480080E760 /* TransactionOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionOrder.swift; sourceTree = "<group>"; };
 		E8EDD34925612A3C00AFC0B3 /* TapIntentRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapIntentRequestModel.swift; sourceTree = "<group>"; };
 		E8EDD34F25612BCD00AFC0B3 /* TapCustomer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCustomer.swift; sourceTree = "<group>"; };
 		FF4A2E12A9944D1FED9040B6 /* Pods-CheckoutSDK-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutSDK-iOS.debug.xcconfig"; path = "Target Support Files/Pods-CheckoutSDK-iOS/Pods-CheckoutSDK-iOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -473,6 +481,7 @@
 		E8844B842675E3720073D777 /* private */ = {
 			isa = PBXGroup;
 			children = (
+				E8EC81AA267D01100080E760 /* AddressFormat.swift */,
 				E8983DCE24F0F7B800C34E50 /* TapNetworkPath.swift */,
 			);
 			path = private;
@@ -668,6 +677,9 @@
 		E8EDD3582561419B00AFC0B3 /* SharedModels */ = {
 			isa = PBXGroup;
 			children = (
+				E8EC81AC267D013C0080E760 /* TransactionDetails.swift */,
+				E8EC81AE267D01480080E760 /* TransactionExpiry.swift */,
+				E8EC81AF267D01480080E760 /* TransactionOrder.swift */,
 				E8EC819A267CFFB70080E760 /* Address.swift */,
 				E8EC819B267CFFB70080E760 /* Country.swift */,
 				E8EC8198267CFF810080E760 /* TokenizedCard.swift */,
@@ -905,6 +917,7 @@
 				E8EC8189267CFCCA0080E760 /* Retrievable.swift in Sources */,
 				E8C58B3824E5344700E1F04F /* TapCheckOutTheme.swift in Sources */,
 				E8844D04267697350073D777 /* Transfer.swift in Sources */,
+				E8EC81B1267D01480080E760 /* TransactionOrder.swift in Sources */,
 				E8844D082676979D0073D777 /* Destination.swift in Sources */,
 				E8EDD35025612BCD00AFC0B3 /* TapCustomer.swift in Sources */,
 				E8844DFB26776C860073D777 /* SecretKey.swift in Sources */,
@@ -941,7 +954,9 @@
 				E8844F562678A6400073D777 /* TapPaymentOptionsReponseModel.swift in Sources */,
 				E8844F5F2678AE220073D777 /* UtilitiesProtocols.swift in Sources */,
 				E8844DF926776C580073D777 /* SDKMode.swift in Sources */,
+				E8EC81AD267D013C0080E760 /* TransactionDetails.swift in Sources */,
 				E8983DD124F1469700C34E50 /* TapEntitResponseModel.swift in Sources */,
+				E8EC81B0267D01480080E760 /* TransactionExpiry.swift in Sources */,
 				E8EC8193267CFF0A0080E760 /* Source.swift in Sources */,
 				E8983DCF24F0F7B800C34E50 /* TapNetworkPath.swift in Sources */,
 				E8EC8197267CFF550080E760 /* Token.swift in Sources */,
@@ -951,6 +966,7 @@
 				E8EC819C267CFFB70080E760 /* Address.swift in Sources */,
 				E86128B424ED23EF00774BAA /* TapCheckoutExtensions.swift in Sources */,
 				E8844D28267744CD0073D777 /* Reference.swift in Sources */,
+				E8EC81AB267D01100080E760 /* AddressFormat.swift in Sources */,
 				E8EC818D267CFD490080E760 /* URLStatus.swift in Sources */,
 				E8EC819D267CFFB70080E760 /* Country.swift in Sources */,
 				E8EC8187267CFBD20080E760 /* AuthenticationRequirer.swift in Sources */,
