@@ -48,4 +48,16 @@ internal final class ExtraFee: AmountModificatorModel {
         case maxFee     = "maximum_fee"
         case minFee     = "minimum_fee"
     }
+    
+    /**
+     Used to compute the correct extra fees to be applied
+     - Parameter for: The amount we need to compute the extra fees regards to
+     - Returns: The computed extra fees, putting in mind the type of the extra fees, the min and the max fees
+     */
+    func extraFeeValue(for amount:Double) -> Double {
+        // First get the correct extra fee with regards the amount and the extra fee type Percentage or Fixed
+        let computedExtraFee:Double = caluclateActualModificationValue(with: amount)
+        // We need to make sure if the computed fixed fee is in the range of min/max, otherwise if it is less than than min we set it to min and if more than max we set it to max
+        return max(minFee,min(computedExtraFee, maxFee))
+    }
 }
