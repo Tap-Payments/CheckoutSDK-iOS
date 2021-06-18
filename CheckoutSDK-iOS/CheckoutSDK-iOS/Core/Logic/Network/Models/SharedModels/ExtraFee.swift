@@ -20,7 +20,7 @@ internal final class ExtraFee: AmountModificatorModel {
     
     // MARK: Methods
     
-    internal required init(type: AmountModificationType, value: Double, currency: TapCurrencyCode, minFee:Decimal = 0, maxFee:Decimal = 0) {
+    internal required init(type: AmountModificationType, value: Double, currency: TapCurrencyCode, minFee:Double = 0, maxFee:Double = 0) {
         self.currency = currency
         super.init(type: type, value: value, minFee: minFee, maxFee: maxFee)
     }
@@ -31,8 +31,8 @@ internal final class ExtraFee: AmountModificatorModel {
         
         let type = try container.decode(AmountModificationType.self, forKey: .type)
         let value = try container.decode(Double.self, forKey: .value)
-        let maxFee = try container.decodeIfPresent(Decimal.self, forKey: .maxFee) ?? 0
-        let minFee = try container.decodeIfPresent(Decimal.self, forKey: .minFee) ?? 0
+        let maxFee = try container.decodeIfPresent(Double.self, forKey: .maxFee) ?? 0
+        let minFee = try container.decodeIfPresent(Double.self, forKey: .minFee) ?? 0
         let currency = try container.decode(TapCurrencyCode.self, forKey: .currency)
         
         self.init(type: type, value: value, currency: currency,minFee:minFee, maxFee: maxFee)
@@ -48,4 +48,18 @@ internal final class ExtraFee: AmountModificatorModel {
         case maxFee     = "maximum_fee"
         case minFee     = "minimum_fee"
     }
+    
+    
+    /**
+     Used to compute the correct extra fees to be applied
+     - Parameter for: The amount we need to compute the extra fees regards to
+     - Returns: The computed extra fees, putting in mind the type of the extra fees, the min and the max fees
+     */
+    func extraFeeValue(for amount:Double) -> Double {
+        // First get the correct extra fee with regards the amount and the extra fee type Percentage or Fixed
+        let computedExtraFee:Double = caluclateActualModificationValue(with: amount)
+        // We need to make sure if the computed fixed fee is in the range of min/max, otherwise if it is less than than min we set it to min and if more than max we set it to max
+        return max(minFee,min(computedExtraFee, maxFee))
+    }
+    
 }

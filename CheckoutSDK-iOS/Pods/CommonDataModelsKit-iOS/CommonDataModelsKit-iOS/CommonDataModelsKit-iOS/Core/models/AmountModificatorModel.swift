@@ -21,14 +21,14 @@ import Foundation
     /// The value of the discount itself
 	public let value : Double?
     /// The minimum fees allowed for this extra fees.
-    public var minFee: Decimal
+    public var minFee: Double
     /// The maximum fees allowed for this extra fees.
-    public var maxFee: Decimal
+    public var maxFee: Double
     /**
      - Parameter type: The type of the applied discount whether fixed or percentage
      - Parameter value: The value of the discount itself
      */
-    @objc public init(type: AmountModificationType = .Fixed, value: Double = 0, minFee: Decimal = 0, maxFee: Decimal = 0) {
+    @objc public init(type: AmountModificationType = .Fixed, value: Double = 0, minFee: Double = 0, maxFee: Double = 0) {
         self.type   = type
         self.value  = value
         self.maxFee = maxFee
@@ -48,8 +48,8 @@ import Foundation
         let values  = try decoder.container(keyedBy: CodingKeys.self)
         type        = try values.decodeIfPresent(AmountModificationType.self, forKey: .type) ?? .Fixed
         value       = try values.decodeIfPresent(Double.self, forKey: .value)
-        minFee      = try values.decodeIfPresent(Decimal.self, forKey: .minFee) ?? 0
-        maxFee      = try values.decodeIfPresent(Decimal.self, forKey: .maxFee) ?? 0
+        minFee      = try values.decodeIfPresent(Double.self, forKey: .minFee) ?? 0
+        maxFee      = try values.decodeIfPresent(Double.self, forKey: .maxFee) ?? 0
 	}
     
     /**

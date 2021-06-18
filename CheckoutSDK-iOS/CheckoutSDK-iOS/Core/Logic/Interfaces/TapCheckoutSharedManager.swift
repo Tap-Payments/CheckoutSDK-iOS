@@ -77,14 +77,6 @@ internal class TapCheckoutSharedManager {
             parsePaymentOptionsResponse()
         }
     }
-    /// Represents the data loaded from the Intent api on checkout start
-    var intentModelResponse:TapIntentResponseModel?{
-        didSet{
-            // Now it is time to fetch needed data from the model parsed
-            parseIntentResponse()
-        }
-    }
-    
     // MARK:- UI Related Variables
     
     /// Represents the required style of the sheet close button
@@ -447,47 +439,6 @@ internal class TapCheckoutSharedManager {
          loggedInToGoPay = false//UserDefaults.standard.bool(forKey: TapCheckoutConstants.GoPayLoginUserDefaultsKey)
         updateManager()
     }
-    
-    
-    /// Handles the logic to fetch different sections from the Intent API response
-    private func parseIntentResponse() {
-        
-        /*guard let intentModel = intentModelResponse else { return }
-        
-        // Fetch the merchant header info
-        self.tapMerchantViewModel = .init(title: nil, subTitle: intentModel.merchant?.name, iconURL: intentModel.merchant?.logo)
-        
-        // Fetch the list of supported currencies
-        self.currenciesChipsViewModel = intentModel.currencies.map{ CurrencyChipViewModel.init(currency: $0) }
-        self.tapCurrienciesChipHorizontalListViewModel = .init(dataSource: currenciesChipsViewModel, headerType: .NoHeader,selectedChip: currenciesChipsViewModel.filter{ $0.currency == transactionUserCurrencyValue }[0])
-        
-        // Fetch the list of the goPay supported login countries
-        self.goPayLoginCountries = intentModel.goPayLoginCountries ?? []
-        self.goPayBarViewModel = .init(countries: goPayLoginCountries)
-        
-        // Fetch the list of goPay Saved Cards
-        // First check if cards are allowed
-        if paymentTypes.contains(.All) || paymentTypes.contains(.Card) {
-            self.goPayChipsViewModel = intentModel.goPaySavedCards ?? []
-            goPayChipsViewModel.append(.init(tapChipViewModel:TapLogoutChipViewModel()))
-        }else{
-            self.goPayChipsViewModel = []
-        }
-        
-        // Fetch the merchant based saved cards + differnt payment types
-        self.gatewayChipsViewModel = (intentModel.paymentChips ?? []).filter{ paymentTypes.contains(.All) || paymentTypes.contains($0.paymentType) || $0.paymentType == .All }
-        
-        // Fetch the save card/phone switch data
-        tapSaveCardSwitchViewModel = .init(with: .invalidCard, merchant: tapMerchantViewModel.subTitle ?? "")
-        
-        // Fetch the cards + telecom payments options
-        self.tapCardPhoneListDataSource = (intentModel.tapCardPhoneListDataSource ?? []).filter{ paymentTypes.contains(.All) || paymentTypes.contains($0.paymentType) }
-        
-        // Load the goPayLogin status
-        loggedInToGoPay = UserDefaults.standard.bool(forKey: TapCheckoutConstants.GoPayLoginUserDefaultsKey)*/
-    }
-    
-    
 }
 
 

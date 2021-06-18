@@ -67,6 +67,7 @@
 		E8844F652678B4050073D777 /* ExpirationDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844F642678B4050073D777 /* ExpirationDate.swift */; };
 		E8844F672678B42A0073D777 /* CardScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844F662678B42A0073D777 /* CardScheme.swift */; };
 		E8844F692678BA530073D777 /* TapPaymentOptionsRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844F682678BA530073D777 /* TapPaymentOptionsRequestModel.swift */; };
+		E88450EA267B30890073D777 /* TapCheckoutSharedManager+Calculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88450E9267B30890073D777 /* TapCheckoutSharedManager+Calculation.swift */; };
 		E8845E6A24D835B1009E8B73 /* CheckoutSDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8811AD624D4283C00DE95D1 /* CheckoutSDK_iOS.framework */; };
 		E8845E6B24D835B1009E8B73 /* CheckoutSDK_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E8811AD624D4283C00DE95D1 /* CheckoutSDK_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E8845E7024D83D7B009E8B73 /* TapCheckout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8845E6F24D83D7B009E8B73 /* TapCheckout.swift */; };
@@ -193,6 +194,7 @@
 		E8844F642678B4050073D777 /* ExpirationDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpirationDate.swift; sourceTree = "<group>"; };
 		E8844F662678B42A0073D777 /* CardScheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardScheme.swift; sourceTree = "<group>"; };
 		E8844F682678BA530073D777 /* TapPaymentOptionsRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapPaymentOptionsRequestModel.swift; sourceTree = "<group>"; };
+		E88450E9267B30890073D777 /* TapCheckoutSharedManager+Calculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckoutSharedManager+Calculation.swift"; sourceTree = "<group>"; };
 		E8845E6F24D83D7B009E8B73 /* TapCheckout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckout.swift; sourceTree = "<group>"; };
 		E8845E7124D83FA3009E8B73 /* TapBottomCheckoutControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapBottomCheckoutControllerViewController.swift; sourceTree = "<group>"; };
 		E8845E7824D851E2009E8B73 /* TapCheckoutBlurView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TapCheckoutBlurView.xib; sourceTree = "<group>"; };
@@ -471,6 +473,7 @@
 			children = (
 				E8844E6726777B7B0073D777 /* NetworkManagerExtensions.swift */,
 				E8844F532678A1150073D777 /* TapCheckoutApiCallsExtensions.swift */,
+				E88450E9267B30890073D777 /* TapCheckoutSharedManager+Calculation.swift */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -825,6 +828,7 @@
 				E8844D04267697350073D777 /* Transfer.swift in Sources */,
 				E8844D082676979D0073D777 /* Destination.swift in Sources */,
 				E8EDD35025612BCD00AFC0B3 /* TapCustomer.swift in Sources */,
+				E88450EA267B30890073D777 /* TapCheckoutSharedManager+Calculation.swift in Sources */,
 				E8844DFB26776C860073D777 /* SecretKey.swift in Sources */,
 				E89225EA24E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift in Sources */,
 				E830B7F324F3E96900B62713 /* TapPayButtonViewModel.swift in Sources */,
