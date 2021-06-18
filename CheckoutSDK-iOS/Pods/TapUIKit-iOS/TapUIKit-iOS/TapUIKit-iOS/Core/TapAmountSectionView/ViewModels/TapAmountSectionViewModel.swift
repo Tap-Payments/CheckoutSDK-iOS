@@ -8,6 +8,7 @@
 import class LocalisationManagerKit_iOS.TapLocalisationManager
 import class CommonDataModelsKit_iOS.TapCommonConstants
 import class CommonDataModelsKit_iOS.TapAmountedCurrencyFormatter
+import class CommonDataModelsKit_iOS.AmountedCurrency
 import enum CommonDataModelsKit_iOS.CurrencyLocale
 import enum CommonDataModelsKit_iOS.TapCurrencyCode
 
@@ -32,13 +33,13 @@ import enum CommonDataModelsKit_iOS.TapCurrencyCode
     /// Represent the original transaction total amount
     internal var originalAmountLabelObserver:((String?)->()) = { _ in } {
         didSet {
-            originalAmountLabelObserver(currencyFormatted(amount: originalTransactionAmount, currencyCode: originalTransactionCurrency))
+            originalAmountLabelObserver(currencyFormatted(amount: originalTransactionAmount, currencyCode: originalTransactionCurrency.currency))
         }
     }
     /// Represent the converted transaction total amount if any
     internal var convertedAmountLabelObserver:((String?)->()) = { _ in } {
         didSet {
-            convertedAmountLabelObserver(currencyFormatted(amount: convertedTransactionAmount, currencyCode: convertedTransactionCurrency))
+            convertedAmountLabelObserver(currencyFormatted(amount: convertedTransactionAmount, currencyCode: convertedTransactionCurrency.currency))
         }
     }
     /// Represent the number of items in the current transaction
@@ -85,15 +86,13 @@ import enum CommonDataModelsKit_iOS.TapCurrencyCode
     }
     
     /// Represent the original transaction total amount
-    @objc public var originalTransactionAmount:Double = 0 {
-        didSet {
-            updateAmountObserver(for: originalTransactionAmount, with: originalTransactionCurrency, on: originalAmountLabelObserver)
-        }
+    @objc public var originalTransactionAmount:Double  {
+        return originalTransactionCurrency.amount
     }
     
     /// Represent the original transaction total amount
     @objc public var originalTransactionAmountFormated:String  {
-        return currencyFormatted(amount: originalTransactionAmount,currencyCode: originalTransactionCurrency)
+        return currencyFormatted(amount: originalTransactionAmount,currencyCode: originalTransactionCurrency.currency)
     }
     
     /// Represent the title that should be displayed inside the SHOW ITEMS/CLOSE button
@@ -104,31 +103,26 @@ import enum CommonDataModelsKit_iOS.TapCurrencyCode
     }
     
     /// Represent the original transaction currenc code
-    @objc public var originalTransactionCurrency:TapCurrencyCode = .undefined {
+    @objc public var originalTransactionCurrency:AmountedCurrency = .init(.undefined, 0, "") {
         didSet {
             updateAmountObserver(for: originalTransactionAmount, with: originalTransactionCurrency, on: originalAmountLabelObserver)
         }
     }
     /// Represent the converted transaction total amount if any
-    @objc public var convertedTransactionAmount:Double = 0 {
-        didSet {
-            updateAmountObserver(for: convertedTransactionAmount, with: convertedTransactionCurrency, on: convertedAmountLabelObserver)
-        }
+    @objc public var convertedTransactionAmount:Double {
+        return convertedTransactionCurrency.amount
     }
     
     // Represent the original transaction total amount
     @objc public var convertedTransactionAmountFormated:String  {
-        return currencyFormatted(amount: convertedTransactionAmount,currencyCode: convertedTransactionCurrency)
+        return currencyFormatted(amount: convertedTransactionAmount,currencyCode: convertedTransactionCurrency.currency)
     }
     
     /// Represent the converted transaction currenc code if any
-    @objc public var convertedTransactionCurrency:TapCurrencyCode = .undefined {
+    @objc public var convertedTransactionCurrency:AmountedCurrency = .init(.undefined, 0, "") {
         didSet {
-            if convertedTransactionCurrency.appleRawValue == originalTransactionCurrency.appleRawValue || convertedTransactionCurrency == .undefined {
-                convertedTransactionCurrency = .undefined
-                convertedTransactionAmount = 0
-            }else {
-                convertedTransactionAmount = (convertedTransactionCurrency.convert(from: originalTransactionCurrency, for: originalTransactionAmount))
+            if convertedTransactionCurrency == originalTransactionCurrency || convertedTransactionCurrency.currency == .undefined {
+                convertedTransactionCurrency = .init(.undefined, 0, "")
             }
             //updateAmountObserver(for: convertedTransactionAmount, with: convertedTransactionCurrency, on: convertedAmountLabelObserver)
         }
@@ -154,8 +148,8 @@ import enum CommonDataModelsKit_iOS.TapCurrencyCode
     /// Indicates to show the currency symbol or the currency code
     @objc public var tapCurrencyFormatterSymbol:TapCurrencyFormatterSymbol = .ISO {
         didSet {
-            originalTransactionAmount = originalTransactionAmount + 0
-            convertedTransactionAmount = convertedTransactionAmount + 0
+            updateAmountObserver(for: convertedTransactionAmount, with: convertedTransactionCurrency, on: convertedAmountLabelObserver)
+            updateAmountObserver(for: originalTransactionAmount, with: originalTransactionCurrency, on: originalAmountLabelObserver)
         }
     }
     
@@ -163,24 +157,20 @@ import enum CommonDataModelsKit_iOS.TapCurrencyCode
     internal var localizationPath = "TapMerchantSection"
     /// Configure the localisation Manager
     internal let sharedLocalisationManager = TapLocalisationManager.shared
-   
+    
     /**
      Creates a view model to handle the displayed data and interactions for an associated TapAmountSectionView
-     - Parameter originalTransactionAmount:Represent the original transaction total amount
      - Parameter originalTransactionCurrency:Represent the original transaction total amount
-     - Parameter convertedTransactionAmount:Represent the original transaction total amount
      - Parameter convertedTransactionCurrency:Represent the original transaction total amount
      - Parameter numberOfItems:Represent the original transaction total amount
      - Parameter shouldShowItems:Represent the original transaction total amount
      - Parameter shouldShowAmount:Represent the original transaction total amount
      - Parameter tapCurrencyFormatterSymbol:Indicates to show the currency symbol or the currency code
      */
-    @objc public init(originalTransactionAmount: Double = 0, originalTransactionCurrency: TapCurrencyCode = .undefined, convertedTransactionAmount: Double = 0, convertedTransactionCurrency: TapCurrencyCode = .undefined, numberOfItems: Int = 0, shouldShowItems: Bool = true, shouldShowAmount: Bool = true,tapCurrencyFormatterSymbol:TapCurrencyFormatterSymbol = .ISO) {
+    @objc public init(originalTransactionCurrency: AmountedCurrency = .init(.undefined, 0, ""), convertedTransactionCurrency: AmountedCurrency = .init(.undefined, 0, ""), numberOfItems: Int = 0, shouldShowItems: Bool = true, shouldShowAmount: Bool = true,tapCurrencyFormatterSymbol:TapCurrencyFormatterSymbol = .ISO) {
         super.init()
         defer {
-            self.originalTransactionAmount = originalTransactionAmount
             self.originalTransactionCurrency = originalTransactionCurrency
-            self.convertedTransactionAmount = convertedTransactionAmount
             self.convertedTransactionCurrency = convertedTransactionCurrency
             self.numberOfItems = numberOfItems
             self.shouldShowItems = shouldShowItems
@@ -195,8 +185,8 @@ import enum CommonDataModelsKit_iOS.TapCurrencyCode
         currentStateView = state
     }
     
-    private func updateAmountObserver(for amount:Double, with currencyCode:TapCurrencyCode?, on observer:((String)->())) {
-        observer(currencyFormatted(amount: amount, currencyCode: currencyCode))
+    private func updateAmountObserver(for amount:Double, with currencyCode:AmountedCurrency?, on observer:((String)->())) {
+        observer(currencyFormatted(amount: amount, currencyCode: currencyCode?.currency))
     }
     
     /**
@@ -228,14 +218,14 @@ import enum CommonDataModelsKit_iOS.TapCurrencyCode
     internal func itemsClicked() {
         // Determine which method should we execute
         switch currentStateView {
-            // Meaning, currently we are showing the normal view and we need to show the items list
-            case .DefaultView:
-                showItems()
-                break
-            // Meaning currently we are showing the list items and we need to go back to the normal view
-            case .ItemsView:
-                closeItems()
-                break
+        // Meaning, currently we are showing the normal view and we need to show the items list
+        case .DefaultView:
+            showItems()
+            break
+        // Meaning currently we are showing the list items and we need to go back to the normal view
+        case .ItemsView:
+            closeItems()
+            break
         // Meaning currently we are showing the scanner and we need to go back to the normal view
         case .ScannerView:
             closeScanner()

@@ -6,6 +6,7 @@
 //
 
 /// Structure holding currency and the amount.
+/*
 internal struct AmountedCurrency: Decodable {
     
     // MARK: - Internal -
@@ -19,6 +20,9 @@ internal struct AmountedCurrency: Decodable {
     
     /// Currency symbol.
     internal let currencySymbol: String
+    
+    /// Currency flag icon url.
+    internal let flag: String
     
     /// Conversion factor to transaction currency from baclend
     internal var rate: Double?
@@ -38,15 +42,16 @@ internal struct AmountedCurrency: Decodable {
     
     // MARK: Methods
     
-    internal init(_ currency: TapCurrencyCode, _ amount: Double) {
-        self.init(currency, amount, currency.symbolRawValue)
+    internal init(_ currency: TapCurrencyCode, _ amount: Double, _ flag: String) {
+        self.init(currency, amount, currency.symbolRawValue, flag)
     }
     
-    internal init(_ currency: TapCurrencyCode, _ amount: Double, _ currencySymbol: String) {
+    internal init(_ currency: TapCurrencyCode, _ amount: Double, _ currencySymbol: String, _ flag: String) {
         
         self.currency       = currency
         self.amount         = amount
         self.currencySymbol = currencySymbol
+        self.flag = flag
     }
     
     
@@ -64,6 +69,7 @@ internal struct AmountedCurrency: Decodable {
         case amount         = "amount"
         case currencySymbol = "symbol"
         case rate           = "rate"
+        case flag           = "flag"
     }
 }
 
@@ -75,3 +81,4 @@ extension AmountedCurrency: Equatable {
         return lhs.currency == rhs.currency && lhs.amount == rhs.amount
     }
 }
+*/

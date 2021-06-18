@@ -109,3 +109,25 @@ extension TapPaymentOptionsReponseModel: Decodable {
                   merchantCountryCode:          merchantCountryCode)
     }
 }
+
+/// Responsible for helpers method to access data inside the model
+extension TapPaymentOptionsReponseModel {
+    
+    /**
+     Gets a specific payment option by id
+     - Parameter with: The id of the needed payment option
+     - Returns: Payment option if found with the specified id, else nil
+     */
+    func fetchPaymentOption(with id:String) -> PaymentOption? {
+        var requiredPaymentOption:PaymentOption?
+        
+        // Let us get the needed payment option if any
+        let filteredPaymentOptions:[PaymentOption] = paymentOptions.filter{ $0.identifier == id }
+        // Make sure at least one option met the requirement
+        guard !filteredPaymentOptions.isEmpty else { return requiredPaymentOption }
+        // That is it..
+        requiredPaymentOption = filteredPaymentOptions.first
+        
+        return requiredPaymentOption
+    }
+}

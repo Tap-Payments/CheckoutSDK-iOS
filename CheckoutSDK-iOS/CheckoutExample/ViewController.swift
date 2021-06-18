@@ -21,9 +21,13 @@ class ViewController: UIViewController {
     var localisationFileName:String? = "CustomLocalisation"
     var customTheme:TapCheckOutTheme? = nil
     @IBOutlet weak var amountTextField: UITextField!
-    var selectedCurrency:TapCurrencyCode = .USD
+    var selectedCurrency:TapCurrencyCode = .KWD
     var amount:Double {
-        return Double(amountTextField.text ?? "") ?? 1000
+        if(items.count == 0) {
+            return Double(amountTextField.text ?? "") ?? 1000
+        }else{
+            return items.reduce(0.0) {$0 + $1.itemFinalPrice()}
+        }
     }
     var swipeToDismiss:Bool = true
     var closeButtonTitleStyle:CheckoutCloseButtonEnum = .title

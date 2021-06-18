@@ -50,7 +50,7 @@ internal extension Array where Element: ItemModel {
      - Parameter convertToCurrenct: The new currency if needed to convert to
      - Returns: Total amount of list of tap payment items
      */
-    func totalItemsPrices(convertFromCurrency:TapCurrencyCode? = nil,convertToCurrenct:TapCurrencyCode? = nil) -> Double {
+    func totalItemsPrices(convertFromCurrency:AmountedCurrency? = nil,convertToCurrenct:AmountedCurrency? = nil) -> Double {
         return self.map{ $0.itemFinalPrice(convertFromCurrency: convertFromCurrency, convertToCurrenct: convertToCurrenct) }.reduce(0, +)
     }
     
@@ -60,7 +60,7 @@ internal extension Array where Element: ItemModel {
      - Parameter convertToCurrenct: The new currency if needed to convert to
      - Returns: Correctly Apple Pay payment items
      */
-    func toApplePayItems(convertFromCurrency:TapCurrencyCode? = nil,convertToCurrenct:TapCurrencyCode? = nil) -> [PKPaymentSummaryItem] {
+    func toApplePayItems(convertFromCurrency:AmountedCurrency? = nil,convertToCurrenct:AmountedCurrency? = nil) -> [PKPaymentSummaryItem] {
         return self.map{ PKPaymentSummaryItem.init(label: $0.title ?? "Item", amount: NSDecimalNumber(value: $0.itemFinalPrice(convertFromCurrency: convertFromCurrency, convertToCurrenct: convertToCurrenct))) }
     }
 }
