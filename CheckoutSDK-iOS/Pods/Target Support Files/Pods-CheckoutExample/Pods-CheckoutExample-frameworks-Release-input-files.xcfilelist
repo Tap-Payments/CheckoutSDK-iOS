@@ -1,5 +1,4 @@
 ${PODS_ROOT}/Target Support Files/Pods-CheckoutExample/Pods-CheckoutExample-frameworks.sh
-${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework
 ${BUILT_PRODUCTS_DIR}/CommonDataModelsKit-iOS/CommonDataModelsKit_iOS.framework
 ${BUILT_PRODUCTS_DIR}/EasyAnimation/EasyAnimation.framework
 ${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework
@@ -9,9 +8,6 @@ ${BUILT_PRODUCTS_DIR}/McPicker/McPicker.framework
 ${BUILT_PRODUCTS_DIR}/Nuke/Nuke.framework
 ${PODS_ROOT}/PayCardsRecognizer/Source/PayCardsRecognizer.framework
 ${BUILT_PRODUCTS_DIR}/PullUpController/PullUpController.framework
-${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
-${BUILT_PRODUCTS_DIR}/SDWebImageSVGKitPlugin/SDWebImageSVGKitPlugin.framework
-${BUILT_PRODUCTS_DIR}/SVGKit/SVGKit.framework
 ${BUILT_PRODUCTS_DIR}/SimpleAnimation/SimpleAnimation.framework
 ${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework
 ${BUILT_PRODUCTS_DIR}/SwiftyRSA/SwiftyRSA.framework

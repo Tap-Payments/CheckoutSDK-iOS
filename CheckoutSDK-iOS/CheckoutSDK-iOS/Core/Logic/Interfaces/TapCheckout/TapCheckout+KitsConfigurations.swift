@@ -113,7 +113,7 @@ internal extension TapCheckout {
                                 isSaveCardSwitchOnByDefault: Bool = true) {
         
         let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
-        sharedManager.transactionCurrencyValue = .init(currency, amount, "")
+        sharedManager.transactionCurrencyValue = currency
         sharedManager.applePayMerchantID = applePayMerchantID
         sharedManager.paymentType = paymentType
         sharedManager.swipeDownToDismiss = swipeDownToDismiss

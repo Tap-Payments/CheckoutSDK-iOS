@@ -34,7 +34,7 @@ internal extension TapCheckout {
         let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
         
         // Create the payment option request with the configured data from the user
-        let paymentOptionRequest = TapPaymentOptionsRequestModel(transactionMode: sharedManager.transactionMode, amount: sharedManager.transactionTotalAmountValue, items: sharedManager.transactionItemsValue, shipping: sharedManager.shipping, taxes: sharedManager.taxes, currency: sharedManager.transactionCurrencyValue.currency, merchantID: sharedManager.tapMerchantID, customer: sharedManager.customer, destinationGroup: DestinationGroup(destinations: sharedManager.destinations), paymentType: sharedManager.paymentType)
+        let paymentOptionRequest = TapPaymentOptionsRequestModel(transactionMode: sharedManager.transactionMode, amount: sharedManager.transactionTotalAmountValue, items: sharedManager.transactionItemsValue, shipping: sharedManager.shipping, taxes: sharedManager.taxes, currency: sharedManager.transactionCurrencyValue, merchantID: sharedManager.tapMerchantID, customer: sharedManager.customer, destinationGroup: DestinationGroup(destinations: sharedManager.destinations), paymentType: sharedManager.paymentType)
         
         // Change the model into a dictionary
         guard let bodyDictionary = self.convertModelToDictionary(paymentOptionRequest, callingCompletionOnFailure: { error in

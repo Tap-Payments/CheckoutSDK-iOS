@@ -99,7 +99,7 @@ import SnapKit
         // Make sure we have a valid URL
         guard let iconURL:URL = URL(string: viewModel.icon ?? "") else { return }
         // load the image from the URL
-        cardBrandIconImageView.downloadImage(with: iconURL, nukeOptions: nil)
+        Nuke.loadImage(with: iconURL, into: cardBrandIconImageView)
     }
     
     /// Responsible for all logic needed to assign the textual info into the corresponding labels

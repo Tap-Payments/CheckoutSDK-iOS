@@ -15,16 +15,15 @@ import class UIKit.UICollectionViewCell
 @objc public class CurrencyChipViewModel: GenericTapChipViewModel {
     
     // MARK:- Variables
-    public var currency:AmountedCurrency = .init(.KWD,0,"https://sandbox.payments.tap.company/images/currency/KWD.svg")
+    public var currency:TapCurrencyCode = .KWD
     /// The delegate that the associated cell needs to subscribe to know the events and actions it should do
     internal var cellDelegate:GenericCellChipViewModelDelegate?
     
     
-    @objc public init(currency:AmountedCurrency = .init(.KWD,0,"https://sandbox.payments.tap.company/images/currency/KWD.svg")) {
-        super.init(title: currency.currencySymbol, icon: currency.flag)
+    @objc public init(currency:TapCurrencyCode = .KWD) {
+        super.init(title: currency.appleRawValue, icon: "https://www.countryflags.io/\(currency.imageName().components(separatedBy: ".")[0])/flat/24.png")
         self.currency = currency
     }
-    
     
     required public init(from decoder: Decoder) throws {
         try super.init(from: decoder)

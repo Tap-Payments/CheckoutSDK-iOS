@@ -56,7 +56,7 @@ import Nuke
             return
         }
         
-        gatewayIconImageView.downloadImage(with: iconURL, nukeOptions: nil)
+        Nuke.loadImage(with: iconURL, into: gatewayIconImageView)
         
         // Apply the editing ui if needed
         changedEditMode(to: viewModel.editMode)
