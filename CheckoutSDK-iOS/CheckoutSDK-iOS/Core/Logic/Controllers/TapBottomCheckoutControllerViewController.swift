@@ -346,18 +346,13 @@ extension TapBottomCheckoutControllerViewController:TapChipHorizontalListViewMod
         let sharedCheckoutManager = TapCheckoutSharedManager.sharedCheckoutManager()
         sharedCheckoutManager.selectedPaymentOption = sharedCheckoutManager.fetchPaymentOption(with: viewModel.paymentOptionIdentifier)
         
-        // Start the payment with the selected payment option
-        
-        sharedCheckoutManager.processCheckout(with: sharedCheckoutManager.selectedPaymentOption!)
-        
-        /*
+        // Make the payment button in a Valid payment mode
         NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetStatusNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetStatusNotification:TapActionButtonStatusEnum.ValidPayment] )
         
-        let gatewayActionBlock:()->() = { [weak self] in
-            self?.showWebView(with: URL(string: "https://www.google.com")!)
-        }
-        
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetBlockNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetBlockNotification:gatewayActionBlock] )*/
+        // Make the button action to start the paymet with the selected gateway
+        // Start the payment with the selected payment option
+        let gatewayActionBlock:()->() = { sharedCheckoutManager.processCheckout(with: sharedCheckoutManager.selectedPaymentOption!) }
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetBlockNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetBlockNotification:gatewayActionBlock] )
     }
     
     func goPay(for viewModel: TapGoPayViewModel) {
@@ -645,6 +640,19 @@ extension TapBottomCheckoutControllerViewController:TapDragHandlerViewDelegate {
 
 
 extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDelegate {
+    func dismissCheckout(with error: Error) {
+        delegate?.dismissMySelfClicked()
+    }
+    
+    func actionButton(shouldLoad: Bool, success: Bool, onComplete: @escaping () -> ()) {
+        if shouldLoad {
+            tapActionButtonViewModel.startLoading(completion: onComplete)
+        }else{
+            tapActionButtonViewModel.endLoading(with: success, completion: onComplete)
+        }
+    }
+    
+   
     func goPaySignIn(status: Bool) {
         
         tapActionButtonViewModel.endLoading(with: true, completion: {

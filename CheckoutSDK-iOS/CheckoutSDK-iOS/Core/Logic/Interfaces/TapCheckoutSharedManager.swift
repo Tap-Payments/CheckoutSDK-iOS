@@ -28,6 +28,20 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      */
     func show(alert:UIAlertController)
     
+    /**
+     Will be fired once we need to ake the button starts/end loading
+     - Parameter shouldLoad: True to start loading and false otherwise
+     - Parameter success: Will be used in the case of ending loading with the success status
+     - Parameter onComplete: Logic block to execute after stopping loading
+     */
+    func actionButton(shouldLoad:Bool,success:Bool,onComplete:@escaping()->())
+    
+    /**
+     Will be fired once the checkout process faild and we need to dismiss
+     - Parameter with error:  The error cause the checkout process to fail
+     */
+    func dismissCheckout(with error:Error)
+    
 }
 
 /// Represents a global accessable common data gathered by the merchant when loading the checkout sdk like amount, currency, etc

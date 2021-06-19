@@ -140,11 +140,12 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
         prepareSDK(with: sdkMode,delegate:delegate, localiseFile:localiseFile,customTheme:customTheme)
         // Store the passed configurations for further processing
         configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,swipeDownToDismiss:swipeDownToDismiss,paymentType:paymentType,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID,taxes: taxes, shipping: shipping, allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor,require3DSecure:require3DSecure,receiptSettings:receiptSettings, authorizeAction: authorizeAction)
+        
         // Initiate the needed calls to server to start the session
-        initialiseSDKFromAPI { [weak self] in
-            guard let nonNullSelf = self else { return }
-            nonNullSelf.configureBottomSheet()
-            onCheckOutReady(nonNullSelf)
+        initialiseSDKFromAPI {  [weak self] in
+            //guard let nonNullSelf = self else { return }
+            self!.configureBottomSheet()
+            onCheckOutReady(self!)
         }
     }
     

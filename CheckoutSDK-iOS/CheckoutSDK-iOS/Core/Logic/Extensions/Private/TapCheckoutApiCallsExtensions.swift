@@ -34,10 +34,10 @@ internal extension TapCheckout {
         let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
         
         // Create the payment option request with the configured data from the user
-        let paymentOptionRequest = TapPaymentOptionsRequestModel(transactionMode: sharedManager.transactionMode, amount: sharedManager.transactionTotalAmountValue, items: sharedManager.transactionItemsValue, shipping: sharedManager.shipping, taxes: sharedManager.taxes, currency: sharedManager.transactionCurrencyValue.currency, merchantID: sharedManager.tapMerchantID, customer: sharedManager.customer, destinationGroup: DestinationGroup(destinations: sharedManager.destinations), paymentType: sharedManager.paymentType)
+        let paymentOptionRequest = sharedManager.createPaymentOptionRequestModel()
         
         // Change the model into a dictionary
-        guard let bodyDictionary = self.convertModelToDictionary(paymentOptionRequest, callingCompletionOnFailure: { error in
+        guard let bodyDictionary = TapCheckout.convertModelToDictionary(paymentOptionRequest, callingCompletionOnFailure: { error in
             return
         }) else { return }
         
@@ -52,6 +52,33 @@ internal extension TapCheckout {
             onCheckOutReady()
         } onError: { (session, result, errorr) in
             self.handleError(error: errorr)
+        }
+    }
+    
+    
+    /// Responsible for making the network call to payment options api
+    static func callChargeOrAuthorizeAPI(chargeRequestModel:TapChargeRequestModel, onResponeReady: @escaping (Charge) -> () = {_ in}, onErrorOccured: @escaping(Error)->() = {_ in}) {
+        
+        // Change the model into a dictionary
+        guard let bodyDictionary = TapCheckout.convertModelToDictionary(chargeRequestModel, callingCompletionOnFailure: { error in
+            onErrorOccured(error.debugDescription)
+            return
+        }) else { return }
+        
+        
+        
+        NetworkManager.shared.makeApiCall(routing: .charges, resultType: Charge.self, body: bodyDictionary, httpMethod: .POST) { (session, result, error) in
+            if let error = error {
+                onErrorOccured(error)
+            }else{
+                guard let paymentOptionsResponse:Charge = result as? Charge else { onErrorOccured("Unexpected error")
+                    return }
+                // Let us now load the payment options
+                print("OSAMA")
+            }
+            
+        } onError: { (session, result, errorr) in
+            onErrorOccured(errorr.debugDescription)
         }
     }
     
@@ -76,7 +103,7 @@ internal extension TapCheckout {
     ///   - response: Response object in case of success. Here - always nil.
     ///   - error: Error in case of failure. If the closure is called it will never become nil.
     /// - Returns: Dictionary.
-    func convertModelToDictionary(_ model: Encodable, callingCompletionOnFailure completion: CompletionOnFailure) -> [String: Any]? {
+    static func convertModelToDictionary(_ model: Encodable, callingCompletionOnFailure completion: CompletionOnFailure) -> [String: Any]? {
         
         var modelDictionary: [String: Any]
         

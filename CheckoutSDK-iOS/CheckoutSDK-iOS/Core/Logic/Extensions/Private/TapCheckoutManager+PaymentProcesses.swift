@@ -17,14 +17,49 @@ internal extension TapCheckoutSharedManager {
      */
     func processCheckout(with paymentOption:PaymentOption) {
         // For all payment options types, we need to ask for extra fees first if any
-        askForExtraFees(with: paymentOption)
+        askForExtraFees(with: paymentOption) { [weak self] in
+            guard let nonNullSelf = self else { return }
+            nonNullSelf.startPayment(with: paymentOption)
+        }
+    }
+    
+    /**
+     Used to call the correct checkout logic based on the selected payment option
+     - Parameter with paymentOption: The payment option to start the checkout process with
+     */
+    func startPayment(with paymentOption:PaymentOption) {
+        switch paymentOption.paymentType {
+        case .Web:
+            startWebPayment(with: paymentOption)
+        default:
+            return
+        }
+    }
+    
+    /**
+     Used to call the correct checkout logic for the web based payment options
+     - Parameter with paymentOption: The payment option to start the checkout process with
+     */
+    func startWebPayment(with paymentOption:PaymentOption) {
+        // Change the action button to loading status
+        UIDelegate?.actionButton(shouldLoad: true, success: false, onComplete: {})
+        // Create the charge request
+        let chargeRequest:TapChargeRequestModel = createChargeOrAuthorizeRequestModel(with: paymentOption, token: nil, cardBIN: nil)
+        TapCheckout.callChargeOrAuthorizeAPI(chargeRequestModel: chargeRequest) { charge in
+            print(charge)
+        } onErrorOccured: { [weak self] error in
+            self?.UIDelegate?.actionButton(shouldLoad: false, success: false, onComplete: {
+                self?.UIDelegate?.dismissCheckout(with: error)
+            })
+        }
+
     }
     
     /**
      Used to confirm the extra fees for a given payment option
      - Parameter with paymentOption: The payment option to ask for its extra fees
      */
-    func askForExtraFees(with paymentOption:PaymentOption) {
+    func askForExtraFees(with paymentOption:PaymentOption, onConfimation: @escaping () -> () = {}) {
         // get the extra fees value
         let extraFeesValue:Double = calculateExtraFees(for: paymentOption)
         // check if there is an extra fee to pay or not
@@ -46,11 +81,10 @@ internal extension TapCheckoutSharedManager {
         // Display the confirmation alert
         let alertController:UIAlertController = .init(title: alertTitle, message: alertMessage, preferredStyle: .alert)
         alertController.addAction(.init(title: alertConfirm, style: .destructive, handler: { _ in
-            
+            onConfimation()
         }))
-        alertController.addAction(.init(title: alertCancel, style: .cancel, handler: { _ in
-            
-        }))
+        alertController.addAction(.init(title: alertCancel, style: .cancel, handler: nil))
+        
         UIDelegate?.show(alert: alertController)
 
     }
