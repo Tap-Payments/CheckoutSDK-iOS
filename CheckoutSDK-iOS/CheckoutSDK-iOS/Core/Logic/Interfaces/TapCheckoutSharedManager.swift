@@ -53,13 +53,7 @@ internal class TapCheckoutSharedManager {
     private static var privateShared : TapCheckoutSharedManager?
     
     // MARK:- View Models Variables
-    
-    /// Rerpesents the view model that controls the Merchant header section view
-    var tapMerchantViewModel:TapMerchantHeaderViewModel = .init()
-    /// Rerpesents the view model that controls the Amount section view
-    var tapAmountSectionViewModel:TapAmountSectionViewModel = .init()
-    /// Rerpesents the view model that controls the items list view
-    var tapItemsTableViewModel:TapGenericTableViewModel = .init()
+    var dataHolder:DataHolder = .init(viewModels: .init(), transactionData: .init())
     /// Represents the view model that controls the payment gateway chips list view
     var tapGatewayChipHorizontalListViewModel:TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GateWayListWithGoPayListHeader)
     /// Represents the view model that controls the gopay gateway chips list view
@@ -222,25 +216,13 @@ internal class TapCheckoutSharedManager {
     }
     
     /// Represents the original transaction total amount stated by the merchant on checkout start
-    var transactionTotalAmountObserver:(Double)->() = { _ in } {
-        didSet{
-            transactionTotalAmountObserver(transactionTotalAmountValue)
-        }
-    }
-    /// Represents the original transaction total amount stated by the merchant on checkout start
     var transactionTotalAmountValue:Double {
         return calculateFinalAmount()
     }
-    /// Represents the list of items passed by the merchant on load
-    var transactionItemsObserver:([ItemModel])->() = { _ in } {
-        didSet{
-            transactionItemsObserver(transactionItemsValue)
-        }
-    }
+    
     /// Represents the list of items passed by the merchant on load
     var transactionItemsValue:[ItemModel] = [] {
         didSet{
-            transactionItemsObserver(transactionItemsValue)
             // We only create items list when we have both elements, items and original currency
             if transactionItemsValue != [] {
                 createTapItemsViewModel()
@@ -297,9 +279,7 @@ internal class TapCheckoutSharedManager {
     
     /// Resetting all view models to the initial state
     private func resetViewModels() {
-        tapMerchantViewModel = .init()
-        tapAmountSectionViewModel = .init()
-        tapItemsTableViewModel = .init()
+        dataHolder.viewModels = .init()
     }
     
     /// Resetting and disposing all previous subscribers to the observables
@@ -329,8 +309,8 @@ internal class TapCheckoutSharedManager {
     private func createTapItemsViewModel() {
         // Convert the passed items models into the ItemCellViewModels and update the items table view model with the new created list
         let itemsModels:[ItemCellViewModel] = transactionItemsValue.map{ ItemCellViewModel.init(itemModel: $0, originalCurrency:transactionCurrencyValue) }
-        tapItemsTableViewModel = .init(dataSource: itemsModels)
-        tapAmountSectionViewModel.numberOfItems = transactionItemsValue.count
+        dataHolder.viewModels.tapItemsTableViewModel = .init(dataSource: itemsModels)
+        dataHolder.viewModels.tapAmountSectionViewModel.numberOfItems = transactionItemsValue.count
     }
     
     /// Handles the logic to determine the visibility and the status of the save card/ohone switch depending on the current card/telecom data source
@@ -347,19 +327,19 @@ internal class TapCheckoutSharedManager {
         transactionUserCurrencyValue = transactionCurrencyValue
         
         // Apply the change into the Amount view model
-        tapAmountSectionViewModel.originalTransactionCurrency = transactionCurrencyValue
+        dataHolder.viewModels.tapAmountSectionViewModel.originalTransactionCurrency = transactionCurrencyValue
     }
     
     /// Handles all the logic needed when the amount or the user selected currency changed to reflect in the Amount Section View
     private func updateAmountSection() {
         // Apply the changes of user currency and total amount into the Amount view model
-        tapAmountSectionViewModel.convertedTransactionCurrency = transactionUserCurrencyValue
-        tapAmountSectionViewModel.originalTransactionCurrency  = transactionCurrencyValue
+        dataHolder.viewModels.tapAmountSectionViewModel.convertedTransactionCurrency = transactionUserCurrencyValue
+        dataHolder.viewModels.tapAmountSectionViewModel.originalTransactionCurrency  = transactionCurrencyValue
     }
     
     /// Handles all the logic needed when the user selected currency changed to reflect in the items list view
     private func updateItemsList() {
-        tapItemsTableViewModel.dataSource.map{ $0 as! ItemCellViewModel }.forEach{ $0.convertCurrency = transactionUserCurrencyValue }
+        dataHolder.viewModels.tapItemsTableViewModel.dataSource.map{ $0 as! ItemCellViewModel }.forEach{ $0.convertCurrency = transactionUserCurrencyValue }
     }
     
     /// Handles all the logic needed when the user selected currency changed to reflect in the supported gateways chips for the new currency
@@ -420,7 +400,7 @@ internal class TapCheckoutSharedManager {
         guard let initModel = intitModelResponse else { return }
         
         // Fetch the merchant header info
-        self.tapMerchantViewModel = .init(title: nil, subTitle: initModel.data.merchant?.name, iconURL: initModel.data.merchant?.logoURL)
+        dataHolder.viewModels.tapMerchantViewModel = .init(title: nil, subTitle: initModel.data.merchant?.name, iconURL: initModel.data.merchant?.logoURL)
         
     }
     
@@ -449,7 +429,7 @@ internal class TapCheckoutSharedManager {
         }
          
          // Fetch the save card/phone switch data
-         tapSaveCardSwitchViewModel = .init(with: .invalidCard, merchant: tapMerchantViewModel.subTitle ?? "")
+        tapSaveCardSwitchViewModel = .init(with: .invalidCard, merchant: dataHolder.viewModels.tapMerchantViewModel.subTitle ?? "")
         
         // Fetch the cards + telecom payments options
         self.tapCardPhoneListDataSource = paymentOptions.paymentOptions.filter{ (paymentType == .Card || paymentType == .All) && $0.paymentType == .Card }.map{ CurrencyCardsTelecomModel.init(paymentOption: $0) }

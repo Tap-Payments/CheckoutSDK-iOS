@@ -82,9 +82,9 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     
     func createDefaultViewModels() {
         
-        sharedCheckoutDataManager.tapMerchantViewModel.delegate = self
+        sharedCheckoutDataManager.dataHolder.viewModels.tapMerchantViewModel.delegate = self
         
-        sharedCheckoutDataManager.tapAmountSectionViewModel.delegate = self
+        sharedCheckoutDataManager.dataHolder.viewModels.tapAmountSectionViewModel.delegate = self
         
         tapActionButtonViewModel.buttonStatus = .InvalidPayment
         webViewModel.delegate = self
@@ -109,7 +109,7 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
         // The button
         self.tapVerticalView.setupActionButton(with: tapActionButtonViewModel)
         // The initial views
-        self.tapVerticalView.add(views: [dragView,sharedCheckoutDataManager.tapMerchantViewModel.attachedView,sharedCheckoutDataManager.tapAmountSectionViewModel.attachedView,sharedCheckoutDataManager.tapGoPayChipsHorizontalListViewModel.attachedView,sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.attachedView,sharedCheckoutDataManager.tapCardTelecomPaymentViewModel.attachedView,sharedCheckoutDataManager.tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
+        self.tapVerticalView.add(views: [dragView,sharedCheckoutDataManager.dataHolder.viewModels.tapMerchantViewModel.attachedView,sharedCheckoutDataManager.dataHolder.viewModels.tapAmountSectionViewModel.attachedView,sharedCheckoutDataManager.tapGoPayChipsHorizontalListViewModel.attachedView,sharedCheckoutDataManager.tapGatewayChipHorizontalListViewModel.attachedView,sharedCheckoutDataManager.tapCardTelecomPaymentViewModel.attachedView,sharedCheckoutDataManager.tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
     }
     
     
@@ -141,7 +141,7 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
      - Parameter currency: The new selected currency
      */
     func updateItemsList(with currency:TapCurrencyCode) {
-        /*tapItemsTableViewModel.dataSource.forEach { (genericCellModel) in
+        /*dataHolder.viewModels.tapItemsTableViewModel.dataSource.forEach { (genericCellModel) in
             if let itemViewModel:ItemCellViewModel = genericCellModel as? ItemCellViewModel {
                 itemViewModel.convertCurrency = currency
             }
@@ -190,8 +190,8 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         tapVerticalView.hideActionButton()
         DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [weak self] in
             self!.sharedCheckoutDataManager.tapCurrienciesChipHorizontalListViewModel.attachedView.alpha = 0
-            self!.sharedCheckoutDataManager.tapItemsTableViewModel.attachedView.alpha = 0
-            self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.tapCurrienciesChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.tapItemsTableViewModel.attachedView], with: [.init(for: .fadeIn, with:self!.fadeInAnimationDuration, wait: self!.fadeInAnimationDelay)])
+            self!.sharedCheckoutDataManager.dataHolder.viewModels.tapItemsTableViewModel.attachedView.alpha = 0
+            self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.tapCurrienciesChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapItemsTableViewModel.attachedView], with: [.init(for: .fadeIn, with:self!.fadeInAnimationDuration, wait: self!.fadeInAnimationDelay)])
             if let locale = TapLocalisationManager.shared.localisationLocale, locale == "ar" {
                 //self?.sharedCheckoutDataManager.tapCurrienciesChipHorizontalListViewModel.refreshLayout()
             }
