@@ -10,24 +10,57 @@ import Foundation
 
 /// Protocol to instruct parent upon important data changes to act upon
 internal protocol TapCheckoutDataHolderDelegate {
+    /// Handles all the logic needed when the user selected currency changed to reflect in the supported gateways chips for the new currency
     func updateGatewayChipsList()
+    /// Handles the logic to fetch different sections from the INIT api response
     func parseInitResponse()
+    /// Handles the logic to fetch different sections from the Payment options response
     func parsePaymentOptionsResponse()
-    func parseIntentResponse()
+    /// Handles all the logic needed when the original transaction currency changed
     func transactionCurrencyUpdated()
+    /// The amount section and items list will be changed if total amount or the selected currency is changed one of them or both
     func handleChangeAmountAndCurrency()
+    /// Used to calclate the total price to be paid by the user, taking in consideration the items (each item with price. quantity, discounts, taxes) a transaction level shipping and taxes
     func calculateFinalAmount()->Double
     func createTapItemsViewModel()
 }
 
 /// A struct that holds the data related to the current transaction
-internal struct DataHolder {
+internal class DataHolder {
     var viewModels:ViewModelsHolder = .init()
     var transactionData:TransactionDataHolder = .init()
+    
+    init(viewModels:ViewModelsHolder = .init() ,transactionData:TransactionDataHolder = .init()) {
+        self.viewModels = viewModels
+        self.transactionData = transactionData
+    }
 }
 
 /// Struct that holds view models and UI related variables
-internal struct ViewModelsHolder {
+internal class ViewModelsHolder {
+    
+    internal init(tapMerchantViewModel: TapMerchantHeaderViewModel = .init(), tapAmountSectionViewModel: TapAmountSectionViewModel = .init(), tapItemsTableViewModel: TapGenericTableViewModel = .init(), tapGatewayChipHorizontalListViewModel: TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GateWayListWithGoPayListHeader), tapGoPayChipsHorizontalListViewModel: TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GoPayListHeader), tapCardPhoneListViewModel: TapCardPhoneBarListViewModel = .init(), tapCardTelecomPaymentViewModel: TapCardTelecomPaymentViewModel = .init(), tapCurrienciesChipHorizontalListViewModel: TapChipHorizontalListViewModel = .init(), tapSaveCardSwitchViewModel: TapSwitchViewModel = .init(with: .invalidCard, merchant: "jazeera airways"), goPayBarViewModel: TapGoPayLoginBarViewModel? = nil, swipeDownToDismiss: Bool = false, currenciesChipsViewModel: [CurrencyChipViewModel] = [], goPayLoginCountries: [TapCountry] = [], closeButtonStyle: CheckoutCloseButtonEnum = .title, showDragHandler: Bool = false, tapCardPhoneListDataSource: [CurrencyCardsTelecomModel] = [], gatewayChipsViewModel: [ChipWithCurrencyModel] = [], goPayChipsViewModel: [ChipWithCurrencyModel] = []) {
+        
+        self.tapMerchantViewModel = tapMerchantViewModel
+        self.tapAmountSectionViewModel = tapAmountSectionViewModel
+        self.tapItemsTableViewModel = tapItemsTableViewModel
+        self.tapGatewayChipHorizontalListViewModel = tapGatewayChipHorizontalListViewModel
+        self.tapGoPayChipsHorizontalListViewModel = tapGoPayChipsHorizontalListViewModel
+        self.tapCardPhoneListViewModel = tapCardPhoneListViewModel
+        self.tapCardTelecomPaymentViewModel = tapCardTelecomPaymentViewModel
+        self.tapCurrienciesChipHorizontalListViewModel = tapCurrienciesChipHorizontalListViewModel
+        self.tapSaveCardSwitchViewModel = tapSaveCardSwitchViewModel
+        self.goPayBarViewModel = goPayBarViewModel
+        self.swipeDownToDismiss = swipeDownToDismiss
+        self.currenciesChipsViewModel = currenciesChipsViewModel
+        self.goPayLoginCountries = goPayLoginCountries
+        self.closeButtonStyle = closeButtonStyle
+        self.showDragHandler = showDragHandler
+        self.tapCardPhoneListDataSource = tapCardPhoneListDataSource
+        self.gatewayChipsViewModel = gatewayChipsViewModel
+        self.goPayChipsViewModel = goPayChipsViewModel
+    }
+    
     /// Rerpesents the view model that controls the Merchant header section view
     var tapMerchantViewModel:TapMerchantHeaderViewModel = .init()
     /// Rerpesents the view model that controls the Amount section view
@@ -67,13 +100,54 @@ internal struct ViewModelsHolder {
     /// Represents the list of ALL allowed goPay chips for the logged in customer
     var goPayChipsViewModel:[ChipWithCurrencyModel] = []
     
+    
+    init() {
+        
+    }
+    
 }
 
 /// Struct that holds transaction related variables
-internal struct TransactionDataHolder {
+internal class TransactionDataHolder {
+    
+    internal init(dataHolderDelegate: TapCheckoutDataHolderDelegate? = nil, intitModelResponse: TapInitResponseModel? = nil, paymentOptionsModelResponse: TapPaymentOptionsReponseModel? = nil, sdkMode: SDKMode = .sandbox, paymentType: TapPaymentType = .All, applePayMerchantID: String = "", loggedInToGoPay: Bool = false, transactionMode: TransactionMode = .purchase, customer: TapCustomer = TapCustomer.defaultCustomer(), destinations: [Destination]? = nil, tapMerchantID: String? = nil, taxes: [Tax]? = nil, shipping: [Shipping] = [], allowedCardTypes: [CardType] = [CardType(cardType: .Debit), CardType(cardType: .Credit)], postURL: URL? = nil, paymentDescription: String? = nil, paymentMetadata: TapMetadata = [:], paymentReference: Reference? = nil, paymentStatementDescriptor: String? = nil, require3DSecure: Bool = true, receiptSettings: Receipt? = nil, authorizeAction: AuthorizeAction = AuthorizeAction.default, allowsToSaveSameCardMoreThanOnce: Bool = true, enableSaveCard: Bool = true, isSaveCardSwitchOnByDefault: Bool = true, transactionCurrencyValue: AmountedCurrency = .init(.undefined, 0, ""), transactionUserCurrencyValue: AmountedCurrency = .init(.undefined, 0, ""), transactionItemsValue: [ItemModel] = [], selectedPaymentOption: PaymentOption? = nil) {
+        
+        self.dataHolderDelegate = dataHolderDelegate
+        self.intitModelResponse = intitModelResponse
+        self.paymentOptionsModelResponse = paymentOptionsModelResponse
+        self.sdkMode = sdkMode
+        self.paymentType = paymentType
+        self.applePayMerchantID = applePayMerchantID
+        self.loggedInToGoPay = loggedInToGoPay
+        self.transactionMode = transactionMode
+        self.customer = customer
+        self.destinations = destinations
+        self.tapMerchantID = tapMerchantID
+        self.taxes = taxes
+        self.shipping = shipping
+        self.allowedCardTypes = allowedCardTypes
+        self.postURL = postURL
+        self.paymentDescription = paymentDescription
+        self.paymentMetadata = paymentMetadata
+        self.paymentReference = paymentReference
+        self.paymentStatementDescriptor = paymentStatementDescriptor
+        self.require3DSecure = require3DSecure
+        self.receiptSettings = receiptSettings
+        self.authorizeAction = authorizeAction
+        self.allowsToSaveSameCardMoreThanOnce = allowsToSaveSameCardMoreThanOnce
+        self.enableSaveCard = enableSaveCard
+        self.isSaveCardSwitchOnByDefault = isSaveCardSwitchOnByDefault
+        self.transactionCurrencyValue = transactionCurrencyValue
+        self.transactionUserCurrencyValue = transactionUserCurrencyValue
+        self.transactionItemsValue = transactionItemsValue
+        self.selectedPaymentOption = selectedPaymentOption
+    }
+    
     
     /// Protocol to instruct parent upon important data changes to act upon
     var dataHolderDelegate:TapCheckoutDataHolderDelegate?
+    
+    // MARK:- API Responses Variables
     
     /// Represents the data loaded from the Init api on checkout start
     var intitModelResponse:TapInitResponseModel?{
@@ -89,15 +163,7 @@ internal struct TransactionDataHolder {
             dataHolderDelegate?.parsePaymentOptionsResponse()
         }
     }
-    /// Represents the data loaded from the Intent api on checkout start
-    var intentModelResponse:TapIntentResponseModel?{
-        didSet{
-            // Now it is time to fetch needed data from the model parsed
-            dataHolderDelegate?.parseIntentResponse()
-        }
-    }
     
-    // MARK:- UI Related Variables
     
     
     

@@ -16,7 +16,8 @@ extension TapCheckoutSharedManager {
      - Returns:The payment option api request
      */
     func createPaymentOptionRequestModel() -> TapPaymentOptionsRequestModel {
-        return TapPaymentOptionsRequestModel(transactionMode: transactionMode, amount: transactionTotalAmountValue, items: transactionItemsValue, shipping: shipping, taxes: taxes, currency: transactionCurrencyValue.currency, merchantID: tapMerchantID, customer: customer, destinationGroup: DestinationGroup(destinations: destinations), paymentType: paymentType)
+        let transactionData:TransactionDataHolder = dataHolder.transactionData
+        return TapPaymentOptionsRequestModel(transactionMode: transactionData.transactionMode, amount: transactionData.transactionTotalAmountValue, items: transactionData.transactionItemsValue, shipping: transactionData.shipping, taxes: transactionData.taxes, currency: transactionData.transactionCurrencyValue.currency, merchantID: transactionData.tapMerchantID, customer: transactionData.customer, destinationGroup: DestinationGroup(destinations: transactionData.destinations), paymentType: transactionData.paymentType)
     }
     
     /**
@@ -30,6 +31,7 @@ extension TapCheckoutSharedManager {
                                              token:                            Token?,
                                              cardBIN:                          String?,
                                              saveCard:                         Bool? = false) -> TapChargeRequestModel {
+        let transactionData:TransactionDataHolder = dataHolder.transactionData
         // Create the source request
         guard let sourceIdentifier = paymentOption.sourceIdentifier else { fatalError("No payment source identifier") }
         let source = SourceRequest(identifier: sourceIdentifier)
@@ -39,7 +41,7 @@ extension TapCheckoutSharedManager {
         let orderID = "ord_TS040120212018Dm431906670"
         
         var post: TrackingURL? = nil
-        if let postURL = postURL {
+        if let postURL = transactionData.postURL {
             post = TrackingURL(url: postURL)
         }
         
@@ -47,20 +49,20 @@ extension TapCheckoutSharedManager {
         var totalAmount:Double = calculateFinalAmount()
         if totalAmount == 0
         {
-            totalAmount = transactionCurrencyValue.amount
+            totalAmount = transactionData.transactionCurrencyValue.amount
         }
-        let amountedCurrency    =  transactionCurrencyValue
+        let amountedCurrency    =  transactionData.transactionCurrencyValue
         // the Amounted Currency selected by the user
-        let amountedSelectedCurrency = self.transactionUserCurrencyValue
+        let amountedSelectedCurrency = transactionData.transactionUserCurrencyValue
         
         let fee                 = calculateExtraFees(for: paymentOption)
         /// the API is using destinationsGroup not destinations
-        let destinationsGroup   = (destinations?.count ?? 0 > 0) ? DestinationGroup(destinations: destinations)!: nil
+        let destinationsGroup   = (transactionData.destinations?.count ?? 0 > 0) ? DestinationGroup(destinations: transactionData.destinations)!: nil
         
         let order                   = Order(identifier: orderID)
         let redirect                = TrackingURL(url: WebPaymentHandlerConstants.returnURL)
         var shouldSaveCard          = saveCard ?? false
-        var requires3DSecure = require3DSecure
+        var requires3DSecure        = transactionData.require3DSecure
         
         switch paymentOption.threeDLevel {
         case .always:
@@ -86,7 +88,7 @@ extension TapCheckoutSharedManager {
         }
         
         
-        switch transactionMode {
+        switch transactionData.transactionMode {
         
         case .purchase:
             
@@ -94,21 +96,21 @@ extension TapCheckoutSharedManager {
                                                     selectedAmount:             amountedSelectedCurrency.amount,
                                                     currency:                   amountedCurrency.currency,
                                                     selectedCurrency:           amountedSelectedCurrency.currency,
-                                                    customer:                   customer,
-                                                    merchant:                   intitModelResponse?.data.merchant,
+                                                    customer:                   transactionData.customer,
+                                                    merchant:                   dataHolder.transactionData.intitModelResponse?.data.merchant,
                                                     fee:                        fee,
                                                     order:                      order,
                                                     redirect:                   redirect,
                                                     post:                       post,
                                                     source:                     source,
                                                     destinationGroup:           destinationsGroup,
-                                                    descriptionText:            paymentDescription,
-                                                    metadata:                   paymentMetadata,
-                                                    reference:                  paymentReference,
+                                                    descriptionText:            transactionData.paymentDescription,
+                                                    metadata:                   transactionData.paymentMetadata,
+                                                    reference:                  transactionData.paymentReference,
                                                     shouldSaveCard:             shouldSaveCard,
-                                                    statementDescriptor:        paymentStatementDescriptor,
+                                                    statementDescriptor:        transactionData.paymentStatementDescriptor,
                                                     requires3DSecure:           requires3DSecure,
-                                                    receipt:                    receiptSettings)
+                                                    receipt:                    transactionData.receiptSettings)
         case .authorizeCapture:
             fatalError("This case should never happen.")
         case .cardSaving:
@@ -116,8 +118,6 @@ extension TapCheckoutSharedManager {
         case .cardTokenization:
             fatalError("This case should never happen.")
         }
-        
-        //var chargeRequest:TapChargeRequestModel = .init(amount: <#T##Double#>, selectedAmount: <#T##Double#>, currency: <#T##TapCurrencyCode#>, selectedCurrency: <#T##TapCurrencyCode#>, customer: <#T##TapCustomer#>, merchant: <#T##Merchant?#>, fee: <#T##Double#>, order: <#T##Order#>, redirect: <#T##TrackingURL#>, post: <#T##TrackingURL?#>, source: <#T##SourceRequest#>, destinationGroup: <#T##DestinationGroup?#>, descriptionText: <#T##String?#>, metadata: <#T##TapMetadata?#>, reference: <#T##Reference?#>, shouldSaveCard: <#T##Bool#>, statementDescriptor: <#T##String?#>, requires3DSecure: <#T##Bool?#>, receipt: <#T##Receipt?#>)
     }
     
 }

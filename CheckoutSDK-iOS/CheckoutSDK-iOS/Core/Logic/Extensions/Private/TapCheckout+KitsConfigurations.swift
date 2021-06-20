@@ -113,33 +113,41 @@ internal extension TapCheckout {
                                 isSaveCardSwitchOnByDefault: Bool = true) {
         
         let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
-        sharedManager.transactionCurrencyValue = .init(currency, amount, "")
-        sharedManager.applePayMerchantID = applePayMerchantID
-        sharedManager.paymentType = paymentType
-        sharedManager.swipeDownToDismiss = swipeDownToDismiss
-        sharedManager.closeButtonStyle = closeButtonStyle
-        sharedManager.showDragHandler = showDragHandler
-        sharedManager.transactionMode = transactionMode
-        sharedManager.customer = customer
-        sharedManager.destinations = destinations
-        sharedManager.tapMerchantID = tapMerchantID
-        sharedManager.taxes = taxes
-        sharedManager.shipping = shipping
-        sharedManager.allowedCardTypes = allowedCardTypes
-        sharedManager.paymentDescription = paymentDescription
-        sharedManager.paymentMetadata = paymentMetadata
-        sharedManager.paymentReference = paymentReference
-        sharedManager.paymentStatementDescriptor = paymentStatementDescriptor
-        sharedManager.require3DSecure = require3DSecure
-        sharedManager.receiptSettings = receiptSettings
-        sharedManager.authorizeAction = authorizeAction
+        
+        sharedManager.dataHolder.viewModels.swipeDownToDismiss = swipeDownToDismiss
+        sharedManager.dataHolder.viewModels.closeButtonStyle = closeButtonStyle
+        sharedManager.dataHolder.viewModels.showDragHandler = showDragHandler
+        
+        
+         /*sharedManager.dataHolder.transactionData = TransactionDataHolder.init(dataHolderDelegate:sharedManager, paymentType: paymentType, applePayMerchantID: applePayMerchantID, transactionMode: transactionMode, customer: customer, destinations: destinations, tapMerchantID: tapMerchantID, taxes: taxes, shipping: shipping, allowedCardTypes: allowedCardTypes, postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor, require3DSecure: require3DSecure, receiptSettings: receiptSettings, authorizeAction: authorizeAction, allowsToSaveSameCardMoreThanOnce: allowsToSaveSameCardMoreThanOnce, enableSaveCard: enableSaveCard, isSaveCardSwitchOnByDefault: isSaveCardSwitchOnByDefault, transactionCurrencyValue: .init(currency, amount, "")) */
+        
+        sharedManager.dataHolder.transactionData.dataHolderDelegate = sharedManager
+        
+        sharedManager.dataHolder.transactionData.transactionCurrencyValue   = .init(currency, amount, "")
+        sharedManager.dataHolder.transactionData.applePayMerchantID         = applePayMerchantID
+        sharedManager.dataHolder.transactionData.paymentType                = paymentType
+        
+        sharedManager.dataHolder.transactionData.transactionMode            = transactionMode
+        sharedManager.dataHolder.transactionData.customer                   = customer
+        sharedManager.dataHolder.transactionData.destinations               = destinations
+        sharedManager.dataHolder.transactionData.tapMerchantID              = tapMerchantID
+        sharedManager.dataHolder.transactionData.taxes                      = taxes
+        sharedManager.dataHolder.transactionData.shipping                   = shipping
+        sharedManager.dataHolder.transactionData.allowedCardTypes           = allowedCardTypes
+        sharedManager.dataHolder.transactionData.paymentDescription         = paymentDescription
+        sharedManager.dataHolder.transactionData.paymentMetadata            = paymentMetadata
+        sharedManager.dataHolder.transactionData.paymentReference           = paymentReference
+        sharedManager.dataHolder.transactionData.paymentStatementDescriptor = paymentStatementDescriptor
+        sharedManager.dataHolder.transactionData.require3DSecure            = require3DSecure
+        sharedManager.dataHolder.transactionData.receiptSettings            = receiptSettings
+        sharedManager.dataHolder.transactionData.authorizeAction            = authorizeAction
         
         
         // if items has no items, we need to add the default items
         if items == [] {
-            sharedManager.transactionItemsValue = [ItemModel.init(title: "PAY TO TAP PAYMENTS",description: "Total paid amount", price: amount, quantity: .init(value: 1, unitOfMeasurement: .units),discount: nil, totalAmount: 0)]
+            sharedManager.dataHolder.transactionData.transactionItemsValue = [ItemModel.init(title: "PAY TO TAP PAYMENTS",description: "Total paid amount", price: amount, quantity: .init(value: 1, unitOfMeasurement: .units),discount: nil, totalAmount: 0)]
         }else {
-            sharedManager.transactionItemsValue = items
+            sharedManager.dataHolder.transactionData.transactionItemsValue = items
         }
     }
 }

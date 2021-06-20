@@ -48,7 +48,7 @@ internal extension TapCheckout {
                 return }
             // Let us now load the payment options
             let paymentOptionsResponseWithSavedCards:TapPaymentOptionsReponseModel = self!.addDummySavedCards(to: paymentOptionsResponse)
-            TapCheckoutSharedManager.sharedCheckoutManager().paymentOptionsModelResponse = paymentOptionsResponseWithSavedCards
+            TapCheckoutSharedManager.sharedCheckoutManager().dataHolder.transactionData.paymentOptionsModelResponse = paymentOptionsResponseWithSavedCards
             onCheckOutReady()
         } onError: { (session, result, errorr) in
             self.handleError(error: errorr)
@@ -90,7 +90,7 @@ internal extension TapCheckout {
      */
     func handleInitResponse(initModel:TapInitResponseModel) {
         // Store the init model for further access
-        TapCheckoutSharedManager.sharedCheckoutManager().intitModelResponse = initModel
+        TapCheckoutSharedManager.sharedCheckoutManager().dataHolder.transactionData.intitModelResponse = initModel
     }
     
     

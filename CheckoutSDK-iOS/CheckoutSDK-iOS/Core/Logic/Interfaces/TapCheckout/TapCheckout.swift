@@ -150,7 +150,7 @@ import TapUIKit_iOS
         // remove any pending things from an old session
         TapCheckoutSharedManager.destroy()
         // Set the SDK mode and the delegate
-        TapCheckoutSharedManager.sharedCheckoutManager().sdkMode = sdkMode
+        TapCheckoutSharedManager.sharedCheckoutManager().dataHolder.transactionData.sdkMode = sdkMode
         tapCheckoutScreenDelegate = delegate
         // Init the localsiation manager
         configureLocalisationManager(localiseFile: localiseFile)
@@ -165,7 +165,7 @@ import TapUIKit_iOS
     internal func handleError(error:Error?) {
         if tapCheckoutControllerViewController?.isBeingPresented ?? false {
             // The sheet is visible and we need to handle this ourselves
-            let tapActionButton = TapCheckoutSharedManager.sharedCheckoutManager().tapActionButtonViewModel
+            let tapActionButton = TapCheckoutSharedManager.sharedCheckoutManager().dataHolder.viewModels.tapActionButtonViewModel
             tapActionButton.endLoading(with: false) {
                 self.dismissMySelfClicked()
                 self.tapCheckoutScreenDelegate?.checkoutFailed?(with: error!)

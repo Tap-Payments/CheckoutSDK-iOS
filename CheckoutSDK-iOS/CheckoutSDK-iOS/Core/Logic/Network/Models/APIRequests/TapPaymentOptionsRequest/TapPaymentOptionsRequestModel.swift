@@ -79,7 +79,7 @@ internal struct TapPaymentOptionsRequestModel {
             self.items = nil
         }
         
-        self.totalAmount = TapCheckoutSharedManager.sharedCheckoutManager().transactionTotalAmountValue
+        self.totalAmount = TapCheckoutSharedManager.sharedCheckoutManager().dataHolder.transactionData.transactionTotalAmountValue
     }
     
     // MARK: - Private -

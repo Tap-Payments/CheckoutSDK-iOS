@@ -66,7 +66,7 @@ internal extension TapCheckoutSharedManager {
         //guard extraFeesValue > 0 else { return }
         // Create the formatted extra fee + the formatted new total amount
         let formatter = TapAmountedCurrencyFormatter { [weak self] in
-            $0.currency = self?.transactionUserCurrencyValue.currency ?? .USD
+            $0.currency = self?.dataHolder.transactionData.transactionUserCurrencyValue.currency ?? .USD
             $0.locale = CurrencyLocale.englishUnitedStates
         }
         let extraFeesFormattedString = formatter.string(from: extraFeesValue) ?? "KD0.000"

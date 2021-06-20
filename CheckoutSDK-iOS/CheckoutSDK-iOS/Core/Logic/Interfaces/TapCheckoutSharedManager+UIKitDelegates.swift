@@ -37,18 +37,18 @@ internal extension TapCheckoutSharedManager {
      */
     func goPaySign(with body:[String:String]) {
         // STart loading the button
-        tapActionButtonViewModel.startLoading()
+        dataHolder.viewModels.tapActionButtonViewModel.startLoading()
         
         // perform the login gopay api call
         NetworkManager.shared.makeApiCall(routing: .GoPayLoginAPI, resultType: TapGoPayLoginResponseModel.self) { [weak self] (session, result, error) in
             
             guard let goPayLoginModel:TapGoPayLoginResponseModel = result as? TapGoPayLoginResponseModel else {
-                self?.tapActionButtonViewModel.endLoading(with: false)
+                self?.dataHolder.viewModels.tapActionButtonViewModel.endLoading(with: false)
                 return }
             
             // Save the result for next checkout
             UserDefaults.standard.set(goPayLoginModel.success, forKey: TapCheckoutConstants.GoPayLoginUserDefaultsKey)
-            self?.loggedInToGoPay = goPayLoginModel.success
+            self?.dataHolder.transactionData.loggedInToGoPay = goPayLoginModel.success
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500)) { [weak self] in
                 self?.UIDelegate?.goPaySignIn(status: goPayLoginModel.success)
             }
