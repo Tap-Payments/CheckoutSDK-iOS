@@ -45,8 +45,12 @@ internal extension TapCheckout {
         UIDelegate?.actionButton(shouldLoad: true, success: false, onComplete: {})
         // Create the charge request
         let chargeRequest:TapChargeRequestModel = createChargeOrAuthorizeRequestModel(with: paymentOption, token: nil, cardBIN: nil)
-        TapCheckout.callChargeOrAuthorizeAPI(chargeRequestModel: chargeRequest) { charge in
-            print(charge)
+        TapCheckout.callChargeOrAuthorizeAPI(chargeRequestModel: chargeRequest) { [weak self] charge in
+            //print(charge)
+            DispatchQueue.main.async{
+                guard let nonNullSelf = self else { return }
+                nonNullSelf.UIDelegate?.showWebView(with: charge.transactionDetails.url!,and: nil)
+            }
         } onErrorOccured: { [weak self] error in
             self?.UIDelegate?.actionButton(shouldLoad: false, success: false, onComplete: {
                 self?.UIDelegate?.dismissCheckout(with: error)

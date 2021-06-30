@@ -45,6 +45,8 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      */
     func dismissCheckout(with error:Error)
     
+    func showWebView(with url:URL,and navigationDelegate:WKNavigationDelegate?)
+    
 }
 
 

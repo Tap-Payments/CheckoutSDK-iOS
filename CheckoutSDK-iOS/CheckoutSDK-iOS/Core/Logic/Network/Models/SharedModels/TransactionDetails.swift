@@ -14,7 +14,7 @@
     public private(set) var authorizationID: String?
     
     /// Transaction creation date.
-    public let creationDate: Date
+    public let creationDate: String
     
     /// Transaction time zone.
     public let timeZone: String
@@ -46,7 +46,7 @@
     
     // MARK: Methods
     
-    private init(authorizationID: String?, creationDate: Date, timeZone: String, url: URL?, expiry:TransactionExpiry?, asynchronous:Bool? = false, order:TransactionOrder?) {
+    private init(authorizationID: String?, creationDate: String, timeZone: String, url: URL?, expiry:TransactionExpiry?, asynchronous:Bool? = false, order:TransactionOrder?) {
         
         self.authorizationID    = authorizationID
         self.creationDate       = creationDate
@@ -67,9 +67,9 @@ extension TransactionDetails: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let authorizationID = try container.decodeIfPresent (String.self,   forKey: .authorizationID)
         let expiry          = try container.decodeIfPresent (TransactionExpiry.self,   forKey: .expiry)
-        let order          = try container.decodeIfPresent (TransactionOrder.self,   forKey: .order)
+        let order           = try container.decodeIfPresent (TransactionOrder.self,   forKey: .order)
         let asynchronous    = try container.decodeIfPresent (Bool.self,   forKey: .asynchronous)
-        let creationDate    = try container.decode          (Date.self,     forKey: .creationDate)
+        let creationDate    = try container.decode          (String.self,     forKey: .creationDate)
         let timeZone        = try container.decode          (String.self,   forKey: .timeZone)
         let url             = container.decodeURLIfPresent(for: .url)
         

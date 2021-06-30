@@ -240,7 +240,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         tapVerticalView.showScanner(with: self)
     }
     
-    func showWebView(with url:URL) {
+    func showWebView(with url:URL, and navigationDelegate:WKNavigationDelegate? = nil) {
         // Stop the dismiss on swipe feature, because when we remove all views, the height will be minium than the threshold, ending up the whole sheet being dimissed
         let sharedManager = TapCheckout.sharedCheckoutManager()
         let originalDismissOnSwipeValue = sharedManager.dataHolder.viewModels.swipeDownToDismiss

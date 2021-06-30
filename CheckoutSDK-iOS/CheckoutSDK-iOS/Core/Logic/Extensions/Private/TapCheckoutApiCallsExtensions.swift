@@ -70,10 +70,10 @@ internal extension TapCheckout {
             if let error = error {
                 onErrorOccured(error)
             }else{
-                guard let paymentOptionsResponse:Charge = result as? Charge else { onErrorOccured("Unexpected error")
+                guard let charge:Charge = result as? Charge else { onErrorOccured("Unexpected error")
                     return }
                 // Let us now load the payment options
-                print("OSAMA")
+                onResponeReady(charge)
             }
             
         } onError: { (session, result, errorr) in
