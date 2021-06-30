@@ -44,8 +44,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         amountTextField.delegate = self
-        TapLocalisationManager.shared.localisationLocale = "en"
-        TapThemeManager.setDefaultTapTheme()
+        //TapLocalisationManager.shared.localisationLocale = "en"
+        //TapThemeManager.setDefaultTapTheme()
         adjustTapButton()
         paymentItemsTableView.estimatedRowHeight = 100
         paymentItemsTableView.rowHeight = UITableView.automaticDimension
@@ -86,6 +86,7 @@ class ViewController: UIViewController {
             transactionMode: .purchase,
             customer: try! .init(identifier: "cus_TS031720211012r4RM0403926"),
             tapMerchantID: "1124340",
+            sdkMode: .sandbox,
             onCheckOutReady: {[weak self] tapCheckOut in
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
                     tapCheckOut.start(presentIn: self)

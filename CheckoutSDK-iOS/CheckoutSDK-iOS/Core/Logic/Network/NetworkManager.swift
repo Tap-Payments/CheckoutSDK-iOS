@@ -36,20 +36,15 @@ internal class NetworkManager: NSObject {
      - Parameter completion: A block to be executed upon finishing the network call
      - Parameter onError: A block to be executed upon error
      */
-    internal func makeApiCall<T:Decodable>(routing: TapNetworkPath, resultType:T.Type,body:[String:Any] = [:],httpMethod: TapHTTPMethod = .GET, completion: TapNetworkManager.RequestCompletionClosure?,onError:TapNetworkManager.RequestCompletionClosure?) {
+    internal func makeApiCall<T:Decodable>(routing: TapNetworkPath, resultType:T.Type,body:TapBodyModel? = .none, httpMethod: TapHTTPMethod = .GET, completion: TapNetworkManager.RequestCompletionClosure?,onError:TapNetworkManager.RequestCompletionClosure?) {
         // Inform th network manager if we are going to log or not
         networkManager.isRequestLoggingEnabled = enableLogging
         
         // Group all the configurations and pass it to the network manager
-        let requestOperation = TapNetworkRequestOperation(path: "\(baseURL)\(routing.rawValue)", method: httpMethod, headers: headers, urlModel: .none, bodyModel: .none, responseType: .json)
+        let requestOperation = TapNetworkRequestOperation(path: "\(baseURL)\(routing.rawValue)", method: httpMethod, headers: headers, urlModel: .none, bodyModel: body, responseType: .json)
         
-        print("Request :\n========\n")
-        print("\(httpMethod.rawValue) \(requestOperation.path)\n")
-        print("Headers :\n------\n")
-        print(String(data: try! JSONSerialization.data(withJSONObject: headers, options: .prettyPrinted), encoding: .utf8 )!)
-        print("Body :\n-----\n")
-        print(String(data: try! JSONSerialization.data(withJSONObject: body, options: .prettyPrinted), encoding: .utf8 )!)
-        print("\n---------------\n")
+        let loggString:String = "Request :\n========\n\(httpMethod.rawValue) \(requestOperation.path)\nHeaders :\n------\n\(String(data: try! JSONSerialization.data(withJSONObject: headers, options: .prettyPrinted), encoding: .utf8 )!)\nBody :\n-----\n\(String(data: try! JSONSerialization.data(withJSONObject: (body?.body ?? [:]), options: .prettyPrinted), encoding: .utf8 )!)\n---------------\n"
+        print(loggString)
         
         
         // Perform the actual request

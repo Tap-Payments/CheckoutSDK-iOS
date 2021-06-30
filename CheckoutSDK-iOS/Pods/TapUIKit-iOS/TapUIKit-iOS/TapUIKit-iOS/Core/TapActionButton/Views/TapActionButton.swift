@@ -55,7 +55,10 @@ import TapThemeManager2020
     @objc public func setup(with viewModel:TapActionButtonViewModel) {
         self.viewModel = viewModel
         self.viewModel?.viewDelegate = self
-        
+        guard let _ = TapThemeManager.currentTheme else {
+            TapThemeManager.setDefaultTapTheme()
+            return
+        }
     }
     
     
@@ -135,9 +138,11 @@ extension TapActionButton:TapActionButtonViewDelegate {
         if(success) {
             loaderGif.delegate = self
         }else {
-            viewHolder.fadeColor(toColor: .systemGray, duration: 1, completion: { _ in
-                completion()
-            })
+            DispatchQueue.main.async {[weak self] in
+                self?.viewHolder.fadeColor(toColor: .systemGray, duration: 1, completion: { _ in
+                    completion()
+                })
+            }
         }
     }
     

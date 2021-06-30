@@ -112,6 +112,8 @@ internal extension TapCheckout {
                                 enableSaveCard: Bool = true,
                                 isSaveCardSwitchOnByDefault: Bool = true) {
         
+        
+        // Shared data manager attributes
         let sharedManager = TapCheckout.sharedCheckoutManager()
         
         sharedManager.dataHolder.viewModels.swipeDownToDismiss = swipeDownToDismiss

@@ -29,7 +29,8 @@ internal extension NetworkManager {
         var result = [
             
             Constants.HTTPHeaderKey.authorization: "Bearer \(secretKey)",
-            Constants.HTTPHeaderKey.application: applicationValue
+            Constants.HTTPHeaderKey.application: applicationValue,
+            Constants.HTTPHeaderKey.contentTypeHeaderName: Constants.HTTPHeaderValueKey.jsonContentTypeHeaderValue
         ]
         
         if let sessionToken = TapCheckout.sharedCheckoutManager().dataHolder.transactionData.intitModelResponse?.data.sessionToken, !sessionToken.isEmpty {
@@ -134,6 +135,7 @@ internal extension NetworkManager {
             fileprivate static let authorization    = "Authorization"
             fileprivate static let application      = "application"
             fileprivate static let sessionToken     = "session_token"
+            fileprivate static let contentTypeHeaderName        = "Content-Type"
             
             //@available(*, unavailable) private init() { }
         }
@@ -153,6 +155,7 @@ internal extension NetworkManager {
             fileprivate static let requirerDeviceModel    = "requirer_device_model"
             fileprivate static let requirerSimNetworkName    = "requirer_sim_network_name"
             fileprivate static let requirerSimCountryIso    = "requirer_sim_country_iso"
+            fileprivate static let jsonContentTypeHeaderValue   = "application/json"
             
             //@available(*, unavailable) private init() { }
         }
