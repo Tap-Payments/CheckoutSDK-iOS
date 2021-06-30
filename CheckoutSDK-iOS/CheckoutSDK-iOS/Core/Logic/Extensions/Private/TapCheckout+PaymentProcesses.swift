@@ -62,8 +62,11 @@ internal extension TapCheckout {
     func askForExtraFees(with paymentOption:PaymentOption, onConfimation: @escaping () -> () = {}) {
         // get the extra fees value
         let extraFeesValue:Double = calculateExtraFees(for: paymentOption)
-        // check if there is an extra fee to pay or not
-        //guard extraFeesValue > 0 else { return }
+        // check if there is an extra fee to pay or not. If the fees <= 0, then we proceed with the confirmation block right away
+        guard extraFeesValue > 0 else {
+            onConfimation()
+            return
+        }
         // Create the formatted extra fee + the formatted new total amount
         let formatter = TapAmountedCurrencyFormatter { [weak self] in
             $0.currency = self?.dataHolder.transactionData.transactionUserCurrencyValue.currency ?? .USD
