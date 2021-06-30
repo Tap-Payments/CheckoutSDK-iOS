@@ -449,7 +449,7 @@ extension TapBottomCheckoutControllerViewController:TapChipHorizontalListViewMod
         let originalDismissOnSwipeValue = sharedManager.dataHolder.viewModels.swipeDownToDismiss
         sharedManager.dataHolder.viewModels.swipeDownToDismiss = false
         
-        self.tapVerticalView.remove(viewType: TapAmountSectionView.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true, skipSelf: true)
+        self.tapVerticalView.remove(viewType: viewType, with: animation ?? .init(for: .fadeOut, with: fadeOutAnimationDuration), and: deleteAfterViews, skipSelf: skipSelf)
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
             sharedManager.dataHolder.viewModels.swipeDownToDismiss = originalDismissOnSwipeValue
         }
