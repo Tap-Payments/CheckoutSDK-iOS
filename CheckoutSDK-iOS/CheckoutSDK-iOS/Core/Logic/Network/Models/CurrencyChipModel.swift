@@ -75,7 +75,7 @@ internal class ChipWithCurrencyModel:Codable {
         let genericChipModel:GenericTapChipViewModel = .init(title: paymentOption.title, icon: paymentOption.imageURL.absoluteString)
         switch paymentOption.paymentType {
         case .ApplePay,.Device:
-            return ApplePayChipViewCellModel.init(title: paymentOption.title, icon: paymentOption.imageURL.absoluteString, paymentOptionIdentifier: paymentOption.identifier)
+            return ApplePayChipViewCellModel.init(title: "•••• \(savedCard!.lastFourDigits)", icon: paymentOption.imageURL.absoluteString, paymentOptionIdentifier: paymentOption.identifier)
         case .Card:
             return SavedCardCollectionViewCellModel.init(title: paymentOption.title, icon: paymentOption.imageURL.absoluteString, paymentOptionIdentifier: paymentOption.identifier)
         case .Web:
