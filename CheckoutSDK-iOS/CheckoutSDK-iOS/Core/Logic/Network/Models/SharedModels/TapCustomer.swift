@@ -292,28 +292,19 @@ extension TapCustomer: Encodable {
         
         self.validateFields()
         
-        // If the customer was done through ID then it is encoded as "customer" : "id", otherwise, we represent it fully
-        if let customerID = self.identifier {
-            
-            var container = encoder.singleValueContainer()
-            try container.encode(customerID)
-            
-        }else{
-            
-            var container = encoder.container(keyedBy: CodingKeys.self)
-            
-            try container.encodeIfPresent(self.identifier,      forKey: .identifier)
-            try container.encodeIfPresent(self.emailAddress,    forKey: .emailAddress)
-            try container.encodeIfPresent(self.phoneNumber,     forKey: .phoneNumber)
-            try container.encodeIfPresent(self.firstName,       forKey: .firstName)
-            try container.encodeIfPresent(self.middleName,      forKey: .middleName)
-            try container.encodeIfPresent(self.lastName,        forKey: .lastName)
-            try container.encodeIfPresent(self.descriptionText, forKey: .descriptionText)
-            try container.encodeIfPresent(self.metadata,        forKey: .metadata)
-            try container.encodeIfPresent(self.title,           forKey: .title)
-            try container.encodeIfPresent(self.nationality,     forKey: .nationality)
-            try container.encodeIfPresent(self.currency,        forKey: .currency)
-        }
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encodeIfPresent(self.identifier,      forKey: .identifier)
+        try container.encodeIfPresent(self.emailAddress,    forKey: .emailAddress)
+        try container.encodeIfPresent(self.phoneNumber,     forKey: .phoneNumber)
+        try container.encodeIfPresent(self.firstName,       forKey: .firstName)
+        try container.encodeIfPresent(self.middleName,      forKey: .middleName)
+        try container.encodeIfPresent(self.lastName,        forKey: .lastName)
+        try container.encodeIfPresent(self.descriptionText, forKey: .descriptionText)
+        try container.encodeIfPresent(self.metadata,        forKey: .metadata)
+        try container.encodeIfPresent(self.title,           forKey: .title)
+        try container.encodeIfPresent(self.nationality,     forKey: .nationality)
+        try container.encodeIfPresent(self.currency,        forKey: .currency)
         
         
     }

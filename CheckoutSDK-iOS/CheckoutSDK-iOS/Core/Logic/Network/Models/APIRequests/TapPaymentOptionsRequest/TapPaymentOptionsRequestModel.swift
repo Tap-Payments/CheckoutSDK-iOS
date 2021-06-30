@@ -133,8 +133,12 @@ extension TapPaymentOptionsRequestModel: Encodable {
         try container.encodeIfPresent(self.merchantID, forKey: .merchantID)
         
         if let customer:TapCustomer = self.customer {
-            
-            try container.encodeIfPresent(customer, forKey: .customer)
+            // Check if we need to pass ONLY the customer ID of the full customer object
+            if let customerID = customer.identifier {
+                try container.encode(customerID, forKey: .customer)
+            }else{
+                try container.encodeIfPresent(customer, forKey: .customer)
+            }
         }
         
         if self.totalAmount > 0.0 {
