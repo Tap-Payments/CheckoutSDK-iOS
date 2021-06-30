@@ -9,7 +9,7 @@
 import Foundation
 
 /// Used to do logic for creating the api requests models
-extension TapCheckoutSharedManager {
+extension TapCheckout {
     
     /**
      Creates the payment option api request

@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     var localisationFileName:String? = "CustomLocalisation"
     var customTheme:TapCheckOutTheme? = nil
     @IBOutlet weak var amountTextField: UITextField!
-    var selectedCurrency:TapCurrencyCode = .KWD
+    var selectedCurrency:TapCurrencyCode = .USD
     var amount:Double {
         if(items.count == 0) {
             return Double(amountTextField.text ?? "") ?? 1000
@@ -85,6 +85,7 @@ class ViewController: UIViewController {
             showDragHandler:showDragHandler,
             transactionMode: .purchase,
             customer: try! .init(identifier: "cus_TS031720211012r4RM0403926"),
+            tapMerchantID: "1124340",
             onCheckOutReady: {[weak self] tapCheckOut in
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
                     tapCheckOut.start(presentIn: self)

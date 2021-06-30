@@ -9,7 +9,7 @@
 import Foundation
 
 /// Has the needed methods to act upon fired events from the uikit based on user activity
-internal extension TapCheckoutSharedManager {
+internal extension TapCheckout {
     
 // MARK:- goPay login form delegate methods
     

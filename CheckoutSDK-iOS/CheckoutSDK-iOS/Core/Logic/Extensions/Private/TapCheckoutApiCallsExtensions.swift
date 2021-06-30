@@ -31,7 +31,7 @@ internal extension TapCheckout {
     /// Responsible for making the network call to payment options api
     func callPaymentOptionsAPI(onCheckOutReady: @escaping () -> () = {}) {
         // As per the backend logic, we will have to hit PAYMENT OPTIONS API after the INIT call
-        let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
+        let sharedManager = TapCheckout.sharedCheckoutManager()
         
         // Create the payment option request with the configured data from the user
         let paymentOptionRequest = sharedManager.createPaymentOptionRequestModel()
@@ -48,7 +48,7 @@ internal extension TapCheckout {
                 return }
             // Let us now load the payment options
             let paymentOptionsResponseWithSavedCards:TapPaymentOptionsReponseModel = self!.addDummySavedCards(to: paymentOptionsResponse)
-            TapCheckoutSharedManager.sharedCheckoutManager().dataHolder.transactionData.paymentOptionsModelResponse = paymentOptionsResponseWithSavedCards
+            TapCheckout.sharedCheckoutManager().dataHolder.transactionData.paymentOptionsModelResponse = paymentOptionsResponseWithSavedCards
             onCheckOutReady()
         } onError: { (session, result, errorr) in
             self.handleError(error: errorr)
@@ -90,7 +90,7 @@ internal extension TapCheckout {
      */
     func handleInitResponse(initModel:TapInitResponseModel) {
         // Store the init model for further access
-        TapCheckoutSharedManager.sharedCheckoutManager().dataHolder.transactionData.intitModelResponse = initModel
+        TapCheckout.sharedCheckoutManager().dataHolder.transactionData.intitModelResponse = initModel
     }
     
     

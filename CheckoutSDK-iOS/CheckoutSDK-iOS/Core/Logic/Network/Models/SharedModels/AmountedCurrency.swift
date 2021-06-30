@@ -35,7 +35,7 @@ internal struct AmountedCurrency: Decodable {
                 return parsedRate
             }else
             {
-                return amount/TapCheckoutSharedManager.sharedCheckoutManager().transactionTotalAmountValue
+                return amount/TapCheckout.sharedCheckoutManager().transactionTotalAmountValue
             }
         }
     }

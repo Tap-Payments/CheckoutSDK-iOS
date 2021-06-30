@@ -9,7 +9,7 @@
 import Foundation
 
 /// Contains logic that needed to do any computation during the checkout process
-internal extension TapCheckoutSharedManager {
+internal extension TapCheckout {
     
     /**
      Used to compute the correct extra fees for a given payment option with regards to the current transaction total amount

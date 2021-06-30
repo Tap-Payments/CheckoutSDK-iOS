@@ -16,12 +16,12 @@ internal class KeychainManager {
         
         get {
             
-            let key = self.deviceIDKey(for: TapCheckoutSharedManager.sharedCheckoutManager().dataHolder.transactionData.sdkMode)
+            let key = self.deviceIDKey(for: TapCheckout.sharedCheckoutManager().dataHolder.transactionData.sdkMode)
             return Keychain.read(for: key)
         }
         set {
             
-            let key = self.deviceIDKey(for: TapCheckoutSharedManager.sharedCheckoutManager().dataHolder.transactionData.sdkMode)
+            let key = self.deviceIDKey(for: TapCheckout.sharedCheckoutManager().dataHolder.transactionData.sdkMode)
             Keychain.write(newValue, for: key)
         }
     }

@@ -12,6 +12,42 @@ import MOLH
 import CommonDataModelsKit_iOS
 import TapUIKit_iOS
 
+/// A protocol to comminicate between the UIManager and the data manager
+internal protocol TapCheckoutSharedManagerUIDelegate {
+    /**
+     Inform the delegate to remove a certain view from the checkout sheet
+     - Parameter view: The view required by the data manager to be removed from the checkout sheet
+     */
+    func removeView(view:UIView)
+    /**
+     Inform the delegate to end the loading status of the goPay login
+     - Parameter status: If set, means the user has provided correct credentials and is logged in to goPay. Otherwise, he provided wrong ones
+     */
+    func goPaySignIn(status:Bool)
+    
+    /**
+     Will be fired once the tap sheet content changed its height
+     - Parameter newHeight: The new height the content of the Tap sheet has
+     */
+    func show(alert:UIAlertController)
+    
+    /**
+     Will be fired once we need to ake the button starts/end loading
+     - Parameter shouldLoad: True to start loading and false otherwise
+     - Parameter success: Will be used in the case of ending loading with the success status
+     - Parameter onComplete: Logic block to execute after stopping loading
+     */
+    func actionButton(shouldLoad:Bool,success:Bool,onComplete:@escaping()->())
+    
+    /**
+     Will be fired once the checkout process faild and we need to dismiss
+     - Parameter with error:  The error cause the checkout process to fail
+     */
+    func dismissCheckout(with error:Error)
+    
+}
+
+
 /// The public interface to deal and start the TapCheckout SDK/UI
 @objc public class TapCheckout: NSObject {
     
@@ -28,6 +64,13 @@ import TapUIKit_iOS
     internal var sharedLocalisationManager = TapLocalisationManager.shared
     /// A reference to the TapCheckoutController that will present the TapSheet
     internal var tapCheckoutControllerViewController:TapBottomCheckoutControllerViewController?
+    /// A protocol to comminicate between the UIManager and the data manager
+    internal var UIDelegate:TapCheckoutSharedManagerUIDelegate?
+    /// Represents a global accessable common data gathered by the merchant when loading the checkout sdk like amount, currency, etc
+    internal static var privateShared : TapCheckout?
+    
+    // MARK:- View Models Variables
+    var dataHolder:DataHolder = .init(viewModels: ViewModelsHolder.init(), transactionData: .init())
     
     // MARK:- Public varibales
     /// A protocol to communicate with the Presente tap sheet controller
@@ -135,6 +178,19 @@ import TapUIKit_iOS
         }
     }
     
+    
+    /**
+     Creates a shared instance of the CheckoutDataManager
+     - Returns: The shared checkout manager
+     */
+    internal class func sharedCheckoutManager() -> TapCheckout { // change class to final to prevent override
+        guard let uwShared = privateShared else {
+            privateShared = TapCheckout()
+            return privateShared!
+        }
+        return uwShared
+    }
+    
     /**
      Used to do the pre steps before initiating a new SDK session
      - Parameter localiseFile: Please pass the name of the custom localisation file if needed. If not set, the normal and default TAP localisations will be used
@@ -148,9 +204,9 @@ import TapUIKit_iOS
                              customTheme:TapCheckOutTheme? = nil) {
         
         // remove any pending things from an old session
-        TapCheckoutSharedManager.destroy()
+        TapCheckout.destroy()
         // Set the SDK mode and the delegate
-        TapCheckoutSharedManager.sharedCheckoutManager().dataHolder.transactionData.sdkMode = sdkMode
+        TapCheckout.sharedCheckoutManager().dataHolder.transactionData.sdkMode = sdkMode
         tapCheckoutScreenDelegate = delegate
         // Init the localsiation manager
         configureLocalisationManager(localiseFile: localiseFile)
@@ -165,7 +221,7 @@ import TapUIKit_iOS
     internal func handleError(error:Error?) {
         if tapCheckoutControllerViewController?.isBeingPresented ?? false {
             // The sheet is visible and we need to handle this ourselves
-            let tapActionButton = TapCheckoutSharedManager.sharedCheckoutManager().dataHolder.viewModels.tapActionButtonViewModel
+            let tapActionButton = TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapActionButtonViewModel
             tapActionButton.endLoading(with: false) {
                 self.dismissMySelfClicked()
                 self.tapCheckoutScreenDelegate?.checkoutFailed?(with: error!)

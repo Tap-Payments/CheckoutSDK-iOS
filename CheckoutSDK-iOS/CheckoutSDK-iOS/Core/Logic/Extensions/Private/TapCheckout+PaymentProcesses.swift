@@ -9,7 +9,7 @@
 import Foundation
 
 /// Collection of logic to process a payment with different flows
-internal extension TapCheckoutSharedManager {
+internal extension TapCheckout {
     
     /**
      Used to process a checkout process with a given payment option

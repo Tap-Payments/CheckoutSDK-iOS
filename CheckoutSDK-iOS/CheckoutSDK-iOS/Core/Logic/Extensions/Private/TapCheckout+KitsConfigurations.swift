@@ -112,7 +112,7 @@ internal extension TapCheckout {
                                 enableSaveCard: Bool = true,
                                 isSaveCardSwitchOnByDefault: Bool = true) {
         
-        let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
+        let sharedManager = TapCheckout.sharedCheckoutManager()
         
         sharedManager.dataHolder.viewModels.swipeDownToDismiss = swipeDownToDismiss
         sharedManager.dataHolder.viewModels.closeButtonStyle = closeButtonStyle

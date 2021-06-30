@@ -97,7 +97,7 @@ extension TapCheckout: TapBottomSheetDialogDelegate {
     
     public func shallSwipeToDismiss() -> Bool {
         // Make sure if the swipe down is enabled or not
-        let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
+        let sharedManager = TapCheckout.sharedCheckoutManager()
         return sharedManager.dataHolder.viewModels.swipeDownToDismiss
     }
     

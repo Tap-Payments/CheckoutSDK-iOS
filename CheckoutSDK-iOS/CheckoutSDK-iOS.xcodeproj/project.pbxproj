@@ -67,7 +67,7 @@
 		E8844F652678B4050073D777 /* ExpirationDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844F642678B4050073D777 /* ExpirationDate.swift */; };
 		E8844F672678B42A0073D777 /* CardScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844F662678B42A0073D777 /* CardScheme.swift */; };
 		E8844F692678BA530073D777 /* TapPaymentOptionsRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844F682678BA530073D777 /* TapPaymentOptionsRequestModel.swift */; };
-		E88450EC267B33E20073D777 /* TapCheckoutManager+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88450EB267B33E20073D777 /* TapCheckoutManager+Utils.swift */; };
+		E88450EC267B33E20073D777 /* TapCheckout+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88450EB267B33E20073D777 /* TapCheckout+Utils.swift */; };
 		E8845E6A24D835B1009E8B73 /* CheckoutSDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8811AD624D4283C00DE95D1 /* CheckoutSDK_iOS.framework */; };
 		E8845E6B24D835B1009E8B73 /* CheckoutSDK_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E8811AD624D4283C00DE95D1 /* CheckoutSDK_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E8845E7024D83D7B009E8B73 /* TapCheckout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8845E6F24D83D7B009E8B73 /* TapCheckout.swift */; };
@@ -86,8 +86,8 @@
 		E8C58B4024E53F8100E1F04F /* RedLightTheme.json in Resources */ = {isa = PBXBuildFile; fileRef = E8C58B3E24E53F8100E1F04F /* RedLightTheme.json */; };
 		E8C58B4324E54AF400E1F04F /* GreenDarkTheme.json in Resources */ = {isa = PBXBuildFile; fileRef = E8C58B4124E54AF400E1F04F /* GreenDarkTheme.json */; };
 		E8C58B4424E54AF400E1F04F /* GreenLightTheme.json in Resources */ = {isa = PBXBuildFile; fileRef = E8C58B4224E54AF400E1F04F /* GreenLightTheme.json */; };
-		E8EC80F9267C7D470080E760 /* TapCheckoutManager+Calculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC80F8267C7D470080E760 /* TapCheckoutManager+Calculations.swift */; };
-		E8EC8179267CB7100080E760 /* TapCheckoutManager+PaymentProcesses.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC8178267CB7100080E760 /* TapCheckoutManager+PaymentProcesses.swift */; };
+		E8EC80F9267C7D470080E760 /* TapCheckout+Calculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC80F8267C7D470080E760 /* TapCheckout+Calculations.swift */; };
+		E8EC8179267CB7100080E760 /* TapCheckout+PaymentProcesses.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC8178267CB7100080E760 /* TapCheckout+PaymentProcesses.swift */; };
 		E8EC817B267CFA6B0080E760 /* Charge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC817A267CFA6B0080E760 /* Charge.swift */; };
 		E8EC817D267CFAAE0080E760 /* ChargeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC817C267CFAAE0080E760 /* ChargeProtocol.swift */; };
 		E8EC817F267CFB1F0080E760 /* Authenticatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC817E267CFB1F0080E760 /* Authenticatable.swift */; };
@@ -120,10 +120,12 @@
 		E8EC81B5267D018B0080E760 /* Acquirer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC81B3267D018B0080E760 /* Acquirer.swift */; };
 		E8EC81B8267D03D20080E760 /* TapChargeRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC81B7267D03D20080E760 /* TapChargeRequestModel.swift */; };
 		E8EC81BA267D04410080E760 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC81B9267D04410080E760 /* Order.swift */; };
-		E8EC81BC267D30740080E760 /* TapCheckoutManager+RequestsGeneration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC81BB267D30740080E760 /* TapCheckoutManager+RequestsGeneration.swift */; };
-		E8EC81BE267D35DA0080E760 /* TapCheckoutManager+WebPaymentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC81BD267D35DA0080E760 /* TapCheckoutManager+WebPaymentHandler.swift */; };
+		E8EC81BC267D30740080E760 /* TapCheckout+RequestsGeneration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC81BB267D30740080E760 /* TapCheckout+RequestsGeneration.swift */; };
+		E8EC81BE267D35DA0080E760 /* TapCheckout+WebPaymentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC81BD267D35DA0080E760 /* TapCheckout+WebPaymentHandler.swift */; };
 		E8EC81C0267F17D20080E760 /* TapCheckout+Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC81BF267F17D20080E760 /* TapCheckout+Protocols.swift */; };
 		E8EC81C2267F57650080E760 /* TapCheckout+TransactionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC81C1267F57640080E760 /* TapCheckout+TransactionData.swift */; };
+		E8EC81C4267F72640080E760 /* TapCheckout+UIViewModelsHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC81C3267F72640080E760 /* TapCheckout+UIViewModelsHandling.swift */; };
+		E8EC81C6267F73420080E760 /* TapCheckout+Reset.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC81C5267F73420080E760 /* TapCheckout+Reset.swift */; };
 		E8EDD34A25612A3C00AFC0B3 /* TapIntentRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD34925612A3C00AFC0B3 /* TapIntentRequestModel.swift */; };
 		E8EDD35025612BCD00AFC0B3 /* TapCustomer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD34F25612BCD00AFC0B3 /* TapCustomer.swift */; };
 /* End PBXBuildFile section */
@@ -232,7 +234,7 @@
 		E8844F642678B4050073D777 /* ExpirationDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpirationDate.swift; sourceTree = "<group>"; };
 		E8844F662678B42A0073D777 /* CardScheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardScheme.swift; sourceTree = "<group>"; };
 		E8844F682678BA530073D777 /* TapPaymentOptionsRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapPaymentOptionsRequestModel.swift; sourceTree = "<group>"; };
-		E88450EB267B33E20073D777 /* TapCheckoutManager+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckoutManager+Utils.swift"; sourceTree = "<group>"; };
+		E88450EB267B33E20073D777 /* TapCheckout+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+Utils.swift"; sourceTree = "<group>"; };
 		E8845E6F24D83D7B009E8B73 /* TapCheckout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckout.swift; sourceTree = "<group>"; };
 		E8845E7124D83FA3009E8B73 /* TapBottomCheckoutControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapBottomCheckoutControllerViewController.swift; sourceTree = "<group>"; };
 		E8845E7824D851E2009E8B73 /* TapCheckoutBlurView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TapCheckoutBlurView.xib; sourceTree = "<group>"; };
@@ -248,8 +250,8 @@
 		E8C58B3E24E53F8100E1F04F /* RedLightTheme.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RedLightTheme.json; sourceTree = "<group>"; };
 		E8C58B4124E54AF400E1F04F /* GreenDarkTheme.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GreenDarkTheme.json; sourceTree = "<group>"; };
 		E8C58B4224E54AF400E1F04F /* GreenLightTheme.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GreenLightTheme.json; sourceTree = "<group>"; };
-		E8EC80F8267C7D470080E760 /* TapCheckoutManager+Calculations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckoutManager+Calculations.swift"; sourceTree = "<group>"; };
-		E8EC8178267CB7100080E760 /* TapCheckoutManager+PaymentProcesses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckoutManager+PaymentProcesses.swift"; sourceTree = "<group>"; };
+		E8EC80F8267C7D470080E760 /* TapCheckout+Calculations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+Calculations.swift"; sourceTree = "<group>"; };
+		E8EC8178267CB7100080E760 /* TapCheckout+PaymentProcesses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+PaymentProcesses.swift"; sourceTree = "<group>"; };
 		E8EC817A267CFA6B0080E760 /* Charge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Charge.swift; sourceTree = "<group>"; };
 		E8EC817C267CFAAE0080E760 /* ChargeProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChargeProtocol.swift; sourceTree = "<group>"; };
 		E8EC817E267CFB1F0080E760 /* Authenticatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Authenticatable.swift; sourceTree = "<group>"; };
@@ -282,10 +284,12 @@
 		E8EC81B3267D018B0080E760 /* Acquirer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Acquirer.swift; sourceTree = "<group>"; };
 		E8EC81B7267D03D20080E760 /* TapChargeRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapChargeRequestModel.swift; sourceTree = "<group>"; };
 		E8EC81B9267D04410080E760 /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
-		E8EC81BB267D30740080E760 /* TapCheckoutManager+RequestsGeneration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckoutManager+RequestsGeneration.swift"; sourceTree = "<group>"; };
-		E8EC81BD267D35DA0080E760 /* TapCheckoutManager+WebPaymentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckoutManager+WebPaymentHandler.swift"; sourceTree = "<group>"; };
+		E8EC81BB267D30740080E760 /* TapCheckout+RequestsGeneration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+RequestsGeneration.swift"; sourceTree = "<group>"; };
+		E8EC81BD267D35DA0080E760 /* TapCheckout+WebPaymentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+WebPaymentHandler.swift"; sourceTree = "<group>"; };
 		E8EC81BF267F17D20080E760 /* TapCheckout+Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+Protocols.swift"; sourceTree = "<group>"; };
 		E8EC81C1267F57640080E760 /* TapCheckout+TransactionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+TransactionData.swift"; sourceTree = "<group>"; };
+		E8EC81C3267F72640080E760 /* TapCheckout+UIViewModelsHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+UIViewModelsHandling.swift"; sourceTree = "<group>"; };
+		E8EC81C5267F73420080E760 /* TapCheckout+Reset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+Reset.swift"; sourceTree = "<group>"; };
 		E8EDD34925612A3C00AFC0B3 /* TapIntentRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapIntentRequestModel.swift; sourceTree = "<group>"; };
 		E8EDD34F25612BCD00AFC0B3 /* TapCustomer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCustomer.swift; sourceTree = "<group>"; };
 		FF4A2E12A9944D1FED9040B6 /* Pods-CheckoutSDK-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutSDK-iOS.debug.xcconfig"; path = "Target Support Files/Pods-CheckoutSDK-iOS/Pods-CheckoutSDK-iOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -561,14 +565,16 @@
 			children = (
 				E8844E6726777B7B0073D777 /* NetworkManagerExtensions.swift */,
 				E8844F532678A1150073D777 /* TapCheckoutApiCallsExtensions.swift */,
-				E88450EB267B33E20073D777 /* TapCheckoutManager+Utils.swift */,
-				E8EC80F8267C7D470080E760 /* TapCheckoutManager+Calculations.swift */,
-				E8EC8178267CB7100080E760 /* TapCheckoutManager+PaymentProcesses.swift */,
-				E8EC81BB267D30740080E760 /* TapCheckoutManager+RequestsGeneration.swift */,
-				E8EC81BD267D35DA0080E760 /* TapCheckoutManager+WebPaymentHandler.swift */,
+				E88450EB267B33E20073D777 /* TapCheckout+Utils.swift */,
+				E8EC80F8267C7D470080E760 /* TapCheckout+Calculations.swift */,
+				E8EC8178267CB7100080E760 /* TapCheckout+PaymentProcesses.swift */,
+				E8EC81BB267D30740080E760 /* TapCheckout+RequestsGeneration.swift */,
+				E8EC81BD267D35DA0080E760 /* TapCheckout+WebPaymentHandler.swift */,
 				E89225E924E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift */,
 				E8EC81BF267F17D20080E760 /* TapCheckout+Protocols.swift */,
 				E8EC81C1267F57640080E760 /* TapCheckout+TransactionData.swift */,
+				E8EC81C3267F72640080E760 /* TapCheckout+UIViewModelsHandling.swift */,
+				E8EC81C5267F73420080E760 /* TapCheckout+Reset.swift */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -988,7 +994,7 @@
 				E8844F562678A6400073D777 /* TapPaymentOptionsReponseModel.swift in Sources */,
 				E8844F5F2678AE220073D777 /* UtilitiesProtocols.swift in Sources */,
 				E8844DF926776C580073D777 /* SDKMode.swift in Sources */,
-				E8EC81BC267D30740080E760 /* TapCheckoutManager+RequestsGeneration.swift in Sources */,
+				E8EC81BC267D30740080E760 /* TapCheckout+RequestsGeneration.swift in Sources */,
 				E8EC81AD267D013C0080E760 /* TransactionDetails.swift in Sources */,
 				E8983DD124F1469700C34E50 /* TapEntitResponseModel.swift in Sources */,
 				E8EC81B0267D01480080E760 /* TransactionExpiry.swift in Sources */,
@@ -1001,21 +1007,22 @@
 				E8EC81B5267D018B0080E760 /* Acquirer.swift in Sources */,
 				E861286D24EA7F7F00774BAA /* CurrencyChipModel.swift in Sources */,
 				E8EC819C267CFFB70080E760 /* Address.swift in Sources */,
-				E8EC81BE267D35DA0080E760 /* TapCheckoutManager+WebPaymentHandler.swift in Sources */,
+				E8EC81BE267D35DA0080E760 /* TapCheckout+WebPaymentHandler.swift in Sources */,
 				E86128B424ED23EF00774BAA /* TapCheckoutExtensions.swift in Sources */,
 				E8844D28267744CD0073D777 /* Reference.swift in Sources */,
+				E8EC81C6267F73420080E760 /* TapCheckout+Reset.swift in Sources */,
 				E8EC81AB267D01100080E760 /* AddressFormat.swift in Sources */,
 				E8EC818D267CFD490080E760 /* URLStatus.swift in Sources */,
 				E8EC819D267CFFB70080E760 /* Country.swift in Sources */,
 				E8EC8187267CFBD20080E760 /* AuthenticationRequirer.swift in Sources */,
 				E8EC8181267CFBAE0080E760 /* Authentication.swift in Sources */,
-				E8EC80F9267C7D470080E760 /* TapCheckoutManager+Calculations.swift in Sources */,
+				E8EC80F9267C7D470080E760 /* TapCheckout+Calculations.swift in Sources */,
 				E8EC81B4267D018B0080E760 /* Response.swift in Sources */,
 				E8EC8199267CFF810080E760 /* TokenizedCard.swift in Sources */,
 				E8845E7024D83D7B009E8B73 /* TapCheckout.swift in Sources */,
 				E8844E6826777B7B0073D777 /* NetworkManagerExtensions.swift in Sources */,
-				E8EC8179267CB7100080E760 /* TapCheckoutManager+PaymentProcesses.swift in Sources */,
-				E88450EC267B33E20073D777 /* TapCheckoutManager+Utils.swift in Sources */,
+				E8EC8179267CB7100080E760 /* TapCheckout+PaymentProcesses.swift in Sources */,
+				E88450EC267B33E20073D777 /* TapCheckout+Utils.swift in Sources */,
 				E8844F692678BA530073D777 /* TapPaymentOptionsRequestModel.swift in Sources */,
 				E8EC81A1267D00210080E760 /* TokenType.swift in Sources */,
 				E8844F1D2677A4C50073D777 /* ApiErrorModel.swift in Sources */,
@@ -1030,6 +1037,7 @@
 				E8EC81A6267D00C10080E760 /* SourceType.swift in Sources */,
 				E8844F1B267794960073D777 /* InternalSDKSettings.swift in Sources */,
 				E8EC817F267CFB1F0080E760 /* Authenticatable.swift in Sources */,
+				E8EC81C4267F72640080E760 /* TapCheckout+UIViewModelsHandling.swift in Sources */,
 				E8845E7224D83FA3009E8B73 /* TapBottomCheckoutControllerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

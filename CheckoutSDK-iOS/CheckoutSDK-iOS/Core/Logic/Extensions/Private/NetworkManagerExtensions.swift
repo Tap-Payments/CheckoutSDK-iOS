@@ -32,7 +32,7 @@ internal extension NetworkManager {
             Constants.HTTPHeaderKey.application: applicationValue
         ]
         
-        if let sessionToken = TapCheckoutSharedManager.sharedCheckoutManager().dataHolder.transactionData.intitModelResponse?.data.sessionToken, !sessionToken.isEmpty {
+        if let sessionToken = TapCheckout.sharedCheckoutManager().dataHolder.transactionData.intitModelResponse?.data.sessionToken, !sessionToken.isEmpty {
             
             result[Constants.HTTPHeaderKey.sessionToken] = sessionToken
         }
@@ -64,7 +64,7 @@ internal extension NetworkManager {
      - Returns: The sandbox or production secret key based on the SDK mode
      */
     static func secretKey() -> String {
-        return (TapCheckoutSharedManager.sharedCheckoutManager().dataHolder.transactionData.sdkMode == .sandbox) ? TapCheckout.secretKey.sandbox : TapCheckout.secretKey.production
+        return (TapCheckout.sharedCheckoutManager().dataHolder.transactionData.sdkMode == .sandbox) ? TapCheckout.secretKey.sandbox : TapCheckout.secretKey.production
     }
     
     

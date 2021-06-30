@@ -9,7 +9,7 @@
 import Foundation
 import CommonDataModelsKit_iOS
 /// A collection of logic to provide utils and singleton interfaces for multiple required methods
-internal extension TapCheckoutSharedManager {
+internal extension TapCheckout {
     
     /**
      Gets the related payment option for a saved card

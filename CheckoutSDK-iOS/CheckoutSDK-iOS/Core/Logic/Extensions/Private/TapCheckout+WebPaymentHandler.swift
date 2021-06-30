@@ -9,7 +9,7 @@
 import Foundation
 
 /// Logic to handle webviews based gateway
-extension TapCheckoutSharedManager {
+extension TapCheckout {
     
     struct WebPaymentHandlerConstants {
         

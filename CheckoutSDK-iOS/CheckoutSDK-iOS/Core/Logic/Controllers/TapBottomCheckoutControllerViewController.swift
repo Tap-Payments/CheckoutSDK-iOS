@@ -20,7 +20,7 @@ import TapCardScanner_iOS
 
 internal class TapBottomCheckoutControllerViewController: UIViewController {
     
-    let sharedCheckoutDataManager:TapCheckoutSharedManager = .sharedCheckoutManager()
+    let sharedCheckoutDataManager:TapCheckout = TapCheckout.sharedCheckoutManager()
     
     var delegate:ToPresentAsPopupViewControllerDelegate?
     var tapVerticalView: TapVerticalView = .init()
@@ -242,7 +242,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
     
     func showWebView(with url:URL) {
         // Stop the dismiss on swipe feature, because when we remove all views, the height will be minium than the threshold, ending up the whole sheet being dimissed
-        let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
+        let sharedManager = TapCheckout.sharedCheckoutManager()
         let originalDismissOnSwipeValue = sharedManager.dataHolder.viewModels.swipeDownToDismiss
         sharedManager.dataHolder.viewModels.swipeDownToDismiss = false
         
@@ -343,7 +343,7 @@ extension TapBottomCheckoutControllerViewController:TapChipHorizontalListViewMod
     func gateway(for viewModel: GatewayChipViewModel) {
         
         // Save the selected payment option model for further processing
-        let sharedCheckoutManager = TapCheckoutSharedManager.sharedCheckoutManager()
+        let sharedCheckoutManager = TapCheckout.sharedCheckoutManager()
         sharedCheckoutManager.dataHolder.transactionData.selectedPaymentOption = sharedCheckoutManager.fetchPaymentOption(with: viewModel.paymentOptionIdentifier)
         
         // Make the payment button in a Valid payment mode
@@ -445,7 +445,7 @@ extension TapBottomCheckoutControllerViewController:TapChipHorizontalListViewMod
      - Parameter skipSelf: If true, then the mentioned view WILL not be deleted and all views below the mentioned view will be deleted
      */
     internal func removeView(viewType:AnyClass, with animation:TapSheetAnimation? = nil, and deleteAfterViews:Bool = false,skipSelf:Bool = false) {
-        let sharedManager = TapCheckoutSharedManager.sharedCheckoutManager()
+        let sharedManager = TapCheckout.sharedCheckoutManager()
         let originalDismissOnSwipeValue = sharedManager.dataHolder.viewModels.swipeDownToDismiss
         sharedManager.dataHolder.viewModels.swipeDownToDismiss = false
         

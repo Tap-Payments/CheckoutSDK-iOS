@@ -96,7 +96,7 @@ extension TapPaymentOptionsReponseModel: Decodable {
         
         
         // Filter saved cards based on allowed card types passed by the user when loading the SDK session
-        let merchnantAllowedCards = TapCheckoutSharedManager.sharedCheckoutManager().dataHolder.transactionData.allowedCardTypes
+        let merchnantAllowedCards = TapCheckout.sharedCheckoutManager().dataHolder.transactionData.allowedCardTypes
         savedCards = savedCards?.filter { (merchnantAllowedCards.contains($0.cardType ?? CardType(cardType: .All))) }
         
         self.init(identifier:                    identifier,
