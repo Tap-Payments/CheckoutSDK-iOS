@@ -152,4 +152,17 @@ internal extension TapCheckout {
             sharedManager.dataHolder.transactionData.transactionItemsValue = items
         }
     }
+    
+    
+    /**
+     Will be respinsble for dismissing the checkout screen and changing the action button to success or failure before dismissing
+     - Parameter with buttonStatus: The success or failure to be displayed on the action button before dismissing
+     */
+    func dismissCheckout(with buttonStatus:Bool) {
+        dataHolder.viewModels.tapActionButtonViewModel.endLoading(with: buttonStatus, completion: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                self.UIDelegate?.dismissCheckout(with: "")
+            }
+        })
+    }
 }

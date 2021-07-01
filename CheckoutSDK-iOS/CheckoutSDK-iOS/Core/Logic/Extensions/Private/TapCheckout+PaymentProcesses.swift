@@ -63,14 +63,14 @@ internal extension TapCheckout {
      Handles the charge response to see what should be the next action
      - Parameter with charge: The charge response we want to analyse and decide the next action based on it
      */
-    func handleCharge(with chargeOrAuthorize:ChargeProtocol) {
+    func handleCharge(with chargeOrAuthorize:ChargeProtocol?) {
         // Save the object for further processing
         if chargeOrAuthorize is Charge {
             dataHolder.transactionData.currentCharge = chargeOrAuthorize as? Charge
         }
         
         // Based on the status we will know what to do
-        let chargeStatus = chargeOrAuthorize.status
+        let chargeStatus = chargeOrAuthorize?.status
         switch chargeStatus {
         case .captured:
             handleCaptured(for:chargeOrAuthorize)
@@ -78,7 +78,7 @@ internal extension TapCheckout {
         case .authorized:
             handleAuthorized(for:chargeOrAuthorize)
             break
-        case .failed:
+        case .failed,.declined:
             handleFailed(for:chargeOrAuthorize)
             break
         case .initiated:
@@ -94,15 +94,22 @@ internal extension TapCheckout {
      Will be called once the charge response shows that, the charge has been successfully captured.
      - Parameter for charge: The charge object we will pass back to the user
      */
-    func handleCaptured(for charge:ChargeProtocol) {
-        
+    func handleCaptured(for charge:ChargeProtocol?) {
+        // First let us inform the caller app that the charge/authorization had been done successfully
+        if let charge:Charge = charge as? Charge {
+            tapCheckoutScreenDelegate?.checkoutCaptured?(with: charge)
+        }else if let authorize:Authorize = charge as? Authorize {
+            tapCheckoutScreenDelegate?.checkoutCaptured?(with: authorize)
+        }
+        // Now it is time to safely dismiss ourselves showing a green tick :)
+        dismissCheckout(with: true)
     }
     
     /**
      Will be called once the charge response shows that, the authorize has been successfully captured.
      - Parameter for charge: The charge object we will pass back to the user
      */
-    func handleAuthorized(for charge:ChargeProtocol) {
+    func handleAuthorized(for charge:ChargeProtocol?) {
         
     }
     
@@ -110,17 +117,24 @@ internal extension TapCheckout {
      Will be called once the charge response shows that, the charge has been successfully captured.
      - Parameter for charge: The charge object we will pass back to the user
      */
-    func handleFailed(for charge:ChargeProtocol) {
-        
+    func handleFailed(for charge:ChargeProtocol?) {
+        // First let us inform the caller app that the charge/authorization had been done successfully
+        if let charge:Charge = charge as? Charge {
+            tapCheckoutScreenDelegate?.checkoutFailed?(with: charge)
+        }else if let authorize:Authorize = charge as? Authorize {
+            tapCheckoutScreenDelegate?.checkoutFailed?(with: authorize)
+        }
+        // Now it is time to safely dismiss ourselves showing a green tick :)
+        dismissCheckout(with: false)
     }
     
     /**
      Will be called once the charge response shows that, the charge has been successfully captured.
      - Parameter for charge: The charge object we will pass back to the user
      */
-    func handleInitated(for charge:ChargeProtocol) {
+    func handleInitated(for charge:ChargeProtocol?) {
         // Check if we need to make a redirection
-        if let redirectionURL:URL = charge.transactionDetails.url {
+        if let redirectionURL:URL = charge?.transactionDetails.url {
             DispatchQueue.main.async{ [weak self] in
                 // Instruct the view to open a web view with the redirection url
                 guard let nonNullSelf = self else { return }
@@ -133,7 +147,7 @@ internal extension TapCheckout {
      Will be called once the charge response shows that, the charge has been successfully captured.
      - Parameter for charge: The charge object we will pass back to the user
      */
-    func handleCancelled(for charge:ChargeProtocol) {
+    func handleCancelled(for charge:ChargeProtocol?) {
         
     }
     
