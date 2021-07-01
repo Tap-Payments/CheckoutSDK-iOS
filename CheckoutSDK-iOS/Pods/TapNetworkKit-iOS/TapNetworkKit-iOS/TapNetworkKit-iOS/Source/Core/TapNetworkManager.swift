@@ -87,6 +87,16 @@ public class TapNetworkManager {
                 }
             }
 
+            
+            var loggString:String = "Request :\n========\n\(request.httpMethod ?? "") \(request.url?.absoluteString ?? "")\nHeaders :\n------\n\(String(data: try! JSONSerialization.data(withJSONObject: (request.allHTTPHeaderFields ?? [:]), options: .prettyPrinted), encoding: .utf8 )!)"
+            
+            if let body = request.httpBody {
+                loggString = "\(loggString)\nBody :\n-----\n\(String(data: try! JSONSerialization.data(withJSONObject: JSONSerialization.jsonObject(with: body, options: []), options: .prettyPrinted), encoding: .utf8 )!)\n---------------\n"
+            }else{
+                loggString = "\(loggString)\nBody :\n-----\n{\n}\n---------------\n"
+            }
+            print(loggString)
+            
             let task = self.session.dataTask(with: request, completionHandler: dataTaskCompletion)
             dataTask = task
             operation.task = task
@@ -111,24 +121,14 @@ public class TapNetworkManager {
     public func performRequest<T:Decodable>(_ operation: TapNetworkRequestOperation, completion: RequestCompletionClosure?,codableType:T.Type) {
         
         performRequest(operation) { (dataTask, data, error) in
-            print("Response :\n========\n")
-            print("\(operation.httpMethod.rawValue) \(operation.path)\n")
-            if let httpUrlResponse = dataTask?.response as? HTTPURLResponse
-            {
-                print("\nHeaders :\n------\n")
-                print(String(data: try! JSONSerialization.data(withJSONObject: httpUrlResponse.allHeaderFields, options: .prettyPrinted), encoding: .utf8 )!)
-            }
             
-            
-            
+            let loggString:String = "Response :\n========\n\(operation.httpMethod.rawValue) \(operation.path)\nHeaders :\n------\n\(String(data: try! JSONSerialization.data(withJSONObject: (dataTask?.response as? HTTPURLResponse)?.allHeaderFields ?? [:], options: .prettyPrinted), encoding: .utf8 )!)\nBody :\n-----\n\(String(data: try! JSONSerialization.data(withJSONObject: (data ?? [:]), options: .prettyPrinted), encoding: .utf8 )!)\n---------------\n"
+            print(loggString)
             
             if let nonNullError = error {
                 //TapLogger.log(urlRequest: dataTask?.originalRequest, error: nonNullError)
                 completion?(dataTask, nil, nonNullError)
             }else if let jsonObject = data {
-                print("\nBody :\n-----\n")
-                print(String(data: try! JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted), encoding: .utf8 )!)
-                print("\n---------------\n")
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: .fragmentsAllowed)
                     let decodedResponse = try JSONDecoder().decode(codableType, from: jsonData)

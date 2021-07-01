@@ -148,7 +148,7 @@ internal extension TapCheckout {
      - Parameter for charge: The charge object we will pass back to the user
      */
     func handleCancelled(for charge:ChargeProtocol?) {
-        
+        handleFailed(for: charge)
     }
     
 }

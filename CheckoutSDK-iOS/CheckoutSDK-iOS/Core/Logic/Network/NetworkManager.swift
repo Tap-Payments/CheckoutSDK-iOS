@@ -43,10 +43,6 @@ internal class NetworkManager: NSObject {
         // Group all the configurations and pass it to the network manager
         let requestOperation = TapNetworkRequestOperation(path: "\(baseURL)\(routing.rawValue)", method: httpMethod, headers: headers, urlModel: urlModel, bodyModel: body, responseType: .json)
         
-        let loggString:String = "Request :\n========\n\(httpMethod.rawValue) \(requestOperation.path)\nHeaders :\n------\n\(String(data: try! JSONSerialization.data(withJSONObject: headers, options: .prettyPrinted), encoding: .utf8 )!)\nBody :\n-----\n\(String(data: try! JSONSerialization.data(withJSONObject: (body?.body ?? [:]), options: .prettyPrinted), encoding: .utf8 )!)\n---------------\n"
-        print(loggString)
-        
-        
         // Perform the actual request
         networkManager.performRequest(requestOperation, completion: { (session, result, error) in
             //print("result is: \(String(describing: result))")
