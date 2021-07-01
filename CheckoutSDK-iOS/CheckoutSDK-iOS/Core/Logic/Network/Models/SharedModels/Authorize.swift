@@ -7,6 +7,7 @@
 //
 
 /// Authorize object.
+import CommonDataModelsKit_iOS
 @objcMembers public final class Authorize: NSObject, AuthorizeProtocol, IdentifiableWithString {
     
     // MARK: - Public -

@@ -268,16 +268,9 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         self.tapVerticalView.remove(view: webViewModel.attachedView, with: .init(for: .fadeOut, with: fadeOutAnimationDuration))
         self.tapVerticalView.showActionButton()
         
-        self.tapActionButtonViewModel.startLoading()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) { [weak self] in
             // Set it back to swipe on dismiss
             TapCheckout.sharedCheckoutManager().dataHolder.viewModels.swipeDownToDismiss = originalDismissOnSwipeValue
-            self?.tapActionButtonViewModel.endLoading(with: true, completion: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
-                    self?.dismiss(animated: true, completion: nil)
-                }
-            })
         }
     }
     

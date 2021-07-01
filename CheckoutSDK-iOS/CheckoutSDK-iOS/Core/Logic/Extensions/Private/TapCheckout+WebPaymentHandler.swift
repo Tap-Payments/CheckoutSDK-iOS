@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Logic to handle webviews based gateway
+/// Logic to handel webviews based gateway
 extension TapCheckout {
     
     struct WebPaymentHandlerConstants {
@@ -17,6 +17,29 @@ extension TapCheckout {
         static let tapIDKey = "tap_id"
         
         //@available(*, unavailable) private init() { fatalError("This struct cannot be instantiated.") }
+    }
+    
+    /**
+     Handles the logic to be executed when redirection is finished
+     - Parameter with tapID: The tap id of the object (e.g charge, authorization etc.) generated from the backend in the URL
+     */
+    func webPaymentProcessFinished<T: ChargeProtocol>(with tapID:String,of type: T.Type) {
+        // Hide the webview
+        UIDelegate?.closeWebView()
+        // Show the button in a loading state
+        dataHolder.viewModels.tapActionButtonViewModel.startLoading()
+        // We need to retrieve the object using the passed id and process it afterwards
+        TapCheckout.retrieveObject(with: tapID) { [weak self] (returnChargeOrAuthorize: T?, error: TapSDKError?) in
+            if let _ = error {
+                
+            }else if let returnChargeOrAuthorize = returnChargeOrAuthorize {
+                // No errors occured we need to process the current charge or authorize
+                self?.handleCharge(with: returnChargeOrAuthorize)
+            }
+        } onErrorOccured: { (error) in
+            
+        }
+
     }
 }
 
@@ -27,16 +50,15 @@ extension TapCheckout:TapWebViewModelDelegate {
         }
         
         let decision = navigationDecision(forWebPayment: url)
-        if decision.shouldLoad {
-            
-            //self.lastAttemptedURL = url
-        }
         
         if decision.redirectionFinished, let tapID = decision.tapID {
             
-            //Process.shared.webPaymentHandlerInterface.webPaymentProcessFinished(tapID)
-            self.UIDelegate?.actionButton(shouldLoad: true,success: false,onComplete: {})
-            print("TAP ID : \(tapID)")
+            // Process the web payment upon getting the transaction ID from the backend url based on the transaction mode
+            if(dataHolder.transactionData.transactionMode == .purchase) {
+                webPaymentProcessFinished(with: tapID, of: Charge.self)
+            }else{
+                webPaymentProcessFinished(with: tapID, of: Authorize.self)
+            }
         }else if decision.shouldCloseWebPaymentScreen {
             
             self.UIDelegate?.closeWebView()

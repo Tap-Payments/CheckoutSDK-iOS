@@ -43,12 +43,13 @@ internal extension TapCheckout {
     func startWebPayment(with paymentOption:PaymentOption) {
         // Change the action button to loading status
         TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapActionButtonViewModel.startLoading()
-        // Create the charge request
+        // Create the charge request and call it
         let chargeRequest:TapChargeRequestModel = createChargeOrAuthorizeRequestModel(with: paymentOption, token: nil, cardBIN: nil)
         TapCheckout.callChargeOrAuthorizeAPI(chargeRequestModel: chargeRequest) { [weak self] charge in
             DispatchQueue.main.async{
+                // Process the charge protocol response we got from the server
                 guard let nonNullSelf = self else { return }
-                nonNullSelf.UIDelegate?.showWebView(with: charge.transactionDetails.url!,and: nonNullSelf)
+                nonNullSelf.handleCharge(with: charge)
             }
         } onErrorOccured: { [weak self] error in
             self?.UIDelegate?.actionButton(shouldLoad: false, success: false, onComplete: {
@@ -59,64 +60,32 @@ internal extension TapCheckout {
     }
     
     /**
-     Used to confirm the extra fees for a given payment option
-     - Parameter with paymentOption: The payment option to ask for its extra fees
-     */
-    func askForExtraFees(with paymentOption:PaymentOption, onConfimation: @escaping () -> () = {}) {
-        // get the extra fees value
-        let extraFeesValue:Double = calculateExtraFees(for: paymentOption)
-        // check if there is an extra fee to pay or not. If the fees <= 0, then we proceed with the confirmation block right away
-        guard extraFeesValue > 0 else {
-            onConfimation()
-            return
-        }
-        // Create the formatted extra fee + the formatted new total amount
-        let formatter = TapAmountedCurrencyFormatter { [weak self] in
-            $0.currency = self?.dataHolder.transactionData.transactionUserCurrencyValue.currency ?? .USD
-            $0.locale = CurrencyLocale.englishUnitedStates
-        }
-        let extraFeesFormattedString = formatter.string(from: extraFeesValue) ?? "KD0.000"
-        let newTotalAmountString = formatter.string(from: extraFeesValue + calculateFinalAmount()) ?? "KD0.000"
-        
-        // Create the formatted confirmation message
-        let alertTitle      = TapLocalisationManager.shared.localisedValue(for: "ExtraFees.title",with: TapCommonConstants.pathForDefaultLocalisation())
-        let alertMessage    = String(format: TapLocalisationManager.shared.localisedValue(for: "ExtraFees.message",with: TapCommonConstants.pathForDefaultLocalisation()), extraFeesFormattedString,newTotalAmountString)
-        let alertConfirm    = TapLocalisationManager.shared.localisedValue(for: "ExtraFees.confirm",with: TapCommonConstants.pathForDefaultLocalisation())
-        let alertCancel     = TapLocalisationManager.shared.localisedValue(for: "ExtraFees.cancel",with: TapCommonConstants.pathForDefaultLocalisation())
-        
-        // Display the confirmation alert
-        let alertController:UIAlertController = .init(title: alertTitle, message: alertMessage, preferredStyle: .alert)
-        alertController.addAction(.init(title: alertConfirm, style: .destructive, handler: { _ in
-            onConfimation()
-        }))
-        alertController.addAction(.init(title: alertCancel, style: .cancel, handler: nil))
-        
-        UIDelegate?.show(alert: alertController)
-
-    }
-    
-    /**
      Handles the charge response to see what should be the next action
      - Parameter with charge: The charge response we want to analyse and decide the next action based on it
      */
-    func handleCharge(with charge:Charge) {
+    func handleCharge(with chargeOrAuthorize:ChargeProtocol) {
+        // Save the object for further processing
+        if chargeOrAuthorize is Charge {
+            dataHolder.transactionData.currentCharge = chargeOrAuthorize as? Charge
+        }
+        
         // Based on the status we will know what to do
-        let chargeStatus = charge.status
+        let chargeStatus = chargeOrAuthorize.status
         switch chargeStatus {
         case .captured:
-            handleCaptured(for:charge)
+            handleCaptured(for:chargeOrAuthorize)
             break
         case .authorized:
-            handleAuthorized(for:charge)
+            handleAuthorized(for:chargeOrAuthorize)
             break
         case .failed:
-            handleFailed(for:charge)
+            handleFailed(for:chargeOrAuthorize)
             break
         case .initiated:
-            handleInitated(for:charge)
+            handleInitated(for:chargeOrAuthorize)
             break
         default:
-            handleCancelled(for:charge)
+            handleCancelled(for:chargeOrAuthorize)
         }
     }
     
@@ -125,7 +94,7 @@ internal extension TapCheckout {
      Will be called once the charge response shows that, the charge has been successfully captured.
      - Parameter for charge: The charge object we will pass back to the user
      */
-    func handleCaptured(for charge:Charge) {
+    func handleCaptured(for charge:ChargeProtocol) {
         
     }
     
@@ -133,7 +102,7 @@ internal extension TapCheckout {
      Will be called once the charge response shows that, the authorize has been successfully captured.
      - Parameter for charge: The charge object we will pass back to the user
      */
-    func handleAuthorized(for charge:Charge) {
+    func handleAuthorized(for charge:ChargeProtocol) {
         
     }
     
@@ -141,7 +110,7 @@ internal extension TapCheckout {
      Will be called once the charge response shows that, the charge has been successfully captured.
      - Parameter for charge: The charge object we will pass back to the user
      */
-    func handleFailed(for charge:Charge) {
+    func handleFailed(for charge:ChargeProtocol) {
         
     }
     
@@ -149,15 +118,22 @@ internal extension TapCheckout {
      Will be called once the charge response shows that, the charge has been successfully captured.
      - Parameter for charge: The charge object we will pass back to the user
      */
-    func handleInitated(for charge:Charge) {
-        
+    func handleInitated(for charge:ChargeProtocol) {
+        // Check if we need to make a redirection
+        if let redirectionURL:URL = charge.transactionDetails.url {
+            DispatchQueue.main.async{ [weak self] in
+                // Instruct the view to open a web view with the redirection url
+                guard let nonNullSelf = self else { return }
+                nonNullSelf.UIDelegate?.showWebView(with: redirectionURL,and: nonNullSelf)
+            }
+        }
     }
     
     /**
      Will be called once the charge response shows that, the charge has been successfully captured.
      - Parameter for charge: The charge object we will pass back to the user
      */
-    func handleCancelled(for charge:Charge) {
+    func handleCancelled(for charge:ChargeProtocol) {
         
     }
     

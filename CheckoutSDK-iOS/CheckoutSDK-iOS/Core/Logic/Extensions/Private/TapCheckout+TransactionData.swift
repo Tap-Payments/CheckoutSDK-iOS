@@ -249,6 +249,9 @@ internal class TransactionDataHolder {
     ///         And after will be toggled on automatically.
     var isSaveCardSwitchOnByDefault: Bool = true
     
+    /// Represents the latest charge object from the api
+    var currentCharge:Charge?
+    
     // MARK:- RxSwift Variables
     
     /// Represents the original transaction currency stated by the merchant on checkout start

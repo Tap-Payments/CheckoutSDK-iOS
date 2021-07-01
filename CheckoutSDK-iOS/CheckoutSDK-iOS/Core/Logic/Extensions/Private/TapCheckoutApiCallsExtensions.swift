@@ -7,9 +7,12 @@
 //
 
 import Foundation
+import TapNetworkKit_iOS
 
 /// An extension related to handle logic and methods related to API calls within the checkout process
 internal extension TapCheckout {
+    
+    internal typealias Completion<Response: Decodable> = (Response?, TapSDKError?) -> Void
     
     //MARK:- Methods for making the api calls
     
@@ -55,8 +58,13 @@ internal extension TapCheckout {
     }
     
     
-    /// Responsible for making the network call to payment options api
-    static func callChargeOrAuthorizeAPI(chargeRequestModel:TapChargeRequestModel, onResponeReady: @escaping (Charge) -> () = {_ in}, onErrorOccured: @escaping(Error)->() = {_ in}) {
+    /**
+     Respinsiboe for calling charge or authorize api
+     - Parameter chargeRequestModel: The charge request model to be called with
+     - Parameter onResponseReady: A block to call when getting the response
+     - Parameter onErrorOccured: A block to call when an error occured
+     */
+    static func callChargeOrAuthorizeAPI(chargeRequestModel:TapChargeRequestModel, onResponeReady: @escaping (ChargeProtocol) -> () = {_ in}, onErrorOccured: @escaping(Error)->() = {_ in}) {
         
         // Change the model into a dictionary
         guard let bodyDictionary = TapCheckout.convertModelToDictionary(chargeRequestModel, callingCompletionOnFailure: { error in
@@ -64,18 +72,81 @@ internal extension TapCheckout {
             return
         }) else { return }
         
+        // Call the corresponding api based on the transaction mode
+        if TapCheckout.sharedCheckoutManager().dataHolder.transactionData.transactionMode == .authorizeCapture {
+            callAuthorizeAPI(bodyDictionary: bodyDictionary, onResponeReady: onResponeReady, onErrorOccured: onErrorOccured)
+        }else{
+            callChargeAPI(bodyDictionary: bodyDictionary, onResponeReady: onResponeReady, onErrorOccured: onErrorOccured)
+        }
+    }
+    
+    /**
+     Respinsiboe for calling a get request for a retrivable object (e.g. charge, authorization, etc.) by providing its ID
+     - Parameter with identifier: The id of the object we want to retrieve
+     - Parameter onResponseReady: A block to call when getting the response
+     - Parameter onErrorOccured: A block to call when an error occured
+     */
+    static func retrieveObject<T: Retrievable>(with identifier: String, completion: @escaping Completion<T>, onErrorOccured: @escaping(Error)->() = {_ in}) {
         
+        // Create the GET url parameter model
+        let urlModel = TapURLModel.array(parameters: [identifier])
+        // Fetch the retrieve route based on the type of the object the method called on
+        let route = T.retrieveRoute
         
+        // Perform the retrieve request with the computed data
+        NetworkManager.shared.makeApiCall(routing: route, resultType: T.self, body: .none,httpMethod: .GET, urlModel: urlModel) { (session, result, error) in
+            // Double check all went fine
+            guard let parsedResponse:T = result as? T else {
+                onErrorOccured("Unexpected error")
+                return
+            }
+            // Execute the on complete block
+            completion(parsedResponse,nil)
+        } onError: { (session, result, errorr) in
+            // In case of an error we execute the on error block
+            onErrorOccured(errorr.debugDescription)
+        }
+    }
+    
+    /**
+     Respinsiboe for calling charge
+     - Parameter bodyDictionary: The charge request model to be called with
+     - Parameter onResponseReady: A block to call when getting the response
+     - Parameter onErrorOccured: A block to call when an error occured
+     */
+    fileprivate static func callChargeAPI(bodyDictionary:[String : Any], onResponeReady: @escaping (Charge) -> () = {_ in}, onErrorOccured: @escaping(Error)->() = {_ in}) {
+        // Call the charge API
         NetworkManager.shared.makeApiCall(routing: .charges, resultType: Charge.self, body: .init(body: bodyDictionary), httpMethod: .POST) { (session, result, error) in
             if let error = error {
                 onErrorOccured(error)
             }else{
                 guard let charge:Charge = result as? Charge else { onErrorOccured("Unexpected error")
                     return }
-                // Let us now load the payment options
+                // Call success block
                 onResponeReady(charge)
             }
-            
+        } onError: { (session, result, errorr) in
+            onErrorOccured(errorr.debugDescription)
+        }
+    }
+    
+    /**
+     Respinsiboe for calling authorize
+     - Parameter bodyDictionary: The authorize request model to be called with
+     - Parameter onResponseReady: A block to call when getting the response
+     - Parameter onErrorOccured: A block to call when an error occured
+     */
+    fileprivate static func callAuthorizeAPI(bodyDictionary:[String : Any], onResponeReady: @escaping (Authorize) -> () = {_ in}, onErrorOccured: @escaping(Error)->() = {_ in}) {
+        // Call the authorize API
+        NetworkManager.shared.makeApiCall(routing: .authorize, resultType: Authorize.self, body: .init(body: bodyDictionary), httpMethod: .POST) { (session, result, error) in
+            if let error = error {
+                onErrorOccured(error)
+            }else{
+                guard let authorize:Authorize = result as? Authorize else { onErrorOccured("Unexpected error")
+                    return }
+                // Call success block
+                onResponeReady(authorize)
+            }
         } onError: { (session, result, errorr) in
             onErrorOccured(errorr.debugDescription)
         }
