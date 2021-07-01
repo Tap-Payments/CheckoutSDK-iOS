@@ -46,11 +46,6 @@ extension TapCheckout {
         }
         
         // the Amounted Currency assigned by the merchant
-        var totalAmount:Double = calculateFinalAmount()
-        if totalAmount == 0
-        {
-            totalAmount = transactionData.transactionCurrencyValue.amount
-        }
         let amountedCurrency    =  transactionData.transactionCurrencyValue
         // the Amounted Currency selected by the user
         let amountedSelectedCurrency = transactionData.transactionUserCurrencyValue

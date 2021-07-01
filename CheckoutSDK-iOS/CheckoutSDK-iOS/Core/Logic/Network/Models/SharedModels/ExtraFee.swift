@@ -58,6 +58,11 @@ internal final class ExtraFee: AmountModificatorModel {
         // First get the correct extra fee with regards the amount and the extra fee type Percentage or Fixed
         let computedExtraFee:Double = caluclateActualModificationValue(with: amount)
         // We need to make sure if the computed fixed fee is in the range of min/max, otherwise if it is less than than min we set it to min and if more than max we set it to max
-        return max(minFee,min(computedExtraFee, maxFee))
+        // In the case where min and max = 0 then we compute the value right away
+        if minFee == 0 && maxFee == 0 {
+            return computedExtraFee
+        }else {
+            return max(minFee,min(computedExtraFee, maxFee))
+        }
     }
 }
