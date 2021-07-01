@@ -45,7 +45,17 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      */
     func dismissCheckout(with error:Error)
     
-    func showWebView(with url:URL,and navigationDelegate:WKNavigationDelegate?)
+    /**
+     Will be fired when we want the checkout controller to show a webview
+     - Parameter with url: The url we want to load
+     - Parameter and navigationDelegate: The navigationDelegate to handle the webview navigation flow
+     */
+    func showWebView(with url:URL,and navigationDelegate:TapWebViewModelDelegate?)
+    
+    /**
+     Will be fired in case we want to close/hide the currently shown web view in the checkout controller
+     */
+    func closeWebView()
     
 }
 

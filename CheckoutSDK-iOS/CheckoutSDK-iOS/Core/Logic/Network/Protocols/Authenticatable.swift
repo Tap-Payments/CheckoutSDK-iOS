@@ -16,3 +16,10 @@ internal protocol Authenticatable: Decodable {
     /// Authentication route.
     static var authenticationRoute: TapNetworkPath { get }
 }
+
+
+internal protocol AuthorizeProtocol: ChargeProtocol {
+    
+    /// Authorize action.
+    var authorizeAction: AuthorizeActionResponse { get }
+}

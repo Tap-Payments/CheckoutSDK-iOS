@@ -240,29 +240,30 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         tapVerticalView.showScanner(with: self)
     }
     
-    func showWebView(with url:URL, and navigationDelegate:WKNavigationDelegate? = nil) {
+    func showWebView(with url:URL, and navigationDelegate:TapWebViewModelDelegate? = nil) {
         // Stop the dismiss on swipe feature, because when we remove all views, the height will be minium than the threshold, ending up the whole sheet being dimissed
-        let sharedManager = TapCheckout.sharedCheckoutManager()
-        let originalDismissOnSwipeValue = sharedManager.dataHolder.viewModels.swipeDownToDismiss
-        sharedManager.dataHolder.viewModels.swipeDownToDismiss = false
+        let originalDismissOnSwipeValue = disableAutoDismiss()
         
         self.removeView(viewType: TapMerchantHeaderView.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true)
         
-        self.tapActionButtonViewModel.startLoading()
         webViewModel = .init()
-        webViewModel.delegate = self
+        webViewModel.delegate = navigationDelegate
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) { [weak self] in
             self?.tapVerticalView.hideActionButton()
             self?.tapVerticalView.add(view: self!.webViewModel.attachedView, with: [.init(for: .fadeIn, with:self!.fadeInAnimationDuration, wait: self!.fadeInAnimationDelay)],shouldFillHeight: true)
             self?.webViewModel.load(with: url)
             // Set it back to swipe on dismiss
-            sharedManager.dataHolder.viewModels.swipeDownToDismiss = originalDismissOnSwipeValue
+            TapCheckout.sharedCheckoutManager().dataHolder.viewModels.swipeDownToDismiss = originalDismissOnSwipeValue
         }
     }
     
     
     func closeWebView() {
+        
+        // Stop the dismiss on swipe feature, because when we remove all views, the height will be minium than the threshold, ending up the whole sheet being dimissed
+        let originalDismissOnSwipeValue = disableAutoDismiss()
+        
         self.view.endEditing(true)
         self.tapVerticalView.remove(view: webViewModel.attachedView, with: .init(for: .fadeOut, with: fadeOutAnimationDuration))
         self.tapVerticalView.showActionButton()
@@ -270,6 +271,8 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         self.tapActionButtonViewModel.startLoading()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) { [weak self] in
+            // Set it back to swipe on dismiss
+            TapCheckout.sharedCheckoutManager().dataHolder.viewModels.swipeDownToDismiss = originalDismissOnSwipeValue
             self?.tapActionButtonViewModel.endLoading(with: true, completion: {
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
                     self?.dismiss(animated: true, completion: nil)
@@ -278,6 +281,13 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         }
     }
     
+    func disableAutoDismiss() -> Bool {
+        // Stop the dismiss on swipe feature, because when we remove all views, the height will be minium than the threshold, ending up the whole sheet being dimissed
+        let sharedManager = TapCheckout.sharedCheckoutManager()
+        let originalDismissOnSwipeValue = sharedManager.dataHolder.viewModels.swipeDownToDismiss
+        sharedManager.dataHolder.viewModels.swipeDownToDismiss = false
+        return originalDismissOnSwipeValue
+    }
     
     func hideGoPay() {
         self.view.endEditing(true)

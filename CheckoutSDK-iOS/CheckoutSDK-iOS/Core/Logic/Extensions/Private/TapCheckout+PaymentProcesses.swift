@@ -42,14 +42,13 @@ internal extension TapCheckout {
      */
     func startWebPayment(with paymentOption:PaymentOption) {
         // Change the action button to loading status
-        UIDelegate?.actionButton(shouldLoad: true, success: false, onComplete: {})
+        TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapActionButtonViewModel.startLoading()
         // Create the charge request
         let chargeRequest:TapChargeRequestModel = createChargeOrAuthorizeRequestModel(with: paymentOption, token: nil, cardBIN: nil)
         TapCheckout.callChargeOrAuthorizeAPI(chargeRequestModel: chargeRequest) { [weak self] charge in
-            //print(charge)
             DispatchQueue.main.async{
                 guard let nonNullSelf = self else { return }
-                nonNullSelf.UIDelegate?.showWebView(with: charge.transactionDetails.url!,and: nil)
+                nonNullSelf.UIDelegate?.showWebView(with: charge.transactionDetails.url!,and: nonNullSelf)
             }
         } onErrorOccured: { [weak self] error in
             self?.UIDelegate?.actionButton(shouldLoad: false, success: false, onComplete: {
@@ -94,6 +93,72 @@ internal extension TapCheckout {
         
         UIDelegate?.show(alert: alertController)
 
+    }
+    
+    /**
+     Handles the charge response to see what should be the next action
+     - Parameter with charge: The charge response we want to analyse and decide the next action based on it
+     */
+    func handleCharge(with charge:Charge) {
+        // Based on the status we will know what to do
+        let chargeStatus = charge.status
+        switch chargeStatus {
+        case .captured:
+            handleCaptured(for:charge)
+            break
+        case .authorized:
+            handleAuthorized(for:charge)
+            break
+        case .failed:
+            handleFailed(for:charge)
+            break
+        case .initiated:
+            handleInitated(for:charge)
+            break
+        default:
+            handleCancelled(for:charge)
+        }
+    }
+    
+    
+    /**
+     Will be called once the charge response shows that, the charge has been successfully captured.
+     - Parameter for charge: The charge object we will pass back to the user
+     */
+    func handleCaptured(for charge:Charge) {
+        
+    }
+    
+    /**
+     Will be called once the charge response shows that, the authorize has been successfully captured.
+     - Parameter for charge: The charge object we will pass back to the user
+     */
+    func handleAuthorized(for charge:Charge) {
+        
+    }
+    
+    /**
+     Will be called once the charge response shows that, the charge has been successfully captured.
+     - Parameter for charge: The charge object we will pass back to the user
+     */
+    func handleFailed(for charge:Charge) {
+        
+    }
+    
+    /**
+     Will be called once the charge response shows that, the charge has been successfully captured.
+     - Parameter for charge: The charge object we will pass back to the user
+     */
+    func handleInitated(for charge:Charge) {
+        
+    }
+    
+    /**
+     Will be called once the charge response shows that, the charge has been successfully captured.
+     - Parameter for charge: The charge object we will pass back to the user
+     */
+    func handleCancelled(for charge:Charge) {
+        
     }
     
 }
