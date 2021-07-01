@@ -12,7 +12,7 @@ import TapNetworkKit_iOS
 /// An extension related to handle logic and methods related to API calls within the checkout process
 internal extension TapCheckout {
     
-    internal typealias Completion<Response: Decodable> = (Response?, TapSDKError?) -> Void
+    typealias Completion<Response: Decodable> = (Response?, TapSDKError?) -> Void
     
     //MARK:- Methods for making the api calls
     
@@ -20,7 +20,7 @@ internal extension TapCheckout {
     func initialiseSDKFromAPI(onCheckOutReady: @escaping () -> () = {}) {
         // As per the backend logic, we will have to hit INIT then Payment options APIs
         NetworkManager.shared.makeApiCall(routing: .InitAPI, resultType: TapInitResponseModel.self) { [weak self] (session, result, error) in
-            guard let initModel:TapInitResponseModel = result as? TapInitResponseModel else { self?.handleError(error: "Unexpected error")
+            guard let initModel:TapInitResponseModel = result as? TapInitResponseModel else { self?.handleError(error: "Unexpected error when parsing into TapInitResponseModel")
                 return }
             self?.handleInitResponse(initModel: initModel)
             // Let us now load the payment options
@@ -47,7 +47,7 @@ internal extension TapCheckout {
         
         
         NetworkManager.shared.makeApiCall(routing: .PaymentOptionsAPI, resultType: TapPaymentOptionsReponseModel.self, body: .init(body: bodyDictionary), httpMethod: .POST) { [weak self] (session, result, error) in
-            guard let paymentOptionsResponse:TapPaymentOptionsReponseModel = result as? TapPaymentOptionsReponseModel else { self?.handleError(error: "Unexpected error")
+            guard let paymentOptionsResponse:TapPaymentOptionsReponseModel = result as? TapPaymentOptionsReponseModel else { self?.handleError(error: "Unexpected error when parsing TapPaymentOptionsReponseModel")
                 return }
             // Let us now load the payment options
             TapCheckout.sharedCheckoutManager().dataHolder.transactionData.paymentOptionsModelResponse = paymentOptionsResponse
@@ -64,7 +64,7 @@ internal extension TapCheckout {
      - Parameter onResponseReady: A block to call when getting the response
      - Parameter onErrorOccured: A block to call when an error occured
      */
-    static func callChargeOrAuthorizeAPI(chargeRequestModel:TapChargeRequestModel, onResponeReady: @escaping (ChargeProtocol) -> () = {_ in}, onErrorOccured: @escaping(Error)->() = {_ in}) {
+    func callChargeOrAuthorizeAPI(chargeRequestModel:TapChargeRequestModel, onResponeReady: @escaping (ChargeProtocol) -> () = {_ in}, onErrorOccured: @escaping(Error)->() = {_ in}) {
         
         // Change the model into a dictionary
         guard let bodyDictionary = TapCheckout.convertModelToDictionary(chargeRequestModel, callingCompletionOnFailure: { error in
@@ -86,7 +86,7 @@ internal extension TapCheckout {
      - Parameter onResponseReady: A block to call when getting the response
      - Parameter onErrorOccured: A block to call when an error occured
      */
-    static func retrieveObject<T: Retrievable>(with identifier: String, completion: @escaping Completion<T>, onErrorOccured: @escaping(Error)->() = {_ in}) {
+    func retrieveObject<T: Retrievable>(with identifier: String, completion: @escaping Completion<T>, onErrorOccured: @escaping(Error)->() = {_ in}) {
         
         // Create the GET url parameter model
         let urlModel = TapURLModel.array(parameters: [identifier])
@@ -97,7 +97,7 @@ internal extension TapCheckout {
         NetworkManager.shared.makeApiCall(routing: route, resultType: T.self, body: .none,httpMethod: .GET, urlModel: urlModel) { (session, result, error) in
             // Double check all went fine
             guard let parsedResponse:T = result as? T else {
-                onErrorOccured("Unexpected error")
+                onErrorOccured("Unexpected error parsing into")
                 return
             }
             // Execute the on complete block
@@ -114,13 +114,13 @@ internal extension TapCheckout {
      - Parameter onResponseReady: A block to call when getting the response
      - Parameter onErrorOccured: A block to call when an error occured
      */
-    fileprivate static func callChargeAPI(bodyDictionary:[String : Any], onResponeReady: @escaping (Charge) -> () = {_ in}, onErrorOccured: @escaping(Error)->() = {_ in}) {
+    fileprivate func callChargeAPI(bodyDictionary:[String : Any], onResponeReady: @escaping (Charge) -> () = {_ in}, onErrorOccured: @escaping(Error)->() = {_ in}) {
         // Call the charge API
         NetworkManager.shared.makeApiCall(routing: .charges, resultType: Charge.self, body: .init(body: bodyDictionary), httpMethod: .POST) { (session, result, error) in
             if let error = error {
                 onErrorOccured(error)
             }else{
-                guard let charge:Charge = result as? Charge else { onErrorOccured("Unexpected error")
+                guard let charge:Charge = result as? Charge else { onErrorOccured("Unexpected error parsing into Charge")
                     return }
                 // Call success block
                 onResponeReady(charge)
@@ -136,13 +136,13 @@ internal extension TapCheckout {
      - Parameter onResponseReady: A block to call when getting the response
      - Parameter onErrorOccured: A block to call when an error occured
      */
-    fileprivate static func callAuthorizeAPI(bodyDictionary:[String : Any], onResponeReady: @escaping (Authorize) -> () = {_ in}, onErrorOccured: @escaping(Error)->() = {_ in}) {
+    fileprivate func callAuthorizeAPI(bodyDictionary:[String : Any], onResponeReady: @escaping (Authorize) -> () = {_ in}, onErrorOccured: @escaping(Error)->() = {_ in}) {
         // Call the authorize API
         NetworkManager.shared.makeApiCall(routing: .authorize, resultType: Authorize.self, body: .init(body: bodyDictionary), httpMethod: .POST) { (session, result, error) in
             if let error = error {
                 onErrorOccured(error)
             }else{
-                guard let authorize:Authorize = result as? Authorize else { onErrorOccured("Unexpected error")
+                guard let authorize:Authorize = result as? Authorize else { onErrorOccured("Unexpected error parsing into Authorize")
                     return }
                 // Call success block
                 onResponeReady(authorize)

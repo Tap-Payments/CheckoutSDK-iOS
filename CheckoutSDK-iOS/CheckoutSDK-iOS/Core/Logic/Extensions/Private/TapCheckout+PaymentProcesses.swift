@@ -45,16 +45,14 @@ internal extension TapCheckout {
         TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapActionButtonViewModel.startLoading()
         // Create the charge request and call it
         let chargeRequest:TapChargeRequestModel = createChargeOrAuthorizeRequestModel(with: paymentOption, token: nil, cardBIN: nil)
-        TapCheckout.callChargeOrAuthorizeAPI(chargeRequestModel: chargeRequest) { [weak self] charge in
+        callChargeOrAuthorizeAPI(chargeRequestModel: chargeRequest) { [weak self] charge in
             DispatchQueue.main.async{
                 // Process the charge protocol response we got from the server
                 guard let nonNullSelf = self else { return }
                 nonNullSelf.handleCharge(with: charge)
             }
         } onErrorOccured: { [weak self] error in
-            self?.UIDelegate?.actionButton(shouldLoad: false, success: false, onComplete: {
-                self?.UIDelegate?.dismissCheckout(with: error)
-            })
+            self?.handleError(error: error)
         }
 
     }

@@ -29,15 +29,15 @@ extension TapCheckout {
         // Show the button in a loading state
         dataHolder.viewModels.tapActionButtonViewModel.startLoading()
         // We need to retrieve the object using the passed id and process it afterwards
-        TapCheckout.retrieveObject(with: tapID) { [weak self] (returnChargeOrAuthorize: T?, error: TapSDKError?) in
-            if let _ = error {
-                
+        retrieveObject(with: tapID) { [weak self] (returnChargeOrAuthorize: T?, error: TapSDKError?) in
+            if let error = error {
+                self?.handleError(error: error)
             }else if let returnChargeOrAuthorize = returnChargeOrAuthorize {
                 // No errors occured we need to process the current charge or authorize
                 self?.handleCharge(with: returnChargeOrAuthorize)
             }
-        } onErrorOccured: { (error) in
-            
+        } onErrorOccured: { [weak self] (error) in
+            self?.handleError(error: error)
         }
 
     }

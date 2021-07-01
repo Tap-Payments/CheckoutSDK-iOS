@@ -47,7 +47,12 @@ internal class NetworkManager: NSObject {
         networkManager.performRequest(requestOperation, completion: { (session, result, error) in
             //print("result is: \(String(describing: result))")
             //print("error: \(String(describing: error))")
-            
+        
+            //Check for errors
+            if let error = error {
+                onError?(session,result,error)
+                return
+            }
             // Check we need to do the on error callbak or not
             guard let correctParsing = result as? T else {
                 guard let detectedError = self.detectError(from: result, and: error) else {
