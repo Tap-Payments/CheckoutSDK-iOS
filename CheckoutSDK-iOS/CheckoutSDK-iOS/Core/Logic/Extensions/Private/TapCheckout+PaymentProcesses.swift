@@ -79,7 +79,7 @@ internal extension TapCheckout {
         case .failed,.declined:
             handleFailed(for:chargeOrAuthorize)
             break
-        case .initiated:
+        case .initiated,.inProgress:
             handleInitated(for:chargeOrAuthorize)
             break
         default:
