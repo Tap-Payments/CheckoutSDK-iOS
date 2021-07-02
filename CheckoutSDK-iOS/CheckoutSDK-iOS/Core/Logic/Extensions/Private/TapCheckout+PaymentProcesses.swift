@@ -28,6 +28,7 @@ internal extension TapCheckout {
      - Parameter with paymentOption: The payment option to start the checkout process with
      */
     func startPayment(with paymentOption:PaymentOption) {
+        // Based on the payment option type, we need to follow the corresponding logic flow
         switch paymentOption.paymentType {
         case .Web:
             startWebPayment(with: paymentOption)

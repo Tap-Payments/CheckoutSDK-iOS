@@ -46,7 +46,9 @@ extension TapCheckout {
 }
 
 extension TapCheckout:TapWebViewModelDelegate {
+    
     public func willLoad(request: URLRequest) -> WKNavigationActionPolicy {
+        // Double check, there is a url to load :)
         guard let url = request.url else {
             return(.cancel)
         }
@@ -71,22 +73,25 @@ extension TapCheckout:TapWebViewModelDelegate {
         return decision.shouldLoad ? .allow : .cancel
     }
     
-    public func didLoad(url: URL?) {
-        
-    }
+    public func didLoad(url: URL?) {}
     
     public func didFail(with error: Error, for url: URL?) {
         // If any error happened, all what we need to do now is to go away :)
         handleError(error: "Failed to load:\n\(url?.absoluteString ?? "")\nWith Error :\n\(error)")
     }
     
-    
+    /**
+     Used to decide the decision the web view should do based in the url being requested
+     - Parameter forWebPayment url: The url being requested we need to decide the flow based on
+     - Returns: The decision based on the url and backend instructions detected inside the url
+     */
     internal func navigationDecision(forWebPayment url: URL) -> WebPaymentURLDecision {
-        
+        // Detect if the url is the return url (stop redirecting.)
         let urlIsReturnURL = url.absoluteString.starts(with: WebPaymentHandlerConstants.returnURL.absoluteString)
         
         let shouldLoad = !urlIsReturnURL
         let redirectionFinished = urlIsReturnURL
+        // Check if the backend passed the ID of the object (charge or authorize)
         let tapID = url[WebPaymentHandlerConstants.tapIDKey]
         let shouldCloseWebPaymentScreen = redirectionFinished// && self.dataHolder.transactionData.selectedPaymentOption?.paymentType == .Card
         
