@@ -11,9 +11,11 @@ import Foundation
 /// Logic to handel webviews based gateway
 extension TapCheckout {
     
+    /// Struct to hold the constants related to control the flow of the webview by lookin ginto constants into the loaded URL
     struct WebPaymentHandlerConstants {
-        
+        /// Whenever we find this prefix in the URL, the backend is telling we need to stop redirecting
         static let returnURL = URL(string: "gosellsdk://return_url")!
+        /// Whenever we have this key inside the URL we get the ibject id to retrieve it afterwards
         static let tapIDKey = "tap_id"
         
         //@available(*, unavailable) private init() { fatalError("This struct cannot be instantiated.") }
@@ -49,18 +51,20 @@ extension TapCheckout:TapWebViewModelDelegate {
             return(.cancel)
         }
         
+        // First get the decision based on the loaded url
         let decision = navigationDecision(forWebPayment: url)
         
+        // If the redirection finished we need to fetch the object id from the url to further process it
         if decision.redirectionFinished, let tapID = decision.tapID {
             
-            // Process the web payment upon getting the transaction ID from the backend url based on the transaction mode
+            // Process the web payment upon getting the transaction ID from the backend url based on the transaction mode Charge or Authorize
             if(dataHolder.transactionData.transactionMode == .purchase) {
                 webPaymentProcessFinished(with: tapID, of: Charge.self)
             }else{
                 webPaymentProcessFinished(with: tapID, of: Authorize.self)
             }
         }else if decision.shouldCloseWebPaymentScreen {
-            
+            // The backend told us we need to close the web view :)
             self.UIDelegate?.closeWebView()
         }
         
@@ -72,7 +76,8 @@ extension TapCheckout:TapWebViewModelDelegate {
     }
     
     public func didFail(with error: Error, for url: URL?) {
-        
+        // If any error happened, all what we need to do now is to go away :)
+        handleError(error: "Failed to load:\n\(url?.absoluteString ?? "")\nWith Error :\n\(error)")
     }
     
     
