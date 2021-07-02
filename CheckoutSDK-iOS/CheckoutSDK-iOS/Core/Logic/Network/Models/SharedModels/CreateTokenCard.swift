@@ -15,54 +15,63 @@ internal struct CreateTokenCard {
     
     /// Card address.
     internal private(set) var address: Address?
+    /// The card data encrypted
+    private let sensitiveCardData: SensitiveCardData
     
     // MARK: Methods
     
     internal init(number: String, expirationMonth: String, expirationYear: String, cvc: String, cardholderName: String, address: Address?) {
         
-        self.sensitiveCardData = SensitiveCardData(number: number, month: expirationMonth, year: expirationYear, cvc: cvc, name: cardholderName)
+        self.sensitiveCardData = SensitiveCardData(number: number, month: expirationMonth, year: expirationYear, cvv: cvc, name: cardholderName)
         self.address = address
     }
-    
-    // MARK: - Fileprivate -
-    
-    fileprivate struct SensitiveCardData: SecureEncodable {
-        
-        fileprivate init(number: String, month: String, year: String, cvc: String, name: String) {
-            
-            self.number = number
-            self.expirationMonth = month
-            self.expirationYear = year
-            self.cvc = cvc
-            self.cardholderName = name
-        }
-        
-        private let number: String
-        private let expirationMonth: String
-        private let expirationYear: String
-        private let cvc: String
-        private let cardholderName: String
-        
-        private enum CodingKeys: String, CodingKey {
-            
-            case number             = "number"
-            case expirationMonth    = "exp_month"
-            case expirationYear     = "exp_year"
-            case cvc                = "cvc"
-            case cardholderName     = "name"
-        }
-    }
-    
-    // MARK: - Private -
     
     private enum CodingKeys: String, CodingKey {
         
         case sensitiveCardData  = "crypted_data"
         case address            = "address"
     }
+}
+
+
+// MARK: - Fileprivate -
+/// A struct that transforms the card details into an encrypted data to be shared securley over the network
+fileprivate struct SensitiveCardData: SecureEncodable {
+    /**
+     Init the encrypter
+     - parameter number:    The card number
+     - parameter month:     The card expiry month
+     - parameter year:      The card expiry year
+     - parameter cvv:       The card secure digits
+     - parameter name:      The card's holder name
+     */
+    fileprivate init(number: String, month: String, year: String, cvv: String, name: String) {
+        
+        self.number = number
+        self.expirationMonth = month
+        self.expirationYear = year
+        self.ccv = cvv
+        self.cardholderName = name
+    }
+    /// The card number
+    private let number: String
+    /// The card expiry month
+    private let expirationMonth: String
+    /// The card expiry year
+    private let expirationYear: String
+    /// The card secure digits
+    private let ccv: String
+    /// The card's holder name
+    private let cardholderName: String
     
-    // MARK: Properties
-    private let sensitiveCardData: SensitiveCardData
+    private enum CodingKeys: String, CodingKey {
+        
+        case number             = "number"
+        case expirationMonth    = "exp_month"
+        case expirationYear     = "exp_year"
+        case ccv                = "cvc"
+        case cardholderName     = "name"
+    }
 }
 
 // MARK: - Encodable
