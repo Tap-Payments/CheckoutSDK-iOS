@@ -32,6 +32,8 @@ internal extension TapCheckout {
         switch paymentOption.paymentType {
         case .Web:
             startWebPayment(with: paymentOption)
+        case .Card:
+            startCardPayment(with: paymentOption)
         default:
             return
         }
@@ -56,6 +58,27 @@ internal extension TapCheckout {
             self?.handleError(error: error)
         }
 
+    }
+    
+    /**
+     Used to call the correct checkout logic for the web based payment options
+     - Parameter with paymentOption: The payment option to start the checkout process with
+     */
+    func startCardPayment(with paymentOption:PaymentOption) {
+        // Change the action button to loading status
+        TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapActionButtonViewModel.startLoading()
+        // Create the charge request and call it
+        let chargeRequest:TapChargeRequestModel = createChargeOrAuthorizeRequestModel(with: paymentOption, token: nil, cardBIN: nil)
+        callChargeOrAuthorizeAPI(chargeRequestModel: chargeRequest) { [weak self] charge in
+            DispatchQueue.main.async{
+                // Process the charge protocol response we got from the server
+                guard let nonNullSelf = self else { return }
+                nonNullSelf.handleCharge(with: charge)
+            }
+        } onErrorOccured: { [weak self] error in
+            self?.handleError(error: error)
+        }
+        
     }
     
     /**

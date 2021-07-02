@@ -37,8 +37,8 @@ extension TapCheckout {
         let source = SourceRequest(identifier: sourceIdentifier)
         
         // Create the essential data
-        //guard let orderID     = paymentOptionsModelResponse?.orderIdentifier else { fatalError("This case should never happen.") }
-        let orderID = "ord_TS040120212018Dm431906670"
+        
+        guard let orderID     = dataHolder.transactionData.paymentOptionsModelResponse?.orderIdentifier else { fatalError("This case should never happen.") }
         
         var post: TrackingURL? = nil
         if let postURL = transactionData.postURL {
@@ -114,5 +114,7 @@ extension TapCheckout {
             fatalError("This case should never happen.")
         }
     }
+    
+    
     
 }
