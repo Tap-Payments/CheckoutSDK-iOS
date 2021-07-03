@@ -143,6 +143,12 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
     }
     
     
+    /// Handles the logic to perform parsing for the card data loaded from the bin lookup api
+    func parseTapBinResponse() {
+        
+    }
+    
+    
     /// Handles all the logic needed when the original transaction currency changed
     func transactionCurrencyUpdated() {
         // Change in the original transaction currency, means this is the basic configuration called from the merchanr on load, so we initialy set it to be the same as the selected user currency

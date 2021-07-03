@@ -175,10 +175,10 @@ extension TapBottomCheckoutControllerViewController: TapVerticalViewDelegate {
 
 extension TapBottomCheckoutControllerViewController:TapMerchantHeaderViewDelegate {
     func iconClicked() {
-        showAlert(title: "Merchant Header", message: "You can make any action needed based on clicking the Profile Logo ;)")
+        //showAlert(title: "Merchant Header", message: "You can make any action needed based on clicking the Profile Logo ;)")
     }
     func merchantHeaderClicked() {
-        showAlert(title: "Merchant Header", message: "The user clicked on the header section, do you want me to do anything?")
+        //showAlert(title: "Merchant Header", message: "The user clicked on the header section, do you want me to do anything?")
     }
 }
 
@@ -486,8 +486,11 @@ extension TapBottomCheckoutControllerViewController:TapCardTelecomPaymentProtoco
     }
     
     func cardDataChanged(tapCard: TapCard) {
+        // When a new card data is entered, then we need to deselct any selected gatways like SAVED CARDS or Redirections chips
         sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deselectAll()
         sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.deselectAll()
+        // Let us inform the checkout shared manager about the new card please
+        sharedCheckoutDataManager.dataHolder.transactionData.currentCard = (tapCard.tapCardNumber?.tap_length ?? 0 > 0) ? tapCard : nil
     }
     
     func brandDetected(for cardBrand: CardBrand, with validation: CrardInputTextFieldStatusEnum) {

@@ -16,6 +16,8 @@ internal protocol TapCheckoutDataHolderDelegate {
     func parseInitResponse()
     /// Handles the logic to fetch different sections from the Payment options response
     func parsePaymentOptionsResponse()
+    /// Handles the logic to perform parsing for the card data loaded from the bin lookup api
+    func parseTapBinResponse()
     /// Handles all the logic needed when the original transaction currency changed
     func transactionCurrencyUpdated()
     /// The amount section and items list will be changed if total amount or the selected currency is changed one of them or both
@@ -164,6 +166,14 @@ internal class TransactionDataHolder {
         }
     }
     
+    /// Represents the last card data loaded from the Bin Lookup api
+    var binLookUpModelResponse:TapBinResponseModel?{
+        didSet{
+            // Now it is time to fetch needed data from the model parsed
+            dataHolderDelegate?.parseTapBinResponse()
+        }
+    }
+    
     
     
     
@@ -251,6 +261,13 @@ internal class TransactionDataHolder {
     
     /// Represents the latest charge object from the api
     var currentCharge:Charge?
+    
+    /// Represents the latest
+    var currentCard:TapCard? {
+        didSet{
+            print(currentCard?.tapCardNumber ?? "NO CARD DATA")
+        }
+    }
     
     // MARK:- RxSwift Variables
     
