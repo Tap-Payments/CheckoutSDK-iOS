@@ -62,5 +62,23 @@ extension TapCheckout {
         return true
     }
     
+    /**
+     Decides whether we should allow entering the card details or not based on checking if its type is one of the allowed card types passed by the merchant
+     - Returns: True if whether we didn't call the bin api yet or the bin api response card type is one of the allowed card types
+     */
+    func shouldAllowCard() -> Bool {
+        
+        // Make sure we have a valid bin response
+        guard let responseModel = dataHolder.transactionData.binLookUpModelResponse else {
+            // Then we should allow as we have nothing to compare against
+            return true
+        }
+        
+        // get the bin response card type
+        let currentCardType:CardType = responseModel.cardType
+        // Check if it is one of the allowed card types passed from the merchant on checkout start
+        return dataHolder.transactionData.allowedCardTypes.contains(currentCardType)
+        
+    }
     
 }
