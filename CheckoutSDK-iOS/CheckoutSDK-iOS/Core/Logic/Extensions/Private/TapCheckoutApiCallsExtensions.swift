@@ -108,6 +108,33 @@ internal extension TapCheckout {
         }
     }
     
+    
+    /// Retrieves BIN number details for the given `binNumber` and calls `completion` when request finishes.
+    ///
+    /// - Parameters:
+    ///   - binNumber: First 6 digits of the card.
+    ///   - completion: Completion that will be called when request finishes.
+    func getBINDetails(for binNumber: String, onResponeReady: @escaping (TapBinResponseModel) -> () = {_ in}, onErrorOccured: @escaping(Error)->() = {_ in}) {
+        
+        let urlModel = TapURLModel.array(parameters: [binNumber])
+        
+        // Perform the retrieve request with the computed data
+        NetworkManager.shared.makeApiCall(routing: TapNetworkPath.bin, resultType: TapBinResponseModel.self, body: .none,httpMethod: .GET, urlModel: urlModel) { (session, result, error) in
+            // Double check all went fine
+            guard let parsedResponse:TapBinResponseModel = result as? TapBinResponseModel else {
+                onErrorOccured("Unexpected error parsing into")
+                return
+            }
+            // Execute the on complete block
+            onResponeReady(parsedResponse)
+        } onError: { (session, result, errorr) in
+            // In case of an error we execute the on error block
+            onErrorOccured(errorr.debugDescription)
+        }
+        
+    }
+    
+    
     /**
      Respinsiboe for calling charge
      - Parameter bodyDictionary: The charge request model to be called with

@@ -198,6 +198,7 @@ extension CardNumberTextField:UITextFieldDelegate {
     
     
     internal func cardBrand(for cardNumber:String) -> (CardBrand?,CardValidationState) {
+        // OSAA VALIDATE HERE
         let validation = CardValidator.validate(cardNumber: cardNumber.onlyDigits(),preferredBrands: allowedBrands.map{ CardBrand.init(rawValue: $0)! })
         return (validation.cardBrand,validation.validationState)
     }

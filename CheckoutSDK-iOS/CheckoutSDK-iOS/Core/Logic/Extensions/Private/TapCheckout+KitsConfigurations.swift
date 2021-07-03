@@ -120,9 +120,6 @@ internal extension TapCheckout {
         sharedManager.dataHolder.viewModels.closeButtonStyle = closeButtonStyle
         sharedManager.dataHolder.viewModels.showDragHandler = showDragHandler
         
-        
-         /*sharedManager.dataHolder.transactionData = TransactionDataHolder.init(dataHolderDelegate:sharedManager, paymentType: paymentType, applePayMerchantID: applePayMerchantID, transactionMode: transactionMode, customer: customer, destinations: destinations, tapMerchantID: tapMerchantID, taxes: taxes, shipping: shipping, allowedCardTypes: allowedCardTypes, postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor, require3DSecure: require3DSecure, receiptSettings: receiptSettings, authorizeAction: authorizeAction, allowsToSaveSameCardMoreThanOnce: allowsToSaveSameCardMoreThanOnce, enableSaveCard: enableSaveCard, isSaveCardSwitchOnByDefault: isSaveCardSwitchOnByDefault, transactionCurrencyValue: .init(currency, amount, "")) */
-        
         sharedManager.dataHolder.transactionData.dataHolderDelegate = sharedManager
         
         sharedManager.dataHolder.transactionData.transactionCurrencyValue   = .init(currency, amount, "")

@@ -23,7 +23,7 @@ internal struct CreateTokenWithCardDataRequest: CreateTokenRequest {
     
     /// Card to create token for.
     internal let card: CreateTokenCard
-    
+    /// The api endpoint path for tokens
     internal let route: TapNetworkPath = .tokens
     
     // MARK: - Internal -
