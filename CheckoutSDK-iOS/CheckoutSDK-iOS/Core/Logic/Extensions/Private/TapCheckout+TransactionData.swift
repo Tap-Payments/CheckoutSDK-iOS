@@ -265,7 +265,7 @@ internal class TransactionDataHolder {
     /// Represents the latest
     var currentCard:TapCard? {
         didSet{
-            print(currentCard?.tapCardNumber ?? "NO CARD DATA")
+            TapCheckout.sharedCheckoutManager().handleCardData(with: currentCard)
         }
     }
     

@@ -15,10 +15,10 @@ extension TapCheckout {
      Provides the logic needed to be done upon changing the card data provided by the user in the card form or the scanner
      - Parameter with card: The new card model with all the new data
      */
-    func handleCardData(with card:TapCard) {
+    func handleCardData(with card:TapCard?) {
         // Check if we have less than 6 digits we clear the current stored bin response
         
-        guard let cardNumber:String = card.tapCardNumber,
+        guard let card = card, let cardNumber:String = card.tapCardNumber,
               cardNumber.count >= 6 else {
             // Then we need to reset the last called bin response if any.
             dataHolder.transactionData.binLookUpModelResponse = nil
@@ -28,8 +28,10 @@ extension TapCheckout {
         // Check if we need to call the binlook up first
         if shouldWeCallBinLookUpAgain(with: card) {
             // Call the binlook up
-            getBINDetails(for: cardNumber.tap_substring(to: 6)) { (binResponseModel) in
-                
+            getBINDetails(for: cardNumber.tap_substring(to: 6)) { [weak self] (binResponseModel) in
+                // Let us handle and do the needed logic with the latest fetched bin response model
+                // First, store it for further processing and access
+                self?.dataHolder.transactionData.binLookUpModelResponse = binResponseModel
             } onErrorOccured: { [weak self] (error) in
                 self?.handleError(error: error)
             }
@@ -51,14 +53,13 @@ extension TapCheckout {
         }
         
         // Let us make sure we already have a bin look up model called already to compare against and if yes, they have different prefixes
-        guard let lastBinLookUpResponse:TapBinResponseModel = dataHolder.transactionData.binLookUpModelResponse,
-              lastBinLookUpResponse.binNumber != cardNumber else {
-            // This means we should call the bin look as we didn't call it before
-            return true
+        guard dataHolder.transactionData.binLookUpModelResponse?.binNumber != cardNumber.tap_substring(to: 6) else {
+            // This means we shouldn't call the binlook up
+            return false
         }
         
-        // This means we shouldn't call the binlook up
-        return false
+        // This means we should call the bin look as we didn't call it before
+        return true
     }
     
     
