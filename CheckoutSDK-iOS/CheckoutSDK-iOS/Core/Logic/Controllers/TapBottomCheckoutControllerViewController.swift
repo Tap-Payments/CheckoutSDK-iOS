@@ -410,20 +410,6 @@ extension TapBottomCheckoutControllerViewController:TapChipHorizontalListViewMod
         }
     }
     
-    func handleCardPayment(for cardBrand: CardBrand, with validation: CrardInputTextFieldStatusEnum) {
-        if validation == .Valid,
-            sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.decideHintStatus() == .None {
-            tapActionButtonViewModel.buttonStatus = .ValidPayment
-            let payAction:()->() = { self.startPayment(then:false) }
-            tapActionButtonViewModel.buttonActionBlock = payAction
-            sharedCheckoutDataManager.dataHolder.viewModels.tapSaveCardSwitchViewModel.cardState = .validCard
-        }else{
-            tapActionButtonViewModel.buttonStatus = .InvalidPayment
-            tapActionButtonViewModel.buttonActionBlock = {}
-            sharedCheckoutDataManager.dataHolder.viewModels.tapSaveCardSwitchViewModel.cardState = .invalidCard
-        }
-    }
-    
     func startPayment(then success:Bool) {
         view.endEditing(true)
         self.removeView(viewType: TapAmountSectionView.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true, skipSelf: true)
@@ -499,7 +485,7 @@ extension TapBottomCheckoutControllerViewController:TapCardTelecomPaymentProtoco
         if cardBrand.brandSegmentIdentifier == "telecom" {
             handleTelecomPayment(for: cardBrand, with: validation)
         }else if cardBrand.brandSegmentIdentifier == "cards" {
-            handleCardPayment(for: cardBrand, with: validation)
+            sharedCheckoutDataManager.handleCardValidationStatus(with: validation)
         }
     }
     

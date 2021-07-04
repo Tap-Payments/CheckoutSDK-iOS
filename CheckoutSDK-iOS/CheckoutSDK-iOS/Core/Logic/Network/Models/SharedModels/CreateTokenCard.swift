@@ -26,6 +26,17 @@ internal struct CreateTokenCard {
         self.address = address
     }
     
+    /// Create TokenedCardRequest from the TapCardModel
+    internal init(card:TapCard, address:Address?) throws {
+        
+        guard let number = card.tapCardNumber, let expirationMonth = card.tapCardExpiryMonth, let expirationYear = card.tapCardExpiryYear, let cvv = card.tapCardCVV else {
+            throw "Cannot create a sensitive card without card info"
+        }
+        
+        self.sensitiveCardData = SensitiveCardData(number: number, month: expirationMonth, year: expirationYear, cvv: cvv, name: card.tapCardName ?? "")
+        self.address = address
+    }
+    
     private enum CodingKeys: String, CodingKey {
         
         case sensitiveCardData  = "crypted_data"

@@ -80,6 +80,38 @@ internal extension TapCheckout {
         }
     }
     
+    
+    /**
+     Respinsiboe for calling create token for a card api
+     - Parameter cardTokenRequest: The cardToken request model to be called with
+     - Parameter onResponseReady: A block to call when getting the response
+     - Parameter onErrorOccured: A block to call when an error occured
+     */
+    func callCardTokenAPI(cardTokenRequestModel:TapCreateTokenRequest, onResponeReady: @escaping (Token) -> () = {_ in}, onErrorOccured: @escaping(Error)->() = {_ in}) {
+        
+        // Change the model into a dictionary
+        guard let bodyDictionary = TapCheckout.convertModelToDictionary(cardTokenRequestModel, callingCompletionOnFailure: { error in
+            onErrorOccured(error.debugDescription)
+            return
+        }) else { return }
+        
+        // Call the corresponding api based on the transaction mode
+        // Perform the retrieve request with the computed data
+        NetworkManager.shared.makeApiCall(routing: cardTokenRequestModel.route, resultType: Token.self, body: .init(body: bodyDictionary),httpMethod: .POST, urlModel: .none) { (session, result, error) in
+            // Double check all went fine
+            guard let parsedResponse:Token = result as? Token else {
+                onErrorOccured("Unexpected error parsing into")
+                return
+            }
+            // Execute the on complete block
+            onResponeReady(parsedResponse)
+        } onError: { (session, result, errorr) in
+            // In case of an error we execute the on error block
+            onErrorOccured(errorr.debugDescription)
+        }
+    }
+    
+    
     /**
      Respinsiboe for calling a get request for a retrivable object (e.g. charge, authorization, etc.) by providing its ID
      - Parameter with identifier: The id of the object we want to retrieve

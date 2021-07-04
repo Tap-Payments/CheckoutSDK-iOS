@@ -63,22 +63,30 @@ internal extension TapCheckout {
     /**
      Used to call the correct checkout logic for the web based payment options
      - Parameter with paymentOption: The payment option to start the checkout process with
+     - Parameter and card: The card object to be used in the transaction.
      */
-    func startCardPayment(with paymentOption:PaymentOption) {
+    func startCardPayment(with paymentOption:PaymentOption? = nil,and card:TapCard? = nil) {
+        // Make sure we have a card info entered already and ready to use
+        guard let _:TapBinResponseModel = dataHolder.transactionData.binLookUpModelResponse,
+              let currentCard:TapCard = card else {
+            handleError(error: "UnExpected error, paying with a card while missing card data or binlookup data")
+            return
+        }
         // Change the action button to loading status
         TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapActionButtonViewModel.startLoading()
-        // Create the charge request and call it
-        let chargeRequest:TapChargeRequestModel = createChargeOrAuthorizeRequestModel(with: paymentOption, token: nil, cardBIN: nil)
-        callChargeOrAuthorizeAPI(chargeRequestModel: chargeRequest) { [weak self] charge in
+        
+        // Create a card tokenization api to start with and call it
+        guard let createCardTokenRequest:TapCreateTokenRequest = createCardTokenRequestModel(for: currentCard) else { return }
+        callCardTokenAPI(cardTokenRequestModel: createCardTokenRequest) { (token) in
             DispatchQueue.main.async{
+                print(token)
                 // Process the charge protocol response we got from the server
-                guard let nonNullSelf = self else { return }
-                nonNullSelf.handleCharge(with: charge)
+                //guard let nonNullSelf = self else { return }
+                //nonNullSelf.handleCharge(with: charge)
             }
-        } onErrorOccured: { [weak self] error in
+        } onErrorOccured: { [weak self] (error) in
             self?.handleError(error: error)
         }
-        
     }
     
     /**

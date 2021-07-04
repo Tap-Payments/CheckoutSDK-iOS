@@ -135,4 +135,28 @@ extension TapCheckout {
         return .init(dataHolder.viewModels.tapCardPhoneListDataSource.filter{  $0.tapPaymentOption?.brand == cardBrand  }.first?.tapPaymentOption?.supportedCardBrands ?? [], cardBrand)
     }
     
+    
+    /**
+     Handles the logic needed to be applied upon card form validation status changes
+     - Parameter with validation: The validation status came out of the card validator
+     */
+    func handleCardValidationStatus(with validation: CrardInputTextFieldStatusEnum) {
+        // Check if valid or not and based on that we decide the logic to be done
+        if validation == .Valid,
+           dataHolder.viewModels.tapCardTelecomPaymentViewModel.decideHintStatus() == .None {
+            // All good and we can start the payment once the user clicks on the action button
+            dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .ValidPayment
+            dataHolder.viewModels.tapSaveCardSwitchViewModel.cardState = .validCard
+            // Assign the action to be done once clicked on the action button to start the payment
+            let payAction:()->() = { [weak self] in self?.startCardPayment(and:self?.dataHolder.transactionData.currentCard) }
+            dataHolder.viewModels.tapActionButtonViewModel.buttonActionBlock = payAction
+            
+        }else{
+            // The status is invalid hence we need to clear the action button
+            dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .InvalidPayment
+            dataHolder.viewModels.tapActionButtonViewModel.buttonActionBlock = {}
+            dataHolder.viewModels.tapSaveCardSwitchViewModel.cardState = .invalidCard
+        }
+    }
+    
 }

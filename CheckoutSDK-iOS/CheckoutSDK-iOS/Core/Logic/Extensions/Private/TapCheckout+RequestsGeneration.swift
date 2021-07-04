@@ -21,6 +21,21 @@ extension TapCheckout {
     }
     
     /**
+     Create a card token api request
+     - Parameter for card: The card we need to generate a token for
+     - Parameter address: The address attached to the card if any
+     - Returns: The Card create token api request model
+     */
+    func createCardTokenRequestModel(for card:TapCard,address:Address? = nil) -> TapCreateTokenRequest? {
+        do{
+            return CreateTokenWithCardDataRequest(card: try .init(card: card, address: address))
+        }catch{
+            handleError(error: error)
+        }
+        return nil
+    }
+    
+    /**
      Creates a charge or authorize api request model
      - Parameter paymentOption: The payment option the user selected
      - Parameter token: The token fromt the card tokenization api
