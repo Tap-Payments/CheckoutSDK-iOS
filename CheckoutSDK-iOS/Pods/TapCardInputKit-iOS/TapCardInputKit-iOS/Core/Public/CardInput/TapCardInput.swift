@@ -176,8 +176,9 @@ internal protocol TapCardInputCommonProtocol {
     /**
      Call this method when you  need to fill in the text fields with data.
      - Parameter tapCard: The TapCard that holds the data needed to be filled into the textfields
+     - Parameter then focusCardNumber: Indicate whether we need to focus the card number after setting the card data
      */
-    @objc public func setCardData(tapCard:TapCard) {
+    @objc public func setCardData(tapCard:TapCard,then focusCardNumber:Bool) {
         // Match the tapCard attributes to the different card fields
         
         // First then, we check if there is a card number provided
@@ -192,13 +193,19 @@ internal protocol TapCardInputCommonProtocol {
             return
         }
         
-        cardNumber.resignFirstResponder()
+        if focusCardNumber {
+            cardNumber.becomeFirstResponder()
+        }else {
+            cardNumber.resignFirstResponder()
+        }
         updateWidths(for: cardNumber)
         
         // Then we set the card expiry and check if it is valid or not
         guard cardExpiry.changeText(with: tapCard.tapCardExpiryMonth, year: tapCard.tapCardExpiryYear) else {
             cardExpiry.text = ""
-            cardExpiry.becomeFirstResponder()
+            if !focusCardNumber {
+                cardExpiry.becomeFirstResponder()
+            }
             return
         }
         
@@ -208,15 +215,18 @@ internal protocol TapCardInputCommonProtocol {
         // Then check if the usder provided a correct cvv
         guard cardCVV.changeText(with: tapCard.tapCardCVV ?? "", setTextAfterValidation: true) else {
             cardCVV.text = ""
-            cardCVV.becomeFirstResponder()
+            if !focusCardNumber {
+                cardCVV.becomeFirstResponder()
+            }
             return
         }
         
         cardCVV.resignFirstResponder()
         updateWidths(for: cardCVV)
         
-        
-        if !cardNumber.isValid(cardNumber: providedCardNumber) {
+        if focusCardNumber {
+            cardNumber.becomeFirstResponder()
+        }else if !cardNumber.isValid(cardNumber: providedCardNumber) {
             cardNumber.becomeFirstResponder()
         }else if !cardExpiry.isValid() {
             cardExpiry.becomeFirstResponder()

@@ -148,9 +148,9 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         // First, we need to check if the card is one of the allowed types.
         guard shouldAllowCard() else {
             // We shall instruct the card form to stop accepting any new data as the entered card prefix indicates an unallowed card type. And to reset itself to the empty card form with only the first 5 digits
-            /*let resettedCardData:TapCard = .init()
+            let resettedCardData:TapCard = .init()
             resettedCardData.tapCardNumber = dataHolder.transactionData.currentCard?.tapCardNumber?.tap_substring(to: 5)
-            dataHolder.viewModels.tapCardTelecomPaymentViewModel.setCard(with: resettedCardData)*/
+            dataHolder.viewModels.tapCardTelecomPaymentViewModel.setCard(with: resettedCardData, then: true)
             return
         }
         

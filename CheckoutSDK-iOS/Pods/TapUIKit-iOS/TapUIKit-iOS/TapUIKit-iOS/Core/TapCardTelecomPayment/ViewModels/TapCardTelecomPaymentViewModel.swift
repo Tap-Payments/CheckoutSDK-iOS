@@ -105,10 +105,11 @@ import TapCardVlidatorKit_iOS
     /**
      Call this method when you  need to fill in the text fields with data.
      - Parameter tapCard: The TapCard that holds the data needed to be filled into the textfields
+     - Parameter then focusCardNumber: Indicate whether we need to focus the card number after setting the card data
      */
-    @objc public func setCard(with card:TapCard) {
+    @objc public func setCard(with card:TapCard,then focusCardNumber:Bool) {
         tapCardTelecomPaymentView?.lastReportedTapCard = card
-        tapCardTelecomPaymentView?.cardInputView.setCardData(tapCard: card)
+        tapCardTelecomPaymentView?.cardInputView.setCardData(tapCard: card, then: focusCardNumber)
     }
     
     

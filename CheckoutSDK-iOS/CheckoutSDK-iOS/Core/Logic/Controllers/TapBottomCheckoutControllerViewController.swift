@@ -544,7 +544,7 @@ extension TapBottomCheckoutControllerViewController:TapInlineScannerProtocl {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500)) { [weak self] in
             self?.closeScannerClicked()
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) { [weak self] in
-                self?.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.setCard(with: tapCard)
+                self?.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.setCard(with: tapCard, then: false)
             }
         }
     }
