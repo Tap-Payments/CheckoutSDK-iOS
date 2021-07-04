@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import struct TapCardVlidatorKit_iOS.CardBrandWithSchemes
 
 /// Logic to handle card payment flow
 extension TapCheckout {
@@ -107,6 +108,31 @@ extension TapCheckout {
         // In this case we have a card number that doesn't match the allowed card types. We need to only allow backspace/deletion no more entering wong card numbers
         
         return cardNumber.tap_length < dataHolder.transactionData.currentCard?.tapCardNumber?.tap_length ?? 6
+    }
+    
+    /**
+     Used to tell the UI to change the data of the card form to a given card details
+     - Parameter with card: The tap card we nede to fill the UI with
+     - Parameter then focusCardNumber: Indicate whether we need to focus the card number after setting the card data
+     */
+    func setCardData(with card:TapCard,then focusCardNumber:Bool) {
+        dataHolder.viewModels.tapCardTelecomPaymentViewModel.setCard(with: card, then: true)
+    }
+    
+    /**
+     Used to fetch the card brand with all the supported schemes under it as per the payment options api response
+     - Parameter for cardBrand: The card brand we need to know all the schemes it supports
+    - Returns: List of supported schemes by the provided brand
+     */
+    func fetchSupportedCardSchemes(for cardBrand:CardBrand?) -> CardBrandWithSchemes? {
+        
+        guard let cardBrand = cardBrand,
+              let _ = dataHolder.transactionData.paymentOptionsModelResponse,
+              let _ = dataHolder.transactionData.binLookUpModelResponse else {
+            return nil
+        }
+        
+        return .init(dataHolder.viewModels.tapCardPhoneListDataSource.filter{  $0.tapPaymentOption?.brand == cardBrand  }.first?.tapPaymentOption?.supportedCardBrands ?? [], cardBrand)
     }
     
 }

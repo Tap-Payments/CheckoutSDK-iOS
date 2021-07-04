@@ -9,6 +9,7 @@
 public final class CardValidator {
     
     // MARK: - Public -
+    public static var favoriteCardBrand:CardBrandWithSchemes? = nil
     // MARK: Methods
     
     /// Validates card number.
@@ -47,7 +48,15 @@ public final class CardValidator {
             cardBrand = binRange.cardBrand
         }
         
+        // Make sure the card brand is known
         guard cardBrand != .unknown else { return DefinedCardBrand(.invalid, nil) }
+        
+        // Make sure if there is a forced brand to validate against, the fetched scheme is supported by the favortie brand
+        if let favoriteBrand:CardBrandWithSchemes = favoriteCardBrand {
+            // Make sure the selected is one of the supported brands
+            guard favoriteBrand.allSupportedSchemes.contains(cardBrand) else { return DefinedCardBrand(.invalid, nil) }
+            cardBrand = favoriteBrand.cardBrand
+        }
         
         if binRange.cardNumberLengths.contains(number.count) {
             

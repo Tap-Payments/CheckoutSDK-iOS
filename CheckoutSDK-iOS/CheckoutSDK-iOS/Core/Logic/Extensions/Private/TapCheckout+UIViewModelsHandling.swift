@@ -146,16 +146,15 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
     /// Handles the logic to perform parsing for the card data loaded from the bin lookup api
     func parseTapBinResponse() {
         // First, we need to check if the card is one of the allowed types.
-        guard shouldAllowCard() else {
+        if !shouldAllowCard() {
             // We shall instruct the card form to stop accepting any new data as the entered card prefix indicates an unallowed card type. And to reset itself to the empty card form with only the first 5 digits
-            let resettedCardData:TapCard = .init()
-            resettedCardData.tapCardNumber = dataHolder.transactionData.currentCard?.tapCardNumber?.tap_substring(to: 5)
-            dataHolder.viewModels.tapCardTelecomPaymentViewModel.setCard(with: resettedCardData, then: true)
-            return
+            setCardData(with: .init(tapCardNumber:dataHolder.transactionData.currentCard?.tapCardNumber?.tap_substring(to: 5)), then: true)
         }
         
         // Second, we should indicate the card brand detector, that we now have a favorite/preferred brand to select for this card scheme
+        CardValidator.favoriteCardBrand = fetchSupportedCardSchemes(for: dataHolder.transactionData.binLookUpModelResponse?.scheme?.cardBrand)
         
+        // Third instruct the Card form to reselect the correct chip based on the new favorite brand from bin response if any
     }
     
     

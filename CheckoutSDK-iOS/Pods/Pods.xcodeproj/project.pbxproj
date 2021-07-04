@@ -1031,6 +1031,7 @@
 		E806B691D55AC81AF21D7840FB7D0138 /* TapOtpController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 217A3F0009DC2D273D3827A924BFC7B4 /* TapOtpController.xib */; };
 		E810AFCC73AA18A6F1680AF1A7DEC336 /* DDFileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = F91F62D1BA82B7B492D4BD64F323B57E /* DDFileLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E82B24786068910D4FE40A5A65D9C3F0 /* SVGKDefine.h in Headers */ = {isa = PBXBuildFile; fileRef = 255AC9BC13967DAB8975EBB0358156CF /* SVGKDefine.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E83921972691BC1000421E15 /* CardBrandWithSchemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83921962691BC1000421E15 /* CardBrandWithSchemes.swift */; };
 		E862724D5AE36477D8DADBB739A9ABF9 /* SVGDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 3353730F611EF61BDD13FAADA5DAE6B0 /* SVGDocument.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E8B3DD05DF7602A0BC5F7FEDF108A26D /* DateFormatter+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3BDF3778591F5F964572F7283D3AAD /* DateFormatter+Additions.swift */; };
 		E8B8032E4366E20ED0C2D52156F9A8FA /* SVGTextContentElement.h in Headers */ = {isa = PBXBuildFile; fileRef = FC48C700831915D8576D4BEAA89DCBAE /* SVGTextContentElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2919,6 +2920,7 @@
 		E7B81AB71DB6227B059419173E4B10BC /* SVGKImageRep.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVGKImageRep.h; path = "Source/AppKit additions/SVGKImageRep.h"; sourceTree = "<group>"; };
 		E7C0C2943EBD2B28F5E75A6EE900941E /* CAKeyframeAnimation+Additions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CAKeyframeAnimation+Additions.swift"; path = "TapAdditionsKitV2/TapAdditionsKitV2/QuartzCore/CAKeyframeAnimation+Additions.swift"; sourceTree = "<group>"; };
 		E80DAEF7ABF022D4B94C11776A189BF4 /* Comparable+Additions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Comparable+Additions.swift"; path = "TapAdditionsKitV2/TapAdditionsKitV2/SwiftStandartLibrary/Comparable+Additions.swift"; sourceTree = "<group>"; };
+		E83921962691BC1000421E15 /* CardBrandWithSchemes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBrandWithSchemes.swift; sourceTree = "<group>"; };
 		E84A70994E3D6F9AC013DEDC7C955B64 /* DDOSLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDOSLogger.m; path = Sources/CocoaLumberjack/DDOSLogger.m; sourceTree = "<group>"; };
 		E89CB903945B8879B5B092A059C7AC3E /* String+Additions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+Additions.swift"; path = "TapAdditionsKitV2/TapAdditionsKitV2/SwiftStandartLibrary/String+Additions.swift"; sourceTree = "<group>"; };
 		E8B19174E065D70B9B5E2A06F42407EA /* GoPayLoginOptions.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = GoPayLoginOptions.xib; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/GoPayLoginOptions.xib"; sourceTree = "<group>"; };
@@ -4585,6 +4587,7 @@
 				C9816AA1E00BAA10310F32C97F9199CB /* CardValidationState.swift */,
 				1C3F825C2CCE14BDD79FC7E9BD37223C /* CardValidator.swift */,
 				32DB2103ABADDF4AC608C362E24691F7 /* DefinedCardBrand.swift */,
+				E83921962691BC1000421E15 /* CardBrandWithSchemes.swift */,
 				B60DACD42D2F707056EA556D388B6B9C /* Support Files */,
 			);
 			path = "TapCardVlidatorKit-iOS";
@@ -7118,6 +7121,7 @@
 				8561038737910D99003CA13CB4A51227 /* CardBrand.swift in Sources */,
 				3035B4CC431F88E5E98C07D929067F9E /* CardValidationState.swift in Sources */,
 				1E5892C8B1310965CEB012EB5CF22328 /* CardValidator.swift in Sources */,
+				E83921972691BC1000421E15 /* CardBrandWithSchemes.swift in Sources */,
 				DAA2D81ADC42D5AE544F9DF09D86CBDA /* DefinedCardBrand.swift in Sources */,
 				1FF215A65CDE67701A10DAC90223746F /* TapCardVlidatorKit-iOS-dummy.m in Sources */,
 			);
