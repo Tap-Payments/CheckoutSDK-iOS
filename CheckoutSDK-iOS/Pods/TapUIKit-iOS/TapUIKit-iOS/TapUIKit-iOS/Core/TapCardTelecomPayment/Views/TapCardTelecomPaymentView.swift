@@ -221,6 +221,10 @@ extension TapCardTelecomPaymentView: TapCardInputProtocol {
     public func saveCardChanged(enabled: Bool) {
         
     }
+    
+    public func shouldAllowChange(with cardNumber: String) -> Bool {
+        return viewModel?.delegate?.shouldAllowChange(with: cardNumber) ?? true
+    }
 }
 
 extension TapCardTelecomPaymentView: TapPhoneInputProtocol {

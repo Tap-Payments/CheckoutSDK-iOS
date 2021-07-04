@@ -64,9 +64,10 @@ extension TapCheckout {
     
     /**
      Decides whether we should allow entering the card details or not based on checking if its type is one of the allowed card types passed by the merchant
+     - Parameter with cardNumber: To check against this card number if any. If not provided, we will decide based on the last saved card data.
      - Returns: True if whether we didn't call the bin api yet or the bin api response card type is one of the allowed card types
      */
-    func shouldAllowCard() -> Bool {
+    func shouldAllowCard(with cardNumber:String? = nil) -> Bool {
         
         // Make sure we have a valid bin response
         guard let responseModel = dataHolder.transactionData.binLookUpModelResponse else {
@@ -74,11 +75,38 @@ extension TapCheckout {
             return true
         }
         
-        // get the bin response card type
-        let currentCardType:CardType = responseModel.cardType
-        // Check if it is one of the allowed card types passed from the merchant on checkout start
-        return dataHolder.transactionData.allowedCardTypes.contains(currentCardType)
+        // If the caller passed a number to check against then we need to apply a different logic, than deciding if the current card is allowed or not
+        if let nonNullCardNumber = cardNumber {
+            // We need to check against the provided card number
+            return shouldAllowUpdatedCard(with: nonNullCardNumber)
+        }else{
+            // Then we need to check about the last stored card data
+            
+            // get the bin response card type
+            let currentCardType:CardType = responseModel.cardType
+            // Check if it is one of the allowed card types passed from the merchant on checkout start
+            return dataHolder.transactionData.allowedCardTypes.contains(currentCardType)
+        }
+    }
+    
+    /**
+     Decides if the new updated to the card number should be allowed or not.
+     - Parameter with cardNumber: The new card number entered by the user.
+     - Returns: True if:
+            A) No bin api called yet.
+            B) The updated card number matches the last called bin and it is of the allowed card types
+            C) Even if the current prefix doesn't match the allowed types but the user hit BACKSPACE, so only deletion is allowed at this case
+     */
+    fileprivate func shouldAllowUpdatedCard(with cardNumber:String) -> Bool {
+        // We need to make sure that we already have a bin response to check against, new card number is more than 5 digits and the current bin response model doesn't match the allowed card types
+        guard let _:TapBinResponseModel = dataHolder.transactionData.binLookUpModelResponse,
+              cardNumber.count >= 6, !shouldAllowCard() else {
+            return true
+        }
         
+        // In this case we have a card number that doesn't match the allowed card types. We need to only allow backspace/deletion no more entering wong card numbers
+        
+        return cardNumber.tap_length < dataHolder.transactionData.currentCard?.tapCardNumber?.tap_length ?? 6
     }
     
 }

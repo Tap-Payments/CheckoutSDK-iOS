@@ -53,6 +53,13 @@ internal protocol TapCardInputCommonProtocol {
      - Parameter tapCard: The TapCard model that hold sthe data the currently enetred by the user till now
      */
     func dataChanged(tapCard:TapCard)
+    
+    /**
+     This method will be called whenever the user tries to enter new digits inside the card number, then we need to the delegate to tell us if we can complete the card number.
+     - Parameter with cardNumber: The card number after changes.
+     - Returns: True if the entered card number till now less than 6 digits or the prefix matches the allowed types (credit or debit)
+     */
+    func shouldAllowChange(with cardNumber:String) -> Bool
 }
 
 /// This represents the custom view for card input provided by Tap
@@ -345,25 +352,26 @@ internal protocol TapCardInputCommonProtocol {
     /// The method is responsible for configuring and setup the card text fields
     internal func configureViews() {
         
-        
         // Setup the card number field with the needed data and listeners
-        cardNumber.setup(with: 4, maxVisibleChars: 16, placeholder: "Card Number", editingStatusChanged: { [weak self] (isEditing) in
+        cardNumber.setup(with: 4, maxVisibleChars: 16, placeholder: "Card Number") { [weak self] (isEditing) in
             // We will glow the shadow if needed
             self?.updateShadow()
             // We will need to adjuust the width for the field when it is being active or inactive in the Inline mode
             self?.updateWidths(for: self?.cardNumber)
-            },cardBrandDetected: { [weak self] (brand) in
-                // If a card brand is detected we need to pudate the card icon image and update the allowed length of the CVV
-                self?.cardBrandDetected(with:brand)
-            },cardNumberChanged: { [weak self] (cardNumber) in
-                // If the card number changed, we change the holding TapCard and we fire the logic needed to do when the card data changed
-                self?.tapCard.tapCardNumber = cardNumber
-                self?.cardDatachanged()
-                if self?.cardInputMode == .InlineCardInput, self?.cardNumber.isValid() ?? false {
-                    self?.cardExpiry.becomeFirstResponder()
-                }
-                self?.handleOneBrandIcon(with: cardNumber)
-        })
+        } cardBrandDetected: { [weak self] (brand) in
+            // If a card brand is detected we need to pudate the card icon image and update the allowed length of the CVV
+            self?.cardBrandDetected(with:brand)
+        } cardNumberChanged: { [weak self] (cardNumber) in
+            // If the card number changed, we change the holding TapCard and we fire the logic needed to do when the card data changed
+            self?.tapCard.tapCardNumber = cardNumber
+            self?.cardDatachanged()
+            if self?.cardInputMode == .InlineCardInput, self?.cardNumber.isValid() ?? false {
+                self?.cardExpiry.becomeFirstResponder()
+            }
+            self?.handleOneBrandIcon(with: cardNumber)
+        } shouldAllowChange: { [weak self] (updatedCardNumber) -> (Bool) in
+            return self?.delegate?.shouldAllowChange(with: updatedCardNumber) ?? true
+        }
         
         // Setup the card name field with the needed data and listeners
         cardName.setup(with: 4, maxVisibleChars: 16, placeholder: "Holder Name", editingStatusChanged: { [weak self] (isEditing) in

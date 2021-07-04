@@ -37,6 +37,12 @@ import TapCardVlidatorKit_iOS
     
     ///This method will be called whenever there is no need to show ay hints views
     @objc func hideHints()
+    
+    /**This method will be called whenever the user tries to enter new digits inside the card number, then we need to the delegate to tell us if we can complete the card number.
+    - Parameter with cardNumber: The card number after changes.
+    - Returns: True if the entered card number till now less than 6 digits or the prefix matches the allowed types (credit or debit)
+     */
+    @objc func shouldAllowChange(with cardNumber:String) -> Bool
 }
 
 /// Represents a view model to control the wrapper view that does the needed connections between cardtelecomBar, card input and telecom input

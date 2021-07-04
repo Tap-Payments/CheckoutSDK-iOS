@@ -513,6 +513,11 @@ extension TapBottomCheckoutControllerViewController:TapCardTelecomPaymentProtoco
             }
         }
     }
+    
+    
+    func shouldAllowChange(with cardNumber: String) -> Bool {
+        return sharedCheckoutDataManager.shouldAllowCard(with: cardNumber)
+    }
 }
 
 

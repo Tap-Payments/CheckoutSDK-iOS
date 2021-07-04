@@ -20,6 +20,11 @@ class CardNumberTextField:TapCardTextField {
      */
     var cardNumberChanged: ((String) -> ())? =  nil
     
+    /**
+     This method will be called whenever the user tries to enter new digits inside the card number, then we need to the delegate to tell us if we can complete the card number.
+     */
+    var shouldAllowChange: ((String) -> (Bool))? =  nil
+    
     var allowedBrands:[Int] = []
     
     /**
@@ -30,14 +35,16 @@ class CardNumberTextField:TapCardTextField {
      - Parameter editingStatusChanged: Observer to listen to the event when the editing status changed, whether started or ended editing
      - Parameter cardBrandDetected: Observer to listen to the event when a card brand is detected based on user input till the moment
      - Parameter cardNumberChanged: Observer to listen to the event when a the card number is changed by user input till the moment
+     - Parameter shouldAllowChange: This method will be called whenever the user tries to enter new digits inside the card number, then we need to the delegate to tell us if we can complete the card number.
      */
-    func setup(with minVisibleChars: Int = 4, maxVisibleChars: Int = 16, placeholder:String = "", editingStatusChanged: ((Bool) -> ())? = nil,cardBrandDetected: ((CardBrand?) -> ())? =  nil,cardNumberChanged: ((String) -> ())? =  nil) {
+    func setup(with minVisibleChars: Int = 4, maxVisibleChars: Int = 16, placeholder:String = "", editingStatusChanged: ((Bool) -> ())? = nil,cardBrandDetected: ((CardBrand?) -> ())? =  nil,cardNumberChanged: ((String) -> ())? =  nil, shouldAllowChange: ((String) -> (Bool))? =  nil) {
         
         // Assign and save the passed attributes
         self.minVisibleChars = minVisibleChars
         self.maxVisibleChars = maxVisibleChars
         self.fillBiggestAvailableSpace = false
         self.cardNumberChanged = cardNumberChanged
+        self.shouldAllowChange = shouldAllowChange
         
         // Set the place holder with the theme color
         self.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: placeHolderTextColor])
@@ -165,6 +172,9 @@ extension CardNumberTextField:UITextFieldDelegate {
      - Returns: True if the text is valid and can be written to the card number field and false otherwise
      */
     internal func changeText(with updatedText:String, setTextAfterValidation:Bool = false) -> Bool {
+        
+        // Let us first make sure the delegate doesn't have an issue with the text
+        guard shouldAllowChange?(updatedText.onlyDigits()) ?? true else { return false }
         
         // In card number we only allow digits and spaces. The spaces will come from the formatting we are applying
         let filteredText:String = updatedText.digitsWithSpaces()
