@@ -105,10 +105,12 @@ extension TapCheckout: TapBottomSheetDialogDelegate {
     
     
     public func tapBottomSheetPresented() {
+        TapCheckout.isCheckoutSheenPresented = true
         tapCheckoutScreenDelegate?.tapBottomSheetPresented?()
     }
     
     public func tapBottomSheetWillDismiss() {
+        TapCheckout.isCheckoutSheenPresented = false
         // If it is allowed, then we need to start the dismissing of the checkout screen
         if TapCheckout.flippingStatus == .FlipOnLoadWithFlippingBack {
             MOLH.setLanguageTo("en")

@@ -56,7 +56,6 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      Will be fired in case we want to close/hide the currently shown web view in the checkout controller
      */
     func closeWebView()
-    
 }
 
 
@@ -87,6 +86,8 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     // MARK:- Public varibales
     /// A protocol to communicate with the Presente tap sheet controller
     @objc public var tapCheckoutScreenDelegate:CheckoutScreenDelegate?
+    /// Indicates whether the checkout sheet is presented or not
+    internal static var isCheckoutSheenPresented:Bool = true
     /// Indicates what to do when using RTL languages
     @objc public static var flippingStatus:TapCheckoutFlipStatus = .FlipOnLoadWithFlippingBack
     /// The ISO 639-1 Code language identefier, please note if the passed locale is wrong or not found in the localisation files, we will show the keys instead of the values
@@ -231,17 +232,11 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      - Parameter error: The error we need to handle and deal with
      */
     internal func handleError(error:Error?) {
-        if tapCheckoutControllerViewController?.isBeingPresented ?? false {
-            // The sheet is visible and we need to handle this ourselves
-            let tapActionButton = TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapActionButtonViewModel
-            tapActionButton.endLoading(with: false) {
-                self.dismissMySelfClicked()
+        dataHolder.viewModels.tapActionButtonViewModel.endLoading(with: false, completion: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                self.UIDelegate?.dismissCheckout(with: error ?? "UNKNOWN ERROR OCCURED")
                 self.tapCheckoutScreenDelegate?.checkoutFailed?(with: error!)
             }
-        }else{
-            // The sheet is not yet presented (propaly error occured on init api)
-            tapCheckoutScreenDelegate?.checkoutFailed?(with: error!)
-        }
-        
+        })
     }
 }

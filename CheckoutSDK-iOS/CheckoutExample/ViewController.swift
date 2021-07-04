@@ -86,6 +86,7 @@ class ViewController: UIViewController {
             transactionMode: .purchase,
             customer: try! .init(identifier: "cus_TS031720211012r4RM0403926"),
             tapMerchantID: "1124340",
+            require3DSecure: true,
             sdkMode: .sandbox,
             onCheckOutReady: {[weak self] tapCheckOut in
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
