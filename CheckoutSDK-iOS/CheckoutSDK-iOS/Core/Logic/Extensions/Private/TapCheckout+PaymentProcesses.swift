@@ -78,13 +78,49 @@ internal extension TapCheckout {
         // Create a card tokenization api to start with and call it
         guard let createCardTokenRequest:TapCreateTokenRequest = createCardTokenRequestModel(for: currentCard) else { return }
         callCardTokenAPI(cardTokenRequestModel: createCardTokenRequest) { (token) in
-            DispatchQueue.main.async{
-                print(token)
-                // Process the charge protocol response we got from the server
-                //guard let nonNullSelf = self else { return }
-                //nonNullSelf.handleCharge(with: charge)
+            DispatchQueue.main.async{ [weak self] in
+                // Process the token we got from the server
+                guard let nonNullSelf = self else { return }
+                nonNullSelf.handleToken(with: token,for: paymentOption)
             }
         } onErrorOccured: { [weak self] (error) in
+            self?.handleError(error: error)
+        }
+    }
+    
+    /**
+     Handles the token response to see what should be the next action
+     - Parameter with token: The token response we want to analyse and decide the next action based on it
+     */
+    func handleToken(with token:Token,for paymentOption:PaymentOption? = nil) {
+        // Save the object for further processing
+        dataHolder.transactionData.currentToken = token
+        // Now based on the mode we need to decide what to do with this token
+        switch dataHolder.transactionData.transactionMode {
+        case .purchase:
+            handleTokenCharge(with: token,for: paymentOption)
+        default:
+            return
+        }
+    }
+    
+    
+    /**
+     Performs a charge after tokenizing the card
+     - Parameter with token: The token response we want to analyse and decide the next action based on it
+     */
+    func handleTokenCharge(with token:Token,for paymentOption:PaymentOption? = nil) {
+        // Change the action button to loading status
+        TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapActionButtonViewModel.startLoading()
+        // Create the charge request and call it
+        let chargeRequest:TapChargeRequestModel = createChargeOrAuthorizeRequestModel(with: paymentOption!, token: token, cardBIN: token.card.binNumber)
+        callChargeOrAuthorizeAPI(chargeRequestModel: chargeRequest) { [weak self] charge in
+            DispatchQueue.main.async{
+                // Process the charge protocol response we got from the server
+                guard let nonNullSelf = self else { return }
+                nonNullSelf.handleCharge(with: charge)
+            }
+        } onErrorOccured: { [weak self] error in
             self?.handleError(error: error)
         }
     }

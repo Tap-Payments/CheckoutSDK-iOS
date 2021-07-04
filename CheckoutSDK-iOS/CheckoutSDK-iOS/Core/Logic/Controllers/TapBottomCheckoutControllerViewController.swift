@@ -485,7 +485,7 @@ extension TapBottomCheckoutControllerViewController:TapCardTelecomPaymentProtoco
         if cardBrand.brandSegmentIdentifier == "telecom" {
             handleTelecomPayment(for: cardBrand, with: validation)
         }else if cardBrand.brandSegmentIdentifier == "cards" {
-            sharedCheckoutDataManager.handleCardValidationStatus(with: validation)
+            sharedCheckoutDataManager.handleCardValidationStatus(for:cardBrand, with: validation)
         }
     }
     

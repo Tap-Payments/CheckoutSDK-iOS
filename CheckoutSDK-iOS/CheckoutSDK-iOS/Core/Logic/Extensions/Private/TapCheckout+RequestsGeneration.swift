@@ -48,7 +48,16 @@ extension TapCheckout {
                                              saveCard:                         Bool? = false) -> TapChargeRequestModel {
         let transactionData:TransactionDataHolder = dataHolder.transactionData
         // Create the source request
-        guard let sourceIdentifier = paymentOption.sourceIdentifier else { fatalError("No payment source identifier") }
+        // Decide the source id whether to come from the payment option or from the provided token
+        var sourceIdentifier:String = ""
+        if let token = token?.identifier {
+            sourceIdentifier = token
+        }else if let sourceID = paymentOption.sourceIdentifier {
+            sourceIdentifier = sourceID
+        }else{
+            fatalError("No payment source identifier")
+        }
+        
         let source = SourceRequest(identifier: sourceIdentifier)
         
         // Create the essential data

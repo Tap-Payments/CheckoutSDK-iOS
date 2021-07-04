@@ -262,6 +262,9 @@ internal class TransactionDataHolder {
     /// Represents the latest charge object from the api
     var currentCharge:Charge?
     
+    /// Represents the latest token object from the api
+    var currentToken:Token?
+    
     /// Represents the latest
     var currentCard:TapCard? {
         didSet{

@@ -136,19 +136,27 @@ extension TapCheckout {
     }
     
     
+    
+    
     /**
      Handles the logic needed to be applied upon card form validation status changes
+     - Parameter cardBrand: The detected card brand
      - Parameter with validation: The validation status came out of the card validator
      */
-    func handleCardValidationStatus(with validation: CrardInputTextFieldStatusEnum) {
+    func handleCardValidationStatus(for cardBrand: CardBrand,with validation: CrardInputTextFieldStatusEnum) {
         // Check if valid or not and based on that we decide the logic to be done
         if validation == .Valid,
            dataHolder.viewModels.tapCardTelecomPaymentViewModel.decideHintStatus() == .None {
             // All good and we can start the payment once the user clicks on the action button
             dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .ValidPayment
             dataHolder.viewModels.tapSaveCardSwitchViewModel.cardState = .validCard
+            // Fetch the payment option related to the validated card brand
+            let paymentOptions:[PaymentOption] = dataHolder.viewModels.tapCardPhoneListDataSource.filter{ $0.tapPaymentOption?.brand == cardBrand }.filter{ $0.tapPaymentOption != nil }.map{ $0.tapPaymentOption! }
+            guard paymentOptions.count > 0 else {
+                handleError(error: "Unexpected error, trying to start card payment without a payemnt option selected.")
+                return }
             // Assign the action to be done once clicked on the action button to start the payment
-            let payAction:()->() = { [weak self] in self?.startCardPayment(and:self?.dataHolder.transactionData.currentCard) }
+            let payAction:()->() = { [weak self] in self?.startCardPayment(with:paymentOptions.first,and:self?.dataHolder.transactionData.currentCard) }
             dataHolder.viewModels.tapActionButtonViewModel.buttonActionBlock = payAction
             
         }else{
