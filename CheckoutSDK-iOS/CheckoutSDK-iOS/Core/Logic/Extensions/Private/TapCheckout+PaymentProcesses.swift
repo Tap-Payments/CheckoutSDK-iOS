@@ -97,7 +97,7 @@ internal extension TapCheckout {
         dataHolder.transactionData.currentToken = token
         // Now based on the mode we need to decide what to do with this token
         switch dataHolder.transactionData.transactionMode {
-        case .purchase:
+        case .purchase,.authorizeCapture:
             handleTokenCharge(with: token,for: paymentOption)
         default:
             return

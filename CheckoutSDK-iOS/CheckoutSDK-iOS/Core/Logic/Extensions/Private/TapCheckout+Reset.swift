@@ -13,6 +13,10 @@ internal extension TapCheckout {
 
     /// Resets all the view models and dispose all the active observers
     class func destroy() {
+        if privateShared != nil {
+            privateShared?.resetViewModels()
+            privateShared?.resetObservables()
+        }
         privateShared = nil
     }
     
