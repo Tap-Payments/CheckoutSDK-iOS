@@ -131,7 +131,29 @@ extension TapCheckout {
                                                     requires3DSecure:           requires3DSecure,
                                                     receipt:                    transactionData.receiptSettings)
         case .authorizeCapture:
-            fatalError("This case should never happen.")
+            //let authorizeAction = dataSource.authorizeAction ?? .default
+            
+            return TapAuthorizeRequestModel (amount:                     amountedCurrency.amount,
+                                             selectedAmount:             amountedSelectedCurrency.amount,
+                                             currency:                   amountedCurrency.currency,
+                                             selectedCurrency:           amountedSelectedCurrency.currency,
+                                             customer:                   transactionData.customer,
+                                             merchant:                   dataHolder.transactionData.intitModelResponse?.data.merchant,
+                                             fee:                        fee,
+                                             order:                      order,
+                                             redirect:                   redirect,
+                                             post:                       post,
+                                             source:                     source,
+                                             destinationGroup:           destinationsGroup,
+                                             descriptionText:            transactionData.paymentDescription,
+                                             metadata:                   transactionData.paymentMetadata,
+                                             reference:                  transactionData.paymentReference,
+                                             shouldSaveCard:             shouldSaveCard,
+                                             statementDescriptor:        transactionData.paymentStatementDescriptor,
+                                             requires3DSecure:           requires3DSecure,
+                                             receipt:                    transactionData.receiptSettings,
+                                             authorizeAction:            transactionData.authorizeAction)
+            
         case .cardSaving:
             fatalError("This case should never happen.")
         case .cardTokenization:
