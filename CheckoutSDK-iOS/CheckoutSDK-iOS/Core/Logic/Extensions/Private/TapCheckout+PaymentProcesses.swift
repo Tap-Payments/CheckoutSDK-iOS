@@ -133,6 +133,8 @@ internal extension TapCheckout {
         // Save the object for further processing
         if chargeOrAuthorize is Charge {
             dataHolder.transactionData.currentCharge = chargeOrAuthorize as? Charge
+        }else if chargeOrAuthorize is Authorize {
+            dataHolder.transactionData.currentAuthorize = chargeOrAuthorize as? Authorize
         }
         
         // Based on the status we will know what to do
@@ -142,7 +144,7 @@ internal extension TapCheckout {
             handleCaptured(for:chargeOrAuthorize)
             break
         case .authorized:
-            handleAuthorized(for:chargeOrAuthorize)
+            handleCaptured(for:chargeOrAuthorize)
             break
         case .failed,.declined:
             handleFailed(for:chargeOrAuthorize)

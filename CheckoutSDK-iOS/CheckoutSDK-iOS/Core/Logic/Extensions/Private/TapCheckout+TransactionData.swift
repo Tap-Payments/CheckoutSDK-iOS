@@ -263,6 +263,9 @@ internal class TransactionDataHolder {
     /// Represents the latest charge object from the api
     var currentCharge:Charge?
     
+    /// Represents the latest charge object from the api
+    var currentAuthorize:Authorize?
+    
     /// Represents the latest token object from the api
     var currentToken:Token?
     
