@@ -158,13 +158,12 @@ extension TapCheckout {
             dataHolder.viewModels.tapSaveCardSwitchViewModel.cardState = .validCard
             // Fetch the payment option related to the validated card brand
             let paymentOptions:[PaymentOption] = dataHolder.viewModels.tapCardPhoneListDataSource.filter{ $0.tapPaymentOption?.brand == cardBrand }.filter{ $0.tapPaymentOption != nil }.map{ $0.tapPaymentOption! }
-            guard paymentOptions.count > 0 else {
+            guard paymentOptions.count > 0, let selectedPaymentOption:PaymentOption = paymentOptions.first else {
                 handleError(error: "Unexpected error, trying to start card payment without a payemnt option selected.")
                 return }
             // Assign the action to be done once clicked on the action button to start the payment
-            let payAction:()->() = { [weak self] in self?.startCardPayment(with:paymentOptions.first,and:self?.dataHolder.transactionData.currentCard) }
+            let payAction:()->() = { [weak self] in self?.processCheckout(with:selectedPaymentOption,and:self?.dataHolder.transactionData.currentCard) }
             dataHolder.viewModels.tapActionButtonViewModel.buttonActionBlock = payAction
-            
         }else{
             // The status is invalid hence we need to clear the action button
             dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .InvalidPayment

@@ -15,11 +15,11 @@ internal extension TapCheckout {
      Used to process a checkout process with a given payment option
      - Parameter with paymentOption: The payment option to start the checkout process with
      */
-    func processCheckout(with paymentOption:PaymentOption) {
+    func processCheckout(with paymentOption:PaymentOption,and card:TapCard? = nil) {
         // For all payment options types, we need to ask for extra fees first if any
         askForExtraFees(with: paymentOption) { [weak self] in
             guard let nonNullSelf = self else { return }
-            nonNullSelf.startPayment(with: paymentOption)
+            nonNullSelf.startPayment(with: paymentOption,and: card)
         }
     }
     
@@ -27,13 +27,13 @@ internal extension TapCheckout {
      Used to call the correct checkout logic based on the selected payment option
      - Parameter with paymentOption: The payment option to start the checkout process with
      */
-    func startPayment(with paymentOption:PaymentOption) {
+    func startPayment(with paymentOption:PaymentOption,and card:TapCard?) {
         // Based on the payment option type, we need to follow the corresponding logic flow
         switch paymentOption.paymentType {
         case .Web:
             startWebPayment(with: paymentOption)
         case .Card:
-            startCardPayment(with: paymentOption)
+            startCardPayment(with: paymentOption,and: card)
         default:
             return
         }

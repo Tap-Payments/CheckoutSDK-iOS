@@ -26,6 +26,7 @@ internal extension TapCheckout {
         dataHolder.transactionData.transactionCurrencyValue = .init(.undefined, 0, "")
         dataHolder.transactionData.transactionUserCurrencyValue = .init(.undefined, 0, "")
         dataHolder.transactionData.transactionItemsValue = []
+        CardValidator.favoriteCardBrand = nil
     }
     
 }
