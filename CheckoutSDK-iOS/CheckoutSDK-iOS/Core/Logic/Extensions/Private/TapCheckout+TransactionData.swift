@@ -170,7 +170,9 @@ internal class TransactionDataHolder {
     var binLookUpModelResponse:TapBinResponseModel?{
         didSet{
             // Now it is time to fetch needed data from the model parsed
-            dataHolderDelegate?.parseTapBinResponse()
+            if oldValue != binLookUpModelResponse {
+                dataHolderDelegate?.parseTapBinResponse()
+            }
         }
     }
     
@@ -271,6 +273,9 @@ internal class TransactionDataHolder {
             TapCheckout.sharedCheckoutManager().handleCardData(with: currentCard)
         }
     }
+    
+    /// Represents the card prefix we are currently executing a binlook up for, used to prevent multiple calls if the user quickly typed the card number
+    var currentlyRequestingBinFor:String?
     
     // MARK:- RxSwift Variables
     

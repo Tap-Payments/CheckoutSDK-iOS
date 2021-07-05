@@ -28,6 +28,8 @@ extension TapCheckout {
         
         // Check if we need to call the binlook up first
         if shouldWeCallBinLookUpAgain(with: card) {
+            // Instruct the data manager that we are currently requesting a bin for this prefix
+            dataHolder.transactionData.currentlyRequestingBinFor = cardNumber.tap_substring(to: 6)
             // Call the binlook up
             getBINDetails(for: cardNumber.tap_substring(to: 6)) { [weak self] (binResponseModel) in
                 // Let us handle and do the needed logic with the latest fetched bin response model
@@ -52,6 +54,9 @@ extension TapCheckout {
               cardNumber.count >= 6 else {
             return false
         }
+        
+        // Let us make sure we are not requesting currently for the same number
+        guard dataHolder.transactionData.currentlyRequestingBinFor != cardNumber.tap_substring(to: 6) else { return false }
         
         // Let us make sure we already have a bin look up model called already to compare against and if yes, they have different prefixes
         guard dataHolder.transactionData.binLookUpModelResponse?.binNumber != cardNumber.tap_substring(to: 6) else {
@@ -114,9 +119,10 @@ extension TapCheckout {
      Used to tell the UI to change the data of the card form to a given card details
      - Parameter with card: The tap card we nede to fill the UI with
      - Parameter then focusCardNumber: Indicate whether we need to focus the card number after setting the card data
+     - Parameter shouldRemoveCurrentCard:If there is a card number, first thing to do now is to clear the fields
      */
-    func setCardData(with card:TapCard,then focusCardNumber:Bool) {
-        dataHolder.viewModels.tapCardTelecomPaymentViewModel.setCard(with: card, then: true)
+    func setCardData(with card:TapCard,then focusCardNumber:Bool,shouldRemoveCurrentCard:Bool = true) {
+        dataHolder.viewModels.tapCardTelecomPaymentViewModel.setCard(with: card, then: true, shouldRemoveCurrentCard: shouldRemoveCurrentCard)
     }
     
     /**

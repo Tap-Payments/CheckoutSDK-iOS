@@ -177,15 +177,18 @@ internal protocol TapCardInputCommonProtocol {
      Call this method when you  need to fill in the text fields with data.
      - Parameter tapCard: The TapCard that holds the data needed to be filled into the textfields
      - Parameter then focusCardNumber: Indicate whether we need to focus the card number after setting the card data
+     - Parameter shouldRemoveCurrentCard: Indicate If there is a card number, first thing to do now is to clear the fields
      */
-    @objc public func setCardData(tapCard:TapCard,then focusCardNumber:Bool) {
+    @objc public func setCardData(tapCard:TapCard,then focusCardNumber:Bool,shouldRemoveCurrentCard:Bool = true) {
         // Match the tapCard attributes to the different card fields
         
         // First then, we check if there is a card number provided
         guard let providedCardNumber:String = tapCard.tapCardNumber, providedCardNumber != "" else { return }
         
-        // If there is a card number, first thing to do now is to clear the fields
-        clearButtonClicked()
+        if shouldRemoveCurrentCard {
+            // If there is a card number, first thing to do now is to clear the fields
+            clearButtonClicked()
+        }
         
         // Then we set the card number and check if it is valid or not
         guard cardNumber.changeText(with: providedCardNumber, setTextAfterValidation: true) else {
@@ -253,7 +256,6 @@ internal protocol TapCardInputCommonProtocol {
     public func fieldsValidationStatuses() -> (Bool,Bool,Bool) {
         return (cardNumber.isValid(cardNumber: tapCard.tapCardNumber),cardExpiry.isValid(),cardCVV.isValid())
     }
-    
     
     override public func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
@@ -376,7 +378,9 @@ internal protocol TapCardInputCommonProtocol {
             self?.tapCard.tapCardNumber = cardNumber
             self?.cardDatachanged()
             if self?.cardInputMode == .InlineCardInput, self?.cardNumber.isValid() ?? false {
-                self?.cardExpiry.becomeFirstResponder()
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                    self?.cardExpiry.becomeFirstResponder()
+                }
             }
             self?.handleOneBrandIcon(with: cardNumber)
         } shouldAllowChange: { [weak self] (updatedCardNumber) -> (Bool) in

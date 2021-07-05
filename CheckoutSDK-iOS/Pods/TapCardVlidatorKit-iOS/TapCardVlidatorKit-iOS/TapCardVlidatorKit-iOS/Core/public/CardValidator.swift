@@ -53,9 +53,11 @@ public final class CardValidator {
         
         // Make sure if there is a forced brand to validate against, the fetched scheme is supported by the favortie brand
         if let favoriteBrand:CardBrandWithSchemes = favoriteCardBrand {
-            // Make sure the selected is one of the supported brands
+            // Make sure the selected whether it is the favorite brand or one of its supported schemes
             guard favoriteBrand.allSupportedSchemes.contains(cardBrand) else { return DefinedCardBrand(.invalid, nil) }
-            cardBrand = favoriteBrand.cardBrand
+            if preferredBrands?.contains(favoriteBrand.cardBrand) ?? false {
+                cardBrand = favoriteBrand.cardBrand
+            }
         }
         
         if binRange.cardNumberLengths.contains(number.count) {

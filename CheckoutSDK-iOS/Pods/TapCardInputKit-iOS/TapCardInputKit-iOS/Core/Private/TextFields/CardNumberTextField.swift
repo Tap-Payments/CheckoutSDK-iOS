@@ -119,6 +119,13 @@ extension CardNumberTextField:CardInputTextFieldProtocol {
 
 extension CardNumberTextField:UITextFieldDelegate {
     
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(UIResponderStandardEditActions.paste(_:)) {
+            return false
+        }
+        return super.canPerformAction(action, withSender: sender)
+    }
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // If the editing changed block is assigned, we need to fire this event as the editing now started for the field
         if let nonNullEditingBlock = editingStatusChanged {
