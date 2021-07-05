@@ -18,7 +18,7 @@ internal struct Permissions: OptionSet, Decodable {
     internal static var merchantCheckoutAllowed:Bool {
         return TapCheckout.sharedCheckoutManager().dataHolder.transactionData.enableSaveCard
     }
-    fileprivate static let merchantCheckout     = Permissions(rawValue: Set<String>([Constants.merchantCheckoutKey]))
+    internal static let merchantCheckout     = Permissions(rawValue: Set<String>([Constants.merchantCheckoutKey]))
     internal static let non3DSecureTransactions = Permissions(rawValue: Set<String>([Constants.threeDSecureDisabledKey]))
     
     // MARK: Methods

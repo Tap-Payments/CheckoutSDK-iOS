@@ -22,7 +22,7 @@ internal extension TapCheckout {
     
     /// Handles the logic to determine the visibility and the status of the save card/ohone switch depending on the current card/telecom data source
     func updateSaveCardSwitchStatus() {
-        dataHolder.viewModels.tapSaveCardSwitchViewModel.shouldShow = dataHolder.viewModels.tapCardTelecomPaymentViewModel.shouldShow
+        dataHolder.viewModels.tapSaveCardSwitchViewModel.shouldShow = dataHolder.transactionData.saveCardSwitchType != .none
         if dataHolder.viewModels.tapSaveCardSwitchViewModel.shouldShow {
             dataHolder.viewModels.tapSaveCardSwitchViewModel.cardState = (dataHolder.viewModels.tapCardPhoneListViewModel.dataSource[0].associatedCardBrand.brandSegmentIdentifier == "cards") ? .invalidCard : .invalidTelecom
         }
@@ -131,14 +131,16 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
             self.dataHolder.viewModels.gatewayChipsViewModel.append(contentsOf: (paymentOptions.savedCards ?? []).filter{ dataHolder.transactionData.allowedCardTypes.contains($0.cardType ?? .init(cardType: .All)) }.map{ ChipWithCurrencyModel.init(savedCard: $0) })
         }
         
+        // Load the goPayLogin status
+        dataHolder.transactionData.loggedInToGoPay = false//UserDefaults.standard.bool(forKey: TapCheckoutConstants.GoPayLoginUserDefaultsKey)
+        
         // Fetch the save card/phone switch data
-        dataHolder.viewModels.tapSaveCardSwitchViewModel = .init(with: .invalidCard, merchant: dataHolder.viewModels.tapMerchantViewModel.subTitle ?? "")
+        dataHolder.viewModels.tapSaveCardSwitchViewModel = .init(with: .invalidCard, merchant: dataHolder.viewModels.tapMerchantViewModel.subTitle ?? "", whichSwitchesToShow: dataHolder.transactionData.saveCardSwitchType)
         
         // Fetch the cards + telecom payments options
         self.dataHolder.viewModels.tapCardPhoneListDataSource = paymentOptions.paymentOptions.filter{ (dataHolder.transactionData.paymentType == .Card || dataHolder.transactionData.paymentType == .All) && $0.paymentType == .Card }.map{ CurrencyCardsTelecomModel.init(paymentOption: $0) }
         
-        // Load the goPayLogin status
-        dataHolder.transactionData.loggedInToGoPay = false//UserDefaults.standard.bool(forKey: TapCheckoutConstants.GoPayLoginUserDefaultsKey)
+        
         updateManager()
     }
     

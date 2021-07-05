@@ -41,7 +41,7 @@ internal class DataHolder {
 /// Struct that holds view models and UI related variables
 internal class ViewModelsHolder {
     
-    internal init(tapMerchantViewModel: TapMerchantHeaderViewModel = .init(), tapAmountSectionViewModel: TapAmountSectionViewModel = .init(), tapItemsTableViewModel: TapGenericTableViewModel = .init(), tapGatewayChipHorizontalListViewModel: TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GateWayListWithGoPayListHeader), tapGoPayChipsHorizontalListViewModel: TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GoPayListHeader), tapCardPhoneListViewModel: TapCardPhoneBarListViewModel = .init(), tapCardTelecomPaymentViewModel: TapCardTelecomPaymentViewModel = .init(), tapCurrienciesChipHorizontalListViewModel: TapChipHorizontalListViewModel = .init(), tapSaveCardSwitchViewModel: TapSwitchViewModel = .init(with: .invalidCard, merchant: "jazeera airways"), goPayBarViewModel: TapGoPayLoginBarViewModel? = nil, swipeDownToDismiss: Bool = false, currenciesChipsViewModel: [CurrencyChipViewModel] = [], goPayLoginCountries: [TapCountry] = [], closeButtonStyle: CheckoutCloseButtonEnum = .title, showDragHandler: Bool = false, tapCardPhoneListDataSource: [CurrencyCardsTelecomModel] = [], gatewayChipsViewModel: [ChipWithCurrencyModel] = [], goPayChipsViewModel: [ChipWithCurrencyModel] = []) {
+    internal init(tapMerchantViewModel: TapMerchantHeaderViewModel = .init(), tapAmountSectionViewModel: TapAmountSectionViewModel = .init(), tapItemsTableViewModel: TapGenericTableViewModel = .init(), tapGatewayChipHorizontalListViewModel: TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GateWayListWithGoPayListHeader), tapGoPayChipsHorizontalListViewModel: TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GoPayListHeader), tapCardPhoneListViewModel: TapCardPhoneBarListViewModel = .init(), tapCardTelecomPaymentViewModel: TapCardTelecomPaymentViewModel = .init(), tapCurrienciesChipHorizontalListViewModel: TapChipHorizontalListViewModel = .init(), tapSaveCardSwitchViewModel: TapSwitchViewModel = .init(with: .invalidCard, merchant: "jazeera airways", whichSwitchesToShow: .none), goPayBarViewModel: TapGoPayLoginBarViewModel? = nil, swipeDownToDismiss: Bool = false, currenciesChipsViewModel: [CurrencyChipViewModel] = [], goPayLoginCountries: [TapCountry] = [], closeButtonStyle: CheckoutCloseButtonEnum = .title, showDragHandler: Bool = false, tapCardPhoneListDataSource: [CurrencyCardsTelecomModel] = [], gatewayChipsViewModel: [ChipWithCurrencyModel] = [], goPayChipsViewModel: [ChipWithCurrencyModel] = []) {
         
         self.tapMerchantViewModel = tapMerchantViewModel
         self.tapAmountSectionViewModel = tapAmountSectionViewModel
@@ -80,7 +80,7 @@ internal class ViewModelsHolder {
     /// Represents the view model that controls the chips list of supported currencies view
     var tapCurrienciesChipHorizontalListViewModel:TapChipHorizontalListViewModel = .init()
     /// Represents the view model that controls the save card/number view
-    var tapSaveCardSwitchViewModel: TapSwitchViewModel = .init(with: .invalidCard, merchant: "jazeera airways")
+    var tapSaveCardSwitchViewModel: TapSwitchViewModel = .init(with: .invalidCard, merchant: "jazeera airways",whichSwitchesToShow: .none)
     /// Represents the view model that controls the country picker when logging in to goPay using the phone number
     var goPayBarViewModel:TapGoPayLoginBarViewModel?
     /// Represents the view model that controls the action button view
@@ -144,7 +144,6 @@ internal class TransactionDataHolder {
         self.transactionItemsValue = transactionItemsValue
         self.selectedPaymentOption = selectedPaymentOption
     }
-    
     
     /// Protocol to instruct parent upon important data changes to act upon
     var dataHolderDelegate:TapCheckoutDataHolderDelegate?
@@ -315,5 +314,38 @@ internal class TransactionDataHolder {
     
     /// Represents the payment option the user is actively selecting right now
     var selectedPaymentOption:PaymentOption?
+    
+    /// Decides which save card option to be shown whether merchant, goPay, both or none
+    var saveCardSwitchType:TapSwitchEnum {
+        // Check if the mrtchant allowed it first
+        guard enableSaveCard else { return .none }
+        
+        // Then check if its allowed permission wise from the backend
+        guard let permissions = intitModelResponse?.data.permissions,
+              permissions.contains(.merchantCheckout) else { return .none }
+        
+        // Then we need to check if the user is loggedInToGoPay
+        guard loggedInToGoPay else { return .merchant }
+        return .all
+    }
+    
+    /// Determines whether the user opt out for saving the card into the merchant's system
+    var isSaveCardMerchantActivated:Bool {
+        // First check that the save card is enabled
+        guard saveCardSwitchType == .merchant else { return false }
+        
+        // Then check if the user opt to save the card
+        return TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapSaveCardSwitchViewModel.isMerchantSaveAllowed
+    }
+    
+    
+    /// Determines whether the user opt out for saving the card into the GoPay's system
+    var isSaveCardGoPayActivated:Bool {
+        // First check that the save card is enabled
+        guard saveCardSwitchType == .merchant else { return false }
+        
+        // Then check if the user opt to save the card
+        return TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapSaveCardSwitchViewModel.isGoPaySaveAllowed
+    }
     
 }

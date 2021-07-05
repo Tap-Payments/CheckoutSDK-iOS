@@ -113,7 +113,7 @@ internal extension TapCheckout {
         // Change the action button to loading status
         TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapActionButtonViewModel.startLoading()
         // Create the charge request and call it
-        let chargeRequest:TapChargeRequestModel = createChargeOrAuthorizeRequestModel(with: paymentOption!, token: token, cardBIN: token.card.binNumber)
+        let chargeRequest:TapChargeRequestModel = createChargeOrAuthorizeRequestModel(with: paymentOption!, token: token, cardBIN: token.card.binNumber,saveCard: dataHolder.transactionData.isSaveCardMerchantActivated)
         callChargeOrAuthorizeAPI(chargeRequestModel: chargeRequest) { [weak self] charge in
             DispatchQueue.main.async{
                 // Process the charge protocol response we got from the server

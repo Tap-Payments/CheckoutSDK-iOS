@@ -122,24 +122,28 @@ internal extension TapCheckout {
         
         sharedManager.dataHolder.transactionData.dataHolderDelegate = sharedManager
         
-        sharedManager.dataHolder.transactionData.transactionCurrencyValue   = .init(currency, amount, "")
-        sharedManager.dataHolder.transactionData.applePayMerchantID         = applePayMerchantID
-        sharedManager.dataHolder.transactionData.paymentType                = paymentType
+        sharedManager.dataHolder.transactionData.transactionCurrencyValue       = .init(currency, amount, "")
+        sharedManager.dataHolder.transactionData.applePayMerchantID             = applePayMerchantID
+        sharedManager.dataHolder.transactionData.paymentType                    = paymentType
         
-        sharedManager.dataHolder.transactionData.transactionMode            = transactionMode
-        sharedManager.dataHolder.transactionData.customer                   = customer
-        sharedManager.dataHolder.transactionData.destinations               = destinations
-        sharedManager.dataHolder.transactionData.tapMerchantID              = tapMerchantID
-        sharedManager.dataHolder.transactionData.taxes                      = taxes
-        sharedManager.dataHolder.transactionData.shipping                   = shipping
-        sharedManager.dataHolder.transactionData.allowedCardTypes           = allowedCardTypes
-        sharedManager.dataHolder.transactionData.paymentDescription         = paymentDescription
-        sharedManager.dataHolder.transactionData.paymentMetadata            = paymentMetadata
-        sharedManager.dataHolder.transactionData.paymentReference           = paymentReference
-        sharedManager.dataHolder.transactionData.paymentStatementDescriptor = paymentStatementDescriptor
-        sharedManager.dataHolder.transactionData.require3DSecure            = require3DSecure
-        sharedManager.dataHolder.transactionData.receiptSettings            = receiptSettings
-        sharedManager.dataHolder.transactionData.authorizeAction            = authorizeAction
+        sharedManager.dataHolder.transactionData.transactionMode                = transactionMode
+        sharedManager.dataHolder.transactionData.customer                       = customer
+        sharedManager.dataHolder.transactionData.destinations                   = destinations
+        sharedManager.dataHolder.transactionData.tapMerchantID                  = tapMerchantID
+        sharedManager.dataHolder.transactionData.taxes                          = taxes
+        sharedManager.dataHolder.transactionData.shipping                       = shipping
+        sharedManager.dataHolder.transactionData.allowedCardTypes               = allowedCardTypes
+        sharedManager.dataHolder.transactionData.paymentDescription             = paymentDescription
+        sharedManager.dataHolder.transactionData.paymentMetadata                = paymentMetadata
+        sharedManager.dataHolder.transactionData.paymentReference               = paymentReference
+        sharedManager.dataHolder.transactionData.paymentStatementDescriptor     = paymentStatementDescriptor
+        sharedManager.dataHolder.transactionData.require3DSecure                = require3DSecure
+        sharedManager.dataHolder.transactionData.receiptSettings                = receiptSettings
+        sharedManager.dataHolder.transactionData.authorizeAction                = authorizeAction
+        
+        sharedManager.dataHolder.transactionData.allowsToSaveSameCardMoreThanOnce = allowsToSaveSameCardMoreThanOnce
+        sharedManager.dataHolder.transactionData.enableSaveCard                 = enableSaveCard
+        sharedManager.dataHolder.transactionData.isSaveCardSwitchOnByDefault    = isSaveCardSwitchOnByDefault
         
         
         // if items has no items, we need to add the default items

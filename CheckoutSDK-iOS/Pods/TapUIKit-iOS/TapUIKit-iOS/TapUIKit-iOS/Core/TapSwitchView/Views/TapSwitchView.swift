@@ -27,7 +27,7 @@ import TapThemeManager2020
     /// Represents merchant switch control view
     private var merchantSwitchControl: TapSwitchControl?
     /// The view model that controls the data to be displayed and the events to be fired
-    @objc public var viewModel:TapSwitchViewModel = .init(with: .invalidCard, merchant: "jazeera airways")
+    @objc public var viewModel:TapSwitchViewModel = .init(with: .invalidCard, merchant: "jazeera airways",whichSwitchesToShow: .all)
     /// This contains the path of Tap Switch view theme in the theme manager
     private let themePath = "TapSwitchView"
     
