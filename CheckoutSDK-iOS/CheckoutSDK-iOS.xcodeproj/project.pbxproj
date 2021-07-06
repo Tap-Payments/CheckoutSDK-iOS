@@ -36,6 +36,9 @@
 		E8392172268F151300421E15 /* SecureEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8392171268F151300421E15 /* SecureEncodable.swift */; };
 		E8392177268F378A00421E15 /* TapBinResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8392176268F378A00421E15 /* TapBinResponseModel.swift */; };
 		E83921D826936EE300421E15 /* TapAuthorizeRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83921D726936EE300421E15 /* TapAuthorizeRequestModel.swift */; };
+		E83921DA26942B4700421E15 /* TapCreateCardVerificationRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83921D926942B4700421E15 /* TapCreateCardVerificationRequestModel.swift */; };
+		E83921DD26942C0200421E15 /* TapCreateCardVerificationResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83921DC26942C0200421E15 /* TapCreateCardVerificationResponseModel.swift */; };
+		E83921DF26942C8000421E15 /* CardVerificationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83921DE26942C8000421E15 /* CardVerificationStatus.swift */; };
 		E83D221125777E4A00AE6DA0 /* Pods_CheckoutSDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21BD535F94169C44719615A6 /* Pods_CheckoutSDK_iOS.framework */; };
 		E83D221225777E4A00AE6DA0 /* Pods_CheckoutSDK_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 21BD535F94169C44719615A6 /* Pods_CheckoutSDK_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E861286D24EA7F7F00774BAA /* CurrencyChipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E861286C24EA7F7F00774BAA /* CurrencyChipModel.swift */; };
@@ -208,6 +211,9 @@
 		E8392171268F151300421E15 /* SecureEncodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureEncodable.swift; sourceTree = "<group>"; };
 		E8392176268F378A00421E15 /* TapBinResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapBinResponseModel.swift; sourceTree = "<group>"; };
 		E83921D726936EE300421E15 /* TapAuthorizeRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapAuthorizeRequestModel.swift; sourceTree = "<group>"; };
+		E83921D926942B4700421E15 /* TapCreateCardVerificationRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCreateCardVerificationRequestModel.swift; sourceTree = "<group>"; };
+		E83921DC26942C0200421E15 /* TapCreateCardVerificationResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCreateCardVerificationResponseModel.swift; sourceTree = "<group>"; };
+		E83921DE26942C8000421E15 /* CardVerificationStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardVerificationStatus.swift; sourceTree = "<group>"; };
 		E861286C24EA7F7F00774BAA /* CurrencyChipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyChipModel.swift; sourceTree = "<group>"; };
 		E861286E24EAA38A00774BAA /* CurrencyCardsTelecomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCardsTelecomModel.swift; sourceTree = "<group>"; };
 		E86128B324ED23EF00774BAA /* TapCheckoutExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckoutExtensions.swift; sourceTree = "<group>"; };
@@ -458,6 +464,15 @@
 			path = TapAuthorizeRequestModel;
 			sourceTree = "<group>";
 		};
+		E83921DB26942B9300421E15 /* TapCardVerifyRequest */ = {
+			isa = PBXGroup;
+			children = (
+				E83921D926942B4700421E15 /* TapCreateCardVerificationRequestModel.swift */,
+				E83921DC26942C0200421E15 /* TapCreateCardVerificationResponseModel.swift */,
+			);
+			path = TapCardVerifyRequest;
+			sourceTree = "<group>";
+		};
 		E8811ACC24D4283C00DE95D1 = {
 			isa = PBXGroup;
 			children = (
@@ -533,6 +548,7 @@
 				E8844DF826776C580073D777 /* SDKMode.swift */,
 				E8C2052524E3FEFA006653CA /* TapCheckoutFlipStatus.swift */,
 				E839212B268D982100421E15 /* AuthorizeActionStatus.swift */,
+				E83921DE26942C8000421E15 /* CardVerificationStatus.swift */,
 			);
 			path = public;
 			sourceTree = "<group>";
@@ -799,6 +815,7 @@
 		E8EDD3BA256158C700AFC0B3 /* APIRequests */ = {
 			isa = PBXGroup;
 			children = (
+				E83921DB26942B9300421E15 /* TapCardVerifyRequest */,
 				E83921D626936EC600421E15 /* TapAuthorizeRequestModel */,
 				E8392175268F376400421E15 /* TapBinRequest */,
 				E839216C268F10C600421E15 /* TapTokenRequest */,
@@ -1049,6 +1066,7 @@
 				E8EC81BC267D30740080E760 /* TapCheckout+RequestsGeneration.swift in Sources */,
 				E8EC81AD267D013C0080E760 /* TransactionDetails.swift in Sources */,
 				E8983DD124F1469700C34E50 /* TapEntitResponseModel.swift in Sources */,
+				E83921DD26942C0200421E15 /* TapCreateCardVerificationResponseModel.swift in Sources */,
 				E8EC81B0267D01480080E760 /* TransactionExpiry.swift in Sources */,
 				E8EC8193267CFF0A0080E760 /* Source.swift in Sources */,
 				E8983DCF24F0F7B800C34E50 /* TapNetworkPath.swift in Sources */,
@@ -1071,6 +1089,7 @@
 				E8EC8187267CFBD20080E760 /* AuthenticationRequirer.swift in Sources */,
 				E8EC8181267CFBAE0080E760 /* Authentication.swift in Sources */,
 				E8EC80F9267C7D470080E760 /* TapCheckout+Calculations.swift in Sources */,
+				E83921DF26942C8000421E15 /* CardVerificationStatus.swift in Sources */,
 				E8EC81B4267D018B0080E760 /* Response.swift in Sources */,
 				E8EC8199267CFF810080E760 /* TokenizedCard.swift in Sources */,
 				E8845E7024D83D7B009E8B73 /* TapCheckout.swift in Sources */,
@@ -1088,6 +1107,7 @@
 				E8EC817B267CFA6B0080E760 /* Charge.swift in Sources */,
 				E8EC818B267CFD350080E760 /* TrackingURL.swift in Sources */,
 				E8392177268F378A00421E15 /* TapBinResponseModel.swift in Sources */,
+				E83921DA26942B4700421E15 /* TapCreateCardVerificationRequestModel.swift in Sources */,
 				E8EC81C2267F57650080E760 /* TapCheckout+TransactionData.swift in Sources */,
 				E8EC81A6267D00C10080E760 /* SourceType.swift in Sources */,
 				E8844F1B267794960073D777 /* InternalSDKSettings.swift in Sources */,
