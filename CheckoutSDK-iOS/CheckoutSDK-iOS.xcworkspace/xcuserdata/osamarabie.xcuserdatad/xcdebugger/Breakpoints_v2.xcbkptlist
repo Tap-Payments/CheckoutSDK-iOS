@@ -7,64 +7,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "96D46706-61A6-42AC-B11B-5307E5ED577C"
-            shouldBeEnabled = "No"
+            uuid = "4386EB81-0794-42AE-95A3-C0C331B52E52"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapBottomSheetDialog/TapBottomSheetDialogViewController.swift"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+PaymentProcesses.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "376"
-            endingLineNumber = "376"
-            landmarkName = "dismissBottomSheet(animationDuration:)"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
+            landmarkName = "handleTokenCharge(with:for:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "96D46706-61A6-42AC-B11B-5307E5ED577C - f9c22bab6c07407f"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (Swift.Bool) -&gt; () in closure #1 () -&gt; () in closure #1 () -&gt; () in TapUIKit_iOS.TapBottomSheetDialogViewController.(dismissBottomSheet in _E3B2D169D30B3E8344F532F4C7D58278)(animationDuration: Swift.Double) -&gt; ()"
-                  moduleName = "TapUIKit_iOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapBottomSheetDialog/TapBottomSheetDialogViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "376"
-                  endingLineNumber = "376"
-                  offsetFromSymbolStart = "59">
-               </Location>
-               <Location
-                  uuid = "96D46706-61A6-42AC-B11B-5307E5ED577C - 4485e4acb068ab84"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in closure #2 (Swift.Bool) -&gt; () in closure #1 () -&gt; () in closure #1 () -&gt; () in TapUIKit_iOS.TapBottomSheetDialogViewController.(dismissBottomSheet in _E3B2D169D30B3E8344F532F4C7D58278)(animationDuration: Swift.Double) -&gt; ()"
-                  moduleName = "TapUIKit_iOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapBottomSheetDialog/TapBottomSheetDialogViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "369"
-                  endingLineNumber = "369"
-                  offsetFromSymbolStart = "48">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "47951AF6-3D0F-4A48-884E-78217D3CF0BB"
+            uuid = "1F947A2E-E31A-4798-B84E-B1CE947A1EA1"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapBottomSheetDialog/TapBottomSheetDialogViewController.swift"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckoutApiCallsExtensions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "373"
-            endingLineNumber = "373"
-            landmarkName = "dismissBottomSheet(animationDuration:)"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "callChargeOrAuthorizeAPI(chargeRequestModel:onResponeReady:onErrorOccured:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4E38E58B-4112-4CCD-BA1A-842AE91CA353"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Controllers/TapBottomCheckoutControllerViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
+            landmarkName = "addGloryViews()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

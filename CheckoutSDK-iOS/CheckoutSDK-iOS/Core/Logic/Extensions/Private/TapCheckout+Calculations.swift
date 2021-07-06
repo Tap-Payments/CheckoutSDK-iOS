@@ -26,6 +26,13 @@ internal extension TapCheckout {
      - Parameter with paymentOption: The payment option to ask for its extra fees
      */
     func askForExtraFees(with paymentOption:PaymentOption, onConfimation: @escaping () -> () = {}) {
+        // get the transaction mode
+        let transactionMode = dataHolder.transactionData.transactionMode
+        // Make sure the mode is capture or authorize
+        guard (transactionMode == .authorizeCapture) || (transactionMode == .purchase) else {
+            onConfimation()
+            return
+        }
         // get the extra fees value
         let extraFeesValue:Double = calculateExtraFees(for: paymentOption)
         // check if there is an extra fee to pay or not. If the fees <= 0, then we proceed with the confirmation block right away

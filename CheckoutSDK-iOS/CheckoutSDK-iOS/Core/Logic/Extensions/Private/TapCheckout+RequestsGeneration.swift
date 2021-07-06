@@ -17,7 +17,12 @@ extension TapCheckout {
      */
     func createPaymentOptionRequestModel() -> TapPaymentOptionsRequestModel {
         let transactionData:TransactionDataHolder = dataHolder.transactionData
-        return TapPaymentOptionsRequestModel(transactionMode: transactionData.transactionMode, amount: transactionData.transactionTotalAmountValue, items: transactionData.transactionItemsValue, shipping: transactionData.shipping, taxes: transactionData.taxes, currency: transactionData.transactionCurrencyValue.currency, merchantID: transactionData.tapMerchantID, customer: transactionData.customer, destinationGroup: DestinationGroup(destinations: transactionData.destinations), paymentType: transactionData.paymentType)
+        // Based on the transaction mode we decide the data we pass to the API
+        if transactionData.transactionMode == .cardSaving {
+            return TapPaymentOptionsRequestModel(customer: transactionData.customer)
+        }else{
+            return TapPaymentOptionsRequestModel(transactionMode: transactionData.transactionMode, amount: transactionData.transactionTotalAmountValue, items: transactionData.transactionItemsValue, shipping: transactionData.shipping, taxes: transactionData.taxes, currency: transactionData.transactionCurrencyValue.currency, merchantID: transactionData.tapMerchantID, customer: transactionData.customer, destinationGroup: DestinationGroup(destinations: transactionData.destinations), paymentType: transactionData.paymentType)
+        }
     }
     
     /**

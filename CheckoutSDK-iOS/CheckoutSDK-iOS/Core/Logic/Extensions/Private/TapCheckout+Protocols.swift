@@ -48,6 +48,13 @@ import TapUIKit_iOS
      Will be fired once the charge (AUTHORIZE) successfully transacted
      */
     @objc(checkoutAuthorizeFailed:) optional func checkoutFailed(with authorize:Authorize)
+    
+    
+    /**
+     Will be fired once the card is succesfully tokenized
+     */
+    @objc optional func cardTokenized(with token:Token)
+    
 }
 
 

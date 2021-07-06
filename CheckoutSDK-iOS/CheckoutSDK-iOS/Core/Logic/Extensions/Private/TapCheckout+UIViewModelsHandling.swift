@@ -100,9 +100,10 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
     func parseInitResponse() {
         // Double check..
         guard let initModel = dataHolder.transactionData.intitModelResponse else { return }
-        
+        // Based on the transaciton mode we define the header title
+        let transactionMode = dataHolder.transactionData.transactionMode
         // Fetch the merchant header info
-        dataHolder.viewModels.tapMerchantViewModel = .init(title: nil, subTitle: initModel.data.merchant?.name, iconURL: initModel.data.merchant?.logoURL)
+        dataHolder.viewModels.tapMerchantViewModel = .init(title: (transactionMode == .cardSaving) ? "SAVE CARD" : nil, subTitle: initModel.data.merchant?.name, iconURL: initModel.data.merchant?.logoURL)
         
     }
     
@@ -140,10 +141,18 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         // Fetch the cards + telecom payments options
         self.dataHolder.viewModels.tapCardPhoneListDataSource = paymentOptions.paymentOptions.filter{ (dataHolder.transactionData.paymentType == .Card || dataHolder.transactionData.paymentType == .All) && $0.paymentType == .Card }.map{ CurrencyCardsTelecomModel.init(paymentOption: $0) }
         
+        // If the mode is card saving, we need to hide anything other than the card form
+        if dataHolder.transactionData.transactionMode == .cardSaving {
+            adjustCardSavingViews()
+        }
         
         updateManager()
     }
     
+    /// This method handles the logic needed to hide all irrelevant views when the mode is card saving
+    func adjustCardSavingViews() {
+        
+    }
     
     /// Handles the logic to perform parsing for the card data loaded from the bin lookup api
     func parseTapBinResponse() {

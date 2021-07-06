@@ -99,9 +99,23 @@ internal extension TapCheckout {
         switch dataHolder.transactionData.transactionMode {
         case .purchase,.authorizeCapture:
             handleTokenCharge(with: token,for: paymentOption)
+        case .cardTokenization:
+            handleTokenTokenize(with: token,for: paymentOption)
         default:
             return
         }
+    }
+    
+    
+    /**
+     Performs the logic post tokenizing a card in a token mode
+     - Parameter with token: The token response we want to analyse and decide the next action based on it
+     */
+    func handleTokenTokenize(with token:Token,for paymentOption:PaymentOption? = nil) {
+        // Let us inform the caller app that the tokenization had been done successfully
+        tapCheckoutScreenDelegate?.cardTokenized?(with: token)
+        // Now it is time to safely dismiss ourselves showing a green tick :)
+        dismissCheckout(with: true)
     }
     
     
