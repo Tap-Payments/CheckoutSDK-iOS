@@ -11,6 +11,7 @@ import Foundation
 /// Collection of logic to process a payment with different flows
 internal extension TapCheckout {
     
+    // MARK:- General methods for all modes
     /**
      Used to process a checkout process with a given payment option
      - Parameter with paymentOption: The payment option to start the checkout process with
@@ -39,6 +40,7 @@ internal extension TapCheckout {
         }
     }
     
+    // MARK:- Redirection based methods
     /**
      Used to call the correct checkout logic for the web based payment options
      - Parameter with paymentOption: The payment option to start the checkout process with
@@ -60,6 +62,7 @@ internal extension TapCheckout {
 
     }
     
+    // MARK:- Card based methods
     /**
      Used to call the correct checkout logic for the web based payment options
      - Parameter with paymentOption: The payment option to start the checkout process with
@@ -87,7 +90,7 @@ internal extension TapCheckout {
             self?.handleError(error: error)
         }
     }
-    
+    // MARK:- Token based methods
     /**
      Handles the token response to see what should be the next action
      - Parameter with token: The token response we want to analyse and decide the next action based on it
@@ -129,13 +132,16 @@ internal extension TapCheckout {
         }
         
         // Let us hit the card verify api
-        
-        // Let us inform the caller app that the tokenization had been done successfully
-        tapCheckoutScreenDelegate?.cardTokenized?(with: token)
-        // Now it is time to safely dismiss ourselves showing a green tick :)
-        dismissCheckout(with: true)
+        callCardVerifyAPI(cardVerifyRequestModel: cardVerifyRequest) { [weak self] cardVerifyResponse in
+            DispatchQueue.main.async{
+                // Process the card verify response we got from the server
+                guard let nonNullSelf = self else { return }
+                nonNullSelf.handleCardVerify(with: cardVerifyResponse)
+            }
+        } onErrorOccured: { [weak self] error in
+            self?.handleError(error: error)
+        }
     }
-    
     
     /**
      Performs the logic post tokenizing a card in a token mode
@@ -169,6 +175,7 @@ internal extension TapCheckout {
         }
     }
     
+    // MARK:- Authourize and Charge based methods
     /**
      Handles the charge response to see what should be the next action
      - Parameter with charge: The charge response we want to analyse and decide the next action based on it
@@ -261,6 +268,19 @@ internal extension TapCheckout {
      */
     func handleCancelled(for charge:ChargeProtocol?) {
         handleFailed(for: charge)
+    }
+    
+    
+    // MARK:- Card saving based methods
+    /**
+     Performs the logic post verifying a card
+     - Parameter with cardVerifyResponse: The cardVerifyResponse response we want to analyse and decide the next action based on it
+     */
+    func handleCardVerify(with cardVerifyResponse:TapCreateCardVerificationResponseModel) {
+        // Let us inform the caller app that the tokenization had been done successfully
+        //tapCheckoutScreenDelegate?.cardTokenized?(with: token)
+        // Now it is time to safely dismiss ourselves showing a green tick :)
+        //dismissCheckout(with: true)
     }
     
 }
