@@ -172,4 +172,28 @@ extension TapCheckout {
         }
     }
     
+    
+    /**
+     Handles the logic to be executed when redirection is finished for card saving
+     - Parameter with tapID: The tap id of the object (card saving) generated from the backend in the URL
+     */
+    func cardPaymentProcessFinished(with tapID:String) {
+        // Hide the webview
+        UIDelegate?.closeWebView()
+        // Show the button in a loading state
+        dataHolder.viewModels.tapActionButtonViewModel.startLoading()
+        // We need to retrieve the object using the passed id and process it afterwards
+        retrieveObject(with: tapID) { [weak self] (returnVerifiedSaveCard: TapCreateCardVerificationResponseModel?, error: TapSDKError?) in
+            if let error = error {
+                self?.handleError(error: error)
+            }else if let returnVerifiedSaveCard = returnVerifiedSaveCard {
+                // No errors occured we need to process the current charge or authorize
+                self?.handleCardVerify(with: returnVerifiedSaveCard)
+            }
+        } onErrorOccured: { [weak self] (error) in
+            self?.handleError(error: error)
+        }
+        
+    }
+    
 }

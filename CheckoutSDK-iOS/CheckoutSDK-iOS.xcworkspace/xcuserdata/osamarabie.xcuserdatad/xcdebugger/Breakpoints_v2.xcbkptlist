@@ -8,7 +8,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "E0394504-BCA2-4409-B530-1A9F35BCD2E7"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+PaymentProcesses.swift"

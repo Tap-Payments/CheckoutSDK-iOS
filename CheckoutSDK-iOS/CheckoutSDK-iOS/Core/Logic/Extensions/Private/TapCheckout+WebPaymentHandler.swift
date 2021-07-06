@@ -62,8 +62,10 @@ extension TapCheckout:TapWebViewModelDelegate {
             // Process the web payment upon getting the transaction ID from the backend url based on the transaction mode Charge or Authorize
             if(dataHolder.transactionData.transactionMode == .purchase) {
                 webPaymentProcessFinished(with: tapID, of: Charge.self)
-            }else{
+            }else if(dataHolder.transactionData.transactionMode == .authorizeCapture) {
                 webPaymentProcessFinished(with: tapID, of: Authorize.self)
+            }else if(dataHolder.transactionData.transactionMode == .cardSaving) {
+                cardPaymentProcessFinished(with: tapID)
             }
         }else if decision.shouldCloseWebPaymentScreen {
             // The backend told us we need to close the web view :)
