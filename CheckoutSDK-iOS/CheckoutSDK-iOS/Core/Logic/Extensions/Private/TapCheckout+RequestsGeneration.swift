@@ -26,6 +26,34 @@ extension TapCheckout {
     }
     
     /**
+     Create a card verification api request
+     - Parameter for token: The token generated from the previous step which is tokenizing the card
+     - Returns: The Card verification api request model
+     */
+    func createCardVerificationRequestModel(for token:Token) -> TapCreateCardVerificationRequestModel? {
+        
+        let requires3DSecure    = shouldForce3DS() || dataHolder.transactionData.require3DSecure
+        let shouldSaveCard      = true
+        let metadata            = dataHolder.transactionData.paymentMetadata
+        let source              = SourceRequest(token: token)
+        let redirect            = TrackingURL(url: WebPaymentHandlerConstants.returnURL)
+        let currency            = dataHolder.transactionData.transactionUserCurrencyValue.currency
+        let customer            = dataHolder.transactionData.customer
+        
+        
+        return TapCreateCardVerificationRequestModel                    (is3DSecureRequired:    requires3DSecure,
+                                                                        shouldSaveCard:         shouldSaveCard,
+                                                                        metadata:               metadata,
+                                                                        customer:               customer,
+                                                                        currency:               currency,
+                                                                        source:                 source,
+                                                                        redirect:               redirect)
+        
+        
+    }
+    
+    
+    /**
      Create a card token api request
      - Parameter for card: The card we need to generate a token for
      - Parameter address: The address attached to the card if any
@@ -86,7 +114,7 @@ extension TapCheckout {
         let order                   = Order(identifier: orderID)
         let redirect                = TrackingURL(url: WebPaymentHandlerConstants.returnURL)
         var shouldSaveCard          = saveCard ?? false
-        var requires3DSecure        = transactionData.require3DSecure
+        var requires3DSecure        = transactionData.require3DSecure || shouldForce3DS()
         
         switch paymentOption.threeDLevel {
         case .always:

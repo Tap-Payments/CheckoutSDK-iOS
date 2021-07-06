@@ -56,7 +56,8 @@ internal extension TapCheckout {
      */
     func shouldSaveCard(with token: Token) -> Bool {
         // First check if merchant is allowed to save cards
-        guard Permissions.merchantCheckoutAllowed else { return false }
+        guard let permissions = dataHolder.transactionData.intitModelResponse?.data.permissions,
+              permissions.contains(.merchantCheckout) else { return false }
         // Check if it is already saved before and if the merchant stated it is allowed for a customer to save the card multiple times
         let existingCardFingerprints = dataHolder.transactionData.paymentOptionsModelResponse?.savedCards?.compactMap { $0.fingerprint }.filter { $0.tap_length > 0 } ?? []
         if !existingCardFingerprints.contains(token.card.fingerprint) {
@@ -65,5 +66,17 @@ internal extension TapCheckout {
         }
         // Otherwise based on the value the merchant stated
         return dataHolder.transactionData.allowsToSaveSameCardMoreThanOnce
+    }
+    
+    /**
+     Indicates whether 3ds should be always forced based on the permissions allowed to the merchant from TAP Payments.
+     - Returns: True if the merchant is not allowed to override 3ds, false otherwise.
+     */
+    func shouldForce3DS() -> Bool {
+        
+        guard let permissions = dataHolder.transactionData.intitModelResponse?.data.permissions,
+              permissions.contains(.non3DSecureTransactions) else { return true }
+        
+        return false
     }
 }

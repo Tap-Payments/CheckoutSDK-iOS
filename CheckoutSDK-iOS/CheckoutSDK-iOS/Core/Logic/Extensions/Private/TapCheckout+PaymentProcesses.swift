@@ -101,9 +101,39 @@ internal extension TapCheckout {
             handleTokenCharge(with: token,for: paymentOption)
         case .cardTokenization:
             handleTokenTokenize(with: token,for: paymentOption)
+        case .cardSaving:
+            handleTokenCardSave(with: token,for: paymentOption)
         default:
             return
         }
+    }
+    
+    
+    
+    
+    /**
+     Performs the logic post tokenizing a card in a save card mode
+     - Parameter with token: The token response we want to analyse and decide the next action based on it
+     */
+    func handleTokenCardSave(with token:Token,for paymentOption:PaymentOption? = nil) {
+        // Let us first check if this card can be saved
+        guard shouldSaveCard(with: token) else {
+            handleError(error: "Whether you don't have permission to save cards at your side so please contact TAP Payments. Or the customer already has this card saved before.")
+            return
+        }
+        
+        // If all good we need to make a call to card verify api
+        guard let cardVerifyRequest:TapCreateCardVerificationRequestModel = createCardVerificationRequestModel(for: token) else {
+            handleError(error: "Failed while creating TapCreateCardVerificationRequestModel")
+            return
+        }
+        
+        // Let us hit the card verify api
+        
+        // Let us inform the caller app that the tokenization had been done successfully
+        tapCheckoutScreenDelegate?.cardTokenized?(with: token)
+        // Now it is time to safely dismiss ourselves showing a green tick :)
+        dismissCheckout(with: true)
     }
     
     
