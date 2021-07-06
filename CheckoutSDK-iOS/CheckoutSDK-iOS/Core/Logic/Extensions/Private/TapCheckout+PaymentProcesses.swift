@@ -233,11 +233,11 @@ internal extension TapCheckout {
     }
     
     /**
-     Will be called once the charge response shows that, the charge has been successfully captured.
+     Will be called once the charge response shows that, the charge has hailed
      - Parameter for charge: The charge object we will pass back to the user
      */
     func handleFailed(for charge:ChargeProtocol?) {
-        // First let us inform the caller app that the charge/authorization had been done successfully
+        // First let us inform the caller app that the charge/authorization had failed
         if let charge:Charge = charge as? Charge {
             tapCheckoutScreenDelegate?.checkoutFailed?(with: charge)
         }else if let authorize:Authorize = charge as? Authorize {
@@ -248,7 +248,7 @@ internal extension TapCheckout {
     }
     
     /**
-     Will be called once the charge response shows that, the charge has been successfully captured.
+     Will be called once the charge response shows that, the charge has been initiated and we need to do more actions to complete it like 3ds
      - Parameter for charge: The charge object we will pass back to the user
      */
     func handleInitated(for charge:ChargeProtocol?) {
@@ -263,7 +263,7 @@ internal extension TapCheckout {
     }
     
     /**
-     Will be called once the charge response shows that, the charge has been successfully captured.
+     Will be called once the charge response shows that, the charge has been cancelled
      - Parameter for charge: The charge object we will pass back to the user
      */
     func handleCancelled(for charge:ChargeProtocol?) {
@@ -277,10 +277,57 @@ internal extension TapCheckout {
      - Parameter with cardVerifyResponse: The cardVerifyResponse response we want to analyse and decide the next action based on it
      */
     func handleCardVerify(with cardVerifyResponse:TapCreateCardVerificationResponseModel) {
-        // Let us inform the caller app that the tokenization had been done successfully
-        //tapCheckoutScreenDelegate?.cardTokenized?(with: token)
+        // Based in the card verify response we will proceed
+        let verifyStatus = cardVerifyResponse.status
+        switch verifyStatus {
+        case .valid:
+            handleCardSaveValid(for:cardVerifyResponse)
+            break
+        case .invalid:
+            handleCardSaveInValid(for:cardVerifyResponse)
+            break
+        case .initiated:
+            handleCardSaveInitiated(for:cardVerifyResponse)
+            break
+        }
+    }
+    
+    
+    /**
+     Will be called once the save card response shows that, the saving has been successfully done.
+     - Parameter for cardVerifyResponse: The save card object that has all the details
+     */
+    func handleCardSaveValid(for cardVerifyResponse:TapCreateCardVerificationResponseModel) {
+        // First let us inform the caller app that the save card had been done successfully
+        tapCheckoutScreenDelegate?.saveCardSuccessfull?(with: cardVerifyResponse)
         // Now it is time to safely dismiss ourselves showing a green tick :)
-        //dismissCheckout(with: true)
+        dismissCheckout(with: true)
+    }
+    
+    /**
+     Will be called once the save card response shows that, the saving has failed.
+     - Parameter for cardVerifyResponse: The save card object that has all the details
+     */
+    func handleCardSaveInValid(for cardVerifyResponse:TapCreateCardVerificationResponseModel) {
+        // First let us inform the caller app that the save card had failed
+        tapCheckoutScreenDelegate?.saveCardFailed?(with: cardVerifyResponse)
+        // Now it is time to safely dismiss ourselves showing a green tick :)
+        dismissCheckout(with: false)
+    }
+    
+    /**
+     Will be called once the save card response shows that, the saving has started, most probapy it has 3ds.
+     - Parameter for cardVerifyResponse: The save card object that has all the details
+     */
+    func handleCardSaveInitiated(for cardVerifyResponse:TapCreateCardVerificationResponseModel) {
+        // Check if we need to make a redirection
+        if let redirectionURL:URL = cardVerifyResponse.transactionDetails.url {
+            DispatchQueue.main.async{ [weak self] in
+                // Instruct the view to open a web view with the redirection url
+                guard let nonNullSelf = self else { return }
+                nonNullSelf.UIDelegate?.showWebView(with: redirectionURL,and: nonNullSelf)
+            }
+        }
     }
     
 }

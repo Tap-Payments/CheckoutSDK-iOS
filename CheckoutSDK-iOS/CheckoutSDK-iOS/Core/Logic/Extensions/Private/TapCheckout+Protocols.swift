@@ -55,6 +55,17 @@ import TapUIKit_iOS
      */
     @objc optional func cardTokenized(with token:Token)
     
+    
+    /**
+     Will be fired once the save card is done
+     */
+    @objc optional func saveCardSuccessfull(with savedCard:TapCreateCardVerificationResponseModel)
+    
+    /**
+     Will be fired once the save card failed
+     */
+    @objc optional func saveCardFailed(with savedCard:TapCreateCardVerificationResponseModel)
+    
 }
 
 
