@@ -211,9 +211,11 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
     
     
     func closeItemsClicked() {
+        // First we need to close any keyboard if any
         self.view.endEditing(true)
+        // We will remove all the shown views below the amount section first
         self.removeView(viewType: TapChipHorizontalList.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true)
-        
+        // Now let us add back the default views
         DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [weak self] in
             self?.tapVerticalView.showActionButton(fadeInDuation:self!.fadeInAnimationDuration,fadeInDelay:self!.fadeInAnimationDelay)
             self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn, with:self!.fadeInAnimationDuration, wait: self!.fadeInAnimationDelay)])
@@ -234,9 +236,11 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
     
     
     func closeGoPayClicked() {
+        // Deselect all the selected chips
         sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deselectAll()
+        // inform the Tap vertical view to start the process of removing all the views related to the gopay sign in views
         tapVerticalView.closeGoPaySignInForm()
-        
+        // Add the default views back
         DispatchQueue.main.async { [weak self] in
             self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn, with:self!.fadeInAnimationDuration, wait: self!.fadeInAnimationDelay)])
         }
@@ -583,6 +587,11 @@ extension TapBottomCheckoutControllerViewController: TapGoPaySignInViewProtocol 
     
     func verifyAuthentication(for otpAuthenticationID:String, with otp:String) {
         sharedCheckoutDataManager.verifyAuthenticationOTP(for: otpAuthenticationID, with: otp)
+    }
+    
+    func closeGoPaySignView() {
+        // We need to close the goPaySign in view and show back the default views in the checkout screen
+        closeGoPayClicked()
     }
 }
 

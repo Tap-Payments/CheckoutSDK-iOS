@@ -132,8 +132,7 @@ internal protocol TapOtpViewDelegate {
     func stateDidChange() {
         self.viewDelegate?.updateMessageVisibility(hide: !showMessage)
         switch self.state {
-        case .ready:
-            self.delegate?.otpStateReadyToValidate(otpValue: self.otpValue)
+        case .ready: break
             
         case .invalid:
             self.updateMessageViewDelegate()

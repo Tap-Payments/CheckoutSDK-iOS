@@ -12,7 +12,7 @@ import CheckoutSDK_iOS
 class ViewController: UIViewController {
    
     @IBOutlet weak var tapPayButton: TapActionButton!
-    let tapPayButtonViewModel:TapActionButtonViewModel = .init()
+    let tapPayButtonViewModel:TapPayButtonViewModel = .init()
     var localeID:String = "en" {
         didSet{
             TapLocalisationManager.shared.localisationLocale = localeID

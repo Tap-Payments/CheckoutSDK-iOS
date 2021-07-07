@@ -64,6 +64,8 @@ import McPicker
      */
     @objc optional func verifyAuthentication(for otpAuthorizeID:String, with otp:String)
     
+    /// Indicates to the delegate to close the gopay sign in view
+    @objc optional func closeGoPaySignView()
     
     @objc optional func changeBlur(to:Bool)
     
@@ -347,8 +349,15 @@ extension TapGoPaySignInView: TapGoPayOTPViewProtocol {
         changeHeight(with: -41)
     }
     
-    public func otpStateExpired() {
-        changePhoneClicked()
+    public func otpStateExpired(with otpType:TapHintViewStatusEnum) {
+        // Depending on the otp type we decide what shall we do
+        if otpType == .GoPayOtp {
+            // If it is the gopayotp and it is expired, then we need to go back to renter the phone number
+            changePhoneClicked()
+        }else if otpType == .SavedCardOTP {
+            // In case it is a saved card otp, then we just need to go back to the payment options checkout screen
+            delegate?.closeGoPaySignView?()
+        }
     }
     
     

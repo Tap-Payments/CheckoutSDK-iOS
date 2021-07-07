@@ -12,7 +12,8 @@ import TapThemeManager2020
     /// Will be fired once the user asks to change the phone written in the previous step
     @objc func changePhoneClicked()
     /// Will be fired once the otp is expired
-    @objc func otpStateExpired()
+    /// - Parameter with otpType : Indicate to the delegate which OTP view is this, Saved card or goPay sign in
+    @objc func otpStateExpired(with otpType:TapHintViewStatusEnum)
     /**
      An event will be fired once the user enter all the otp digits
      - Parameter otpValue: the OTP value entered by user
@@ -84,6 +85,7 @@ import TapThemeManager2020
      The logic to setup the hint view shown above the OTP view itself
      - Parameter appendTitle: The phone that was entered by the user in the previous step
      - Parameter hintViewStatus: Decides The theme, title and action button shown on the top of the OTP view based on the type
+     - Parameter appendTitle: An optional string to append to the hint view label if required
      */
     internal func setupHintView(with hintViewStatus:TapHintViewStatusEnum = .GoPayOtp,and appendTitle:String = "") {
         hintViewModel = .init(with: hintViewStatus)
@@ -92,19 +94,21 @@ import TapThemeManager2020
         hintViewModel.appendTitle = appendTitle
     }
     
-    
+    /// A computed variable that indicate what should the button looks like and what action to perform on the action button based on the OTP status
     internal func otpAction() {
         
+        // init default data
         var actionButtonBlock:()->() = {}
-        
         var buttonStatus:TapActionButtonStatusEnum = .InvalidConfirm
-        
+        // Based on the otp view model state, let us decide what to do
         switch otpViewModel.state {
         case .expired:
+            // If expired, we need to indicate that to the button, close the OTP view
             buttonStatus = .ResendOTP
             self.otpViewModel.close()
             actionButtonBlock = { [weak self] in self?.otpStateExpired() }
         case .ready:
+            // If we are ready, then we make the button looks in the confirm state UI and the action is to validate this OTP value
             buttonStatus = .ValidConfirm
             actionButtonBlock = { [weak self] in self?.otpStateReadyToValidate(otpValue: self?.otpViewModel.currentOtpValue ?? "") }
         default:
@@ -112,8 +116,9 @@ import TapThemeManager2020
             actionButtonBlock = { }
         }
         
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetBlockNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetBlockNotification:actionButtonBlock] )
         
+        // INform the action button with the new status and the new action block
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetBlockNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetBlockNotification:actionButtonBlock] )
         NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetStatusNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetStatusNotification:buttonStatus] )
     }
 }
@@ -156,15 +161,17 @@ extension TapGoPayOTPView:TapOtpViewModelDelegate {
     public func otpStateReadyToValidate(otpValue: String) {
         // Based on the view status we decide which delegate method we should call
         if hintViewModel.tapHintViewStatus == .GoPayOtp {
+            // If gopay otp login, then we need to indicate the view model to verify the gopay otp
             delegate?.validateGoPayOTP(with: otpValue,for: otpViewModel.phoneNo)
         }else if hintViewModel.tapHintViewStatus == .SavedCardOTP {
+            // In the case of the saved card OTP verification, we need to indicate the delegate that he needs to verify this OTP as per the saved card
             delegate?.validateAuthenticationOTP(with: otpValue)
         }
     }
     
     
     public func otpStateExpired() {
-        delegate?.otpStateExpired()
+        delegate?.otpStateExpired(with: hintViewModel.tapHintViewStatus)
     }
 }
 
