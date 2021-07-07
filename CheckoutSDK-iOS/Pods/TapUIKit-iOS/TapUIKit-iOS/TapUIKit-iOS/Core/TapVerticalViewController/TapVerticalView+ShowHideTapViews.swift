@@ -29,8 +29,9 @@ extension TapVerticalView {
      Handles showing the GoPay sign in form by removing non required and adding required views
      - Parameter delegate: The delegate that will listen to the events fired from the GoPay sign in view/ viewmodel
      - Parameter goPayBarViewModel: The view model that will control the goPay sign view
+     - Parameter hintViewStatus: Decides The theme, title and action button shown on the top of the OTP view based on the type
      */
-    @objc public func showGoPaySignInForm(with delegate:TapGoPaySignInViewProtocol,and goPayBarViewModel:TapGoPayLoginBarViewModel) {
+    @objc public func showGoPaySignInForm(with delegate:TapGoPaySignInViewProtocol,and goPayBarViewModel:TapGoPayLoginBarViewModel,hintViewStatus:TapHintViewStatusEnum = .GoPayOtp) {
         // First declare the button state
         tapActionButton.viewModel?.buttonStatus = .InvalidNext
         
@@ -40,7 +41,7 @@ extension TapVerticalView {
         signGoPayView.backgroundColor = .clear
         
         // Attach the view model to th just created view
-        signGoPayView.setup(with: goPayBarViewModel)
+        signGoPayView.setup(with: goPayBarViewModel,OTPHintBarMode: hintViewStatus)
         
         // Inform the amount section that now we are showing the gopay view, hence it changes the title and the action of the amount's action button
         changeTapAmountSectionStatus(to: .GoPayView)

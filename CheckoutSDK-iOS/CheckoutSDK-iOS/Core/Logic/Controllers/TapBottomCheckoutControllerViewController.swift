@@ -323,7 +323,7 @@ extension TapBottomCheckoutControllerViewController:TapChipHorizontalListViewMod
     }
     
     func applePayAuthoized(for viewModel: ApplePayChipViewCellModel, with token: TapApplePayToken) {
-        showAlert(title: " Pay", message: "Token:\n\(token.stringAppleToken ?? "")")
+        //showAlert(title: " Pay", message: "Token:\n\(token.stringAppleToken ?? "")")
     }
     
     func savedCard(for viewModel: SavedCardCollectionViewCellModel) {
@@ -658,6 +658,10 @@ extension TapBottomCheckoutControllerViewController:TapDragHandlerViewDelegate {
 
 
 extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDelegate {
+    func showSavedCardOTP() {
+        tapVerticalView.showGoPaySignInForm(with: self, and: sharedCheckoutDataManager.dataHolder.viewModels.goPayBarViewModel!,hintViewStatus: .SavedCardOTP)
+    }
+    
     func dismissCheckout(with error: Error) {
         delegate?.dismissMySelfClicked()
     }

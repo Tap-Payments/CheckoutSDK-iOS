@@ -404,7 +404,7 @@ internal extension TapCheckout {
             handleError(error: "Unexpected error, non OTP authentication in showOTP method")
             return
         }
-        
+        UIDelegate?.showSavedCardOTP()
         // All good we need to start the OTP process
         
     }

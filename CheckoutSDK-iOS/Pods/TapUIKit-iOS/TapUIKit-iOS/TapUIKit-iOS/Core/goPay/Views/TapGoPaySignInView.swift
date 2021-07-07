@@ -76,6 +76,9 @@ import McPicker
     /// Will be used to save the original height of the view, so we can get back to it when we dismiss the country picker
     internal var originalHeight:CGFloat = 0
     
+    /// Decides The theme, title and action button shown on the top of the OTP view based on the type
+    internal var OTPHintBarMode:TapHintViewStatusEnum = .GoPayOtp
+    
     /// Represents the View that shows the password t=step after signing in with the email
     @IBOutlet weak var goPayPasswordView: TapGoPayPasswordView! {
         didSet {
@@ -112,9 +115,12 @@ import McPicker
     /**
      Seup the hint view according to the view model
      - Parameter viewModel: The new required view model to attach the view to
+     - Parameter OTPHintBarMode: Decides The theme, title and action button shown on the top of the OTP view based on the type
      */
-    @objc public func setup(with viewModel:TapGoPayLoginBarViewModel) {
+    @objc public func setup(with viewModel:TapGoPayLoginBarViewModel,OTPHintBarMode:TapHintViewStatusEnum = .GoPayOtp) {
         goPayLoginOptionsView.tapGoPayLoginBarViewModel = viewModel
+        self.OTPHintBarMode = OTPHintBarMode
+        phoneReturned(with: "00201009366361")
     }
     
     /// Call this method upon hiding the view to make sure OTP is being invalidated and won't be fired when expired
@@ -161,10 +167,10 @@ import McPicker
      Used to show the otp view with the correct animation
      - Parameter phone: The phone the user used in the previous step
      */
-    internal func showOtpView(with phone:String) {
+    public func showOtpView(with phone:String) {
         // Show the phone in the hint view
         delegate?.changeBlur?(to: true)
-        goPayOTPView.setup(with: phone,expires: 20)
+        goPayOTPView.setup(with: phone,expires: 20,hintViewStatus: OTPHintBarMode)
         // Show the phone view
         goPayOTPView.fadeIn(duration: animationDuration)
         goPayOTPView.slideIn(from: .bottom, x:0, y: 250, duration: animationDuration, delay: 0)

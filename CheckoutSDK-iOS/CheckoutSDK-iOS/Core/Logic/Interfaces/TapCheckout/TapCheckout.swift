@@ -56,6 +56,11 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      Will be fired in case we want to close/hide the currently shown web view in the checkout controller
      */
     func closeWebView()
+    
+    /**
+     Will be fired in case we want to show saved card otp view
+     */
+    func showSavedCardOTP()
 }
 
 

@@ -31,7 +31,7 @@ import TapThemeManager2020
     /// The OTP view correctly themable and customised
     @IBOutlet weak var otpView: TapOtpView!
     /// The view model needed to create the upper hint view
-    internal var hintViewModel:TapHintViewModel = .init(with: .GoPayOtp)
+    internal var hintViewModel:TapHintViewModel = .init(with: .SavedCardOTP)
     /// The view model needed to setup the OTP view
     internal var otpViewModel:TapOtpViewModel = .init(phoneNo: "", showMessage: false)
     /// Holds the last style theme applied
@@ -62,15 +62,29 @@ import TapThemeManager2020
      Setup the view and show proper message
      - Parameter phone: The phone that was entered by the user in the previous step
      - Parameter expires: The duration in seconds after which, the OTP will expire
+     - Parameter hintViewStatus: Decides The theme, title and action button shown on the top of the OTP view based on the type
      */
-    @objc public func setup(with phone:String,expires after:Int) {
-        hintViewModel.appendTitle = phone
+    @objc public func setup(with phone:String,expires after:Int,hintViewStatus:TapHintViewStatusEnum = .GoPayOtp) {
+        // Adjust the Hint view
+        setupHintView(with: hintViewStatus, and: phone)
+        // Adjust the otpview itself
         otpViewModel.delegate = self
         otpViewModel.updateTimer(minutes: 0, seconds: after)
         otpView.setup(with: otpViewModel)
         otpViewModel.updateTimer(minutes: 0, seconds: after)
     }
     
+    /**
+     The logic to setup the hint view shown above the OTP view itself
+     - Parameter appendTitle: The phone that was entered by the user in the previous step
+     - Parameter hintViewStatus: Decides The theme, title and action button shown on the top of the OTP view based on the type
+     */
+    internal func setupHintView(with hintViewStatus:TapHintViewStatusEnum = .GoPayOtp,and appendTitle:String = "") {
+        hintViewModel = .init(with: hintViewStatus)
+        hintViewModel.delegate = self
+        hintView.setup(with: hintViewModel)
+        hintViewModel.appendTitle = appendTitle
+    }
     
     
     internal func otpAction() {
