@@ -32,7 +32,7 @@ internal struct PaymentOption: IdentifiableWithString {
     internal let isAsync: Bool
     
     /// Payment type.
-    internal let paymentType: TapPaymentType
+    internal var paymentType: TapPaymentType
     
     /// Source identifier.
     internal private(set) var sourceIdentifier: String?
@@ -51,6 +51,9 @@ internal struct PaymentOption: IdentifiableWithString {
     
     /// Decide if the 3ds should be disabled, enabled or set by user for this payment option
     internal let threeDLevel: ThreeDSecurityState
+    
+    /// Will hold the related saved card if the user selected saved card to pay with
+    internal var savedCard:SavedCard? = nil
     
     // MARK: - Private -
     

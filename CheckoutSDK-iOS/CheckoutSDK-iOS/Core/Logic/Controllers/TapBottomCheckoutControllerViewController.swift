@@ -344,8 +344,23 @@ extension TapBottomCheckoutControllerViewController:TapChipHorizontalListViewMod
         }else {
             // First of all deselct any selected cards in the goPay list
             sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.deselectAll()
-            // perform the charge when clicking on pay button
-            tapActionButtonViewModel.buttonActionBlock = { self.startPayment(then: true) }
+            
+            // Save the selected payment option model for further processing
+            sharedCheckoutDataManager.dataHolder.transactionData.selectedPaymentOption = sharedCheckoutDataManager.fetchPaymentOption(with: viewModel.paymentOptionIdentifier)
+            // Configure the payment option to hold the selected saved card object
+            sharedCheckoutDataManager.dataHolder.transactionData.selectedPaymentOption?.savedCard = sharedCheckoutDataManager.fetchSavedCardOption(with: viewModel.savedCardID ?? "")
+            // Change its type to a saved card one to know that while processing the transaction
+            sharedCheckoutDataManager.dataHolder.transactionData.selectedPaymentOption?.paymentType = .SavedCard
+            
+            // The action button should be in a valid state as saved cards are ready to process right away
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetStatusNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetStatusNotification:TapActionButtonStatusEnum.ValidPayment] )
+            
+            // Make the button action to start the paymet with the selected saved card
+            // Start the payment with the selected saved card
+            let savedCardActionBlock:()->() = { [weak self] in
+                self?.sharedCheckoutDataManager.processCheckout(with: (self?.sharedCheckoutDataManager.dataHolder.transactionData.selectedPaymentOption!)!) }
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetBlockNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetBlockNotification:savedCardActionBlock] )
+            
         }
     }
     

@@ -34,6 +34,16 @@ internal extension TapCheckout {
     
     
     /**
+     Gets the related saved card by id
+     - Parameter with: The id of the needed saved card
+     - Returns: Saved Card  if found with the specified id, else nil
+     */
+    func fetchSavedCardOption(with savedCardID:String) -> SavedCard? {
+        guard let paymentOptionsResponse = dataHolder.transactionData.paymentOptionsModelResponse, let savedCardOption:SavedCard = paymentOptionsResponse.savedCards?.filter({ $0.identifier == savedCardID }).first else { return nil }
+        return savedCardOption
+    }
+    
+    /**
      Gets the transaction total amount for a given currency
      - Parameter for: The currency you want to know the total amount regards
      - Returns: The total amount for the currency as stated in the payment options api response
