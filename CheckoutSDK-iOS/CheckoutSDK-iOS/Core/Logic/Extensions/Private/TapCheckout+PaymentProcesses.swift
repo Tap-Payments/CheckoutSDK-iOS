@@ -254,13 +254,28 @@ internal extension TapCheckout {
      - Parameter for charge: The charge object we will pass back to the user
      */
     func handleInitated(for charge:ChargeProtocol?) {
-        // Check if we need to make a redirection
+        // We need to do the logic based on the initiate charge type.
+        
+        // Case 1: Redirection // Check if we need to make a redirection
         if let redirectionURL:URL = charge?.transactionDetails.url {
-            DispatchQueue.main.async{ [weak self] in
-                // Instruct the view to open a web view with the redirection url
-                guard let nonNullSelf = self else { return }
-                nonNullSelf.UIDelegate?.showWebView(with: redirectionURL,and: nonNullSelf)
-            }
+            showWebView(with: redirectionURL)
+        }
+        
+        // Case 2: Authentication
+        if let authentication:Authentication = charge?.authentication {
+            showAuthentication(with: authentication)
+        }
+    }
+    
+    /**
+     Handles the logic needed to open the webview
+     - PArameter with url: The url to be opened
+     */
+    func showWebView(with url:URL) {
+        DispatchQueue.main.async{ [weak self] in
+            // Instruct the view to open a web view with the redirection url
+            guard let nonNullSelf = self else { return }
+            nonNullSelf.UIDelegate?.showWebView(with: url,and: nonNullSelf)
         }
     }
     
@@ -324,11 +339,7 @@ internal extension TapCheckout {
     func handleCardSaveInitiated(for cardVerifyResponse:TapCreateCardVerificationResponseModel) {
         // Check if we need to make a redirection
         if let redirectionURL:URL = cardVerifyResponse.transactionDetails.url {
-            DispatchQueue.main.async{ [weak self] in
-                // Instruct the view to open a web view with the redirection url
-                guard let nonNullSelf = self else { return }
-                nonNullSelf.UIDelegate?.showWebView(with: redirectionURL,and: nonNullSelf)
-            }
+            showWebView(with: redirectionURL)
         }
     }
     
@@ -369,4 +380,32 @@ internal extension TapCheckout {
         }
     }
     
+    /**
+     Handles the logic needed to start an authentication process
+     - Parameter with authentication: The authentication type we need to process
+     */
+    func showAuthentication(with authentication:Authentication) {
+        // Based on the authentication type we decide what to do
+        switch authentication.type {
+        case .otp:
+            showOTP(with: authentication)
+        default:
+            handleError(error: "Unexpected error, cannot handle authentication of type \(authentication.type)")
+        }
+    }
+    
+    /**
+     Handles the logic needed to start an OTP authentication process
+     - Parameter with authentication: The OTP authentication we need to process
+     */
+    func showOTP(with authentication:Authentication) {
+        // Double check the current authentication is of a correct type
+        guard authentication.type == .otp else {
+            handleError(error: "Unexpected error, non OTP authentication in showOTP method")
+            return
+        }
+        
+        // All good we need to start the OTP process
+        
+    }
 }
