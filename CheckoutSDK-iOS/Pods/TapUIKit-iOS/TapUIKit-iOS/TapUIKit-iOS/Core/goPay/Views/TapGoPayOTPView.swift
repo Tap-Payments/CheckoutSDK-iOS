@@ -16,9 +16,15 @@ import TapThemeManager2020
     /**
      An event will be fired once the user enter all the otp digits
      - Parameter otpValue: the OTP value entered by user
+     */
+    @objc func validateAuthenticationOTP(with otp:String)
+    
+    /**
+     An event will be fired once the user enter all the otp digits
+     - Parameter otpValue: the OTP value entered by user
      - Parameter phone: The phone number used to send the OTP to
      */
-    @objc func validateOTP(with otp:String,for phone:String)
+    @objc func validateGoPayOTP(with otp:String,for phone:String)
     
 }
 
@@ -148,7 +154,12 @@ extension TapGoPayOTPView:TapOtpViewModelDelegate {
     }
     
     public func otpStateReadyToValidate(otpValue: String) {
-        delegate?.validateOTP(with: otpValue,for: otpViewModel.phoneNo)
+        // Based on the view status we decide which delegate method we should call
+        if hintViewModel.tapHintViewStatus == .GoPayOtp {
+            delegate?.validateGoPayOTP(with: otpValue,for: otpViewModel.phoneNo)
+        }else if hintViewModel.tapHintViewStatus == .SavedCardOTP {
+            delegate?.validateAuthenticationOTP(with: otpValue)
+        }
     }
     
     

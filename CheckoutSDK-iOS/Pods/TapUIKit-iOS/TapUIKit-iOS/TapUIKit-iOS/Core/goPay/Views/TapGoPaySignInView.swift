@@ -57,6 +57,14 @@ import McPicker
     @objc optional func signIn(phone:String, and otp:String)
     
     
+    /**
+     This method will be called whenever the user wants to verify the otp he entered while using a saved card to pay with
+     - Parameter for otpAuthorizeID: The OTP authorization id in reference
+     - Parameter otp:   the otp entered by the user
+     */
+    @objc optional func verifyAuthentication(for otpAuthorizeID:String, with otp:String)
+    
+    
     @objc optional func changeBlur(to:Bool)
     
 }
@@ -78,6 +86,9 @@ import McPicker
     
     /// Decides The theme, title and action button shown on the top of the OTP view based on the type
     internal var OTPHintBarMode:TapHintViewStatusEnum = .GoPayOtp
+    
+    /// Activate this variable if you want to have a reference to an authorization object at your end before showing the OTP View
+    internal var otpAuthenticationID:String? = nil
     
     /// Represents the View that shows the password t=step after signing in with the email
     @IBOutlet weak var goPayPasswordView: TapGoPayPasswordView! {
@@ -117,9 +128,10 @@ import McPicker
      - Parameter viewModel: The new required view model to attach the view to
      - Parameter OTPHintBarMode: Decides The theme, title and action button shown on the top of the OTP view based on the type
      */
-    @objc public func setup(with viewModel:TapGoPayLoginBarViewModel,OTPHintBarMode:TapHintViewStatusEnum = .GoPayOtp) {
+    @objc public func setup(with viewModel:TapGoPayLoginBarViewModel,OTPHintBarMode:TapHintViewStatusEnum = .GoPayOtp,authenticationID:String = "") {
         goPayLoginOptionsView.tapGoPayLoginBarViewModel = viewModel
         self.OTPHintBarMode = OTPHintBarMode
+        self.otpAuthenticationID = authenticationID
         phoneReturned(with: "00201009366361")
     }
     
@@ -317,9 +329,12 @@ extension TapGoPaySignInView: TapGoPayPasswordViewProtocol {
 
 
 extension TapGoPaySignInView: TapGoPayOTPViewProtocol {
+    
+    public func validateGoPayOTP(with otp: String, for phone: String) {}
+    
    
-    public func validateOTP(with otp: String, for phone: String) {
-        delegate?.signIn?(phone: phone, and: otp)
+    public func validateAuthenticationOTP(with otp: String) {
+        delegate?.verifyAuthentication?(for: otpAuthenticationID ?? "", with: otp)
     }
     
     

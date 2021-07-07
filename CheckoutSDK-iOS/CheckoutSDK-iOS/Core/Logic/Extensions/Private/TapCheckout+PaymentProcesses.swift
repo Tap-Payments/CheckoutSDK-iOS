@@ -399,13 +399,17 @@ internal extension TapCheckout {
      - Parameter with authentication: The OTP authentication we need to process
      */
     func showOTP(with authentication:Authentication) {
+        // Changed the action button to expand and set its state to invalid CONFIRM state
+        dataHolder.viewModels.tapActionButtonViewModel.expandButton()
+        dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .InvalidConfirm
+        
         // Double check the current authentication is of a correct type
         guard authentication.type == .otp else {
             handleError(error: "Unexpected error, non OTP authentication in showOTP method")
             return
         }
-        UIDelegate?.showSavedCardOTP()
-        // All good we need to start the OTP process
         
+        // All good we need to start the OTP process
+        UIDelegate?.showSavedCardOTPView(with: authentication.identifier)
     }
 }

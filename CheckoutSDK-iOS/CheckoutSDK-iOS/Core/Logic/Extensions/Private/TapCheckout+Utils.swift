@@ -58,6 +58,27 @@ internal extension TapCheckout {
         return amount
     }
     
+    /**
+     Used to fetch the authorization object stored in the current charge or authorization
+     - Parameter with authenticationID: The authentication ID we are looking for
+     - Returns: Tthe authorization object stored in the current charge or authorization
+     */
+    func fetchAuthentication(with authenticationID:String) -> Authentication? {
+        // Check if we have a charge or authorize response
+        if let charge = dataHolder.transactionData.currentCharge {
+            // Check if charge object then we try to match the charge id
+            guard let authentication = charge.authentication,
+                  authentication.identifier == authenticationID else { return nil }
+            return authentication
+        }else if let authorization = dataHolder.transactionData.currentAuthorize {
+            // Check if authorization object then we try to match the authentication id
+            guard let authentication = authorization.authentication,
+                  authentication.identifier == authenticationID else { return nil }
+            return authentication
+        }
+        return nil
+    }
+    
     
     /**
      Determines if the checkout process can save card regarding the attributes of the transaction

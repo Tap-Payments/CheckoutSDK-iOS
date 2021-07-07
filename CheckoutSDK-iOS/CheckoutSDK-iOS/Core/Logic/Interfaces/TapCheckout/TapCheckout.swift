@@ -59,8 +59,9 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     
     /**
      Will be fired in case we want to show saved card otp view
+     - Parameter with authenticationID: The authentication process ID if any
      */
-    func showSavedCardOTP()
+    func showSavedCardOTPView(with authenticationID:String)
 }
 
 

@@ -580,6 +580,10 @@ extension TapBottomCheckoutControllerViewController: TapGoPaySignInViewProtocol 
     func signIn(phone: String, and otp: String) {
         sharedCheckoutDataManager.signIn(phone: phone, otp: otp)
     }
+    
+    func verifyAuthentication(for otpAuthenticationID:String, with otp:String) {
+        sharedCheckoutDataManager.verifyAuthenticationOTP(for: otpAuthenticationID, with: otp)
+    }
 }
 
 
@@ -658,8 +662,13 @@ extension TapBottomCheckoutControllerViewController:TapDragHandlerViewDelegate {
 
 
 extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDelegate {
-    func showSavedCardOTP() {
-        tapVerticalView.showGoPaySignInForm(with: self, and: sharedCheckoutDataManager.dataHolder.viewModels.goPayBarViewModel!,hintViewStatus: .SavedCardOTP)
+    
+    func showSavedCardOTPView(with authenticationID:String = "") {
+        tapVerticalView.showGoPaySignInForm(with: self, and: sharedCheckoutDataManager.dataHolder.viewModels.goPayBarViewModel!,hintViewStatus: .SavedCardOTP, for: authenticationID)
+    }
+    
+    func hideSavedCardOTP() {
+        hideGoPay()
     }
     
     func dismissCheckout(with error: Error) {
