@@ -35,6 +35,8 @@ internal extension TapCheckout {
             startWebPayment(with: paymentOption)
         case .Card:
             startCardPayment(with: paymentOption,and: card)
+        case .SavedCard:
+            startSavedCardPayment(with: paymentOption)
         default:
             return
         }
@@ -328,6 +330,38 @@ internal extension TapCheckout {
                 nonNullSelf.UIDelegate?.showWebView(with: redirectionURL,and: nonNullSelf)
             }
         }
+    }
+    
+    
+    // MARK:- Saved Card Methods
+    
+    
+    /**
+     Used to call the correct checkout logic for the web based payment options
+     - Parameter with paymentOption: The payment option to start the checkout process with
+     - Parameter and card: The card object to be used in the transaction.
+     */
+    func startSavedCardPayment(with paymentOption:PaymentOption? = nil) {
+        // Make sure we have the saved card info in place and stored
+        guard let paymentOption:PaymentOption = paymentOption,
+              let selectedSavedCard:SavedCard = paymentOption.savedCard else {
+            handleError(error: "UnExpected error, paying with a saved card while missing saved card data")
+            return
+        }
+        // Change the action button to loading status
+        TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapActionButtonViewModel.startLoading()
+        
+        // Create a saved card tokenization api to start with and call it
+        /*guard let createCardTokenRequest:TapCreateTokenRequest = createCardTokenRequestModel(for: currentCard) else { return }
+        callCardTokenAPI(cardTokenRequestModel: createCardTokenRequest) { (token) in
+            DispatchQueue.main.async{ [weak self] in
+                // Process the token we got from the server
+                guard let nonNullSelf = self else { return }
+                nonNullSelf.handleToken(with: token,for: paymentOption)
+            }
+        } onErrorOccured: { [weak self] (error) in
+            self?.handleError(error: error)
+        }*/
     }
     
 }
