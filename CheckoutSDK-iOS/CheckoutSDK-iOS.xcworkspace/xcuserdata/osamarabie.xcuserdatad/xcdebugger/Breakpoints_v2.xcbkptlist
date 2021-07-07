@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A1FF15EE-DD03-4CE7-9C54-8DB3DD9861FB"
+            uuid = "FFA8229A-5755-497E-A856-51B62EC646F2"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+PaymentProcesses.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "startPayment(with:and:)"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
+            landmarkName = "handleTokenCharge(with:for:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

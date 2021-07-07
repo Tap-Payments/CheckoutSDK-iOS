@@ -352,8 +352,13 @@ internal extension TapCheckout {
         TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapActionButtonViewModel.startLoading()
         
         // Create a saved card tokenization api to start with and call it
-        /*guard let createCardTokenRequest:TapCreateTokenRequest = createCardTokenRequestModel(for: currentCard) else { return }
-        callCardTokenAPI(cardTokenRequestModel: createCardTokenRequest) { (token) in
+        guard let createSavedCardTokenRequest:TapCreateTokenRequest = createSavedCardTokenRequestModel(for: selectedSavedCard) else {
+            handleError(error: "Unexpected error while creating TapCreateTokenRequest")
+            return
+        }
+        
+        // Call the token api with the saved card token data
+        callCardTokenAPI(cardTokenRequestModel: createSavedCardTokenRequest) { (token) in
             DispatchQueue.main.async{ [weak self] in
                 // Process the token we got from the server
                 guard let nonNullSelf = self else { return }
@@ -361,7 +366,7 @@ internal extension TapCheckout {
             }
         } onErrorOccured: { [weak self] (error) in
             self?.handleError(error: error)
-        }*/
+        }
     }
     
 }

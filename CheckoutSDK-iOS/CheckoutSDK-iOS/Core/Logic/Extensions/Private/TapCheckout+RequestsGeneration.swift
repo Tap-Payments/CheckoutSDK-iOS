@@ -74,7 +74,7 @@ extension TapCheckout {
      - Parameter for card: The saved card we need to generate a token for
      - Returns: The Saved Card create token api request model
      */
-    func createCardTokenRequestModel(for card:SavedCard) -> TapCreateTokenRequest? {
+    func createSavedCardTokenRequestModel(for card:SavedCard) -> TapCreateTokenRequest? {
         // double check, make sure all the data we need are correctly stored and set. Card ID and Customer ID
         guard let savedCardID = card.identifier else {
             handleError(error: "Unexpected error, tokenizing a saved card but cannot find the saved card id")
