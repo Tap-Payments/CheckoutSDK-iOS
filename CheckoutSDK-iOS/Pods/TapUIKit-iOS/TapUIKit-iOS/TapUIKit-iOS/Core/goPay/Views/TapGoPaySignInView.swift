@@ -86,6 +86,9 @@ import McPicker
     /// Will be used to save the original height of the view, so we can get back to it when we dismiss the country picker
     internal var originalHeight:CGFloat = 0
     
+    /// Will be used to decide the otp expiration in seconds
+    internal var otpExpiresInSeconds:Int = 120
+    
     /// Decides The theme, title and action button shown on the top of the OTP view based on the type
     internal var OTPHintBarMode:TapHintViewStatusEnum = .GoPayOtp
     
@@ -129,12 +132,17 @@ import McPicker
      Seup the hint view according to the view model
      - Parameter viewModel: The new required view model to attach the view to
      - Parameter OTPHintBarMode: Decides The theme, title and action button shown on the top of the OTP view based on the type
+     - Parameter otpExpiresInSeconds: Will be used to decide the otp expiration in seconds
      */
-    @objc public func setup(with viewModel:TapGoPayLoginBarViewModel,OTPHintBarMode:TapHintViewStatusEnum = .GoPayOtp,authenticationID:String = "") {
+    @objc public func setup(with viewModel:TapGoPayLoginBarViewModel,OTPHintBarMode:TapHintViewStatusEnum = .GoPayOtp,authenticationID:String = "",otpExpiresInSeconds:Int = 120) {
         goPayLoginOptionsView.tapGoPayLoginBarViewModel = viewModel
         self.OTPHintBarMode = OTPHintBarMode
+        self.otpExpiresInSeconds = otpExpiresInSeconds
         self.otpAuthenticationID = authenticationID
-        phoneReturned(with: "00201009366361")
+        // Decide if we need to show the OTP view or leave the default gopay signin view
+        if OTPHintBarMode == .SavedCardOTP {
+            phoneReturned(with: "")
+        }
     }
     
     /// Call this method upon hiding the view to make sure OTP is being invalidated and won't be fired when expired
@@ -184,7 +192,7 @@ import McPicker
     public func showOtpView(with phone:String) {
         // Show the phone in the hint view
         delegate?.changeBlur?(to: true)
-        goPayOTPView.setup(with: phone,expires: 20,hintViewStatus: OTPHintBarMode)
+        goPayOTPView.setup(with: phone,expires: otpExpiresInSeconds,hintViewStatus: OTPHintBarMode)
         // Show the phone view
         goPayOTPView.fadeIn(duration: animationDuration)
         goPayOTPView.slideIn(from: .bottom, x:0, y: 250, duration: animationDuration, delay: 0)

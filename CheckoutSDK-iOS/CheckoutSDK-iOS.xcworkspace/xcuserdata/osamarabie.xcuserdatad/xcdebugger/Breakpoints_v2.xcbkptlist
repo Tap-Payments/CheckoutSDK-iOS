@@ -7,16 +7,223 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "89C2A0D7-2336-4BCE-B795-D61C8A5A31C9"
+            uuid = "74008AAD-297E-401F-885F-F05338A426F7"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CheckoutSDK-iOS/Core/Logic/Network/Models/APIRequests/TapPaymentOptionsRequest/TapPaymentOptionsRequestModel.swift"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Controllers/TapBottomCheckoutControllerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
-            landmarkName = "init(transactionMode:amount:items:shipping:taxes:currency:merchantID:customer:destinationGroup:paymentType:)"
+            startingLineNumber = "339"
+            endingLineNumber = "339"
+            landmarkName = "savedCard(for:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8CC0C735-58EB-44DE-8928-B538DB85F842"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+PaymentProcesses.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "processCheckout(with:and:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "8CC0C735-58EB-44DE-8928-B538DB85F842 - 7116a43278e32fbb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CheckoutSDK_iOS.TapCheckout.processCheckout(with: CheckoutSDK_iOS.PaymentOption, and: Swift.Optional&lt;CommonDataModelsKit_iOS.TapCard&gt;) -&gt; ()"
+                  moduleName = "CheckoutSDK_iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+PaymentProcesses.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "168">
+               </Location>
+               <Location
+                  uuid = "8CC0C735-58EB-44DE-8928-B538DB85F842 - 79c8a63945a4cd95"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in CheckoutSDK_iOS.TapCheckout.processCheckout(with: CheckoutSDK_iOS.PaymentOption, and: Swift.Optional&lt;CommonDataModelsKit_iOS.TapCard&gt;) -&gt; ()"
+                  moduleName = "CheckoutSDK_iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+PaymentProcesses.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "126">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "24E9296F-C470-4DB6-BABD-AC0F3F3821E0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+PaymentProcesses.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "startPayment(with:and:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BA09A882-3CFC-4106-9DC5-08C088998D8F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+PaymentProcesses.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "363"
+            endingLineNumber = "363"
+            landmarkName = "startSavedCardPayment(with:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F85EF89C-B678-41B8-BBD6-7F3E9485271E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+PaymentProcesses.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "379"
+            endingLineNumber = "379"
+            landmarkName = "startSavedCardPayment(with:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "155748FC-2DD2-4794-A746-0F7D6E39D019"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+PaymentProcesses.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "375"
+            endingLineNumber = "375"
+            landmarkName = "startSavedCardPayment(with:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A7DCB9E6-3A03-4140-A9DA-E5BBFA485FF6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+PaymentProcesses.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
+            landmarkName = "handleTokenCharge(with:for:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A7DCB9E6-3A03-4140-A9DA-E5BBFA485FF6 - a735828622ca2eeb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CheckoutSDK_iOS.TapCheckout.handleTokenCharge(with: CheckoutSDK_iOS.Token, for: Swift.Optional&lt;CheckoutSDK_iOS.PaymentOption&gt;) -&gt; ()"
+                  moduleName = "CheckoutSDK_iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+PaymentProcesses.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "169"
+                  endingLineNumber = "169"
+                  offsetFromSymbolStart = "969">
+               </Location>
+               <Location
+                  uuid = "A7DCB9E6-3A03-4140-A9DA-E5BBFA485FF6 - f910145ffe3378cf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (CheckoutSDK_iOS.ChargeProtocol) -&gt; () in CheckoutSDK_iOS.TapCheckout.handleTokenCharge(with: CheckoutSDK_iOS.Token, for: Swift.Optional&lt;CheckoutSDK_iOS.PaymentOption&gt;) -&gt; ()"
+                  moduleName = "CheckoutSDK_iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+PaymentProcesses.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "169"
+                  endingLineNumber = "169"
+                  offsetFromSymbolStart = "161">
+               </Location>
+               <Location
+                  uuid = "A7DCB9E6-3A03-4140-A9DA-E5BBFA485FF6 - 4a3f6b68c7efc648"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #1 (CheckoutSDK_iOS.ChargeProtocol) -&gt; () in CheckoutSDK_iOS.TapCheckout.handleTokenCharge(with: CheckoutSDK_iOS.Token, for: Swift.Optional&lt;CheckoutSDK_iOS.PaymentOption&gt;) -&gt; ()"
+                  moduleName = "CheckoutSDK_iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+PaymentProcesses.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "169"
+                  endingLineNumber = "169"
+                  offsetFromSymbolStart = "108">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E09C44BA-9AAD-49E5-ADB4-5A2E7D53FCE1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+PaymentProcesses.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
+            landmarkName = "handleTokenCharge(with:for:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CAF35A4B-210F-40CC-92D3-0B1D638BADBA"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+PaymentProcesses.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
+            landmarkName = "handleTokenCharge(with:for:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
