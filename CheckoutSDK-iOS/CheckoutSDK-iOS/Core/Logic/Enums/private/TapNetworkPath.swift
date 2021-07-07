@@ -37,4 +37,36 @@ internal enum TapNetworkPath : String {
     case token                      = "token/"
     /// Calling token api to tokenize
     case tokens                     = "tokens/"
+    
+    
+    /// A special decoder to map the string values we get from the backend into a valid SWIFT date object to deal with.
+    /// Based on the routing we decide how we will convert the string value into a valid Date
+    internal var decoder: JSONDecoder {
+        
+        let decoder = JSONDecoder()
+        
+        switch self {
+        
+        case .charges, .authorize, .cardVerification:
+            
+            decoder.dateDecodingStrategy = .custom { (aDecoder) -> Date in
+                
+                let container = try aDecoder.singleValueContainer()
+                let dateString = try container.decode(String.self)
+                
+                let double = NumberFormatter().number(from: dateString)?.doubleValue ?? 0.0
+                return Date(timeIntervalSince1970: double / 1000.0)
+            }
+            
+        case .token, .tokens:
+            
+            decoder.dateDecodingStrategy = .secondsSince1970
+            
+        default:
+            
+            break
+        }
+        
+        return decoder
+    }
 }

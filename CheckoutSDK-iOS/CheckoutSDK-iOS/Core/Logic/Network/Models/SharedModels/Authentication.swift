@@ -33,10 +33,10 @@
     public let url: URL?
     
     /// Creation date.
-    public let creationDate: Date
+    public let creationDate: String
     
     /// Authentication date.
-    public let authenticationDate: Date?
+    public let authenticationDate: String?
     
     /// Count.
     public let count: Int
@@ -70,8 +70,8 @@
                  status: AuthenticationStatus,
                  retryAttemptsCount: Int,
                  url: URL?,
-                 creationDate: Date,
-                 authenticationDate: Date?,
+                 creationDate: String,
+                 authenticationDate: String?,
                  count: Int,
                  value: String) {
         
@@ -102,9 +102,9 @@ extension Authentication: Decodable {
         let requirer            = try container.decode          (AuthenticationRequirer.self,   forKey: .requirer)
         let status              = try container.decode          (AuthenticationStatus.self,     forKey: .status)
         let retryAttemptsCount  = try container.decode          (Int.self,                      forKey: .retryAttemptsCount)
-        let url                 = container.decodeURLIfPresent(for: .url)
-        let creationDate        = try container.decode          (Date.self,                     forKey: .creationDate)
-        let authenticationDate  = try container.decodeIfPresent (Date.self,                     forKey: .authenticationDate)
+        let url                 = container.decodeURLIfPresent( for: .url)
+        let creationDate        = try container.decode          (String.self,                     forKey: .creationDate)
+        let authenticationDate  = try container.decodeIfPresent (String.self,                     forKey: .authenticationDate)
         let count               = try container.decode          (Int.self,                      forKey: .count)
         let value               = try container.decode          (String.self,                   forKey: .value)
         
