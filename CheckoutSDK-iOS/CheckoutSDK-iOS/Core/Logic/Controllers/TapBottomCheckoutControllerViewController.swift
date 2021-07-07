@@ -586,7 +586,20 @@ extension TapBottomCheckoutControllerViewController: TapGoPaySignInViewProtocol 
     }
     
     func verifyAuthentication(for otpAuthenticationID:String, with otp:String) {
-        sharedCheckoutDataManager.verifyAuthenticationOTP(for: otpAuthenticationID, with: otp)
+        // Get the authenticable model based on the current transaction mode
+        switch sharedCheckoutDataManager.dataHolder.transactionData.transactionMode
+        {
+            case .purchase:
+                // Then we are dealing with a charge mode
+                sharedCheckoutDataManager.verifyAuthenticationOTP(for: otpAuthenticationID, with: otp, chargeOrAuthorize:sharedCheckoutDataManager.dataHolder.transactionData.currentCharge!)
+                break
+            case .authorizeCapture:
+                // Then we are dealing with authorize model
+                sharedCheckoutDataManager.verifyAuthenticationOTP(for: otpAuthenticationID, with: otp, chargeOrAuthorize:sharedCheckoutDataManager.dataHolder.transactionData.currentAuthorize!)
+                break
+            default:
+                break
+        }
     }
     
     func closeGoPaySignView() {

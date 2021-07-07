@@ -54,6 +54,21 @@ extension TapCheckout {
     
     
     /**
+     Create a verify OTP authentication request
+     - Parameter for authentication: Theauthentication object
+     - Parameter value: The value that we need to verify
+     - Returns: The otp authentication verification api request model
+     */
+    func createOTPAuthenticationRequest(for authentication:Authentication,and value:String) -> TapAuthenticationRequest? {
+        
+        let authenticationType  = authentication.type
+        
+        return TapAuthenticationRequest (type: authenticationType,
+                                         value: value)
+    }
+    
+    
+    /**
      Create a card token api request
      - Parameter for card: The card we need to generate a token for
      - Parameter address: The address attached to the card if any

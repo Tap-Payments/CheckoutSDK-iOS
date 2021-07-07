@@ -172,6 +172,44 @@ internal extension TapCheckout {
     }
     
     
+    /// Authenticates an `object` with `details` calling `completion` when request finishes.
+    ///
+    /// - Parameters:
+    ///   - object: Authenticatable object.
+    ///   - details: Authentication details.
+    ///   - completion: Completion that will be called when request finishes.
+    ///   - onErrorOccured: A block to call when an error occured
+    func authenticate<T: Authenticatable>(_ object: T, details: TapAuthenticationRequest, onResponeReady: @escaping (T) -> (), onErrorOccured: @escaping(Error)->() = {_ in}) {
+        
+        // Change the model into a dictionary
+        guard let bodyDictionary = TapCheckout.convertModelToDictionary(details, callingCompletionOnFailure: { error in
+            onErrorOccured(error.debugDescription)
+            return
+        }) else { return }
+        
+        
+        // Create the network call details
+        let route = T.authenticationRoute
+        let urlModel = TapURLModel.array(parameters: [NetworkManager.Constants.authenticateParameter, object.identifier])
+        let bodyModel = TapBodyModel(body: bodyDictionary)
+
+        
+        // Perform the retrieve request with the computed data
+        NetworkManager.shared.makeApiCall(routing: route, resultType: T.self, body: bodyModel,httpMethod: .POST, urlModel: urlModel) { (session, result, error) in
+            // Double check all went fine
+            guard let parsedResponse:T = result as? T else {
+                onErrorOccured("Unexpected error parsing verification of otp authentication details")
+                return
+            }
+            // Execute the on complete block
+            onResponeReady(parsedResponse)
+        } onError: { (session, result, errorr) in
+            // In case of an error we execute the on error block
+            onErrorOccured(errorr.debugDescription)
+        }
+    }
+    
+    
     /// Retrieves BIN number details for the given `binNumber` and calls `completion` when request finishes.
     ///
     /// - Parameters:
