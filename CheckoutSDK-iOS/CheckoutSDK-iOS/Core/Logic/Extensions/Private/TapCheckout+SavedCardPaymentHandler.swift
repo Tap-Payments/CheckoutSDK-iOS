@@ -37,10 +37,8 @@ extension TapCheckout {
         // Perform the authentication verification api
         authenticate(chargeOrAuthorize, details: authenticationRequest, onResponeReady: { [weak self] (authenticatedChargeOrAuthorize) in
             // Based on the response type we will decide what to do afterwards
-            if let charge:Charge = authenticatedChargeOrAuthorize as? Charge {
-                self?.handleCharge(with: charge)
-            }else if let authorize:Authorize =  authenticatedChargeOrAuthorize as? Authorize {
-                self?.handleAuthorized(for: authorize)
+            if let chargeorAuthorize:ChargeProtocol = authenticatedChargeOrAuthorize as? ChargeProtocol {
+                self?.handleCharge(with: chargeorAuthorize)
             }else{
                 self?.handleError(error: "Unexpected error, parsing authentication of a wrong type. Should be Charge or Authorize")
             }

@@ -130,9 +130,12 @@ internal protocol TapOtpViewDelegate {
      This method apply the required functionality and delegates on state change
     */
     func stateDidChange() {
+        // First inform the view that we need to change the message shown based on the setup
         self.viewDelegate?.updateMessageVisibility(hide: !showMessage)
+        // Based on the state changd we will decide what to do
         switch self.state {
-        case .ready: break
+        case .ready:
+            self.delegate?.otpStateReadyToValidate(otpValue: otpValue)
             
         case .invalid:
             self.updateMessageViewDelegate()

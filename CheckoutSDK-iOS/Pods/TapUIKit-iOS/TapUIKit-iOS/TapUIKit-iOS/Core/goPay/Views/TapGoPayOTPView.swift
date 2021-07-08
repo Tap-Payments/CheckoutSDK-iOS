@@ -102,24 +102,17 @@ import TapThemeManager2020
         var buttonStatus:TapActionButtonStatusEnum = .InvalidConfirm
         // Based on the otp view model state, let us decide what to do
         switch otpViewModel.state {
-        case .expired:
-            // If expired, we need to indicate that to the button, close the OTP view
-            buttonStatus = .ResendOTP
-            self.otpViewModel.close()
-            actionButtonBlock = { [weak self] in self?.otpStateExpired() }
-        case .ready:
-            // If we are ready, then we make the button looks in the confirm state UI and the action is to validate this OTP value
-            buttonStatus = .ValidConfirm
-            actionButtonBlock = { [weak self] in self?.otpStateReadyToValidate(otpValue: self?.otpViewModel.currentOtpValue ?? "") }
+        case .expired,.ready:
+            // Those already handled by the below methods each are being called as a delegate method
+            break
         default:
             buttonStatus = .InvalidConfirm
             actionButtonBlock = { }
+            
+            // INform the action button with the new status and the new action block
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetBlockNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetBlockNotification:actionButtonBlock] )
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetStatusNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetStatusNotification:buttonStatus] )
         }
-        
-        
-        // INform the action button with the new status and the new action block
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetBlockNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetBlockNotification:actionButtonBlock] )
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetStatusNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetStatusNotification:buttonStatus] )
     }
 }
 
@@ -159,19 +152,34 @@ extension TapGoPayOTPView:TapOtpViewModelDelegate {
     }
     
     public func otpStateReadyToValidate(otpValue: String) {
+        // Update the button state to valid CONFIRM state
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetStatusNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetStatusNotification:TapActionButtonStatusEnum.ValidConfirm])
         // Based on the view status we decide which delegate method we should call
+        var actionButtonBlock:()->() = {}
+        
         if hintViewModel.tapHintViewStatus == .GoPayOtp {
             // If gopay otp login, then we need to indicate the view model to verify the gopay otp
-            delegate?.validateGoPayOTP(with: otpValue,for: otpViewModel.phoneNo)
+            actionButtonBlock = { self.delegate?.validateGoPayOTP(with: otpValue,for: self.otpViewModel.phoneNo) }
         }else if hintViewModel.tapHintViewStatus == .SavedCardOTP {
             // In the case of the saved card OTP verification, we need to indicate the delegate that he needs to verify this OTP as per the saved card
-            delegate?.validateAuthenticationOTP(with: otpValue)
+            actionButtonBlock = { self.delegate?.validateAuthenticationOTP(with: otpValue) }
         }
+        
+        // Inform the button to have the new action block
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetBlockNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetBlockNotification:actionButtonBlock] )
     }
     
     
     public func otpStateExpired() {
-        delegate?.otpStateExpired(with: hintViewModel.tapHintViewStatus)
+        // Update the button state to valid CONFIRM state
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetStatusNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetStatusNotification:TapActionButtonStatusEnum.ResendOTP])
+        
+        // Close the OTP view
+        self.otpViewModel.close()
+        // Define the action block for the action button
+        let actionButtonBlock = { self.delegate?.otpStateExpired(with: self.hintViewModel.tapHintViewStatus) }
+        // Inform the button to have the new action block
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetBlockNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetBlockNotification:actionButtonBlock] )
     }
 }
 
