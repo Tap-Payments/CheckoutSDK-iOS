@@ -92,7 +92,6 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
         sharedCheckoutDataManager.dataHolder.viewModels.tapSaveCardSwitchViewModel.delegate = self
         
         createTabBarViewModel()
-        createGatewaysViews()
         dragView.delegate = self
         
         dragView.changeCloseButton(to: sharedCheckoutDataManager.dataHolder.viewModels.closeButtonStyle)
@@ -124,17 +123,6 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
         let okAction:UIAlertAction = .init(title: "OK", style: .destructive, handler: nil)
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
-    }
-    
-    
-    func createGatewaysViews() {
-        
-        
-        sharedCheckoutDataManager.dataHolder.viewModels.tapCurrienciesChipHorizontalListViewModel.delegate = self
-        
-        sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.delegate = self
-
-        sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.delegate = self
     }
     
     
@@ -309,118 +297,8 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
 
 
 
-extension TapBottomCheckoutControllerViewController:TapChipHorizontalListViewModelDelegate {
-    func logoutChip(for viewModel: TapLogoutChipViewModel) {
-        let logoutConfirmationAlert:UIAlertController = .init(title: "Are you sure you would like to sign out?", message: "The goPay cards will be hidden from the page and you will need to login again to use any of them.", preferredStyle: .alert)
-        let confirmLogoutAction:UIAlertAction = .init(title: "Yes", style: .default) { [weak self] (_) in
-            self?.hideGoPay()
-        }
-        let cancelLogoutAction:UIAlertAction = .init(title: "No", style: .cancel, handler: nil)
-        logoutConfirmationAlert.addAction(confirmLogoutAction)
-        logoutConfirmationAlert.addAction(cancelLogoutAction)
-        present(logoutConfirmationAlert, animated: true, completion: nil)
-    }
-    
-    
-    func currencyChip(for viewModel: CurrencyChipViewModel) {
-        sharedCheckoutDataManager.dataHolder.transactionData.transactionUserCurrencyValue = viewModel.currency
-    }
-    
-    func applePayAuthoized(for viewModel: ApplePayChipViewCellModel, with token: TapApplePayToken) {
-        //showAlert(title: " Pay", message: "Token:\n\(token.stringAppleToken ?? "")")
-    }
-    
-    func savedCard(for viewModel: SavedCardCollectionViewCellModel) {
-        //showAlert(title: "\(viewModel.title ?? "") clicked", message: "Look we know that you saved the card. We promise we will make you use it soon :)")
-        tapActionButtonViewModel.buttonStatus = .ValidPayment
-        
-        // Check the type of saved card source
-        
-        if viewModel.listSource == .GoPayListHeader {
-            // First of all deselct any selected cards in the gateways list
-            sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deselectAll()
-            let authenticator = TapAuthenticate(reason: "Login into tap account")
-            if authenticator.type != .none {
-                tapActionButtonViewModel.buttonStatus = (authenticator.type == BiometricType.faceID) ? .FaceID : .TouchID
-                authenticator.delegate = self
-                authenticator.authenticate()
-            }
-        }else {
-            // First of all deselct any selected cards in the goPay list
-            sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.deselectAll()
-            
-            // Save the selected payment option model for further processing
-            sharedCheckoutDataManager.dataHolder.transactionData.selectedPaymentOption = sharedCheckoutDataManager.fetchPaymentOption(with: viewModel.paymentOptionIdentifier)
-            // Configure the payment option to hold the selected saved card object
-            sharedCheckoutDataManager.dataHolder.transactionData.selectedPaymentOption?.savedCard = sharedCheckoutDataManager.fetchSavedCardOption(with: viewModel.savedCardID ?? "")
-            // Change its type to a saved card one to know that while processing the transaction
-            sharedCheckoutDataManager.dataHolder.transactionData.selectedPaymentOption?.paymentType = .SavedCard
-            
-            // The action button should be in a valid state as saved cards are ready to process right away
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetStatusNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetStatusNotification:TapActionButtonStatusEnum.ValidPayment] )
-            
-            // Make the button action to start the paymet with the selected saved card
-            // Start the payment with the selected saved card
-            let savedCardActionBlock:()->() = { [weak self] in
-                self?.sharedCheckoutDataManager.processCheckout(with: (self?.sharedCheckoutDataManager.dataHolder.transactionData.selectedPaymentOption!)!) }
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetBlockNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetBlockNotification:savedCardActionBlock] )
-            
-        }
-    }
-    
-    func gateway(for viewModel: GatewayChipViewModel) {
-        
-        // Save the selected payment option model for further processing
-        let sharedCheckoutManager = TapCheckout.sharedCheckoutManager()
-        sharedCheckoutManager.dataHolder.transactionData.selectedPaymentOption = sharedCheckoutManager.fetchPaymentOption(with: viewModel.paymentOptionIdentifier)
-        
-        // Make the payment button in a Valid payment mode
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetStatusNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetStatusNotification:TapActionButtonStatusEnum.ValidPayment] )
-        
-        // Make the button action to start the paymet with the selected gateway
-        // Start the payment with the selected payment option
-        let gatewayActionBlock:()->() = { sharedCheckoutManager.processCheckout(with: sharedCheckoutManager.dataHolder.transactionData.selectedPaymentOption!) }
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetBlockNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetBlockNotification:gatewayActionBlock] )
-    }
-    
-    func goPay(for viewModel: TapGoPayViewModel) {
-        //showAlert(title: "GoPay cell clicked", message: "You clicked on GoPay.")
-        showGoPay()
-    }
-    
-    func headerLeftButtonClicked(in headerType: TapHorizontalHeaderType) {
-        if headerType == .GatewayListHeader {
-            return
-        }
-    }
-    
-    func headerRightButtonClicked(in headerType: TapHorizontalHeaderType) {
-        // Disable the pay button regarding its current state
-        sharedCheckoutDataManager.dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .InvalidPayment
-        
-        // Deselect selected chips before starting the edit mode
-        sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.deselectAll()
-        sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deselectAll()
-        
-        // Inform the lists of saved chips to start editing
-        sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.editMode(changed: true)
-        sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.editMode(changed: true)
-    }
-    
-    
-    func headerEndEditingButtonClicked(in headerType: TapHorizontalHeaderType) {
-        sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.editMode(changed: false)
-        sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.editMode(changed: false)
-    }
-    
-    func deleteChip(for viewModel: SavedCardCollectionViewCellModel) {
-        showAlert(title: "DELETE A CARD", message: "You wanted to delete the card \(viewModel.title ?? "")")
-    }
-    
-    func didSelect(item viewModel: GenericTapChipViewModel) {
-        
-    }
-    
+extension TapBottomCheckoutControllerViewController {
+
     
     func handleTelecomPayment(for cardBrand: CardBrand, with validation: CrardInputTextFieldStatusEnum) {
         if validation == .Valid {

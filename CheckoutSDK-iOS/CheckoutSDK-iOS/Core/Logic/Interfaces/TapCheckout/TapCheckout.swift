@@ -85,6 +85,8 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     internal var UIDelegate:TapCheckoutSharedManagerUIDelegate?
     /// Represents a global accessable common data gathered by the merchant when loading the checkout sdk like amount, currency, etc
     internal static var privateShared : TapCheckout?
+    /// Represents the default item name. We will use this default item name when the user doesn't pass any items. It is required to have them in the format of items to make it readable by Apple Pay Requests. Please check [DefaultItemsCreation](x-source-tag://DefaultItemsCreation)
+    internal static var defaulItemTitle:String = "PAY TO TAP PAYMENTS"
     
     // MARK:- View Models Variables
     var dataHolder:DataHolder = .init(viewModels: ViewModelsHolder.init(), transactionData: .init())

@@ -13,6 +13,37 @@ import struct TapCardVlidatorKit_iOS.CardBrandWithSchemes
 extension TapCheckout {
     
     /**
+     The event will be fired when the user cliks on a goPay saved card chip
+     - Parameter viewModel: Represents The attached view model
+     */
+    func handleGoPaySavedCard(for viewModel: SavedCardCollectionViewCellModel) {
+        // First of all deselct any selected cards in the gateways list
+        dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deselectAll()
+    }
+    
+    /**
+     The event will be fired when the user cliks on a  saved card chip
+     - Parameter viewModel: Represents The attached view model
+     */
+    func handleSavedCard(for viewModel: SavedCardCollectionViewCellModel) {
+        // First of all deselct any selected cards in the goPay list
+        dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.deselectAll()
+        // Save the selected payment option model for further processing
+        dataHolder.transactionData.selectedPaymentOption = fetchPaymentOption(with: viewModel.paymentOptionIdentifier)
+        // Configure the payment option to hold the selected saved card object
+        dataHolder.transactionData.selectedPaymentOption?.savedCard = fetchSavedCardOption(with: viewModel.savedCardID ?? "")
+        // Change its type to a saved card one to know that while processing the transaction
+        dataHolder.transactionData.selectedPaymentOption?.paymentType = .SavedCard
+        
+        // The action button should be in a valid state as saved cards are ready to process right away
+        // Make the button action to start the paymet with the selected saved card
+        // Start the payment with the selected saved card
+        let savedCardActionBlock:()->() = { [weak self] in
+            self?.processCheckout(with: (self?.dataHolder.transactionData.selectedPaymentOption!)!) }
+        chanegActionButton(status: .ValidPayment, actionBlock: savedCardActionBlock)
+    }
+    
+    /**
      Provides the logic needed to be done upon changing the card data provided by the user in the card form or the scanner
      - Parameter with card: The new card model with all the new data
      */

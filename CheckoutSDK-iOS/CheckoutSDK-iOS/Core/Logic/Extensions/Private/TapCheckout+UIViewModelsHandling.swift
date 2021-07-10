@@ -40,6 +40,19 @@ internal extension TapCheckout {
         dataHolder.viewModels.tapItemsTableViewModel.dataSource.map{ $0 as! ItemCellViewModel }.forEach{ $0.convertCurrency = dataHolder.transactionData.transactionUserCurrencyValue }
     }
     
+    /// This will be used to change the default title of the item we create as a default when the user doesn't pass any items. please check Please check [DefaultItemsCreation](x-source-tag://DefaultItemsCreation)
+    func updateDefaultItemTitle() {
+        // First check if the current case is the default items creation
+        guard let initResponse = dataHolder.transactionData.intitModelResponse,
+              let merchantName = initResponse.data.merchant?.name,
+              dataHolder.transactionData.transactionItemsValue.count == 1,
+              dataHolder.transactionData.transactionItemsValue.first?.title == TapCheckout.defaulItemTitle else { /*Nothing to do*/ return }
+        
+        // Set the correct title now
+        TapCheckout.defaulItemTitle = "PAY TO \(merchantName)"
+        dataHolder.transactionData.transactionItemsValue.first?.title = TapCheckout.defaulItemTitle
+    }
+    
     /// Handles if goPay should be shown if the user is logged in, determine the header of the both gateways cards and goPay cards based on the visibility ot the goPay cards
     func updateGoPayAndGatewayLists() {
         // Check if the user is logged in before or not
@@ -64,7 +77,7 @@ internal extension TapCheckout {
         guard applePayChips.count > 0, let applePayChipViewModel:ApplePayChipViewCellModel = applePayChips[0].tapChipViewModel as? ApplePayChipViewCellModel else { // meaning no apple pay chip is there
             return }
         
-        applePayChipViewModel.configureApplePayRequest(currencyCode: dataHolder.transactionData.transactionUserCurrencyValue.currency,paymentItems: dataHolder.transactionData.transactionItemsValue.toApplePayItems(convertFromCurrency: dataHolder.transactionData.transactionCurrencyValue, convertToCurrenct: dataHolder.transactionData.transactionUserCurrencyValue), amount: dataHolder.transactionData.transactionUserCurrencyValue.currency.convert(from: dataHolder.transactionData.transactionCurrencyValue.currency, for: dataHolder.transactionData.transactionTotalAmountValue), merchantID: dataHolder.transactionData.applePayMerchantID)
+        applePayChipViewModel.configureApplePayRequest(currencyCode: dataHolder.transactionData.transactionUserCurrencyValue.currency,paymentItems: dataHolder.transactionData.transactionItemsValue.toApplePayItems(convertFromCurrency: dataHolder.transactionData.transactionCurrencyValue, convertToCurrenct: dataHolder.transactionData.transactionUserCurrencyValue), amount: dataHolder.transactionData.transactionUserCurrencyValue.amount, merchantID: dataHolder.transactionData.applePayMerchantID)
         
     }
     
@@ -104,6 +117,8 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         let transactionMode = dataHolder.transactionData.transactionMode
         // Fetch the merchant header info
         dataHolder.viewModels.tapMerchantViewModel = .init(title: (transactionMode == .cardSaving) ? "SAVE CARD" : nil, subTitle: initModel.data.merchant?.name, iconURL: initModel.data.merchant?.logoURL)
+        // We need to change the default item title in case the user didn't pass any items to have the correct name of the merchant we just got from the INIT api.
+        updateDefaultItemTitle()
         
     }
     

@@ -11,6 +11,22 @@ import Foundation
 /// Has the needed methods to act upon fired events from the uikit based on user activity
 internal extension TapCheckout {
     
+    /**
+     Used to set the status and the action of the tap checkout atction button
+     - Parameter status: The button status we want to set
+     - parameter actionBlock: The block to execute when the button is clicked
+     */
+    func chanegActionButton(status:TapActionButtonStatusEnum?, actionBlock:(()->())? = nil) {
+        // Change the button status if provided
+        if let status = status {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetStatusNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetStatusNotification:status] )
+        }
+        // Change the button action if provided
+        if let actionBlock = actionBlock {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetBlockNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetBlockNotification:actionBlock] )
+        }
+    }
+    
 // MARK:- goPay login form delegate methods
     
     /**
@@ -55,5 +71,70 @@ internal extension TapCheckout {
         } onError: { (session, result, error) in
             
         }
+    }
+}
+
+
+
+extension TapCheckout:TapChipHorizontalListViewModelDelegate {
+    
+    public func logoutChip(for viewModel:TapLogoutChipViewModel) {}
+    public func didSelect(item viewModel: GenericTapChipViewModel) {}
+    public func headerLeftButtonClicked(in headerType: TapHorizontalHeaderType) {}
+    public func goPay(for viewModel: TapGoPayViewModel) {}
+    
+   
+    
+    public func headerRightButtonClicked(in headerType: TapHorizontalHeaderType) {
+        // Disable the pay button regarding its current state
+        dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .InvalidPayment
+        
+        // Deselect selected chips before starting the edit mode
+        dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.deselectAll()
+        dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deselectAll()
+        
+        // Inform the lists of saved chips to start editing
+        dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.editMode(changed: true)
+        dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.editMode(changed: true)
+    }
+    
+    public func headerEndEditingButtonClicked(in headerType: TapHorizontalHeaderType) {
+        dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.editMode(changed: false)
+        dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.editMode(changed: false)
+    }
+    
+    public func applePayAuthoized(for viewModel: ApplePayChipViewCellModel, with token: TapApplePayToken) {
+        
+    }
+    
+    public func savedCard(for viewModel: SavedCardCollectionViewCellModel) {
+        //showAlert(title: "\(viewModel.title ?? "") clicked", message: "Look we know that you saved the card. We promise we will make you use it soon :)")
+        dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .ValidPayment
+        
+        // Check the type of saved card source
+        if viewModel.listSource == .GoPayListHeader {
+            handleGoPaySavedCard(for: viewModel)
+        }else {
+            handleSavedCard(for: viewModel)
+        }
+    }
+    
+    public func gateway(for viewModel: GatewayChipViewModel) {
+        // Save the selected payment option model for further processing
+        dataHolder.transactionData.selectedPaymentOption = fetchPaymentOption(with: viewModel.paymentOptionIdentifier)
+        
+        // Make the payment button in a Valid payment mode
+        // Make the button action to start the paymet with the selected gateway
+        // Start the payment with the selected payment option
+        let gatewayActionBlock:()->() = { self.processCheckout(with: self.dataHolder.transactionData.selectedPaymentOption!) }
+        chanegActionButton(status: .ValidPayment, actionBlock: gatewayActionBlock)
+    }
+    
+    public func currencyChip(for viewModel: CurrencyChipViewModel) {
+        dataHolder.transactionData.transactionUserCurrencyValue = viewModel.currency
+    }
+    
+    public func deleteChip(for viewModel: SavedCardCollectionViewCellModel) {
+        
     }
 }

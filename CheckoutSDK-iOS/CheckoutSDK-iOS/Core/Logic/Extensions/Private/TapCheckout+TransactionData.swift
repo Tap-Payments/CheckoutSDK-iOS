@@ -61,6 +61,8 @@ internal class ViewModelsHolder {
         self.tapCardPhoneListDataSource = tapCardPhoneListDataSource
         self.gatewayChipsViewModel = gatewayChipsViewModel
         self.goPayChipsViewModel = goPayChipsViewModel
+        
+        assignViewModelsDelegates()
     }
     
     /// Rerpesents the view model that controls the Merchant header section view
@@ -70,15 +72,27 @@ internal class ViewModelsHolder {
     /// Rerpesents the view model that controls the items list view
     var tapItemsTableViewModel:TapGenericTableViewModel = .init()
     /// Represents the view model that controls the payment gateway chips list view
-    var tapGatewayChipHorizontalListViewModel:TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GateWayListWithGoPayListHeader)
+    var tapGatewayChipHorizontalListViewModel:TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GateWayListWithGoPayListHeader) {
+        didSet{
+            assignViewModelsDelegates()
+        }
+    }
     /// Represents the view model that controls the gopay gateway chips list view
-    var tapGoPayChipsHorizontalListViewModel:TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GoPayListHeader)
+    var tapGoPayChipsHorizontalListViewModel:TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GoPayListHeader) {
+        didSet{
+            assignViewModelsDelegates()
+        }
+    }
     /// Represents the view model that controls the cards/telecom tabs view
     var tapCardPhoneListViewModel:TapCardPhoneBarListViewModel = .init()
     /// Represents the view model that controls the tabbar view
     var tapCardTelecomPaymentViewModel: TapCardTelecomPaymentViewModel = .init()
     /// Represents the view model that controls the chips list of supported currencies view
-    var tapCurrienciesChipHorizontalListViewModel:TapChipHorizontalListViewModel = .init()
+    var tapCurrienciesChipHorizontalListViewModel:TapChipHorizontalListViewModel = .init() {
+        didSet{
+            assignViewModelsDelegates()
+        }
+    }
     /// Represents the view model that controls the save card/number view
     var tapSaveCardSwitchViewModel: TapSwitchViewModel = .init(with: .invalidCard, merchant: "jazeera airways",whichSwitchesToShow: .none)
     /// Represents the view model that controls the country picker when logging in to goPay using the phone number
@@ -105,6 +119,13 @@ internal class ViewModelsHolder {
     
     init() {
         
+    }
+    
+    /// Used to assign the view delegates to the correct delegate source
+    internal func assignViewModelsDelegates() {
+        tapCurrienciesChipHorizontalListViewModel.delegate = TapCheckout.sharedCheckoutManager()
+        tapGatewayChipHorizontalListViewModel.delegate = TapCheckout.sharedCheckoutManager()
+        tapGoPayChipsHorizontalListViewModel.delegate = TapCheckout.sharedCheckoutManager()
     }
     
 }
