@@ -74,10 +74,17 @@ internal extension TapCheckout {
     func updateApplePayRequest() {
         // get the apple pay chip view modl
         let applePayChips = dataHolder.viewModels.gatewayChipsViewModel.filter{ $0.tapChipViewModel.isKind(of: ApplePayChipViewCellModel.self) }
-        guard applePayChips.count > 0, let applePayChipViewModel:ApplePayChipViewCellModel = applePayChips[0].tapChipViewModel as? ApplePayChipViewCellModel else { // meaning no apple pay chip is there
+        guard applePayChips.count > 0,
+              let applePayChipViewModel:ApplePayChipViewCellModel = applePayChips[0].tapChipViewModel as? ApplePayChipViewCellModel,
+              let applePaymentOption:PaymentOption = fetchPaymentOption(with: applePayChipViewModel.paymentOptionIdentifier) else { // meaning no apple pay chip is there
             return }
         
-        applePayChipViewModel.configureApplePayRequest(currencyCode: dataHolder.transactionData.transactionUserCurrencyValue.currency,paymentItems: dataHolder.transactionData.transactionItemsValue.toApplePayItems(convertFromCurrency: dataHolder.transactionData.transactionCurrencyValue, convertToCurrenct: dataHolder.transactionData.transactionUserCurrencyValue), amount: dataHolder.transactionData.transactionUserCurrencyValue.amount, merchantID: dataHolder.transactionData.applePayMerchantID)
+        
+        
+        applePayChipViewModel.configureApplePayRequest(currencyCode: dataHolder.transactionData.transactionUserCurrencyValue.currency,
+                                                       paymentNetworks: applePaymentOption.applePayNetworkMapper().map{ $0.rawValue },
+                                                       paymentItems: dataHolder.transactionData.transactionItemsValue.toApplePayItems(convertFromCurrency: dataHolder.transactionData.transactionCurrencyValue, convertToCurrenct: dataHolder.transactionData.transactionUserCurrencyValue),
+                                                       amount: dataHolder.transactionData.transactionUserCurrencyValue.amount, merchantID: dataHolder.transactionData.applePayMerchantID)
         
     }
     

@@ -61,7 +61,7 @@ import enum CommonDataModelsKit_iOS.TapCurrencyCode
         appleRequest.paymentSummaryItems.append(.init(label: "", amount: NSDecimalNumber(value: paymentAmount)))
         appleRequest.supportedNetworks = paymentNetworks.map{ $0.applePayNetwork! }
         appleRequest.merchantIdentifier = merchantID
-        appleRequest.merchantCapabilities = [.capability3DS,.capabilityCredit,.capabilityDebit,.capabilityEMV]
+        appleRequest.merchantCapabilities = [.capability3DS]
     }
     
     internal func asDictionary() -> [String:String] {
