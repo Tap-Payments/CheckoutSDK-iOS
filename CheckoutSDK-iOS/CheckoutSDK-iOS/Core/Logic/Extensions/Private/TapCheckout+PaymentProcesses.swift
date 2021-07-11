@@ -15,28 +15,34 @@ internal extension TapCheckout {
     /**
      Used to process a checkout process with a given payment option
      - Parameter with paymentOption: The payment option to start the checkout process with
+     - Parameter andCard: The card associated with the payment option if any
+     - Parameter andApplePayToken: The tap apple pay token associated with the payment option if any
      */
-    func processCheckout(with paymentOption:PaymentOption,and card:TapCard? = nil) {
+    func processCheckout(with paymentOption:PaymentOption,andCard:TapCard? = nil,andApplePayToken:TapApplePayToken? = nil) {
         // For all payment options types, we need to ask for extra fees first if any
         askForExtraFees(with: paymentOption) { [weak self] in
             guard let nonNullSelf = self else { return }
-            nonNullSelf.startPayment(with: paymentOption,and: card)
+            nonNullSelf.startPayment(with: paymentOption, andCard: andCard, andApplePayToken: andApplePayToken)
         }
     }
     
     /**
      Used to call the correct checkout logic based on the selected payment option
      - Parameter with paymentOption: The payment option to start the checkout process with
+     - Parameter andCard: The card associated with the payment option if any
+     - Parameter andApplePayToken: The tap apple pay token associated with the payment option if any
      */
-    func startPayment(with paymentOption:PaymentOption,and card:TapCard?) {
+    func startPayment(with paymentOption:PaymentOption,andCard:TapCard?,andApplePayToken:TapApplePayToken? = nil) {
         // Based on the payment option type, we need to follow the corresponding logic flow
         switch paymentOption.paymentType {
         case .Web:
             startWebPayment(with: paymentOption)
         case .Card:
-            startCardPayment(with: paymentOption,and: card)
+            startCardPayment(with: paymentOption, and: andCard)
         case .SavedCard:
             startSavedCardPayment(with: paymentOption)
+        case .ApplePay,.Device:
+            startApplePayPayment(with: paymentOption, and: andApplePayToken)
         default:
             return
         }
@@ -411,5 +417,41 @@ internal extension TapCheckout {
         
         // All good we need to start the OTP process
         UIDelegate?.showSavedCardOTPView(with: authentication.identifier)
+    }
+    
+    
+    // MARK:- Apple pay related methods
+
+    /**
+     Used to call the correct checkout logic for the web based payment options
+     - Parameter with paymentOption: The payment option to start the checkout process with
+     - Parameter andtapApplePayToken: The tap apple pay token associated with the payment option if any
+     */
+    func startApplePayPayment(with paymentOption:PaymentOption? = nil, and tapApplePayToken:TapApplePayToken? = nil) {
+        // Make sure all needed data are passed correctly
+        guard let paymentOption = paymentOption, let tapApplePayToken = tapApplePayToken else {
+            handleError(error: "Cannot start apple pay payment without its payment option and the iOS authorization token")
+            return
+        }
+        
+        // Change the action button to loading status
+        TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapActionButtonViewModel.startLoading()
+        
+        // Create an apple pay token tokenization api to start with and call it
+        guard let createAppleTokenRequest:TapCreateTokenRequest = createApplePayTokenRequestModel(for: tapApplePayToken) else {
+            return
+        }
+        
+        // Call the token api with the apple pay token data
+        callCardTokenAPI(cardTokenRequestModel: createAppleTokenRequest) { (token) in
+            DispatchQueue.main.async{ [weak self] in
+                // Process the token we got from the server
+                guard let nonNullSelf = self else { return }
+                nonNullSelf.handleToken(with: token,for: paymentOption)
+            }
+        } onErrorOccured: { [weak self] (error) in
+            self?.handleError(error: error)
+        }
+        
     }
 }

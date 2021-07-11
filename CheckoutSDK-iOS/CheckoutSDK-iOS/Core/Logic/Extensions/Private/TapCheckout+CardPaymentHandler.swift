@@ -193,7 +193,7 @@ extension TapCheckout {
                 handleError(error: "Unexpected error, trying to start card payment without a payemnt option selected.")
                 return }
             // Assign the action to be done once clicked on the action button to start the payment
-            let payAction:()->() = { [weak self] in self?.processCheckout(with:selectedPaymentOption,and:self?.dataHolder.transactionData.currentCard) }
+            let payAction:()->() = { [weak self] in self?.processCheckout(with:selectedPaymentOption,andCard:self?.dataHolder.transactionData.currentCard) }
             dataHolder.viewModels.tapActionButtonViewModel.buttonActionBlock = payAction
         }else{
             // The status is invalid hence we need to clear the action button

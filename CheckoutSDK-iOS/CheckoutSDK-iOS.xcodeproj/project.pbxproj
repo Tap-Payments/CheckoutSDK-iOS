@@ -45,6 +45,8 @@
 		E83923942695CFA200421E15 /* TapCheckout+SignInViewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83923932695CFA200421E15 /* TapCheckout+SignInViewHandler.swift */; };
 		E83923962695E3C800421E15 /* TapCheckout+SavedCardPaymentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83923952695E3C800421E15 /* TapCheckout+SavedCardPaymentHandler.swift */; };
 		E83923982696310600421E15 /* TapAuthenticationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83923972696310600421E15 /* TapAuthenticationRequest.swift */; };
+		E83923BA269A13A400421E15 /* TapCheckout+ApplePayPaymentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83923B9269A13A400421E15 /* TapCheckout+ApplePayPaymentHandler.swift */; };
+		E83923BE269A1D2900421E15 /* TapCreateTokenWithApplePayTokenRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83923BD269A1D2900421E15 /* TapCreateTokenWithApplePayTokenRequestModel.swift */; };
 		E83D221125777E4A00AE6DA0 /* Pods_CheckoutSDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21BD535F94169C44719615A6 /* Pods_CheckoutSDK_iOS.framework */; };
 		E83D221225777E4A00AE6DA0 /* Pods_CheckoutSDK_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 21BD535F94169C44719615A6 /* Pods_CheckoutSDK_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E861286D24EA7F7F00774BAA /* CurrencyChipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E861286C24EA7F7F00774BAA /* CurrencyChipModel.swift */; };
@@ -226,6 +228,8 @@
 		E83923932695CFA200421E15 /* TapCheckout+SignInViewHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+SignInViewHandler.swift"; sourceTree = "<group>"; };
 		E83923952695E3C800421E15 /* TapCheckout+SavedCardPaymentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+SavedCardPaymentHandler.swift"; sourceTree = "<group>"; };
 		E83923972696310600421E15 /* TapAuthenticationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapAuthenticationRequest.swift; sourceTree = "<group>"; };
+		E83923B9269A13A400421E15 /* TapCheckout+ApplePayPaymentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+ApplePayPaymentHandler.swift"; sourceTree = "<group>"; };
+		E83923BD269A1D2900421E15 /* TapCreateTokenWithApplePayTokenRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCreateTokenWithApplePayTokenRequestModel.swift; sourceTree = "<group>"; };
 		E861286C24EA7F7F00774BAA /* CurrencyChipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyChipModel.swift; sourceTree = "<group>"; };
 		E861286E24EAA38A00774BAA /* CurrencyCardsTelecomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCardsTelecomModel.swift; sourceTree = "<group>"; };
 		E86128B324ED23EF00774BAA /* TapCheckoutExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckoutExtensions.swift; sourceTree = "<group>"; };
@@ -458,6 +462,7 @@
 				E839216D268F10DB00421E15 /* TapCreateTokenRequest.swift */,
 				E839238B2695844D00421E15 /* TapCreateTokenWithSavedCardRequest.swift */,
 				E839238D2695846A00421E15 /* TapCreateTokenWithCardDataRequest.swift */,
+				E83923BD269A1D2900421E15 /* TapCreateTokenWithApplePayTokenRequestModel.swift */,
 			);
 			path = TapTokenRequest;
 			sourceTree = "<group>";
@@ -647,6 +652,7 @@
 				E8EC81C5267F73420080E760 /* TapCheckout+Reset.swift */,
 				E839216A268EE7DA00421E15 /* TapCheckout+CardPaymentHandler.swift */,
 				E83923952695E3C800421E15 /* TapCheckout+SavedCardPaymentHandler.swift */,
+				E83923B9269A13A400421E15 /* TapCheckout+ApplePayPaymentHandler.swift */,
 				E830B7F624FA3BF100B62713 /* TapCheckout+UIKitDelegates.swift */,
 				E83923932695CFA200421E15 /* TapCheckout+SignInViewHandler.swift */,
 			);
@@ -1038,6 +1044,7 @@
 				E83923962695E3C800421E15 /* TapCheckout+SavedCardPaymentHandler.swift in Sources */,
 				E8EC8189267CFCCA0080E760 /* Retrievable.swift in Sources */,
 				E8C58B3824E5344700E1F04F /* TapCheckOutTheme.swift in Sources */,
+				E83923BA269A13A400421E15 /* TapCheckout+ApplePayPaymentHandler.swift in Sources */,
 				E8844D04267697350073D777 /* Transfer.swift in Sources */,
 				E8EC81B1267D01480080E760 /* TransactionOrder.swift in Sources */,
 				E839212A268D97DA00421E15 /* AuthorizeActionResponse.swift in Sources */,
@@ -1058,6 +1065,7 @@
 				E8844F672678B42A0073D777 /* CardScheme.swift in Sources */,
 				E8844F5D2678A89C0073D777 /* ExtraFee.swift in Sources */,
 				E839238E2695846A00421E15 /* TapCreateTokenWithCardDataRequest.swift in Sources */,
+				E83923BE269A1D2900421E15 /* TapCreateTokenWithApplePayTokenRequestModel.swift in Sources */,
 				E8EC81A7267D00C10080E760 /* SourceChannel.swift in Sources */,
 				E8EC8185267CFBD20080E760 /* AuthenticationStatus.swift in Sources */,
 				E8EC81A9267D00C10080E760 /* SourceObject.swift in Sources */,

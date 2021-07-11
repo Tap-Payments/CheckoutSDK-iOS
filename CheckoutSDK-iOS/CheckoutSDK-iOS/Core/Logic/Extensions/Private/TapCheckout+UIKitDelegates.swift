@@ -104,7 +104,14 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
     }
     
     public func applePayAuthoized(for viewModel: ApplePayChipViewCellModel, with token: TapApplePayToken) {
-        
+        // Save the selected payment option model for further processing
+        guard let applePayPaymentOption = fetchPaymentOption(with: viewModel.paymentOptionIdentifier) else {
+            handleError(error: "Cannot find apple pay payment option with id \(viewModel.paymentOptionIdentifier) from the payment/types api respons.")
+            return
+        }
+        dataHolder.transactionData.selectedPaymentOption = applePayPaymentOption
+        // Start the process :)
+        processCheckout(with: applePayPaymentOption, andApplePayToken: token)
     }
     
     public func savedCard(for viewModel: SavedCardCollectionViewCellModel) {

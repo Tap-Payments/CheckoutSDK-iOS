@@ -85,6 +85,20 @@ extension TapCheckout {
     
     
     /**
+     Create a card token api request
+     - Parameter for applePayToken: The native iOS Apple Pay token
+     - Returns: The Tokenize apple pay token api request model
+     */
+    func createApplePayTokenRequestModel(for applePayToken:TapApplePayToken) -> TapCreateTokenRequest? {
+        do {
+            return TapCreateTokenWithApplePayRequest.init(appleToken: try TapApplePayTokenModel.init(dictionary: applePayToken.jsonAppleToken))
+        }catch{
+            return nil
+        }
+    }
+    
+    
+    /**
      Create a saved card token api request
      - Parameter for card: The saved card we need to generate a token for
      - Returns: The Saved Card create token api request model
