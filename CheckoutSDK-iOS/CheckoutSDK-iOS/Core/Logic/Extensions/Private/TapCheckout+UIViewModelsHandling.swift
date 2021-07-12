@@ -22,8 +22,11 @@ internal extension TapCheckout {
     
     /// Handles the logic to determine the visibility and the status of the save card/ohone switch depending on the current card/telecom data source
     func updateSaveCardSwitchStatus() {
+        // decide if we can show the save cars switch based on the switch type
         dataHolder.viewModels.tapSaveCardSwitchViewModel.shouldShow = dataHolder.transactionData.saveCardSwitchType != .none
+        
         if dataHolder.viewModels.tapSaveCardSwitchViewModel.shouldShow {
+            // If we will show it, let us decide its status based on the card form status
             dataHolder.viewModels.tapSaveCardSwitchViewModel.cardState = (dataHolder.viewModels.tapCardPhoneListViewModel.dataSource[0].associatedCardBrand.brandSegmentIdentifier == "cards") ? .invalidCard : .invalidTelecom
         }
     }
@@ -63,24 +66,26 @@ internal extension TapCheckout {
     
     /// Handles all the logic needed when the user selected currency changed to reflect in the supported cards/telecom tabbar items for the new currency
     func updateCardTelecomList() {
+        // Set the supported card brands for the card bar data source to the supported cards for the selected currency
         dataHolder.viewModels.tapCardPhoneListViewModel.dataSource = dataHolder.viewModels.tapCardPhoneListDataSource.filter(for: dataHolder.transactionData.transactionUserCurrencyValue.currency)
         
         dataHolder.viewModels.tapCardTelecomPaymentViewModel.tapCardPhoneListViewModel = dataHolder.viewModels.tapCardPhoneListViewModel
-        
+        // Change the telecom part country to the country of the selected currency
         dataHolder.viewModels.tapCardTelecomPaymentViewModel.changeTapCountry(to: dataHolder.viewModels.tapCardPhoneListDataSource.telecomCountry(for: dataHolder.transactionData.transactionUserCurrencyValue.currency))
     }
     
     /// Handles all the logic needed to correctly parse the passed data into a correct Apple Pay request format
     func updateApplePayRequest() {
-        // get the apple pay chip view modl
+        // get the apple pay chip view model
         let applePayChips = dataHolder.viewModels.gatewayChipsViewModel.filter{ $0.tapChipViewModel.isKind(of: ApplePayChipViewCellModel.self) }
+        // Make sure there is an apple pay payment option from the payment types api
         guard applePayChips.count > 0,
               let applePayChipViewModel:ApplePayChipViewCellModel = applePayChips[0].tapChipViewModel as? ApplePayChipViewCellModel,
               let applePaymentOption:PaymentOption = fetchPaymentOption(with: applePayChipViewModel.paymentOptionIdentifier) else { // meaning no apple pay chip is there
             return }
         
         
-        
+        // This means, we have apple pay! let us configyre the apple pay request to reflect the current transaction data like items, user currency, allowed payment networks etc.
         applePayChipViewModel.configureApplePayRequest(currencyCode: dataHolder.transactionData.transactionUserCurrencyValue.currency,
                                                        paymentNetworks: applePaymentOption.applePayNetworkMapper().map{ $0.rawValue },
                                                        paymentItems: dataHolder.transactionData.transactionItemsValue.toApplePayItems(convertFromCurrency: dataHolder.transactionData.transactionCurrencyValue, convertToCurrenct: dataHolder.transactionData.transactionUserCurrencyValue),
@@ -92,13 +97,14 @@ internal extension TapCheckout {
     /// We need to highlight the default currency of the user didn't select a new currency other than the default currency
     func highlightDefaultCurrency() {
         
-        //guard transactionUserCurrencyValue == transactionCurrencyValue else { return }
         DispatchQueue.main.async { [weak self] in
+            // Get the index of the selected currency. Which will be the currency set by the merchant or the last selected currency by the user
             let selectedIndex:Int = self?.dataHolder.viewModels.tapCurrienciesChipHorizontalListViewModel.dataSource.map({ (genericTapChipViewModel) -> AmountedCurrency in
                 guard let currencyChipModel:CurrencyChipViewModel = genericTapChipViewModel as? CurrencyChipViewModel else { return .init(.KWD, 0, "") }
                 return currencyChipModel.currency
             }).firstIndex(of: self!.dataHolder.transactionData.transactionUserCurrencyValue) ?? 0
             
+            // Inform the currencies data holder to activate the currency at the selected index
             self?.dataHolder.viewModels.tapCurrienciesChipHorizontalListViewModel.didSelectItem(at: selectedIndex,selectCell: true)
         }
     }
@@ -108,9 +114,11 @@ internal extension TapCheckout {
 extension TapCheckout:TapCheckoutDataHolderDelegate {
     
     func updateGatewayChipsList() {
+        // First step to deselect everything selected in the gopay and gateways horizontal chips
         dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deselectAll()
         dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.deselectAll()
         
+        // let us now update the two lists with the corresponding data sources from the payment types api based on the new transaction data like user currency
         dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.dataSource = dataHolder.viewModels.gatewayChipsViewModel.filter(for: dataHolder.transactionData.transactionUserCurrencyValue.currency)
         dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.dataSource = dataHolder.viewModels.goPayChipsViewModel.filter(for: dataHolder.transactionData.transactionUserCurrencyValue.currency)
         updateGoPayAndGatewayLists()
@@ -131,11 +139,12 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
     
     /// Handles the logic to fetch different sections from the Payment options response
     func parsePaymentOptionsResponse() {
-        
+        // Double check
         guard let paymentOptions = dataHolder.transactionData.paymentOptionsModelResponse else { return }
         
         // Fetch the list of supported currencies
         self.dataHolder.viewModels.currenciesChipsViewModel = paymentOptions.supportedCurrenciesAmounts.map{ CurrencyChipViewModel.init(currency: $0) }
+        // Now after getting the list, let us map them to the currencies chips view model
         self.dataHolder.viewModels.tapCurrienciesChipHorizontalListViewModel = .init(dataSource: dataHolder.viewModels.currenciesChipsViewModel, headerType: .NoHeader,selectedChip: dataHolder.viewModels.currenciesChipsViewModel.filter{ $0.currency == dataHolder.transactionData.transactionUserCurrencyValue }[0])
         
         // Fetch the list of the goPay supported login countries
@@ -216,10 +225,11 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
     
     /**
      Used to calclate the total price to be paid by the user, taking in consideration the items (each item with price. quantity, discounts, taxes) a transaction level shipping and taxes
+     - Returns:the total price to be paid by the user, taking in consideration the items (each item with price. quantity, discounts, taxes) a transaction level shipping and taxes
      */
     func calculateFinalAmount() -> Double {
         let sharedManager = TapCheckout.sharedCheckoutManager()
-        
+        // Get the transaction data like items, shipping and taxs lists
         let items:[ItemModel] = sharedManager.dataHolder.transactionData.transactionItemsValue
         let transactionShipping:[Shipping] = sharedManager.dataHolder.transactionData.shipping
         let transactionTaxes:[Tax] = sharedManager.dataHolder.transactionData.taxes ?? []
