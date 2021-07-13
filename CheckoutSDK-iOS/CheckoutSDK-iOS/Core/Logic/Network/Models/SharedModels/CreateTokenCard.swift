@@ -33,7 +33,7 @@ internal struct CreateTokenCard {
             throw "Cannot create a sensitive card without card info"
         }
         
-        self.sensitiveCardData = SensitiveCardData(number: number, month: expirationMonth, year: expirationYear, cvv: cvv, name: card.tapCardName ?? "")
+        self.sensitiveCardData = SensitiveCardData(number: number, month: expirationMonth, year: expirationYear, cvv: cvv, name: card.tapCardName ?? "DEFAULT CARD NAME")
         self.address = address
     }
     

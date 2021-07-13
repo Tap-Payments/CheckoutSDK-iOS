@@ -97,6 +97,11 @@ internal protocol TapChipHorizontalViewModelDelegate {
      - Parameter to: The new editing satus
      */
     func changeHeaderEditingStatus(to:Bool)
+    /**
+     Call this method when you want to delete a cell
+     - Parameter at index: The index of the cell to be deleted
+     */
+    func deleteCell(at index:Int)
 }
 
 /// This is the view model that adjusts and adapts the info shown in any GenericTapHorizontal list. It accepts and arranges different chips view models through one place
@@ -131,7 +136,19 @@ internal protocol TapChipHorizontalViewModelDelegate {
         }
     }
     
-    
+    /**
+     Deletes a certain cell
+     - Parameter viewModel:The view model we want to remove its cell
+     */
+    @objc public func deleteCell(with viewModel:GenericTapChipViewModel) {
+        // make sure the passed view model is part of the data source
+        guard dataSource.contains(viewModel),
+              let index = dataSource.index(of: viewModel) else { return }
+        // Inform the view to perform UI deletion
+        cellDelegate?.deleteCell(at: index)
+        // Delete it from the data source
+        dataSource.remove(at: index)
+    }
     
     
     /// Defines what type of header shall we show in the list if any

@@ -82,14 +82,13 @@ extension TapCheckout {
         // First show loader
         chanegActionButton(status: .InvalidPayment, actionBlock: nil)
         // Start loader
-        dataHolder.viewModels.tapActionButtonViewModel.startLoading { [weak self] in
-            // Then call the deletion api
-            self?.callSavedCardDeletion(for: savedCard) { [weak self] (savedCardDeleteResponse) in
-                // Time to perform mthe correct post deletion logic based on the api response
-                self?.performPostSavedCardDeletion(for: savedCard.identifier ?? "",with: cardCellViewModel, and: savedCardDeleteResponse)
-            } onErrorOccured: { [weak self] (error) in
-                self?.handleError(error: error)
-            }
+        dataHolder.viewModels.tapActionButtonViewModel.startLoading()
+        
+        callSavedCardDeletion(for: savedCard) { [weak self] (savedCardDeleteResponse) in
+            // Time to perform mthe correct post deletion logic based on the api response
+            self?.performPostSavedCardDeletion(for: savedCard.identifier ?? "",with: cardCellViewModel, and: savedCardDeleteResponse)
+        } onErrorOccured: { [weak self] (error) in
+            self?.handleError(error: error)
         }
     }
     
@@ -104,10 +103,7 @@ extension TapCheckout {
         commonPostSavedCardDeletion()
         // Now if the deletion was successful we need to update the displayed list of saved cards
         guard savedCardDeleteResponse.isDeleted else { return }
-        // Delete the saved card object from the viewmodel datasource
-        dataHolder.viewModels.gatewayChipsViewModel.removeAll(where: {$0.savedCard?.identifier == savedCardID})
-        // Inform the view to update itself
-        updateGatewayChipsList()
+        updateSavedCardAPIListPostDeletion(with: cardCellViewModel)
     }
     
     /// Performs the common things to do post card deletion, whether the deletion was successful or failed
@@ -118,5 +114,22 @@ extension TapCheckout {
         dataHolder.viewModels.tapActionButtonViewModel.expandButton()
         // Stop the edit mode for the saved card lisr
         headerEndEditingButtonClicked(in: .GatewayListHeader)
+    }
+    
+    /**
+     Handels  the UI changes needed to do post card deletion
+     - Parameter with cardCellViewModel: The view model for the saved card chip cell the user wants to delete
+     */
+    func updateSavedCardAPIListPostDeletion(with cardCellViewModel:SavedCardCollectionViewCellModel) {
+        
+        guard let savedCardID = cardCellViewModel.savedCardID else { return }
+        // Delete the saved card object from the viewmodel datasource
+        dataHolder.viewModels.gatewayChipsViewModel.removeAll(where: {$0.savedCard?.identifier == savedCardID})
+        
+        // Perform UI deletion animation
+        dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deleteCell(with: cardCellViewModel)
+        // Inform the view to update itself
+        // updateGatewayChipsList()
+        
     }
 }

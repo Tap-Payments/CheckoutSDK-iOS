@@ -17,7 +17,7 @@ internal protocol TapActionButtonViewDelegate {
     /** Instructs the button view to start with the loading animation
      - Parameter completion: A block to be called once the collapsing is done
      */
-    func startLoading(completion:()->()?)
+    func startLoading(completion: @escaping ()->())
     
     /**
      Instructs the button to end loading with a given result
@@ -52,7 +52,7 @@ internal protocol TapActionButtonViewDelegate {
     /** Instructs the button view to start with the loading animation
      - Parameter completion: A block to be called once the collapsing is done
      */
-    @objc public func startLoading(completion:()->() = {}) {
+    @objc public func startLoading(completion: @escaping ()->() = {}) {
         viewDelegate?.startLoading(completion: completion)
     }
     
