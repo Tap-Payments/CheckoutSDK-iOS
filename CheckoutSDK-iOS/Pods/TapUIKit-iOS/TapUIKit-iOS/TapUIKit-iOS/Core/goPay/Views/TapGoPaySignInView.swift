@@ -141,7 +141,7 @@ import McPicker
         self.otpAuthenticationID = authenticationID
         // Decide if we need to show the OTP view or leave the default gopay signin view
         if OTPHintBarMode == .SavedCardOTP {
-            phoneReturned(with: "")
+            phoneReturned(with: viewModel.otpSentToNumber)
         }
     }
     

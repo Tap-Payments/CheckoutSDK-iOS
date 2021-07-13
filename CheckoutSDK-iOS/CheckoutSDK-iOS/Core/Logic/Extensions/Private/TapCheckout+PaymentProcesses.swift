@@ -415,6 +415,8 @@ internal extension TapCheckout {
             return
         }
         
+        // Let us save the phone number the OTP sent to
+        dataHolder.viewModels.goPayBarViewModel?.otpSentToNumber = authentication.value
         // All good we need to start the OTP process
         UIDelegate?.showSavedCardOTPView(with: authentication.identifier)
     }

@@ -59,19 +59,23 @@ internal protocol TapGoPayLoginBarViewDelegate {
     // MARK:- Public normal swift variables
     /// Porotocl to communicate with the outer parent to inform him about events
     @objc public var delegate:TapGoPayLoginBarViewModelDelegate?
-    
+    /// The hint label to be shown above the OTP view
     @objc public var hintLabelText:String {
         return TapLocalisationManager.shared.localisedValue(for: "GoPay.HintLabel", with: TapCommonConstants.pathForDefaultLocalisation())
     }
+    /// Represents the phone the otp has been sent to, will be used in the case where the otp is sent from the backend not through the phone the user enetred while logging in to goPay
+    @objc public var otpSentToNumber:String = ""
     
     /**
      Creates a new instance of the TapGoPayLoginBarViewModel
      - Parameter delegate: The delegate which listenes to our events
      - Parameter countries: The countries which the user is allowed to login with it, should have at least 1 country
+     - Parameter otpSentToNumber : Represents the phone the otp has been sent to, will be used in the case where the otp is sent from the backend not through the phone the user enetred while logging in to goPay
      */
-    @objc public init(delegate:TapGoPayLoginBarViewModelDelegate? = nil,countries:[TapCountry]) {
+    @objc public init(delegate:TapGoPayLoginBarViewModelDelegate? = nil,countries:[TapCountry], otpSentToNumber:String = "") {
         super.init()
         self.delegate = delegate
+        self.otpSentToNumber = otpSentToNumber
         guard countries.count > 0 else {
             fatalError("The countries the user can login with should have at least 1 country")
         }
