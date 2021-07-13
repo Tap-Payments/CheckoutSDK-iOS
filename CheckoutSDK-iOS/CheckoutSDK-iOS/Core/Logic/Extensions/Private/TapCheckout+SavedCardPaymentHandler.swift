@@ -79,12 +79,17 @@ extension TapCheckout {
      - Parameter for savedCard: The saved card object we want to delete
      */
     func deleteSavedCard(for savedCard:SavedCard,with cardCellViewModel:SavedCardCollectionViewCellModel) {
-        // First call the deletion api
-        callSavedCardDeletion(for: savedCard) { [weak self] (savedCardDeleteResponse) in
-            // Time to perform mthe correct post deletion logic based on the api response
-            self?.performPostSavedCardDeletion(for: savedCard.identifier ?? "",with: cardCellViewModel, and: savedCardDeleteResponse)
-        } onErrorOccured: { [weak self] (error) in
-            self?.handleError(error: error)
+        // First show loader
+        chanegActionButton(status: .InvalidPayment, actionBlock: nil)
+        // Start loader
+        dataHolder.viewModels.tapActionButtonViewModel.startLoading { [weak self] in
+            // Then call the deletion api
+            self?.callSavedCardDeletion(for: savedCard) { [weak self] (savedCardDeleteResponse) in
+                // Time to perform mthe correct post deletion logic based on the api response
+                self?.performPostSavedCardDeletion(for: savedCard.identifier ?? "",with: cardCellViewModel, and: savedCardDeleteResponse)
+            } onErrorOccured: { [weak self] (error) in
+                self?.handleError(error: error)
+            }
         }
     }
     
