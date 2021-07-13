@@ -280,6 +280,40 @@ internal extension TapCheckout {
         }
     }
     
+    /**
+     Respinsiboe for deleting a saved card with saved card api
+     - Parameter savedCard: The saved card in interest to delete
+     - Parameter onResponseReady: A block to call when getting the response
+     - Parameter onErrorOccured: A block to call when an error occured
+     */
+    func callSavedCardDeletion(for savedCard:SavedCard,  onResponeReady: @escaping (TapDeleteSavedCardResponseModel) -> () = {_ in}, onErrorOccured: @escaping(Error)->() = {_ in}) {
+        //Make sure the needed details are in its place
+        guard let customerID:String  = dataHolder.transactionData.customer.identifier,
+              let savedCardID:String = savedCard.identifier else {
+            handleError(error: "Cannot delete a saved card without a customer id")
+            return
+        }
+        
+        // Create the network call details
+        let route = TapNetworkPath.card
+        let urlModel = TapURLModel.array(parameters: [customerID, savedCardID])
+        
+        
+        // Perform the delete a saved card request with the computed data
+        NetworkManager.shared.makeApiCall(routing: route, resultType: TapDeleteSavedCardResponseModel.self, body: nil, httpMethod: .DELETE, urlModel: urlModel) { (session, result, error) in
+            // Double check all went fine
+            guard let parsedResponse:TapDeleteSavedCardResponseModel = result as? TapDeleteSavedCardResponseModel else {
+                onErrorOccured("Unexpected error parsing into TapDeleteSavedCardResponseModel")
+                return
+            }
+            // Execute the on complete block
+            onResponeReady(parsedResponse)
+        } onError: { (session, result, errorr) in
+            // In case of an error we execute the on error block
+            onErrorOccured(errorr.debugDescription)
+        }
+    }
+    
     
     //MARK:- Methods for handling API responses
     /**

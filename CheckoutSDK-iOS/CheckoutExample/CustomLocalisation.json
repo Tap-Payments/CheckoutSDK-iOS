@@ -29,6 +29,13 @@
             "cancel": "Cancel",
             "confirm": "Confirm"
         },
+        "DeleteCard":
+        {
+            "title": "Delete Card",
+            "message": "Are you sure you would like to card %@?",
+            "cancel": "Cancel",
+            "confirm": "Delete"
+        },
         "Hints":
         {
             "Warning":
@@ -147,6 +154,13 @@
             "cancel": "إلغاء",
             "confirm": "تأكيد"
         },
+        "DeleteCard":
+        {
+            "title": "مسح البطاقة",
+            "message": "هل أنت متأكد من مسح البطاقة %@؟",
+            "cancel": "إلغاء",
+            "confirm": "مسح"
+        },
         "Hints":
         {
             "Warning":
@@ -250,6 +264,13 @@
             "message": "Des frais supplémentaires de %@ vous seront facturés pour ce type de paiement, totalisant un montant de %@",
             "cancel": "Annuler",
             "confirm": "Confirmer"
+        },
+        "DeleteCard":
+        {
+            "title": "Delete Card",
+            "message": "Are you sure you would like to card %@?",
+            "cancel": "Cancel",
+            "confirm": "Delete"
         },
         "Hints":
         {
@@ -361,6 +382,13 @@
             "message": "इस प्रकार के भुगतान के लिए आपसे %@ का अतिरिक्त शुल्क लिया जाएगा, कुल राशि %@",
             "cancel": "रद्द करना",
             "confirm": "पुष्टि करें"
+        },
+        "DeleteCard":
+        {
+            "title": "Delete Card",
+            "message": "Are you sure you would like to card %@?",
+            "cancel": "Cancel",
+            "confirm": "Delete"
         },
         "Hints":
         {

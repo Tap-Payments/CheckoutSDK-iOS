@@ -77,7 +77,7 @@ internal class ChipWithCurrencyModel:Codable {
         case .ApplePay,.Device:
             return ApplePayChipViewCellModel.init(title: paymentOption.title, icon: paymentOption.imageURL.absoluteString, paymentOptionIdentifier: paymentOption.identifier)
         case .Card:
-            return SavedCardCollectionViewCellModel.init(title: "•••• \(savedCard!.lastFourDigits)", icon: paymentOption.imageURL.absoluteString, paymentOptionIdentifier: paymentOption.identifier,savedCardID: savedCard?.identifier)
+            return SavedCardCollectionViewCellModel.init(title: savedCard!.displayTitle, icon: paymentOption.imageURL.absoluteString, paymentOptionIdentifier: paymentOption.identifier,savedCardID: savedCard?.identifier)
         case .Web:
             return GatewayChipViewModel.init(title: paymentOption.title, icon: paymentOption.imageURL.absoluteString, paymentOptionIdentifier: paymentOption.identifier)
         default:

@@ -12,6 +12,11 @@
 	// MARK: - Public -
 	// MARK: Properties
 	
+    /// A generated title to be displayed in chips or alerts
+    public var displayTitle:String {
+        return "•••• \(lastFourDigits)"
+    }
+    
 	/// Identifier.
 	public private(set) var identifier: String?
 	

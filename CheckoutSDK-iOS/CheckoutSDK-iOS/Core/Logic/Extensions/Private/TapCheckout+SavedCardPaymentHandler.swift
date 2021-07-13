@@ -46,4 +46,72 @@ extension TapCheckout {
             self?.handleError(error: error)
         })
     }
+    
+    /**
+     Will do the logic needed to confitm deletion of a saved card
+     - Parameter with cardCellViewModel: The view model for the saved card chip cell the user wants to delete
+     */
+    func askForCardDeletion(with cardCellViewModel:SavedCardCollectionViewCellModel) {
+        
+        // Fetch the card details first
+        guard let savedCardID = cardCellViewModel.savedCardID,
+              let savedCard = fetchSavedCardOption(with: savedCardID) else { return }
+        
+        // Now we need to ask the user a confirmation alert about the deletion first.
+        let alertTitle      = TapLocalisationManager.shared.localisedValue(for: "DeleteCard.title",with: TapCommonConstants.pathForDefaultLocalisation())
+        let alertMessage    = String(format: TapLocalisationManager.shared.localisedValue(for: "DeleteCard.message",with: TapCommonConstants.pathForDefaultLocalisation()), savedCard.displayTitle)
+        let alertConfirm    = TapLocalisationManager.shared.localisedValue(for: "DeleteCard.confirm",with: TapCommonConstants.pathForDefaultLocalisation())
+        let alertCancel     = TapLocalisationManager.shared.localisedValue(for: "DeleteCard.cancel",with: TapCommonConstants.pathForDefaultLocalisation())
+        
+        // Display the confirmation alert
+        let alertController:UIAlertController = .init(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+        alertController.addAction(.init(title: alertConfirm, style: .destructive, handler: { [weak self] _ in
+            self?.deleteSavedCard(for: savedCard, with: cardCellViewModel)
+        }))
+        alertController.addAction(.init(title: alertCancel, style: .cancel, handler: nil))
+        
+        UIDelegate?.show(alert: alertController)
+    }
+    
+    /**
+     Handels the process of deleting a saved card after confirmation
+     - Parameter with cardCellViewModel: The view model for the saved card chip cell the user wants to delete
+     - Parameter for savedCard: The saved card object we want to delete
+     */
+    func deleteSavedCard(for savedCard:SavedCard,with cardCellViewModel:SavedCardCollectionViewCellModel) {
+        // First call the deletion api
+        callSavedCardDeletion(for: savedCard) { [weak self] (savedCardDeleteResponse) in
+            // Time to perform mthe correct post deletion logic based on the api response
+            self?.performPostSavedCardDeletion(for: savedCard.identifier ?? "",with: cardCellViewModel, and: savedCardDeleteResponse)
+        } onErrorOccured: { [weak self] (error) in
+            self?.handleError(error: error)
+        }
+    }
+    
+    /**
+     Handels the process of post deleting a saved card after calling the delete api
+     - Parameter with cardCellViewModel: The view model for the saved card chip cell the user wants to delete
+     - Parameter for savedCardID: The saved card object we want to delete
+     - Parameter and savedCardDeleteResponse: The response we got from the save card delete api
+     */
+    func performPostSavedCardDeletion(for savedCardID:String,with cardCellViewModel:SavedCardCollectionViewCellModel, and savedCardDeleteResponse:TapDeleteSavedCardResponseModel) {
+        // In all cases, we need to perform some commong logic post deletion
+        commonPostSavedCardDeletion()
+        // Now if the deletion was successful we need to update the displayed list of saved cards
+        guard savedCardDeleteResponse.isDeleted else { return }
+        // Delete the saved card object from the viewmodel datasource
+        dataHolder.viewModels.gatewayChipsViewModel.removeAll(where: {$0.savedCard?.identifier == savedCardID})
+        // Inform the view to update itself
+        updateGatewayChipsList()
+    }
+    
+    /// Performs the common things to do post card deletion, whether the deletion was successful or failed
+    func commonPostSavedCardDeletion() {
+        // Change the button status to invalid payment
+        chanegActionButton(status: .InvalidPayment, actionBlock: nil)
+        // Expand the button and stop loading
+        dataHolder.viewModels.tapActionButtonViewModel.expandButton()
+        // Stop the edit mode for the saved card lisr
+        headerEndEditingButtonClicked(in: .GatewayListHeader)
+    }
 }

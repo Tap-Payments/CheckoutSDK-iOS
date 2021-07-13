@@ -99,6 +99,11 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
     }
     
     public func headerEndEditingButtonClicked(in headerType: TapHorizontalHeaderType) {
+        // Deselect selected chips before ending the edit mode
+        dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.deselectAll()
+        dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deselectAll()
+        
+        // Inform the lists of saved chips to end editing
         dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.editMode(changed: false)
         dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.editMode(changed: false)
     }
@@ -142,6 +147,6 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
     }
     
     public func deleteChip(for viewModel: SavedCardCollectionViewCellModel) {
-        
+        askForCardDeletion(with: viewModel)
     }
 }
