@@ -83,7 +83,7 @@ class ViewController: UIViewController {
             paymentType: paymentTypes.first ?? .All,
             closeButtonStyle: closeButtonTitleStyle,
             showDragHandler:showDragHandler,
-            transactionMode: .purchase   ,
+            transactionMode: .cardTokenization   ,
             customer: /*try! .init(identifier: "cus_TS031720211012r4RM0403926"),*/try! .init(identifier: "cus_TS075220212320q2RD0707283"),
             tapMerchantID: "1124340",
             require3DSecure: true,
