@@ -239,7 +239,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
     }
     
     func showScanner() {
-        tapVerticalView.showScanner(with: self)
+        tapVerticalView.showScanner(with: sharedCheckoutDataManager)
     }
     
     func showWebView(with url:URL, and navigationDelegate:TapWebViewModelDelegate? = nil) {
@@ -424,31 +424,6 @@ extension TapBottomCheckoutControllerViewController:TapGenericTableViewModelDele
     }
 }
 
-extension TapBottomCheckoutControllerViewController:TapInlineScannerProtocl {
-    func tapFullCardScannerDimissed() {
-        
-    }
-    
-    func tapCardScannerDidFinish(with tapCard: TapCard) {
-        
-        let hintViewModel:TapHintViewModel = .init(with: .Scanned)
-        let hintView:TapHintView = hintViewModel.createHintView()
-        tapVerticalView.attach(hintView: hintView, to: TapAmountSectionView.self,with: true)
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500)) { [weak self] in
-            self?.closeScannerClicked()
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) { [weak self] in
-                self?.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.setCard(with: tapCard, then: false)
-            }
-        }
-    }
-    
-    func tapInlineCardScannerTimedOut(for inlineScanner: TapInlineCardScanner) {
-        
-    }
-    
-    
-}
-
 
 extension TapBottomCheckoutControllerViewController: TapGoPaySignInViewProtocol {
     func countryCodeClicked() {
@@ -566,6 +541,11 @@ extension TapBottomCheckoutControllerViewController:TapDragHandlerViewDelegate {
 
 
 extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDelegate {
+    
+    func attach(hintView: TapHintView, to: AnyClass, with animations: Bool) {
+        tapVerticalView.attach(hintView: hintView, to: to, with: animations)
+    }
+    
     
     func showSavedCardOTPView(with authenticationID:String = "") {
         tapVerticalView.showGoPaySignInForm(with: self, and: sharedCheckoutDataManager.dataHolder.viewModels.goPayBarViewModel!,hintViewStatus: .SavedCardOTP, for: authenticationID)

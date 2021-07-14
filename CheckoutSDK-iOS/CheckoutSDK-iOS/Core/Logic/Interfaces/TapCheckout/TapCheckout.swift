@@ -14,6 +14,18 @@ import TapUIKit_iOS
 
 /// A protocol to comminicate between the UIManager and the data manager
 internal protocol TapCheckoutSharedManagerUIDelegate {
+    
+    /// Inform the ui checkout to dismiss the scanner
+    func closeScannerClicked()
+    
+    /**
+     Adds a hint view below a given view
+     - Parameter hintView: The hint view to be added
+     - Parameter to: The type of the view you want to show the hint below it
+     - Parameter animations: A boolean to indicate whether you want to show the hint with animation or right away
+     */
+    func attach(hintView:TapHintView,to:AnyClass,with animations:Bool)
+    
     /**
      Inform the delegate to remove a certain view from the checkout sheet
      - Parameter view: The view required by the data manager to be removed from the checkout sheet

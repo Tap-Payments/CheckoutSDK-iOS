@@ -110,4 +110,19 @@ internal extension TapCheckout {
         
         return false
     }
+    
+    /**
+     Fetches the supported card brands for the currently selected currency
+     - Returns: the supported card brands for the currently selected currency or empty as default
+     */
+    func fetchSupportedCardBrands() -> [CardBrand] {
+        // Make sure we have a payment option response first
+        guard let paymentOptionsResponse = dataHolder.transactionData.paymentOptionsModelResponse else { return [] }
+        // Get the card payment options with the selected currency object from the payment option response
+        let supportedPaymentOptions = paymentOptionsResponse.paymentOptions.filter { (paymentOption) -> Bool in
+            return paymentOption.paymentType == .Card && paymentOption.supportedCurrencies.contains(dataHolder.transactionData.transactionUserCurrencyValue.currency)
+        }
+        // Return now all the brands that supports the selected currency
+        return supportedPaymentOptions.map{ $0.brand }
+    }
 }
