@@ -107,10 +107,13 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
         
         // The button
         self.tapVerticalView.setupActionButton(with: tapActionButtonViewModel)
-        // The initial views.. Only save card has different set of initial views
+        // The initial views.. Only save card/card tokenization has different set of initial views
         if sharedCheckoutDataManager.dataHolder.transactionData.transactionMode == .cardSaving {
             let _ = disableAutoDismiss()
             self.tapVerticalView.add(views: [dragView,sharedCheckoutDataManager.dataHolder.viewModels.tapMerchantViewModel.attachedView,sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView], with: [.init(for: .fadeIn)])
+        }else if sharedCheckoutDataManager.dataHolder.transactionData.transactionMode == .cardTokenization {
+            let _ = disableAutoDismiss()
+            self.tapVerticalView.add(views: [dragView,sharedCheckoutDataManager.dataHolder.viewModels.tapMerchantViewModel.attachedView,sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView,sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView], with: [.init(for: .fadeIn)])
         }else{
             self.tapVerticalView.add(views: [dragView,sharedCheckoutDataManager.dataHolder.viewModels.tapMerchantViewModel.attachedView,sharedCheckoutDataManager.dataHolder.viewModels.tapAmountSectionViewModel.attachedView,sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.attachedView,sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView,sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView,sharedCheckoutDataManager.dataHolder.viewModels.tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn)])
         }
