@@ -229,6 +229,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
     func closeGoPayClicked() {
         // Deselect all the selected chips
         sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deselectAll()
+        sharedCheckoutDataManager.chanegActionButton(status: .InvalidPayment,actionBlock: nil)
         // inform the Tap vertical view to start the process of removing all the views related to the gopay sign in views
         tapVerticalView.closeGoPaySignInForm()
         // Add the default views back

@@ -30,7 +30,7 @@ class ViewController: UIViewController {
         }
     }
     var swipeToDismiss:Bool = true
-    var closeButtonTitleStyle:CheckoutCloseButtonEnum = .title
+    var closeButtonTitleStyle:CheckoutCloseButtonEnum = .icon
     var items:[ItemModel] = []
     var paymentTypes:[TapPaymentType] = [.All]
     var showDragHandler:Bool {
@@ -83,7 +83,7 @@ class ViewController: UIViewController {
             paymentType: paymentTypes.first ?? .All,
             closeButtonStyle: closeButtonTitleStyle,
             showDragHandler:showDragHandler,
-            transactionMode: .cardTokenization   ,
+            transactionMode: .purchase,
             customer: /*try! .init(identifier: "cus_TS031720211012r4RM0403926"),*/try! .init(identifier: "cus_TS075220212320q2RD0707283"),
             tapMerchantID: "1124340",
             require3DSecure: true,

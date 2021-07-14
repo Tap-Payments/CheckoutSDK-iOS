@@ -171,11 +171,13 @@ extension TapGoPayOTPView:TapOtpViewModelDelegate {
     
     
     public func otpStateExpired() {
-        // Update the button state to valid CONFIRM state
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetStatusNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetStatusNotification:TapActionButtonStatusEnum.ResendOTP])
         
+        delegate?.otpStateExpired(with: hintViewModel.tapHintViewStatus)
         // Close the OTP view
         self.otpViewModel.close()
+        guard hintViewModel.tapHintViewStatus != .SavedCardOTP else { return }
+        // Update the button state to valid resend state
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue:  TapConstantManager.TapActionSheetStatusNotification), object: nil, userInfo: [TapConstantManager.TapActionSheetStatusNotification:TapActionButtonStatusEnum.ResendOTP])
         // Define the action block for the action button
         let actionButtonBlock = { self.delegate?.otpStateExpired(with: self.hintViewModel.tapHintViewStatus) }
         // Inform the button to have the new action block

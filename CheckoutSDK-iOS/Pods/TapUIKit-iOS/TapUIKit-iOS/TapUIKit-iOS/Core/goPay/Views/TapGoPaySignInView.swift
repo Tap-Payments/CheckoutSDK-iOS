@@ -87,7 +87,7 @@ import McPicker
     internal var originalHeight:CGFloat = 0
     
     /// Will be used to decide the otp expiration in seconds
-    internal var otpExpiresInSeconds:Int = 120
+    internal var otpExpiresInSeconds:Int = 180
     
     /// Decides The theme, title and action button shown on the top of the OTP view based on the type
     internal var OTPHintBarMode:TapHintViewStatusEnum = .GoPayOtp
@@ -134,7 +134,7 @@ import McPicker
      - Parameter OTPHintBarMode: Decides The theme, title and action button shown on the top of the OTP view based on the type
      - Parameter otpExpiresInSeconds: Will be used to decide the otp expiration in seconds
      */
-    @objc public func setup(with viewModel:TapGoPayLoginBarViewModel,OTPHintBarMode:TapHintViewStatusEnum = .GoPayOtp,authenticationID:String = "",otpExpiresInSeconds:Int = 120) {
+    @objc public func setup(with viewModel:TapGoPayLoginBarViewModel,OTPHintBarMode:TapHintViewStatusEnum = .GoPayOtp,authenticationID:String = "",otpExpiresInSeconds:Int = 180) {
         goPayLoginOptionsView.tapGoPayLoginBarViewModel = viewModel
         self.OTPHintBarMode = OTPHintBarMode
         self.otpExpiresInSeconds = otpExpiresInSeconds
