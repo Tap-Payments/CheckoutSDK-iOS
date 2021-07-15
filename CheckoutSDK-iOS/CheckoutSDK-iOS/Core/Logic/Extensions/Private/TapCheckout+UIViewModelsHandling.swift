@@ -180,6 +180,34 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         updateManager()
     }
     
+    /// Update the visibility of the views based on the transaction mode
+    func updateViewsVisibility() {
+        let sharedManager = TapCheckout.sharedCheckoutManager()
+        
+        switch sharedManager.dataHolder.transactionData.transactionMode {
+        
+        case .purchase,.authorizeCapture:
+            // nothing to do as we will show all views in those modes
+            break
+        case .cardSaving:
+            // We need to hide amount,goPay cards, gatways and save card switch
+            sharedManager.dataHolder.viewModels.tapAmountSectionViewModel.shouldShow = false
+            sharedManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.shouldShow = false
+            sharedManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.shouldShow = false
+            sharedManager.dataHolder.viewModels.tapSaveCardSwitchViewModel.shouldShow = false
+            // stop auto dismiss
+            sharedManager.dataHolder.viewModels.swipeDownToDismiss = false
+            break
+        case .cardTokenization:
+            // We need to hide amount, and save card switch
+            sharedManager.dataHolder.viewModels.tapAmountSectionViewModel.shouldShow = false
+            sharedManager.dataHolder.viewModels.tapSaveCardSwitchViewModel.shouldShow = false
+            // stop auto dismiss
+            sharedManager.dataHolder.viewModels.swipeDownToDismiss = false
+            break
+        }
+    }
+    
     /// This method handles the logic needed to hide all irrelevant views when the mode is card saving
     func adjustCardSavingViews() {
         
