@@ -15,7 +15,7 @@ import class TapApplePayKit_iOS.TapApplePayToken
 /// This is the public protocol for outer components to listen to events and data fired from this view model and its attached view
 @objc public protocol TapChipHorizontalListViewModelDelegate {
     /**
-        The event will be fired when a cell is selected in the attacjed uicollection voew
+     The event will be fired when a cell is selected in the attacjed uicollection voew
      - Parameter viewModel: Represents the attached view model of the selectec cell view
      */
     @objc func didSelect(item viewModel:GenericTapChipViewModel)
@@ -219,7 +219,7 @@ internal protocol TapChipHorizontalViewModelDelegate {
     
     /**
      Calclates teh number of sections to be displayed inside the attached collecionvoew
-      - Returns: The number of sections (ROWS) to be displayed
+     - Returns: The number of sections (ROWS) to be displayed
      */
     internal func numberOfSections() -> Int {
         1
@@ -232,10 +232,10 @@ internal protocol TapChipHorizontalViewModelDelegate {
      */
     internal func numberOfRows(for section:Int = 0) -> Int {
         switch section {
-            case 0:
-                return dataSource.count
-            default:
-                return 0
+        case 0:
+            return dataSource.count
+        default:
+            return 0
         }
     }
     

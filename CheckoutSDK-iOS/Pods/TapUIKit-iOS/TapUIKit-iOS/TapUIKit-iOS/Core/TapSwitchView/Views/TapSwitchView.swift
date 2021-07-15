@@ -5,7 +5,6 @@
 //  Created by Kareem Ahmed on 7/19/20.
 //  Copyright © 2020 Tap Payments. All rights reserved.
 //
-
 import UIKit
 import TapThemeManager2020
 

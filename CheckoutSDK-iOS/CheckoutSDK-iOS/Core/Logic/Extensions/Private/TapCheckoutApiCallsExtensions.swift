@@ -315,6 +315,37 @@ internal extension TapCheckout {
     }
     
     
+    /**
+     Respinsiboe for deleting a saved card with saved card api
+     - Parameter savedCard: The saved card in interest to delete
+     - Parameter onResponseReady: A block to call when getting the response
+     - Parameter onErrorOccured: A block to call when an error occured
+     */
+    func callLogging(for loggedData:TapLoggingModel,  onResponeReady: @escaping (String) -> () = {_ in}, onErrorOccured: @escaping(Error)->() = {_ in}) {
+        
+        // Create the network call details
+        let route = TapNetworkPath.logging
+        // Change the model into a dictionary
+        guard let bodyDictionary = TapCheckout.convertModelToDictionary(loggedData, callingCompletionOnFailure: { error in
+            return
+        }) else { return }
+        
+        // Perform the delete a saved card request with the computed data
+        NetworkManager.shared.makeApiCall(routing: route, resultType: String.self, body: .init(body: bodyDictionary), httpMethod: .POST, urlModel: nil) { (session, result, error) in
+            // Double check all went fine
+            guard let parsedResponse:String = result as? String else {
+                //onErrorOccured("Unexpected error parsing into TapDeleteSavedCardResponseModel")
+                return
+            }
+            // Execute the on complete block
+            //onResponeReady(parsedResponse)
+        } onError: { (session, result, errorr) in
+            // In case of an error we execute the on error block
+            // onErrorOccured(errorr.debugDescription)
+        }
+    }
+    
+    
     //MARK:- Methods for handling API responses
     /**
      Handles the result of the init api by storing it in the right place to be further processed

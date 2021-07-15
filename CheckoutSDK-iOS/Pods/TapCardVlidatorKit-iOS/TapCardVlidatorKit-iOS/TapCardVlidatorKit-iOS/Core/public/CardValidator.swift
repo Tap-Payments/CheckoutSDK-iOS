@@ -4,7 +4,6 @@
 //
 //  Copyright © 2018 Tap Payments. All rights reserved.
 //
-
 /// Card validator.
 public final class CardValidator {
     
@@ -210,7 +209,7 @@ public final class CardValidator {
             let odd = index % 2 == 1
             
             switch (odd, digit) {
-                
+            
             case (true, 9):
                 
                 sum += 9

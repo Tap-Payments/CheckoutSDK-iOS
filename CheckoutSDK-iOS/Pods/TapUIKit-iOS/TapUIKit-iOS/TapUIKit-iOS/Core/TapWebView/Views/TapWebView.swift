@@ -22,7 +22,7 @@ var myContext = 0
     @IBOutlet weak var webView: WKWebView!
     /// The progress bar to show a web view is being loaded
     @IBOutlet weak var progressView: UIProgressView!
-   
+    
     /// Represents the view model controlling this web view
     var viewModel:TapWebViewModel? {
         didSet {

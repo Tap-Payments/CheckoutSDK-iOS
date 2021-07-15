@@ -112,13 +112,13 @@ private let specializedLayerKeys: [String: [String]] = [
 
 public extension UIView.AnimationOptions {
     //CA Fill modes
-    static let fillModeNone = UIView.AnimationOptions([])
+    static let fillModeNone = UIView.AnimationOptions(rawValue: 0)
     static let fillModeForwards = UIView.AnimationOptions(rawValue: 1024)
     static let fillModeBackwards = UIView.AnimationOptions(rawValue: 2048)
     static let fillModeBoth = UIView.AnimationOptions(rawValue: 1024 + 2048)
     
     //CA Remove on completion
-    static let isRemovedOnCompletion = UIView.AnimationOptions([])
+    static let isRemovedOnCompletion = UIView.AnimationOptions(rawValue: 0)
     static let isNotRemovedOnCompletion = UIView.AnimationOptions(rawValue: 16384)
 }
 

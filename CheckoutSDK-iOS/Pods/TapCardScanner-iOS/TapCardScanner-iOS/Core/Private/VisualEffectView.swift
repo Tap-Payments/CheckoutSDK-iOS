@@ -6,17 +6,12 @@
 //  Copyright © 2020 Tap Payments. All rights reserved.
 //
 
-import class UIKit.UIVisualEffectView
-import class UIKit.UIColor
-import struct UIKit.CGFloat
-import class UIKit.UIVisualEffect
-import class UIKit.UIBlurEffect
-
+import UIKit
 /// VisualEffectView is a dynamic background blur view.
 public class VisualEffectView: UIVisualEffectView {
     
     /// Returns the instance of UIBlurEffect.
-   // private let blurEffect = (NSClassFromString("_UICustomBlurEffect") as! UIBlurEffect.Type).init()
+    // private let blurEffect = (NSClassFromString("_UICustomBlurEffect") as! UIBlurEffect.Type).init()
     
     /**
      Tint color.
@@ -81,7 +76,7 @@ public class VisualEffectView: UIVisualEffectView {
         adjustBlurType()
     }
     
-     internal func adjustBlurType() {
+    internal func adjustBlurType() {
         self.effect = (self.traitCollection.userInterfaceStyle == .dark) ? UIBlurEffect(style: .dark) : UIBlurEffect(style: .light)
     }
     

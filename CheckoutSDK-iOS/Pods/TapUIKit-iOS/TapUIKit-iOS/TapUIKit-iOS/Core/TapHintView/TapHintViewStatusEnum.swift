@@ -103,7 +103,7 @@ import class CommonDataModelsKit_iOS.TapCommonConstants
      */
     func shouldShowActionButton() -> Bool {
         switch self {
-            case .GoPayOtp,.GoPayPassword:
+        case .GoPayOtp,.GoPayPassword:
             return true
         default:
             return false

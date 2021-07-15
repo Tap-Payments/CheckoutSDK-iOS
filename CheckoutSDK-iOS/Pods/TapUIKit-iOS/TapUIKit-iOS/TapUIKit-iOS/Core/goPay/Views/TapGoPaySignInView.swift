@@ -72,7 +72,7 @@ import McPicker
 }
 /// Represents the GoPaySignInView where all needed logic and transistions between GoPayViews are encapsulated
 @objc public class TapGoPaySignInView: UIView {
-
+    
     /// The animatin duration used to switch between different gopay views
     let animationDuration:Double = 0.5
     /// The content view where it holds all the sub views
@@ -236,7 +236,7 @@ import McPicker
         self.endEditing(true)
         // Check if we have more than one country to show
         guard let countries:[TapCountry] = goPayLoginOptionsView.tapGoPayLoginBarViewModel?.allowedCountries,
-            countries.count > 1 else { return }
+              countries.count > 1 else { return }
         
         // Show the picker just after the animation of height changed
         changeHeight(with: 250)
@@ -251,8 +251,8 @@ import McPicker
                 self?.changeHeight(with: -250)
                 let countryNameSelected:String = Selection[0] ?? ""
                 self?.changePhoneCountry(with: countries[data[0].firstIndex(of:countryNameSelected) ?? 0])
-                }, cancelHandler: { [weak self] in
-                    self?.changeHeight(with: -250)
+            }, cancelHandler: { [weak self] in
+                self?.changeHeight(with: -250)
             }) { (Selections, Index) in
                 
             }
@@ -342,7 +342,7 @@ extension TapGoPaySignInView: TapGoPayOTPViewProtocol {
     
     public func validateGoPayOTP(with otp: String, for phone: String) {}
     
-   
+    
     public func validateAuthenticationOTP(with otp: String) {
         delegate?.verifyAuthentication?(for: otpAuthenticationID ?? "", with: otp)
     }

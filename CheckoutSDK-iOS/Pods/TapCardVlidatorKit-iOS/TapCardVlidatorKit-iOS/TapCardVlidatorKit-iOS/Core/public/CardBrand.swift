@@ -4,7 +4,6 @@
 //
 //  Copyright © 2018 Tap Payments. All rights reserved.
 //
-
 /// Card Brand.
 import Foundation
 
@@ -76,7 +75,7 @@ import Foundation
             .unionPay           : RawValues.unionPay,
             .verve              : RawValues.verve,
             .visa               : RawValues.visa,
-            .visaElectron        : RawValues.visaElectron,
+            .visaElectron       : RawValues.visaElectron,
             .viva               : RawValues.viva,
             .wataniya           : RawValues.wataniya,
             .zain               : RawValues.zain,

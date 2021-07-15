@@ -9,11 +9,11 @@
 import Foundation
 /// Card Types the merchanty will use to define what types of cards he wants his clients to use
 @objcMembers public class CardType:NSObject {
-	
+    
     
     public var cardType:cardTypes = .All
     
-      public init(cardTypeString:String) {
+    public init(cardTypeString:String) {
         if cardTypeString.lowercased() == "credit"
         {
             self.cardType = .Credit
@@ -27,8 +27,8 @@ import Foundation
     }
     
     public init(cardType:cardTypes) {
-           self.cardType = cardType
-       }
+        self.cardType = cardType
+    }
     
     override public func isEqual(_ object: Any?) -> Bool {
         if let other = object as? CardType {
@@ -38,7 +38,3 @@ import Foundation
         }
     }
 }
-
-
-
-

@@ -10,7 +10,7 @@ import TapThemeManager2020
 
 /// Represents the Tap Action Button View
 @objc public class TapActionButton: UIView {
-
+    
     /// the main holder view
     @IBOutlet weak var contentView: UIView!
     /// The image used to show the laoder, success and failure animations

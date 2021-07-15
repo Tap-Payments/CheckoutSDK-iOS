@@ -393,10 +393,10 @@ internal protocol TapCardInputCommonProtocol {
             self?.updateShadow()
             // We will need to adjuust the width for the field when it is being active or inactive in the Inline mode
             self?.updateWidths(for: self?.cardName)
-            },cardNameChanged: { [weak self] (cardName) in
-                // If the card name changed, we change the holding TapCard and we fire the logic needed to do when the card data changed
-                self?.tapCard.tapCardName = cardName
-                self?.cardDatachanged()
+        },cardNameChanged: { [weak self] (cardName) in
+            // If the card name changed, we change the holding TapCard and we fire the logic needed to do when the card data changed
+            self?.tapCard.tapCardName = cardName
+            self?.cardDatachanged()
         })
         
         // Setup the card expiry field with the needed data and listeners
@@ -405,14 +405,14 @@ internal protocol TapCardInputCommonProtocol {
             self?.updateShadow()
             // We will need to adjuust the width for the field when it is being active or inactive in the Inline mode
             self?.updateWidths(for: self?.cardExpiry)
-            }, cardExpiryChanged: {  [weak self] (cardMonth,cardYear) in
-                // If the card expiry changed, we change the holding TapCard and we fire the logic needed to do when the card data changed
-                self?.tapCard.tapCardExpiryMonth = cardMonth
-                self?.tapCard.tapCardExpiryYear = cardYear
-                if self?.cardExpiry.isValid() ?? false {
-                    self?.cardCVV.becomeFirstResponder()
-                }
-                self?.cardDatachanged()
+        }, cardExpiryChanged: {  [weak self] (cardMonth,cardYear) in
+            // If the card expiry changed, we change the holding TapCard and we fire the logic needed to do when the card data changed
+            self?.tapCard.tapCardExpiryMonth = cardMonth
+            self?.tapCard.tapCardExpiryYear = cardYear
+            if self?.cardExpiry.isValid() ?? false {
+                self?.cardCVV.becomeFirstResponder()
+            }
+            self?.cardDatachanged()
         })
         
         // Setup the card cvv field with the needed data and listeners
@@ -421,13 +421,13 @@ internal protocol TapCardInputCommonProtocol {
             self?.updateShadow()
             // We will need to adjuust the width for the field when it is being active or inactive in the Inline mode
             self?.updateWidths(for: self?.cardCVV)
-            },cardCVVChanged: {  [weak self] (cardCVV) in
-                // If the card cvv changed, we change the holding TapCard and we fire the logic needed to do when the card data changed
-                self?.tapCard.tapCardCVV = cardCVV
-                self?.cardDatachanged()
-                if self?.cardCVV.isValid() ?? false {
-                    self?.cardCVV.resignFirstResponder()
-                }
+        },cardCVVChanged: {  [weak self] (cardCVV) in
+            // If the card cvv changed, we change the holding TapCard and we fire the logic needed to do when the card data changed
+            self?.tapCard.tapCardCVV = cardCVV
+            self?.cardDatachanged()
+            if self?.cardCVV.isValid() ?? false {
+                self?.cardCVV.resignFirstResponder()
+            }
         })
         
         fields.forEach{ $0.textChanged = { [weak self] _ in self?.delegate?.dataChanged(tapCard: self!.tapCard) }}
@@ -660,7 +660,7 @@ extension TapCardInput {
      */
     @objc internal func nextAction(sender:TapCardBarButton) {
         if let field = sender.cardField,
-            let currentFieldIndex = fields.firstIndex(of: field) {
+           let currentFieldIndex = fields.firstIndex(of: field) {
             // Defensive code to make sure all good, and the textfield is being passed with the clicked button and there is NEXT field in the row that we can navigate to
             
             // If all good, then the next field is now active
@@ -674,7 +674,7 @@ extension TapCardInput {
      */
     @objc internal func previousAction(sender:TapCardBarButton) {
         if let field = sender.cardField,
-            let currentFieldIndex = fields.firstIndex(of: field) {
+           let currentFieldIndex = fields.firstIndex(of: field) {
             // Defensive code to make sure all good, and the textfield is being passed with the clicked button and there is previous field in the row that we can navigate to
             
             // If all good, then the previous field is now active

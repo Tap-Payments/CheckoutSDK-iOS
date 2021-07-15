@@ -20,7 +20,7 @@ internal protocol TapGoPayLoginBarViewDelegate {
      */
     func animateBar(to x:CGFloat,with width:CGFloat)
     
-     /**
+    /**
      Asks the view to change its validation state of the selected tab
      - Parameter validationState: The new validation state
      */
@@ -90,7 +90,7 @@ internal protocol TapGoPayLoginBarViewDelegate {
         dataSource.forEach{ $0.delegate = self }
         // On load, select the first option :)
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) { [weak self] in
-            // Give it a little time to render the labels (so if an option has LONG title, then bar will fit nicely) 
+            // Give it a little time to render the labels (so if an option has LONG title, then bar will fit nicely)
             self?.select(option: self!.dataSource[0].titleSegment, with: false)
         }
         

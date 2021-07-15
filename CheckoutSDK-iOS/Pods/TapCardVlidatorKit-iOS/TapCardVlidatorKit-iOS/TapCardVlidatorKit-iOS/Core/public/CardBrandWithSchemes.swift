@@ -4,7 +4,6 @@
 //
 //  Created by Osama Rabie on 7/4/21.
 //
-
 import Foundation
 /// Struct of a card brand attached to it the schemes and formats it supports Like Mada --> VISA & MASTERCARD
 public struct CardBrandWithSchemes {
@@ -31,7 +30,6 @@ public struct CardBrandWithSchemes {
         self.cardBrand = cardBrand
     }
 }
-
 // MARK: - Equatable -
 extension CardBrandWithSchemes: Equatable {
     

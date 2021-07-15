@@ -100,6 +100,7 @@
 		E8983DCD24EEC3D900C34E50 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CF141924EE8F140036015C /* NetworkManager.swift */; };
 		E8983DCF24F0F7B800C34E50 /* TapNetworkPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8983DCE24F0F7B800C34E50 /* TapNetworkPath.swift */; };
 		E8983DD124F1469700C34E50 /* TapEntitResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8983DD024F1469700C34E50 /* TapEntitResponseModel.swift */; };
+		E89B4F6226A0661A0077B0A6 /* TapLoggingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89B4F6126A0661A0077B0A6 /* TapLoggingModel.swift */; };
 		E8C2052624E3FEFA006653CA /* TapCheckoutFlipStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C2052524E3FEFA006653CA /* TapCheckoutFlipStatus.swift */; };
 		E8C2052824E40E95006653CA /* CustomLocalisation.json in Resources */ = {isa = PBXBuildFile; fileRef = E8C2052724E40E95006653CA /* CustomLocalisation.json */; };
 		E8C58B3824E5344700E1F04F /* TapCheckOutTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C58B3724E5344700E1F04F /* TapCheckOutTheme.swift */; };
@@ -285,6 +286,7 @@
 		E89225E924E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+KitsConfigurations.swift"; sourceTree = "<group>"; };
 		E8983DCE24F0F7B800C34E50 /* TapNetworkPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapNetworkPath.swift; sourceTree = "<group>"; };
 		E8983DD024F1469700C34E50 /* TapEntitResponseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapEntitResponseModel.swift; sourceTree = "<group>"; };
+		E89B4F6126A0661A0077B0A6 /* TapLoggingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapLoggingModel.swift; sourceTree = "<group>"; };
 		E8C2052524E3FEFA006653CA /* TapCheckoutFlipStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckoutFlipStatus.swift; sourceTree = "<group>"; };
 		E8C2052724E40E95006653CA /* CustomLocalisation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CustomLocalisation.json; sourceTree = "<group>"; };
 		E8C58B3724E5344700E1F04F /* TapCheckOutTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckOutTheme.swift; sourceTree = "<group>"; };
@@ -838,6 +840,7 @@
 				E8392129268D97DA00421E15 /* AuthorizeActionResponse.swift */,
 				E839216F268F14E200421E15 /* CreateTokenCard.swift */,
 				E839238F2695879800421E15 /* CreateTokenSavedCard.swift */,
+				E89B4F6126A0661A0077B0A6 /* TapLoggingModel.swift */,
 			);
 			path = SharedModels;
 			sourceTree = "<group>";
@@ -906,8 +909,8 @@
 				E8811AE124D4287400DE95D1 /* Sources */,
 				E8811AE224D4287400DE95D1 /* Frameworks */,
 				E8811AE324D4287400DE95D1 /* Resources */,
-				06E6A196C1FE3F4B9687D7DF /* [CP] Embed Pods Frameworks */,
 				E8845E6E24D835B1009E8B73 /* Embed Frameworks */,
+				D50BCDF4360C46E9E7DDEE01 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -987,23 +990,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		06E6A196C1FE3F4B9687D7DF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CheckoutExample/Pods-CheckoutExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CheckoutExample/Pods-CheckoutExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CheckoutExample/Pods-CheckoutExample-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		675E9A2543885EBD6222972F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1046,6 +1032,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D50BCDF4360C46E9E7DDEE01 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CheckoutExample/Pods-CheckoutExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CheckoutExample/Pods-CheckoutExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CheckoutExample/Pods-CheckoutExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1145,6 +1148,7 @@
 				E88450EC267B33E20073D777 /* TapCheckout+Utils.swift in Sources */,
 				E8844F692678BA530073D777 /* TapPaymentOptionsRequestModel.swift in Sources */,
 				E8EC81A1267D00210080E760 /* TokenType.swift in Sources */,
+				E89B4F6226A0661A0077B0A6 /* TapLoggingModel.swift in Sources */,
 				E8844F1D2677A4C50073D777 /* ApiErrorModel.swift in Sources */,
 				E8844F632678B3130073D777 /* SavedCard.swift in Sources */,
 				E8844F19267794700073D777 /* Merchant.swift in Sources */,

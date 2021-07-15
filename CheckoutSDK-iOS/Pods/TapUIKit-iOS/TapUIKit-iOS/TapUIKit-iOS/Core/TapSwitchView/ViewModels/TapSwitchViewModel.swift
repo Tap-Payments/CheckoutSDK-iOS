@@ -44,7 +44,7 @@ internal protocol TapSwitchViewDelegate {
             updateCardState()
         }
     }
-
+    
     /// Decides which save card switch to show goPay or Merchant or both
     internal var whichSwitchesToShow:TapSwitchEnum = .all
     

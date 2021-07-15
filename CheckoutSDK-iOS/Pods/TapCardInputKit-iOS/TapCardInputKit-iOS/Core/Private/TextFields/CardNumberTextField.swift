@@ -92,7 +92,7 @@ extension CardNumberTextField:CardInputTextFieldProtocol {
         // We use the Valoidation kit to get the status of the number
         let definedCard = CardValidator.validate(cardNumber: nonNullCardNumber,preferredBrands: allowedBrands.map{ CardBrand.init(rawValue: $0)! })
         if let definedBrand = definedCard.cardBrand,
-            allowedBrands.count > 0, !allowedBrands.contains(definedBrand.rawValue){
+           allowedBrands.count > 0, !allowedBrands.contains(definedBrand.rawValue){
             return .Invalid
         }
         

@@ -5,7 +5,6 @@
 //  Created by Osama Rabie on 7/7/20.
 //  Copyright © 2020 Tap Payments. All rights reserved.
 //
-
 import UIKit
 import TapCardInputKit_iOS
 import CommonDataModelsKit_iOS
@@ -246,4 +245,3 @@ extension TapCardTelecomPaymentView: TapPhoneInputProtocol {
     }
     
 }
-

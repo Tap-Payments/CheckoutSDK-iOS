@@ -37,6 +37,8 @@ internal enum TapNetworkPath : String {
     case token                      = "token/"
     /// Calling token api to tokenize
     case tokens                     = "tokens/"
+    /// Calling logging api
+    case logging                    = "log/"
     
     
     /// A special decoder to map the string values we get from the backend into a valid SWIFT date object to deal with.

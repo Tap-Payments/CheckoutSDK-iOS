@@ -23,6 +23,10 @@ internal class NetworkManager: NSObject {
     private let baseURL = "https://api.tap.company/v2/"
     public var enableLogging = false
     
+    internal var loggedApis:[String] {
+        return networkManager.loggedInApiCalls
+    }
+    
     private override init () {
         networkManager = TapNetworkManager(baseURL: URL(string: baseURL)!)
     }
