@@ -253,8 +253,9 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      */
     internal func handleError(error:Error?) {
         
-        let loggedDataModel:TapLoggingModel = .init(loggedRequests: NetworkManager.shared.loggedApis, error: error?.localizedDescription)
+        let loggedDataModel:TapLoggingModel = .init(loggedRequests: NetworkManager.shared.loggedApis, error: error?.localizedDescription,merchant: dataHolder.transactionData.intitModelResponse?.data.merchant,customer: dataHolder.transactionData.customer)
         
+        callLogging(for: loggedDataModel)
         dataHolder.viewModels.tapActionButtonViewModel.endLoading(with: false, completion: {
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
                 self.UIDelegate?.dismissCheckout(with: error ?? "UNKNOWN ERROR OCCURED")

@@ -20,16 +20,26 @@ internal struct TapLoggingModel: Codable {
     /// The error occureed at the end
     public var error: String = ""
     
+    /// Current Merchant
+    public var merchant:Merchant?
+    
+    /// Current Customet
+    public var customer:TapCustomer?
+    
     // MARK: Methods
     
     /**
      Creates a new TapLoggedRequestModel model.
      - Parameter loggedRequests:    The logged in requests and responses
      - Parameter error:             The error occureed at the end
+     - Parameter merchant:          The Current Merchant
+     - Parameter customer:          The Current Customer
      */
-    public init(loggedRequests:[String], error:String?) {
+    public init(loggedRequests:[String], error:String?, merchant:Merchant?, customer:TapCustomer?) {
         self.loggedRequests = loggedRequests
         self.error          = error ?? ""
+        self.merchant       = merchant
+        self.customer       = customer
     }
     
     // MARK: - Private -
@@ -38,6 +48,8 @@ internal struct TapLoggingModel: Codable {
         
         case loggedRequests = "loggedRequests"
         case error          = "error"
+        case merchant       = "merchant"
+        case customer       = "customer"
     }
 }
 
