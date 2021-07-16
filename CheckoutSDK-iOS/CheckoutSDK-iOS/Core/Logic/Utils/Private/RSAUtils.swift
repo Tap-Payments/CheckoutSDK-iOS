@@ -372,8 +372,7 @@ internal class RSAUtils {
             
             idx += maxChunkSize
         }
-        
-        return Data(bytes: UnsafePointer<UInt8>(encryptedData), count: encryptedData.count)
+        return Data(bytes: encryptedData, count: encryptedData.count)
     }
     
     /**
@@ -418,7 +417,7 @@ internal class RSAUtils {
             idx += blockSize
         }
         
-        return Data(bytes: UnsafePointer<UInt8>(decryptedData), count: decryptedData.count)
+        return Data(bytes: decryptedData, count: decryptedData.count)
     }
     
     @available(iOS, introduced: 1.2.0)

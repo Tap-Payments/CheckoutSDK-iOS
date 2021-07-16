@@ -333,7 +333,7 @@ internal extension TapCheckout {
         // Perform the delete a saved card request with the computed data
         NetworkManager.shared.makeApiCall(routing: route, resultType: String.self, body: .init(body: bodyDictionary), httpMethod: .POST, urlModel: nil) { (session, result, error) in
             // Double check all went fine
-            guard let parsedResponse:String = result as? String else {
+            guard let _:String = result as? String else {
                 //onErrorOccured("Unexpected error parsing into TapDeleteSavedCardResponseModel")
                 return
             }
