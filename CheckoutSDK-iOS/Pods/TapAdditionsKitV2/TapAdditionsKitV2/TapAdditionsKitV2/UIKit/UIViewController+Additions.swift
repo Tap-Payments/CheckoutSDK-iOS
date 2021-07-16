@@ -77,7 +77,7 @@ public extension UIViewController {
     /// Returns NSLayoutConstraint which determines height of top layout guide.
     var tap_topLayoutGuideConstraint: NSLayoutConstraint? {
         
-        return self.view.constraints.filter { self.topLayoutGuide.isEqual($0.firstItem) && $0.firstAttribute == .height && $0.secondItem == nil }.first
+        return self.view.constraints.filter { self.view.safeAreaLayoutGuide.topAnchor.isEqual($0.firstItem) && $0.firstAttribute == .height && $0.secondItem == nil }.first
     }
     
     /// Current presented view controller.
