@@ -31,6 +31,7 @@ internal extension UIImageView {
             SDImageCodersManager.shared.addCoder(svgCoder)
             self.sd_setImage(with: url)
         }else{
+            print("IMAGE :\(url.absoluteString)")
             Nuke.loadImage(with: url,options:nukeOptions ?? ImageLoadingOptions.shared, into: self)
         }
     }

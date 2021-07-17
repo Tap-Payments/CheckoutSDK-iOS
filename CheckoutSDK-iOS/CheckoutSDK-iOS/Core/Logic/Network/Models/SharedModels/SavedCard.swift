@@ -71,7 +71,7 @@
 	public let cardholderName: String?
     
     /// Card logo
-    public let image: String?
+    internal let backendImage: String?
     
     
     /// Card Type
@@ -160,7 +160,7 @@
 		self.exp_month					= expirationMonth
 		self.exp_year					= expirationYear
         self.cardType                   = cardType
-        self.image                      = image
+        self.backendImage               = image
 		
 		super.init()
 	}
