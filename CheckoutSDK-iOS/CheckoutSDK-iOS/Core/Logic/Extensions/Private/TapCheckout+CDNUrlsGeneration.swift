@@ -14,7 +14,7 @@ extension PaymentOption {
     internal var imageURL:URL {
         // Compute the url based on the current user interface style
         let interfaceStylePath:String = (UIScreen.main.traitCollection.userInterfaceStyle == .light) ? "" : "Dark"
-        return URL(string: "https://checkoutsdkios.b-cdn.net/\(CDNPath.PaymentOption.rawValue)/\(identifier)\(interfaceStylePath).png")!
+        return URL(string: "https://checkoutsdkios.b-cdn.net/\(CDNPath.PaymentOption.rawValue)\(interfaceStylePath)/\(identifier).png")!
     }
 }
 
@@ -23,7 +23,7 @@ extension SavedCard {
     internal var image:String {
         // Compute the url based on the current user interface style
         let interfaceStylePath:String = (UIScreen.main.traitCollection.userInterfaceStyle == .light) ? "" : "Dark"
-        return "https://checkoutsdkios.b-cdn.net/\(CDNPath.PaymentOption.rawValue)/\(paymentOptionIdentifier ?? "")\(interfaceStylePath).png"
+        return "https://checkoutsdkios.b-cdn.net/\(CDNPath.PaymentOption.rawValue)\(interfaceStylePath)/\(paymentOptionIdentifier ?? "").png"
     }
 }
 
@@ -32,7 +32,7 @@ extension AmountedCurrency {
     internal var cdnFlag:String {
         // Compute the url based on the current user interface style
         let interfaceStylePath:String = (UIScreen.main.traitCollection.userInterfaceStyle == .light) ? "" : "Dark"
-        return "https://checkoutsdkios.b-cdn.net/\(CDNPath.Currency.rawValue)/\(currency.appleRawValue)\(interfaceStylePath).png"
+        return "https://checkoutsdkios.b-cdn.net/\(CDNPath.Currency.rawValue)\(interfaceStylePath)/\(currency.appleRawValue).png"
     }
 }
 
