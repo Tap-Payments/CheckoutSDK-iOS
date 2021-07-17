@@ -143,7 +143,7 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         guard let paymentOptions = dataHolder.transactionData.paymentOptionsModelResponse else { return }
         
         // Fetch the list of supported currencies
-        self.dataHolder.viewModels.currenciesChipsViewModel = paymentOptions.supportedCurrenciesAmounts.map{ CurrencyChipViewModel.init(currency: $0) }
+        self.dataHolder.viewModels.currenciesChipsViewModel = paymentOptions.supportedCurrenciesAmounts.map{ CurrencyChipViewModel.init(currency: $0,icon: $0.cdnFlag) }
         // Now after getting the list, let us map them to the currencies chips view model
         self.dataHolder.viewModels.tapCurrienciesChipHorizontalListViewModel = .init(dataSource: dataHolder.viewModels.currenciesChipsViewModel, headerType: .NoHeader,selectedChip: dataHolder.viewModels.currenciesChipsViewModel.filter{ $0.currency == dataHolder.transactionData.transactionUserCurrencyValue }[0])
         

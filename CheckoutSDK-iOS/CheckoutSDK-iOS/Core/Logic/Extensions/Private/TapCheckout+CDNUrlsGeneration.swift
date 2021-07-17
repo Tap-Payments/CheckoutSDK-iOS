@@ -27,6 +27,15 @@ extension SavedCard {
     }
 }
 
+extension AmountedCurrency {
+    /// Computed attribute to get the CDN based URL
+    internal var cdnFlag:String {
+        // Compute the url based on the current user interface style
+        let interfaceStylePath:String = (UIScreen.main.traitCollection.userInterfaceStyle == .light) ? "" : "Dark"
+        return "https://checkoutsdkios.b-cdn.net/\(CDNPath.Currency.rawValue)/\(currency.appleRawValue)\(interfaceStylePath).png"
+    }
+}
+
 fileprivate enum CDNPath:String {
     
     case PaymentOption  = "PaymentOption"
