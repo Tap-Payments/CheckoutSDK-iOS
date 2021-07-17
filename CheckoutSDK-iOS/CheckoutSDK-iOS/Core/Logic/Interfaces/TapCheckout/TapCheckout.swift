@@ -87,6 +87,8 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     internal var initialHeight:CGFloat = 100
     /// The corner radius of the sheet
     internal var cornerRadius:CGFloat = 12
+    /// Indicates whether we  can load assets from CDN or not
+    internal var canLoadFromCDN:Bool = false
     /// The tap bottom sheet reference
     internal var bottomSheetController = TapBottomSheetDialogViewController()
     /// A reference to the localisation manager
@@ -238,6 +240,8 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         
         // remove any pending things from an old session
         TapCheckout.destroy()
+        // Decide the availability of the CDN
+        TapCheckout.sharedCheckoutManager().decideIfWeCanLoadAssetsFromCDN()
         // Set the SDK mode and the delegate
         TapCheckout.sharedCheckoutManager().dataHolder.transactionData.sdkMode = sdkMode
         tapCheckoutScreenDelegate = delegate

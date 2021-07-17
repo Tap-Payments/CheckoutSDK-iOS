@@ -7,11 +7,15 @@
 //
 
 import Foundation
-
+import Nuke
 
 extension PaymentOption {
     /// Computed attribute to get the CDN based URL
     internal var imageURL:URL {
+        // Check if it is allowed to load from cdn or it is unreachable
+        guard TapCheckout.sharedCheckoutManager().canLoadFromCDN else {
+            return backendImageURL
+        }
         return URL(string: "https://checkoutsdkios.b-cdn.net/\(CDNPath.PaymentOption.generateCDNPath())/\(identifier).png")!
     }
 }
@@ -19,6 +23,10 @@ extension PaymentOption {
 extension SavedCard {
     /// Computed attribute to get the CDN based URL
     internal var image:String {
+        // Check if it is allowed to load from cdn or it is unreachable
+        guard TapCheckout.sharedCheckoutManager().canLoadFromCDN else {
+            return backendImage ?? ""
+        }
         return "https://checkoutsdkios.b-cdn.net/\(CDNPath.PaymentOption.generateCDNPath())/\(paymentOptionIdentifier ?? "").png"
     }
 }
@@ -26,7 +34,44 @@ extension SavedCard {
 extension AmountedCurrency {
     /// Computed attribute to get the CDN based URL
     internal var cdnFlag:String {
+        // Check if it is allowed to load from cdn or it is unreachable
+        guard TapCheckout.sharedCheckoutManager().canLoadFromCDN else {
+            return flag
+        }
         return "https://checkoutsdkios.b-cdn.net/\(CDNPath.Currency.generateCDNPath())/\(currency.appleRawValue).png"
+    }
+}
+
+extension TapCheckout {
+    /// A method to check if the CDN is availble and reachable and we can load from it or not
+    internal func decideIfWeCanLoadAssetsFromCDN() {
+        // Default load from backend
+        canLoadFromCDN = false
+        
+        // Call the default image to check if CDN is reachable
+        guard let url = URL(string: "https://checkoutsdkios.b-cdn.net/IsAlive.png") else {
+            canLoadFromCDN = false
+            return
+        }
+        
+        // Make a test request to the test image url
+        let request = URLRequest(url: url,timeoutInterval: 1.5)
+        
+        URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+            if let _ = error {
+                // Error occured like timeout for example
+                self?.canLoadFromCDN = false
+            }else if let httpResponse = response as? HTTPURLResponse,
+                     httpResponse.statusCode == 200,
+                     let data = data,
+                     let _:UIImage = UIImage(data: data) {
+                // This means status code is 200, the url replied with data and this data is a valid image
+                self?.canLoadFromCDN = true
+            }else{
+                // Error occured
+                self?.canLoadFromCDN = false
+            }
+        }.resume()
     }
 }
 
