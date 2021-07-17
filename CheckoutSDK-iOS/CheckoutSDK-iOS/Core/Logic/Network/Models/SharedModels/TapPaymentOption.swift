@@ -26,7 +26,7 @@ internal struct PaymentOption: IdentifiableWithString {
     internal var title: String
     
     /// Image URL of the payment option.
-    internal let imageURL: URL
+    internal let backendImageURL: URL
     
     /// If the payment option is async or not
     internal let isAsync: Bool
@@ -61,7 +61,7 @@ internal struct PaymentOption: IdentifiableWithString {
         
         case identifier             = "id"
         case title                  = "name"
-        case imageURL               = "image"
+        case backendImageURL        = "image"
         case paymentType            = "payment_type"
         case sourceIdentifier       = "source_id"
         case supportedCardBrands    = "supported_card_brands"
@@ -140,7 +140,7 @@ extension PaymentOption: Decodable {
         let identifier          = try container.decode          (String.self,               forKey: .identifier)
         let brand               = try container.decode          (CardBrand.self,            forKey: .title)
         let title               = try container.decode          (String.self,               forKey: .title)
-        let imageURL            = try container.decode          (URL.self,                  forKey: .imageURL)
+        let imageURL            = try container.decode          (URL.self,                  forKey: .backendImageURL)
         let paymentType         = try container.decode          (TapPaymentType.self,       forKey: .paymentType)
         let sourceIdentifier    = try container.decodeIfPresent (String.self,               forKey: .sourceIdentifier)
         var supportedCardBrands = try container.decode          ([CardBrand].self,          forKey: .supportedCardBrands)
@@ -155,7 +155,7 @@ extension PaymentOption: Decodable {
         self.init(identifier: identifier,
                   brand: brand,
                   title: title,
-                  imageURL: imageURL,
+                  backendImageURL: imageURL,
                   isAsync: isAsync, paymentType: paymentType,
                   sourceIdentifier: sourceIdentifier,
                   supportedCardBrands: supportedCardBrands,
