@@ -57,14 +57,17 @@ public extension CNPostalAddress {
             result[CNPostalAddressISOCountryCodeKey] = self.isoCountryCode
         }
 
-        if !self.subLocality.isEmpty {
-            
-            result[CNPostalAddressSubLocalityKey] = self.subLocality
-        }
-        
-        if !self.subAdministrativeArea.isEmpty {
-            
-            result[CNPostalAddressSubAdministrativeAreaKey] = self.subAdministrativeArea
+        if #available(iOS 10.3, *) {
+
+            if !self.subLocality.isEmpty {
+
+                result[CNPostalAddressSubLocalityKey] = self.subLocality
+            }
+
+            if !self.subAdministrativeArea.isEmpty {
+                
+                result[CNPostalAddressSubAdministrativeAreaKey] = self.subAdministrativeArea
+            }
         }
 
         return result

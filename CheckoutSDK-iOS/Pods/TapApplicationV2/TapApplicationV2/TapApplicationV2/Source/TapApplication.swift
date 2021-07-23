@@ -108,7 +108,8 @@ public extension TapApplication {
     ///   - hidden: Defines if status bar should be hidden.
     ///   - animation: Animation style.
     func setStatusBarHidden(_ hidden: Bool, with animation: UIStatusBarAnimation) {
-        //UIApplication.shared.setStatusBarHidden(hidden, with: animation)
+
+        UIApplication.shared.setStatusBarHidden(hidden, with: animation)
     }
 
     /// Sets application status bar style.
@@ -118,7 +119,7 @@ public extension TapApplication {
     ///   - animated: Defines if change should happen with animation
     func setStatusBarStyle(_ statusBarStyle: UIStatusBarStyle, animated: Bool) {
 
-        //UIApplication.shared.setStatusBarStyle(statusBarStyle, animated: animated)
+        UIApplication.shared.setStatusBarStyle(statusBarStyle, animated: animated)
     }
 
     /// Sets application status bar orientation.
@@ -128,7 +129,7 @@ public extension TapApplication {
     ///   - animated: Defines if change should happen with animation
     func setStatusBarOrientation(_ interfaceOrientation: UIInterfaceOrientation, animated: Bool) {
 
-        //UIApplication.shared.setStatusBarOrientation(interfaceOrientation, animated: animated)
+        UIApplication.shared.setStatusBarOrientation(interfaceOrientation, animated: animated)
     }
 
     // MARK: Methods

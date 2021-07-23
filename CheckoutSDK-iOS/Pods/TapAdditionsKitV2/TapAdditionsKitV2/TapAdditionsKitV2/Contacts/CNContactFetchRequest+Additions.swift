@@ -79,7 +79,10 @@ public extension CNContactFetchRequest {
             CNContactInstantMessageAddressesKey
         ]
 
-        keys += CNContactPhoneticOrganizationNameKey
+        if #available(iOS 10.0, *) {
+
+            keys += CNContactPhoneticOrganizationNameKey
+        }
 
         return keys as [CNKeyDescriptor]
     }()
