@@ -4,7 +4,7 @@
 //
 //  Copyright © 2019 Tap Payments. All rights reserved.
 //
-
+import CommonDataModelsKit_iOS
 /// Address model.
 @objcMembers public final class Address: Decodable {
     

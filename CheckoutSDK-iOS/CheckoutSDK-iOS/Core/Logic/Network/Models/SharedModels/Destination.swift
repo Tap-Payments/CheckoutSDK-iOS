@@ -4,7 +4,7 @@
 //
 //  Copyright © 2019 Tap Payments. All rights reserved.
 //
-
+import CommonDataModelsKit_iOS
 /// Destination model.
 /// - Tag: Destination
 @objcMembers public final class Destination: NSObject, Codable {

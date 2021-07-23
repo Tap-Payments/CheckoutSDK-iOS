@@ -8,6 +8,7 @@
 
 import Foundation
 import Nuke
+import CommonDataModelsKit_iOS
 
 extension PaymentOption {
     /// Computed attribute to get the CDN based URL

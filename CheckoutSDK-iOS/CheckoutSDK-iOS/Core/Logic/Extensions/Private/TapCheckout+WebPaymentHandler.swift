@@ -7,6 +7,9 @@
 //
 
 import Foundation
+import TapUIKit_iOS
+import CommonDataModelsKit_iOS
+import WebKit
 
 /// Logic to handel webviews based gateway
 extension TapCheckout {

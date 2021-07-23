@@ -4,7 +4,7 @@
 //
 //  Copyright © 2019 Tap Payments. All rights reserved.
 //
-
+import CommonDataModelsKit_iOS
 /// Group of destinations.
 /// - Tag: DestinationGroup
 @objcMembers public final class DestinationGroup: NSObject, Codable {

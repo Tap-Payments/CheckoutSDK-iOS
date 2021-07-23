@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import CommonDataModelsKit_iOS
+import LocalisationManagerKit_iOS
 
 /// Contains logic that needed to do any computation during the checkout process
 internal extension TapCheckout {

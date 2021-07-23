@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import TapApplePayKit_iOS
+import CommonDataModelsKit_iOS
 
 /// Used to do logic for creating the api requests models
 extension TapCheckout {

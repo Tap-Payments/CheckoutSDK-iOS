@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CommonDataModelsKit_iOS
 /// Model that holds card details required for token creation.
 internal struct CreateTokenCard {
     

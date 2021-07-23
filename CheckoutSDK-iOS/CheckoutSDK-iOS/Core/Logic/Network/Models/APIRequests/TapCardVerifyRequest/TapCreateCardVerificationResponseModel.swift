@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CommonDataModelsKit_iOS
 
 /// Card Verification class.
 @objcMembers public class TapCreateCardVerificationResponseModel: NSObject, Decodable, IdentifiableWithString {

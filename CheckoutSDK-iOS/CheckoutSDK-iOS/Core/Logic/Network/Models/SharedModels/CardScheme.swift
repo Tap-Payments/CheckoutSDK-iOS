@@ -4,6 +4,8 @@
 //
 //  Copyright © 2019 Tap Payments. All rights reserved.
 //
+import CommonDataModelsKit_iOS
+import TapCardVlidatorKit_iOS
 
 internal struct CardScheme {
     

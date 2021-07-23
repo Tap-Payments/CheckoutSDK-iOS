@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import CommonDataModelsKit_iOS
+
 struct TapIntentRequestModel : Codable {
     let phone : TapPhone?
     

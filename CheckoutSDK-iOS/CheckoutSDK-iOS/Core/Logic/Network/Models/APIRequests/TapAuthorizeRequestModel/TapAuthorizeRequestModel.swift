@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CommonDataModelsKit_iOS
 
 /// Create authorize request model.
 internal class TapAuthorizeRequestModel: TapChargeRequestModel {

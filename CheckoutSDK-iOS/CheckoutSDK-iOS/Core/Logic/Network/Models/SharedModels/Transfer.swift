@@ -4,7 +4,7 @@
 //
 //  Copyright © 2019 Tap Payments. All rights reserved.
 //
-
+import CommonDataModelsKit_iOS
 /// Transfer model.
 @objcMembers public final class Transfer: NSObject, Decodable {
 	

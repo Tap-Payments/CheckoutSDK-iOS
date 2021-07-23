@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import CommonDataModelsKit_iOS
 
 /// Request model for token creation with card data.
 internal struct TapCreateTokenWithCardDataRequest: TapCreateTokenRequest {

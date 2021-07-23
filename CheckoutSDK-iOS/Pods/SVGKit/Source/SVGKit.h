@@ -73,6 +73,7 @@ FOUNDATION_EXPORT const unsigned char SVGKitFramework_VersionString[];
 #import "ProcessingInstruction.h"
 #import "Text.h"
 #import "DOMGlobalSettings.h"
+#import "SVGKDefine_Private.h"
 
 // SVG DOM
 #import "SVGAngle.h"

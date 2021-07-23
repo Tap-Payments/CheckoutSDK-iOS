@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import TapCardVlidatorKit_iOS
 
 /// Logic needed for deinit and resetting values, observerables
 internal extension TapCheckout {

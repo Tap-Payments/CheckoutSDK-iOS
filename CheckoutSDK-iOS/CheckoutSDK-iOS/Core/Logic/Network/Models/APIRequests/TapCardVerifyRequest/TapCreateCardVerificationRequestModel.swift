@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CommonDataModelsKit_iOS
 
 /// Create charge request model.
 internal struct TapCreateCardVerificationRequestModel: Encodable {

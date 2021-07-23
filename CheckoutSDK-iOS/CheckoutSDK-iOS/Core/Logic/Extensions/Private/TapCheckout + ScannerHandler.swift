@@ -7,7 +7,9 @@
 //
 
 import Foundation
-
+import TapUIKit_iOS
+import CommonDataModelsKit_iOS
+import TapCardScanner_iOS
 
 // MARK:- Events and methods related to scanning logic
 extension TapCheckout {

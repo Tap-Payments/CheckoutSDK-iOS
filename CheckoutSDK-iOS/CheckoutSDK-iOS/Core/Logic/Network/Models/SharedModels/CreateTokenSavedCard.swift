@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import CommonDataModelsKit_iOS
 /// Model that holds existing card details for token creation.
 internal struct CreateTokenSavedCard: Encodable {
     

@@ -7,8 +7,10 @@
 //
 
 import Foundation
-import struct TapCardVlidatorKit_iOS.CardBrandWithSchemes
-
+import TapCardVlidatorKit_iOS
+import CommonDataModelsKit_iOS
+import TapCardInputKit_iOS
+import TapUIKit_iOS
 /// Logic to handle card payment flow
 extension TapCheckout {
     

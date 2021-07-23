@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CommonDataModelsKit_iOS
 
 /// goSell SDK Settings model.
 internal struct SDKSettings {

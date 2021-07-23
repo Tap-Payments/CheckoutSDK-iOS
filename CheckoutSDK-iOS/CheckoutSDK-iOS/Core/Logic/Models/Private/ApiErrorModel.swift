@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CommonDataModelsKit_iOS
 /// Model to parse errors coming from the backend
 internal struct ApiErrorModel {
     

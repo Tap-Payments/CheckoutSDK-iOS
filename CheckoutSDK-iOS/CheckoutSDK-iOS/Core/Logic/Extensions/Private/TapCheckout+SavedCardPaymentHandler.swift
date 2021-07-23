@@ -7,6 +7,11 @@
 //
 
 import Foundation
+import TapCardVlidatorKit_iOS
+import CommonDataModelsKit_iOS
+import LocalisationManagerKit_iOS
+import TapUIKit_iOS
+
 /// Logic to handle saved card payment flow
 extension TapCheckout {
     

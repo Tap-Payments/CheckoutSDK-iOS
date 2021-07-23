@@ -5,6 +5,7 @@
 //  Copyright © 2019 Tap Payments. All rights reserved.
 //
 import CommonDataModelsKit_iOS
+import TapCardVlidatorKit_iOS
 /// Tokenized card model.
 @objcMembers public final class TokenizedCard: IdentifiableWithString {
     

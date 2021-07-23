@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import CommonDataModelsKit_iOS
 
 /// A model to represent the data we will send in a create token for apple pay token api request
 internal struct TapCreateTokenWithApplePayRequest:TapCreateTokenRequest, Encodable,Decodable {

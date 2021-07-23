@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import TapUIKit_iOS
+import CommonDataModelsKit_iOS
 
 /// Protocol to instruct parent upon important data changes to act upon
 internal protocol TapCheckoutDataHolderDelegate {

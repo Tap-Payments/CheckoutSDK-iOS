@@ -7,7 +7,9 @@
 //
 
 import Foundation
-
+import TapUIKit_iOS
+import CommonDataModelsKit_iOS
+import TapApplePayKit_iOS
 /// Has the needed methods to act upon fired events from the uikit based on user activity
 internal extension TapCheckout {
     

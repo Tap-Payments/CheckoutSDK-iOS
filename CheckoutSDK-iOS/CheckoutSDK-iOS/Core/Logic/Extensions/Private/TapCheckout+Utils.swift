@@ -8,6 +8,7 @@
 
 import Foundation
 import CommonDataModelsKit_iOS
+import TapCardVlidatorKit_iOS
 /// A collection of logic to provide utils and singleton interfaces for multiple required methods
 internal extension TapCheckout {
     

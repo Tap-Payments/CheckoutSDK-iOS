@@ -8,7 +8,7 @@
 
 import Foundation
 import TapNetworkKit_iOS
-
+import CommonDataModelsKit_iOS
 /// An extension related to handle logic and methods related to API calls within the checkout process
 internal extension TapCheckout {
     

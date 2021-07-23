@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import enum TapCardVlidatorKit_iOS.CardBrand
-import struct TapCardVlidatorKit_iOS.CardBrandWithSchemes
+import TapCardVlidatorKit_iOS
+import CommonDataModelsKit_iOS
 /// BIN Response model.
 internal struct TapBinResponseModel {
     
