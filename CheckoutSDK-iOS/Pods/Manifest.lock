@@ -44,7 +44,7 @@ PODS:
   - TapFontKit-iOS (0.0.8):
     - TapSwiftFixes
   - TapKeychain (1.0.5)
-  - TapNetworkKit-iOS (1.0.5):
+  - TapNetworkKit-iOS (1.0.6):
     - Kingfisher
     - TapAdditionsKitV2
   - TapSwiftFixes (1.0.9):
@@ -145,7 +145,7 @@ SPEC CHECKSUMS:
   TapCardVlidatorKit-iOS: d92675984d683a6c1afca77a1cce43c4a8451726
   TapFontKit-iOS: 2cd57d5eb22d2b85872039d317ce4d96e9efbb2e
   TapKeychain: 143aa70bb2d1b094e0298e944660264034c79849
-  TapNetworkKit-iOS: fad6af8fdcdac0e45fddd87c2fbd2f6e03331c7d
+  TapNetworkKit-iOS: 92848ae2a2e5ca8ec40a005540c39d871d5310a4
   TapSwiftFixes: db2aeb21942dd81ee051a31ed319dab0d03547a2
   TapSwiftFixesV2: a8623a7273c6790b9754ec7e272e96fce7d3a800
   TapThemeManager2020: 232de1690643733aa89eb7b1c4a626a11e775746
