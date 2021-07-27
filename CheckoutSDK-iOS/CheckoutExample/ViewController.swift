@@ -78,7 +78,7 @@ class ViewController: UIViewController {
             delegate: self,
             currency: selectedCurrency,
             amount: amount,
-            items: items,
+            items: [.init(title: "item1", description: "Desc1", price: 50, quantity: .init(value: 1, unitOfMeasurement: .units), discount: nil, taxes: nil, totalAmount: 0),.init(title: "item2", description: "Desc2", price: 50, quantity: .init(value: 1, unitOfMeasurement: .units), discount: nil, taxes: nil, totalAmount: 0)],
             swipeDownToDismiss: swipeToDismiss,
             paymentType: paymentTypes.first ?? .All,
             closeButtonStyle: closeButtonTitleStyle,
@@ -86,6 +86,8 @@ class ViewController: UIViewController {
             transactionMode: .purchase,
             customer: /*try! .init(identifier: "cus_TS031720211012r4RM0403926"),*/try! .init(identifier: "cus_TS075220212320q2RD0707283"),
             tapMerchantID: "1124340",
+            //taxes: [.init(title: "VAT", amount:AmountModificatorModel.init(type: .Percentage, value: 2, minFee: 1, maxFee: 20))],
+            //shipping: [.init(name: "Shipping", amount: 10)],
             require3DSecure: true,
             sdkMode: .sandbox,
             onCheckOutReady: {[weak self] tapCheckOut in

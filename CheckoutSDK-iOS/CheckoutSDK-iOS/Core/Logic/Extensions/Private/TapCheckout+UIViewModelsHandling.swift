@@ -56,7 +56,8 @@ internal extension TapCheckout {
         
         // Set the correct title now
         TapCheckout.defaulItemTitle = "PAY TO \(merchantName)"
-        dataHolder.transactionData.transactionItemsValue.first?.title = TapCheckout.defaulItemTitle
+        dataHolder.transactionData.transactionItemsValue.first?.title       = TapCheckout.defaulItemTitle
+        dataHolder.transactionData.transactionItemsValue.first?.totalAmount = dataHolder.transactionData.transactionCurrencyValue.amount
     }
     
     /// Handles if goPay should be shown if the user is logged in, determine the header of the both gateways cards and goPay cards based on the visibility ot the goPay cards
@@ -135,9 +136,6 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         let transactionMode = dataHolder.transactionData.transactionMode
         // Fetch the merchant header info
         dataHolder.viewModels.tapMerchantViewModel = .init(title: (transactionMode == .cardSaving) ? "SAVE CARD" : nil, subTitle: initModel.data.merchant?.name, iconURL: initModel.data.merchant?.logoURL)
-        // We need to change the default item title in case the user didn't pass any items to have the correct name of the merchant we just got from the INIT api.
-        updateDefaultItemTitle()
-        
     }
     
     /// Handles the logic to fetch different sections from the Payment options response
@@ -149,6 +147,12 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         self.dataHolder.viewModels.currenciesChipsViewModel = paymentOptions.supportedCurrenciesAmounts.map{ CurrencyChipViewModel.init(currency: $0,icon: $0.cdnFlag) }
         // Now after getting the list, let us map them to the currencies chips view model
         self.dataHolder.viewModels.tapCurrienciesChipHorizontalListViewModel = .init(dataSource: dataHolder.viewModels.currenciesChipsViewModel, headerType: .NoHeader,selectedChip: dataHolder.viewModels.currenciesChipsViewModel.filter{ $0.currency == dataHolder.transactionData.transactionUserCurrencyValue }[0])
+        
+        // Update the total payable amount as we got from the backend
+        let originalCurrency:TapCurrencyCode = paymentOptions.currency
+        let backendPayablePrice:Double = paymentOptions.supportedCurrenciesAmounts.filter{ $0.currency == originalCurrency }.first?.amount ?? self.dataHolder.transactionData.transactionTotalAmountValue
+        self.dataHolder.transactionData.transactionCurrencyValue        = .init(originalCurrency, backendPayablePrice, "")
+        self.dataHolder.transactionData.transactionUserCurrencyValue    = .init(originalCurrency, backendPayablePrice, "")
         
         // Fetch the list of the goPay supported login countries
         self.dataHolder.viewModels.goPayLoginCountries = [.init(nameAR: "مصر", nameEN: "Egypt", code: "20", phoneLength: 10)]//paymentOptions.dataHolder.viewModels.goPayLoginCountries ?? []
@@ -179,6 +183,9 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         if dataHolder.transactionData.transactionMode == .cardSaving {
             adjustCardSavingViews()
         }
+        
+        // We need to change the default item title in case the user didn't pass any items to have the correct name of the merchant we just got from the INIT api.
+        updateDefaultItemTitle()
         
         updateManager()
     }
@@ -260,20 +267,27 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
      */
     func calculateFinalAmount() -> Double {
         let sharedManager = TapCheckout.sharedCheckoutManager()
-        // Get the transaction data like items, shipping and taxs lists
-        let items:[ItemModel] = sharedManager.dataHolder.transactionData.transactionItemsValue
-        let transactionShipping:[Shipping] = sharedManager.dataHolder.transactionData.shipping
-        let transactionTaxes:[Tax] = sharedManager.dataHolder.transactionData.taxes ?? []
-        
-        // First calculate the plain total amount from the items inclyding for each item X : (X's price * Quantity) - X's Discounty + X's Shipping + X's Taxes
-        let totalItemsPrices:Double =   items.totalItemsPrices(convertFromCurrency: dataHolder.transactionData.transactionCurrencyValue, convertToCurrenct: dataHolder.transactionData.transactionUserCurrencyValue)
-        // Second calculate the total shipping fees for the transaction level
-        let shippingFees:Double     =   Double(truncating: transactionShipping.reduce(0.0, { $0 + $1.amount }) as NSNumber)
-        // Third calculate the total Taxes fees for the transaction level
-        let taxesFees = transactionTaxes.reduce(0) { $0 + $1.amount.caluclateActualModificationValue(with: totalItemsPrices+shippingFees) }
-        // Now we can get the final amount
-        let result = totalItemsPrices + shippingFees + taxesFees
-        return result
+        // If we have the final amounts from the backend we use the backend calculations, otherwise we locally compute it
+        if let _ = sharedManager.dataHolder.transactionData.paymentOptionsModelResponse {
+            // Then fetch the total amount for the current selected currency
+            return dataHolder.transactionData.transactionUserCurrencyValue.amount
+        }else{
+            // locally computations
+            // Get the transaction data like items, shipping and taxs lists
+            let items:[ItemModel] = sharedManager.dataHolder.transactionData.transactionItemsValue
+            let transactionShipping:[Shipping] = sharedManager.dataHolder.transactionData.shipping
+            let transactionTaxes:[Tax] = sharedManager.dataHolder.transactionData.taxes ?? []
+            
+            // First calculate the plain total amount from the items inclyding for each item X : (X's price * Quantity) - X's Discounty + X's Shipping + X's Taxes
+            let totalItemsPrices:Double =   items.totalItemsPrices(convertFromCurrency: dataHolder.transactionData.transactionCurrencyValue, convertToCurrenct: dataHolder.transactionData.transactionUserCurrencyValue)
+            // Second calculate the total shipping fees for the transaction level
+            let shippingFees:Double     =   Double(truncating: transactionShipping.reduce(0.0, { $0 + $1.amount }) as NSNumber)
+            // Third calculate the total Taxes fees for the transaction level
+            let taxesFees = transactionTaxes.reduce(0) { $0 + $1.amount.caluclateActualModificationValue(with: totalItemsPrices+shippingFees) }
+            // Now we can get the final amount
+            let result = totalItemsPrices + shippingFees + taxesFees
+            return result
+        }
     }
     
     
