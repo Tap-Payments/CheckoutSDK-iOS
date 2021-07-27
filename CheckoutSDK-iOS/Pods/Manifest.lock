@@ -2,7 +2,7 @@ PODS:
   - CocoaLumberjack (3.7.2):
     - CocoaLumberjack/Core (= 3.7.2)
   - CocoaLumberjack/Core (3.7.2)
-  - CommonDataModelsKit-iOS (1.0.43):
+  - CommonDataModelsKit-iOS (1.0.44):
     - TapAdditionsKitV2
   - EasyAnimation (2.2.1)
   - Kingfisher (6.3.0)
@@ -122,7 +122,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   CocoaLumberjack: b7e05132ff94f6ae4dfa9d5bce9141893a21d9da
-  CommonDataModelsKit-iOS: 33d462eca886c6887710fe3330d104f4f7f7e6e3
+  CommonDataModelsKit-iOS: a880c673309a68f86ddc173ab119463ded4a37bc
   EasyAnimation: 226d133d23ef0ef99ddfb8928ff2a9a4a77d1cfd
   Kingfisher: 6c3df386db71d82c0817a429d2c9421a77396529
   LocalisationManagerKit-iOS: cd702915c67faba899d4613d44ceb00cefccec6e
