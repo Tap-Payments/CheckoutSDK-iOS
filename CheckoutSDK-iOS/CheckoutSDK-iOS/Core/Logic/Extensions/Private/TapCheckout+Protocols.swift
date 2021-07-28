@@ -35,17 +35,17 @@ import TapUIKit_iOS
     @objc(checkoutChargeCaptured:) optional func checkoutCaptured(with charge:Charge)
     
     /**
-     Will be fired once the charge (AUTHORIZE) successfully transacted
+     Will be fired once the authorize (CAPTURED) successfully transacted
      */
     @objc(checkoutAuthorizeCaptured:) optional func checkoutCaptured(with authorize:Authorize)
     
     /**
-     Will be fired once the charge (CAPTURE) successfully transacted
+     Will be fired once the charge (CAPTURE) failed transacted
      */
     @objc(checkoutChargeFailed:) optional func checkoutFailed(with charge:Charge)
     
     /**
-     Will be fired once the charge (AUTHORIZE) successfully transacted
+     Will be fired once the charge (AUTHORIZE) failed transacted
      */
     @objc(checkoutAuthorizeFailed:) optional func checkoutFailed(with authorize:Authorize)
     
