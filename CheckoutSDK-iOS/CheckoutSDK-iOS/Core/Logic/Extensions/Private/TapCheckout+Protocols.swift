@@ -35,17 +35,17 @@ import TapUIKit_iOS
     @objc(checkoutChargeCaptured:) optional func checkoutCaptured(with charge:Charge)
     
     /**
-     Will be fired once the authorize (CAPTURED) successfully transacted
+     Will be fired once the charge (AUTHORIZE) successfully transacted
      */
     @objc(checkoutAuthorizeCaptured:) optional func checkoutCaptured(with authorize:Authorize)
     
     /**
-     Will be fired once the charge (CAPTURE) failed transacted
+     Will be fired once the charge (CAPTURE) successfully transacted
      */
     @objc(checkoutChargeFailed:) optional func checkoutFailed(with charge:Charge)
     
     /**
-     Will be fired once the charge (AUTHORIZE) failed transacted
+     Will be fired once the charge (AUTHORIZE) successfully transacted
      */
     @objc(checkoutAuthorizeFailed:) optional func checkoutFailed(with authorize:Authorize)
     
@@ -145,6 +145,12 @@ extension TapCheckout: TapBottomSheetDialogDelegate {
     
     public func tapBottomSheetDidTapOutside() {
         bottomSheetController.view.endEditing(true)
+    }
+    
+    public func tapBottomSheetDismissed() {
+        DispatchQueue.main.async {
+            TapCheckout.sharedCheckoutManager().toBeExecutedBlock()
+        }
     }
     
     public func tapBottomSheetHeightChanged(with newHeight: CGFloat) {

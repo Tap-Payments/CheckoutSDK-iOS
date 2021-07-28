@@ -101,6 +101,8 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     internal static var privateShared : TapCheckout?
     /// Represents the default item name. We will use this default item name when the user doesn't pass any items. It is required to have them in the format of items to make it readable by Apple Pay Requests. Please check [DefaultItemsCreation](x-source-tag://DefaultItemsCreation)
     internal static var defaulItemTitle:String = "PAY TO TAP PAYMENTS"
+    /// Represents a block to execute after dismissing the sheet if any
+    internal var toBeExecutedBlock:()->() = {}
     
     // MARK:- View Models Variables
     var dataHolder:DataHolder = .init(viewModels: ViewModelsHolder.init(), transactionData: .init())
@@ -260,10 +262,12 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         let loggedDataModel:TapLoggingModel = .init(loggedRequests: NetworkManager.shared.loggedApis, error: error?.localizedDescription,merchant: dataHolder.transactionData.intitModelResponse?.data.merchant,customer: dataHolder.transactionData.customer)
         
         callLogging(for: loggedDataModel)
+        TapCheckout.sharedCheckoutManager().toBeExecutedBlock = {
+            TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.checkoutFailed?(with: error!)
+        }
         dataHolder.viewModels.tapActionButtonViewModel.endLoading(with: false, completion: {
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
                 self.UIDelegate?.dismissCheckout(with: error ?? "UNKNOWN ERROR OCCURED")
-                TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.checkoutFailed?(with: error!)
             }
         })
     }
