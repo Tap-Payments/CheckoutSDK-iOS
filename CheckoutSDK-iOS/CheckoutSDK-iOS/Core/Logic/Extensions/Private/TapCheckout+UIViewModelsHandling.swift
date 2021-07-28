@@ -151,8 +151,9 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         // Update the total payable amount as we got from the backend
         let originalCurrency:TapCurrencyCode = paymentOptions.currency
         let backendPayablePrice:Double = paymentOptions.supportedCurrenciesAmounts.filter{ $0.currency == originalCurrency }.first?.amount ?? self.dataHolder.transactionData.transactionTotalAmountValue
-        self.dataHolder.transactionData.transactionCurrencyValue        = .init(originalCurrency, backendPayablePrice, "")
-        self.dataHolder.transactionData.transactionUserCurrencyValue    = .init(originalCurrency, backendPayablePrice, "")
+        self.dataHolder.transactionData.transactionCurrencyValue.amount         = backendPayablePrice
+        self.dataHolder.transactionData.transactionUserCurrencyValue.amount     = backendPayablePrice
+        
         
         // Fetch the list of the goPay supported login countries
         self.dataHolder.viewModels.goPayLoginCountries = [.init(nameAR: "مصر", nameEN: "Egypt", code: "20", phoneLength: 10)]//paymentOptions.dataHolder.viewModels.goPayLoginCountries ?? []

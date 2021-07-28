@@ -20,7 +20,7 @@ extension TapCheckout {
     func createPaymentOptionRequestModel() -> TapPaymentOptionsRequestModel {
         let transactionData:TransactionDataHolder = dataHolder.transactionData
         // Based on the transaction mode we decide the data we pass to the API
-        if transactionData.transactionMode == .cardSaving {
+        if transactionData.transactionMode == .cardSaving || transactionData.transactionMode == .cardTokenization {
             return TapPaymentOptionsRequestModel(customer: transactionData.customer)
         }else{
             return TapPaymentOptionsRequestModel(transactionMode: transactionData.transactionMode, amount: transactionData.transactionTotalAmountValue, items: transactionData.transactionItemsValue, shipping: transactionData.shipping, taxes: transactionData.taxes, currency: transactionData.transactionCurrencyValue.currency, merchantID: transactionData.tapMerchantID, customer: transactionData.customer, destinationGroup: DestinationGroup(destinations: transactionData.destinations), paymentType: transactionData.paymentType)
@@ -44,12 +44,12 @@ extension TapCheckout {
         
         
         return TapCreateCardVerificationRequestModel                    (is3DSecureRequired:    requires3DSecure,
-                                                                        shouldSaveCard:         shouldSaveCard,
-                                                                        metadata:               metadata,
-                                                                        customer:               customer,
-                                                                        currency:               currency,
-                                                                        source:                 source,
-                                                                        redirect:               redirect)
+                                                                         shouldSaveCard:         shouldSaveCard,
+                                                                         metadata:               metadata,
+                                                                         customer:               customer,
+                                                                         currency:               currency,
+                                                                         source:                 source,
+                                                                         redirect:               redirect)
         
         
     }
@@ -128,9 +128,9 @@ extension TapCheckout {
      - Parameter saveCard: Used to indicate whether we should activate the save card or not
      */
     func createChargeOrAuthorizeRequestModel (with paymentOption:              PaymentOption,
-                                             token:                            Token?,
-                                             cardBIN:                          String?,
-                                             saveCard:                         Bool? = false) -> TapChargeRequestModel {
+                                              token:                            Token?,
+                                              cardBIN:                          String?,
+                                              saveCard:                         Bool? = false) -> TapChargeRequestModel {
         let transactionData:TransactionDataHolder = dataHolder.transactionData
         // Create the source request
         // Decide the source id whether to come from the payment option or from the provided token
@@ -197,24 +197,24 @@ extension TapCheckout {
         case .purchase:
             
             return TapChargeRequestModel            (amount:                    amountedCurrency.amount,
-                                                    selectedAmount:             amountedSelectedCurrency.amount,
-                                                    currency:                   amountedCurrency.currency,
-                                                    selectedCurrency:           amountedSelectedCurrency.currency,
-                                                    customer:                   transactionData.customer,
-                                                    merchant:                   dataHolder.transactionData.intitModelResponse?.data.merchant,
-                                                    fee:                        fee,
-                                                    order:                      order,
-                                                    redirect:                   redirect,
-                                                    post:                       post,
-                                                    source:                     source,
-                                                    destinationGroup:           destinationsGroup,
-                                                    descriptionText:            transactionData.paymentDescription,
-                                                    metadata:                   transactionData.paymentMetadata,
-                                                    reference:                  transactionData.paymentReference,
-                                                    shouldSaveCard:             shouldSaveCard,
-                                                    statementDescriptor:        transactionData.paymentStatementDescriptor,
-                                                    requires3DSecure:           requires3DSecure,
-                                                    receipt:                    transactionData.receiptSettings)
+                                                     selectedAmount:             amountedSelectedCurrency.amount,
+                                                     currency:                   amountedCurrency.currency,
+                                                     selectedCurrency:           amountedSelectedCurrency.currency,
+                                                     customer:                   transactionData.customer,
+                                                     merchant:                   dataHolder.transactionData.intitModelResponse?.data.merchant,
+                                                     fee:                        fee,
+                                                     order:                      order,
+                                                     redirect:                   redirect,
+                                                     post:                       post,
+                                                     source:                     source,
+                                                     destinationGroup:           destinationsGroup,
+                                                     descriptionText:            transactionData.paymentDescription,
+                                                     metadata:                   transactionData.paymentMetadata,
+                                                     reference:                  transactionData.paymentReference,
+                                                     shouldSaveCard:             shouldSaveCard,
+                                                     statementDescriptor:        transactionData.paymentStatementDescriptor,
+                                                     requires3DSecure:           requires3DSecure,
+                                                     receipt:                    transactionData.receiptSettings)
         case .authorizeCapture:
             //let authorizeAction = dataSource.authorizeAction ?? .default
             

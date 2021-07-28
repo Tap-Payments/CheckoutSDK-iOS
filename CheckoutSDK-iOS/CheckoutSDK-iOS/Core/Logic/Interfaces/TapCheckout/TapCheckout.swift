@@ -244,7 +244,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         TapCheckout.sharedCheckoutManager().decideIfWeCanLoadAssetsFromCDN()
         // Set the SDK mode and the delegate
         TapCheckout.sharedCheckoutManager().dataHolder.transactionData.sdkMode = sdkMode
-        tapCheckoutScreenDelegate = delegate
+        TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate = delegate
         // Init the localsiation manager
         configureLocalisationManager(localiseFile: localiseFile)
         // Init the theme manager

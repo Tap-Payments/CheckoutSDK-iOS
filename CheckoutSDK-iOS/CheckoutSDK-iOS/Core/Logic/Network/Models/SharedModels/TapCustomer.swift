@@ -243,12 +243,6 @@ import TapUIKit_iOS
         
         self.validateFields()
     }
-    
-    required public init(from decoder:Decoder) throws {
-        //let values = try decoder.container(keyedBy: CodingKeys.self)
-        //indexPath = try values.decode([Int].self, forKey: .indexPath)
-        //locationInText = try values.decode(Int.self, forKey: .locationInText)
-    }
 }
 
 // MARK: - NSCopying
@@ -265,11 +259,11 @@ extension TapCustomer: NSCopying {
         let currencyCopy        = self.currency
         
         let result = try! TapCustomer(identifier:        self.identifier,
-                                   emailAddress:    emailAddressCopy,
-                                   phoneNumber:        phoneNumberCopy,
-                                   firstName:        self.firstName,
-                                   middleName:        self.middleName,
-                                   lastName:        self.lastName)
+                                      emailAddress:    emailAddressCopy,
+                                      phoneNumber:        phoneNumberCopy,
+                                      firstName:        self.firstName,
+                                      middleName:        self.middleName,
+                                      lastName:        self.lastName)
         
         result.descriptionText    = self.descriptionText
         result.metadata            = self.metadata
