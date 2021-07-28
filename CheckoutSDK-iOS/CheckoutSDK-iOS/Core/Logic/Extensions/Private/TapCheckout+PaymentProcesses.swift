@@ -68,7 +68,7 @@ internal extension TapCheckout {
         } onErrorOccured: { [weak self] error in
             self?.handleError(error: error)
         }
-
+        
     }
     
     // MARK:- Card based methods
@@ -158,7 +158,7 @@ internal extension TapCheckout {
      */
     func handleTokenTokenize(with token:Token,for paymentOption:PaymentOption? = nil) {
         // Let us inform the caller app that the tokenization had been done successfully
-        tapCheckoutScreenDelegate?.cardTokenized?(with: token)
+        TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.cardTokenized?(with: token)
         // Now it is time to safely dismiss ourselves showing a green tick :)
         dismissCheckout(with: true)
     }
@@ -225,9 +225,9 @@ internal extension TapCheckout {
     func handleCaptured(for charge:ChargeProtocol?) {
         // First let us inform the caller app that the charge/authorization had been done successfully
         if let charge:Charge = charge as? Charge {
-            tapCheckoutScreenDelegate?.checkoutCaptured?(with: charge)
+            TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.checkoutCaptured?(with: charge)
         }else if let authorize:Authorize = charge as? Authorize {
-            tapCheckoutScreenDelegate?.checkoutCaptured?(with: authorize)
+            TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.checkoutCaptured?(with: authorize)
         }
         // Now it is time to safely dismiss ourselves showing a green tick :)
         dismissCheckout(with: true)
@@ -248,9 +248,9 @@ internal extension TapCheckout {
     func handleFailed(for charge:ChargeProtocol?) {
         // First let us inform the caller app that the charge/authorization had failed
         if let charge:Charge = charge as? Charge {
-            tapCheckoutScreenDelegate?.checkoutFailed?(with: charge)
+            TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.checkoutFailed?(with: charge)
         }else if let authorize:Authorize = charge as? Authorize {
-            tapCheckoutScreenDelegate?.checkoutFailed?(with: authorize)
+            TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.checkoutFailed?(with: authorize)
         }
         // Now it is time to safely dismiss ourselves showing a green tick :)
         dismissCheckout(with: false)
@@ -323,7 +323,7 @@ internal extension TapCheckout {
      */
     func handleCardSaveValid(for cardVerifyResponse:TapCreateCardVerificationResponseModel) {
         // First let us inform the caller app that the save card had been done successfully
-        tapCheckoutScreenDelegate?.saveCardSuccessfull?(with: cardVerifyResponse)
+        TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.saveCardSuccessfull?(with: cardVerifyResponse)
         // Now it is time to safely dismiss ourselves showing a green tick :)
         dismissCheckout(with: true)
     }
@@ -334,7 +334,7 @@ internal extension TapCheckout {
      */
     func handleCardSaveInValid(for cardVerifyResponse:TapCreateCardVerificationResponseModel) {
         // First let us inform the caller app that the save card had failed
-        tapCheckoutScreenDelegate?.saveCardFailed?(with: cardVerifyResponse)
+        TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.saveCardFailed?(with: cardVerifyResponse)
         // Now it is time to safely dismiss ourselves showing a green tick :)
         dismissCheckout(with: false)
     }
@@ -424,7 +424,7 @@ internal extension TapCheckout {
     
     
     // MARK:- Apple pay related methods
-
+    
     /**
      Used to call the correct checkout logic for the web based payment options
      - Parameter with paymentOption: The payment option to start the checkout process with

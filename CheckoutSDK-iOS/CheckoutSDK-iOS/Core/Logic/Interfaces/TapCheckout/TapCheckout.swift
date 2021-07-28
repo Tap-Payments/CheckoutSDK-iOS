@@ -263,7 +263,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         dataHolder.viewModels.tapActionButtonViewModel.endLoading(with: false, completion: {
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
                 self.UIDelegate?.dismissCheckout(with: error ?? "UNKNOWN ERROR OCCURED")
-                self.tapCheckoutScreenDelegate?.checkoutFailed?(with: error!)
+                TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.checkoutFailed?(with: error!)
             }
         })
     }

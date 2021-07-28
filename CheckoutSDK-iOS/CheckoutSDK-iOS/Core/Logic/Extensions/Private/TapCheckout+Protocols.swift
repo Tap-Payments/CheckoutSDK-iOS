@@ -124,7 +124,7 @@ extension TapCheckout: TapBottomSheetDialogDelegate {
     
     public func tapBottomSheetPresented() {
         TapCheckout.isCheckoutSheenPresented = true
-        tapCheckoutScreenDelegate?.tapBottomSheetPresented?()
+        TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.tapBottomSheetPresented?()
     }
     
     public func tapBottomSheetWillDismiss() {
@@ -133,7 +133,7 @@ extension TapCheckout: TapBottomSheetDialogDelegate {
         if TapCheckout.flippingStatus == .FlipOnLoadWithFlippingBack {
             MOLH.setLanguageTo("en")
         }
-        tapCheckoutScreenDelegate?.tapBottomSheetWillDismiss?()
+        TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.tapBottomSheetWillDismiss?()
     }
     
     
@@ -154,9 +154,10 @@ extension TapCheckout: TapBottomSheetDialogDelegate {
 
 
 extension TapCheckout : ToPresentAsPopupViewControllerDelegate {
-
+    
     func dismissMySelfClicked() {
         //tapCheckoutControllerViewController?.dismiss(animated: true, completion: nil)
+        TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.tapBottomSheetWillDismiss?()
         bottomSheetController.dismissTheController()
     }
     
