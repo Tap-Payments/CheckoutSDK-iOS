@@ -83,7 +83,7 @@ class ViewController: UIViewController {
             paymentType: paymentTypes.first ?? .All,
             closeButtonStyle: closeButtonTitleStyle,
             showDragHandler:showDragHandler,
-            transactionMode: .cardSaving,
+            transactionMode: .purchase,
             customer: /*try! .init(identifier: "cus_TS031720211012r4RM0403926"),*/try! .init(identifier: "cus_TS075220212320q2RD0707283"),
             tapMerchantID: "1124340",
             //taxes: [.init(title: "VAT", amount:AmountModificatorModel.init(type: .Percentage, value: 2, minFee: 1, maxFee: 20))],

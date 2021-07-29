@@ -584,4 +584,8 @@ extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDe
     func show(alert:UIAlertController) {
         present(alert, animated: true, completion: nil)
     }
+    
+    func enableInteraction(with status: Bool) {
+        view.isUserInteractionEnabled = status
+    }
 }

@@ -74,6 +74,12 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      - Parameter with authenticationID: The authentication process ID if any
      */
     func showSavedCardOTPView(with authenticationID:String)
+    
+    /**
+     Will be fired in case we want to disable/enable interaction with the checkout sheet itself to prevent actions while calling the api for example
+     - Parameter with status: if true then enable if false then disable the checkout's interaction capabilty
+     */
+    func enableInteraction(with status:Bool)
 }
 
 
@@ -251,6 +257,8 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         configureLocalisationManager(localiseFile: localiseFile)
         // Init the theme manager
         configureThemeManager(customTheme:customTheme)
+        // Listen to events from network manager
+        NetworkManager.shared.delegate = TapCheckout.sharedCheckoutManager()
     }
     
     /**

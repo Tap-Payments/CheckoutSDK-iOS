@@ -10,10 +10,16 @@ import TapNetworkKit_iOS
 import TapApplicationV2
 import CoreTelephony
 
+internal protocol NetworkManagerDelegate {
+    func apiCallInProgress(status:Bool)
+}
+
 /// The shared network manager related to configure the network/api class between the SDK and the Server
 internal class NetworkManager: NSObject {
     /// The singletong network manager
     static let shared = NetworkManager()
+    /// The network manager delegate
+    var delegate:NetworkManagerDelegate?
     /// The static headers to be sent with every call/request
     private var headers:[String:String] {
       return  NetworkManager.staticHTTPHeaders
@@ -46,12 +52,12 @@ internal class NetworkManager: NSObject {
         
         // Group all the configurations and pass it to the network manager
         let requestOperation = TapNetworkRequestOperation(path: "\(baseURL)\(routing.rawValue)", method: httpMethod, headers: headers, urlModel: urlModel, bodyModel: body, responseType: .json)
-        
+        delegate?.apiCallInProgress(status: true)
         // Perform the actual request
-        networkManager.performRequest(requestOperation, completion: { (session, result, error) in
+        networkManager.performRequest(requestOperation, completion: { [weak self] (session, result, error) in
             //print("result is: \(String(describing: result))")
             //print("error: \(String(describing: error))")
-        
+            self?.delegate?.apiCallInProgress(status: false)
             //Check for errors
             if let error = error {
                 onError?(session,result,error)
@@ -59,7 +65,7 @@ internal class NetworkManager: NSObject {
             }
             // Check we need to do the on error callbak or not
             guard let correctParsing = result as? T else {
-                guard let detectedError = self.detectError(from: result, and: error) else {
+                guard let detectedError = self!.detectError(from: result, and: error) else {
                     return
                 }
                 onError?(session,result,detectedError)
