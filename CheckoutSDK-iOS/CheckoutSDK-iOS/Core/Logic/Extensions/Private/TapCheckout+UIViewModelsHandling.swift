@@ -18,10 +18,10 @@ internal extension TapCheckout {
     func updateManager() {
         updateAmountSection()
         updateItemsList()
+        updateApplePayRequest()
         updateGatewayChipsList()
         updateCardTelecomList()
         updateSaveCardSwitchStatus()
-        updateApplePayRequest()
     }
     
     /// Handles the logic to determine the visibility and the status of the save card/ohone switch depending on the current card/telecom data source
@@ -144,6 +144,42 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         dataHolder.viewModels.tapMerchantViewModel = .init(title: (transactionMode == .cardSaving) ? "SAVE CARD" : nil, subTitle: initModel.data.merchant?.name, iconURL: initModel.data.merchant?.logoURL)
     }
     
+    /** We will accept
+     If the merchant wants all.
+     If the payment option type all.
+     If the payment option matchs the merchant stated type.
+     Only accept saved cards if the merchant wants all or wants Cards
+     Only accept apple pay if the merchant wants all or device and the user's device is allowed to use Apple pay
+     - Parameter paymentOptions: The original payment option response from the payment types API that we will filter from
+     */
+    fileprivate func fetchGateways(_ paymentOptions: TapPaymentOptionsReponseModel) {
+        // Now let us add everything allowed except for saved cards in the next step
+        self.dataHolder.viewModels.gatewayChipsViewModel = (
+                    // Filter out the saved card payment options
+                    paymentOptions.paymentOptions.filter{ $0.paymentType != .Card }
+                    // Filter out apple pay if the device is not allowed to perform any apple pay transactions
+                    .filter{ $0.paymentType != .Device || PKPaymentAuthorizationController.canMakePayments() }
+                    // Filter the matching the payment options
+                    .filter{ (dataHolder.transactionData.paymentType == .All || dataHolder.transactionData.paymentType == $0.paymentType || $0.paymentType == .All)}).map{ ChipWithCurrencyModel.init(paymentOption: $0) }
+        
+        // Fetch the merchant saved card if cards are allowed
+        if dataHolder.transactionData.paymentType == .All || dataHolder.transactionData.paymentType == .Card {
+            self.dataHolder.viewModels.gatewayChipsViewModel.append(contentsOf: (paymentOptions.savedCards ?? []).filter{ dataHolder.transactionData.allowedCardTypes.contains($0.cardType ?? .init(cardType: .All)) }.map{ ChipWithCurrencyModel.init(savedCard: $0) })
+        }
+    }
+    
+    /** Update the total payable amount as we got from the backend
+     - Parameter paymentOptions: The payment options response we got from payment types api.
+     */
+    fileprivate func fetchTotalAmount(_ paymentOptions: TapPaymentOptionsReponseModel) {
+        // We will get the total amount calcilated from the backend for the original currency the merchant started the transaction with
+        let originalCurrency:TapCurrencyCode = paymentOptions.currency
+        let backendPayablePrice:Double = paymentOptions.supportedCurrenciesAmounts.filter{ $0.currency == originalCurrency }.first?.amount ?? self.dataHolder.transactionData.transactionTotalAmountValue
+        // Now set the total amount from the backend to override any local calculations done before calling the api
+        self.dataHolder.transactionData.transactionCurrencyValue.amount         = backendPayablePrice
+        self.dataHolder.transactionData.transactionUserCurrencyValue.amount     = backendPayablePrice
+    }
+    
     /// Handles the logic to fetch different sections from the Payment options response
     func parsePaymentOptionsResponse() {
         // Double check
@@ -155,10 +191,7 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         self.dataHolder.viewModels.tapCurrienciesChipHorizontalListViewModel = .init(dataSource: dataHolder.viewModels.currenciesChipsViewModel, headerType: .NoHeader,selectedChip: dataHolder.viewModels.currenciesChipsViewModel.filter{ $0.currency == dataHolder.transactionData.transactionUserCurrencyValue }[0])
         
         // Update the total payable amount as we got from the backend
-        let originalCurrency:TapCurrencyCode = paymentOptions.currency
-        let backendPayablePrice:Double = paymentOptions.supportedCurrenciesAmounts.filter{ $0.currency == originalCurrency }.first?.amount ?? self.dataHolder.transactionData.transactionTotalAmountValue
-        self.dataHolder.transactionData.transactionCurrencyValue.amount         = backendPayablePrice
-        self.dataHolder.transactionData.transactionUserCurrencyValue.amount     = backendPayablePrice
+        fetchTotalAmount(paymentOptions)
         
         
         // Fetch the list of the goPay supported login countries
@@ -169,13 +202,8 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         // First check if cards are allowed
         self.dataHolder.viewModels.goPayChipsViewModel = []
         
-        // Fetch the merchant payment gateways
-        self.dataHolder.viewModels.gatewayChipsViewModel = paymentOptions.paymentOptions.filter{ (dataHolder.transactionData.paymentType == .All || dataHolder.transactionData.paymentType == $0.paymentType || $0.paymentType == .All) && $0.paymentType != .Card }.map{ ChipWithCurrencyModel.init(paymentOption: $0) }
-        
-        // Fetch the merchant saved card if cards are allowed
-        if dataHolder.transactionData.paymentType == .All || dataHolder.transactionData.paymentType == .Card {
-            self.dataHolder.viewModels.gatewayChipsViewModel.append(contentsOf: (paymentOptions.savedCards ?? []).filter{ dataHolder.transactionData.allowedCardTypes.contains($0.cardType ?? .init(cardType: .All)) }.map{ ChipWithCurrencyModel.init(savedCard: $0) })
-        }
+        // Fetch the merchant payment gateways, make sure to fetch only the allowed ones as set by the merchant when starting the checkout process
+        fetchGateways(paymentOptions)
         
         // Load the goPayLogin status
         dataHolder.transactionData.loggedInToGoPay = false//UserDefaults.standard.bool(forKey: TapCheckoutConstants.GoPayLoginUserDefaultsKey)

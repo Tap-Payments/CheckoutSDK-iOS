@@ -215,7 +215,7 @@ internal class TransactionDataHolder {
     /// Represents if the current customer is logged in to goPay
     var loggedInToGoPay:Bool = false {
         didSet{
-            dataHolderDelegate?.updateGatewayChipsList()
+            //dataHolderDelegate?.updateGatewayChipsList()
         }
     }
     /// Which transaction mode will be used in this call. Purchase, Authorization, Card Saving and Toknization. Please check [TransactionMode](x-source-tag://TransactionModeEnum)
