@@ -214,11 +214,6 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         // Fetch the cards + telecom payments options
         self.dataHolder.viewModels.tapCardPhoneListDataSource = paymentOptions.paymentOptions.filter{ (dataHolder.transactionData.paymentType == .Card || dataHolder.transactionData.paymentType == .All) && $0.paymentType == .Card }.map{ CurrencyCardsTelecomModel.init(paymentOption: $0) }
         
-        // If the mode is card saving, we need to hide anything other than the card form
-        if dataHolder.transactionData.transactionMode == .cardSaving {
-            adjustCardSavingViews()
-        }
-        
         // We need to change the default item title in case the user didn't pass any items to have the correct name of the merchant we just got from the INIT api.
         updateDefaultItemTitle()
         
@@ -251,11 +246,6 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
             sharedManager.dataHolder.viewModels.swipeDownToDismiss = false
             break
         }
-    }
-    
-    /// This method handles the logic needed to hide all irrelevant views when the mode is card saving
-    func adjustCardSavingViews() {
-        
     }
     
     /// Handles the logic to perform parsing for the card data loaded from the bin lookup api
