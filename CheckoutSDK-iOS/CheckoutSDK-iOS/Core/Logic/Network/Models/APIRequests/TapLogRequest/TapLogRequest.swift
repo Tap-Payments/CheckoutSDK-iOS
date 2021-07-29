@@ -65,9 +65,9 @@ fileprivate struct LogAppModel: Codable {
     let version:String?
     
     init() {
-        self.id = Bundle.main.bundleIdentifier
-        self.name = Bundle.main.displayName
-        self.version = Bundle.main.version
+        self.id         = Bundle.main.bundleIdentifier
+        self.name       = Bundle.main.displayName
+        self.version    = Bundle.main.version
     }
 }
 
@@ -89,11 +89,32 @@ fileprivate struct LogDeviceModel: Codable {
     
     init() {
         self.id = UIDevice.current.identifierForVendor?.uuidString
-        self.type = "phone"
-        self.brand = UIDevice.current.model
-        self.model = UIDevice.current.localizedModel
-        self.os = UIDevice.current.systemName
+        self.type       = "phone"
+        self.brand      = UIDevice.current.model
+        self.model      = UIDevice.current.localizedModel
+        self.os         = UIDevice.current.systemName
         self.os_version = UIDevice.current.systemVersion
+    }
+}
+
+
+/// The entry model inside the log request model
+fileprivate struct LogEntryModel: Codable {
+   
+    /// App Name or Website Name
+    let name:String?
+    /// LUGIN, WEB_LIBRARY, APP_LIBRARY, API
+    let interface:String?
+    /// WEBSITE, IOS, ANDROID, WINDOWS
+    let type:String?
+    /// SDK version
+    let version:String?
+    
+    init() {
+        self.name       = Bundle.main.displayName
+        self.interface  = "CheckoutSDK-iOS"
+        self.type       = "IOS"
+        self.version    = TapCheckout.sdkVersion
     }
 }
 

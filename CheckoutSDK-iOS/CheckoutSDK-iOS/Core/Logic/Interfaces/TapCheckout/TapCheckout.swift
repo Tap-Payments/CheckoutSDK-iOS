@@ -109,6 +109,8 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     internal static var defaulItemTitle:String = "PAY TO TAP PAYMENTS"
     /// Represents a block to execute after dismissing the sheet if any
     internal var toBeExecutedBlock:()->() = {}
+    /// The current SDK version
+    internal static let sdkVersion:String = ""
     
     // MARK:- View Models Variables
     var dataHolder:DataHolder = .init(viewModels: ViewModelsHolder.init(), transactionData: .init())
