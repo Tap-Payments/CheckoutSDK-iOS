@@ -11,6 +11,7 @@ import TapUIKit_iOS
 import CommonDataModelsKit_iOS
 import TapCardVlidatorKit_iOS
 import PassKit
+import TapApplePayKit_iOS
 
 /// Extension to handle logic to update ui view models based on data changes
 internal extension TapCheckout {
