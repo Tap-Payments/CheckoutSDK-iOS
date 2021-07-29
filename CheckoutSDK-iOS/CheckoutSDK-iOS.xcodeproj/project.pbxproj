@@ -55,6 +55,7 @@
 		E861286F24EAA38A00774BAA /* CurrencyCardsTelecomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E861286E24EAA38A00774BAA /* CurrencyCardsTelecomModel.swift */; };
 		E86128B424ED23EF00774BAA /* TapCheckoutExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86128B324ED23EF00774BAA /* TapCheckoutExtensions.swift */; };
 		E87D79BE26B3227500CF001C /* TapLogRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87D79BD26B3227500CF001C /* TapLogRequest.swift */; };
+		E87D79C226B32F1700CF001C /* TapLogApplicationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87D79C126B32F1700CF001C /* TapLogApplicationModel.swift */; };
 		E8811ADB24D4283C00DE95D1 /* CheckoutSDK_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = E8811AD924D4283C00DE95D1 /* CheckoutSDK_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E8811AE824D4287400DE95D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8811AE724D4287400DE95D1 /* AppDelegate.swift */; };
 		E8811AEA24D4287400DE95D1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8811AE924D4287400DE95D1 /* SceneDelegate.swift */; };
@@ -242,6 +243,7 @@
 		E86128B324ED23EF00774BAA /* TapCheckoutExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckoutExtensions.swift; sourceTree = "<group>"; };
 		E86128B524ED2E3B00774BAA /* CheckoutExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CheckoutExample.entitlements; sourceTree = "<group>"; };
 		E87D79BD26B3227500CF001C /* TapLogRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapLogRequest.swift; sourceTree = "<group>"; };
+		E87D79C126B32F1700CF001C /* TapLogApplicationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapLogApplicationModel.swift; sourceTree = "<group>"; };
 		E8811AD624D4283C00DE95D1 /* CheckoutSDK_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CheckoutSDK_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8811AD924D4283C00DE95D1 /* CheckoutSDK_iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckoutSDK_iOS.h; sourceTree = "<group>"; };
 		E8811ADA24D4283C00DE95D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -514,9 +516,18 @@
 		E87D79BF26B3227E00CF001C /* TapLogRequest */ = {
 			isa = PBXGroup;
 			children = (
+				E87D79C026B32F0100CF001C /* TapLogApplicationModel */,
 				E87D79BD26B3227500CF001C /* TapLogRequest.swift */,
+				E87D79C126B32F1700CF001C /* TapLogApplicationModel.swift */,
 			);
 			path = TapLogRequest;
+			sourceTree = "<group>";
+		};
+		E87D79C026B32F0100CF001C /* TapLogApplicationModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TapLogApplicationModel;
 			sourceTree = "<group>";
 		};
 		E8811ACC24D4283C00DE95D1 = {
@@ -1139,6 +1150,7 @@
 				E83923942695CFA200421E15 /* TapCheckout+SignInViewHandler.swift in Sources */,
 				E8EC81B8267D03D20080E760 /* TapChargeRequestModel.swift in Sources */,
 				E8844D2A26774B1C0073D777 /* Receipt.swift in Sources */,
+				E87D79C226B32F1700CF001C /* TapLogApplicationModel.swift in Sources */,
 				E8EC81B5267D018B0080E760 /* Acquirer.swift in Sources */,
 				E8392128268D976A00421E15 /* Authorize.swift in Sources */,
 				E861286D24EA7F7F00774BAA /* CurrencyChipModel.swift in Sources */,
