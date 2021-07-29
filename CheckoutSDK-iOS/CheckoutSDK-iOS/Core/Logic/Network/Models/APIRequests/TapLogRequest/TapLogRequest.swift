@@ -71,6 +71,32 @@ fileprivate struct LogAppModel: Codable {
     }
 }
 
+
+/// The device model inside the log request model
+fileprivate struct LogDeviceModel: Codable {
+    /// Th id of the device
+    let id:String?
+    /// The type of the device (phone)
+    let type:String?
+    /// The brand of the device (iPhone or iPad or iPod)
+    let brand:String?
+    /// The model of the device
+    let model:String?
+    /// The OS
+    let os:String?
+    /// The OS version
+    let os_version:String?
+    
+    init() {
+        self.id = UIDevice.current.identifierForVendor?.uuidString
+        self.type = "phone"
+        self.brand = UIDevice.current.model
+        self.model = UIDevice.current.localizedModel
+        self.os = UIDevice.current.systemName
+        self.os_version = UIDevice.current.systemVersion
+    }
+}
+
 fileprivate extension Bundle {
     /// Name of the app - title under the icon.
     var displayName: String? {
