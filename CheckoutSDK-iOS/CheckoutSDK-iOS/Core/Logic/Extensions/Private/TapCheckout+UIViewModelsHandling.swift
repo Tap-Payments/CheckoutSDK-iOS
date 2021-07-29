@@ -10,6 +10,7 @@ import Foundation
 import TapUIKit_iOS
 import CommonDataModelsKit_iOS
 import TapCardVlidatorKit_iOS
+import PassKit
 
 /// Extension to handle logic to update ui view models based on data changes
 internal extension TapCheckout {
@@ -90,10 +91,15 @@ internal extension TapCheckout {
         
         
         // This means, we have apple pay! let us configyre the apple pay request to reflect the current transaction data like items, user currency, allowed payment networks etc.
+        // Decide the style of the apple pay button, whether we need to show as setup or the normal pay with apple button
+        let applePayButtonStyle:TapApplePayButtonType = (PKPaymentAuthorizationController.canMakePayments() && PKPaymentAuthorizationController.canMakePayments(usingNetworks: applePaymentOption.applePayNetworkMapper())) ? .AppleLogoOnly : .SetupApplePay
+        
         applePayChipViewModel.configureApplePayRequest(currencyCode: dataHolder.transactionData.transactionUserCurrencyValue.currency,
                                                        paymentNetworks: applePaymentOption.applePayNetworkMapper().map{ $0.rawValue },
+                                                       applePayButtonType: applePayButtonStyle,
                                                        paymentItems: dataHolder.transactionData.transactionItemsValue.toApplePayItems(convertFromCurrency: dataHolder.transactionData.transactionCurrencyValue, convertToCurrenct: dataHolder.transactionData.transactionUserCurrencyValue),
-                                                       amount: dataHolder.transactionData.transactionUserCurrencyValue.amount, merchantID: dataHolder.transactionData.applePayMerchantID)
+                                                       amount: dataHolder.transactionData.transactionUserCurrencyValue.amount,
+                                                       merchantID: dataHolder.transactionData.applePayMerchantID)
         
     }
     

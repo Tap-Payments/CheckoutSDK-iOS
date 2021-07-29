@@ -108,7 +108,12 @@ extension ApplePayChipCollectionViewCell {
         
         let applePayTitle = NSAttributedString(string: "Pay", attributes: [ NSAttributedString.Key.foregroundColor: TapThemeManager.colorValue(for: "\(themePath).applePayTitleColor") ?? .white, NSAttributedString.Key.font: TapThemeManager.fontValue(for: "\(themePath).applePayTitleFont",shouldLocalise: false)!])
         
+        let setupApplePayTitle = NSAttributedString(string: "Setup ", attributes: [ NSAttributedString.Key.foregroundColor: TapThemeManager.colorValue(for: "\(themePath).applePayTitleColor") ?? .white, NSAttributedString.Key.font: TapThemeManager.fontValue(for: "\(themePath).applePayTitleFont",shouldLocalise: false)!])
+        
         let combination = NSMutableAttributedString()
+        if(viewModel.applePayButtonType == .SetupApplePay) {
+            combination.append(setupApplePayTitle)
+        }
         combination.append(applePayLogo)
         combination.append(applePayTitle)
         
