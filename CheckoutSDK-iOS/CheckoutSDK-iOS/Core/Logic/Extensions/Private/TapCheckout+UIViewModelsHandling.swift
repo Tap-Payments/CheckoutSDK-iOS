@@ -180,6 +180,20 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         self.dataHolder.transactionData.transactionUserCurrencyValue.amount     = backendPayablePrice
     }
     
+    /**
+     Fetch the list of the goPay supported login countries and the list of goPay saved cards
+     - Parameter paymentOptions: The payment options response we got from payment types api.
+     */
+    fileprivate func fetchGoPayData(_ paymentOptions: TapPaymentOptionsReponseModel) {
+        // Fetch the list of the goPay supported login countries
+        self.dataHolder.viewModels.goPayLoginCountries = [.init(nameAR: "مصر", nameEN: "Egypt", code: "20", phoneLength: 10)]//paymentOptions.dataHolder.viewModels.goPayLoginCountries ?? []
+        self.dataHolder.viewModels.goPayBarViewModel = .init(countries: dataHolder.viewModels.goPayLoginCountries)
+        
+        // Fetch the list of goPay Saved Cards
+        // First check if cards are allowed
+        self.dataHolder.viewModels.goPayChipsViewModel = []
+    }
+    
     /// Handles the logic to fetch different sections from the Payment options response
     func parsePaymentOptionsResponse() {
         // Double check
@@ -193,14 +207,8 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         // Update the total payable amount as we got from the backend
         fetchTotalAmount(paymentOptions)
         
-        
-        // Fetch the list of the goPay supported login countries
-        self.dataHolder.viewModels.goPayLoginCountries = [.init(nameAR: "مصر", nameEN: "Egypt", code: "20", phoneLength: 10)]//paymentOptions.dataHolder.viewModels.goPayLoginCountries ?? []
-        self.dataHolder.viewModels.goPayBarViewModel = .init(countries: dataHolder.viewModels.goPayLoginCountries)
-        
-        // Fetch the list of goPay Saved Cards
-        // First check if cards are allowed
-        self.dataHolder.viewModels.goPayChipsViewModel = []
+        // Fetch the list of the goPay supported login countries and the list of goPay saved cards
+        fetchGoPayData(paymentOptions)
         
         // Fetch the merchant payment gateways, make sure to fetch only the allowed ones as set by the merchant when starting the checkout process
         fetchGateways(paymentOptions)
