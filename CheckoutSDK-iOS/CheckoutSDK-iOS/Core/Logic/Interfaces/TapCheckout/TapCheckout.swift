@@ -11,6 +11,7 @@ import LocalisationManagerKit_iOS
 import MOLH
 import CommonDataModelsKit_iOS
 import TapUIKit_iOS
+import TapApplicationV2
 
 /// A protocol to comminicate between the UIManager and the data manager
 internal protocol TapCheckoutSharedManagerUIDelegate {
@@ -110,7 +111,9 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     /// Represents a block to execute after dismissing the sheet if any
     internal var toBeExecutedBlock:()->() = {}
     /// The current SDK version
-    internal static let sdkVersion:String = ""
+    internal static var sdkVersion:String? {
+        return TapBundlePlistInfo(bundle: Bundle(for: TapCheckout.self)).shortVersionString
+    }
     
     // MARK:- View Models Variables
     var dataHolder:DataHolder = .init(viewModels: ViewModelsHolder.init(), transactionData: .init())

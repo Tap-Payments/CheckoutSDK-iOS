@@ -8,6 +8,8 @@
 
 import Foundation
 import CommonDataModelsKit_iOS
+import CoreTelephony
+import TapApplicationV2
 /// TapLogRequestModel model.
 internal struct TapLogRequestModel {
     
@@ -115,6 +117,56 @@ fileprivate struct LogEntryModel: Codable {
         self.interface  = "CheckoutSDK-iOS"
         self.type       = "IOS"
         self.version    = TapCheckout.sdkVersion
+    }
+}
+
+/// The entry model inside the log request model
+fileprivate struct LogRequirerModel: Codable {
+    
+    /// Requirer device id
+    let id:String?
+    /// The language used inside the sdk
+    let locale:String?
+    /// SDK
+    let requirer:String?
+    /// SDK iOS
+    let requirer_os:String?
+    /// iOS version
+    let requirer_version:String?
+    /// device name
+    let requirer_device_name:String?
+    /// device type
+    let requirer_device_type:String?
+    /// device model
+    let requirer_device_model:String?
+    /// sim name
+    let requirer_sim_network_name:String?
+    /// sim country
+    let requirer_sim_country_iso:String?
+    
+    init() {
+        self.id         = Bundle.main.bundleIdentifier
+        self.locale  = TapCheckout.localeIdentifier
+        self.requirer       = "SDK"
+        self.requirer_os    = UIDevice.current.systemName
+        self.requirer_version = UIDevice.current.systemVersion
+        self.requirer_device_name = UIDevice.current.name.tap_byRemovingAllCharactersExcept("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789")
+        
+        self.requirer_device_type = UIDevice.current.model
+        self.requirer_device_model = UIDevice.current.localizedModel
+        var simNetWorkName:String? = ""
+        var simCountryISO:String? = ""
+        
+        let networkInfo = CTTelephonyNetworkInfo()
+        let providers = networkInfo.serviceSubscriberCellularProviders
+        
+        if providers?.values.count ?? 0 > 0, let carrier:CTCarrier = providers?.values.first {
+            simNetWorkName = carrier.carrierName
+            simCountryISO = carrier.isoCountryCode
+        }
+        self.requirer_sim_network_name = simNetWorkName
+        self.requirer_sim_country_iso = simCountryISO
+        
     }
 }
 
