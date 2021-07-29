@@ -13,29 +13,29 @@ import TapApplicationV2
 
 
 /// The application model inside tap logging model
-internal struct TapApplicationModel: Codable {
+internal struct TapLogApplicationModel: Codable {
     // MARK: - Internal -
     // MARK: Properties
     
-    /// Defines if address is required
+    /// Defines the app details
     internal let app: LogAppModel?
     
-    /// Card issuer bank.
+    /// Defies the plygin details
     internal let plugin: String?
     
-    /// Bank logo URL.
+    /// Defines the device details
     internal let device: LogDeviceModel?
     
-    /// Card BIN number.
+    /// Not related
     internal let browser: String?
     
-    /// Card brand.
+    /// Not related
     internal let location: String?
     
-    /// Card scheme.
+    /// Defines this SDK details
     internal let entry: LogEntryModel?
     
-    /// Card issuing country.
+    /// Defines the SDK details
     internal let requirer: LogRequirerModel?
 }
 

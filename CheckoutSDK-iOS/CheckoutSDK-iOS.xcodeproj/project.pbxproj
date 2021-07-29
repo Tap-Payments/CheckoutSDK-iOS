@@ -516,18 +516,10 @@
 		E87D79BF26B3227E00CF001C /* TapLogRequest */ = {
 			isa = PBXGroup;
 			children = (
-				E87D79C026B32F0100CF001C /* TapLogApplicationModel */,
 				E87D79BD26B3227500CF001C /* TapLogRequest.swift */,
 				E87D79C126B32F1700CF001C /* TapLogApplicationModel.swift */,
 			);
 			path = TapLogRequest;
-			sourceTree = "<group>";
-		};
-		E87D79C026B32F0100CF001C /* TapLogApplicationModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = TapLogApplicationModel;
 			sourceTree = "<group>";
 		};
 		E8811ACC24D4283C00DE95D1 = {

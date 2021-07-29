@@ -12,11 +12,35 @@ import CoreTelephony
 import TapApplicationV2
 /// TapLogRequestModel model.
 internal struct TapLogRequestModel {
+    
+    /// Defines the details of the application + the SDK
+    internal let application: TapLogApplicationModel?
+    /// Defines the details of the current customer
+    internal let customer:TapCustomer?
+    /// Defines the details of the current merchant
+    internal let merchant:TapLogMerchantModel?
 }
 
-
-
-
+/// Defines the details of the current merchant
+internal struct TapLogMerchantModel {
+    
+    /// Merchant id
+    internal let id: String?
+    /// Merchant encryption key
+    internal let auth_key_type:String?
+    /// Merchant sdk mode
+    internal let auth_key_mode: String?
+    /// Merchant used key
+    internal let auth_key_value:String?
+    
+    init() {
+        self.id = TapCheckout.sharedCheckoutManager().dataHolder.transactionData.tapMerchantID
+        self.auth_key_type = TapCheckout.sharedCheckoutManager().dataHolder.transactionData.intitModelResponse?.data.encryptionKey
+        self.auth_key_mode = TapCheckout.sharedCheckoutManager().dataHolder.transactionData.sdkMode.description
+        self.auth_key_value = TapCheckout.secretKey.usedKey
+    }
+    
+}
 
 /*
 // MARK: - Equatable

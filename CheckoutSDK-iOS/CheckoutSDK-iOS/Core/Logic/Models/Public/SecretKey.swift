@@ -18,6 +18,16 @@
     /// Production secret key.
     public let production: String
     
+    /// The used key based on the  selected mode production or sandbox
+    internal var usedKey:String {
+        switch TapCheckout.sharedCheckoutManager().dataHolder.transactionData.sdkMode {
+        case .production:
+            return production
+        case .sandbox:
+            return sandbox
+        }
+    }
+    
     // MARK: Methods
     
     /// Initializes secret key with sandbox and production keys.
