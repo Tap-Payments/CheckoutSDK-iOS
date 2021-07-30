@@ -14,6 +14,7 @@ import TapApplicationV2
 
 /// The application model inside tap logging model
 internal struct TapLogApplicationModel: Codable {
+    
     // MARK: - Internal -
     // MARK: Properties
     
@@ -37,6 +38,37 @@ internal struct TapLogApplicationModel: Codable {
     
     /// Defines the SDK details
     internal let requirer: LogRequirerModel?
+    
+    /// The application model inside tap logging model
+    ///
+    /// - Parameters:
+    ///   - app: Defines the app details
+    ///   - plugin: Defies the plygin details
+    ///   - device: Defies the device details
+    ///   - browser: DDefies the browser details
+    ///   - location: Defies the location details
+    ///   - entry: Defies the current sdk details
+    ///   - requirer: Defies the user details
+    internal init(app: LogAppModel?, plugin: String?, device: LogDeviceModel?, browser: String?, location: String?, entry: LogEntryModel?, requirer: LogRequirerModel?) {
+        self.app = app
+        self.plugin = plugin
+        self.device = device
+        self.browser = browser
+        self.location = location
+        self.entry = entry
+        self.requirer = requirer
+    }
+    
+    /// The application model inside tap logging model
+    internal init() {
+        self.app = .init()
+        self.plugin = .init()
+        self.device = .init()
+        self.browser = .init()
+        self.location = .init()
+        self.entry = .init()
+        self.requirer = .init()
+    }
 }
 
 

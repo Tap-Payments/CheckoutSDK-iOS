@@ -11,7 +11,7 @@ import CommonDataModelsKit_iOS
 import CoreTelephony
 import TapApplicationV2
 /// TapLogRequestModel model.
-internal struct TapLogRequestModel {
+internal struct TapLogRequestModel: Codable {
     
     /// Defines the details of the application + the SDK
     internal let application: TapLogApplicationModel?
@@ -19,10 +19,30 @@ internal struct TapLogRequestModel {
     internal let customer:TapCustomer?
     /// Defines the details of the current merchant
     internal let merchant:TapLogMerchantModel?
+    /// Defines the list of http calls since the begining of the session till now
+    internal let stack_trace:[TapLogStackTraceEntryModel]?
+    /// Defines the category of the error occured
+    internal let error_catgeroy:String?
+    
+    /// TapLogRequestModel model.
+    ///
+    /// - Parameters:
+    ///   - application: Defines the details of the application + the SDK
+    ///   - customer: Defines the details of the current customer
+    ///   - merchant: Defines the details of the current merchant
+    ///   - stack_trace: Defines the list of http calls since the begining of the session till now
+    ///   - error_category: Defines the category of the error occured
+    internal init(application: TapLogApplicationModel?, customer: TapCustomer?, merchant: TapLogMerchantModel?, stack_trace: [TapLogStackTraceEntryModel]?, error_catgeroy: String?) {
+        self.application = application
+        self.customer = customer
+        self.merchant = merchant
+        self.stack_trace = stack_trace
+        self.error_catgeroy = error_catgeroy
+    }
 }
 
 /// Defines the details of the current merchant
-internal struct TapLogMerchantModel {
+internal struct TapLogMerchantModel: Codable {
     
     /// Merchant id
     internal let id: String?
@@ -33,46 +53,18 @@ internal struct TapLogMerchantModel {
     /// Merchant used key
     internal let auth_key_value:String?
     
+    
+    /// Defines the details of the current merchant
+    ///
+    /// - Parameters:
+    ///   - id: Merchant id
+    ///   - auth_key_type: Merchant encryption key
+    ///   - auth_key_mode: Merchant sdk mode
+    ///   - auth_key_value:Merchant used key
     init() {
         self.id = TapCheckout.sharedCheckoutManager().dataHolder.transactionData.tapMerchantID
         self.auth_key_type = TapCheckout.sharedCheckoutManager().dataHolder.transactionData.intitModelResponse?.data.encryptionKey
         self.auth_key_mode = TapCheckout.sharedCheckoutManager().dataHolder.transactionData.sdkMode.description
         self.auth_key_value = TapCheckout.secretKey.usedKey
     }
-    
 }
-
-/*
-// MARK: - Equatable
-extension TapBinResponseModel: Equatable {
-    
-    internal static func == (lhs: TapBinResponseModel, rhs: TapBinResponseModel) -> Bool {
-        
-        return lhs.binNumber == rhs.binNumber
-    }
-}
-
-// MARK: - Decodable
-extension TapBinResponseModel: Decodable {
-    
-    internal init(from decoder: Decoder) throws {
-        
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        let isAddressRequired   = try container.decodeIfPresent(Bool.self, forKey: .isAddressRequired) ?? false
-        let bank                = try container.decodeIfPresent(String.self, forKey: .bank)
-        let bankLogoURL         = container.decodeURLIfPresent(for: .bankLogoURL)
-        let binNumber           = try container.decode(String.self, forKey: .binNumber)
-        let cardBrand           = try container.decodeIfPresent(CardBrand.self, forKey: .cardBrand) ?? .unknown
-        let cardType            = CardType(cardTypeString:try container.decodeIfPresent(String.self, forKey: .cardType) ?? "")
-        let scheme              = try container.decodeIfPresent(CardScheme.self, forKey: .scheme)
-        
-        var country: Country? = nil
-        if let countryString = try container.decodeIfPresent(String.self, forKey: .country), !countryString.isEmpty {
-            
-            country = try container.decodeIfPresent(Country.self, forKey: .country)
-        }
-        
-        self.init(isAddressRequired: isAddressRequired, bank: bank, bankLogoURL: bankLogoURL, binNumber: binNumber, cardBrand: cardBrand, scheme: scheme, country: country, cardType: cardType)
-    }
-}*/

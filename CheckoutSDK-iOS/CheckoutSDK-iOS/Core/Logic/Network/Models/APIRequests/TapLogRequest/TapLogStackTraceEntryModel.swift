@@ -17,6 +17,11 @@ internal struct TapLogStackTraceEntryModel: Codable {
     /// Represents the response part
     let response:TapLogStrackTraceResponseModel?
     
+    /// Represents a full entry in the stack trace of HTTP request and response
+    ///
+    /// - Parameters:
+    ///   - request: Represents the request part
+    ///   - response: Represents the response part
     internal init(request: TapLogStrackTraceRequstModel?, response: TapLogStrackTraceResponseModel?) {
         self.request = request
         self.response = response
@@ -36,7 +41,14 @@ internal struct TapLogStrackTraceRequstModel: Codable {
     /// The body of the request
     let body:String?
     
-    
+    /// Represents the request model part of a HTTP call stacktrace
+    ///
+    /// - Parameters:
+    ///   - method: The type of the method
+    ///   - headers: The headers in the request
+    ///   - base_url: The base url of the request
+    ///   - end_point: The end point called in the request
+    ///   - body:The body of the request
     internal init(method: String?, headers: String?, base_url: String?, end_point: String?, body: String?) {
         self.method     = method
         self.headers    = headers
@@ -61,6 +73,13 @@ internal struct TapLogStrackTraceResponseModel: Codable {
     let error_description:String?
     
     
+    /// Represents the response model part of a HTTP call stacktrace
+    ///
+    /// - Parameters:
+    ///   - headers: The headers in the request
+    ///   - error_code: The error code coming in the response
+    ///   - error_message: The error message coming in the response
+    ///   - error_description:The error description coming in the response
     internal init(headers: String?, error_code: String?, error_message: String?, error_description: String?) {
         self.headers            = headers
         self.error_code         = error_code
