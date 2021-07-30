@@ -8,9 +8,19 @@
 
 import Foundation
 
-internal struct TapLogStackTraceModel: Codable {
+
+/// Represents a full entry in the stack trace of HTTP request and response
+internal struct TapLogStackTraceEntryModel: Codable {
     
+    /// Represents the request part
+    let request:TapLogStrackTraceRequstModel?
+    /// Represents the response part
+    let response:TapLogStrackTraceResponseModel?
     
+    internal init(request: TapLogStrackTraceRequstModel?, response: TapLogStrackTraceResponseModel?) {
+        self.request = request
+        self.response = response
+    }
 }
 
 /// Represents the request model part of a HTTP call stacktrace
