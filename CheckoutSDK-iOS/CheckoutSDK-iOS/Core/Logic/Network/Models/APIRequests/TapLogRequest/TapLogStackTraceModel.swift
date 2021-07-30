@@ -28,11 +28,34 @@ internal struct TapLogStrackTraceRequstModel: Codable {
     
     
     internal init(method: String?, headers: String?, base_url: String?, end_point: String?, body: String?) {
-        self.method = method
-        self.headers = headers
-        self.base_url = base_url
-        self.end_point = end_point
-        self.body = body
+        self.method     = method
+        self.headers    = headers
+        self.base_url   = base_url
+        self.end_point  = end_point
+        self.body       = body
+    }
+    
+}
+
+
+/// Represents the response model part of a HTTP call stacktrace
+internal struct TapLogStrackTraceResponseModel: Codable {
+    
+    /// The headers in the response
+    let headers:String?
+    /// The error code coming in the response
+    let error_code:String?
+    /// The error message coming in the response
+    let error_message:String?
+    /// The error description coming in the response
+    let error_description:String?
+    
+    
+    internal init(headers: String?, error_code: String?, error_message: String?, error_description: String?) {
+        self.headers            = headers
+        self.error_code         = error_code
+        self.error_message      = error_message
+        self.error_description  = error_description
     }
     
 }
