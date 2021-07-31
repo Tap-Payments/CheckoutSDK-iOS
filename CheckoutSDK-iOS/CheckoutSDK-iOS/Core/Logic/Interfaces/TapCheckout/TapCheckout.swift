@@ -122,7 +122,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     /// A protocol to communicate with the Presente tap sheet controller
     @objc public var tapCheckoutScreenDelegate:CheckoutScreenDelegate?
     /// Indicates whether the checkout sheet is presented or not
-    internal static var isCheckoutSheenPresented:Bool = true
+    internal static var isCheckoutSheenPresented:Bool = false
     /// Indicates what to do when using RTL languages
     @objc public static var flippingStatus:TapCheckoutFlipStatus = .FlipOnLoadWithFlippingBack
     /// The ISO 639-1 Code language identefier, please note if the passed locale is wrong or not found in the localisation files, we will show the keys instead of the values
@@ -284,12 +284,22 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         callLogging(for: loggedDataModel)
         
         TapCheckout.sharedCheckoutManager().toBeExecutedBlock = {
-            TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.checkoutFailed?(with: error!)
+            TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.checkoutFailed?(with: (error! as NSError))
         }
-        dataHolder.viewModels.tapActionButtonViewModel.endLoading(with: false, completion: {
+        
+        if TapCheckout.isCheckoutSheenPresented {
+            dataHolder.viewModels.tapActionButtonViewModel.endLoading(with: false, completion: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                    self.UIDelegate?.dismissCheckout(with: error ?? "UNKNOWN ERROR OCCURED")
+                }
+            })
+        }else{
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-                self.UIDelegate?.dismissCheckout(with: error ?? "UNKNOWN ERROR OCCURED")
+                //self.UIDelegate?.dismissCheckout(with: error ?? "UNKNOWN ERROR OCCURED")
+                TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.tapBottomSheetWillDismiss?()
+                TapCheckout.sharedCheckoutManager().tapBottomSheetDismissed()
+                self.bottomSheetController.dismissTheController()
             }
-        })
+        }
     }
 }

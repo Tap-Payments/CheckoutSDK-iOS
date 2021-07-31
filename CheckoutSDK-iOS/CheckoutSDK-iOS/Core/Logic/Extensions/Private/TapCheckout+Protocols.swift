@@ -27,7 +27,7 @@ import TapUIKit_iOS
     /**
      Will be fired once the checkout fails for any error
      */
-    @objc optional func checkoutFailed(with error:Error)
+    @objc optional func checkoutFailed(with error:NSError)
     
     /**
      Will be fired once the charge (CAPTURE) successfully transacted
