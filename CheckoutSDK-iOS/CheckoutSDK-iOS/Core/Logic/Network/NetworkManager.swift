@@ -27,14 +27,23 @@ internal class NetworkManager: NSObject {
     private var networkManager: TapNetworkManager
     /// The server base url
     private let baseURL = "https://api.tap.company/v2/"
+    /// Defines if loging api calls to server
     public var enableLogging = false
+    /// Defines if logging apu calls to console
+    public var consoleLogging = false
     
-    internal var loggedApis:[String] {
+    internal var loggedApis:[TapLogStackTraceEntryModel] {
         return networkManager.loggedInApiCalls
     }
     
     private override init () {
         networkManager = TapNetworkManager(baseURL: URL(string: baseURL)!)
+        networkManager.loggedInApiCalls = []
+    }
+    
+    /// Used to clear any previous api stack trace log
+    internal func resetStackTrace() {
+        networkManager.loggedInApiCalls = []
     }
     
     /**
@@ -48,7 +57,8 @@ internal class NetworkManager: NSObject {
      */
     internal func makeApiCall<T:Decodable>(routing: TapNetworkPath, resultType:T.Type,body:TapBodyModel? = .none, httpMethod: TapHTTPMethod = .GET, urlModel:TapURLModel? = .none, completion: TapNetworkManager.RequestCompletionClosure?,onError:TapNetworkManager.RequestCompletionClosure?) {
         // Inform th network manager if we are going to log or not
-        networkManager.isRequestLoggingEnabled = enableLogging
+        networkManager.isRequestLoggingEnabled      = enableLogging
+        networkManager.consolePrintLoggingEnabled   = consoleLogging
         
         // Group all the configurations and pass it to the network manager
         let requestOperation = TapNetworkRequestOperation(path: "\(baseURL)\(routing.rawValue)", method: httpMethod, headers: headers, urlModel: urlModel, bodyModel: body, responseType: .json)

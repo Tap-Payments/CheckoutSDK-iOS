@@ -316,12 +316,12 @@ internal extension TapCheckout {
     
     
     /**
-     Respinsiboe for deleting a saved card with saved card api
-     - Parameter savedCard: The saved card in interest to delete
+     Respinsiboe for logging all the details when an error occures
+     - Parameter loggedData: The data to be logged in
      - Parameter onResponseReady: A block to call when getting the response
      - Parameter onErrorOccured: A block to call when an error occured
      */
-    func callLogging(for loggedData:TapLoggingModel,  onResponeReady: @escaping (String) -> () = {_ in}, onErrorOccured: @escaping(Error)->() = {_ in}) {
+    func callLogging(for loggedData:TapLogRequestModel,  onResponeReady: @escaping (String) -> () = {_ in}, onErrorOccured: @escaping(Error)->() = {_ in}) {
         
         // Create the network call details
         let route = TapNetworkPath.logging

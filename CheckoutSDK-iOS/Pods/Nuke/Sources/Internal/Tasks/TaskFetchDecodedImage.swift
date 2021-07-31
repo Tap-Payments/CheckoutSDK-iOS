@@ -4,12 +4,12 @@
 
 import Foundation
 
-/// Receives data from ``GetOriginalImageData` and decodes it as it arrives.
-final class TaskDecodeImage: ImagePipelineTask<ImageResponse> {
+/// Receives data from ``TaskLoadImageData` and decodes it as it arrives.
+final class TaskFetchDecodedImage: ImagePipelineTask<ImageResponse> {
     private var decoder: ImageDecoding?
 
     override func start() {
-        dependency = pipeline.makeTaskLoadImageData(for: request).subscribe(self) { [weak self] in
+        dependency = pipeline.makeTaskFetchOriginalImageData(for: request).subscribe(self) { [weak self] in
             self?.didReceiveData($0.0, urlResponse: $0.1, isCompleted: $1)
         }
     }
@@ -45,18 +45,18 @@ final class TaskDecodeImage: ImagePipelineTask<ImageResponse> {
 
         // Fast-track default decoders, most work is already done during
         // initialization anyway.
-        if ImagePipeline.Configuration.isFastTrackDecodingEnabled && (decoder is ImageDecoders.Default || decoder is ImageDecoders.Empty) {
-            let response = signpost(log, "DecodeImageData", isCompleted ? "FinalImage" : "ProgressiveImage") {
-                decoder.decode(data, urlResponse: urlResponse, isCompleted: isCompleted)
+        let decode = {
+            signpost(log, "DecodeImageData", isCompleted ? "FinalImage" : "ProgressiveImage") {
+                decoder.decode(data, urlResponse: urlResponse, isCompleted: isCompleted, cacheType: nil)
             }
-            self.sendResponse(response, isCompleted: isCompleted)
+        }
+        if !decoder.isAsynchronous {
+            self.sendResponse(decode(), isCompleted: isCompleted)
         } else {
             operation = pipeline.configuration.imageDecodingQueue.add { [weak self] in
                 guard let self = self else { return }
 
-                let response = signpost(log, "DecodeImageData", isCompleted ? "FinalImage" : "ProgressiveImage") {
-                    decoder.decode(data, urlResponse: urlResponse, isCompleted: isCompleted)
-                }
+                let response = decode()
                 self.async {
                     self.sendResponse(response, isCompleted: isCompleted)
                 }
@@ -78,8 +78,8 @@ final class TaskDecodeImage: ImagePipelineTask<ImageResponse> {
         if let decoder = self.decoder {
             return decoder
         }
-        let decoderContext = ImageDecodingContext(request: request, data: data, isCompleted: isCompleted, urlResponse: urlResponse)
-        let decoder = pipeline.configuration.makeImageDecoder(decoderContext)
+        let context = ImageDecodingContext(request: request, data: data, isCompleted: isCompleted, urlResponse: urlResponse)
+        let decoder = pipeline.delegate.imageDecoder(for: context, pipeline: pipeline)
         self.decoder = decoder
         return decoder
     }

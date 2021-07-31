@@ -21,7 +21,7 @@ internal struct TapDeleteSavedCardResponseModel: IdentifiableWithString, Decodab
     
     private enum CodingKeys: String, CodingKey {
         
-        case isDeleted  = "delete"
+        case isDeleted  = "deleted"
         case identifier = "id"
     }
 }

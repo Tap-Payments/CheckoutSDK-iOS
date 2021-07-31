@@ -17,7 +17,7 @@ import Foundation
         let body = TapBodyModel(body: value)
         let requestOperation = TapNetworkRequestOperation(path: "", method: .POST, headers: nil, urlModel: .none, bodyModel: body, responseType: .json)
         
-        manager.performRequest(requestOperation, completion: { (session, result, error) in
+        manager.performRequest(requestOperation, completion: { (session, result, error,_) in
             print("result is: \(String(describing: result))")
             print("error: \(String(describing: error))")
         })
@@ -59,7 +59,7 @@ import Foundation
         let body = TapBodyModel(body: parameters)
         let requestOperation = TapNetworkRequestOperation(path: "", method: .POST, headers: nil, urlModel: .none, bodyModel: body, responseType: .json)
         
-        manager.performRequest(requestOperation, completion: { (session, result, error) in
+        manager.performRequest(requestOperation, completion: { (session, result, error,_) in
             print("result is: \(String(describing: result))")
             print("error: \(String(describing: error))")
         })

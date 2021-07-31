@@ -18,7 +18,8 @@ import Foundation
 class Task<Value, Error>: TaskSubscriptionDelegate {
 
     private struct Subscription {
-        let observer: (Event) -> Void
+        let closure: (Event) -> Void
+        weak var subscriber: AnyObject?
         var priority: TaskPriority
     }
 
@@ -27,6 +28,13 @@ class Task<Value, Error>: TaskSubscriptionDelegate {
     private var inlineSubscription: Subscription?
     private var subscriptions: [TaskSubscriptionKey: Subscription]? // Create lazily
     private var nextSubscriptionKey = 0
+
+    var subscribers: [AnyObject] {
+        var output = [AnyObject?]()
+        output.append(inlineSubscription?.subscriber)
+        subscriptions?.values.forEach { output.append($0.subscriber) }
+        return output.compactMap { $0 }
+    }
 
     /// Returns `true` if the task was either cancelled, or was completed.
     private(set) var isDisposed = false
@@ -37,11 +45,12 @@ class Task<Value, Error>: TaskSubscriptionDelegate {
 
     var onCancelled: (() -> Void)?
 
-    private var priority: TaskPriority = .normal {
+    var priority: TaskPriority = .normal {
         didSet {
             guard oldValue != priority else { return }
             operation?.queuePriority = priority.queuePriority
             dependency?.setPriority(priority)
+            dependency2?.setPriority(priority)
         }
     }
 
@@ -52,6 +61,14 @@ class Task<Value, Error>: TaskSubscriptionDelegate {
     var dependency: TaskSubscription? {
         didSet {
             dependency?.setPriority(priority)
+        }
+    }
+
+    // The tasks only ever need up to 2 dependencies and this code is much faster
+    // than creating an array.
+    var dependency2: TaskSubscription? {
+        didSet {
+            dependency2?.setPriority(priority)
         }
     }
 
@@ -81,7 +98,7 @@ class Task<Value, Error>: TaskSubscriptionDelegate {
     // MARK: - Managing Observers
 
     /// - notes: Returns `nil` if the task was disposed.
-    private func subscribe(priority: TaskPriority = .normal, _ observer: @escaping (Event) -> Void) -> TaskSubscription? {
+    private func subscribe(priority: TaskPriority = .normal, subscriber: AnyObject? = nil, _ closure: @escaping (Event) -> Void) -> TaskSubscription? {
         guard !isDisposed else { return nil }
 
         let subscriptionKey = nextSubscriptionKey
@@ -89,10 +106,10 @@ class Task<Value, Error>: TaskSubscriptionDelegate {
         let subscription = TaskSubscription(task: self, key: subscriptionKey)
 
         if subscriptionKey == 0 {
-            inlineSubscription = Subscription(observer: observer, priority: priority)
+            inlineSubscription = Subscription(closure: closure, subscriber: subscriber, priority: priority)
         } else {
             if subscriptions == nil { subscriptions = [:] }
-            subscriptions![subscriptionKey] = Subscription(observer: observer, priority: priority)
+            subscriptions![subscriptionKey] = Subscription(closure: closure, subscriber: subscriber, priority: priority)
         }
 
         updatePriority(suggestedPriority: priority)
@@ -166,10 +183,10 @@ class Task<Value, Error>: TaskSubscriptionDelegate {
             terminate(reason: .finished)
         }
 
-        inlineSubscription?.observer(event)
+        inlineSubscription?.closure(event)
         if let subscriptions = subscriptions {
             for subscription in subscriptions.values {
-                subscription.observer(event)
+                subscription.closure(event)
             }
         }
     }
@@ -187,6 +204,7 @@ class Task<Value, Error>: TaskSubscriptionDelegate {
         if reason == .cancelled {
             operation?.cancel()
             dependency?.unsubscribe()
+            dependency2?.unsubscribe()
             onCancelled?()
         }
         onDisposed?()
@@ -226,15 +244,15 @@ extension Task {
 
         /// Attaches the subscriber to the task.
         /// - notes: Returns `nil` if the task is already disposed.
-        func subscribe(priority: TaskPriority = .normal, _ observer: @escaping (Event) -> Void) -> TaskSubscription? {
-            task.subscribe(priority: priority, observer)
+        func subscribe(priority: TaskPriority = .normal, subscriber: AnyObject? = nil, _ closure: @escaping (Event) -> Void) -> TaskSubscription? {
+            task.subscribe(priority: priority, subscriber: subscriber, closure)
         }
 
         /// Attaches the subscriber to the task. Automatically forwards progress
         /// andd error events to the given task.
         /// - notes: Returns `nil` if the task is already disposed.
         func subscribe<NewValue>(_ task: Task<NewValue, Error>, onValue: @escaping (Value, Bool) -> Void) -> TaskSubscription? {
-            subscribe { [weak task] event in
+            subscribe(subscriber: task) { [weak task] event in
                 guard let task = task else { return }
                 switch event {
                 case let .value(value, isCompleted):
@@ -336,20 +354,21 @@ private typealias TaskSubscriptionKey = Int
 
 /// Contains the tasks which haven't completed yet.
 final class TaskPool<Key: Hashable, Value, Error> {
-    private let isDeduplicationEnabled: Bool
+    private let isCoalescingEnabled: Bool
     private var map = [Key: Task<Value, Error>]()
 
-    init(_ isDeduplicationEnabled: Bool) {
-        self.isDeduplicationEnabled = isDeduplicationEnabled
+    init(_ isCoalescingEnabled: Bool) {
+        self.isCoalescingEnabled = isCoalescingEnabled
     }
 
     /// Creates a task with the given key. If there is an outstanding task with
     /// the given key in the pool, the existing task is returned. Tasks are
     /// automatically removed from the pool when they are disposed.
-    func publisherForKey(_ key: Key, _ make: () -> Task<Value, Error>) -> Task<Value, Error>.Publisher {
-        guard isDeduplicationEnabled else {
+    func publisherForKey(_ key: @autoclosure () -> Key, _ make: () -> Task<Value, Error>) -> Task<Value, Error>.Publisher {
+        guard isCoalescingEnabled else {
             return make().publisher
         }
+        let key = key()
         if let task = map[key] {
             return task.publisher
         }

@@ -167,6 +167,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      - Parameter enableSaveCard: Defines if the customer can save his card for upcoming payments. Default is `true`.
      - Parameter isSaveCardSwitchOnByDefault: Defines if save card switch is on by default.. Default is `true`.
      - Parameter sdkMode: Defines the mode sandbox or production the sdk will perform this transaction on. Please check [SDKMode](x-source-tag://SDKMode)
+     - Parameter enableApiLogging: Defines if you want to print the api calls. This is very helpful for you as a developer
      */
     @objc public func build(
         localiseFile:String? = nil,
@@ -199,10 +200,11 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         enableSaveCard: Bool = true,
         isSaveCardSwitchOnByDefault: Bool = true,
         sdkMode:SDKMode = .sandbox,
+        enableApiLogging:Bool = true,
         onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
         
         // Do the pre steps needed before starting a new SDK session
-        prepareSDK(with: sdkMode,delegate:delegate, localiseFile:localiseFile,customTheme:customTheme)
+        prepareSDK(with: sdkMode,delegate:delegate, localiseFile:localiseFile, customTheme:customTheme, enableApiLogging:enableApiLogging)
         // Store the passed configurations for further processing
         configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,swipeDownToDismiss:swipeDownToDismiss,paymentType:paymentType,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID,taxes: taxes, shipping: shipping, allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor,require3DSecure:require3DSecure,receiptSettings:receiptSettings, authorizeAction: authorizeAction,allowsToSaveSameCardMoreThanOnce: allowsToSaveSameCardMoreThanOnce, enableSaveCard: enableSaveCard, isSaveCardSwitchOnByDefault: isSaveCardSwitchOnByDefault)
         
@@ -245,11 +247,13 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      - Parameter customTheme: Please pass the tap checkout theme object with the names of your custom theme files if needed. If not set, the normal and default TAP theme will be used
      - Parameter delegate: A protocol to communicate with the Presente tap sheet controller
      - Parameter sdkMode: Defines the mode sandbox or production the sdk will perform this transaction on. Please check [SDKMode](x-source-tag://SDKMode)
+     - Parameter enableApiLogging: Defines if you want to print the api calls. This is very helpful for you as a developer
      */
     internal func prepareSDK(with sdkMode:SDKMode = .sandbox,
                              delegate:CheckoutScreenDelegate? = nil,
                              localiseFile:String? = nil,
-                             customTheme:TapCheckOutTheme? = nil) {
+                             customTheme:TapCheckOutTheme? = nil,
+                             enableApiLogging:Bool = true) {
         
         // remove any pending things from an old session
         TapCheckout.destroy()
@@ -264,6 +268,9 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         configureThemeManager(customTheme:customTheme)
         // Listen to events from network manager
         NetworkManager.shared.delegate = TapCheckout.sharedCheckoutManager()
+        // Adjust the logging ability
+        NetworkManager.shared.enableLogging = enableApiLogging
+        NetworkManager.shared.consoleLogging = enableApiLogging
     }
     
     /**
@@ -272,9 +279,10 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      */
     internal func handleError(error:Error?) {
         
-        let loggedDataModel:TapLoggingModel = .init(loggedRequests: NetworkManager.shared.loggedApis, error: error?.localizedDescription,merchant: dataHolder.transactionData.intitModelResponse?.data.merchant,customer: dataHolder.transactionData.customer)
+        let loggedDataModel:TapLogRequestModel = .init(application: .init(), customer: TapCheckout.sharedCheckoutManager().dataHolder.transactionData.customer, merchant: .init(), stack_trace: NetworkManager.shared.loggedApis, error_catgeroy: error?.localizedDescription)
         
         callLogging(for: loggedDataModel)
+        
         TapCheckout.sharedCheckoutManager().toBeExecutedBlock = {
             TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.checkoutFailed?(with: error!)
         }

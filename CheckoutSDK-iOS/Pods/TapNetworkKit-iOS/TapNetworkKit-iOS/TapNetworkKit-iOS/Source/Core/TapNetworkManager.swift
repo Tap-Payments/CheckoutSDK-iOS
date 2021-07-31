@@ -12,14 +12,20 @@ public class TapNetworkManager {
     // MARK: - Public -
     
     /// The logged in requests/responses since the init of the network manager till the moment
-    public var loggedInApiCalls:[String] = []
+    public var loggedInApiCalls:[TapLogStackTraceEntryModel] = []
     
     /// Request completion closure.
     public typealias RequestCompletionClosure = (URLSessionDataTask?, Any?, Error?) -> Void
     
+    /// Inner Request completion closure.
+    public typealias InnerRequestCompletionClosure = (URLSessionDataTask?, Any?, Error?,TapLogStrackTraceRequstModel?) -> Void
+    
     // MARK: Properties
     /// Defines if request logging enabled.
     public var isRequestLoggingEnabled = false
+    
+    /// Defines if you want to enable printing to the console the api calls as it go
+    public var consolePrintLoggingEnabled = false
     
     /// Base URL.
     public private(set) var baseURL: URL
@@ -42,17 +48,25 @@ public class TapNetworkManager {
     /// - Parameters:
     ///   - operation: Network request operation.
     ///   - completion: Completion closure that is called when request finishes.
-    public func performRequest(_ operation: TapNetworkRequestOperation, completion: RequestCompletionClosure?) {
+    public func performRequest(_ operation: TapNetworkRequestOperation, completion: InnerRequestCompletionClosure?) {
         
         var request: URLRequest
+        // The object that will hold the request model for logging this api call in the stacktrace
+        var tapLoggingRequestModel:TapLogStrackTraceRequstModel?
+        
         do {
-            
+            // Generate a http request by the provided operation
             request = try self.createURLRequest(from: operation)
-            //TapLogger.log(with: request, bodyParmeters: operation.bodyModel?.body)
-            if self.isRequestLoggingEnabled {
-                
-                loggedInApiCalls.append(self.log(request))
+            // Generate a string representations for the headers and the body
+            let headersString:String    = String(data: try! JSONSerialization.data(withJSONObject: (request.allHTTPHeaderFields ?? [:]), options: .prettyPrinted), encoding: .utf8 )!
+            var bodyString:String = ""
+            if let body = request.httpBody {
+                bodyString = String(data: try! JSONSerialization.data(withJSONObject: JSONSerialization.jsonObject(with: body, options: []), options: .prettyPrinted), encoding: .utf8 )!
             }
+            
+            // Create the tapLoggingRequest model with the http request
+            tapLoggingRequestModel = .init(request: request, headers: headersString, body: bodyString)
+            
             
             var dataTask: URLSessionDataTask?
             let dataTaskCompletion: (Data?, URLResponse?, Error?) -> Void = { [weak self] (data, response, anError) in
@@ -63,40 +77,39 @@ public class TapNetworkManager {
                     self?.currentRequestOperations.remove(at: operationIndex)
                 }
                 
-                if self?.isRequestLoggingEnabled ?? false {
-                    
-                    self?.loggedInApiCalls.append(self?.log(response, data: data, serializationType: operation.responseType) ?? "\n")
-                    self?.loggedInApiCalls.append(self?.log(anError) ?? "\n")
-                }
-                
-                if let d = data {
+                // Check for errors first
+                if let error = anError {
+                    // Failure with api/network error
+                    completion?(dataTask, nil, error, tapLoggingRequestModel)
+                }else if let d = data {
                     
                     do {
                         
                         let responseObject = try TapSerializer.deserialize(d, with: operation.responseType)
-                        completion?(dataTask, responseObject, anError)
+                        // Success case all went good
+                        completion?(dataTask, responseObject, anError, tapLoggingRequestModel)
                         
                     } catch {
-                        
-                        completion?(dataTask, nil, error)
+                        // Failure case parsing the response into the required model
+                        completion?(dataTask, nil, error, tapLoggingRequestModel)
                     }
                     
                 } else {
-                    
-                    completion?(dataTask, nil, anError)
+                    // Failure case where no data passed back from the api Network or api errror
+                    completion?(dataTask, nil, anError, tapLoggingRequestModel)
                 }
             }
             
-            
-            var loggString:String = "Request :\n========\n\(request.httpMethod ?? "") \(request.url?.absoluteString ?? "")\nHeaders :\n------\n\(String(data: try! JSONSerialization.data(withJSONObject: (request.allHTTPHeaderFields ?? [:]), options: .prettyPrinted), encoding: .utf8 )!)"
-            
-            if let body = request.httpBody {
-                loggString = "\(loggString)\nBody :\n-----\n\(String(data: try! JSONSerialization.data(withJSONObject: JSONSerialization.jsonObject(with: body, options: []), options: .prettyPrinted), encoding: .utf8 )!)\n---------------\n"
-            }else{
-                loggString = "\(loggString)\nBody :\n-----\n{\n}\n---------------\n"
+            if consolePrintLoggingEnabled {
+                var loggString:String = "Request :\n========\n\(request.httpMethod ?? "") \(request.url?.absoluteString ?? "")\nHeaders :\n------\n\(String(data: try! JSONSerialization.data(withJSONObject: (request.allHTTPHeaderFields ?? [:]), options: .prettyPrinted), encoding: .utf8 )!)"
+                
+                if let body = request.httpBody {
+                    loggString = "\(loggString)\nBody :\n-----\n\(String(data: try! JSONSerialization.data(withJSONObject: JSONSerialization.jsonObject(with: body, options: []), options: .prettyPrinted), encoding: .utf8 )!)\n---------------\n"
+                }else{
+                    loggString = "\(loggString)\nBody :\n-----\n{\n}\n---------------\n"
+                }
+                print(loggString)
             }
-            print(loggString)
-            loggedInApiCalls.append(loggString)
             
             let task = self.session.dataTask(with: request, completionHandler: dataTaskCompletion)
             dataTask = task
@@ -106,10 +119,8 @@ public class TapNetworkManager {
             self.currentRequestOperations.append(operation)
             
         } catch {
-            if isRequestLoggingEnabled {
-                loggedInApiCalls.append(log(error))
-            }
-            completion?(nil, nil, error)
+            // Failire case of general internal issue while calling the api
+            completion?(nil, nil, error, tapLoggingRequestModel)
         }
     }
     
@@ -121,34 +132,50 @@ public class TapNetworkManager {
     ///   - completion: Completion closure that is called when request finishes.
     public func performRequest<T:Decodable>(_ operation: TapNetworkRequestOperation, completion: RequestCompletionClosure?,codableType:T.Type) {
         
-        performRequest(operation) { (dataTask, data, error) in
+        // The object that will hold the response model for logging this api call in the stacktrace
+        var tapLoggingResponseModel:TapLogStrackTraceResponseModel?
+        
+        performRequest(operation) { (dataTask, data, error, requestModel) in
+            let headersString   = String(data: try! JSONSerialization.data(withJSONObject: (dataTask?.response as? HTTPURLResponse)?.allHeaderFields ?? [:], options: .prettyPrinted), encoding: .utf8 )!
+            let bodySting       = String(data: try! JSONSerialization.data(withJSONObject: (data ?? [:]), options: .prettyPrinted), encoding: .utf8 )!
             
-            let loggString:String = "Response :\n========\n\(operation.httpMethod.rawValue) \(operation.path)\nHeaders :\n------\n\(String(data: try! JSONSerialization.data(withJSONObject: (dataTask?.response as? HTTPURLResponse)?.allHeaderFields ?? [:], options: .prettyPrinted), encoding: .utf8 )!)\nBody :\n-----\n\(String(data: try! JSONSerialization.data(withJSONObject: (data ?? [:]), options: .prettyPrinted), encoding: .utf8 )!)\n---------------\n"
-            print(loggString)
+            let loggString:String = "Response :\n========\n\(operation.httpMethod.rawValue) \(operation.path)\nHeaders :\n------\n\(headersString)\nBody :\n-----\n\(bodySting)\n---------------\n"
+            
+            if self.consolePrintLoggingEnabled {
+                print(loggString)
+            }
             
             if let nonNullError = error {
-                //TapLogger.log(urlRequest: dataTask?.originalRequest, error: nonNullError)
+                // Failure case for network/api/internal
+                tapLoggingResponseModel = .init(headers: headersString, error_code: "Network/Internal", error_message: nonNullError.localizedDescription, error_description: nonNullError.debugDescription, body: bodySting)
+                
                 completion?(dataTask, nil, nonNullError)
             }else if let jsonObject = data {
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: .fragmentsAllowed)
                     let decodedResponse = try JSONDecoder().decode(codableType, from: jsonData)
-                    //TapLogger.log(urlRequest: dataTask?.originalRequest, apiResponse: jsonObject)
+                    // Success case
+                    tapLoggingResponseModel = .init(headers: headersString, error_code: nil, error_message: nil, error_description: nil, body: bodySting)
                     DispatchQueue.main.async {
                         completion?(dataTask, decodedResponse, error)
                     }
                 } catch {
-                    //TapLogger.log(urlRequest: dataTask?.originalRequest, error: error)
+                    // Failure case serialization
+                    tapLoggingResponseModel = .init(headers: headersString, error_code: "Serialization", error_message: error.localizedDescription, error_description: error.debugDescription, body: bodySting)
+                    
                     DispatchQueue.main.async {
                         completion?(dataTask, jsonObject, error)
                     }
                 }
             }else {
-                //TapLogger.log(urlRequest: dataTask?.originalRequest, error: error)
+                // Failure case Network or API
+                tapLoggingResponseModel = .init(headers: headersString, error_code: "API", error_message: "No data to parse", error_description: nil, body: bodySting)
+                
                 DispatchQueue.main.async {
                     completion?(nil, nil, error)
                 }
             }
+            self.loggedInApiCalls.append(.init(request: requestModel, response: tapLoggingResponseModel))
         }
     }
     
@@ -258,94 +285,13 @@ public class TapNetworkManager {
         }
     }
     
-    private func log(_ request: URLRequest, serializationType: TapSerializationType? = nil) -> String {
-        
-        var toBeLogged:String = "Request:\n---------------------\n"
-        toBeLogged = "\(toBeLogged)\(request.httpMethod ?? "nil") \(request.url?.absoluteString ?? "nil")\n"
-        toBeLogged = "\(toBeLogged)\(request.httpMethod ?? "nil") \(request.url?.absoluteString ?? "nil")\n"
-        toBeLogged = "\(toBeLogged)\(self.log(request.allHTTPHeaderFields))"
-        toBeLogged = "\(toBeLogged)\(self.log(request.httpBody, serializationType: serializationType))"
-        
-        print("---------------------------")
-        toBeLogged = "\(toBeLogged)------------------------\n"
-        return toBeLogged
-    }
     
-    private func log(_ response: URLResponse?, data: Data?, serializationType: TapSerializationType? = nil) -> String {
-        
-        guard let nonnullResponse = response else { return "" }
-        var toBeLoggedString = ""
-        print("Response:\n---------------------")
-        toBeLoggedString = "Response:\n---------------------\n"
-        
-        
-        if let url = nonnullResponse.url {
-            
-            print("URL: \(url.absoluteString)")
-            toBeLoggedString = "\(toBeLoggedString)URL: \(url.absoluteString)\n"
-        }
-        
-        guard let httpResponse = nonnullResponse as? HTTPURLResponse else {
-            
-            print("------------------------")
-            toBeLoggedString = "\(toBeLoggedString)------------------------\n"
-            return toBeLoggedString
-        }
-        
-        print("HTTP status code: \(httpResponse.statusCode)")
-        toBeLoggedString = "\(toBeLoggedString)HTTP status code: \(httpResponse.statusCode)\n"
-        
-        
-        toBeLoggedString = "\(toBeLoggedString)\(self.log(httpResponse.allHeaderFields))"
-        toBeLoggedString = "\(toBeLoggedString)\(self.log(data, serializationType: serializationType))"
-        
-        
-        print("------------------------")
-        toBeLoggedString = "\(toBeLoggedString)------------------------\n"
-        return toBeLoggedString
-    }
+}
+
+
+extension Error {
     
-    private func log(_ error: Error?) -> String {
-        
-        guard let nonnullError = error else { return "" }
-        print("Error: \(nonnullError)")
-        return "Error: \(nonnullError)\n"
-    }
-    
-    private func log(_ headerFields: [AnyHashable: Any]?) -> String {
-        
-        guard let nonnullHeaderFields = headerFields, nonnullHeaderFields.count > 0 else { return "\n" }
-        
-        let headersString = (nonnullHeaderFields.map { "\($0.key): \($0.value)" }).joined(separator: "\n")
-        print("Headers:\n\(headersString)")
-        return "\(headersString)\n"
-    }
-    
-    private func log(_ data: Data?, serializationType: TapSerializationType?) -> String {
-        
-        guard let body = data else { return "" }
-        
-        let type = serializationType ?? .json
-        
-        guard let object = try? TapSerializer.deserialize(body, with: type) else { return "" }
-        
-        var jsonWritingOptions: JSONSerialization.WritingOptions
-        if #available(iOS 11.0, *) {
-            
-            jsonWritingOptions = [.prettyPrinted, .sortedKeys]
-            
-        } else {
-            
-            jsonWritingOptions = [.prettyPrinted]
-        }
-        
-        if let jsonData = try? JSONSerialization.data(withJSONObject: object, options: jsonWritingOptions),
-           let jsonString = String(data: jsonData, encoding: .utf8) {
-            
-            print("Body:\n\(jsonString)")
-            return "Body:\n\(jsonString)\n"
-        }
-        
-        return ""
+    var debugDescription:String {
+        return (self as NSError).debugDescription
     }
 }

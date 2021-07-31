@@ -7,20 +7,16 @@ import Foundation
 /// Prefetches and caches images to eliminate delays when requesting the same
 /// images later.
 ///
-/// To start prefetching, call `startPrefetching(with:)` method. When you need
-/// the same image later to display it, just use the `ImagePipeline` or view
-/// extensions to load the image. The pipeline will take care of coalescing the
-/// requests for new without starting any new downloads.
-///
-/// The prefetcher automatically cancels all of the outstanding tasks when deallocated.
+/// The prefetcher cancels all of the outstanding tasks when deallocated.
 ///
 /// All `ImagePrefetcher` methods are thread-safe and are optimized to be used
 /// even from the main thread during scrolling.
 public final class ImagePrefetcher {
     private let pipeline: ImagePipeline
-    /* private */ let queue = OperationQueue()
-    private var tasks = [ImageRequest.LoadKeyForProcessedImage: Task]()
+    private var tasks = [ImageLoadKey: Task]()
     private let destination: Destination
+    let queue = OperationQueue() // internal for testing
+    var didComplete: (() -> Void)?
 
     /// Pauses the prefetching.
     ///
@@ -44,12 +40,15 @@ public final class ImagePrefetcher {
 
     /// Prefetching destination.
     public enum Destination {
-        /// Prefetches the image and stores it in both memory and disk caches
-        /// (they should be enabled).
+        /// Prefetches the image and stores it in both the memory and the disk
+        /// cache (make sure to enable it).
         case memoryCache
 
-        /// Prefetches image data and stores it in disk caches. This does not
-        /// require decoding the image data and therefore uses less CPU.
+        /// Prefetches the image data and stores it in disk caches. It does not
+        /// require decoding the image data and therefore requires less CPU.
+        ///
+        /// - warning: This option is incompatible with `DataCachePolicy.automatic`
+        /// (for requests with processors) and `DataCachePolicy.storeEncodedImages`.
         case diskCache
     }
 
@@ -83,60 +82,37 @@ public final class ImagePrefetcher {
         #endif
     }
 
-    /// Starts prefetching images for the given urls.
-    ///
-    /// The requests created by the prefetcher all have `.low` priority to make
-    /// sure they don't interfere with the "regular" requests.
-    ///
-    /// - note: See `func startPrefetching(with requests: [ImageRequest])` for more info.
-    public func startPrefetching(with urls: [URL]) {
-        pipeline.queue.async {
-            for url in urls {
-                self._startPrefetching(with: self.makeRequest(url: url))
-            }
-        }
-    }
-
     /// Starts prefetching images for the given requests.
     ///
-    /// When you call this method, `ImagePrefetcher` starts to load and cache images
-    /// for the given requests. When you need the same image later to display it,
-    /// use the `ImagePipeline` or view extensions to load the image.
-    /// The pipeline will take care of coalescing the requests for new without
-    /// starting any new downloads.
+    /// When you need to display the same image later, use the `ImagePipeline`
+    /// or the view extensions to load it as usual. The pipeline will take care
+    /// of coalescing the requests to avoid any duplicate work.
     ///
-    /// - note: Make sure to specify a low priority for your requests to ensure
-    /// they don't interfere with the "regular" requests.
-    public func startPrefetching(with requests: [ImageRequest]) {
+    /// The priority of the requests is set to the priority of the prefetcher
+    /// (`.low` by default).
+    public func startPrefetching(with requests: [ImageRequestConvertible]) {
         pipeline.queue.async {
             for request in requests {
-                var request = request
-                if request.priority > self._priority {
-                    request.priority = self._priority
-                }
+                var request = request.asImageRequest()
+                request.priority = self._priority
                 self._startPrefetching(with: request)
             }
         }
     }
 
     private func _startPrefetching(with request: ImageRequest) {
-        let key = request.makeLoadKeyForFinalImage()
+        guard pipeline.cache[request] == nil else {
+            return // The image is already in memory cache
+        }
 
+        let key = request.makeImageLoadKey()
         guard tasks[key] == nil else {
             return // Already started prefetching
         }
 
-        guard pipeline.configuration.imageCache?[request] == nil else {
-            return // The image is already in memory cache
-        }
-
         let task = Task(request: request, key: key)
-
-        // Use `Operation` to limit maximum number of concurrent prefetch jobs
-        task.operation = queue.add { [weak self, weak task] finish in
-            guard let self = self, let task = task else {
-                return finish()
-            }
+        task.operation = queue.add { [weak self] finish in
+            guard let self = self else { return finish() }
             self.loadImage(task: task, finish: finish)
         }
         tasks[key] = task
@@ -159,39 +135,31 @@ public final class ImagePrefetcher {
     }
 
     private func _remove(_ task: Task) {
-        guard tasks[task.key] === task else {
-            return // Should never happen
-        }
+        guard tasks[task.key] === task else { return } // Should never happen
         tasks[task.key] = nil
-    }
-
-    /// Stops prefetching images for the given urls.
-    public func stopPrefetching(with urls: [URL]) {
-        pipeline.queue.async {
-            for url in urls {
-                self._stopPrefetching(with: self.makeRequest(url: url))
-            }
+        if tasks.isEmpty {
+            didComplete?()
         }
     }
 
     /// Stops prefetching images for the given requests and cancels outstanding
     /// requests.
     ///
-    /// - note: You don't need to balance the number of `start` and `stop` requests.
+    /// You don't need to balance the number of `start` and `stop` requests.
     /// If you have multiple screens with prefetching, create multiple instances
     /// of `ImagePrefetcher`.
     ///
     /// - parameter destination: `.memoryCache` by default.
-    public func stopPrefetching(with requests: [ImageRequest]) {
+    public func stopPrefetching(with requests: [ImageRequestConvertible]) {
         pipeline.queue.async {
             for request in requests {
-                self._stopPrefetching(with: request)
+                self._stopPrefetching(with: request.asImageRequest())
             }
         }
     }
 
     private func _stopPrefetching(with request: ImageRequest) {
-        if let task = tasks.removeValue(forKey: request.makeLoadKeyForFinalImage()) {
+        if let task = tasks.removeValue(forKey: request.makeImageLoadKey()) {
             task.cancel()
         }
     }
@@ -204,16 +172,8 @@ public final class ImagePrefetcher {
         }
     }
 
-    private func makeRequest(url: URL) -> ImageRequest {
-        var request = ImageRequest(url: url)
-        request.priority = _priority
-        return request
-    }
-
     private func didUpdatePriority(to priority: ImageRequest.Priority) {
-        guard _priority != priority else {
-            return
-        }
+        guard _priority != priority else { return }
         _priority = priority
         for task in tasks.values {
             task.imageTask?.priority = priority
@@ -221,13 +181,13 @@ public final class ImagePrefetcher {
     }
 
     private final class Task {
-        let key: ImageRequest.LoadKeyForProcessedImage
+        let key: ImageLoadKey
         let request: ImageRequest
         weak var imageTask: ImageTask?
         weak var operation: Operation?
         var onCancelled: (() -> Void)?
 
-        init(request: ImageRequest, key: ImageRequest.LoadKeyForProcessedImage) {
+        init(request: ImageRequest, key: ImageLoadKey) {
             self.request = request
             self.key = key
         }

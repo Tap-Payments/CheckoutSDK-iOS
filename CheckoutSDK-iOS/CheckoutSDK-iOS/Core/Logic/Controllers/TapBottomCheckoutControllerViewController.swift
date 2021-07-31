@@ -586,6 +586,6 @@ extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDe
     }
     
     func enableInteraction(with status: Bool) {
-        view.isUserInteractionEnabled = status
+        //view.isUserInteractionEnabled = status
     }
 }

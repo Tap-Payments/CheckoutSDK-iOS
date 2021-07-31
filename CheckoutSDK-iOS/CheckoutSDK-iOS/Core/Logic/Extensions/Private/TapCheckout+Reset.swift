@@ -24,6 +24,8 @@ internal extension TapCheckout {
     /// Resetting all view models to the initial state
     func resetViewModels() {
         dataHolder.viewModels = .init()
+        NetworkManager.shared.resetStackTrace()
+        
     }
     
     /// Resetting and disposing all previous subscribers to the observables

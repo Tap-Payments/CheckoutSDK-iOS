@@ -10,6 +10,8 @@ import Foundation
 import CommonDataModelsKit_iOS
 import CoreTelephony
 import TapApplicationV2
+import TapNetworkKit_iOS
+
 /// TapLogRequestModel model.
 internal struct TapLogRequestModel: Codable {
     
@@ -20,7 +22,7 @@ internal struct TapLogRequestModel: Codable {
     /// Defines the details of the current merchant
     internal let merchant:TapLogMerchantModel?
     /// Defines the list of http calls since the begining of the session till now
-    internal let stack_trace:[TapLogStackTraceEntryModel]?
+    internal var stack_trace:[TapLogStackTraceEntryModel]?
     /// Defines the category of the error occured
     internal let error_catgeroy:String?
     
@@ -38,6 +40,15 @@ internal struct TapLogRequestModel: Codable {
         self.merchant = merchant
         self.stack_trace = stack_trace
         self.error_catgeroy = error_catgeroy
+    }
+    
+    /// TapLogRequestModel model.
+    internal init() {
+        self.application = .init()
+        self.customer = TapCheckout.sharedCheckoutManager().dataHolder.transactionData.customer
+        self.merchant = .init()
+        self.stack_trace = []
+        self.error_catgeroy = nil
     }
 }
 
