@@ -1,25 +1,14 @@
 PODS:
-  - CocoaLumberjack (3.7.2):
-    - CocoaLumberjack/Core (= 3.7.2)
-  - CocoaLumberjack/Core (3.7.2)
   - CommonDataModelsKit-iOS (1.0.45):
     - TapAdditionsKitV2
-  - EasyAnimation (2.2.1)
-  - Kingfisher (6.3.0)
   - LocalisationManagerKit-iOS (1.0.2)
   - McPicker (3.0.0)
   - MOLH (1.4.3)
   - Nuke (10.3.2)
   - PayCardsRecognizer (1.1.7)
   - PullUpController (0.8.0)
-  - SDWebImage/Core (5.11.1)
-  - SDWebImageSVGKitPlugin (1.3.0):
-    - SDWebImage/Core (~> 5.10)
-    - SVGKit (>= 2.1)
   - SimpleAnimation (0.4.2)
   - SnapKit (5.0.1)
-  - SVGKit (3.0.0):
-    - CocoaLumberjack (~> 3.0)
   - SwiftyRSA (1.7.0):
     - SwiftyRSA/ObjC (= 1.7.0)
   - SwiftyRSA/ObjC (1.7.0)
@@ -41,19 +30,11 @@ PODS:
     - CommonDataModelsKit-iOS (~> 1.0.1)
     - PayCardsRecognizer (~> 1.1.7)
   - TapCardVlidatorKit-iOS (1.0.12)
-  - TapFontKit-iOS (0.0.8):
-    - TapSwiftFixes
+  - TapFontKit-iOS (0.0.9):
+    - TapSwiftFixesV2
   - TapKeychain (1.0.5)
-  - TapNetworkKit-iOS (1.0.7):
-    - Kingfisher
+  - TapNetworkKit-iOS (1.0.8):
     - TapAdditionsKitV2
-  - TapSwiftFixes (1.0.9):
-    - TapSwiftFixes/CoreGraphics (= 1.0.9)
-    - TapSwiftFixes/Exceptions (= 1.0.9)
-    - TapSwiftFixes/Threading (= 1.0.9)
-  - TapSwiftFixes/CoreGraphics (1.0.9)
-  - TapSwiftFixes/Exceptions (1.0.9)
-  - TapSwiftFixes/Threading (1.0.9)
   - TapSwiftFixesV2 (1.0.0):
     - TapSwiftFixesV2/CoreGraphics (= 1.0.0)
     - TapSwiftFixesV2/Exceptions (= 1.0.0)
@@ -64,15 +45,13 @@ PODS:
   - TapThemeManager2020 (1.0.47):
     - LocalisationManagerKit-iOS
     - TapFontKit-iOS
-  - TapUIKit-iOS (1.0.45):
+  - TapUIKit-iOS (1.0.46):
     - CommonDataModelsKit-iOS
-    - EasyAnimation
     - LocalisationManagerKit-iOS
     - McPicker
     - MOLH
     - Nuke
     - PullUpController
-    - SDWebImageSVGKitPlugin
     - SimpleAnimation
     - SnapKit
     - TapApplePayKit-iOS
@@ -90,21 +69,15 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - CocoaLumberjack
     - CommonDataModelsKit-iOS
-    - EasyAnimation
-    - Kingfisher
     - LocalisationManagerKit-iOS
     - McPicker
     - MOLH
     - Nuke
     - PayCardsRecognizer
     - PullUpController
-    - SDWebImage
-    - SDWebImageSVGKitPlugin
     - SimpleAnimation
     - SnapKit
-    - SVGKit
     - SwiftyRSA
     - TapAdditionsKitV2
     - TapApplePayKit-iOS
@@ -115,27 +88,20 @@ SPEC REPOS:
     - TapFontKit-iOS
     - TapKeychain
     - TapNetworkKit-iOS
-    - TapSwiftFixes
     - TapSwiftFixesV2
     - TapThemeManager2020
     - TapUIKit-iOS
 
 SPEC CHECKSUMS:
-  CocoaLumberjack: b7e05132ff94f6ae4dfa9d5bce9141893a21d9da
   CommonDataModelsKit-iOS: 664bfc9641b498a210420a299e05378dbbf16ba2
-  EasyAnimation: 226d133d23ef0ef99ddfb8928ff2a9a4a77d1cfd
-  Kingfisher: 6c3df386db71d82c0817a429d2c9421a77396529
   LocalisationManagerKit-iOS: cd702915c67faba899d4613d44ceb00cefccec6e
   McPicker: ba38be56a8194faa5249eca4226c364eed628044
   MOLH: e45827d200aeb1310641090fd8cd03ad2b42ae72
   Nuke: c8be8025c78fedebe3dc9bc9a4a00f16e33921a7
   PayCardsRecognizer: 2e4d1b2fdd5f1528fb56064a91e1d58a1af7a2db
   PullUpController: 2f7ccaa0f35b31b47e3efbe1854c7f781552b3c7
-  SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
-  SDWebImageSVGKitPlugin: 8797e1c9b9baf80bd50d28e673e16a12359af1c9
   SimpleAnimation: 5430010b9548f392e7459290acce01c9ceba7171
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
-  SVGKit: 1ad7513f8c74d9652f94ed64ddecda1a23864dea
   SwiftyRSA: 8c6dd1ea7db1b8dc4fb517a202f88bb1354bc2c6
   TapAdditionsKitV2: ba369802e9575c3475ce6d5af228cf60c68edfc9
   TapApplePayKit-iOS: 940ab0575100d21e6080d17851cfe6c36bfebc24
@@ -143,13 +109,12 @@ SPEC CHECKSUMS:
   TapCardInputKit-iOS: fc3bd4fbac14b22fd315437ca2c8930d87cc8dcf
   TapCardScanner-iOS: baba47bff7daa3db8cb9e86e60fc412f1322fbc6
   TapCardVlidatorKit-iOS: d92675984d683a6c1afca77a1cce43c4a8451726
-  TapFontKit-iOS: 2cd57d5eb22d2b85872039d317ce4d96e9efbb2e
+  TapFontKit-iOS: 51ed2ddbe9f2b5ece1cc587ed45af9147e5c6fc1
   TapKeychain: 143aa70bb2d1b094e0298e944660264034c79849
-  TapNetworkKit-iOS: 3b9b61daeea0df2943e513e2b53377ee650c8185
-  TapSwiftFixes: db2aeb21942dd81ee051a31ed319dab0d03547a2
+  TapNetworkKit-iOS: d1a6110b4f43e9b1cceafe469cf6cc3fb775a2cf
   TapSwiftFixesV2: a8623a7273c6790b9754ec7e272e96fce7d3a800
   TapThemeManager2020: 232de1690643733aa89eb7b1c4a626a11e775746
-  TapUIKit-iOS: e6d74a3f8dff7ad6fcadd026ed791040a7d54e41
+  TapUIKit-iOS: d572003ae455be3c51fb499b3262e34b252c61ef
 
 PODFILE CHECKSUM: 918c204e757c4da9d6722ebfd2bf5af9e2232c1a
 

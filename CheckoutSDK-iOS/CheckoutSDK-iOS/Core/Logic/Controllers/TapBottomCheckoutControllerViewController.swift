@@ -224,12 +224,14 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         // Deselect all the selected chips
         sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deselectAll()
         sharedCheckoutDataManager.chanegActionButton(status: .InvalidPayment,actionBlock: nil)
+        view.endEditing(true)
         // inform the Tap vertical view to start the process of removing all the views related to the gopay sign in views
         tapVerticalView.closeGoPaySignInForm()
         // Add the default views back
         DispatchQueue.main.async { [weak self] in
             self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapSaveCardSwitchViewModel.attachedView], with: [.init(for: .fadeIn, with:self!.fadeInAnimationDuration, wait: self!.fadeInAnimationDelay)])
         }
+        //showWebView(with: URL(string:"https://www.google.com")!)
     }
     
     func showScanner() {
@@ -240,7 +242,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         // Stop the dismiss on swipe feature, because when we remove all views, the height will be minium than the threshold, ending up the whole sheet being dimissed
         let originalDismissOnSwipeValue = disableAutoDismiss()
         
-        self.removeView(viewType: TapMerchantHeaderView.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true)
+        self.removeView(viewType: TapDragHandlerView.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true, skipSelf: true)
         
         webViewModel = .init()
         webViewModel.delegate = navigationDelegate

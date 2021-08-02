@@ -276,9 +276,7 @@ internal extension TapCheckout {
         // Case 1: Redirection // Check if we need to make a redirection
         if let redirectionURL:URL = charge?.transactionDetails.url {
             showWebView(with: redirectionURL)
-        }
-        
-        // Case 2: Authentication
+        }else // Case 2: Authentication
         if let authentication:Authentication = charge?.authentication {
             showAuthentication(with: authentication)
         }

@@ -8,8 +8,7 @@
 import CoreGraphics
 import class    TapAdditionsKitV2.URLSession
 import class    UIKit.UIImage.UIImage
-import Kingfisher
-
+/*
 /// Image loader.
 public class TapImageLoader {
     
@@ -276,7 +275,9 @@ public class TapImageLoader {
                 
             }
             
-            let progressClosure:DownloadProgressBlock = {
+            let progressClosure:Nuke.Progress = .
+            
+            let progressClosure:Nuke.Progress = {
                 receivedSize, totalSize in
                 let cgfloatProgress = CGFloat(receivedSize) / CGFloat(totalSize)
                 
@@ -333,3 +334,4 @@ public class TapImageLoader {
         }
     }
 }
+*/
