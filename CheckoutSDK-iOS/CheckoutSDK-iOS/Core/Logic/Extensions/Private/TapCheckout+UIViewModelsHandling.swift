@@ -159,7 +159,7 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
                     // Filter out the saved card payment options
                     paymentOptions.paymentOptions.filter{ $0.paymentType != .Card }
                     // Filter out apple pay if the device is not allowed to perform any apple pay transactions
-                    .filter{ $0.paymentType != .Device || PKPaymentAuthorizationController.canMakePayments() }
+                        .filter{ $0.paymentType != .Device || ($0.paymentType == .Device && PKPaymentAuthorizationController.canMakePayments(usingNetworks: $0.applePayNetworkMapper())) }
                     // Filter the matching the payment options
                     .filter{ (dataHolder.transactionData.paymentType == .All || dataHolder.transactionData.paymentType == $0.paymentType || $0.paymentType == .All)}).map{ ChipWithCurrencyModel.init(paymentOption: $0) }
         
