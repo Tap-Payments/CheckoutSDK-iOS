@@ -208,7 +208,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
     }
     
     func amountSectionClicked() {
-        showAlert(title: "Amount Section", message: "The user clicked on the amount section, do you want me to do anything?")
+        //showAlert(title: "Amount Section", message: "The user clicked on the amount section, do you want me to do anything?")
     }
     
     func closeScannerClicked() {
