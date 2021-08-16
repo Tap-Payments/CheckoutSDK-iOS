@@ -102,6 +102,12 @@ internal protocol TapChipHorizontalViewModelDelegate {
      - Parameter at index: The index of the cell to be deleted
      */
     func deleteCell(at index:Int)
+    
+    /**
+     Will be fired you want to hide or show the right button accessory
+     - Parameter show: Indicate whether to show the button or hide it
+     */
+    func shouldShowRightButton(show:Bool)
 }
 
 /// This is the view model that adjusts and adapts the info shown in any GenericTapHorizontal list. It accepts and arranges different chips view models through one place
@@ -150,7 +156,6 @@ internal protocol TapChipHorizontalViewModelDelegate {
         dataSource.remove(at: index)
     }
     
-    
     /// Defines what type of header shall we show in the list if any
     @objc public var headerType:TapHorizontalHeaderType = .GatewayListHeader {
         didSet{
@@ -187,6 +192,14 @@ internal protocol TapChipHorizontalViewModelDelegate {
         cellDelegate?.deselectAll()
     }
     
+    
+    /**
+     Will be fired you want to hide or show the right button accessory
+     - Parameter show: Indicate whether to show the button or hide it
+     */
+    @objc public func shouldShowRightButton(show:Bool) {
+        cellDelegate?.shouldShowRightButton(show: show)
+    }
     
     /**
      Call this method when the editing mode status had changed and you want to reflect this on all rendered chips

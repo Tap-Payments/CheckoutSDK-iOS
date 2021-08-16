@@ -97,6 +97,20 @@ class TapHorizontalHeaderView: UIView {
     }
     
     /**
+     Will be fired you want to hide or show the right button accessory
+     - Parameter show: Indicate whether to show the button or hide it
+     */
+    internal func shouldShowRightButton(show:Bool) {
+        if show {
+            rightButton.fadeIn()
+            closeButton.fadeOut()
+        }else{
+            rightButton.fadeOut()
+            closeButton.fadeOut()
+        }
+    }
+    
+    /**
      Call this method to switch the state between the edit button and the close editing button
      - Parameter to: If true, then close edit button will appear, otherwise, the edit button will appear
      */

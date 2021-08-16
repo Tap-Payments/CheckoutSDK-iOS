@@ -68,6 +68,8 @@ internal extension TapCheckout {
         dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.shouldShow = dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.shouldShow && dataHolder.transactionData.loggedInToGoPay
         // Adjust the header of the tapGatewayChipList
         dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.headerType = dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.shouldShow ? .GateWayListWithGoPayListHeader : .GatewayListHeader
+        // Decide if we need to show the edit button, only will be visible when there is at least one saved card
+        dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.shouldShowRightButton(show: dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.dataSource.filter{ fetchPaymentOption(with: $0.paymentOptionIdentifier)?.paymentType == .Card }.count > 0)
     }
     
     /// Handles all the logic needed when the user selected currency changed to reflect in the supported cards/telecom tabbar items for the new currency
@@ -132,6 +134,7 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         // let us now update the two lists with the corresponding data sources from the payment types api based on the new transaction data like user currency
         dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.dataSource = dataHolder.viewModels.gatewayChipsViewModel.filter(for: dataHolder.transactionData.transactionUserCurrencyValue.currency)
         dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.dataSource = dataHolder.viewModels.goPayChipsViewModel.filter(for: dataHolder.transactionData.transactionUserCurrencyValue.currency)
+        
         updateGoPayAndGatewayLists()
     }
     
