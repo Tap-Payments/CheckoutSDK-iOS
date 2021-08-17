@@ -54,6 +54,12 @@ class TapHorizontalHeaderView: UIView {
     /// Keeps track of the last applied theme value
     private var lastUserInterfaceStyle:UIUserInterfaceStyle = .light
     
+    /// Will be used you want to hide or show the right button accessory
+    private var shouldShowRightButton:Bool = true {
+        didSet{
+            handleShowingTheRightButton()
+        }
+    }
     
     @IBAction func leftButtonClicked(_ sender: Any) {
         delegate?.leftAccessoryClicked(with: self)
@@ -101,10 +107,14 @@ class TapHorizontalHeaderView: UIView {
      - Parameter show: Indicate whether to show the button or hide it
      */
     internal func shouldShowRightButton(show:Bool) {
-        if show {
-            rightButton.fadeIn()
-            closeButton.fadeOut()
-        }else{
+        self.shouldShowRightButton = show
+    }
+    
+    /**
+     Will be fired you want to hide or show the right button accessory
+     */
+    internal func handleShowingTheRightButton() {
+        if !self.shouldShowRightButton {
             rightButton.fadeOut()
             closeButton.fadeOut()
         }
@@ -115,6 +125,7 @@ class TapHorizontalHeaderView: UIView {
      - Parameter to: If true, then close edit button will appear, otherwise, the edit button will appear
      */
     private func adjustRightButtonAccessory(with editing:Bool) {
+        guard self.shouldShowRightButton else { return }
         if editing {
             rightButton.fadeOut()
             closeButton.fadeIn()

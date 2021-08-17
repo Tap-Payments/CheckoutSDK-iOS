@@ -145,15 +145,24 @@ internal protocol TapChipHorizontalViewModelDelegate {
     /**
      Deletes a certain cell
      - Parameter viewModel:The view model we want to remove its cell
+     - Parameter shouldHideRightButton: If true, the edit button on the right will be invisible after deleting the mentioned chip
      */
-    @objc public func deleteCell(with viewModel:GenericTapChipViewModel) {
+    @objc public func deleteCell(with viewModel:GenericTapChipViewModel, shouldShowRightButton:Bool) {
         // make sure the passed view model is part of the data source
         guard dataSource.contains(viewModel),
               let index = dataSource.index(of: viewModel) else { return }
         // Inform the view to perform UI deletion
         cellDelegate?.deleteCell(at: index)
+        // Inform the view to perform UI visibility logic for the right button accessory (e.g. the edit button we may remove it if there is nothing else to remove.)
+        cellDelegate?.shouldShowRightButton(show: shouldShowRightButton)
+        // If the right mode to be hide, then we need to force stop editing mode if it is activated
+        if !shouldShowRightButton {
+            editMode(changed: false)
+        }
         // Delete it from the data source
         dataSource.remove(at: index)
+        
+        cellDelegate?.reload(new: dataSource)
     }
     
     /// Defines what type of header shall we show in the list if any

@@ -88,7 +88,7 @@ class ViewController: UIViewController {
             tapMerchantID: "1124340",
             //taxes: [.init(title: "VAT", amount:AmountModificatorModel.init(type: .Percentage, value: 2, minFee: 1, maxFee: 20))],
             //shipping: [.init(name: "Shipping", amount: 10)],
-            require3DSecure: true,
+            require3DSecure: false,
             sdkMode: .sandbox,
             onCheckOutReady: {[weak self] tapCheckOut in
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(0)) {

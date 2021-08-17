@@ -35,7 +35,7 @@ internal class Crypter {
             UIPasteboard.general.string = "\(UIPasteboard.general.string ?? "")\nFAILED TRYING AGAIN"
         }
         
-        UIPasteboard.general.string = "\(UIPasteboard.general.string ?? "")\nDATA : \(string)\n:KEY : \(key)\nENC : \(resultString)"
+        //UIPasteboard.general.string = "\(UIPasteboard.general.string ?? "")\nDATA : \(string)\n:KEY : \(key)\nENC : \(resultString)"
         return resultString
     }
     

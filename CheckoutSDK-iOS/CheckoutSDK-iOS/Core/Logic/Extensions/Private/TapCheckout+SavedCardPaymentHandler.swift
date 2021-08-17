@@ -117,7 +117,7 @@ extension TapCheckout {
         chanegActionButton(status: .InvalidPayment, actionBlock: nil)
         // Expand the button and stop loading
         dataHolder.viewModels.tapActionButtonViewModel.expandButton()
-        // Stop the edit mode for the saved card lisr
+        // Stop the edit mode for the saved card list
         headerEndEditingButtonClicked(in: .GatewayListHeader)
     }
     
@@ -127,14 +127,19 @@ extension TapCheckout {
      */
     func updateSavedCardAPIListPostDeletion(with cardCellViewModel:SavedCardCollectionViewCellModel) {
         
-        guard let savedCardID = cardCellViewModel.savedCardID else { return }
+        /*guard let savedCardID = cardCellViewModel.savedCardID else { return }
         // Delete the saved card object from the viewmodel datasource
         dataHolder.viewModels.gatewayChipsViewModel.removeAll(where: {$0.savedCard?.identifier == savedCardID})
         
-        // Perform UI deletion animation
-        dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deleteCell(with: cardCellViewModel)
-        // Inform the view to update itself
-        // updateGatewayChipsList()
+        // Perform UI deletion animation, then decide if we need to keep showing the edit mode. We will keep showing it only if there are MORE saved cards after the deleted one
+        dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deleteCell(with: cardCellViewModel,
+                                                                               shouldShowRightButton: dataHolder.viewModels.gatewayChipsViewModel.filter{$0.tapPaymentOption?.paymentType == .Card}.count > 0)
         
+        
+        
+        // Inform the view to update itself
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) { [weak self] in
+            self?.updateGatewayChipsList()
+        }*/
     }
 }
