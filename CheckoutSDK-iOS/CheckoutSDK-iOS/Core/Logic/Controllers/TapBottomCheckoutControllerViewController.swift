@@ -575,8 +575,8 @@ extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDe
         })
     }
     
-    func removeView(view: UIView) {
-        tapVerticalView.remove(view: view)
+    func removeView(view: UIView,with animation:TapSheetAnimation? = nil) {
+        tapVerticalView.remove(view: view, with: animation)
     }
     
     /**

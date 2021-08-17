@@ -93,9 +93,7 @@ extension TapCheckout {
             // Time to perform mthe correct post deletion logic based on the api response
             self?.performPostSavedCardDeletion(for: savedCard.identifier ?? "",with: cardCellViewModel, and: savedCardDeleteResponse)
         } onErrorOccured: { [weak self] (error) in
-            //self?.handleError(error: error)
-            #warning("TEST DELETE")
-            self?.performPostSavedCardDeletion(for: savedCard.identifier ?? "",with: cardCellViewModel, and: nil)
+            self?.handleError(error: error)
         }
     }
     
@@ -105,13 +103,15 @@ extension TapCheckout {
      - Parameter for savedCardID: The saved card object we want to delete
      - Parameter and savedCardDeleteResponse: The response we got from the save card delete api
      */
-    func performPostSavedCardDeletion(for savedCardID:String,with cardCellViewModel:SavedCardCollectionViewCellModel, and savedCardDeleteResponse:TapDeleteSavedCardResponseModel?) {
-        // In all cases, we need to perform some commong logic post deletion
-        commonPostSavedCardDeletion()
-        // Now if the deletion was successful we need to update the displayed list of saved cards
-        #warning("TEST DELETE")
-        //guard savedCardDeleteResponse.isDeleted else { return }
-        updateSavedCardAPIListPostDeletion(with: cardCellViewModel)
+    func performPostSavedCardDeletion(for savedCardID:String,with cardCellViewModel:SavedCardCollectionViewCellModel, and savedCardDeleteResponse:TapDeleteSavedCardResponseModel) {
+        // The delete card api is too fast, which affects the animations being executed while calling the api like showing a loading button. So we will slightly delay the response UI updates to show the animations being executed currently
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500)) { [weak self] in
+            // In all cases, we need to perform some commong logic post deletion
+            self?.commonPostSavedCardDeletion()
+            // Now if the deletion was successful we need to update the displayed list of saved cards
+            guard savedCardDeleteResponse.isDeleted else { return }
+            self?.updateSavedCardAPIListPostDeletion(with: cardCellViewModel)
+        }
     }
     
     /// Performs the common things to do post card deletion, whether the deletion was successful or failed
@@ -135,5 +135,10 @@ extension TapCheckout {
         dataHolder.viewModels.gatewayChipsViewModel.removeAll(where: {$0.savedCard?.identifier == savedCardID})
         // Perform UI deletion animation, then decide if we need to keep showing the edit mode. We will keep showing it only if there are MORE saved cards after the deleted one
         dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deleteCell(with: cardCellViewModel, shouldShowRightButton: shouldShowEditButton())
+        // Then decide if we need to remove the gateway chips list at all, if the current currency doesn't have any redirectional payments nor saved cards
+        guard dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.dataSource.count == 0 else { // This means, there is at least one more chip to show, so we will not hide the list
+            return }
+        // This means we have to hide the list as there is no chips left after deleting the saved card
+        UIDelegate?.removeView(view: dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView, with: .init(for: .fadeOut))
     }
 }

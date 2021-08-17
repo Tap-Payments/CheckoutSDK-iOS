@@ -30,8 +30,9 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     /**
      Inform the delegate to remove a certain view from the checkout sheet
      - Parameter view: The view required by the data manager to be removed from the checkout sheet
+     - Parameter with animation: The animation to remove the view with if any
      */
-    func removeView(view:UIView)
+    func removeView(view:UIView,with animation:TapSheetAnimation?)
     /**
      Inform the delegate to end the loading status of the goPay login
      - Parameter status: If set, means the user has provided correct credentials and is logged in to goPay. Otherwise, he provided wrong ones
