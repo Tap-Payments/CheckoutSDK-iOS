@@ -69,7 +69,7 @@ internal extension TapCheckout {
         // Adjust the header of the tapGatewayChipList
         dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.headerType = dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.shouldShow ? .GateWayListWithGoPayListHeader : .GatewayListHeader
         // Decide if we need to show the edit button, only will be visible when there is at least one saved card
-        dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.shouldShowRightButton(show: dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.dataSource.filter{ fetchPaymentOption(with: $0.paymentOptionIdentifier)?.paymentType == .Card }.count > 0)
+        dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.shouldShowRightButton(show: shouldShowEditButton())
     }
     
     /// Handles all the logic needed when the user selected currency changed to reflect in the supported cards/telecom tabbar items for the new currency
@@ -162,7 +162,7 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
                     // Filter out the saved card payment options
                     paymentOptions.paymentOptions.filter{ $0.paymentType != .Card }
                     // Filter out apple pay if the device is not allowed to perform any apple pay transactions
-                        .filter{ $0.paymentType != .Device || ($0.paymentType == .Device && PKPaymentAuthorizationController.canMakePayments(usingNetworks: $0.applePayNetworkMapper())) }
+                        .filter{ $0.paymentType != .ApplePay || ($0.paymentType == .ApplePay && PKPaymentAuthorizationController.canMakePayments(usingNetworks: $0.applePayNetworkMapper())) }
                     // Filter the matching the payment options
                     .filter{ (dataHolder.transactionData.paymentType == .All || dataHolder.transactionData.paymentType == $0.paymentType || $0.paymentType == .All)}).map{ ChipWithCurrencyModel.init(paymentOption: $0) }
         
@@ -258,6 +258,15 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
             sharedManager.dataHolder.viewModels.swipeDownToDismiss = false
             break
         }
+    }
+    
+    
+    /**
+     Decides whether we shall show an edit button over the gateways chips list.
+     - Returns: True if there is 1+ saved card so the user can edit and delete them. False otherwise.
+     */
+    func shouldShowEditButton() -> Bool {
+        return TapCheckout.sharedCheckoutManager().dataHolder.viewModels.gatewayChipsViewModel.filter{$0.tapPaymentOption?.paymentType == .Card}.count > 0
     }
     
     /// Handles the logic to perform parsing for the card data loaded from the bin lookup api

@@ -93,7 +93,9 @@ extension TapCheckout {
             // Time to perform mthe correct post deletion logic based on the api response
             self?.performPostSavedCardDeletion(for: savedCard.identifier ?? "",with: cardCellViewModel, and: savedCardDeleteResponse)
         } onErrorOccured: { [weak self] (error) in
-            self?.handleError(error: error)
+            //self?.handleError(error: error)
+            #warning("TEST DELETE")
+            self?.performPostSavedCardDeletion(for: savedCard.identifier ?? "",with: cardCellViewModel, and: nil)
         }
     }
     
@@ -103,11 +105,12 @@ extension TapCheckout {
      - Parameter for savedCardID: The saved card object we want to delete
      - Parameter and savedCardDeleteResponse: The response we got from the save card delete api
      */
-    func performPostSavedCardDeletion(for savedCardID:String,with cardCellViewModel:SavedCardCollectionViewCellModel, and savedCardDeleteResponse:TapDeleteSavedCardResponseModel) {
+    func performPostSavedCardDeletion(for savedCardID:String,with cardCellViewModel:SavedCardCollectionViewCellModel, and savedCardDeleteResponse:TapDeleteSavedCardResponseModel?) {
         // In all cases, we need to perform some commong logic post deletion
         commonPostSavedCardDeletion()
         // Now if the deletion was successful we need to update the displayed list of saved cards
-        guard savedCardDeleteResponse.isDeleted else { return }
+        #warning("TEST DELETE")
+        //guard savedCardDeleteResponse.isDeleted else { return }
         updateSavedCardAPIListPostDeletion(with: cardCellViewModel)
     }
     
@@ -127,19 +130,10 @@ extension TapCheckout {
      */
     func updateSavedCardAPIListPostDeletion(with cardCellViewModel:SavedCardCollectionViewCellModel) {
         
-        /*guard let savedCardID = cardCellViewModel.savedCardID else { return }
+        guard let savedCardID = cardCellViewModel.savedCardID else { return }
         // Delete the saved card object from the viewmodel datasource
         dataHolder.viewModels.gatewayChipsViewModel.removeAll(where: {$0.savedCard?.identifier == savedCardID})
-        
         // Perform UI deletion animation, then decide if we need to keep showing the edit mode. We will keep showing it only if there are MORE saved cards after the deleted one
-        dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deleteCell(with: cardCellViewModel,
-                                                                               shouldShowRightButton: dataHolder.viewModels.gatewayChipsViewModel.filter{$0.tapPaymentOption?.paymentType == .Card}.count > 0)
-        
-        
-        
-        // Inform the view to update itself
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) { [weak self] in
-            self?.updateGatewayChipsList()
-        }*/
+        dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deleteCell(with: cardCellViewModel, shouldShowRightButton: shouldShowEditButton())
     }
 }

@@ -296,7 +296,8 @@ internal extension TapCheckout {
         
         // Create the network call details
         let route = TapNetworkPath.card
-        let urlModel = TapURLModel.array(parameters: [customerID, savedCardID])
+        #warning("TEST DELETE")
+        let urlModel = TapURLModel.array(parameters: [customerID, "adasdasd"])
         
         
         // Perform the delete a saved card request with the computed data

@@ -129,12 +129,13 @@ internal protocol TapChipHorizontalViewModelDelegate {
     /// The data source which represents the list of view models to be displayed inside the uicollectionview
     @objc public var dataSource:[GenericTapChipViewModel] = [] {
         didSet{
-            
-            // Assign the cell delegate
-            listView = .init()
-            self.cellDelegate = listView
+            if listView == nil {
+                listView = .init()
+                // Assign the cell delegate
+                self.cellDelegate = listView
+            }
             // Instruct the list view that ME is the viewmodel of it
-            listView!.changeViewMode(with: self)
+            listView?.changeViewMode(with: self)
             // When it is changed, we need to inform the attached view that he needs to reload itself now
             cellDelegate?.reload(new: dataSource)
             assignModelsDelegate()
@@ -152,17 +153,12 @@ internal protocol TapChipHorizontalViewModelDelegate {
         guard dataSource.contains(viewModel),
               let index = dataSource.index(of: viewModel) else { return }
         // Inform the view to perform UI deletion
-        cellDelegate?.deleteCell(at: index)
+        //cellDelegate?.deleteCell(at: index)
         // Inform the view to perform UI visibility logic for the right button accessory (e.g. the edit button we may remove it if there is nothing else to remove.)
         cellDelegate?.shouldShowRightButton(show: shouldShowRightButton)
-        // If the right mode to be hide, then we need to force stop editing mode if it is activated
-        if !shouldShowRightButton {
-            editMode(changed: false)
-        }
+        
         // Delete it from the data source
         dataSource.remove(at: index)
-        
-        cellDelegate?.reload(new: dataSource)
     }
     
     /// Defines what type of header shall we show in the list if any
