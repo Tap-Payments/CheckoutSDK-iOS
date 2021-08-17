@@ -180,6 +180,7 @@ internal protocol TapCardPhoneBarListViewModelDelegate {
         if sharedLocalisationManager.localisationLocale == "ar" {
             // RTL computations
             if dataSource.firstIndex(of: filteredViewModel[0]) == 0 {
+                // if the first segment then we cover from the end of the screen till the end of the group
                 resultRect.size.width = UIScreen.main.bounds.size.width - (filteredViewModel.last?.viewDelegate?.viewFrame() ?? .zero).minX
                 resultRect.origin.x = UIScreen.main.bounds.size.width
             }else {
@@ -191,6 +192,7 @@ internal protocol TapCardPhoneBarListViewModelDelegate {
         }else {
             // LTR computations
             if dataSource.firstIndex(of: filteredViewModel[0]) == 0 {
+                // if the first segment then we cover from the start of the screen till the end of the group
                 resultRect.origin.x = 0
                 resultRect.size.width = (filteredViewModel.last?.viewDelegate?.viewFrame() ?? .zero).maxX - resultRect.minX
             }else {
@@ -206,7 +208,7 @@ internal protocol TapCardPhoneBarListViewModelDelegate {
     
     
     /**
-     Comutes the frame to cover a segment based on the current localisation. Will set the correct X and correct width
+     Comutes the frame to cover a selected segment based on the current localisation. Will set the correct X and correct width
      - Parameter selectedViewModel: The view model we want to cover
      - Parameter filteredViewModel: The view models that are covered within the required segment to get its frame
      - Parameter initialRect: The intial computed frame
@@ -219,6 +221,7 @@ internal protocol TapCardPhoneBarListViewModelDelegate {
         if sharedLocalisationManager.localisationLocale == "ar" {
             // RTL computations
             if dataSource.firstIndex(of: selectedViewModel) == 0 {
+                // if the first segment then we cover from the end of the screen till the end of the selected icon
                 resultRect.size.width += (UIScreen.main.bounds.size.width - resultRect.maxX)
                 resultRect.origin.x = UIScreen.main.bounds.size.width
             }else if dataSource.firstIndex(of: selectedViewModel) == dataSource.count - 1 {
@@ -231,11 +234,12 @@ internal protocol TapCardPhoneBarListViewModelDelegate {
         }else {
             // LTR computations
             if dataSource.firstIndex(of: selectedViewModel) == 0 {
+                // if the first segment then we cover from the start of the screen till the end of the selected icon
                 resultRect.size.width += resultRect.origin.x
                 resultRect.origin.x = 0
             }else if dataSource.firstIndex(of: selectedViewModel) == dataSource.count - 1 {
                 // If the last tab, hence we need the width to cover the whole screen till the end
-                resultRect.size.width = UIScreen.main.bounds.size.width - resultRect.origin.x + 10
+                //resultRect.size.width = UIScreen.main.bounds.size.width - resultRect.origin.x + 10
             }
         }
         
