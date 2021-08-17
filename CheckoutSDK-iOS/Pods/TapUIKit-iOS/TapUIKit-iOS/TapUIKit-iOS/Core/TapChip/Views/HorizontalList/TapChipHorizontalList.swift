@@ -247,10 +247,10 @@ extension TapChipHorizontalList:TapChipHorizontalViewModelDelegate {
         self.collectionView.deleteItems(at:[indexPath])
         // Fade out the needed cell then delete it
         /*collectionView.cellForItem(at: indexPath)?.fadeOut(duration: 0.25, delay: 0, completion: { (_) in
-            DispatchQueue.main.async { [weak self] in
-                self?.collectionView.deleteItems(at:[indexPath])
-            }
-        })*/
+         DispatchQueue.main.async { [weak self] in
+         self?.collectionView.deleteItems(at:[indexPath])
+         }
+         })*/
         
     }
     
