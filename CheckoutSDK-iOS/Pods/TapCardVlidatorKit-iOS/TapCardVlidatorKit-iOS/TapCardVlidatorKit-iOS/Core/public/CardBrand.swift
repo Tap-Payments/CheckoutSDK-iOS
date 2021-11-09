@@ -41,7 +41,7 @@ import Foundation
     case orange
     case etisalat
     case vodafone
-    
+    case meeza
     case unknown
     
     // MARK: - Private -
@@ -81,7 +81,8 @@ import Foundation
             .zain               : RawValues.zain,
             .orange             : RawValues.orange,
             .etisalat           : RawValues.etisalat,
-            .vodafone           : RawValues.vodafone
+            .vodafone           : RawValues.vodafone,
+            .meeza              : RawValues.meeza
         ]
         
         private static let aiywaLoyalty     = ["Aiywa Loyalty"]
@@ -116,6 +117,7 @@ import Foundation
         private static let orange           = ["ORANGE PAY"]
         private static let etisalat         = ["ETISALAT PAY"]
         private static let vodafone         = ["VODAFONE PAY"]
+        private static let meeza            = ["MEEZA"]
         
         @available(*, unavailable) private init() {}
     }
