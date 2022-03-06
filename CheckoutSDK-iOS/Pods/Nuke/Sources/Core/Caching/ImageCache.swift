@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2015-2021 Alexander Grebenyuk (github.com/kean).
+// Copyright (c) 2015-2022 Alexander Grebenyuk (github.com/kean).
 
 import Foundation
 #if !os(macOS)
@@ -8,49 +8,6 @@ import UIKit
 #else
 import Cocoa
 #endif
-
-/// In-memory image cache.
-///
-/// The implementation must be thread safe.
-public protocol ImageCaching: AnyObject {
-    /// Access the image cached for the given request.
-    subscript(key: ImageCacheKey) -> ImageContainer? { get set }
-
-    /// Removes all caches items.
-    func removeAll()
-}
-
-/// An opaque container that acts as a cache key.
-///
-/// In general, you don't construct it directly, and use `ImagePipeline` or `ImagePipeline.Cache` APIs.
-public struct ImageCacheKey: Hashable {
-    let key: Inner
-
-    // This is faster than using AnyHashable (and it shows in performance tests).
-    enum Inner: Hashable {
-        case custom(String)
-        case `default`(CacheKey)
-    }
-
-    public init(key: String) {
-        self.key = .custom(key)
-    }
-
-    init(request: ImageRequest) {
-        self.key = .default(request.makeImageCacheKey())
-    }
-}
-
-public extension ImageCaching {
-    /// A convenience API for getting an image for the given request.
-    ///
-    /// - warning: If you provide a custom key using `ImagePipelineDelegate`, use
-    /// `ImagePipeline.Cache` instead.
-    subscript(request: ImageRequestConvertible) -> ImageContainer? {
-        get { self[ImageCacheKey(request: request.asImageRequest())] }
-        set { self[ImageCacheKey(request: request.asImageRequest())] = newValue }
-    }
-}
 
 /// An LRU memory cache.
 ///
@@ -216,7 +173,7 @@ final class Cache<Key: Hashable, Value> {
 
         #if os(iOS) || os(tvOS)
         let center = NotificationCenter.default
-        center.addObserver(self, selector: #selector(didEnterBackground),
+        center.addObserver(self, selector: #selector(clearCacheOnEnterBackground),
                            name: UIApplication.didEnterBackgroundNotification,
                            object: nil)
         #endif
@@ -303,7 +260,7 @@ final class Cache<Key: Hashable, Value> {
     }
 
     @objc
-    private dynamic func didEnterBackground() {
+    private dynamic func clearCacheOnEnterBackground() {
         // Remove most of the stored items when entering background.
         // This behavior is similar to `NSCache` (which removes all
         // items). This feature is not documented and may be subject

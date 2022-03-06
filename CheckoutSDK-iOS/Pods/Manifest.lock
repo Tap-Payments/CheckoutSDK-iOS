@@ -4,7 +4,7 @@ PODS:
   - LocalisationManagerKit-iOS (1.0.2)
   - McPicker (3.0.0)
   - MOLH (1.4.3)
-  - Nuke (10.3.2)
+  - Nuke (10.7.1)
   - PayCardsRecognizer (1.1.7)
   - PullUpController (0.8.0)
   - SimpleAnimation (0.4.2)
@@ -29,7 +29,7 @@ PODS:
   - TapCardScanner-iOS (1.0.12):
     - CommonDataModelsKit-iOS (~> 1.0.1)
     - PayCardsRecognizer (~> 1.1.7)
-  - TapCardVlidatorKit-iOS (1.0.12)
+  - TapCardVlidatorKit-iOS (1.0.14)
   - TapFontKit-iOS (0.0.9):
     - TapSwiftFixesV2
   - TapKeychain (1.0.5)
@@ -97,7 +97,7 @@ SPEC CHECKSUMS:
   LocalisationManagerKit-iOS: cd702915c67faba899d4613d44ceb00cefccec6e
   McPicker: ba38be56a8194faa5249eca4226c364eed628044
   MOLH: e45827d200aeb1310641090fd8cd03ad2b42ae72
-  Nuke: c8be8025c78fedebe3dc9bc9a4a00f16e33921a7
+  Nuke: 279f17a599fd1c83cf51de5e0e1f2db143a287b0
   PayCardsRecognizer: 2e4d1b2fdd5f1528fb56064a91e1d58a1af7a2db
   PullUpController: 2f7ccaa0f35b31b47e3efbe1854c7f781552b3c7
   SimpleAnimation: 5430010b9548f392e7459290acce01c9ceba7171
@@ -108,7 +108,7 @@ SPEC CHECKSUMS:
   TapApplicationV2: aee3d046c4272778431e1535de6cab34e1269f8c
   TapCardInputKit-iOS: fc3bd4fbac14b22fd315437ca2c8930d87cc8dcf
   TapCardScanner-iOS: baba47bff7daa3db8cb9e86e60fc412f1322fbc6
-  TapCardVlidatorKit-iOS: d92675984d683a6c1afca77a1cce43c4a8451726
+  TapCardVlidatorKit-iOS: fbf1c9adc629a0d822ca429c2e51feda9684a45b
   TapFontKit-iOS: 51ed2ddbe9f2b5ece1cc587ed45af9147e5c6fc1
   TapKeychain: 143aa70bb2d1b094e0298e944660264034c79849
   TapNetworkKit-iOS: d1a6110b4f43e9b1cceafe469cf6cc3fb775a2cf
@@ -118,4 +118,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 918c204e757c4da9d6722ebfd2bf5af9e2232c1a
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2

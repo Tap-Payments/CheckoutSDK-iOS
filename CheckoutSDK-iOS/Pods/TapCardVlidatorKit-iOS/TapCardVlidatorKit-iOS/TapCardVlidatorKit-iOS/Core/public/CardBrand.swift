@@ -12,6 +12,7 @@ import Foundation
     case aiywaLoyalty
     case americanExpress
     case benefit
+    case careemPay
     case cardGuard
     case cbk
     case dankort
@@ -42,6 +43,7 @@ import Foundation
     case etisalat
     case vodafone
     case meeza
+    
     case unknown
     
     // MARK: - Private -
@@ -53,6 +55,7 @@ import Foundation
             .aiywaLoyalty       : RawValues.aiywaLoyalty,
             .americanExpress    : RawValues.americanExpress,
             .benefit            : RawValues.benefit,
+            .careemPay          : RawValues.careemPay,
             .cardGuard          : RawValues.cardGuard,
             .cbk                : RawValues.cbk,
             .dankort            : RawValues.dankort,
@@ -88,6 +91,7 @@ import Foundation
         private static let aiywaLoyalty     = ["Aiywa Loyalty"]
         private static let americanExpress  = ["AMERICAN_EXPRESS", "AMEX"]
         private static let benefit          = ["BENEFIT"]
+        private static let careemPay        = ["Careem Pay","VISA","MASTERCARD","MAESTRO","VISA_ELECTRON"]
         private static let cardGuard        = ["CARDGUARD"]
         private static let cbk              = ["CBK"]
         private static let dankort          = ["DANKORT"]
