@@ -21,13 +21,16 @@ import Foundation
     internal var lightModeThemeFileName:String?
     /// Represents the file name of the custom provided dark theme file
     internal var darkModeThemeFileName:String?
+    /// Represents the type of the provided custom theme, whether it is local embedded or a remote JSON file
+    internal var themeType:TapThemeType?
     
     /**
      Represents a model to pass custom dark and light theme files if required.
      - Parameter lightModeThemeFileName: The name of the light mode theme you file in your project you want to use. It is required
      - Parameter darkModeThemeFileName:  The name of the dark mode theme you file in your project you want to use. If not passed, the light mode one will be used for both displays
+     - Parameter themeType:  Represents the type of the provided custom theme, whether it is local embedded or a remote JSON file
      */
-    @objc public init(with lightModeThemeFileName:String,and darkModeThemeFileName:String?) {
+    @objc public init(with lightModeThemeFileName:String,and darkModeThemeFileName:String?, from themeType:TapThemeType = .LocalJsonFile) {
         super.init()
         // Check he didn't pass empty light theme file
         guard lightModeThemeFileName != "" else {
@@ -41,5 +44,15 @@ import Foundation
             return
         }
         self.darkModeThemeFileName = nonNullDarkThemeFile
+        self.themeType = themeType
     }    
+}
+
+
+/// An enum that defines the type of the provided custom theme, whether it is local embedded or a remote JSON file
+@objc public enum TapThemeType : Int {
+    /// The custom theme file is an embedded json file
+    case LocalJsonFile
+    /// The custom theme file is a remote  json file
+    case RemoteJsonFile
 }
