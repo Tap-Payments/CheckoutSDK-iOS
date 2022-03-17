@@ -72,10 +72,10 @@ class ViewController: UIViewController {
         TapCheckout.localeIdentifier = localeID
         TapCheckout.secretKey = .init(sandbox: "sk_test_cvSHaplrPNkJO7dhoUxDYjqA", production: "sk_live_V4UDhitI0r7sFwHCfNB6xMKp")
         
-        //customTheme = .init(with: "https://menoalmotasel.online/RedLightTheme.json", and: "https://menoalmotasel.online/RedDarkTheme.json", from: .RemoteJsonFile)
+        customTheme = .init(with: "https://menoalmotasel.online/RedLightTheme.json", and: "https://menoalmotasel.online/RedDarkTheme.json", from: .RemoteJsonFile)
         
         checkout.build(
-            localiseFile: localisationFileName,
+            localiseFile: TapCheckoutLocalisation(with: URL(string: "https://menoalmotasel.online/CustomLocalisation.json")!, from:.RemoteJsonFile),
             customTheme: customTheme,
             delegate: self,
             currency: selectedCurrency,

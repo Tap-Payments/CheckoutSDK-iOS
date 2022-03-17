@@ -29,21 +29,23 @@ internal extension TapCheckout {
             return
         }
     }
-    /** Configures the localisation manager bu setting the locale, adjusting the flipping and the localisation custom file if any
-     - Parameter localiseFile: Please pass the name of the custom localisation file if needed. If not set, the normal and default TAP localisations will be used
+    /** Configures the localisation manager bu setting the locale, adjusting the flipping and the localisation custom model if any
+     - Parameter localiseFile: Please pass the name of the custom localisation model if needed. If not set, the normal and default TAP localisations will be used
      */
-    func configureLocalisationManager(localiseFile:String? = nil) {
+    func configureLocalisationManager(localiseFile:TapCheckoutLocalisation? = nil) {
         // Set the required locale
         sharedLocalisationManager.localisationLocale = TapCheckout.localeIdentifier
         // Adjust the flipping
         if TapCheckout.flippingStatus != .NoFlipping {
             MOLH.setLanguageTo(TapCheckout.localeIdentifier)
         }
+        
         // Check if the user provided a custom localisation file to use and it is a correct and a reachable one
-        guard let localiseFile = localiseFile,
-            let stringPath = Bundle.main.path(forResource: localiseFile, ofType: "json") else { return }
-        let urlPath = URL(fileURLWithPath: stringPath)
-        sharedLocalisationManager.localisationFilePath = urlPath
+        // Depends on the type of the localisation whether remote or locale
+        guard let nonNullLocalisationModel = localiseFile,
+        let nonNullFilePathURL = nonNullLocalisationModel.filePath,
+        let nonNullLocaltionType = nonNullLocalisationModel.localisationType else { return }
+        let _ = sharedLocalisationManager.configureLocalisation(with: nonNullFilePathURL, from: nonNullLocaltionType)
     }
     
     /** Configures the theme manager by setting the provided custom theme file names

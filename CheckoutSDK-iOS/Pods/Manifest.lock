@@ -1,7 +1,7 @@
 PODS:
   - CommonDataModelsKit-iOS (1.0.46):
     - TapAdditionsKitV2
-  - LocalisationManagerKit-iOS (1.0.2)
+  - LocalisationManagerKit-iOS (1.0.3)
   - McPicker (3.0.0)
   - MOLH (1.4.3)
   - Nuke (10.7.1)
@@ -94,7 +94,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   CommonDataModelsKit-iOS: 3a5a59f3c133ba1eab328693a4dba5625239d63a
-  LocalisationManagerKit-iOS: cd702915c67faba899d4613d44ceb00cefccec6e
+  LocalisationManagerKit-iOS: a779efa4d2eeeed959c07c9d6fd6568df87089a3
   McPicker: ba38be56a8194faa5249eca4226c364eed628044
   MOLH: e45827d200aeb1310641090fd8cd03ad2b42ae72
   Nuke: 279f17a599fd1c83cf51de5e0e1f2db143a287b0

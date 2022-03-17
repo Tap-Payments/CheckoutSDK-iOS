@@ -137,7 +137,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     // MARK:- Public functions
     /**
      Defines the tap checkout bottom sheet controller
-     - Parameter localiseFile: Please pass the name of the custom localisation file if needed. If not set, the normal and default TAP localisations will be used
+     - Parameter localiseFile: Please pass the name of the custom localisation file model if needed. If not set, the normal and default TAP localisations will be used
      - Parameter customTheme: Please pass the tap checkout theme object with the names of your custom theme files if needed. If not set, the normal and default TAP theme will be used
      - Parameter delegate: A protocol to communicate with the Presente tap sheet controller
      - Parameter currency: Represents the original transaction currency stated by the merchant on checkout start
@@ -171,7 +171,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      - Parameter enableApiLogging: Defines if you want to print the api calls. This is very helpful for you as a developer
      */
     @objc public func build(
-        localiseFile:String? = nil,
+        localiseFile:TapCheckoutLocalisation? = nil,
         customTheme:TapCheckOutTheme? = nil,
         delegate: CheckoutScreenDelegate? = nil,
         currency:TapCurrencyCode = .USD,
@@ -244,7 +244,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     
     /**
      Used to do the pre steps before initiating a new SDK session
-     - Parameter localiseFile: Please pass the name of the custom localisation file if needed. If not set, the normal and default TAP localisations will be used
+     - Parameter localiseFile: Please pass the name of the custom localisation model if needed. If not set, the normal and default TAP localisations will be used
      - Parameter customTheme: Please pass the tap checkout theme object with the names of your custom theme files if needed. If not set, the normal and default TAP theme will be used
      - Parameter delegate: A protocol to communicate with the Presente tap sheet controller
      - Parameter sdkMode: Defines the mode sandbox or production the sdk will perform this transaction on. Please check [SDKMode](x-source-tag://SDKMode)
@@ -252,7 +252,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      */
     internal func prepareSDK(with sdkMode:SDKMode = .sandbox,
                              delegate:CheckoutScreenDelegate? = nil,
-                             localiseFile:String? = nil,
+                             localiseFile:TapCheckoutLocalisation? = nil,
                              customTheme:TapCheckOutTheme? = nil,
                              enableApiLogging:Bool = true) {
         

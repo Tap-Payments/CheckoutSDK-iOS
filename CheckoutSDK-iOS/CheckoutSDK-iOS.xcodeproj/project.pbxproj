@@ -153,6 +153,7 @@
 		E8EC81C6267F73420080E760 /* TapCheckout+Reset.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC81C5267F73420080E760 /* TapCheckout+Reset.swift */; };
 		E8EDD34A25612A3C00AFC0B3 /* TapIntentRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD34925612A3C00AFC0B3 /* TapIntentRequestModel.swift */; };
 		E8EDD35025612BCD00AFC0B3 /* TapCustomer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EDD34F25612BCD00AFC0B3 /* TapCustomer.swift */; };
+		E8EEFCDF27E3390E00B69A9F /* TapCheckoutLocalisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EEFCDE27E3390E00B69A9F /* TapCheckoutLocalisation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -342,6 +343,7 @@
 		E8EC81C5267F73420080E760 /* TapCheckout+Reset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+Reset.swift"; sourceTree = "<group>"; };
 		E8EDD34925612A3C00AFC0B3 /* TapIntentRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapIntentRequestModel.swift; sourceTree = "<group>"; };
 		E8EDD34F25612BCD00AFC0B3 /* TapCustomer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCustomer.swift; sourceTree = "<group>"; };
+		E8EEFCDE27E3390E00B69A9F /* TapCheckoutLocalisation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckoutLocalisation.swift; sourceTree = "<group>"; };
 		FF4A2E12A9944D1FED9040B6 /* Pods-CheckoutSDK-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutSDK-iOS.debug.xcconfig"; path = "Target Support Files/Pods-CheckoutSDK-iOS/Pods-CheckoutSDK-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -799,6 +801,7 @@
 				E861286E24EAA38A00774BAA /* CurrencyCardsTelecomModel.swift */,
 				E86128B324ED23EF00774BAA /* TapCheckoutExtensions.swift */,
 				E830B7FD24FA451600B62713 /* TapCheckoutConstants.swift */,
+				E8EEFCDE27E3390E00B69A9F /* TapCheckoutLocalisation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1141,6 +1144,7 @@
 				E8EC819F267CFFEC0080E760 /* AddressType.swift in Sources */,
 				E83923942695CFA200421E15 /* TapCheckout+SignInViewHandler.swift in Sources */,
 				E8EC81B8267D03D20080E760 /* TapChargeRequestModel.swift in Sources */,
+				E8EEFCDF27E3390E00B69A9F /* TapCheckoutLocalisation.swift in Sources */,
 				E8844D2A26774B1C0073D777 /* Receipt.swift in Sources */,
 				E87D79C226B32F1700CF001C /* TapLogApplicationModel.swift in Sources */,
 				E8EC81B5267D018B0080E760 /* Acquirer.swift in Sources */,
