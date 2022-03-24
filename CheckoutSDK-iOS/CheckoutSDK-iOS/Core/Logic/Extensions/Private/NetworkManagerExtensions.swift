@@ -42,7 +42,7 @@ internal extension NetworkManager {
     }
     
     /// HTTP headers that contains the device and app info
-    static private var applicationHeaderValue: String {
+    static internal var applicationHeaderValue: String {
         
         var applicationDetails = NetworkManager.applicationStaticDetails()
         

@@ -20,5 +20,117 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E16CE3DE-4A81-4828-B327-85A603EF1A07"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckoutApiCallsExtensions.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "configSDKFromAPI(onCheckOutReady:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "E16CE3DE-4A81-4828-B327-85A603EF1A07 - bff5a677a606619f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.NSURLSessionDataTask&gt;, Swift.Optional&lt;Any&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in CheckoutSDK_iOS.TapCheckout.configSDKFromAPI(onCheckOutReady: () -&gt; ()) -&gt; ()"
+                  moduleName = "CheckoutSDK_iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckoutApiCallsExtensions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "231">
+               </Location>
+               <Location
+                  uuid = "E16CE3DE-4A81-4828-B327-85A603EF1A07 - 6d86851984eb8d4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Optional&lt;__C.NSURLSessionDataTask&gt;, Swift.Optional&lt;Any&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in CheckoutSDK_iOS.TapCheckout.configSDKFromAPI(onCheckOutReady: () -&gt; ()) -&gt; ()"
+                  moduleName = "CheckoutSDK_iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckoutApiCallsExtensions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "231">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "45E9836E-F649-4608-B046-1DF31225035D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckoutApiCallsExtensions.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "configSDKFromAPI(onCheckOutReady:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "45E9836E-F649-4608-B046-1DF31225035D - bff5a677a606663c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.NSURLSessionDataTask&gt;, Swift.Optional&lt;Any&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in CheckoutSDK_iOS.TapCheckout.configSDKFromAPI(onCheckOutReady: () -&gt; ()) -&gt; ()"
+                  moduleName = "CheckoutSDK_iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckoutApiCallsExtensions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "582">
+               </Location>
+               <Location
+                  uuid = "45E9836E-F649-4608-B046-1DF31225035D - 6d86851984eb94b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Optional&lt;__C.NSURLSessionDataTask&gt;, Swift.Optional&lt;Any&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in CheckoutSDK_iOS.TapCheckout.configSDKFromAPI(onCheckOutReady: () -&gt; ()) -&gt; ()"
+                  moduleName = "CheckoutSDK_iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckoutApiCallsExtensions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "582">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D80853CA-3511-4DA8-914D-19A5E3CAB42D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Network/NetworkManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "makeApiCall(routing:resultType:body:httpMethod:urlModel:completion:onError:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
