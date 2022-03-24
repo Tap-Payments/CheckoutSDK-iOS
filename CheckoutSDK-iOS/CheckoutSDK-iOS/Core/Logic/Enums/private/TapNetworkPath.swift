@@ -15,7 +15,9 @@ internal enum TapNetworkPath : String {
     //case IntentAPI = "7b0b86c3-1e22-40f7-bf28-ad0ae58c391d" // case IntentAPI = "5720fa1c-9b7e-4b68-810f-dbb79228405c"
     /// Login to GoPay
     case GoPayLoginAPI = "7ffceaa7-0b86-4a18-88bb-c157c9a27aae"
-    /// Calling INIT api which is the kickstart for a starting a new session and construct a connection with the backend
+    /// Calling CONFIG  api which is the kickstart for a starting a new session and construct a connection with the middleware
+    case ConfigAPI                  = "config"
+    /// Calling INIT api which is the kickstart for a starting a new session, get the merchant data and the payment options
     case InitAPI                    = "init"
     /// Calling PAYMENT OPTIONS api which is needed to have all the info to configure the view models of the checkout SDK
     case PaymentOptionsAPI          = "payment/types/"
