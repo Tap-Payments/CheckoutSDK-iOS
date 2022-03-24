@@ -99,6 +99,8 @@
 		E8845E7C24D851FF009E8B73 /* TapCheckoutBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8845E7B24D851FF009E8B73 /* TapCheckoutBlurView.swift */; };
 		E8845E7E24D85466009E8B73 /* sampleBG.png in Resources */ = {isa = PBXBuildFile; fileRef = E8845E7D24D85466009E8B73 /* sampleBG.png */; };
 		E886B5E427EC5090008C31E7 /* TapConfigResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E886B5E327EC5090008C31E7 /* TapConfigResponseModel.swift */; };
+		E886B5E627EC7216008C31E7 /* TapConfigRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E886B5E527EC7216008C31E7 /* TapConfigRequestModel.swift */; };
+		E886B5E827EC72D9008C31E7 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E886B5E727EC72D9008C31E7 /* Config.swift */; };
 		E89225EA24E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89225E924E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift */; };
 		E8983DCD24EEC3D900C34E50 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CF141924EE8F140036015C /* NetworkManager.swift */; };
 		E8983DCF24F0F7B800C34E50 /* TapNetworkPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8983DCE24F0F7B800C34E50 /* TapNetworkPath.swift */; };
@@ -291,6 +293,8 @@
 		E8845E7B24D851FF009E8B73 /* TapCheckoutBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckoutBlurView.swift; sourceTree = "<group>"; };
 		E8845E7D24D85466009E8B73 /* sampleBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sampleBG.png; sourceTree = "<group>"; };
 		E886B5E327EC5090008C31E7 /* TapConfigResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapConfigResponseModel.swift; sourceTree = "<group>"; };
+		E886B5E527EC7216008C31E7 /* TapConfigRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapConfigRequestModel.swift; sourceTree = "<group>"; };
+		E886B5E727EC72D9008C31E7 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		E89225E924E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+KitsConfigurations.swift"; sourceTree = "<group>"; };
 		E8983DCE24F0F7B800C34E50 /* TapNetworkPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapNetworkPath.swift; sourceTree = "<group>"; };
 		E8983DD024F1469700C34E50 /* TapEntitResponseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapEntitResponseModel.swift; sourceTree = "<group>"; };
@@ -770,6 +774,7 @@
 			isa = PBXGroup;
 			children = (
 				E886B5E327EC5090008C31E7 /* TapConfigResponseModel.swift */,
+				E886B5E527EC7216008C31E7 /* TapConfigRequestModel.swift */,
 			);
 			path = TapConfigRequest;
 			sourceTree = "<group>";
@@ -870,6 +875,7 @@
 				E839216F268F14E200421E15 /* CreateTokenCard.swift */,
 				E839238F2695879800421E15 /* CreateTokenSavedCard.swift */,
 				E89B4F6126A0661A0077B0A6 /* TapLoggingModel.swift */,
+				E886B5E727EC72D9008C31E7 /* Config.swift */,
 			);
 			path = SharedModels;
 			sourceTree = "<group>";
@@ -1186,6 +1192,7 @@
 				E8EC81A1267D00210080E760 /* TokenType.swift in Sources */,
 				E89B4F6226A0661A0077B0A6 /* TapLoggingModel.swift in Sources */,
 				E8844F1D2677A4C50073D777 /* ApiErrorModel.swift in Sources */,
+				E886B5E627EC7216008C31E7 /* TapConfigRequestModel.swift in Sources */,
 				E8844F632678B3130073D777 /* SavedCard.swift in Sources */,
 				E8844F19267794700073D777 /* Merchant.swift in Sources */,
 				E8844F17267793F60073D777 /* Permissions.swift in Sources */,
@@ -1197,6 +1204,7 @@
 				E8392177268F378A00421E15 /* TapBinResponseModel.swift in Sources */,
 				E83921DA26942B4700421E15 /* TapCreateCardVerificationRequestModel.swift in Sources */,
 				E8EC81C2267F57650080E760 /* TapCheckout+TransactionData.swift in Sources */,
+				E886B5E827EC72D9008C31E7 /* Config.swift in Sources */,
 				E8EC81A6267D00C10080E760 /* SourceType.swift in Sources */,
 				E8844F1B267794960073D777 /* InternalSDKSettings.swift in Sources */,
 				E8EC817F267CFB1F0080E760 /* Authenticatable.swift in Sources */,
