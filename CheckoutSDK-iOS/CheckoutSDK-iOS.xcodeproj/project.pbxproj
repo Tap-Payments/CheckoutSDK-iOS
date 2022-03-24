@@ -101,6 +101,7 @@
 		E886B5E427EC5090008C31E7 /* TapConfigResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E886B5E327EC5090008C31E7 /* TapConfigResponseModel.swift */; };
 		E886B5E627EC7216008C31E7 /* TapConfigRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E886B5E527EC7216008C31E7 /* TapConfigRequestModel.swift */; };
 		E886B5E827EC72D9008C31E7 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E886B5E727EC72D9008C31E7 /* Config.swift */; };
+		E886B5EA27EC7349008C31E7 /* Gateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = E886B5E927EC7349008C31E7 /* Gateway.swift */; };
 		E89225EA24E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89225E924E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift */; };
 		E8983DCD24EEC3D900C34E50 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CF141924EE8F140036015C /* NetworkManager.swift */; };
 		E8983DCF24F0F7B800C34E50 /* TapNetworkPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8983DCE24F0F7B800C34E50 /* TapNetworkPath.swift */; };
@@ -295,6 +296,7 @@
 		E886B5E327EC5090008C31E7 /* TapConfigResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapConfigResponseModel.swift; sourceTree = "<group>"; };
 		E886B5E527EC7216008C31E7 /* TapConfigRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapConfigRequestModel.swift; sourceTree = "<group>"; };
 		E886B5E727EC72D9008C31E7 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		E886B5E927EC7349008C31E7 /* Gateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gateway.swift; sourceTree = "<group>"; };
 		E89225E924E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+KitsConfigurations.swift"; sourceTree = "<group>"; };
 		E8983DCE24F0F7B800C34E50 /* TapNetworkPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapNetworkPath.swift; sourceTree = "<group>"; };
 		E8983DD024F1469700C34E50 /* TapEntitResponseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapEntitResponseModel.swift; sourceTree = "<group>"; };
@@ -876,6 +878,7 @@
 				E839238F2695879800421E15 /* CreateTokenSavedCard.swift */,
 				E89B4F6126A0661A0077B0A6 /* TapLoggingModel.swift */,
 				E886B5E727EC72D9008C31E7 /* Config.swift */,
+				E886B5E927EC7349008C31E7 /* Gateway.swift */,
 			);
 			path = SharedModels;
 			sourceTree = "<group>";
@@ -1099,6 +1102,7 @@
 				E8EC8189267CFCCA0080E760 /* Retrievable.swift in Sources */,
 				E8C58B3824E5344700E1F04F /* TapCheckOutTheme.swift in Sources */,
 				E83923BA269A13A400421E15 /* TapCheckout+ApplePayPaymentHandler.swift in Sources */,
+				E886B5EA27EC7349008C31E7 /* Gateway.swift in Sources */,
 				E8844D04267697350073D777 /* Transfer.swift in Sources */,
 				E8EC81B1267D01480080E760 /* TransactionOrder.swift in Sources */,
 				E839212A268D97DA00421E15 /* AuthorizeActionResponse.swift in Sources */,
