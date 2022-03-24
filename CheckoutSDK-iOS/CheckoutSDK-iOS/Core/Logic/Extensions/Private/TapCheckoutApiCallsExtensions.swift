@@ -16,6 +16,22 @@ internal extension TapCheckout {
     
     //MARK:- Methods for making the api calls
     
+    
+    /** Responsible for making the network calls needed to boot the SDK like config then init and payment options
+     - Parameter onCheckoutReady: A callback function to execute when the SDK is ready to boot
+     */
+    func configSDKFromAPI(onCheckOutReady: @escaping () -> () = {}) {
+        // As per the backend logic, we will have to hit INIT then Payment options APIs
+        NetworkManager.shared.makeApiCall(routing: .ConfigAPI, resultType: TapConfigResponseModel.self) { [weak self] (session, result, error) in
+            guard let initModel:TapConfigResponseModel = result as? TapConfigResponseModel else { self?.handleError(error: "Unexpected error when parsing into TapConfigResponseModel")
+                return }
+            // We got the middleware token, now let us init the SDK and get the merchant and payment types details
+            self?.initialiseSDKFromAPI(onCheckOutReady: onCheckOutReady)
+        } onError: { (session, result, errorr) in
+            self.handleError(error: errorr)
+        }
+    }
+    
     /// Responsible for making the network calls needed to boot the SDK like init and payment options
     func initialiseSDKFromAPI(onCheckOutReady: @escaping () -> () = {}) {
         // As per the backend logic, we will have to hit INIT then Payment options APIs
