@@ -47,7 +47,7 @@ internal extension TapCheckout {
     /// Responsible for making the network calls needed to boot the SDK like init and payment options
     func initialiseSDKFromAPI(onCheckOutReady: @escaping () -> () = {}) {
         // As per the backend logic, we will have to hit INIT then Payment options APIs
-        NetworkManager.shared.makeApiCall(routing: .InitAPI, resultType: TapInitResponseModel.self) { [weak self] (session, result, error) in
+        NetworkManager.shared.makeApiCall(routing: .InitAPI, resultType: TapInitResponseModel.self, httpMethod: .POST) { [weak self] (session, result, error) in
             guard let initModel:TapInitResponseModel = result as? TapInitResponseModel else { self?.handleError(error: "Unexpected error when parsing into TapInitResponseModel")
                 return }
             self?.handleInitResponse(initModel: initModel)

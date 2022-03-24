@@ -38,11 +38,16 @@ internal extension NetworkManager {
             result[Constants.HTTPHeaderKey.sessionToken] = sessionToken
         }
         
+        if let middleWareToken = TapCheckout.sharedCheckoutManager().dataHolder.transactionData.configModelResponse?.token {
+            
+            result[Constants.HTTPHeaderKey.token] = "Bearer \(middleWareToken)"
+        }
+        
         return result
     }
     
     /// HTTP headers that contains the device and app info
-    static internal var applicationHeaderValue: String {
+    static var applicationHeaderValue: String {
         
         var applicationDetails = NetworkManager.applicationStaticDetails()
         
@@ -137,6 +142,7 @@ internal extension NetworkManager {
             fileprivate static let application      = "application"
             fileprivate static let sessionToken     = "session_token"
             fileprivate static let contentTypeHeaderName        = "Content-Type"
+            fileprivate static let token                = "token"
             
             //@available(*, unavailable) private init() { }
         }
@@ -144,6 +150,7 @@ internal extension NetworkManager {
         fileprivate struct HTTPHeaderValueKey {
             
             fileprivate static let appID                = "app_id"
+            
             fileprivate static let appLocale                = "app_locale"
             fileprivate static let deviceID                = "device_id"
             fileprivate static let requirer                = "requirer"
