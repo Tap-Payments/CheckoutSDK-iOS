@@ -98,6 +98,7 @@
 		E8845E7924D851E2009E8B73 /* TapCheckoutBlurView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8845E7824D851E2009E8B73 /* TapCheckoutBlurView.xib */; };
 		E8845E7C24D851FF009E8B73 /* TapCheckoutBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8845E7B24D851FF009E8B73 /* TapCheckoutBlurView.swift */; };
 		E8845E7E24D85466009E8B73 /* sampleBG.png in Resources */ = {isa = PBXBuildFile; fileRef = E8845E7D24D85466009E8B73 /* sampleBG.png */; };
+		E886B5E427EC5090008C31E7 /* TapConfigResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E886B5E327EC5090008C31E7 /* TapConfigResponseModel.swift */; };
 		E89225EA24E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89225E924E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift */; };
 		E8983DCD24EEC3D900C34E50 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CF141924EE8F140036015C /* NetworkManager.swift */; };
 		E8983DCF24F0F7B800C34E50 /* TapNetworkPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8983DCE24F0F7B800C34E50 /* TapNetworkPath.swift */; };
@@ -289,6 +290,7 @@
 		E8845E7824D851E2009E8B73 /* TapCheckoutBlurView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TapCheckoutBlurView.xib; sourceTree = "<group>"; };
 		E8845E7B24D851FF009E8B73 /* TapCheckoutBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckoutBlurView.swift; sourceTree = "<group>"; };
 		E8845E7D24D85466009E8B73 /* sampleBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sampleBG.png; sourceTree = "<group>"; };
+		E886B5E327EC5090008C31E7 /* TapConfigResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapConfigResponseModel.swift; sourceTree = "<group>"; };
 		E89225E924E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+KitsConfigurations.swift"; sourceTree = "<group>"; };
 		E8983DCE24F0F7B800C34E50 /* TapNetworkPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapNetworkPath.swift; sourceTree = "<group>"; };
 		E8983DD024F1469700C34E50 /* TapEntitResponseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapEntitResponseModel.swift; sourceTree = "<group>"; };
@@ -764,6 +766,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		E886B5E227EC507C008C31E7 /* TapConfigRequest */ = {
+			isa = PBXGroup;
+			children = (
+				E886B5E327EC5090008C31E7 /* TapConfigResponseModel.swift */,
+			);
+			path = TapConfigRequest;
+			sourceTree = "<group>";
+		};
 		E89225E824E92CC4001D5CAB /* TapCheckout */ = {
 			isa = PBXGroup;
 			children = (
@@ -874,6 +884,7 @@
 		E8EDD3BA256158C700AFC0B3 /* APIRequests */ = {
 			isa = PBXGroup;
 			children = (
+				E886B5E227EC507C008C31E7 /* TapConfigRequest */,
 				E83923C7269D7EB100421E15 /* TapDeleteSavedCardRequest */,
 				E83921DB26942B9300421E15 /* TapCardVerifyRequest */,
 				E83921D626936EC600421E15 /* TapAuthorizeRequestModel */,
@@ -1164,6 +1175,7 @@
 				E8EC8181267CFBAE0080E760 /* Authentication.swift in Sources */,
 				E8EC80F9267C7D470080E760 /* TapCheckout+Calculations.swift in Sources */,
 				E83921DF26942C8000421E15 /* CardVerificationStatus.swift in Sources */,
+				E886B5E427EC5090008C31E7 /* TapConfigResponseModel.swift in Sources */,
 				E8EC81B4267D018B0080E760 /* Response.swift in Sources */,
 				E8EC8199267CFF810080E760 /* TokenizedCard.swift in Sources */,
 				E8845E7024D83D7B009E8B73 /* TapCheckout.swift in Sources */,
