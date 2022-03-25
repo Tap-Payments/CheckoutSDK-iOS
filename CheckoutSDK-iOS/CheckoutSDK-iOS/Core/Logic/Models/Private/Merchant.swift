@@ -29,6 +29,17 @@ internal struct Merchant: Codable {
 		
 		self.identifier	= identifier
 	}
+    
+    
+    /// Initializes merchant with the identifier.
+    ///
+    /// - Parameter logoURL: Merchant logo url.
+    /// - Parameter name: Merchant name
+    internal init(logoURL: String, name: String) {
+        
+        self.name       = name
+        self.logoURL    = logoURL
+    }
 	
     // MARK: - Private -
     
