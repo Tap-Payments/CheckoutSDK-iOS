@@ -32,7 +32,7 @@ internal enum TapNetworkPath : String {
     /// Calling card   which is needed to verify the details of a card
     case cardVerification           = "card/verify/"
     /// Calling charges ap   which is needed to execute and perform a certain charge
-    case charges                    = "charges/"
+    case charges                    = "charge/"
     /// Calling customers api   which is needed to get the customers list
     case customers                  = "customers/"
     /// Calling token api to tokenize
