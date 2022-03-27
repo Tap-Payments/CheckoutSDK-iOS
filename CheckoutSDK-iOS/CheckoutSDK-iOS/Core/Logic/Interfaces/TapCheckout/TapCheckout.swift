@@ -282,7 +282,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         
         let loggedDataModel:TapLogRequestModel = .init(application: .init(), customer: TapCheckout.sharedCheckoutManager().dataHolder.transactionData.customer, merchant: .init(), stack_trace: NetworkManager.shared.loggedApis, error_catgeroy: error?.localizedDescription)
         
-        callLogging(for: loggedDataModel)
+        //callLogging(for: loggedDataModel)
         
         TapCheckout.sharedCheckoutManager().toBeExecutedBlock = {
             TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.checkoutFailed?(with: (error! as NSError))
