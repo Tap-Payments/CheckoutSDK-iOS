@@ -245,10 +245,10 @@ internal extension TapCheckout {
     ///   - completion: Completion that will be called when request finishes.
     func getBINDetails(for binNumber: String, onResponeReady: @escaping (TapBinResponseModel) -> () = {_ in}, onErrorOccured: @escaping(Error)->() = {_ in}) {
         
-        let urlModel = TapURLModel.array(parameters: [binNumber])
+        let bodyModel = ["bin":binNumber]
         
         // Perform the retrieve request with the computed data
-        NetworkManager.shared.makeApiCall(routing: TapNetworkPath.bin, resultType: TapBinResponseModel.self, body: .none,httpMethod: .GET, urlModel: urlModel) { (session, result, error) in
+        NetworkManager.shared.makeApiCall(routing: TapNetworkPath.bin, resultType: TapBinResponseModel.self, body: .init(body: bodyModel), httpMethod: .POST) { (session, result, error) in
             // Double check all went fine
             guard let parsedResponse:TapBinResponseModel = result as? TapBinResponseModel else {
                 onErrorOccured("Unexpected error parsing bin details")

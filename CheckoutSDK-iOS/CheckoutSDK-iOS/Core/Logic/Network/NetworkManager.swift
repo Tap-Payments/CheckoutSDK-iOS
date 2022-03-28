@@ -26,7 +26,7 @@ internal class NetworkManager: NSObject {
     }
     private var networkManager: TapNetworkManager
     /// The server base url
-    private let baseURL = "https://checkout-mw.dev.tap.company/api/checkout/"
+    private let baseURL = "https://checkout-mw.dev.tap.company/api/"
     /// Defines if loging api calls to server
     public var enableLogging = false
     /// Defines if logging apu calls to console

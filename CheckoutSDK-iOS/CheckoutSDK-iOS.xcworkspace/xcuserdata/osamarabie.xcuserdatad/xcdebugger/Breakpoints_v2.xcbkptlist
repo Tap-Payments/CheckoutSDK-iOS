@@ -7,65 +7,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "31591428-FE43-4EDB-935D-0223E75D8F9C"
+            uuid = "0D0AC9A1-3887-4BCB-807E-C07FEDAB2B93"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pods/TapCardVlidatorKit-iOS/TapCardVlidatorKit-iOS/TapCardVlidatorKit-iOS/Core/private/CardBINRange.swift"
+            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapCardTelecomPayment/Views/TapCardTelecomPaymentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "mostSpecific(for:preferredBrands:)"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
+            landmarkName = "brandDetected(for:with:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0C0519DF-093B-4FF0-9A42-8E0B7AE140CF"
+            uuid = "B629179F-4616-4746-BF89-630CD216ABD0"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CheckoutSDK-iOS/Core/Logic/Network/Models/APIRequests/TapInitRequest/TapInitResponseModel.swift"
+            filePath = "Pods/TapCardVlidatorKit-iOS/TapCardVlidatorKit-iOS/TapCardVlidatorKit-iOS/Core/public/CardValidator.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
-            landmarkName = "init(from:)"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "validate(cardNumber:preferredBrands:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "0C0519DF-093B-4FF0-9A42-8E0B7AE140CF - 8ed56a5f379bfc63"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "CheckoutSDK_iOS.SDKSettings.init(from: Swift.Decoder) throws -&gt; CheckoutSDK_iOS.SDKSettings"
-                  moduleName = "CheckoutSDK_iOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/CheckoutSDK-iOS/Core/Logic/Network/Models/APIRequests/TapInitRequest/TapInitResponseModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "65"
-                  endingLineNumber = "65"
-                  offsetFromSymbolStart = "430">
-               </Location>
-               <Location
-                  uuid = "0C0519DF-093B-4FF0-9A42-8E0B7AE140CF - 8ed56a5f379bfc63"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "CheckoutSDK_iOS.SDKSettings.init(from: Swift.Decoder) throws -&gt; CheckoutSDK_iOS.SDKSettings"
-                  moduleName = "CheckoutSDK_iOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/CheckoutSDK-iOS/Core/Logic/Network/Models/APIRequests/TapInitRequest/TapInitResponseModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "65"
-                  endingLineNumber = "65"
-                  offsetFromSymbolStart = "318">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "55449356-87ED-4529-AC34-EA79DB46B5F6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+UIViewModelsHandling.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
+            landmarkName = "parsePaymentOptionsResponse()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

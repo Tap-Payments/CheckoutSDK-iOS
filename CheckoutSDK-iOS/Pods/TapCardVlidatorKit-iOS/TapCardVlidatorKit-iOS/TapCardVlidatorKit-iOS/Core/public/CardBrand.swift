@@ -91,7 +91,7 @@ import Foundation
         private static let aiywaLoyalty     = ["Aiywa Loyalty"]
         private static let americanExpress  = ["AMERICAN_EXPRESS", "AMEX"]
         private static let benefit          = ["BENEFIT"]
-        private static let careemPay        = ["Careem Pay","VISA","MASTERCARD","MAESTRO","VISA_ELECTRON"]
+        private static let careemPay        = ["Careem Pay"]
         private static let cardGuard        = ["CARDGUARD"]
         private static let cbk              = ["CBK"]
         private static let dankort          = ["DANKORT"]
