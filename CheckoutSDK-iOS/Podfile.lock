@@ -29,7 +29,7 @@ PODS:
   - TapCardScanner-iOS (1.0.12):
     - CommonDataModelsKit-iOS (~> 1.0.1)
     - PayCardsRecognizer (~> 1.1.7)
-  - TapCardVlidatorKit-iOS (1.0.14)
+  - TapCardVlidatorKit-iOS (1.0.15)
   - TapFontKit-iOS (0.0.9):
     - TapSwiftFixesV2
   - TapKeychain (1.0.5)
@@ -108,7 +108,7 @@ SPEC CHECKSUMS:
   TapApplicationV2: aee3d046c4272778431e1535de6cab34e1269f8c
   TapCardInputKit-iOS: fc3bd4fbac14b22fd315437ca2c8930d87cc8dcf
   TapCardScanner-iOS: baba47bff7daa3db8cb9e86e60fc412f1322fbc6
-  TapCardVlidatorKit-iOS: fbf1c9adc629a0d822ca429c2e51feda9684a45b
+  TapCardVlidatorKit-iOS: 3cf41059e6496f02ca1c2a78a8cd000d3643cd13
   TapFontKit-iOS: 51ed2ddbe9f2b5ece1cc587ed45af9147e5c6fc1
   TapKeychain: 143aa70bb2d1b094e0298e944660264034c79849
   TapNetworkKit-iOS: d1a6110b4f43e9b1cceafe469cf6cc3fb775a2cf

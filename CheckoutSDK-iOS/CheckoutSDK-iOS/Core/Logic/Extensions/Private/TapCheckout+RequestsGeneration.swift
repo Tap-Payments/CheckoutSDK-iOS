@@ -13,6 +13,16 @@ import CommonDataModelsKit_iOS
 /// Used to do logic for creating the api requests models
 extension TapCheckout {
     
+    
+    /**
+     Creates the config api request
+     - Returns:The config api request
+     */
+    func createConfigRequestModel() -> TapConfigRequestModel {
+        // the config request will include the merchant id, secret key and the static headers
+        return TapConfigRequestModel(gateway: .init(config: .init(application: NetworkManager.applicationHeaderValue), merchantId: dataHolder.transactionData.tapMerchantID, publicKey: NetworkManager.secretKey()))
+    }
+    
     /**
      Creates the payment option api request
      - Returns:The payment option api request

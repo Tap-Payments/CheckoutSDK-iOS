@@ -210,7 +210,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,swipeDownToDismiss:swipeDownToDismiss,paymentType:paymentType,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID,taxes: taxes, shipping: shipping, allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor,require3DSecure:require3DSecure,receiptSettings:receiptSettings, authorizeAction: authorizeAction,allowsToSaveSameCardMoreThanOnce: allowsToSaveSameCardMoreThanOnce, enableSaveCard: enableSaveCard, isSaveCardSwitchOnByDefault: isSaveCardSwitchOnByDefault)
         
         // Initiate the needed calls to server to start the session
-        initialiseSDKFromAPI {  [weak self] in
+        configSDKFromAPI() {  [weak self] in
             //guard let nonNullSelf = self else { return }
             self!.configureBottomSheet()
             onCheckOutReady(self!)
@@ -282,7 +282,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         
         let loggedDataModel:TapLogRequestModel = .init(application: .init(), customer: TapCheckout.sharedCheckoutManager().dataHolder.transactionData.customer, merchant: .init(), stack_trace: NetworkManager.shared.loggedApis, error_catgeroy: error?.localizedDescription)
         
-        callLogging(for: loggedDataModel)
+        //callLogging(for: loggedDataModel)
         
         TapCheckout.sharedCheckoutManager().toBeExecutedBlock = {
             TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.checkoutFailed?(with: (error! as NSError))

@@ -173,6 +173,9 @@ internal class TransactionDataHolder {
     
     // MARK:- API Responses Variables
     
+    /// Represents the data loaded from the Config api on checkout start
+    var configModelResponse:TapConfigResponseModel?
+    
     /// Represents the data loaded from the Init api on checkout start
     var intitModelResponse:TapInitResponseModel?{
         didSet{

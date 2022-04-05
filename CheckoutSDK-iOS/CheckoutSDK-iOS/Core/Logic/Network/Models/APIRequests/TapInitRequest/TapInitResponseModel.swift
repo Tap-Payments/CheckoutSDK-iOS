@@ -46,6 +46,8 @@ internal struct SDKSettings {
         
         case isLiveMode             = "live_mode"
         case permissions            = "permissions"
+        case merchantLogo           = "logo"
+        case merchantName           = "name"
         case encryptionKey          = "encryption_key"
         case deviceID               = "device_id"
         case merchant               = "merchant"
@@ -64,7 +66,9 @@ extension SDKSettings: Decodable {
         
         let isLiveMode              = try container.decode(Bool.self,                   forKey: .isLiveMode)
         let encryptionKey           = try container.decode(String.self,                 forKey: .encryptionKey)
-        let merchant                = try container.decode(Merchant.self,               forKey: .merchant)
+        let merchantName            = try container.decode(String.self,                 forKey: .merchantName)
+        let merchantLogo            = try container.decode(String.self,                 forKey: .merchantLogo)
+        let merchant                = Merchant(logoURL: merchantLogo, name: merchantName)
         let verifiedApplication     = try container.decode(Bool.self,                   forKey: .verifiedApplication)
         let internalSettings        = try container.decode(InternalSDKSettings.self,    forKey: .internalSettings)
         
@@ -102,6 +106,6 @@ internal struct TapInitResponseModel:Decodable {
     
     private enum CodingKeys: String, CodingKey {
         
-        case data = "data"
+        case data = "merchant"
     }
 }
