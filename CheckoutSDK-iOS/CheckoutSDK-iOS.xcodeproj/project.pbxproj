@@ -92,7 +92,7 @@
 		E8844F692678BA530073D777 /* TapPaymentOptionsRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8844F682678BA530073D777 /* TapPaymentOptionsRequestModel.swift */; };
 		E88450EC267B33E20073D777 /* TapCheckout+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88450EB267B33E20073D777 /* TapCheckout+Utils.swift */; };
 		E8845E6A24D835B1009E8B73 /* CheckoutSDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8811AD624D4283C00DE95D1 /* CheckoutSDK_iOS.framework */; };
-		E8845E6B24D835B1009E8B73 /* CheckoutSDK_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E8811AD624D4283C00DE95D1 /* CheckoutSDK_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E8845E6B24D835B1009E8B73 /* CheckoutSDK_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E8811AD624D4283C00DE95D1 /* CheckoutSDK_iOS.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E8845E7024D83D7B009E8B73 /* TapCheckout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8845E6F24D83D7B009E8B73 /* TapCheckout.swift */; };
 		E8845E7224D83FA3009E8B73 /* TapBottomCheckoutControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8845E7124D83FA3009E8B73 /* TapBottomCheckoutControllerViewController.swift */; };
 		E8845E7924D851E2009E8B73 /* TapCheckoutBlurView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8845E7824D851E2009E8B73 /* TapCheckoutBlurView.xib */; };
@@ -1460,7 +1460,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = CheckoutExample/CheckoutExample.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = G46S76PUH4;
 				INFOPLIST_FILE = CheckoutExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1483,7 +1483,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = CheckoutExample/CheckoutExample.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = G46S76PUH4;
 				INFOPLIST_FILE = CheckoutExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;

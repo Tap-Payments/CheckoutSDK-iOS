@@ -495,11 +495,9 @@ extension TapBottomCheckoutControllerViewController: TapSwitchViewModelDelegate 
         print("current card State: \(cardState.rawValue)")
     }
     
-    
-    func didChangeState(state: TapSwitchEnum) {
+    func didChangeState(state: TapSwitchEnum, enabledSwitches:TapSwitchEnum) {
         
-        
-        changeBlur(to: state != .none)
+        changeBlur(to: state != .none && enabledSwitches == .all)
         
         if state != .none {
             self.tapActionButtonViewModel.buttonStatus = .SaveValidPayment

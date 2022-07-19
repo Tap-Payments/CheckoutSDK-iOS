@@ -67,10 +67,15 @@ class ViewController: UIViewController {
     
     func startSDKClicked() {
         tapPayButtonViewModel.startLoading()
+        // Tell the chekout to configure its resources
         let checkout:TapCheckout = .init()
         TapCheckout.flippingStatus = .FlipOnLoadWithFlippingBack
+        // Checkout's localization. Currently supporting en and ar
         TapCheckout.localeIdentifier = localeID
-        TapCheckout.secretKey = .init(sandbox: "sk_test_cvSHaplrPNkJO7dhoUxDYjqA", production: "sk_live_V4UDhitI0r7sFwHCfNB6xMKp")
+        // Checkout's sample keys. Make sure
+        // you use yours before going live
+        TapCheckout.secretKey = .init(sandbox: "sk_test_cvSHaplrPNkJO7dhoUxDYjqA",
+                                      production: "sk_live_V4UDhitI0r7sFwHCfNB6xMKp")
         
         //customTheme = .init(with: "https://menoalmotasel.online/RedLightTheme.json", and: "https://menoalmotasel.online/RedDarkTheme.json", from: .RemoteJsonFile)
         
@@ -80,20 +85,20 @@ class ViewController: UIViewController {
             delegate: self,
             currency: selectedCurrency,
             amount: amount,
-            items: [.init(title: "item1", description: "Desc1", price: 50, quantity: .init(value: 1, unitOfMeasurement: .units), discount: nil, taxes: nil, totalAmount: 0),.init(title: "item2", description: "Desc2", price: 50, quantity: .init(value: 1, unitOfMeasurement: .units), discount: nil, taxes: nil, totalAmount: 0)],
+            items: [.init(title: "item1", description: "Desc1", price: 50, quantity: .init(value: 2, unitOfMeasurement: .units), discount: nil, taxes: nil, totalAmount: 0),.init(title: "item2", description: "Desc2", price: 50, quantity: .init(value: 1, unitOfMeasurement: .units), discount: .init(type: .Percentage, value: 10, minFee: 0, maxFee: 50), taxes: nil, totalAmount: 0)],
             swipeDownToDismiss: swipeToDismiss,
             paymentType: paymentTypes.first ?? .All,
             closeButtonStyle: closeButtonTitleStyle,
             showDragHandler:showDragHandler,
             transactionMode: .purchase,
-            customer: /*try! .init(identifier: "cus_TS031720211012r4RM0403926"),*/try! .init(identifier: "cus_TS075220212320q2RD0707283"),
+            customer: try! .init(identifier: "cus_TS075220212320q2RD0707283")/* try! .init(emailAddress: .with("osamaguc@gmail.com"), phoneNumber: nil, name: "Osama Ahmed Helmy")*/,
             tapMerchantID: "1124340",
-            //taxes: [.init(title: "VAT", amount:AmountModificatorModel.init(type: .Percentage, value: 2, minFee: 1, maxFee: 20))],
-            //shipping: [.init(name: "Shipping", amount: 10)],
-            require3DSecure: false,
+            taxes: [.init(title: "VAT", amount:AmountModificatorModel.init(type: .Percentage, value: 2, minFee: 1, maxFee: 20))],
+            shipping: [.init(name: "Shipping", amount: 10)],
+            require3DSecure: true,
             sdkMode: .sandbox,
             onCheckOutReady: {[weak self] tapCheckOut in
-                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(0)) {
+                DispatchQueue.main.async() {
                     tapCheckOut.start(presentIn: self)
                 }
             })
