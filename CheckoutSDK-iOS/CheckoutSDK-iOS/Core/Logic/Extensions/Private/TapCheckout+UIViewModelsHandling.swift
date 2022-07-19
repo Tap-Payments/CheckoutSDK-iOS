@@ -97,15 +97,25 @@ internal extension TapCheckout {
         // Decide the style of the apple pay button, whether we need to show as setup or the normal pay with apple button
         let applePayButtonStyle:TapApplePayButtonType = (PKPaymentAuthorizationController.canMakePayments() && PKPaymentAuthorizationController.canMakePayments(usingNetworks: applePaymentOption.applePayNetworkMapper())) ? .AppleLogoOnly : .SetupApplePay
         
+        let applePayItems:[PKPaymentSummaryItem] = generateApplePaymentItems()
+        
         applePayChipViewModel.configureApplePayRequest(currencyCode: dataHolder.transactionData.transactionUserCurrencyValue.currency,
                                                        paymentNetworks: applePaymentOption.applePayNetworkMapper().map{ $0.rawValue },
                                                        applePayButtonType: applePayButtonStyle,
-                                                       paymentItems: dataHolder.transactionData.transactionItemsValue.toApplePayItems(convertFromCurrency: dataHolder.transactionData.transactionCurrencyValue, convertToCurrenct: dataHolder.transactionData.transactionUserCurrencyValue),
+                                                       paymentItems: applePayItems,
                                                        amount: dataHolder.transactionData.transactionUserCurrencyValue.amount,
                                                        merchantID: dataHolder.transactionData.applePayMerchantID)
         
     }
     
+    /// Converts Tap items, shipping and Taxs to displayable apple pay items
+    func generateApplePaymentItems() -> [PKPaymentSummaryItem] {
+        // convert the payment items
+        var items:[PKPaymentSummaryItem] = dataHolder.transactionData.transactionItemsValue.toApplePayItems(convertFromCurrency: dataHolder.transactionData.transactionCurrencyValue, convertToCurrenct: dataHolder.transactionData.transactionUserCurrencyValue)
+        // convert any shipping items if any
+        items.append(contentsOf: dataHolder.transactionData.shipping.toApplePayShippings(convertFromCurrency: dataHolder.transactionData.transactionCurrencyValue, convertToCurrenct: dataHolder.transactionData.transactionUserCurrencyValue))
+        return items
+    }
     
     /// We need to highlight the default currency of the user didn't select a new currency other than the default currency
     func highlightDefaultCurrency() {

@@ -54,6 +54,7 @@
 		E861286D24EA7F7F00774BAA /* CurrencyChipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E861286C24EA7F7F00774BAA /* CurrencyChipModel.swift */; };
 		E861286F24EAA38A00774BAA /* CurrencyCardsTelecomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E861286E24EAA38A00774BAA /* CurrencyCardsTelecomModel.swift */; };
 		E86128B424ED23EF00774BAA /* TapCheckoutExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86128B324ED23EF00774BAA /* TapCheckoutExtensions.swift */; };
+		E87684E82886D83E0008D540 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E87684E72886D83E0008D540 /* PassKit.framework */; };
 		E87D79BE26B3227500CF001C /* TapLogRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87D79BD26B3227500CF001C /* TapLogRequest.swift */; };
 		E87D79C226B32F1700CF001C /* TapLogApplicationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87D79C126B32F1700CF001C /* TapLogApplicationModel.swift */; };
 		E8811ADB24D4283C00DE95D1 /* CheckoutSDK_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = E8811AD924D4283C00DE95D1 /* CheckoutSDK_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -247,6 +248,7 @@
 		E861286E24EAA38A00774BAA /* CurrencyCardsTelecomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCardsTelecomModel.swift; sourceTree = "<group>"; };
 		E86128B324ED23EF00774BAA /* TapCheckoutExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckoutExtensions.swift; sourceTree = "<group>"; };
 		E86128B524ED2E3B00774BAA /* CheckoutExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CheckoutExample.entitlements; sourceTree = "<group>"; };
+		E87684E72886D83E0008D540 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		E87D79BD26B3227500CF001C /* TapLogRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapLogRequest.swift; sourceTree = "<group>"; };
 		E87D79C126B32F1700CF001C /* TapLogApplicationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapLogApplicationModel.swift; sourceTree = "<group>"; };
 		E8811AD624D4283C00DE95D1 /* CheckoutSDK_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CheckoutSDK_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -368,6 +370,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E87684E82886D83E0008D540 /* PassKit.framework in Frameworks */,
 				5B453A3F4FF0BE6BFE5129CB /* Pods_CheckoutExample.framework in Frameworks */,
 				E8845E6A24D835B1009E8B73 /* CheckoutSDK_iOS.framework in Frameworks */,
 			);
@@ -379,6 +382,7 @@
 		033EB94C586C538DA9A8D64B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E87684E72886D83E0008D540 /* PassKit.framework */,
 				9641A958A3B669E7ED3F097E /* Pods_CheckoutExample.framework */,
 				21BD535F94169C44719615A6 /* Pods_CheckoutSDK_iOS.framework */,
 			);

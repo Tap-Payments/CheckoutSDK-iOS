@@ -61,7 +61,42 @@ internal extension Array where Element: ItemModel {
      - Returns: Correctly Apple Pay payment items
      */
     func toApplePayItems(convertFromCurrency:AmountedCurrency? = nil,convertToCurrenct:AmountedCurrency? = nil) -> [PKPaymentSummaryItem] {
-        return self.map{ PKPaymentSummaryItem.init(label: $0.title ?? "Item", amount: NSDecimalNumber(value: $0.itemFinalPrice(convertFromCurrency: convertFromCurrency, convertToCurrenct: convertToCurrenct))) }
+        return self.map{ PKPaymentSummaryItem.init(label: $0.title ?? "Item", amount: NSDecimalNumber(value: ($0.itemFinalPrice(convertFromCurrency: convertFromCurrency, convertToCurrenct: convertToCurrenct)).rounded(toPlaces: convertToCurrenct?.decimalDigits))) }
+        
+        //return self.map{ PKPaymentSummaryItem.init(label: $0.title ?? "Item", amount: NSDecimalNumber(value: 1)) }
+    }
+}
+
+
+internal extension Array where Element: Shipping {
+   
+    /**
+     Extended method to easily covert list of tap payment shippings to Apple pay payment items
+     - Parameter convertFromCurrency: The original currency if needed to convert from
+     - Parameter convertToCurrenct: The new currency if needed to convert to
+     - Returns: Correctly Apple Pay payment items
+     */
+    func toApplePayShippings(convertFromCurrency:AmountedCurrency? = nil,convertToCurrenct:AmountedCurrency? = nil) -> [PKPaymentSummaryItem] {
+        
+        guard let convertToCurrency = convertToCurrenct,
+        let convertFromCurrency = convertFromCurrency else {
+            return []
+        }
+        
+        return self.map{ PKPaymentSummaryItem.init(label: $0.name, amount: NSDecimalNumber(value: (convertToCurrency.currency.convert(from: convertFromCurrency.currency, for: NSDecimalNumber(decimal:$0.amount).doubleValue)).rounded(toPlaces: convertToCurrency.decimalDigits))) }
+    }
+}
+
+
+extension Double {
+    /// Rounds the double to decimal places value
+    func rounded(toPlaces places:Int?) -> Double {
+        guard let places = places else {
+            return self
+        }
+
+        let divisor = pow(10.0, Double(places))
+        return (self * divisor).rounded() / divisor
     }
 }
 

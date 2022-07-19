@@ -93,8 +93,8 @@ class ViewController: UIViewController {
             transactionMode: .purchase,
             customer: try! .init(identifier: "cus_TS075220212320q2RD0707283")/* try! .init(emailAddress: .with("osamaguc@gmail.com"), phoneNumber: nil, name: "Osama Ahmed Helmy")*/,
             tapMerchantID: "1124340",
-            taxes: [.init(title: "VAT", amount:AmountModificatorModel.init(type: .Percentage, value: 2, minFee: 1, maxFee: 20))],
-            shipping: [.init(name: "Shipping", amount: 10)],
+            taxes: [],
+            shipping: [.init(name: "Shipping to tap customer", amount: 10)],
             require3DSecure: true,
             sdkMode: .sandbox,
             onCheckOutReady: {[weak self] tapCheckOut in
