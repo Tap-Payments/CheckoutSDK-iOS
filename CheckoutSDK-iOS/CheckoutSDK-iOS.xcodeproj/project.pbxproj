@@ -110,6 +110,8 @@
 		E8983DD124F1469700C34E50 /* TapEntitResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8983DD024F1469700C34E50 /* TapEntitResponseModel.swift */; };
 		E89B4F6226A0661A0077B0A6 /* TapLoggingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89B4F6126A0661A0077B0A6 /* TapLoggingModel.swift */; };
 		E89B4F8A26A21B3B0077B0A6 /* TapCheckout+CDNUrlsGeneration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89B4F8926A21B3B0077B0A6 /* TapCheckout+CDNUrlsGeneration.swift */; };
+		E8A262C9288D856000143C50 /* CreateTaxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A262C8288D856000143C50 /* CreateTaxViewController.swift */; };
+		E8A262CB288D904B00143C50 /* CreateItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A262CA288D904B00143C50 /* CreateItemViewController.swift */; };
 		E8C2052624E3FEFA006653CA /* TapCheckoutFlipStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C2052524E3FEFA006653CA /* TapCheckoutFlipStatus.swift */; };
 		E8C2052824E40E95006653CA /* CustomLocalisation.json in Resources */ = {isa = PBXBuildFile; fileRef = E8C2052724E40E95006653CA /* CustomLocalisation.json */; };
 		E8C58B3824E5344700E1F04F /* TapCheckOutTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C58B3724E5344700E1F04F /* TapCheckOutTheme.swift */; };
@@ -306,6 +308,8 @@
 		E8983DD024F1469700C34E50 /* TapEntitResponseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapEntitResponseModel.swift; sourceTree = "<group>"; };
 		E89B4F6126A0661A0077B0A6 /* TapLoggingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapLoggingModel.swift; sourceTree = "<group>"; };
 		E89B4F8926A21B3B0077B0A6 /* TapCheckout+CDNUrlsGeneration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+CDNUrlsGeneration.swift"; sourceTree = "<group>"; };
+		E8A262C8288D856000143C50 /* CreateTaxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaxViewController.swift; sourceTree = "<group>"; };
+		E8A262CA288D904B00143C50 /* CreateItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateItemViewController.swift; sourceTree = "<group>"; };
 		E8C2052524E3FEFA006653CA /* TapCheckoutFlipStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckoutFlipStatus.swift; sourceTree = "<group>"; };
 		E8C2052724E40E95006653CA /* CustomLocalisation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CustomLocalisation.json; sourceTree = "<group>"; };
 		E8C58B3724E5344700E1F04F /* TapCheckOutTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckOutTheme.swift; sourceTree = "<group>"; };
@@ -434,6 +438,8 @@
 			children = (
 				620965F424E41F1E00BD9985 /* SettingsViewController.swift */,
 				628D7D172504E6D1007D6A7F /* SettingsSectionEnum.swift */,
+				E8A262C8288D856000143C50 /* CreateTaxViewController.swift */,
+				E8A262CA288D904B00143C50 /* CreateItemViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1229,6 +1235,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8A262CB288D904B00143C50 /* CreateItemViewController.swift in Sources */,
 				E83FD08928888F7E00057F22 /* CreateCustomerViewController.swift in Sources */,
 				62E4415B24FD132C00B0F87C /* UserDefaultsHelper.swift in Sources */,
 				62B45FA124EBD6680094FB4B /* FormViewController.swift in Sources */,
@@ -1243,6 +1250,7 @@
 				62B45FA724EBE2210094FB4B /* TableViewController.swift in Sources */,
 				620965F524E41F1E00BD9985 /* SettingsViewController.swift in Sources */,
 				620965F824E42ED800BD9985 /* SettingsDelegate.swift in Sources */,
+				E8A262C9288D856000143C50 /* CreateTaxViewController.swift in Sources */,
 				62570A1024EA6F2500274C2C /* TapSettings.swift in Sources */,
 				62B45FA524EBE19B0094FB4B /* AddItemViewController.swift in Sources */,
 				628D7D182504E6D1007D6A7F /* SettingsSectionEnum.swift in Sources */,

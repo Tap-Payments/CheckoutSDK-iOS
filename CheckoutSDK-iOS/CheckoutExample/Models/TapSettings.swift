@@ -54,7 +54,8 @@ import CheckoutSDK_iOS
     private let closeButtonTitleFeatureSevedKey = "closeButtonTitleFeatureSevedKey_settings_key"
     private let paymentTypesSevedKey = "paymentTypes_settings_key"
     private let customerSevedKey = "customer_settings_key"
-
+    static let itemsSaveKey = "itemss_settings_key"
+    
     var language: String {
         didSet { UserDefaults.standard.set(language, forKey: languageSevedKey)
             onChangeBlock?()

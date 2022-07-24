@@ -46,6 +46,7 @@ class ViewController: UIViewController {
         self.hideKeyboardWhenTappedAround()
         // Do any additional setup after loading the view.
         amountTextField.delegate = self
+        
         //TapLocalisationManager.shared.localisationLocale = "en"
         //TapThemeManager.setDefaultTapTheme()
         adjustTapButton()
@@ -54,6 +55,21 @@ class ViewController: UIViewController {
         paymentItemsTableView.register(UINib(nibName: "ItemTableViewCell", bundle: nil), forCellReuseIdentifier: "ItemTableViewCell")
         paymentItemsTableView.delegate = self
         paymentItemsTableView.dataSource = self
+        
+        loadItems()
+    }
+    
+    func loadItems() {
+        items = []
+        
+        if let data = UserDefaults.standard.value(forKey:TapSettings.itemsSaveKey) as? Data {
+            do {
+                items = try PropertyListDecoder().decode([ItemModel].self, from: data)
+            } catch {
+                print("error paymentTypes: \(error.localizedDescription)")
+            }
+        }
+        self.paymentItemsTableView.reloadData()
     }
     
     func adjustTapButton() {
@@ -112,10 +128,9 @@ class ViewController: UIViewController {
         present(settingsVC, animated: true, completion: nil)
     }
     @IBAction func addItemsClicked(_ sender: Any) {
-        let addItemsVC = AddItemViewController()
-        addItemsVC.delegate = self
-        let addItemsNav = UINavigationController(rootViewController: addItemsVC)
-        present(addItemsNav, animated: true, completion: nil)
+        let viewController:CreateItemViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "CreateItemViewController") as! CreateItemViewController
+        viewController.delegate = self
+        present(viewController, animated: true)
     }
 }
 
@@ -188,7 +203,7 @@ extension ViewController:UITextFieldDelegate {
     }
 }
 
-extension ViewController: UITableViewDataSource, UITableViewDelegate, AddItemViewControllerDelegate {
+extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
@@ -199,12 +214,6 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate, AddItemVie
         return cell
     }
     
-    
-    func addNewItem(with itemModel: ItemModel) {
-        items.append(itemModel)
-        self.paymentItemsTableView.reloadData()
-    }
-    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -213,11 +222,22 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate, AddItemVie
         if (editingStyle == .delete) {
             // handle delete (by removing the data from your array and updating the tableview)
             items.remove(at: indexPath.row)
+            UserDefaults.standard.set(try! PropertyListEncoder().encode(items), forKey: TapSettings.itemsSaveKey)
+            UserDefaults.standard.synchronize()
+            
             tableView.beginUpdates()
             tableView.deleteRows(at: [indexPath], with: .fade)
             tableView.endUpdates()
         }
     }
+    
+}
+
+extension ViewController: CreateItemViewControllerDelegate {
+    func itemAdded(with item: ItemModel) {
+        loadItems()
+    }
+    
     
 }
 
@@ -234,3 +254,5 @@ extension UIViewController {
         view.endEditing(true)
     }
 }
+
+

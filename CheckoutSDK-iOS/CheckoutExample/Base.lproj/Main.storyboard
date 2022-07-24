@@ -366,10 +366,10 @@
             </objects>
             <point key="canvasLocation" x="2597" y="819"/>
         </scene>
-        <!--View Controller-->
+        <!--Create Item View Controller-->
         <scene sceneID="hxf-6I-zda">
             <objects>
-                <viewController id="RJn-Pi-bNU" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateItemViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RJn-Pi-bNU" customClass="CreateItemViewController" customModule="CheckoutExample" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XOE-bH-Qny">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -398,25 +398,29 @@
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="50" translatesAutoresizingMaskIntoConstraints="NO" id="Fx9-o9-DTo">
                                 <rect key="frame" x="100" y="147.5" width="280.5" height="31"/>
+                                <connections>
+                                    <action selector="quantitySliderChanged:" destination="RJn-Pi-bNU" eventType="valueChanged" id="tpw-qo-o7X"/>
+                                </connections>
                             </slider>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Item price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gUw-cX-yYG">
-                                <rect key="frame" x="20" y="193" width="374" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="2" translatesAutoresizingMaskIntoConstraints="NO" id="gE7-gQ-RyB">
-                                <rect key="frame" x="20" y="247" width="374" height="32"/>
+                                <rect key="frame" x="20" y="247.5" width="374" height="32"/>
                                 <segments>
                                     <segment title="Fixed discount"/>
                                     <segment title="Percent discount"/>
                                     <segment title="None"/>
                                 </segments>
+                                <connections>
+                                    <action selector="discountSegmentChanged:" destination="RJn-Pi-bNU" eventType="valueChanged" id="ToR-M8-XTG"/>
+                                </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="len-SS-zlw">
-                                <rect key="frame" x="20" y="286" width="374" height="35"/>
+                                <rect key="frame" x="20" y="286.5" width="374" height="35"/>
                                 <subviews>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="99" translatesAutoresizingMaskIntoConstraints="NO" id="UY6-Rd-yuv">
                                         <rect key="frame" x="6" y="2.5" width="318" height="31"/>
+                                        <connections>
+                                            <action selector="discountSliderChanged:" destination="RJn-Pi-bNU" eventType="valueChanged" id="XOt-yF-ztB"/>
+                                        </connections>
                                     </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qTk-cS-Lgg">
                                         <rect key="frame" x="330" y="7" width="36" height="21"/>
@@ -435,25 +439,47 @@
                                     <constraint firstAttribute="trailing" secondItem="qTk-cS-Lgg" secondAttribute="trailing" constant="8" id="e67-OW-1xx"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tax:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UKf-Ue-rUp">
-                                <rect key="frame" x="20" y="329" width="31" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tax(0):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UKf-Ue-rUp">
+                                <rect key="frame" x="20" y="329.5" width="54" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H5a-od-msi">
-                                <rect key="frame" x="344" y="324" width="50" height="31"/>
+                                <rect key="frame" x="344" y="324.5" width="50" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Add"/>
                                 <connections>
-                                    <segue destination="ImV-YP-RaO" kind="presentation" id="aJ4-6j-W87"/>
+                                    <action selector="addTaxClicked:" destination="RJn-Pi-bNU" eventType="touchUpInside" id="HLI-Rn-T5v"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nbT-ng-Z5D">
-                                <rect key="frame" x="166" y="370" width="82" height="31"/>
+                                <rect key="frame" x="166" y="370.5" width="82" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Add item"/>
+                                <connections>
+                                    <action selector="addItemClicked:" destination="RJn-Pi-bNU" eventType="touchUpInside" id="7tM-ui-U4z"/>
+                                </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8KO-c3-nH1">
+                                <rect key="frame" x="20" y="202" width="48" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ged-x2-IPr">
+                                <rect key="frame" x="386.5" y="202" width="7.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Lko-GA-SgE">
+                                <rect key="frame" x="74" y="197.5" width="306.5" height="31"/>
+                                <connections>
+                                    <action selector="priceSliderChanged:" destination="RJn-Pi-bNU" eventType="valueChanged" id="daV-Ta-JRy"/>
+                                    <action selector="quantitySliderChanged:" destination="RJn-Pi-bNU" eventType="valueChanged" id="KgZ-Uh-kwc"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="EaX-9I-RJF"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -461,45 +487,61 @@
                             <constraint firstItem="Tgm-E9-876" firstAttribute="leading" secondItem="Fx9-o9-DTo" secondAttribute="trailing" constant="8" id="0at-YY-ePJ"/>
                             <constraint firstItem="Tgm-E9-876" firstAttribute="centerY" secondItem="UqW-cQ-Vjj" secondAttribute="centerY" id="0la-rB-IlO"/>
                             <constraint firstItem="nbT-ng-Z5D" firstAttribute="top" secondItem="UKf-Ue-rUp" secondAttribute="bottom" constant="20" id="4Bh-rd-8wa"/>
-                            <constraint firstItem="gUw-cX-yYG" firstAttribute="top" secondItem="UqW-cQ-Vjj" secondAttribute="bottom" constant="20" id="55D-ZQ-Yff"/>
-                            <constraint firstItem="gUw-cX-yYG" firstAttribute="leading" secondItem="XOE-bH-Qny" secondAttribute="leading" constant="20" id="9HW-Rl-7qP"/>
+                            <constraint firstItem="Lko-GA-SgE" firstAttribute="top" secondItem="Fx9-o9-DTo" secondAttribute="bottom" constant="20" id="95i-o2-JPj"/>
                             <constraint firstItem="H5a-od-msi" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UKf-Ue-rUp" secondAttribute="trailing" constant="8" symbolic="YES" id="9Uc-Xr-522"/>
                             <constraint firstItem="len-SS-zlw" firstAttribute="top" secondItem="gE7-gQ-RyB" secondAttribute="bottom" constant="8" symbolic="YES" id="C7R-xc-SAO"/>
                             <constraint firstItem="len-SS-zlw" firstAttribute="leading" secondItem="gE7-gQ-RyB" secondAttribute="leading" id="DA2-S8-NZK"/>
                             <constraint firstItem="UqW-cQ-Vjj" firstAttribute="top" secondItem="KZX-ij-iJd" secondAttribute="bottom" constant="20" id="IkT-Er-d6L"/>
                             <constraint firstItem="Fx9-o9-DTo" firstAttribute="leading" secondItem="UqW-cQ-Vjj" secondAttribute="trailing" constant="8" id="Kf3-DK-SXx"/>
+                            <constraint firstItem="gE7-gQ-RyB" firstAttribute="top" secondItem="Lko-GA-SgE" secondAttribute="bottom" constant="20" id="LAG-Zx-ATP"/>
                             <constraint firstItem="gE7-gQ-RyB" firstAttribute="leading" secondItem="EaX-9I-RJF" secondAttribute="leading" constant="20" id="LKH-Yn-NKB"/>
                             <constraint firstItem="T4I-oo-Jos" firstAttribute="leading" secondItem="EaX-9I-RJF" secondAttribute="leading" constant="20" id="Oh6-UM-3oy"/>
                             <constraint firstItem="H5a-od-msi" firstAttribute="centerY" secondItem="UKf-Ue-rUp" secondAttribute="centerY" id="P7C-Ke-yy4"/>
+                            <constraint firstItem="Lko-GA-SgE" firstAttribute="centerY" secondItem="8KO-c3-nH1" secondAttribute="centerY" id="PBj-3u-RHZ"/>
                             <constraint firstItem="UqW-cQ-Vjj" firstAttribute="leading" secondItem="KZX-ij-iJd" secondAttribute="leading" id="PKh-C5-bc5"/>
                             <constraint firstItem="Tgm-E9-876" firstAttribute="trailing" secondItem="KZX-ij-iJd" secondAttribute="trailing" id="R6m-at-QCC"/>
                             <constraint firstItem="KZX-ij-iJd" firstAttribute="leading" secondItem="T4I-oo-Jos" secondAttribute="leading" id="U2X-Ps-C7L"/>
                             <constraint firstItem="KZX-ij-iJd" firstAttribute="top" secondItem="T4I-oo-Jos" secondAttribute="bottom" constant="20" id="Wm6-0x-2lc"/>
+                            <constraint firstItem="Lko-GA-SgE" firstAttribute="leading" secondItem="8KO-c3-nH1" secondAttribute="trailing" constant="8" id="YnZ-tb-adK"/>
                             <constraint firstItem="nbT-ng-Z5D" firstAttribute="centerX" secondItem="XOE-bH-Qny" secondAttribute="centerX" id="Zz8-o1-6KI"/>
                             <constraint firstItem="UKf-Ue-rUp" firstAttribute="leading" secondItem="EaX-9I-RJF" secondAttribute="leading" constant="20" id="bFY-dn-5Ll"/>
                             <constraint firstItem="T4I-oo-Jos" firstAttribute="top" secondItem="EaX-9I-RJF" secondAttribute="top" id="bqm-kV-6zb"/>
                             <constraint firstItem="EaX-9I-RJF" firstAttribute="trailing" secondItem="T4I-oo-Jos" secondAttribute="trailing" constant="20" id="d2O-CX-aUt"/>
+                            <constraint firstItem="ged-x2-IPr" firstAttribute="trailing" secondItem="Tgm-E9-876" secondAttribute="trailing" id="dVh-nI-rUH"/>
+                            <constraint firstItem="8KO-c3-nH1" firstAttribute="leading" secondItem="UqW-cQ-Vjj" secondAttribute="leading" id="iws-Rm-DiJ"/>
                             <constraint firstItem="H5a-od-msi" firstAttribute="trailing" secondItem="gE7-gQ-RyB" secondAttribute="trailing" id="kBO-zQ-tr8"/>
-                            <constraint firstItem="gE7-gQ-RyB" firstAttribute="top" secondItem="gUw-cX-yYG" secondAttribute="bottom" constant="20" id="mbF-Tg-bvN"/>
+                            <constraint firstItem="ged-x2-IPr" firstAttribute="centerY" secondItem="8KO-c3-nH1" secondAttribute="centerY" id="l6F-mp-aH5"/>
+                            <constraint firstItem="ged-x2-IPr" firstAttribute="leading" secondItem="Lko-GA-SgE" secondAttribute="trailing" constant="8" id="nkA-s1-N0l"/>
                             <constraint firstItem="len-SS-zlw" firstAttribute="trailing" secondItem="gE7-gQ-RyB" secondAttribute="trailing" id="pnY-KD-v5r"/>
                             <constraint firstItem="Fx9-o9-DTo" firstAttribute="centerY" secondItem="UqW-cQ-Vjj" secondAttribute="centerY" id="tNp-yG-AXU"/>
                             <constraint firstItem="EaX-9I-RJF" firstAttribute="trailing" secondItem="gE7-gQ-RyB" secondAttribute="trailing" constant="20" id="xRm-x6-B3o"/>
                             <constraint firstItem="KZX-ij-iJd" firstAttribute="trailing" secondItem="T4I-oo-Jos" secondAttribute="trailing" id="xUU-IO-rc0"/>
                             <constraint firstItem="UKf-Ue-rUp" firstAttribute="top" secondItem="len-SS-zlw" secondAttribute="bottom" constant="8" symbolic="YES" id="zNs-7f-jc5"/>
-                            <constraint firstItem="EaX-9I-RJF" firstAttribute="trailing" secondItem="gUw-cX-yYG" secondAttribute="trailing" constant="20" id="zpz-gG-uDS"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="discountLabel" destination="qTk-cS-Lgg" id="n3f-wT-9Fx"/>
+                        <outlet property="discountSegment" destination="gE7-gQ-RyB" id="2s7-mh-zt6"/>
+                        <outlet property="discountSlider" destination="UY6-Rd-yuv" id="krh-FF-wAm"/>
+                        <outlet property="itemDescTextField" destination="KZX-ij-iJd" id="ijM-Qz-xWK"/>
+                        <outlet property="itemNameTextField" destination="T4I-oo-Jos" id="7cp-gS-qmZ"/>
+                        <outlet property="itemPriceLabel" destination="ged-x2-IPr" id="P7C-aN-U4F"/>
+                        <outlet property="itemPriceSlider" destination="Lko-GA-SgE" id="yn0-aE-BeS"/>
+                        <outlet property="quantityLabel" destination="Tgm-E9-876" id="t6E-1B-5rk"/>
+                        <outlet property="quantitySlider" destination="Fx9-o9-DTo" id="kMz-sg-Clc"/>
+                        <outlet property="taxLabel" destination="UKf-Ue-rUp" id="XKe-l3-Tdl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sHD-ra-oxj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3404.347826086957" y="818.97321428571422"/>
         </scene>
-        <!--View Controller-->
+        <!--Create Tax View Controller-->
         <scene sceneID="TJw-Cu-ydv">
             <objects>
-                <viewController id="ImV-YP-RaO" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateTaxViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ImV-YP-RaO" customClass="CreateTaxViewController" customModule="CheckoutExample" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mYV-QT-OpC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Tax name *" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tgf-II-drN">
@@ -512,18 +554,24 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="ili-M6-9q8">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ili-M6-9q8">
                                 <rect key="frame" x="20" y="152" width="374" height="32"/>
                                 <segments>
                                     <segment title="Fixed tax"/>
                                     <segment title="Percent tax"/>
                                 </segments>
+                                <connections>
+                                    <action selector="taxTypeSwitchChanged:" destination="ImV-YP-RaO" eventType="valueChanged" id="pqw-NE-S6d"/>
+                                </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N26-0L-M9Y">
                                 <rect key="frame" x="20" y="191" width="374" height="35"/>
                                 <subviews>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="99" translatesAutoresizingMaskIntoConstraints="NO" id="iC6-Sl-yYT">
                                         <rect key="frame" x="6" y="2.5" width="318" height="31"/>
+                                        <connections>
+                                            <action selector="taxValueSliderChanged:" destination="ImV-YP-RaO" eventType="valueChanged" id="x0o-Ju-hCR"/>
+                                        </connections>
                                     </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2c9-2Z-kQI">
                                         <rect key="frame" x="330" y="7" width="36" height="21"/>
@@ -546,6 +594,9 @@
                                 <rect key="frame" x="170.5" y="256" width="73.5" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Add tax"/>
+                                <connections>
+                                    <action selector="addTaxButtonClicked:" destination="ImV-YP-RaO" eventType="touchUpInside" id="Oio-RP-MK2"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="E6K-c2-4it"/>
@@ -567,6 +618,14 @@
                             <constraint firstItem="E6K-c2-4it" firstAttribute="trailing" secondItem="ili-M6-9q8" secondAttribute="trailing" constant="20" id="tcr-QJ-0oy"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="addTaxButton" destination="qBn-W9-1o1" id="9Nk-Dk-mZg"/>
+                        <outlet property="taxNameTextField" destination="Tgf-II-drN" id="4fY-Zj-hh9"/>
+                        <outlet property="taxTypeSegment" destination="ili-M6-9q8" id="VTg-z3-3aS"/>
+                        <outlet property="taxValueLabel" destination="2c9-2Z-kQI" id="lXg-03-fmF"/>
+                        <outlet property="taxValueSlider" destination="iC6-Sl-yYT" id="OYP-uq-kAi"/>
+                        <outlet property="textDescTextField" destination="C5a-Ir-dyB" id="D0W-H7-HVX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S1l-ge-mgw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
