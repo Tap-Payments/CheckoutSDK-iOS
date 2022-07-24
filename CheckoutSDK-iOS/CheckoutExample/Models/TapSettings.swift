@@ -56,29 +56,45 @@ import CheckoutSDK_iOS
     private let customerSevedKey = "customer_settings_key"
 
     var language: String {
-        didSet { self.updateSavedData() }
+        didSet { UserDefaults.standard.set(language, forKey: languageSevedKey)
+            onChangeBlock?()
+        }
     }
     var localisation: Bool {
-        didSet { self.updateSavedData() }
+        didSet { UserDefaults.standard.set(localisation, forKey: localisationSevedKey)
+            onChangeBlock?()
+        }
     }
     var theme: String {
-        didSet { self.updateSavedData() }
+        didSet { UserDefaults.standard.set(theme, forKey: themeSevedKey)
+            onChangeBlock?()
+        }
     }
     var currency: TapCurrencyCode {
-        didSet { self.updateSavedData() }
+        didSet { UserDefaults.standard.set(currency.appleRawValue, forKey: currencySevedKey)
+            onChangeBlock?()
+        }
     }
     var swipeToDismissFeature: Bool {
-        didSet { self.updateSavedData() }
+        didSet { UserDefaults.standard.set(swipeToDismissFeature, forKey: swipeToDismissFeatureSevedKey)
+            onChangeBlock?()
+        }
     }
     var closeButtonTitleFeature: Bool {
-        didSet { self.updateSavedData() }
+        didSet { UserDefaults.standard.set(closeButtonTitleFeature, forKey: closeButtonTitleFeatureSevedKey)
+            onChangeBlock?()
+        }
     }
     var paymentTypes: [TapPaymentType] {
-        didSet { self.updateSavedData() }
+        didSet { UserDefaults.standard.set(try? PropertyListEncoder().encode(paymentTypes), forKey: paymentTypesSevedKey)
+            onChangeBlock?()
+        }
     }
     
     var customer: TapCustomer {
-        didSet { self.updateSavedData() }
+        didSet { UserDefaults.standard.set(try! PropertyListEncoder().encode(customer), forKey: customerSevedKey)
+            onChangeBlock?()
+        }
     }
     
     var onChangeBlock: (() -> ())?
@@ -104,7 +120,7 @@ import CheckoutSDK_iOS
         UserDefaults.standard.set(currency.appleRawValue, forKey: currencySevedKey)
         UserDefaults.standard.set(swipeToDismissFeature, forKey: swipeToDismissFeatureSevedKey)
         UserDefaults.standard.set(closeButtonTitleFeature, forKey: closeButtonTitleFeatureSevedKey)
-        UserDefaults.standard.set(try? PropertyListEncoder().encode(customer), forKey: customerSevedKey)
+        UserDefaults.standard.set(try! PropertyListEncoder().encode(customer), forKey: customerSevedKey)
         UserDefaults.standard.set(try? PropertyListEncoder().encode(paymentTypes), forKey: paymentTypesSevedKey)
     }
     func load() {
