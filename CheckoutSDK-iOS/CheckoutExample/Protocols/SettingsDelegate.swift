@@ -17,4 +17,5 @@ public protocol SettingsDelegate {
     func didUpdateSwipeToDismiss(to enabled: Bool)
     func didUpdateCloseButtonTitle(to enabled:Bool)
     func didUpdatePaymentTypes(to types:[TapPaymentType])
+    func didUpdateTransactionMode(to mode:TransactionMode)
 }

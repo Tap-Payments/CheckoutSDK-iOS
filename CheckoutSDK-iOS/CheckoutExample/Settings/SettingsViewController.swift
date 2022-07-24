@@ -17,7 +17,7 @@ class SettingsViewController: UIViewController {
     public var delegate: SettingsDelegate?
     
     private var settingsList: [SettingsSectionEnum] = []
-    private var tapSettings = TapSettings(language: "English", localisation: false, theme: "Default", currency: .USD, swipeToDismissFeature: true, paymentTypes: [.All],closeButtonTitleFeature: true, customer: try! .init(identifier: "cus_TS075220212320q2RD0707283"))
+    private var tapSettings = TapSettings(language: "English", localisation: false, theme: "Default", currency: .USD, swipeToDismissFeature: true, paymentTypes: [.All],closeButtonTitleFeature: true, customer: try! .init(identifier: "cus_TS075220212320q2RD0707283"), transactionMode: .purchase)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +38,7 @@ class SettingsViewController: UIViewController {
         settingsList.removeAll()
         settingsList.append(.Language)
         settingsList.append(.Localisation)
+        settingsList.append(.TransactionMode)
         settingsList.append(.Theme)
         settingsList.append(.Currency)
         settingsList.append(.SwipeToDismiss)
@@ -89,6 +90,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.detailTextLabel?.text = strings.joined(separator: ",")
             case .Customer:
                 cell.detailTextLabel?.text = getCustomerName()
+            case .TransactionMode:
+                cell.detailTextLabel?.text = tapSettings.transactionMode.description
             default: break
             }
             return cell
@@ -116,6 +119,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         case .Currency: showCurrencyActionSheet()
         case .PyamentOptions: showPaypentTypesList()
         case .Customer: showCustomerDetails()
+        case .TransactionMode: showTransactionTypesList()
         default: break
         }
     }
@@ -154,6 +158,22 @@ extension SettingsViewController  {
         multipleOptionsVC.selectedOptions = tapSettings.paymentTypes
         multipleOptionsVC.delegate = self
         self.present(multipleOptionsVC, animated: true, completion: nil)
+    }
+    
+    func showTransactionTypesList() {
+        //Create the AlertController and add Its action like button in Actionsheet
+        let transactionModeActionSheet = UIAlertController(title: nil, message: "Select a mode", preferredStyle: .actionSheet)
+        
+        let cancelActionButton = UIAlertAction(title: "Cancel", style: .cancel)
+        transactionModeActionSheet.addAction(cancelActionButton)
+        
+        TransactionMode.allCases.forEach { trxMode in
+            transactionModeActionSheet.addAction(UIAlertAction(title: trxMode.description, style: .default, handler: { [weak self] _ in
+                self?.tapSettings.transactionMode = trxMode
+                self?.delegate?.didUpdateTransactionMode(to: trxMode)
+            }))
+        }
+        self.present(transactionModeActionSheet, animated: true, completion: nil)
     }
     
     func showCustomerDetails() {

@@ -13,6 +13,8 @@ class ViewController: UIViewController {
    
     @IBOutlet weak var tapPayButton: TapActionButton!
     let tapPayButtonViewModel:TapPayButtonViewModel = .init()
+    var tapSettings:TapSettings = TapSettings(language: "English", localisation: false, theme: "Default", currency: .USD, swipeToDismissFeature: true, paymentTypes: [.All],closeButtonTitleFeature: true, customer: try! .init(identifier: "cus_TS075220212320q2RD0707283"),transactionMode: .purchase)
+    
     var localeID:String = "en" {
         didSet{
             TapLocalisationManager.shared.localisationLocale = localeID
@@ -47,7 +49,7 @@ class ViewController: UIViewController {
         self.hideKeyboardWhenTappedAround()
         // Do any additional setup after loading the view.
         amountTextField.delegate = self
-        
+        tapSettings.load()
         //TapLocalisationManager.shared.localisationLocale = "en"
         //TapThemeManager.setDefaultTapTheme()
         adjustTapButton()
@@ -97,6 +99,8 @@ class ViewController: UIViewController {
     }
     
     func startSDKClicked() {
+        tapSettings.load()
+        
         tapPayButtonViewModel.startLoading()
         // Tell the chekout to configure its resources
         let checkout:TapCheckout = .init()
@@ -114,15 +118,15 @@ class ViewController: UIViewController {
             localiseFile: nil,//TapCheckoutLocalisation(with: URL(string: "https://menoalmotasel.online/CustomLocalisation.json")!, from:.RemoteJsonFile),
             customTheme: customTheme,
             delegate: self,
-            currency: selectedCurrency,
+            currency: tapSettings.currency,
             amount: amount,
             items: getPaymentItems(),
             swipeDownToDismiss: swipeToDismiss,
-            paymentType: paymentTypes.first ?? .All,
+            paymentType: tapSettings.paymentTypes.first ?? .All,
             closeButtonStyle: closeButtonTitleStyle,
             showDragHandler:showDragHandler,
-            transactionMode: .purchase,
-            customer: customer/* try! .init(emailAddress: .with("osamaguc@gmail.com"), phoneNumber: nil, name: "Osama Ahmed Helmy")*/,
+            transactionMode: tapSettings.transactionMode,
+            customer: tapSettings.customer,/* try! .init(emailAddress: .with("osamaguc@gmail.com"), phoneNumber: nil, name: "Osama Ahmed Helmy")*/
             tapMerchantID: "1124340",
             taxes: [],
             shipping: [],
@@ -148,20 +152,28 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: SettingsDelegate {
+    func didUpdateTransactionMode(to mode: TransactionMode) {
+        tapSettings.load()
+    }
+    
     func didChangeCustomer(with customer: TapCustomer) {
         self.customer = customer
+        tapSettings.load()
     }
     
     func didUpdatePaymentTypes(to types: [TapPaymentType]) {
         paymentTypes = types
+        tapSettings.load()
     }
     
     func didUpdateCloseButtonTitle(to enabled: Bool) {
         closeButtonTitleStyle = enabled ? .title : .icon
+        tapSettings.load()
     }
     
     func didUpdateLanguage(with locale: String) {
         localeID = locale
+        tapSettings.load()
         adjustTapButton()
     }
     

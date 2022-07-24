@@ -16,6 +16,7 @@ import Foundation
 @objc public enum SettingsSectionEnum: Int {
     case Language
     case Localisation
+    case TransactionMode
     case Theme
     case Currency
     case SwipeToDismiss
@@ -33,6 +34,7 @@ import Foundation
         case .CloseButtonTitle: return "Close sheet as a title"
         case .PyamentOptions: return "Pyament Options"
         case .Customer: return "Customer"
+        case .TransactionMode: return "Transaction mode"
         }
     }
     
@@ -46,6 +48,7 @@ import Foundation
         case .CloseButtonTitle: return ["Enable to see it as title or disable it to be as an icon"]
         case .PyamentOptions: return ["Select payment options"]
         case .Customer: return["Your customer"]
+        case .TransactionMode: return["Change the transaction mode"]
         }
     }
     

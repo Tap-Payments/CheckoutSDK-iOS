@@ -18,6 +18,7 @@ import CheckoutSDK_iOS
         try container.encode(swipeToDismissFeature, forKey: .swipeToDismissFeature)
         try container.encode(paymentTypes, forKey: .paymentTypes)
         try container.encode(customer, forKey: .customer)
+        try container.encode(transactionMode, forKey: .trxMode)
     }
     
     enum CodingKeys: String, CodingKey {
@@ -29,6 +30,7 @@ import CheckoutSDK_iOS
         case paymentTypes
         case closeButtonTitleFeature
         case customer
+        case trxMode
     }
 
     
@@ -40,6 +42,7 @@ import CheckoutSDK_iOS
         currency = try values.decodeIfPresent(TapCurrencyCode.self, forKey: .currency) ?? .KWD
         swipeToDismissFeature = try values.decodeIfPresent(Bool.self, forKey: .swipeToDismissFeature) ?? false
         paymentTypes = try values.decodeIfPresent([TapPaymentType].self, forKey: .paymentTypes) ?? [.All]
+        transactionMode = try values.decodeIfPresent(TransactionMode.self, forKey: .trxMode) ?? .purchase
         closeButtonTitleFeature = try values.decodeIfPresent(Bool.self, forKey: .closeButtonTitleFeature) ?? false
         customer = try values.decodeIfPresent(TapCustomer.self, forKey: .customer) ??  .init(identifier: "cus_TS075220212320q2RD0707283")
 
@@ -55,6 +58,7 @@ import CheckoutSDK_iOS
     private let paymentTypesSevedKey = "paymentTypes_settings_key"
     private let customerSevedKey = "customer_settings_key"
     static let itemsSaveKey = "itemss_settings_key"
+    static let transactionModeSaveKey = "transaction_mode_settings_key"
     
     var language: String {
         didSet { UserDefaults.standard.set(language, forKey: languageSevedKey)
@@ -92,6 +96,12 @@ import CheckoutSDK_iOS
         }
     }
     
+    var transactionMode: TransactionMode {
+        didSet { UserDefaults.standard.set(transactionMode.rawValue, forKey: TapSettings.transactionModeSaveKey)
+            onChangeBlock?()
+        }
+    }
+    
     var customer: TapCustomer {
         didSet { UserDefaults.standard.set(try! PropertyListEncoder().encode(customer), forKey: customerSevedKey)
             onChangeBlock?()
@@ -104,7 +114,7 @@ import CheckoutSDK_iOS
         self.onChangeBlock?()
         self.save()
     }
-    init(language: String, localisation: Bool, theme: String, currency: TapCurrencyCode, swipeToDismissFeature: Bool, paymentTypes: [TapPaymentType],closeButtonTitleFeature:Bool, customer:TapCustomer) {
+    init(language: String, localisation: Bool, theme: String, currency: TapCurrencyCode, swipeToDismissFeature: Bool, paymentTypes: [TapPaymentType],closeButtonTitleFeature:Bool, customer:TapCustomer, transactionMode:TransactionMode) {
         self.language = language
         self.localisation = localisation
         self.theme = theme
@@ -113,6 +123,7 @@ import CheckoutSDK_iOS
         self.paymentTypes = paymentTypes
         self.closeButtonTitleFeature = closeButtonTitleFeature
         self.customer = customer
+        self.transactionMode = transactionMode
     }
     func save() {
         UserDefaults.standard.set(language, forKey: languageSevedKey)
@@ -121,6 +132,7 @@ import CheckoutSDK_iOS
         UserDefaults.standard.set(currency.appleRawValue, forKey: currencySevedKey)
         UserDefaults.standard.set(swipeToDismissFeature, forKey: swipeToDismissFeatureSevedKey)
         UserDefaults.standard.set(closeButtonTitleFeature, forKey: closeButtonTitleFeatureSevedKey)
+        UserDefaults.standard.set(try! PropertyListEncoder().encode(transactionMode), forKey: TapSettings.transactionModeSaveKey)
         UserDefaults.standard.set(try! PropertyListEncoder().encode(customer), forKey: customerSevedKey)
         UserDefaults.standard.set(try? PropertyListEncoder().encode(paymentTypes), forKey: paymentTypesSevedKey)
     }
@@ -131,6 +143,7 @@ import CheckoutSDK_iOS
         currency = UserDefaults.standard.value(forKey: currencySevedKey) as? TapCurrencyCode ?? .USD
         swipeToDismissFeature = UserDefaults.standard.value(forKey: swipeToDismissFeatureSevedKey) as? Bool ?? true
         closeButtonTitleFeature = UserDefaults.standard.value(forKey: closeButtonTitleFeatureSevedKey) as? Bool ?? true
+        transactionMode = TransactionMode(rawValue: UserDefaults.standard.value(forKey: TapSettings.transactionModeSaveKey) as? Int ?? 0) ?? .purchase
 //        paymentTypes = UserDefaults.standard.value(forKey: paymentTypesSevedKey) as? [TapPaymentType] ?? [.All]
         
         if let data = UserDefaults.standard.value(forKey:paymentTypesSevedKey) as? Data {
