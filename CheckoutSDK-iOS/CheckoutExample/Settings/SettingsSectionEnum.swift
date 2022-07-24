@@ -21,6 +21,7 @@ import Foundation
     case SwipeToDismiss
     case CloseButtonTitle
     case PyamentOptions
+    case Customer
     
     var title: String {
         switch self {
@@ -31,6 +32,7 @@ import Foundation
         case .SwipeToDismiss: return "Swipe to dismiss"
         case .CloseButtonTitle: return "Close sheet as a title"
         case .PyamentOptions: return "Pyament Options"
+        case .Customer: return "Customer"
         }
     }
     
@@ -43,6 +45,7 @@ import Foundation
         case .SwipeToDismiss: return ["Enable swipe to dismiss the checkout screen"]
         case .CloseButtonTitle: return ["Enable to see it as title or disable it to be as an icon"]
         case .PyamentOptions: return ["Select payment options"]
+        case .Customer: return["Your customer"]
         }
     }
     

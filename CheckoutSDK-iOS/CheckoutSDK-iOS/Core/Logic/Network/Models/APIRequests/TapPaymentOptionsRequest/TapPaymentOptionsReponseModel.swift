@@ -94,6 +94,14 @@ extension TapPaymentOptionsReponseModel: Decodable {
         let merchantCountryCode             = try container.decodeIfPresent(String.self, forKey: .merchantCountryCode)
         
         
+        for i in 0...paymentOptions.count-1 {
+            if paymentOptions[i].brand == .unknown {
+                if paymentOptions[i].paymentType == .Web {
+                    paymentOptions[i].brand = CardBrand.aiywaLoyalty
+                }
+            }
+        }
+        
         paymentOptions = paymentOptions.filter { ($0.brand != .unknown || $0.paymentType == .ApplePay) }
         
         

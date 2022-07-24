@@ -88,6 +88,26 @@ internal extension Array where Element: Shipping {
 }
 
 
+internal extension Array where Element: Tax {
+    
+    /**
+     Extended method to easily covert list of tap payment taxs to Apple pay payment items
+     - Parameter convertFromCurrency: The original currency if needed to convert from
+     - Parameter convertToCurrenct: The new currency if needed to convert to
+     - Returns: Correctly Apple Pay payment items
+     */
+    func toApplePayTaxes(convertFromCurrency:AmountedCurrency? = nil,convertToCurrenct:AmountedCurrency? = nil) -> [PKPaymentSummaryItem] {
+        
+        guard let convertToCurrency = convertToCurrenct,
+              let convertFromCurrency = convertFromCurrency else {
+            return []
+        }
+        
+        return [] //self.map{ PKPaymentSummaryItem.init(label: $0.name, amount: NSDecimalNumber(value: (convertToCurrency.currency.convert(from: convertFromCurrency.currency, for: NSDecimalNumber(decimal:$0.amount).doubleValue)).rounded(toPlaces: convertToCurrency.decimalDigits))) }
+    }
+}
+
+
 extension Double {
     /// Rounds the double to decimal places value
     func rounded(toPlaces places:Int?) -> Double {

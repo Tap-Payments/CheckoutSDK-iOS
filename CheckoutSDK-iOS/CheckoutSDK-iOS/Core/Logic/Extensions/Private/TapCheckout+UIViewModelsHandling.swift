@@ -114,6 +114,8 @@ internal extension TapCheckout {
         var items:[PKPaymentSummaryItem] = dataHolder.transactionData.transactionItemsValue.toApplePayItems(convertFromCurrency: dataHolder.transactionData.transactionCurrencyValue, convertToCurrenct: dataHolder.transactionData.transactionUserCurrencyValue)
         // convert any shipping items if any
         items.append(contentsOf: dataHolder.transactionData.shipping.toApplePayShippings(convertFromCurrency: dataHolder.transactionData.transactionCurrencyValue, convertToCurrenct: dataHolder.transactionData.transactionUserCurrencyValue))
+        // convert any tax items if any
+        //items.append(contentsOf: dataHolder.transactionData.taxes.toApplePayTaxes(convertFromCurrency: dataHolder.transactionData.transactionCurrencyValue, convertToCurrenct: dataHolder.transactionData.transactionUserCurrencyValue))
         return items
     }
     

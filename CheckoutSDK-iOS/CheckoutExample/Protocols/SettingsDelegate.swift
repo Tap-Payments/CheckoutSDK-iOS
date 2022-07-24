@@ -13,6 +13,7 @@ public protocol SettingsDelegate {
     func didUpdateLocalisation(to enabled: Bool)
     func didChangeTheme(with themeName: String?)
     func didChangeCurrency(with currency: TapCurrencyCode)
+    func didChangeCustomer(with customer: TapCustomer)
     func didUpdateSwipeToDismiss(to enabled: Bool)
     func didUpdateCloseButtonTitle(to enabled:Bool)
     func didUpdatePaymentTypes(to types:[TapPaymentType])

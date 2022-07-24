@@ -36,12 +36,14 @@ class ViewController: UIViewController {
     var showDragHandler:Bool {
         return closeButtonTitleStyle == .icon
     }
+    var customer:TapCustomer = try! .init(identifier: "cus_TS075220212320q2RD0707283")
     
     @IBOutlet weak var paymentItemsTableView: UITableView!
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         // Do any additional setup after loading the view.
         amountTextField.delegate = self
         //TapLocalisationManager.shared.localisationLocale = "en"
@@ -91,9 +93,9 @@ class ViewController: UIViewController {
             closeButtonStyle: closeButtonTitleStyle,
             showDragHandler:showDragHandler,
             transactionMode: .purchase,
-            customer: try! .init(identifier: "cus_TS075220212320q2RD0707283")/* try! .init(emailAddress: .with("osamaguc@gmail.com"), phoneNumber: nil, name: "Osama Ahmed Helmy")*/,
+            customer: customer/* try! .init(emailAddress: .with("osamaguc@gmail.com"), phoneNumber: nil, name: "Osama Ahmed Helmy")*/,
             tapMerchantID: "1124340",
-            taxes: [],
+            taxes: [.init(title: "VAT", descriptionText: "You have to pay :)", amount: .init(type: .Percentage, value: 10, minFee: 1, maxFee: 100))],
             shipping: [.init(name: "Shipping to tap customer", amount: 10)],
             require3DSecure: true,
             sdkMode: .sandbox,
@@ -118,6 +120,10 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: SettingsDelegate {
+    func didChangeCustomer(with customer: TapCustomer) {
+        self.customer = customer
+    }
+    
     func didUpdatePaymentTypes(to types: [TapPaymentType]) {
         paymentTypes = types
     }
@@ -213,4 +219,18 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate, AddItemVie
         }
     }
     
+}
+
+
+extension UIViewController {
+    
+    @objc func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:    #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }

@@ -17,6 +17,7 @@ import CheckoutSDK_iOS
         try container.encode(currency, forKey: .currency)
         try container.encode(swipeToDismissFeature, forKey: .swipeToDismissFeature)
         try container.encode(paymentTypes, forKey: .paymentTypes)
+        try container.encode(customer, forKey: .customer)
     }
     
     enum CodingKeys: String, CodingKey {
@@ -27,6 +28,7 @@ import CheckoutSDK_iOS
         case swipeToDismissFeature
         case paymentTypes
         case closeButtonTitleFeature
+        case customer
     }
 
     
@@ -39,6 +41,7 @@ import CheckoutSDK_iOS
         swipeToDismissFeature = try values.decodeIfPresent(Bool.self, forKey: .swipeToDismissFeature) ?? false
         paymentTypes = try values.decodeIfPresent([TapPaymentType].self, forKey: .paymentTypes) ?? [.All]
         closeButtonTitleFeature = try values.decodeIfPresent(Bool.self, forKey: .closeButtonTitleFeature) ?? false
+        customer = try values.decodeIfPresent(TapCustomer.self, forKey: .customer) ??  .init(identifier: "cus_TS075220212320q2RD0707283")
 
     }
     
@@ -50,6 +53,7 @@ import CheckoutSDK_iOS
     private let swipeToDismissFeatureSevedKey = "swipeToDismissFeature_settings_key"
     private let closeButtonTitleFeatureSevedKey = "closeButtonTitleFeatureSevedKey_settings_key"
     private let paymentTypesSevedKey = "paymentTypes_settings_key"
+    private let customerSevedKey = "customer_settings_key"
 
     var language: String {
         didSet { self.updateSavedData() }
@@ -72,13 +76,18 @@ import CheckoutSDK_iOS
     var paymentTypes: [TapPaymentType] {
         didSet { self.updateSavedData() }
     }
+    
+    var customer: TapCustomer {
+        didSet { self.updateSavedData() }
+    }
+    
     var onChangeBlock: (() -> ())?
     
     func updateSavedData() {
         self.onChangeBlock?()
         self.save()
     }
-    init(language: String, localisation: Bool, theme: String, currency: TapCurrencyCode, swipeToDismissFeature: Bool, paymentTypes: [TapPaymentType],closeButtonTitleFeature:Bool) {
+    init(language: String, localisation: Bool, theme: String, currency: TapCurrencyCode, swipeToDismissFeature: Bool, paymentTypes: [TapPaymentType],closeButtonTitleFeature:Bool, customer:TapCustomer) {
         self.language = language
         self.localisation = localisation
         self.theme = theme
@@ -86,6 +95,7 @@ import CheckoutSDK_iOS
         self.swipeToDismissFeature = swipeToDismissFeature
         self.paymentTypes = paymentTypes
         self.closeButtonTitleFeature = closeButtonTitleFeature
+        self.customer = customer
     }
     func save() {
         UserDefaults.standard.set(language, forKey: languageSevedKey)
@@ -94,6 +104,7 @@ import CheckoutSDK_iOS
         UserDefaults.standard.set(currency.appleRawValue, forKey: currencySevedKey)
         UserDefaults.standard.set(swipeToDismissFeature, forKey: swipeToDismissFeatureSevedKey)
         UserDefaults.standard.set(closeButtonTitleFeature, forKey: closeButtonTitleFeatureSevedKey)
+        UserDefaults.standard.set(try? PropertyListEncoder().encode(customer), forKey: customerSevedKey)
         UserDefaults.standard.set(try? PropertyListEncoder().encode(paymentTypes), forKey: paymentTypesSevedKey)
     }
     func load() {
@@ -111,6 +122,15 @@ import CheckoutSDK_iOS
             } catch {
                 print("error paymentTypes: \(error.localizedDescription)")
                 paymentTypes = [.All]
+            }
+        }
+        
+        if let data = UserDefaults.standard.value(forKey:customerSevedKey) as? Data {
+            do {
+                customer = try PropertyListDecoder().decode(TapCustomer.self, from: data)
+            } catch {
+                print("error paymentTypes: \(error.localizedDescription)")
+                customer = try! .init(identifier: "cus_TS075220212320q2RD0707283")
             }
         }
     }

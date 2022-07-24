@@ -17,7 +17,7 @@ class SettingsViewController: UIViewController {
     public var delegate: SettingsDelegate?
     
     private var settingsList: [SettingsSectionEnum] = []
-    private var tapSettings = TapSettings(language: "English", localisation: false, theme: "Default", currency: .USD, swipeToDismissFeature: true, paymentTypes: [.All],closeButtonTitleFeature: true)
+    private var tapSettings = TapSettings(language: "English", localisation: false, theme: "Default", currency: .USD, swipeToDismissFeature: true, paymentTypes: [.All],closeButtonTitleFeature: true, customer: try! .init(identifier: "cus_TS075220212320q2RD0707283"))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +43,7 @@ class SettingsViewController: UIViewController {
         settingsList.append(.SwipeToDismiss)
         settingsList.append(.CloseButtonTitle)
         settingsList.append(.PyamentOptions)
+        settingsList.append(.Customer)
     }
 }
 
@@ -86,10 +87,24 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 var strings: [String] = []
                 tapSettings.paymentTypes.forEach{strings.append($0.stringValue)}
                 cell.detailTextLabel?.text = strings.joined(separator: ",")
+            case .Customer:
+                cell.detailTextLabel?.text = getCustomerName()
             default: break
             }
             return cell
         }
+    }
+    
+    func getCustomerName() -> String {
+        if let name = tapSettings.customer.firstName {
+            return name
+        }
+        
+        if let id = tapSettings.customer.identifier {
+            return "ID : \(id)"
+        }
+        
+        return "Using default customer."
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -100,6 +115,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         case .Theme: showThemeActionSheet()
         case .Currency: showCurrencyActionSheet()
         case .PyamentOptions: showPaypentTypesList()
+        case .Customer: showCustomerDetails()
         default: break
         }
     }
@@ -138,6 +154,12 @@ extension SettingsViewController  {
         multipleOptionsVC.selectedOptions = tapSettings.paymentTypes
         multipleOptionsVC.delegate = self
         self.present(multipleOptionsVC, animated: true, completion: nil)
+    }
+    
+    func showCustomerDetails() {
+        let createCustomerViewController = self.storyboard?.instantiateViewController(withIdentifier: "CreateCustomerViewController") as! CreateCustomerViewController
+        createCustomerViewController.customerDelegate = self
+        self.present(createCustomerViewController, animated: true, completion: nil)
     }
     
     // MARK: Language Selection
@@ -199,4 +221,14 @@ extension SettingsViewController  {
         
         self.present(currencyActionSheet, animated: true, completion: nil)
     }
+}
+
+
+extension SettingsViewController: CreateCustomerDelegate {
+    func customerCreated(customer: TapCustomer) {
+        tapSettings.customer = customer
+        self.delegate?.didChangeCustomer(with: customer)
+    }
+    
+    
 }

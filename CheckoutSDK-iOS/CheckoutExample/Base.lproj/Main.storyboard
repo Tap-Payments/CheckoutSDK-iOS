@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dwQ-Ma-F85">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dwQ-Ma-F85">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -271,6 +271,100 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e9R-cb-t9j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1823" y="819"/>
+        </scene>
+        <!--Create Customer View Controller-->
+        <scene sceneID="lFX-WT-nVe">
+            <objects>
+                <viewController storyboardIdentifier="CreateCustomerViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fqV-9F-8sv" customClass="CreateCustomerViewController" customModule="CheckoutExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zug-ud-pnf">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iLy-KA-CEz">
+                                <rect key="frame" x="20" y="64" width="374" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qxa-ce-RXE">
+                                <rect key="frame" x="20" y="118" width="374" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kHy-W8-DnV">
+                                <rect key="frame" x="20" y="172" width="374" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" textContentType="email"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="965" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ADj-xs-hS1">
+                                <rect key="frame" x="20" y="226" width="62.5" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="62.5" id="tVb-B7-DiG"/>
+                                    <constraint firstAttribute="height" constant="34" id="vH4-Ms-rGa"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" textContentType="tel"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ADT-h8-hcb">
+                                <rect key="frame" x="102.5" y="226" width="291.5" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" textContentType="tel"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qdc-wm-k2F">
+                                <rect key="frame" x="173.5" y="334" width="67" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Create"/>
+                                <connections>
+                                    <action selector="createCustomerClicked:" destination="fqV-9F-8sv" eventType="touchUpInside" id="EAu-OQ-V4k"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="57c-VP-cs2">
+                                <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
+                            </activityIndicatorView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Customer id" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AxR-9D-cPI">
+                                <rect key="frame" x="20" y="280" width="374" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="mm3-yS-93V"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="iLy-KA-CEz" firstAttribute="leading" secondItem="mm3-yS-93V" secondAttribute="leading" constant="20" id="2Iy-qy-06B"/>
+                            <constraint firstItem="AxR-9D-cPI" firstAttribute="top" secondItem="ADj-xs-hS1" secondAttribute="bottom" constant="20" id="3Vd-Z9-303"/>
+                            <constraint firstItem="mm3-yS-93V" firstAttribute="trailing" secondItem="iLy-KA-CEz" secondAttribute="trailing" constant="20" id="444-NT-UHL"/>
+                            <constraint firstItem="kHy-W8-DnV" firstAttribute="top" secondItem="Qxa-ce-RXE" secondAttribute="bottom" constant="20" id="72u-cU-5pQ"/>
+                            <constraint firstAttribute="trailing" secondItem="Qxa-ce-RXE" secondAttribute="trailing" constant="20" id="7v3-9f-wwp"/>
+                            <constraint firstItem="iLy-KA-CEz" firstAttribute="top" secondItem="mm3-yS-93V" secondAttribute="top" constant="20" id="89D-mO-xFb"/>
+                            <constraint firstItem="Qxa-ce-RXE" firstAttribute="top" secondItem="iLy-KA-CEz" secondAttribute="bottom" constant="20" id="9Ub-Vn-KU2"/>
+                            <constraint firstItem="ADj-xs-hS1" firstAttribute="top" secondItem="kHy-W8-DnV" secondAttribute="bottom" constant="20" id="BfX-B1-FL9"/>
+                            <constraint firstItem="AxR-9D-cPI" firstAttribute="leading" secondItem="mm3-yS-93V" secondAttribute="leading" constant="20" id="BnK-Pb-I2N"/>
+                            <constraint firstItem="57c-VP-cs2" firstAttribute="centerY" secondItem="zug-ud-pnf" secondAttribute="centerY" id="Ci9-br-Uox"/>
+                            <constraint firstItem="qdc-wm-k2F" firstAttribute="top" secondItem="AxR-9D-cPI" secondAttribute="bottom" constant="20" id="Fw5-CU-JrU"/>
+                            <constraint firstItem="57c-VP-cs2" firstAttribute="centerX" secondItem="zug-ud-pnf" secondAttribute="centerX" id="FzJ-uN-6I7"/>
+                            <constraint firstItem="ADj-xs-hS1" firstAttribute="leading" secondItem="mm3-yS-93V" secondAttribute="leading" constant="20" id="TaP-r8-Iyh"/>
+                            <constraint firstItem="mm3-yS-93V" firstAttribute="trailing" secondItem="kHy-W8-DnV" secondAttribute="trailing" constant="20" id="Y4c-6c-Zqz"/>
+                            <constraint firstItem="Qxa-ce-RXE" firstAttribute="leading" secondItem="mm3-yS-93V" secondAttribute="leading" constant="20" id="eXQ-LD-2lf"/>
+                            <constraint firstItem="mm3-yS-93V" firstAttribute="trailing" secondItem="ADT-h8-hcb" secondAttribute="trailing" constant="20" id="fHO-6a-bpA"/>
+                            <constraint firstItem="mm3-yS-93V" firstAttribute="trailing" secondItem="AxR-9D-cPI" secondAttribute="trailing" constant="20" id="pT4-1g-ZIc"/>
+                            <constraint firstItem="ADT-h8-hcb" firstAttribute="top" secondItem="kHy-W8-DnV" secondAttribute="bottom" constant="20" id="pwd-Vv-U7m"/>
+                            <constraint firstItem="qdc-wm-k2F" firstAttribute="centerX" secondItem="zug-ud-pnf" secondAttribute="centerX" id="qbq-wA-HCL"/>
+                            <constraint firstItem="ADT-h8-hcb" firstAttribute="leading" secondItem="ADj-xs-hS1" secondAttribute="trailing" constant="20" id="suF-G6-ucL"/>
+                            <constraint firstItem="kHy-W8-DnV" firstAttribute="leading" secondItem="mm3-yS-93V" secondAttribute="leading" constant="20" id="vy6-SG-Uk6"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="countryCodeTextField" destination="ADj-xs-hS1" id="obH-NX-5LZ"/>
+                        <outlet property="customerIDTextField" destination="AxR-9D-cPI" id="ufm-nd-gI5"/>
+                        <outlet property="emailTextField" destination="kHy-W8-DnV" id="7Fz-D3-2LS"/>
+                        <outlet property="firstNameTextField" destination="iLy-KA-CEz" id="Thq-31-dmK"/>
+                        <outlet property="lastNameTextField" destination="Qxa-ce-RXE" id="fGj-aj-j8b"/>
+                        <outlet property="loadingLoader" destination="57c-VP-cs2" id="eIK-Wt-ryP"/>
+                        <outlet property="phoneNumberTextField" destination="ADT-h8-hcb" id="85g-8z-clz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DaD-yr-A05" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2597" y="819"/>
         </scene>
     </scenes>
     <resources>
