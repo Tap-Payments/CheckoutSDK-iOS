@@ -8,6 +8,7 @@
 
 import Foundation
 import CommonDataModelsKit_iOS
+import TapCardVlidatorKit_iOS
 
 /// Payment Options Response model.
 internal struct TapPaymentOptionsReponseModel: IdentifiableWithString {
