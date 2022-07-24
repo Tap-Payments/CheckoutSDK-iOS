@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "CheckoutSDK-iOS"
-  spec.version      = "0.0.27"
+  spec.version      = "0.0.28"
   spec.summary      = "The new era of mobile payments is here with Tap."
 
   # This description is used to generate tags and improve search results.
@@ -62,7 +62,7 @@ Pod::Spec.new do |spec|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-  spec.platform     = :ios, "12.0"
+  spec.platform     = :ios, "13.0"
   spec.swift_versions = '4.2'
 
   #  When using multiple platforms
