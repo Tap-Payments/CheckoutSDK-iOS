@@ -23,15 +23,16 @@ class ViewController: UIViewController {
     @IBOutlet weak var amountTextField: UITextField!
     var selectedCurrency:TapCurrencyCode = .USD
     var amount:Double {
-        if(items.count == 0) {
+        if(getPaymentItems().count == 0) {
             return Double(amountTextField.text ?? "") ?? 1000
         }else{
-            return items.reduce(0.0) {$0 + $1.itemFinalPrice()}
+            return getPaymentItems().reduce(0.0) {$0 + $1.itemFinalPrice()}
         }
     }
     var swipeToDismiss:Bool = true
     var closeButtonTitleStyle:CheckoutCloseButtonEnum = .icon
     var items:[ItemModel] = []
+    
     var paymentTypes:[TapPaymentType] = [.All]
     var showDragHandler:Bool {
         return closeButtonTitleStyle == .icon
@@ -55,8 +56,20 @@ class ViewController: UIViewController {
         paymentItemsTableView.register(UINib(nibName: "ItemTableViewCell", bundle: nil), forCellReuseIdentifier: "ItemTableViewCell")
         paymentItemsTableView.delegate = self
         paymentItemsTableView.dataSource = self
+        paymentItemsTableView.allowsMultipleSelection = true
         
         loadItems()
+    }
+    
+    
+    func getPaymentItems() -> [ItemModel] {
+        
+        if let selectedItems = paymentItemsTableView.indexPathsForSelectedRows,
+           selectedItems.count > 0 {
+            return selectedItems.map{ items[$0.row] }
+        }
+        
+        return []
     }
     
     func loadItems() {
@@ -103,7 +116,7 @@ class ViewController: UIViewController {
             delegate: self,
             currency: selectedCurrency,
             amount: amount,
-            items: [.init(title: "item1", description: "Desc1", price: 50, quantity: .init(value: 2, unitOfMeasurement: .units), discount: nil, taxes: nil, totalAmount: 0),.init(title: "item2", description: "Desc2", price: 50, quantity: .init(value: 1, unitOfMeasurement: .units), discount: .init(type: .Percentage, value: 10, minFee: 0, maxFee: 50), taxes: nil, totalAmount: 0)],
+            items: getPaymentItems(),
             swipeDownToDismiss: swipeToDismiss,
             paymentType: paymentTypes.first ?? .All,
             closeButtonStyle: closeButtonTitleStyle,
@@ -111,8 +124,8 @@ class ViewController: UIViewController {
             transactionMode: .purchase,
             customer: customer/* try! .init(emailAddress: .with("osamaguc@gmail.com"), phoneNumber: nil, name: "Osama Ahmed Helmy")*/,
             tapMerchantID: "1124340",
-            taxes: [.init(title: "VAT", descriptionText: "You have to pay :)", amount: .init(type: .Percentage, value: 10, minFee: 1, maxFee: 100))],
-            shipping: [.init(name: "Shipping to tap customer", amount: 10)],
+            taxes: [],
+            shipping: [],
             require3DSecure: true,
             sdkMode: .sandbox,
             onCheckOutReady: {[weak self] tapCheckOut in
@@ -206,6 +219,16 @@ extension ViewController:UITextFieldDelegate {
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        
+        if (cell?.accessoryType == .checkmark){
+            cell!.accessoryType = .none;
+        }else{
+            cell!.accessoryType = .checkmark;
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -101,10 +101,9 @@ class CreateItemViewController: UIViewController {
         let item:ItemModel = .init(title: itemName, description: itemDescTextField.text, price: Double(priceValue), quantity: .init(value: Double(quntityValue), unitOfMeasurement: .units), discount: discountModel, taxes: tax, totalAmount: 0)
         
         saveItem(item: item)
+        delegate?.itemAdded(with: item)
         
-        dismiss(animated: true) { [weak self] in
-            self?.delegate?.itemAdded(with: item)
-        }
+        dismiss(animated: true)
     }
     
     func saveItem(item: ItemModel) {

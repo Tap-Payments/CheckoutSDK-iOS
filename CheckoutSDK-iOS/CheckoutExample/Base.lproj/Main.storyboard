@@ -82,7 +82,7 @@
                                 </constraints>
                                 <state key="normal" title="Add Item"/>
                                 <connections>
-                                    <segue destination="RJn-Pi-bNU" kind="presentation" id="h4s-GQ-8cH"/>
+                                    <action selector="addItemsClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HhM-Qt-Zdh"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -371,7 +371,7 @@
             <objects>
                 <viewController storyboardIdentifier="CreateItemViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RJn-Pi-bNU" customClass="CreateItemViewController" customModule="CheckoutExample" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XOE-bH-Qny">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Item name *" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T4I-oo-Jos">
