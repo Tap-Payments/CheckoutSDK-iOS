@@ -235,7 +235,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
     }
     
     func showScanner() {
-        tapVerticalView.showScanner(with: sharedCheckoutDataManager)
+        tapVerticalView.showScanner(with: sharedCheckoutDataManager, for: self)
     }
     
     func showWebView(with url:URL, and navigationDelegate:TapWebViewModelDelegate? = nil) {
@@ -587,5 +587,16 @@ extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDe
     
     func enableInteraction(with status: Bool) {
         //view.isUserInteractionEnabled = status
+    }
+}
+
+
+// MARK: - The scanner data source
+extension TapBottomCheckoutControllerViewController: TapScannerDataSource {
+    func allowedCardBrands() -> [CardBrand] {
+        if let loadedDataCardBrands = sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.tapCardPhoneListViewModel?.dataSource.map({ $0.associatedCardBrand }) {
+            return loadedDataCardBrands
+        }
+        return CardBrand.allCases
     }
 }

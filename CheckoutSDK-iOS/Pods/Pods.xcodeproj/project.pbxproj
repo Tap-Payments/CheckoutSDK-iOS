@@ -34,6 +34,7 @@
 		0833E66E7F19849322305D67777B77DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A8E1F128D5C7FFEA3BE07508B15460E /* Foundation.framework */; };
 		085766802952CB806057D97FC03D7D03 /* Bool+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADDFF7C5B33F13DF66C01330295C7A9 /* Bool+Additions.swift */; };
 		08FA6682FEDE05256DCE0A139983F823 /* ThemeBlurEffectSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655510C0C7A0A4937E0923A6BF77118E /* ThemeBlurEffectSelector.swift */; };
+		0902AE5DF1C20C1F3EE5912E022C3D21 /* BottomLeftCorner.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D5C2B2BB5AD6D6D4780E6E6AB22EFD0 /* BottomLeftCorner.png */; };
 		0AB29147B06A33C545EFDC1FA2C3C6AD /* ElectricCurrent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3174BD2F16659D35EE829F10C53F3F /* ElectricCurrent.swift */; };
 		0B3208E18E702252576BEA848F6489E6 /* TapRecentCardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58EB71762BDDE5BC7077BABE7B24E038 /* TapRecentCardCollectionViewCell.xib */; };
 		0B8BDF0527002A057E52367978E85C78 /* ImageDecoders+Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A02F9911BED97B6E1BE540EB19762CB /* ImageDecoders+Video.swift */; };
@@ -43,13 +44,16 @@
 		0D42071DA98E5D9843765C8854FF91D1 /* TapCardPhoneIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFD8F0134E769DEF78C8099E788E6EE /* TapCardPhoneIconViewModel.swift */; };
 		0D5D4AEBF3EE32945938D73F7A59C527 /* Tajawal-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1A15026B782A55641D0540D72187346C /* Tajawal-Black.ttf */; };
 		0E4537709B8EE15CF8C2CEF181751342 /* NSObject+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1BE73CF62D355CA402966F7AD10845 /* NSObject+Additions.swift */; };
+		0EB8410E8F974FAF7F3064716895571D /* TapCanScanStatusResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB26961023E784DDF06A24882987A76 /* TapCanScanStatusResult.swift */; };
 		0EF45F3EFBAE42CAECEC8BE03C5E86CC /* TapOtpView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A57C4546AFE120DE5570B6D1A23E537 /* TapOtpView.xib */; };
 		0F9433EE12908EC17466103D7B430303 /* Level+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDFAC60877FBAE07248CCCA5E156255 /* Level+Additions.swift */; };
 		0FBA390111BD27538A8E8F1BA1E37C1F /* TapMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DAFC000EBECDA386812FCF45FD1486 /* TapMetaData.swift */; };
+		1022A8A2B29F93038673914013460613 /* FlurryLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7038B6BA48798061BC26769EB9681D /* FlurryLogger.swift */; };
 		10987B04F50CBBC857BC484181DEEDBE /* JSONSerialization+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E0CC951F901DBA35FDCB8FECA3D2BB5 /* JSONSerialization+Additions.swift */; };
 		11F10D062F1E022F7DC44CBFBA9ED7A2 /* NSLayoutConstraint+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5FDFB13964F0B51F059AA1C429F26 /* NSLayoutConstraint+Additions.swift */; };
 		12329E08C70FFEBF54A7C31A64359C9E /* separator.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A024B4550A0F55970138D55A19553A5 /* separator.png */; };
 		12D33ACA9B0BB9F90F120C1AE7416B95 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A8E1F128D5C7FFEA3BE07508B15460E /* Foundation.framework */; };
+		1319CC91A734F72E4B031529DDD7A057 /* TapInlineCardScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1338DD91B692C2D9AC589342CFEE12 /* TapInlineCardScanner.swift */; };
 		133D8A1ECF222AC74926E685EB03B25A /* GoPayLoginOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E482395DB622C87C113E05D61044542B /* GoPayLoginOptions.swift */; };
 		13B5DD15B686BDA6C820BDB98DE2E243 /* TapGoPayTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3D724B5B908B7E30FC8E443CF033FB /* TapGoPayTitleView.swift */; };
 		1536BC0C59421C5737038AAE3F511CB0 /* TapCardInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83236EAEC550C3F5758B84E331F92759 /* TapCardInput.swift */; };
@@ -68,29 +72,28 @@
 		1A488EE5F6F998FBC7E0345EAC686EED /* unionpay.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F9623448F65537E38A379B44C39858 /* unionpay.png */; };
 		1A7A6400526AF9FE136CB9BA17EB4880 /* PublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06706A2C1139093FAD38494C7EB4376 /* PublicKey.swift */; };
 		1AB98FA70FAD22905685FD45C9BD2296 /* TapNetworkRequestOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8903AF90EEAE176FD9011C66D07D7CF /* TapNetworkRequestOperation.swift */; };
-		1ADDEFD68B34A0BC955706C3C1083F75 /* TapFullScreenScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4EB6D5F1E9B5239DA59222A7E93716 /* TapFullScreenScannerViewController.swift */; };
 		1AF97B415417C3ACCBBD6845954874B4 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F462EAF45616E2B2AAF177080F93346 /* Line.swift */; };
 		1B1CBDAC8911FB70D74A7A8368DACDFF /* Sequence+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE76F5247A62DA116E2CFAADD4587D00 /* Sequence+Additions.swift */; };
 		1BA45338FA95B66929777E96D6746314 /* ViewsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B767CBF363DDCB2872E5D0C42F225679 /* ViewsExtensions.swift */; };
+		1BB272DD423A9D16C75D1413EA957AF2 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E8AE6C489B7E8BCFB55363F7B57745 /* VisualEffectView.swift */; };
 		1BC51AC803D3C590EB8327A0F91D21CB /* CGImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F11D07F112225E3C8A65B26F27828E /* CGImage+Additions.swift */; };
 		1C06382DFD86FEC17457C880012AB964 /* TapWebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D74299506EC48DDB975848BAC364EAE7 /* TapWebView.xib */; };
 		1CD5B0D8503C56E2F5238A44B6036DFA /* Locale+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B563B6687A48CA25090249BB3B5F13 /* Locale+Additions.swift */; };
-		1D974C40F4812F04DF0F260FAD6773AA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A8E1F128D5C7FFEA3BE07508B15460E /* Foundation.framework */; };
 		1DA428F32C65A5BBB81B30B755926C36 /* TapPhoneInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C7013C129C7025C8F89624DA312B0D /* TapPhoneInput.swift */; };
 		1EBFBEA3D9D9D7FFFFC338DFEEFA2261 /* TapPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F9D4337394DA785508E13F75B2D0D6 /* TapPhone.swift */; };
-		1F14FDDA92A105CEF2C5E9776A88B5D4 /* BottomLeftCorner.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D5C2B2BB5AD6D6D4780E6E6AB22EFD0 /* BottomLeftCorner.png */; };
 		1F2F374519C1A91752E6C4E9535D665F /* ImageProcessingOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BAB52B9406C291D690DD15951C05ED /* ImageProcessingOptions.swift */; };
 		1FA39F4D803CC64C6E2B5F2D7219A944 /* CurrencyChipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02D3A868054D4A50F6C402CFAE88F04 /* CurrencyChipViewModel.swift */; };
 		1FDD509F823D825321E33C39C98C43F3 /* DefaultDarkTheme.json in Resources */ = {isa = PBXBuildFile; fileRef = 3F0248F6580629B8BCB534191F7A25F3 /* DefaultDarkTheme.json */; };
 		1FF09732CAF2E80A335175445D69D344 /* TaskFetchDecodedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF4866C9D3A3CD3AC89704344F446CF /* TaskFetchDecodedImage.swift */; };
 		2045E7CB575B41C5AB0A28DF6F0878E7 /* DefinedCardBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107B0D0BE6D2D9643D55D0EB9C67A996 /* DefinedCardBrand.swift */; };
 		207EDF3D55D94351283F1E292DC44B63 /* TapSwitchEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED63D6F7BBE71CD5630FFDF5797983F1 /* TapSwitchEnum.swift */; };
+		21A3F087617CA9B4B419A17404F6491E /* GoogleVisionScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F66CCBF1FF4BE055A15B597806B0B4 /* GoogleVisionScanner.swift */; };
 		220D6AC9B1B1EC8EFFB204F9C1EAC842 /* ConstraintMakerEditable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1CBD453AE139198A9373D8C7DD1D23 /* ConstraintMakerEditable.swift */; };
 		2223DC8C1D1F31E074D17FAC73BDEBAC /* TapSDKErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4573C485D7509EC50EA7D3A2DC205F /* TapSDKErrorType.swift */; };
 		23115AAE5CC5FD042074B16600DB4C38 /* white-success-mob.gif in Resources */ = {isa = PBXBuildFile; fileRef = 440B5F36F90A2378D507602D7584971F /* white-success-mob.gif */; };
-		23210871DA6DB58E1B83D0916B9A7A93 /* GoogleVisionScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F66CCBF1FF4BE055A15B597806B0B4 /* GoogleVisionScanner.swift */; };
 		2339AD107E3E551FFC1B5C6E04C37773 /* TapGenericTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8099D0E7147A9E301B70B516579F5874 /* TapGenericTableView.swift */; };
 		24035E85D87C37271A23BDC11F14B7D4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D247CC87CF04E9836E4D92CCD3E8536 /* UIKit.framework */; };
+		244E4271D649D8A8B3D4BBD3290C5A8E /* TapCardScanner-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F635FFC244DC1C0BCCD67A35998C895 /* TapCardScanner-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2455B14788B53A4EF34BBDA44407B35A /* TapVerticalView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8ED7591C7A148AE86367D3523A839CD /* TapVerticalView.xib */; };
 		245CB2A9C25C73DCF59F84F170526F6D /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DF48B05ED704695759F3B78F67EB7AF /* images.xcassets */; };
 		24943B7D603E27D9740F4605A1B457F8 /* ThemeScrollViewIndicatorStyleSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C019EA178B0811BACEB4E63023A36B /* ThemeScrollViewIndicatorStyleSelector.swift */; };
@@ -109,8 +112,8 @@
 		29A10D3F319E703558817B84EDB5F6B8 /* TapThemeManager2020-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3C6B9B261CD950ABF6954097B8F2C430 /* TapThemeManager2020-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		29E1B065FEB6323B494185CC37648501 /* PullUpController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFC831A62575623CDADC1FCCDF06BF /* PullUpController-dummy.m */; };
 		29FDAB798EEFC9D8BF6A591ED7907162 /* american-express.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ED20B4607BB9E20428FFDC6042C2EC3 /* american-express.png */; };
+		2A2AC387A13F9F0F39A7A3B6154EB67D /* TopLeftSuccessCorner.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAEBA3CED89D9EDD0849F95E4570BD0 /* TopLeftSuccessCorner.png */; };
 		2A5221D8F50F490CED7DFF94FBEFC485 /* CountableClosedRange+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6409CB9C508EE9E578F5B8CD15030A /* CountableClosedRange+Additions.swift */; };
-		2A537845C37D253C3C6B55B0856A0ED4 /* TopRightCorner.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B6F3B664E033CF2E5FFBCCB93A0B9D9 /* TopRightCorner.png */; };
 		2ABD7270AD429F15A7730B7C65BC1AE6 /* ImageProcessors+Circle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B47FE9BED870404866EC597AB16E73E /* ImageProcessors+Circle.swift */; };
 		2B6B3FF72ECE74D25E53106FF146A0F5 /* TapGoPayOTPView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B65D93C0B26A64C06FD01A50955016CC /* TapGoPayOTPView.xib */; };
 		2B97432FF2B45EE8DFE5A53A5C674C52 /* SimpleAnimation-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E3F2F5D880ED8533AEB595FBDAAD71BD /* SimpleAnimation-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -139,11 +142,11 @@
 		3448720BBC5F115138759ED6CDB332BA /* MOLHFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = A793C628F3839EBE26E7044DC0A5B7F0 /* MOLHFont.swift */; };
 		352C3FAB3E3BCC22EE0819DB58EE11AC /* TapApplicationV2-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 73622910A66FAB91AB984191B7B0D75B /* TapApplicationV2-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		355E1F26A45531291966D0BC0777DDDD /* TapApplePayRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8180FE936AAD380B4E14CA2AE8D67A /* TapApplePayRequest.swift */; };
-		35CCA2E45AC949EA6B684A7FED435A85 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB50FEE703B60635EFE8007E469F1BD /* CameraView.swift */; };
 		35EA56123B3D5531B04AF4B384F32CBA /* GenericTapChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5ABCB38ECDBA530D76A44F5B4C6B84 /* GenericTapChip.swift */; };
 		364B7D34528A3C027A097316E3D68668 /* TapGenericTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BD914E2112A6B0A6B6A962DDA35759 /* TapGenericTableViewModel.swift */; };
 		3660B4F629053ABC3C1DF69366770289 /* ConstraintConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028E63B341B981AAC9D2DDEFF1B0A3CF /* ConstraintConfig.swift */; };
 		36E6E40EF2EA15879A813DC24B4F5ABB /* LocalisationManagerKit-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E5D2A397EB66372146793092DE4F10B /* LocalisationManagerKit-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		37B770B885596C80C2BB53DBED05B6B1 /* ImageRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3E64519013AFF72DB4249924208A0F /* ImageRatio.swift */; };
 		38113291653DA7DB69AFE51D20C27C5D /* Tax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDEC8CED05E0A9AE9B08B3E86904734 /* Tax.swift */; };
 		3815BA01CC48C734F2CE69C4ABFBEA5F /* TapSwitchCardStateEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30417F068BA33815FA656E1D6C1854B5 /* TapSwitchCardStateEnum.swift */; };
 		382AE314FD6614C9DBD8A9921B0C9C81 /* TapCardVlidatorKit-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F4528A413CFDD850ED1441BB2BB6E283 /* TapCardVlidatorKit-iOS-dummy.m */; };
@@ -160,6 +163,7 @@
 		412DBC493FE139E91159E0D759B5DE9F /* CardBINRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22585FC948F0A4965B9FC9D778A50C8 /* CardBINRange.swift */; };
 		412DDD98FDD85E6EABEB1F2B8A9BFE1B /* TapGoPayChipCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE53730643D12493ECA8FE1D7A2FC99 /* TapGoPayChipCollectionViewCell.swift */; };
 		41F16F5465D8DC06E584DE42BBDCB2C8 /* TapHintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB3722392C3F2E2E9A129D4F07806D5 /* TapHintView.swift */; };
+		42753215A6C1CC31EE65B8675AF1B48B /* BlurHoleCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72EDCAD2B1645791DFECFCAF62158F95 /* BlurHoleCorners.swift */; };
 		42B6ACFCF650183030867CB3EF345E95 /* ConstraintMakerFinalizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50B42E7AB33353F36DA3CC6518F0624 /* ConstraintMakerFinalizable.swift */; };
 		42FB1F94A6E720CE4760B1DD705DA299 /* TapHintViewStatusEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168BAC86238F3396EFE25C13A342A15F /* TapHintViewStatusEnum.swift */; };
 		431F743C86C401082324EFF2F14FD796 /* ImageDecoders+Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1E45473ACFB62A1C0963798E60E2E3 /* ImageDecoders+Empty.swift */; };
@@ -188,7 +192,6 @@
 		4BF189BE5F4C494130731D7B2D4BBF36 /* LocalisationManagerKit-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2577FBD7E75DC6524096AC9747512A31 /* LocalisationManagerKit-iOS-dummy.m */; };
 		4C0464EF1F7F0548E4B4618B20805E52 /* TapMerchantHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D8EEEAA7FC9CBE4E78BF58629A01B /* TapMerchantHeaderView.swift */; };
 		4C4375FD9BC028E95D262CA7CBB28CEC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A8E1F128D5C7FFEA3BE07508B15460E /* Foundation.framework */; };
-		4C5C8C00579D3EFD08B444467C3F987A /* BottomRightSuccessCorner.png in Resources */ = {isa = PBXBuildFile; fileRef = 34DA7F0D00F7FF6F20B670200B34DD5B /* BottomRightSuccessCorner.png */; };
 		4CF9D313EB84CFF0FDAF76C390002A62 /* TapBundleInfoKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F5411045F8AD7B18A360A88F943ACB /* TapBundleInfoKeys.swift */; };
 		4D35D549F306F4C3B279E80BCF5FACCE /* CALayer+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BDC62A09CCB2767185A93E1C6AE721 /* CALayer+Additions.swift */; };
 		4D497DE6FB8EFF94DAA37F3A502A3623 /* TapHintViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F210298BFAF4F0E65A7399AD4BDE838 /* TapHintViewModel.swift */; };
@@ -232,11 +235,13 @@
 		5CDB8104A9607351B5508011F6D82AA6 /* TapImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA28D0E56FB17028B96F0A019586B18 /* TapImageLoader.swift */; };
 		5D08C1D905CC91AD11501700F2679781 /* TapNetworkKit-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D7818C891A5D7C7876EAAF17152AAFB /* TapNetworkKit-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5D36B99F3CAB1FC7337082D9581FECA6 /* Debugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2675C0E0470DCD805DFF095161DA16 /* Debugging.swift */; };
+		5D48355CA8A05774CEE6384F909B118A /* TapCardScanner-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C129F9E271272CF22BE12392760629 /* TapCardScanner-iOS-dummy.m */; };
 		5E166EB46BCA8A472BA5F979E1FB3243 /* ExceptionCatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D5272B15757501A0C2B19E6F59538C92 /* ExceptionCatcher.m */; };
 		5E3A74F915978A7E264CF8C0ED8D289C /* SwiftyRSA-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D50C7EA094E1827C1347B363FDCDBFCF /* SwiftyRSA-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5ECE3F52F878711417F4D5038D2B1023 /* Tajawal-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E120EB4B10B1E469363A372A11315952 /* Tajawal-ExtraBold.ttf */; };
 		5F71B81AC4EE8DDA7E850C3520D7DB77 /* CardBrandWithSchemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F124B80B50A60F7F1523B5FD2183CBFA /* CardBrandWithSchemes.swift */; };
 		5F97BFC3BDFF6C47D93324FBF507F14D /* TapActionButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBA474D1856746A9A20863B06A1ABB1 /* TapActionButtonViewModel.swift */; };
+		5FB0D3C2EE705404A0EE4884AE8472BC /* BottomRightCorner.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC43E8B1BE769D2C9BAF3A29FC64A35 /* BottomRightCorner.png */; };
 		604D3C93C17978C23600EC415949AB64 /* ConstraintInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DA29564801C5C1307582AB8D793CAA /* ConstraintInsets.swift */; };
 		60B289C52BBEC35B6A69033A30EB5557 /* KeychainRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B35D067A0BDDCD78A44C998D45266EA /* KeychainRepresentable.swift */; };
 		611CEF7FF1EF9EA1BCEF6C73EEE3ACCF /* ConstraintLayoutGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060749677E0929F67793B9DE1AA9E234 /* ConstraintLayoutGuide.swift */; };
@@ -288,7 +293,6 @@
 		71EE410C395BAFF34D6D74C2A928481B /* TransactionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAC8DBBA9668C2CF906F986DD15A931 /* TransactionMode.swift */; };
 		71F99CEDDA2429F9F00FB5590319C776 /* TapSeparatorCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC10F10D1526CE09F74EFC59818EA623 /* TapSeparatorCollectionViewCell.xib */; };
 		720F92D8F0638DA1662F4F1E5F902483 /* ImageProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D5A33F16AB95AAB7E0F82A48EB601E /* ImageProcessing.swift */; };
-		7243E0464D7347FD40DD0BA88B4AC8CC /* BlurHoleCorners.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBCA81D0CED72BEB0011B762A6F0D00D /* BlurHoleCorners.xib */; };
 		7281609B33A774BE68D3B1CCE5C56BE8 /* SimpleAnimation-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6B6C3CB57814F214EDBBA085844F4F /* SimpleAnimation-dummy.m */; };
 		737AA57D3F2EA24DF3CAB26FA1F11B7D /* TapGoPayCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B445EA796C71B63DEBD55F491C573EDE /* TapGoPayCollectionViewCell.xib */; };
 		7458D1CCAB83BFB7AEC79198E8A688B6 /* TapWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6FCF48D31E7EBE461B18263F0279CA /* TapWebView.swift */; };
@@ -297,7 +301,6 @@
 		76393BD8C5A3F7431EC1504A15EE2049 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A8E1F128D5C7FFEA3BE07508B15460E /* Foundation.framework */; };
 		773F7FE108EF9BB99F9CBF5F39371B5F /* ImageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EDBBBCC31FD703268518EFF2CF0CD7 /* ImageResponse.swift */; };
 		77917E67CF128FDC0F96BD68817CF9C2 /* CardValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34479969605999F64BFA28041F4C9C81 /* CardValidator.swift */; };
-		77C6B4D9C073537C182CCAB94437966D /* Reg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073F5F22A57616603DEA91D4F921A663 /* Reg.swift */; };
 		7818CB466AD146E111ECC4497CB36FE2 /* TapCardScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C796F3241D197B4DF19C60551C63089 /* TapCardScannerView.swift */; };
 		782A75FD1B5BA6501067D7ACC0D40488 /* ThemeVibranceBlurEffectSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D035A02A70C51E6E535443B8F80E2D /* ThemeVibranceBlurEffectSelector.swift */; };
 		783B985343BC6EF0B88A8EC0CFB6599B /* tap@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6B615F1EC8EE76196EC8A1E2C4082EE /* tap@3x.png */; };
@@ -310,7 +313,6 @@
 		7BEF42F665EB67509AD7BC4AC4BC6851 /* ApplePayChipCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA40002C29516F1B421B8DE8410058F0 /* ApplePayChipCollectionViewCell.swift */; };
 		7C285AADD9F443D3FFFB07F6ABD65ED1 /* Bool+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6028E7C505B744D781F74158B1029DC2 /* Bool+Additions.swift */; };
 		7C3288784FACE4DC536131380482DB0C /* ThemeImageSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9785C407D3C9F5E19048518B56166 /* ThemeImageSelector.swift */; };
-		7CCA1997FE84FBBA0AE252A8848BB6D1 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E8AE6C489B7E8BCFB55363F7B57745 /* VisualEffectView.swift */; };
 		7DD845D84E32E2AE01084423536560BB /* TapApplePayPaymentNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912D98E805676BA02AADB0ED570EF162 /* TapApplePayPaymentNetwork.swift */; };
 		7DECFFD21475004CC753A2A3AFC2ED8F /* TapDragHandlerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5045626B58567901C26C998399A50247 /* TapDragHandlerView.xib */; };
 		7E325948F030FAB2C99751C55CFB1344 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A8E1F128D5C7FFEA3BE07508B15460E /* Foundation.framework */; };
@@ -325,6 +327,7 @@
 		82593D0EB2A2F1E8D829C1D5130FD9DD /* MOLH-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DF755845D53EECE2406353695B36A4F4 /* MOLH-dummy.m */; };
 		82C9C3F52705B4864CCEAA4D9088A1DC /* BottomLineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC3A56A638430060A85CB5D83B54A8C /* BottomLineTextField.swift */; };
 		833FB89B14CB6D5FD05CA2A3460E2686 /* AVPlayer+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DCE6F90D6F22544BD9BBDD1DC6CDC0 /* AVPlayer+Additions.swift */; };
+		848F5E79B1571FFF3178D8D034D28E9A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A8E1F128D5C7FFEA3BE07508B15460E /* Foundation.framework */; };
 		84F32D25D90E92A831E1097CAB629911 /* Array+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B392B43A629B348A3A023C9EBF5BB7F /* Array+Additions.swift */; };
 		859FEF39C865C91018497B7CF3DAF74A /* _ObjCMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84C218173076B38582753D34A3E9697 /* _ObjCMeasurement.swift */; };
 		860E8D344195F2C2A70C39D5D8F446C2 /* TapCardPhoneIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 150A797AEB12B3C0CAD56FF4D035826E /* TapCardPhoneIconView.xib */; };
@@ -338,8 +341,6 @@
 		8AD2E2F16D30468F29259E3CDCF0966F /* TapCardPhoneBarList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D1ACF4A8909B8A5BC9C444B9C8CDCE1 /* TapCardPhoneBarList.xib */; };
 		8B35C0E5027B29FDE75C3A41EA9E4C2F /* TapCardPhoneIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4946F0140C7A2572ADD244E3A13B386 /* TapCardPhoneIconView.swift */; };
 		8B645CB01D7A79D2C1E5739E5337E7F5 /* TapLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FA856F8C6DB2318070C217A6468F18 /* TapLogger.swift */; };
-		8C05967B0FF14CFA83201902D7F67EEA /* TapCardScanner-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C129F9E271272CF22BE12392760629 /* TapCardScanner-iOS-dummy.m */; };
-		8C4AD0B5ED2E40717D16337F570F5E09 /* ImageRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3E64519013AFF72DB4249924208A0F /* ImageRatio.swift */; };
 		8CA718C94DB53CE640178225C9383368 /* TapThemePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE1FEF51F3546D56B4063F4AB9D5A16 /* TapThemePath.swift */; };
 		8CE467E941B1AF43892B2C2FD04CF3B7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A8E1F128D5C7FFEA3BE07508B15460E /* Foundation.framework */; };
 		8E161BC4F64FDAEDB4991D1A086A89F8 /* ErrorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94B4DA80980266485382CD57A6F621E /* ErrorConstants.swift */; };
@@ -348,10 +349,8 @@
 		8F5E0F5E4BF9D2D3C87FF3E5EAEBD85A /* Bundle+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DD9E437559BFEE1C166B80A0D4FEC3 /* Bundle+Additions.swift */; };
 		8F613361E89EB9A73EAA58A22EA622D2 /* CommonDataModelsKit-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = AD402C44F5DEA0092604C86C8F14B6E7 /* CommonDataModelsKit-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8FC6F4E83F846A27953F7C1E75C1940C /* UIImageView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA950CAC417D28425E656BA1505899A3 /* UIImageView+Additions.swift */; };
-		8FD37EE87CD5443054F06F8C977E328D /* TopRightSuccessCorner.png in Resources */ = {isa = PBXBuildFile; fileRef = F8556FAECC594EEFCB12BA18D7C0A25C /* TopRightSuccessCorner.png */; };
 		902228602FBB0BCE2C98C135C467C513 /* UINavigationController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732517A3C9B7BBA87987C61024B05749 /* UINavigationController+Additions.swift */; };
 		90F03C674EFB74C861E98FB3CDBB5885 /* ThemeDictionarySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC22A3D81EFA23D0C61CA2F525BE7B5A /* ThemeDictionarySelector.swift */; };
-		9102CB937E470B3C65F702348C3CE42B /* TopLeftCorner.png in Resources */ = {isa = PBXBuildFile; fileRef = 6BD3276877785C57BAB3501F8561833F /* TopLeftCorner.png */; };
 		9108F028334A768CEFF16D732B48DA43 /* NSData+SHA.h in Headers */ = {isa = PBXBuildFile; fileRef = C2AF3FF65D38EF25B24030666E9C0DBF /* NSData+SHA.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		915870C6DBCF421FC88A65859C31CE62 /* CustomStringConvertible+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AB2FA03E212F33E6597AD7E825AF71 /* CustomStringConvertible+Additions.swift */; };
 		916AA6E54F61DD40C41375F3282D3DAA /* SelectorsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A0FC354BE4095EB2EB8B9B35C1E795 /* SelectorsConstants.swift */; };
@@ -388,7 +387,6 @@
 		9E02CFFEFE1BEC978B512286F03D31DA /* ConstraintInsetTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4369B2EC223CD009D5FA05960F524BA /* ConstraintInsetTarget.swift */; };
 		9E044D387840940350A6C68F21CEBDB4 /* Tajawal-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13AD762DE9A03FDBBDFFCC794D0AEF14 /* Tajawal-Bold.ttf */; };
 		9E07246E243BC410BC947C630740D065 /* UIButton+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D767580D4422247CCEFE423DE09EE5 /* UIButton+Additions.swift */; };
-		9E4B6DC83FE17E3F579EB0DE7583665C /* ImageAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCA7D1D5288B2231AE08FAF32A1B65E /* ImageAnalyzer.swift */; };
 		9E652E98C8EBBA04C5F4DC5158EE8BF8 /* MOLHSizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F421A81AC26A73DFA4807600F6936439 /* MOLHSizable.swift */; };
 		9E9AA5D461463AAFA68F2BB3476CB997 /* TapBlackWhiteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6393E2710D248CB92AC43CB629E846A /* TapBlackWhiteImage.swift */; };
 		9F643195EADDB3B69C30EC1660835D11 /* TapGenericTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5873B63FE63D59DAE3C8BC5D72AB7C0E /* TapGenericTableCell.xib */; };
@@ -402,8 +400,8 @@
 		A1AE499E02CCA5DA5FBABDC92F7FFCC2 /* SwiftyRSAError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56686BD01DB0B5EB19F5675711B37F1A /* SwiftyRSAError.swift */; };
 		A1E8183983BFB14B3930C924CF702FE6 /* ImageProcessors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7580B6394146A71D1B9518217A25875 /* ImageProcessors.swift */; };
 		A1EBE191B9B70DFED90CF1F52584D4FB /* TapBundlePlistInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F0698BE1B4B7BD16E834E9069EE498 /* TapBundlePlistInfo.swift */; };
-		A2CAB956222A10EFD2BA6ED54DC7284E /* BlurHoleCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72EDCAD2B1645791DFECFCAF62158F95 /* BlurHoleCorners.swift */; };
 		A3E3AB7C765C21AE17B1E6EE6560040C /* SnapKit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FF8F1DB166C31173C823D29147C3540 /* SnapKit-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A4146C52F4227933F2D7340BAB65772D /* TopRightCorner.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B6F3B664E033CF2E5FFBCCB93A0B9D9 /* TopRightCorner.png */; };
 		A449A8F106225A26116212D75DDF78E5 /* TapApplePayStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5469AC7592DC99F543F472958207352F /* TapApplePayStatus.swift */; };
 		A4D12F9149B2B743B1ACB6774CD9ED3A /* FlurryLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C6AA60990C578D68D4147DAFD27514 /* FlurryLogger.swift */; };
 		A4DC44A6A092B4D46DFD3A7F901DD3CA /* ImageDecoders+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F449B41BF8F476BD0838D0EEF059DA /* ImageDecoders+Default.swift */; };
@@ -419,22 +417,20 @@
 		AB288D3A3A6D378E9C97B27BA2447775 /* AmountedCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C49ADCD37C1C4601D7BBF3BDF6271C /* AmountedCurrency.swift */; };
 		AC0D3F05F498F7E7BF9592401A7C9FF4 /* UIColor+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11ED553FC1AE855CB902FAC38D8DF5 /* UIColor+Additions.swift */; };
 		AC5ACCD4E97B21D6E09AEC111424B46E /* UIWindow+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7CAF0ECE3E3329993F9E3BB787196B /* UIWindow+Additions.swift */; };
-		AC8E773C500D3DEC250BC8CEAC332C87 /* TapScannerProtocl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606DB1E58966E6A5F62AAB68A69E8C8D /* TapScannerProtocl.swift */; };
 		AEBDC0FEE4FCE0D868E66D56CE818FB1 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBA03C8B3AA0D01A32D49ADDE1A0071 /* Operation.swift */; };
 		AF383ECCAB1C774893E7EFFC10AD8F4F /* UIImage+SwiftyGif.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9917AD8D53D4247074310674A9926F5 /* UIImage+SwiftyGif.swift */; };
 		AF5B9BA9C7ADCF08786A6034B75D14E5 /* Numeric+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A65FC5DDB7F00F72906CA8C0D2C3DD /* Numeric+Additions.swift */; };
 		AF730668AE8551E24C79ED62CD743649 /* ImagePipelineConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E878D8C63BCA02343BD5F260AE9141E2 /* ImagePipelineConfiguration.swift */; };
-		AF765D31B19F4975757FAFCBBEB8C9FA /* TapExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAC2074D613C426622E5AF887FD857F /* TapExtensions.swift */; };
 		AFA9FFBC51AA61ED089B39F0A0E24392 /* KeyboardHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FB3ABCC1B0D38C9C0A54CD0F981172 /* KeyboardHelper.swift */; };
 		B03B5579590D528CBA6D11FF638BC2AF /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710427BE8792E3934DCDB021355785F1 /* Typealiases.swift */; };
 		B0A1A6C50F585E86E50F9162BC62DCC6 /* TapThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A855187BA0CD8BA99C575553659ABFF7 /* TapThemeManager.swift */; };
 		B1CFC9BDB1C2149E1EE3B93272E353D7 /* AmountModificatorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9389DFEF58B6F6B72058B55549F522 /* AmountModificatorModel.swift */; };
 		B1E7952C3058B36470BE73E071F5355A /* ImageEncoders+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061ADD962B531B64DF16DBC2276D803 /* ImageEncoders+Default.swift */; };
 		B1EDA288AF74F644812932AAB3283B62 /* ImageDecompression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1F80D7807100C5A9020CD1603DE602 /* ImageDecompression.swift */; };
-		B20B858FE23C776BD175D4D8E9B349C8 /* TapCardScanner-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F635FFC244DC1C0BCCD67A35998C895 /* TapCardScanner-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B2C21477EAAC8A77A2707C4A8F5610C5 /* TapCardTelecomPaymentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 363BFBF9BF90EAE601D156439F18CDF9 /* TapCardTelecomPaymentView.xib */; };
 		B2CF8DEB39661714AF451F1FFBD4A76B /* AsyncTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2DC7980B28501668E732504B2D85A /* AsyncTask.swift */; };
 		B3ABE130899E34AC9828871A863927BC /* TapSerializationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2489B2D1E5B15EE83D8C8F9DBD989C92 /* TapSerializationType.swift */; };
+		B3ACE7015299AD1EDB768E391ECBDCB4 /* TopRightSuccessCorner.png in Resources */ = {isa = PBXBuildFile; fileRef = F8556FAECC594EEFCB12BA18D7C0A25C /* TopRightSuccessCorner.png */; };
 		B3FAB99112FDD5A83BD5DD4E37773919 /* PullUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34811A69415D771980F442081F9709CB /* PullUpController.swift */; };
 		B43017FEC99D227D4CDD81DD2C27D9D9 /* ConstraintMakerPrioritizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A67FD47D6E7316D4974123B187EE325 /* ConstraintMakerPrioritizable.swift */; };
 		B592B6EB1EC77552C00930A0CC816AA4 /* CardNameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F886691BA7AEABAF7CB654CA0CC0A3C /* CardNameTextField.swift */; };
@@ -444,14 +440,17 @@
 		B8727FD42AB6F985AC7244705167C1B9 /* TapGoPayLoginBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E033044FA32FE4C1B5E32E8E1F815D2 /* TapGoPayLoginBarView.swift */; };
 		B876AB616E018DD62BBE4E9C8A052D7B /* InternalCardInputTextFieldProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02E67CDE03BB0150D912C726C5D5166 /* InternalCardInputTextFieldProtocol.swift */; };
 		B99E0CE4D52321EE80110D4AE6DE0EA2 /* UIDevice+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2802BF6959173B9D55EC47AA36701DA5 /* UIDevice+Additions.swift */; };
+		BAA71B33BF74CB00C3B65B2462E0C86B /* Reg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073F5F22A57616603DEA91D4F921A663 /* Reg.swift */; };
 		BB0C3CCB997CC7EBE7A7F0D94BA36428 /* TapSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B1416B3ABE1873CDEFCECCEB067A7E /* TapSerializer.swift */; };
 		BBAC9BD3DDEB59C13E31251A9C1A95CF /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0EED9E917F30C591EE90A2AA6BD60821 /* Roboto-Medium.ttf */; };
+		BC1F245A3DD03D71708EE7E6D497A2A2 /* BottomRightSuccessCorner.png in Resources */ = {isa = PBXBuildFile; fileRef = 34DA7F0D00F7FF6F20B670200B34DD5B /* BottomRightSuccessCorner.png */; };
 		BC6A9C66A438505C86D2929BBB346EEC /* ThemeFontSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7339DA7312F7CBDC19FC8D2FA0FC00C /* ThemeFontSelector.swift */; };
 		BD193910C9B3602B1911CD65700FB4D0 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 786AA0E5137EE9AF1A3199A286C0F1FA /* Roboto-Thin.ttf */; };
 		BD47CB74CD9B2B4D2D942C9B65748DFB /* SnapKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 974BCE45848CD674834BACD9D5FCF394 /* SnapKit-dummy.m */; };
 		BD4DA8F2A44164BA33B9C64614B11C67 /* Graphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC9FED694C006499501E92D16A3331C /* Graphics.swift */; };
 		BDCFEBA76F78952F7CF6D12AB8924B13 /* discover.png in Resources */ = {isa = PBXBuildFile; fileRef = F58D43AC7EF27161171018286124451A /* discover.png */; };
 		BEC9868A0439D009C0CC0723470DEC4F /* TapGoPayPasswordTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 829123EB3CB027C041687E06340BDDDA /* TapGoPayPasswordTextField.xib */; };
+		BF10C8DC4B24BE0A1DA34607CA2CF516 /* TapExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAC2074D613C426622E5AF887FD857F /* TapExtensions.swift */; };
 		BF2F43E9446523171DF5F0E46780FDB5 /* TapGoPayLoginBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB140CE977D0FDDAD20EFA30AFCBEEBE /* TapGoPayLoginBarView.xib */; };
 		BFCC0163995C61F48B3B9A7A93DDA6FD /* NSData+SHA.m in Sources */ = {isa = PBXBuildFile; fileRef = 022E1AD88AC8403A7B242C039BDA9D34 /* NSData+SHA.m */; };
 		C025B658E6ED50E858FEC98AC9F5AA03 /* TapOtpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF77C1BA6C103618542E7C115B12E922 /* TapOtpViewModel.swift */; };
@@ -462,7 +461,7 @@
 		C14D9749189B387A16EE1B35517FC12F /* DefaultLightTheme.json in Resources */ = {isa = PBXBuildFile; fileRef = 96CEEDE6FE0D629FA2FE5F8CD82A104E /* DefaultLightTheme.json */; };
 		C176935FB2D00CC20C031B53077A938C /* TapApplePay.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF471BDBA413D6BFC71B72FA435ACC0 /* TapApplePay.swift */; };
 		C18B5AECA82B925806182ABED461FD31 /* TapCardInputKit-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D26A7B075CC0E8A16BC39399F6BF39D9 /* TapCardInputKit-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C1C3F7A529B083CB21C140C14378EE56 /* BottomRightCorner.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC43E8B1BE769D2C9BAF3A29FC64A35 /* BottomRightCorner.png */; };
+		C1FDF7E519D0FDCC7D369B48FF85C835 /* TapScannerStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 796E70E52331A28D7DCDAB2E1F5D16AB /* TapScannerStoryboard.storyboard */; };
 		C207AFBBFAEE30C87D338225680837F3 /* RateLimiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB43D675BCB4A9DFB949E021BC44054 /* RateLimiter.swift */; };
 		C229ED6852FD39BC3A4DA56437788052 /* URLSession+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6662F1567FDBC54BCB0F5E626267B01 /* URLSession+Additions.swift */; };
 		C2EC2F579EE5FC7E581004D3A6585758 /* String+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4871A58AC1F699D6CB93A9EE243F754 /* String+Additions.swift */; };
@@ -488,7 +487,7 @@
 		CD5C749782313BCA361B960D1A145160 /* AVDataAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFAD624B70B01E789710EBF2E101758 /* AVDataAsset.swift */; };
 		CD956633CFCFDA1D4995640A25863EFE /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB01FFB866BFE269E38EEC44EE44C67 /* Measurement.swift */; };
 		CDD390562AC3091C3090678F0C273A75 /* TapWebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C3B3BC8E46A91D48DD2E827B2727BC /* TapWebViewModel.swift */; };
-		CF5C0F6AC1064EC125CCBBA070A5973F /* TopLeftSuccessCorner.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAEBA3CED89D9EDD0849F95E4570BD0 /* TopLeftSuccessCorner.png */; };
+		CE8A25E679804F0381C0C2DF8E980152 /* ImageAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCA7D1D5288B2231AE08FAF32A1B65E /* ImageAnalyzer.swift */; };
 		CF77A2024C96B3B6EEA975AF69590A3D /* TaskFetchOriginalImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F933BD5DEBC2A6CE2CA27F18D4B91AC7 /* TaskFetchOriginalImageData.swift */; };
 		CFA543658E26AA02F80882A98001035E /* UInt8+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608DAD80A7CDD68A815C4B873465CE66 /* UInt8+Additions.swift */; };
 		CFC0604B378DFC0D574943D84F64212A /* TapSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A91137E9475C80610D764107930400 /* TapSwitchView.swift */; };
@@ -497,11 +496,11 @@
 		D001580B3D527ED68F5F2C668639B32B /* TapCurrencyCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1A67ADE3BCAA6C733B18C7B79D961C /* TapCurrencyCode.swift */; };
 		D0A9679A36AE94001EF24E6F4BA8A195 /* TapApplePayButtonStyleOutline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF42D74F7155F9FAF0705B5761B252F /* TapApplePayButtonStyleOutline.swift */; };
 		D177C5FDE53D823B7FC707D73863CFF3 /* UICollectionView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDEA1B890B608F4F42F66D829758E7F /* UICollectionView+Additions.swift */; };
+		D1E5C31739CB9DA61849B510FD41664F /* TopLeftCorner.png in Resources */ = {isa = PBXBuildFile; fileRef = 6BD3276877785C57BAB3501F8561833F /* TopLeftCorner.png */; };
 		D28C758D4FDF2157FA8FE9FBD23F5D80 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A8E1F128D5C7FFEA3BE07508B15460E /* Foundation.framework */; };
 		D2A16449C38DEB13646D553AF1785CDD /* UIScreen+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9903B721068DA15220A035BB0B67BE /* UIScreen+Additions.swift */; };
 		D324398501947A8BB378AF7A2BB50937 /* OptionallyIdentifiableWithString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789D15319A34F34173DBAE48117EC30E /* OptionallyIdentifiableWithString.swift */; };
 		D3C1D8E7A1C4D00E819A2CB1D00AB173 /* CurrencyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88D22966578A9FB4617CBDBDAB8B5C7 /* CurrencyFormatter.swift */; };
-		D4100B940D614BE2C302352B8591E920 /* FlurryLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7038B6BA48798061BC26769EB9681D /* FlurryLogger.swift */; };
 		D4993C41D4DB067E5BA83CF55FC494E2 /* TapGoPayPasswordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EC9CBA9F295FF9FE4F9526834693CAC /* TapGoPayPasswordView.xib */; };
 		D4ECDE0B74C2EEAE60009D6E6C3CE1F0 /* KeyedDecodingContainer+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF15D9F204AF90404E24CABF0607102 /* KeyedDecodingContainer+Additions.swift */; };
 		D4EECD6BE32E0CA76F40315237583F15 /* TapAmountSectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A21407298E842BDE78CAB72B42D7458 /* TapAmountSectionViewModel.swift */; };
@@ -510,13 +509,13 @@
 		D55723DED8139F0F876B0D76B1415A7A /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2375112B1AF36FFBCAA82D33EB870EF /* Message.swift */; };
 		D644210C4EC5EC3ECDE0466B36AFF8E7 /* TapVerticalView+AddRemoveViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5156B68EAA8C2ED694911BEA3A1E7A0A /* TapVerticalView+AddRemoveViews.swift */; };
 		D7545EA90CD3332464F43B1D12733449 /* TapCardTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29D8BBA27A8F47B2EDB93DD0C5709E6 /* TapCardTextField.swift */; };
-		D7E64913D1284576C989CE6010378A56 /* TapScannerStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 796E70E52331A28D7DCDAB2E1F5D16AB /* TapScannerStoryboard.storyboard */; };
 		D7FE2E5B83D2662B4C08E9CF7FF13D52 /* TapCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E39E474E2C5BFE5651AFE9EA2C0229 /* TapCard.swift */; };
 		D80E701E2B319D46A98911FE8B5DDE02 /* TapNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C2522E408CF08931195D294654744B /* TapNetworkManager.swift */; };
 		D8D8C5B87FF07BD83EB64AC093C289D0 /* Tajawal-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94555BE8DE1FBDA53BC2D06776D96756 /* Tajawal-Light.ttf */; };
 		D9FB93F1F9588B297D943E4A3A4133F7 /* ApplePayChipViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5798777BBD9E17B42A845FE41A4802 /* ApplePayChipViewCellModel.swift */; };
 		DAA89F4D37497D1B3AE23648EF51B340 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9E1D6301DA64263A3873B401C673DB /* Constants.swift */; };
 		DB78B94A0A7EE3208C63F72C6766F7F1 /* NSNumber+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D0C619E6348C1F46687D2B5D03BD5F /* NSNumber+Additions.swift */; };
+		DB889CAFE03C4FF389EBFB7B66288204 /* BottomLeftSuccessCorner.png in Resources */ = {isa = PBXBuildFile; fileRef = CB0960079FBB40461C5FED35A40BB821 /* BottomLeftSuccessCorner.png */; };
 		DBBEBCE04C91414572AE60714A876047 /* ImagePublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E4E0CD4C670219FBDFCF01D6707FD2 /* ImagePublisher.swift */; };
 		DC4D9762814E28284CDCBF7FB7406643 /* TapAmountSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8710A65EA07A38E8517925084E4D1A /* TapAmountSectionView.swift */; };
 		DC943137E63DF70CBEDEF337DA730B6B /* CGRect+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A18E70FC055ADDCD1DE3AE20D47FCF5 /* CGRect+Additions.swift */; };
@@ -524,7 +523,9 @@
 		DCC2BE403853DC9B6DE8F2B4A451BF67 /* 3sec-white-loader-2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5173821A3EE0992385D7170F444899BF /* 3sec-white-loader-2.gif */; };
 		DDAC3C8EA945268D9DE6824EF969BD3D /* ThemeStatusBarStyleSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4BE668B7B1D216670ED5311631F2FA /* ThemeStatusBarStyleSelector.swift */; };
 		DE11094FD4C82933F34E9664D7611CDE /* DefaultLightTheme.json in Resources */ = {isa = PBXBuildFile; fileRef = 9D66E936DCA76B1D14AAD3EFCC4875CD /* DefaultLightTheme.json */; };
+		DEA7E06BCCB34AB445268FD3B9EBAD03 /* BlurHoleCorners.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBCA81D0CED72BEB0011B762A6F0D00D /* BlurHoleCorners.xib */; };
 		DECB3982B6D680B3E5631C713452DF6E /* MOLH.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECEF8B25B57D5012B65C99CB107C248 /* MOLH.swift */; };
+		DF1F247F2EB5DE5E99DDC287FA4E3B4D /* TapFullScreenScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4EB6D5F1E9B5239DA59222A7E93716 /* TapFullScreenScannerViewController.swift */; };
 		E04DDA511A8414C91B06C0D066DC3065 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A8E1F128D5C7FFEA3BE07508B15460E /* Foundation.framework */; };
 		E08978C3FC13025206D363231ADD323B /* FontProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F843E2DAD4B4CF777BD86B217FF11 /* FontProvider.swift */; };
 		E09F1487324EEEB2A098F3B6D3FA322A /* DefaultTapLocalisation.json in Resources */ = {isa = PBXBuildFile; fileRef = 2BE869FCBC00001FA196A50EFAB372AA /* DefaultTapLocalisation.json */; };
@@ -536,7 +537,6 @@
 		E37CACCB03627CA96F903E5BBCB406F9 /* CNContactStore+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2795046DE22E6E60FA0016A2A303C8 /* CNContactStore+Additions.swift */; };
 		E37D208695D22538DED9EAEC2BA161BF /* SavedCardCollectionViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED37BA41FEE215FBD98D79EEDAF6603 /* SavedCardCollectionViewCellModel.swift */; };
 		E37E11542101C245ED178CC90417D12A /* ThemeUIColorSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BDF6C774831E542F9C86C065CCE4DE /* ThemeUIColorSelector.swift */; };
-		E39CA27C892ACFD35E6856F98F65E317 /* BottomLeftSuccessCorner.png in Resources */ = {isa = PBXBuildFile; fileRef = CB0960079FBB40461C5FED35A40BB821 /* BottomLeftSuccessCorner.png */; };
 		E470A71146181F74D9FDC8CF7642B626 /* Mass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F26F36800B75456524941C39A8E34D /* Mass.swift */; };
 		E4C20320B1E3D82B53FDD59AEC397633 /* TapLogoutChipCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C4FB4899A93CC2E6622C7D312C4650 /* TapLogoutChipCollectionViewCell.swift */; };
 		E58444914A4FEC946FF6D5313E4A7915 /* TapActionButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94FA86CF41D8CF2E2986075A97DDCC69 /* TapActionButton.xib */; };
@@ -545,15 +545,16 @@
 		E6AF5DC42562A5A9CC2348017A7E73C3 /* TapAmountSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DFE7281852613BEA6077A2BD4240BC1 /* TapAmountSectionView.xib */; };
 		E71DCB845B23888A43A18E204BA861E0 /* McPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FB8430A798EBB031D7EA33C40AF6FB /* McPicker.swift */; };
 		E74667B2CC4461D370AD6C7F5AD56FF2 /* ImageEncoders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880CF7CC492BAAAB9E1B9C2FFA9AD252 /* ImageEncoders.swift */; };
+		E7F48CBB0A469127035E86D05B929515 /* TapScannerProtocl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606DB1E58966E6A5F62AAB68A69E8C8D /* TapScannerProtocl.swift */; };
 		E802A430A8994568589FD62090CB0DCE /* TapVerticalView+ShowHideTapViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A2D589D2EEF92E7E9DDBE06135D6F6 /* TapVerticalView+ShowHideTapViews.swift */; };
 		E8656969F43F3B01B1DFD98860502727 /* CardTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C5959816F71DC111A09CE3ED8D2CA9 /* CardTypeEnum.swift */; };
+		E887737D976704D5C57E9C89F1D06A5A /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB50FEE703B60635EFE8007E469F1BD /* CameraView.swift */; };
 		E8F4B02D9FE9AC7CE50C7D2E483E6B78 /* SwiftyGifManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3936BFAE26535DE91C8A503187715A66 /* SwiftyGifManager.swift */; };
 		E9160DAA0AA84EE39E56D50C08E233C6 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F571B12C34AF636BE4750603B9C963F2 /* Triangle.swift */; };
 		E98DC8FB2578E76A812E0C94BA10E1B1 /* ConstraintDirectionalInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE8A5C38B1B05B667CF4C72C0F8BE5B /* ConstraintDirectionalInsets.swift */; };
 		EA59A109F1B9DB62A0B3220AA2A80BEC /* UIKit+TapTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF585B352CA590D589BC348CA19BE490 /* UIKit+TapTheme.swift */; };
 		EB562D3E5AD9C37B353B90760AC22D61 /* TaskLoadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6167D9D170573A9161EBC74D0C872AD2 /* TaskLoadData.swift */; };
 		EBA57896E0DD5F79340572DF549563C8 /* ImageDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE40E6B72F6AC72F013F6E5401C8EEB0 /* ImageDecoding.swift */; };
-		EC0966E8EC5FD947DE1304700C74A28A /* TapCanScanStatusResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB26961023E784DDF06A24882987A76 /* TapCanScanStatusResult.swift */; };
 		EC3A88D336A563AC8913FF5A4B2BF2D0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A8E1F128D5C7FFEA3BE07508B15460E /* Foundation.framework */; };
 		ECA9A70EC291E689EC134D65A561F53B /* Nuke-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC82DB7CBC66E102CA351CE2572622 /* Nuke-dummy.m */; };
 		ECAB2A28223EA0DFB173FDAC6803ED7A /* MOLHLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6B4EB05E23CA023729FBA7C58EE54B /* MOLHLanguage.swift */; };
@@ -574,7 +575,6 @@
 		F5AFC55CA48202EBA0DBF2B27E7A01E2 /* TapSystemPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE11246CE89469D2822CA929709724A2 /* TapSystemPermission.swift */; };
 		F6BE91228C63DE06ECE86D4BFEA345B6 /* URL+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170129F51712D7BE232B784203BCDA4A /* URL+Additions.swift */; };
 		F75ED5FE0E6F69F0F9D5F1F9414C714E /* McPicker-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 99126A58635BF1A87B8329EF89F5B786 /* McPicker-dummy.m */; };
-		F7BB03611E1E9613DDE1501339E1DC47 /* TapInlineCardScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1338DD91B692C2D9AC589342CFEE12 /* TapInlineCardScanner.swift */; };
 		F7C0960CEEB8F0C18F4503B405EAC08F /* ConstraintMultiplierTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8696C81425CCBEE4BB0EA57BAEC2E80E /* ConstraintMultiplierTarget.swift */; };
 		F86F56CE1DF0927AD3BD10CE8339DA69 /* TapUIKit-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F4CD72317C430175307E01929621CD /* TapUIKit-iOS-dummy.m */; };
 		F8A287C1CA21D1B4A75AD4B918FEB3B3 /* CGPoint+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B90BB1088CC2AD726AF1EA37FACBE7B /* CGPoint+Additions.swift */; };
@@ -662,13 +662,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 473C08B3D856915C204623033941AC9D;
 			remoteInfo = "TapCardInputKit-iOS";
-		};
-		18D890F7104B291F709DE4A85FA20155 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D49B77E3C54A9573D2E2DDD93687FCBF;
-			remoteInfo = "CommonDataModelsKit-iOS";
 		};
 		1D4A5E121174B0A083C4398E1DDC42CF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -774,6 +767,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 9A8B22F15674A78FC57F1E9B3018E88B;
 			remoteInfo = TapApplicationV2;
+		};
+		492700A71798EE7B6CFB87D8BAE55A90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D49B77E3C54A9573D2E2DDD93687FCBF;
+			remoteInfo = "CommonDataModelsKit-iOS";
 		};
 		4B0D126895261EBCBC5C87F717869C2E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -963,6 +963,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 062A64896E847A6749F58B6BA9A931B1;
 			remoteInfo = Nuke;
+		};
+		B0D0DC7841ABA8895CC3CC9187FD8858 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3615B323ECE97BB00B6167A5847EF0FF;
+			remoteInfo = "TapCardVlidatorKit-iOS";
 		};
 		B6B4166B112AD13955E36AC634DA6DA9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1942,6 +1949,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8572C8B3FD03D3CD7B2C9B0D29CABA93 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				848F5E79B1571FFF3178D8D034D28E9A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		87BD10E583A1B206668FB48E4215142A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1964,14 +1979,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				577EB60CB00785E7B3E6254404050E37 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AB40D78AE5726F5EA357AAD3EE4D80F6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1D974C40F4812F04DF0F260FAD6773AA /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3252,6 +3259,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		16CB28C111D9F9F9B4F8BD769A5BCC2C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				244E4271D649D8A8B3D4BBD3290C5A8E /* TapCardScanner-iOS-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		27F457173377E8323C63E071A555181E /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -3315,14 +3330,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1857385D706E5D0E2A0CA4DD21877671 /* Pods-CheckoutExample-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		889D628D760111D8CC35F17E87AEF39A /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B20B858FE23C776BD175D4D8E9B349C8 /* TapCardScanner-iOS-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3742,17 +3749,18 @@
 		};
 		A69E391A11C234F827CD955C6FE288C0 /* TapCardScanner-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0A457511480D7E22D1EA9AD897106ED2 /* Build configuration list for PBXNativeTarget "TapCardScanner-iOS" */;
+			buildConfigurationList = EB6AD7EF947A0AD2A1BA6993AA1B5305 /* Build configuration list for PBXNativeTarget "TapCardScanner-iOS" */;
 			buildPhases = (
-				889D628D760111D8CC35F17E87AEF39A /* Headers */,
-				E9B7FC6FC1C9219EE4DA5E790CD76135 /* Sources */,
-				AB40D78AE5726F5EA357AAD3EE4D80F6 /* Frameworks */,
-				11589B21A7EC51D7566B7CCAB1A964C6 /* Resources */,
+				16CB28C111D9F9F9B4F8BD769A5BCC2C /* Headers */,
+				A54B20AC071BEA160510269D820B8287 /* Sources */,
+				8572C8B3FD03D3CD7B2C9B0D29CABA93 /* Frameworks */,
+				ECB6587F11432AEB2A52F93962B23230 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				6784C3FE3B0B7A13551D23AEEBBE873F /* PBXTargetDependency */,
+				D95518B747E5EF81BA227303604DF779 /* PBXTargetDependency */,
+				CD918D64732A158B82A6053A78CC1E22 /* PBXTargetDependency */,
 			);
 			name = "TapCardScanner-iOS";
 			productName = TapCardScanner_iOS;
@@ -3963,23 +3971,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		11589B21A7EC51D7566B7CCAB1A964C6 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7243E0464D7347FD40DD0BA88B4AC8CC /* BlurHoleCorners.xib in Resources */,
-				1F14FDDA92A105CEF2C5E9776A88B5D4 /* BottomLeftCorner.png in Resources */,
-				E39CA27C892ACFD35E6856F98F65E317 /* BottomLeftSuccessCorner.png in Resources */,
-				C1C3F7A529B083CB21C140C14378EE56 /* BottomRightCorner.png in Resources */,
-				4C5C8C00579D3EFD08B444467C3F987A /* BottomRightSuccessCorner.png in Resources */,
-				D7E64913D1284576C989CE6010378A56 /* TapScannerStoryboard.storyboard in Resources */,
-				9102CB937E470B3C65F702348C3CE42B /* TopLeftCorner.png in Resources */,
-				CF5C0F6AC1064EC125CCBBA070A5973F /* TopLeftSuccessCorner.png in Resources */,
-				2A537845C37D253C3C6B55B0856A0ED4 /* TopRightCorner.png in Resources */,
-				8FD37EE87CD5443054F06F8C977E328D /* TopRightSuccessCorner.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		1A5BE7DED56A056ABD3A4FCF0F6084D9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4200,6 +4191,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECB6587F11432AEB2A52F93962B23230 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEA7E06BCCB34AB445268FD3B9EBAD03 /* BlurHoleCorners.xib in Resources */,
+				0902AE5DF1C20C1F3EE5912E022C3D21 /* BottomLeftCorner.png in Resources */,
+				DB889CAFE03C4FF389EBFB7B66288204 /* BottomLeftSuccessCorner.png in Resources */,
+				5FB0D3C2EE705404A0EE4884AE8472BC /* BottomRightCorner.png in Resources */,
+				BC1F245A3DD03D71708EE7E6D497A2A2 /* BottomRightSuccessCorner.png in Resources */,
+				C1FDF7E519D0FDCC7D369B48FF85C835 /* TapScannerStoryboard.storyboard in Resources */,
+				D1E5C31739CB9DA61849B510FD41664F /* TopLeftCorner.png in Resources */,
+				2A2AC387A13F9F0F39A7A3B6154EB67D /* TopLeftSuccessCorner.png in Resources */,
+				A4146C52F4227933F2D7340BAB65772D /* TopRightCorner.png in Resources */,
+				B3ACE7015299AD1EDB768E391ECBDCB4 /* TopRightSuccessCorner.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4579,6 +4587,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A54B20AC071BEA160510269D820B8287 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42753215A6C1CC31EE65B8675AF1B48B /* BlurHoleCorners.swift in Sources */,
+				E887737D976704D5C57E9C89F1D06A5A /* CameraView.swift in Sources */,
+				1022A8A2B29F93038673914013460613 /* FlurryLogger.swift in Sources */,
+				21A3F087617CA9B4B419A17404F6491E /* GoogleVisionScanner.swift in Sources */,
+				CE8A25E679804F0381C0C2DF8E980152 /* ImageAnalyzer.swift in Sources */,
+				37B770B885596C80C2BB53DBED05B6B1 /* ImageRatio.swift in Sources */,
+				BAA71B33BF74CB00C3B65B2462E0C86B /* Reg.swift in Sources */,
+				0EB8410E8F974FAF7F3064716895571D /* TapCanScanStatusResult.swift in Sources */,
+				5D48355CA8A05774CEE6384F909B118A /* TapCardScanner-iOS-dummy.m in Sources */,
+				BF10C8DC4B24BE0A1DA34607CA2CF516 /* TapExtensions.swift in Sources */,
+				DF1F247F2EB5DE5E99DDC287FA4E3B4D /* TapFullScreenScannerViewController.swift in Sources */,
+				1319CC91A734F72E4B031529DDD7A057 /* TapInlineCardScanner.swift in Sources */,
+				E7F48CBB0A469127035E86D05B929515 /* TapScannerProtocl.swift in Sources */,
+				1BB272DD423A9D16C75D1413EA957AF2 /* VisualEffectView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C1765CFFC7334691FF41EBD3D0645EC8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4717,27 +4746,6 @@
 				77917E67CF128FDC0F96BD68817CF9C2 /* CardValidator.swift in Sources */,
 				2045E7CB575B41C5AB0A28DF6F0878E7 /* DefinedCardBrand.swift in Sources */,
 				382AE314FD6614C9DBD8A9921B0C9C81 /* TapCardVlidatorKit-iOS-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E9B7FC6FC1C9219EE4DA5E790CD76135 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A2CAB956222A10EFD2BA6ED54DC7284E /* BlurHoleCorners.swift in Sources */,
-				35CCA2E45AC949EA6B684A7FED435A85 /* CameraView.swift in Sources */,
-				D4100B940D614BE2C302352B8591E920 /* FlurryLogger.swift in Sources */,
-				23210871DA6DB58E1B83D0916B9A7A93 /* GoogleVisionScanner.swift in Sources */,
-				9E4B6DC83FE17E3F579EB0DE7583665C /* ImageAnalyzer.swift in Sources */,
-				8C4AD0B5ED2E40717D16337F570F5E09 /* ImageRatio.swift in Sources */,
-				77C6B4D9C073537C182CCAB94437966D /* Reg.swift in Sources */,
-				EC0966E8EC5FD947DE1304700C74A28A /* TapCanScanStatusResult.swift in Sources */,
-				8C05967B0FF14CFA83201902D7F67EEA /* TapCardScanner-iOS-dummy.m in Sources */,
-				AF765D31B19F4975757FAFCBBEB8C9FA /* TapExtensions.swift in Sources */,
-				1ADDEFD68B34A0BC955706C3C1083F75 /* TapFullScreenScannerViewController.swift in Sources */,
-				F7BB03611E1E9613DDE1501339E1DC47 /* TapInlineCardScanner.swift in Sources */,
-				AC8E773C500D3DEC250BC8CEAC332C87 /* TapScannerProtocl.swift in Sources */,
-				7CCA1997FE84FBBA0AE252A8848BB6D1 /* VisualEffectView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5013,12 +5021,6 @@
 			target = 16C29784E4E523C09870A2370B920B17 /* SimpleAnimation */;
 			targetProxy = 77A07B5877C37CB28728A22CF1C535C6 /* PBXContainerItemProxy */;
 		};
-		6784C3FE3B0B7A13551D23AEEBBE873F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "CommonDataModelsKit-iOS";
-			target = D49B77E3C54A9573D2E2DDD93687FCBF /* CommonDataModelsKit-iOS */;
-			targetProxy = 18D890F7104B291F709DE4A85FA20155 /* PBXContainerItemProxy */;
-		};
 		68F1646FD988CAF801DD41B3EFE2B874 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Nuke;
@@ -5187,6 +5189,12 @@
 			target = F533AA510B62E4F3B56C094378F820D6 /* TapFontKit-iOS */;
 			targetProxy = 1E30F55A5DB9608973D05819E862BDFF /* PBXContainerItemProxy */;
 		};
+		CD918D64732A158B82A6053A78CC1E22 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "TapCardVlidatorKit-iOS";
+			target = 3615B323ECE97BB00B6167A5847EF0FF /* TapCardVlidatorKit-iOS */;
+			targetProxy = B0D0DC7841ABA8895CC3CC9187FD8858 /* PBXContainerItemProxy */;
+		};
 		CDD44E3AD805C183972C2B50A7AEFBEE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SnapKit;
@@ -5210,6 +5218,12 @@
 			name = "TapCardVlidatorKit-iOS";
 			target = 3615B323ECE97BB00B6167A5847EF0FF /* TapCardVlidatorKit-iOS */;
 			targetProxy = B6B4166B112AD13955E36AC634DA6DA9 /* PBXContainerItemProxy */;
+		};
+		D95518B747E5EF81BA227303604DF779 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "CommonDataModelsKit-iOS";
+			target = D49B77E3C54A9573D2E2DDD93687FCBF /* CommonDataModelsKit-iOS */;
+			targetProxy = 492700A71798EE7B6CFB87D8BAE55A90 /* PBXContainerItemProxy */;
 		};
 		DDCF8DA6CA687165A1B416598ACF1D8F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5325,6 +5339,42 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
+		};
+		1ECF7893E6259821A6FB3A2F379F91F9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1AF6A71FCA6B82335CF10E010FA1EAD3 /* TapCardScanner-iOS.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/TapCardScanner-iOS/TapCardScanner-iOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/TapCardScanner-iOS/TapCardScanner-iOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/TapCardScanner-iOS/TapCardScanner-iOS.modulemap";
+				PRODUCT_MODULE_NAME = TapCardScanner_iOS;
+				PRODUCT_NAME = TapCardScanner_iOS;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 		245B3739412233F1D7352A6FE353EB13 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -5531,77 +5581,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		2E7C35C690927A50E4BDA84F41872EE1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1AF6A71FCA6B82335CF10E010FA1EAD3 /* TapCardScanner-iOS.release.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/TapCardScanner-iOS/TapCardScanner-iOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/TapCardScanner-iOS/TapCardScanner-iOS-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/TapCardScanner-iOS/TapCardScanner-iOS.modulemap";
-				PRODUCT_MODULE_NAME = TapCardScanner_iOS;
-				PRODUCT_NAME = TapCardScanner_iOS;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		38B60E5D307AE5A51EE779FB8AD1392D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7FB389C57FB6DFA83A7277DBEC65D7EA /* TapCardScanner-iOS.debug.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/TapCardScanner-iOS/TapCardScanner-iOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/TapCardScanner-iOS/TapCardScanner-iOS-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/TapCardScanner-iOS/TapCardScanner-iOS.modulemap";
-				PRODUCT_MODULE_NAME = TapCardScanner_iOS;
-				PRODUCT_NAME = TapCardScanner_iOS;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -6904,6 +6883,41 @@
 			};
 			name = Debug;
 		};
+		E1FDE256C76C44829DFDC1130A96D0CE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7FB389C57FB6DFA83A7277DBEC65D7EA /* TapCardScanner-iOS.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/TapCardScanner-iOS/TapCardScanner-iOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/TapCardScanner-iOS/TapCardScanner-iOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/TapCardScanner-iOS/TapCardScanner-iOS.modulemap";
+				PRODUCT_MODULE_NAME = TapCardScanner_iOS;
+				PRODUCT_NAME = TapCardScanner_iOS;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		E511D8E56359F609F8EA1715C4C37A16 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 59057968534893BB6F3CE8E0ABA6777C /* McPicker.release.xcconfig */;
@@ -7026,15 +7040,6 @@
 			buildConfigurations = (
 				D4E64BE9EABB2BC621F6C2CC26A2E668 /* Debug */,
 				CCBA4513D51C7080F1DA239EDF7822C3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		0A457511480D7E22D1EA9AD897106ED2 /* Build configuration list for PBXNativeTarget "TapCardScanner-iOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				38B60E5D307AE5A51EE779FB8AD1392D /* Debug */,
-				2E7C35C690927A50E4BDA84F41872EE1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -7215,6 +7220,15 @@
 			buildConfigurations = (
 				B90B6814939C777373B3496063D4C142 /* Debug */,
 				4CFBAAF3AA8B05C06A5AC47343A8B384 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EB6AD7EF947A0AD2A1BA6993AA1B5305 /* Build configuration list for PBXNativeTarget "TapCardScanner-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1FDE256C76C44829DFDC1130A96D0CE /* Debug */,
+				1ECF7893E6259821A6FB3A2F379F91F9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

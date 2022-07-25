@@ -211,6 +211,8 @@ import enum CommonDataModelsKit_iOS.TapCurrencyCode
             if weakTapCurrencyFormatterSymbol == .LocalSymbol {
                 $0.currencySymbol = currencyCode.symbolRawValue
                 $0.localizeCurrencySymbol = true
+            }else{
+                $0.currencySymbol = currencyCode.appleRawValue
             }
         }
         return formatter.string(from: amount) ?? "KD0.000"
@@ -221,19 +223,19 @@ import enum CommonDataModelsKit_iOS.TapCurrencyCode
     internal func itemsClicked() {
         // Determine which method should we execute
         switch currentStateView {
-        // Meaning, currently we are showing the normal view and we need to show the items list
+            // Meaning, currently we are showing the normal view and we need to show the items list
         case .DefaultView:
             showItems()
             break
-        // Meaning currently we are showing the list items and we need to go back to the normal view
+            // Meaning currently we are showing the list items and we need to go back to the normal view
         case .ItemsView:
             closeItems()
             break
-        // Meaning currently we are showing the scanner and we need to go back to the normal view
+            // Meaning currently we are showing the scanner and we need to go back to the normal view
         case .ScannerView:
             closeScanner()
             break
-        // Meaning currently we are showing the GoPay Login and we need to go back to the normal view
+            // Meaning currently we are showing the GoPay Login and we need to go back to the normal view
         case .GoPayView:
             closeGoPay()
             break

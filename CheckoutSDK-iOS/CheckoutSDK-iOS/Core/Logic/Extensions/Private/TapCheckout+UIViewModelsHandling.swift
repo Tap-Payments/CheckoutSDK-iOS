@@ -217,6 +217,14 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         
         // Fetch the list of supported currencies
         self.dataHolder.viewModels.currenciesChipsViewModel = paymentOptions.supportedCurrenciesAmounts.map{ CurrencyChipViewModel.init(currency: $0,icon: $0.cdnFlag) }
+        
+        // Set the custom symbols to display with currencies as we got from backend
+        TapAmountedCurrencyFormatter.customCurrencySymbols = [:]
+        
+        paymentOptions.supportedCurrenciesAmounts.forEach { currency in
+            TapAmountedCurrencyFormatter.customCurrencySymbols?[currency.currency.rawValue] = currency.currencySymbol
+        }
+        
         // Now after getting the list, let us map them to the currencies chips view model
         self.dataHolder.viewModels.tapCurrienciesChipHorizontalListViewModel = .init(dataSource: dataHolder.viewModels.currenciesChipsViewModel, headerType: .NoHeader,selectedChip: dataHolder.viewModels.currenciesChipsViewModel.filter{ $0.currency == dataHolder.transactionData.transactionUserCurrencyValue }[0])
         
