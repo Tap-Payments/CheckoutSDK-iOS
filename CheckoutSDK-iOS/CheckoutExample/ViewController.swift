@@ -226,6 +226,22 @@ extension ViewController:UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+    
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        // Fix the amount entered by the tester
+        
+        // Check he entered a valid numeric data
+        guard let enteredAmount:Double = Double(textField.text ?? "0"),
+              enteredAmount > 0,
+              enteredAmount < 10000 else {
+            amountTextField.text = ""
+            self.showToast(message: "Amount only digits less than 10,000", font: .systemFont(ofSize: 15))
+            return
+        }
+        
+        // Always round to third decimal digits
+        amountTextField.text = String(format: "%.3f", enteredAmount)
+    }
 }
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate {

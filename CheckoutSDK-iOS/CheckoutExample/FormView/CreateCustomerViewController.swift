@@ -8,6 +8,7 @@
 
 import UIKit
 import CheckoutSDK_iOS
+import CommonDataModelsKit_iOS
 
 protocol CreateCustomerDelegate {
     func customerCreated(customer:TapCustomer)
