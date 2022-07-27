@@ -91,6 +91,11 @@ import TapCardVlidatorKit_iOS
 		
 		return lhs.fingerprint == rhs.fingerprint
 	}
+    
+    func copy(with zone: NSZone? = nil) -> SavedCard {
+        let copy = SavedCard(identifier: identifier, object: object, firstSixDigits: firstSixDigits, lastFourDigits: lastFourDigits, brand: brand, paymentOptionIdentifier: paymentOptionIdentifier, expiry: expiry, cardholderName: cardholderName, fingerprint: fingerprint, currency: currency, scheme: scheme, supportedCurrencies: supportedCurrencies, orderBy: orderBy, expirationMonth: expirationMonth, expirationYear: expirationYear, cardType: cardType, image: image)
+        return copy
+    }
 	
 	// MARK: - Internal -
 	// MARK: Properties

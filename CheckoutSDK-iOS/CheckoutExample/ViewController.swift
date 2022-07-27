@@ -251,12 +251,12 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
-        
-        if (cell?.accessoryType == .checkmark){
-            cell!.accessoryType = .none;
-        }else{
-            cell!.accessoryType = .checkmark;
-        }
+        cell!.accessoryType = paymentItemsTableView.indexPathsForSelectedRows?.contains(indexPath) ?? false ? .checkmark : .none
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        cell!.accessoryType = .none
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -286,6 +286,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension ViewController: CreateItemViewControllerDelegate {
     func itemAdded(with item: ItemModel) {
+        
         loadItems()
     }
     

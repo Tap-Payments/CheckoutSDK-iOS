@@ -205,9 +205,16 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         self.dataHolder.viewModels.goPayLoginCountries = [.init(nameAR: "مصر", nameEN: "Egypt", code: "20", phoneLength: 10)]//paymentOptions.dataHolder.viewModels.goPayLoginCountries ?? []
         self.dataHolder.viewModels.goPayBarViewModel = .init(countries: dataHolder.viewModels.goPayLoginCountries)
         
+        self.dataHolder.viewModels.goPayChipsViewModel.forEach{ ($0.tapChipViewModel as? SavedCardCollectionViewCellModel)?.listSource = .GoPayListHeader }
+        
+        (self.dataHolder.viewModels.goPayChipsViewModel.first?.tapChipViewModel as? SavedCardCollectionViewCellModel)?.listSource = .GoPayListHeader
+        
         // Fetch the list of goPay Saved Cards
         // First check if cards are allowed
-        self.dataHolder.viewModels.goPayChipsViewModel = []
+        if dataHolder.transactionData.paymentType == .All || dataHolder.transactionData.paymentType == .Card {
+            self.dataHolder.viewModels.goPayChipsViewModel.append(contentsOf: (paymentOptions.savedCards ?? []).filter{ dataHolder.transactionData.allowedCardTypes.contains($0.cardType ?? .init(cardType: .All)) }.map{ ChipWithCurrencyModel.init(savedCard: $0.copy()) })
+            // Because we are dummy data, set them to goPay source :)
+        }
     }
     
     /// Handles the logic to fetch different sections from the Payment options response
@@ -238,7 +245,7 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         fetchGateways(paymentOptions)
         
         // Load the goPayLogin status
-        dataHolder.transactionData.loggedInToGoPay = false//UserDefaults.standard.bool(forKey: TapCheckoutConstants.GoPayLoginUserDefaultsKey)
+        dataHolder.transactionData.loggedInToGoPay = true//UserDefaults.standard.bool(forKey: TapCheckoutConstants.GoPayLoginUserDefaultsKey)
         
         // Fetch the save card/phone switch data
         dataHolder.viewModels.tapSaveCardSwitchViewModel = .init(with: .invalidCard, merchant: dataHolder.viewModels.tapMerchantViewModel.subTitle ?? "", whichSwitchesToShow: dataHolder.transactionData.saveCardSwitchType)
