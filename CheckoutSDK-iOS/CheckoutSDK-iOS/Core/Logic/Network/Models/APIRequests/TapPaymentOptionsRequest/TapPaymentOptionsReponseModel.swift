@@ -95,6 +95,8 @@ extension TapPaymentOptionsReponseModel: Decodable {
         let merchantCountryCode             = try container.decodeIfPresent(String.self, forKey: .merchantCountryCode)
         
         
+        paymentOptions = paymentOptions.sorted(by: { $0.orderBy < $1.orderBy })
+        
         for i in 0...paymentOptions.count-1 {
             if paymentOptions[i].brand == .unknown {
                 if paymentOptions[i].paymentType == .Web {

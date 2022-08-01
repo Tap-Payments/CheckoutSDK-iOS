@@ -7,112 +7,144 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1FC3EF5A-1A9C-44C0-95F4-4FF68CED8373"
+            uuid = "C3794EA0-FAFF-46CB-8AF0-22BDAB1C5D05"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+UIViewModelsHandling.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
+            landmarkName = "fetchGoPayData(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C3794EA0-FAFF-46CB-8AF0-22BDAB1C5D05 - 3dd2c3ee07169a8c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CheckoutSDK_iOS.TapCheckout.fetchGoPayData(CheckoutSDK_iOS.TapPaymentOptionsReponseModel) -&gt; ()"
+                  moduleName = "CheckoutSDK_iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+UIViewModelsHandling.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "205"
+                  endingLineNumber = "205"
+                  offsetFromSymbolStart = "41">
+               </Location>
+               <Location
+                  uuid = "C3794EA0-FAFF-46CB-8AF0-22BDAB1C5D05 - 3dd2c3ee07169a8c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CheckoutSDK_iOS.TapCheckout.fetchGoPayData(CheckoutSDK_iOS.TapPaymentOptionsReponseModel) -&gt; ()"
+                  moduleName = "CheckoutSDK_iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+UIViewModelsHandling.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "205"
+                  endingLineNumber = "205"
+                  offsetFromSymbolStart = "62">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "84B0FCA5-3BD6-4557-8F3D-A31DA16801C8"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapVerticalViewController/TapVerticalView+ShowHideTapViews.swift"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+UIKitDelegates.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "showGoPaySignInForm(with:and:hintViewStatus:for:)"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "savedCard(for:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "5B9CB667-B67A-4E19-8472-91584924038B"
+            uuid = "9F385D24-E26B-4C52-B164-6635A24A0F98"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/goPay/Views/GoPayLoginOptions.swift"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+UIViewModelsHandling.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
-            landmarkName = "focus(field:)"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "updateGoPayAndGatewayLists()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DE6FE41C-D56B-4447-AB04-132929E5BC33"
+            uuid = "05C7F2F5-D9D5-4D3E-8C8D-A550865628E6"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/goPay/Views/GoPayLoginOptions.swift"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Network/Models/TapCheckoutExtensions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
-            landmarkName = "focus(field:)"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "filter(for:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C2028FF5-1276-4CFE-B3FA-10EB05958A36"
+            uuid = "6846A856-C033-4835-95DC-BEE8561D4A80"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/goPay/Views/GoPayLoginOptions.swift"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+UIViewModelsHandling.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
-            landmarkName = "validationStatus"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "BEAC3C4A-F082-43BC-84D3-EACD28790457"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/goPay/Views/GoPayLoginOptions.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "247"
-            endingLineNumber = "247"
-            landmarkName = "phoneReturned(with:)"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "updateGatewayChipsList()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D2568B05-E12B-4BDE-9483-A5607B63DDDC"
+            uuid = "7ED08F77-62DB-4BD8-9E08-AAA570D826EF"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/goPay/ViewModels/TapGoPayLoginTabBarViewModel.swift"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+CardPaymentHandler.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
-            landmarkName = "changeSelectionValidation(to:)"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "handleGoPaySavedCard(for:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "56B5CF98-757E-4D6E-AE44-AE366D0224F7"
+            uuid = "F35575CA-6F48-48F9-965A-4EC8FFCF3870"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/goPay/ViewModels/TapGoPayLoginTabBarViewModel.swift"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+CardPaymentHandler.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
-            landmarkName = "configureDataSource()"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "handleSavedCard(for:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
