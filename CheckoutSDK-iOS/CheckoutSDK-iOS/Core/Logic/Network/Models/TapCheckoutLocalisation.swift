@@ -18,6 +18,8 @@ import LocalisationManagerKit_iOS
  * Pass their names in this Object
  */
 @objc public class TapCheckoutLocalisation: NSObject {
+    /// Represents a direct provided JSON localisation data
+    internal var localisationData:[String:Any]?
     /// Represents the file name of the custom provided localisation file
     internal var filePath:URL?
     /// Represents the type of the provided custom localisation, whether it is local embedded or a remote JSON file
@@ -36,5 +38,16 @@ import LocalisationManagerKit_iOS
         }
         self.localisationType = localisationType
         self.filePath = filePath
+    }
+    
+    
+    /**
+     Represents a model to pass custom localisation  files if required.
+     - Parameter localisationData: Represents a direct provided JSON localisation data
+     */
+    @objc public init(with localisationData:[String:Any]) {
+        super.init()
+        self.localisationData = localisationData
+        self.localisationType = .DirectData
     }
 }

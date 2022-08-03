@@ -8,7 +8,7 @@
 
 import Foundation
 import LocalisationManagerKit_iOS
-import MOLH
+//import MOLH
 import CommonDataModelsKit_iOS
 import TapUIKit_iOS
 
@@ -131,7 +131,7 @@ extension TapCheckout: TapBottomSheetDialogDelegate {
         TapCheckout.isCheckoutSheenPresented = false
         // If it is allowed, then we need to start the dismissing of the checkout screen
         if TapCheckout.flippingStatus == .FlipOnLoadWithFlippingBack {
-            MOLH.setLanguageTo("en")
+            //MOLH.setLanguageTo("en")
         }
         TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.tapBottomSheetWillDismiss?()
     }

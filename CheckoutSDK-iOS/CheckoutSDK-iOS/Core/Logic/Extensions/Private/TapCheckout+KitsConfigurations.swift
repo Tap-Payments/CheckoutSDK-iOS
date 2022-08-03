@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import MOLH
+//import MOLH
 import CommonDataModelsKit_iOS
 import TapUIKit_iOS
 import TapThemeManager2020
@@ -37,15 +37,14 @@ internal extension TapCheckout {
         sharedLocalisationManager.localisationLocale = TapCheckout.localeIdentifier
         // Adjust the flipping
         if TapCheckout.flippingStatus != .NoFlipping {
-            MOLH.setLanguageTo(TapCheckout.localeIdentifier)
+            //MOLH.setLanguageTo(TapCheckout.localeIdentifier)
         }
         
         // Check if the user provided a custom localisation file to use and it is a correct and a reachable one
         // Depends on the type of the localisation whether remote or locale
         guard let nonNullLocalisationModel = localiseFile,
-        let nonNullFilePathURL = nonNullLocalisationModel.filePath,
         let nonNullLocaltionType = nonNullLocalisationModel.localisationType else { return }
-        let _ = sharedLocalisationManager.configureLocalisation(with: nonNullFilePathURL, from: nonNullLocaltionType)
+        let _ = sharedLocalisationManager.configureLocalisation(with: nonNullLocalisationModel.filePath, or: nonNullLocalisationModel.localisationData, from: nonNullLocaltionType)
     }
     
     /** Configures the theme manager by setting the provided custom theme file names

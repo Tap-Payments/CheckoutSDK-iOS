@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import LocalisationManagerKit_iOS
 
 /// A protocol to be used to fire functions and events in the associated view
 protocol TapSwitchControlDelegate {
@@ -33,7 +34,9 @@ protocol TapSwitchControlDelegate {
     @IBOutlet weak private var switchButton: UISwitch!
     /// Represents the separator view to be shown in the bottom of the view
     @IBOutlet weak private var separator: UIView!
-
+ 
+    @IBOutlet var toBeLocalizedLabels: [UILabel]!
+    
     /// A protocol to communicate between switch control view and the parent view
     var delegate: TapSwitchControlDelegate?
     
@@ -136,6 +139,7 @@ protocol TapSwitchControlDelegate {
     /// Used as a consolidated method to do all the needed steps upon creating the view
     private func commonInit() {
         self.containerView = setupXIB()
+        toBeLocalizedLabels.forEach{ $0.semanticContentAttribute = TapLocalisationManager.shared.localisationLocale == "ar" ? .forceRightToLeft : .forceLeftToRight }
         self.separator.isHidden = true
         self.switchButton.addTarget(self, action: #selector(switchToggled(sender:)), for: .valueChanged)
     }
