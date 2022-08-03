@@ -7,253 +7,81 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C3794EA0-FAFF-46CB-8AF0-22BDAB1C5D05"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+UIViewModelsHandling.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "205"
-            endingLineNumber = "205"
-            landmarkName = "fetchGoPayData(_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "C3794EA0-FAFF-46CB-8AF0-22BDAB1C5D05 - 3dd2c3ee07169a8c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "CheckoutSDK_iOS.TapCheckout.fetchGoPayData(CheckoutSDK_iOS.TapPaymentOptionsReponseModel) -&gt; ()"
-                  moduleName = "CheckoutSDK_iOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+UIViewModelsHandling.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "205"
-                  endingLineNumber = "205"
-                  offsetFromSymbolStart = "41">
-               </Location>
-               <Location
-                  uuid = "C3794EA0-FAFF-46CB-8AF0-22BDAB1C5D05 - 3dd2c3ee07169a8c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "CheckoutSDK_iOS.TapCheckout.fetchGoPayData(CheckoutSDK_iOS.TapPaymentOptionsReponseModel) -&gt; ()"
-                  moduleName = "CheckoutSDK_iOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+UIViewModelsHandling.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "205"
-                  endingLineNumber = "205"
-                  offsetFromSymbolStart = "62">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "84B0FCA5-3BD6-4557-8F3D-A31DA16801C8"
+            uuid = "709BC9A3-F539-4B8E-AFA8-2A24BF57E269"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+UIKitDelegates.swift"
+            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapChip/Views/HorizontalList/TapChipHorizontalListViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
-            landmarkName = "savedCard(for:)"
+            startingLineNumber = "298"
+            endingLineNumber = "298"
+            landmarkName = "didSelectItem(at:selectCell:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7ED08F77-62DB-4BD8-9E08-AAA570D826EF"
+            uuid = "AEFF9F8A-31F4-4908-8AA5-6B22390B4FFD"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+CardPaymentHandler.swift"
+            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapGenericTableView/TapGenericTableViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
-            landmarkName = "handleGoPaySavedCard(for:)"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
+            landmarkName = "didSelectItem(at:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F35575CA-6F48-48F9-965A-4EC8FFCF3870"
+            uuid = "56ECEDFB-3F2B-4D92-978B-E1F6FFACF8A9"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+CardPaymentHandler.swift"
+            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapChip/Views/HorizontalList/TapChipHorizontalList.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "handleSavedCard(for:)"
+            startingLineNumber = "231"
+            endingLineNumber = "231"
+            landmarkName = "collectionView(_:didSelectItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1933B096-72E5-4984-BC44-B3ED35F9BFAA"
+            uuid = "92D5309F-561A-4B01-965B-C0BE2EFF5446"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapSwitchView/Views/TapSwitchControl.swift"
+            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapChip/Views/HorizontalList/TapChipHorizontalList.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
-            landmarkName = "title"
-            landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "1933B096-72E5-4984-BC44-B3ED35F9BFAA - 7c4163a71ab1abf3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TapUIKit_iOS.TapSwitchControl.subtitle.getter : Swift.Optional&lt;Swift.String&gt;"
-                  moduleName = "TapUIKit_iOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapSwitchView/Views/TapSwitchControl.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "53"
-                  endingLineNumber = "53"
-                  offsetFromSymbolStart = "103">
-               </Location>
-               <Location
-                  uuid = "1933B096-72E5-4984-BC44-B3ED35F9BFAA - 952faa5f8d243bff"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TapUIKit_iOS.TapSwitchControl.subtitle.setter : Swift.Optional&lt;Swift.String&gt;"
-                  moduleName = "TapUIKit_iOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapSwitchView/Views/TapSwitchControl.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "53"
-                  endingLineNumber = "53"
-                  offsetFromSymbolStart = "144">
-               </Location>
-               <Location
-                  uuid = "1933B096-72E5-4984-BC44-B3ED35F9BFAA - 976170e5ba86378c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TapUIKit_iOS.TapSwitchControl.subtitle.modify : Swift.Optional&lt;Swift.String&gt;"
-                  moduleName = "TapUIKit_iOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapSwitchView/Views/TapSwitchControl.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "53"
-                  endingLineNumber = "53"
-                  offsetFromSymbolStart = "0">
-               </Location>
-               <Location
-                  uuid = "1933B096-72E5-4984-BC44-B3ED35F9BFAA - 18b6566499f4faa4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TapUIKit_iOS.TapSwitchControl.subtitle.modify : Swift.Optional&lt;Swift.String&gt; with unmangled suffix &quot;.resume.0&quot;"
-                  moduleName = "TapUIKit_iOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapSwitchView/Views/TapSwitchControl.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "53"
-                  endingLineNumber = "53"
-                  offsetFromSymbolStart = "17">
-               </Location>
-            </Locations>
+            startingLineNumber = "224"
+            endingLineNumber = "224"
+            landmarkName = "collectionView(_:cellForItemAt:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E4356BA6-8EC4-4699-8A70-C4D89C3F1FBE"
+            uuid = "E6303FC3-BE54-4D65-A669-B6876E6A382A"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapSwitchView/Views/TapSwitchControl.swift"
+            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapChip/Views/Chips/SavedCardChip/SavedCardCollectionViewCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
-            landmarkName = "subtitle"
-            landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "E4356BA6-8EC4-4699-8A70-C4D89C3F1FBE - 558bb21ea4d34f03"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TapUIKit_iOS.TapSwitchControl.notes.getter : Swift.Optional&lt;Swift.String&gt;"
-                  moduleName = "TapUIKit_iOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapSwitchView/Views/TapSwitchControl.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "59"
-                  endingLineNumber = "59"
-                  offsetFromSymbolStart = "103">
-               </Location>
-               <Location
-                  uuid = "E4356BA6-8EC4-4699-8A70-C4D89C3F1FBE - 962d31c947e907ff"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TapUIKit_iOS.TapSwitchControl.notes.setter : Swift.Optional&lt;Swift.String&gt;"
-                  moduleName = "TapUIKit_iOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapSwitchView/Views/TapSwitchControl.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "59"
-                  endingLineNumber = "59"
-                  offsetFromSymbolStart = "144">
-               </Location>
-               <Location
-                  uuid = "E4356BA6-8EC4-4699-8A70-C4D89C3F1FBE - fb0701e91c202d00"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TapUIKit_iOS.TapSwitchControl.notes.modify : Swift.Optional&lt;Swift.String&gt;"
-                  moduleName = "TapUIKit_iOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapSwitchView/Views/TapSwitchControl.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "59"
-                  endingLineNumber = "59"
-                  offsetFromSymbolStart = "0">
-               </Location>
-               <Location
-                  uuid = "E4356BA6-8EC4-4699-8A70-C4D89C3F1FBE - 3dcb7419aa50b5f5"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TapUIKit_iOS.TapSwitchControl.notes.modify : Swift.Optional&lt;Swift.String&gt; with unmangled suffix &quot;.resume.0&quot;"
-                  moduleName = "TapUIKit_iOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapSwitchView/Views/TapSwitchControl.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "59"
-                  endingLineNumber = "59"
-                  offsetFromSymbolStart = "17">
-               </Location>
-            </Locations>
+            startingLineNumber = "123"
+            endingLineNumber = "123"
+            landmarkName = "matchThemeAttributes()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

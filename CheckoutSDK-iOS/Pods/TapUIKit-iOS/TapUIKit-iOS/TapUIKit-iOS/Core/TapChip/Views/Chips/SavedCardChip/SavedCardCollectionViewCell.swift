@@ -57,6 +57,7 @@ import SnapKit
      override func selectStatusChaned(with status:Bool) {
         
         // update the shadow for GoPayCell
+         guard !viewModel.editMode else { return }
         applyTheme()
     }
     

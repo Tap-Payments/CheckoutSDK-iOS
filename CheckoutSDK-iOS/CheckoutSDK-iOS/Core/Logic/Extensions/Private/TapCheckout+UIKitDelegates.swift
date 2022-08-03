@@ -98,6 +98,11 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
         // Inform the lists of saved chips to start editing
         dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.editMode(changed: true)
         dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.editMode(changed: true)
+        
+        // Disable the card form and reset it
+        dataHolder.viewModels.tapCardTelecomPaymentViewModel.setCard(with: .init(tapCardNumber:"asd"), then: false)
+        dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView.alpha = 0.7
+        dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView.isUserInteractionEnabled = false
     }
     
     public func headerEndEditingButtonClicked(in headerType: TapHorizontalHeaderType) {
@@ -108,6 +113,10 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
         // Inform the lists of saved chips to end editing
         dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.editMode(changed: false)
         dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.editMode(changed: false)
+        
+        // Renable the card form
+        dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView.alpha = 1
+        dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView.isUserInteractionEnabled = true
     }
     
     public func applePayAuthoized(for viewModel: ApplePayChipViewCellModel, with token: TapApplePayToken) {
