@@ -22,9 +22,9 @@
                 <outlet property="subtitleLabel" destination="WNY-jS-5Ck" id="lcJ-bx-Azm"/>
                 <outlet property="switchButton" destination="KuF-3l-7hP" id="G4D-1W-tPz"/>
                 <outlet property="titleLabel" destination="RvW-9L-cJg" id="0Ik-rb-K3V"/>
-                <outletCollection property="toBeLocalizedLabels" destination="RvW-9L-cJg" collectionClass="NSMutableArray" id="wu6-am-VUc"/>
-                <outletCollection property="toBeLocalizedLabels" destination="dpC-fG-mgk" collectionClass="NSMutableArray" id="3nl-ox-ZGl"/>
-                <outletCollection property="toBeLocalizedLabels" destination="WNY-jS-5Ck" collectionClass="NSMutableArray" id="cJ3-wG-fe6"/>
+                <outletCollection property="toBeLocalizedLabels" destination="RvW-9L-cJg" collectionClass="NSMutableArray" id="dyN-9K-Zmu"/>
+                <outletCollection property="toBeLocalizedLabels" destination="WNY-jS-5Ck" collectionClass="NSMutableArray" id="gCN-Qz-gDu"/>
+                <outletCollection property="toBeLocalizedLabels" destination="dpC-fG-mgk" collectionClass="NSMutableArray" id="kCA-B9-M2o"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

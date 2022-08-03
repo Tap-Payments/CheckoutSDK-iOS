@@ -41,7 +41,7 @@ PODS:
   - TapThemeManager2020 (1.0.50):
     - LocalisationManagerKit-iOS
     - TapFontKit-iOS
-  - TapUIKit-iOS (1.0.56):
+  - TapUIKit-iOS (1.0.57):
     - CommonDataModelsKit-iOS
     - LocalisationManagerKit-iOS
     - McPicker
@@ -102,7 +102,7 @@ SPEC CHECKSUMS:
   TapNetworkKit-iOS: d1a6110b4f43e9b1cceafe469cf6cc3fb775a2cf
   TapSwiftFixesV2: a8623a7273c6790b9754ec7e272e96fce7d3a800
   TapThemeManager2020: d27a89804a3e950eae889033dcf40fe3a2cde187
-  TapUIKit-iOS: aef63af518ae44e684dc981591ea14ba668bebcd
+  TapUIKit-iOS: eb84212340658898b6604fe1e2393df7e6946db2
 
 PODFILE CHECKSUM: b23fbe71f82c6e742ffa802335a1d35e5f5c40d3
 

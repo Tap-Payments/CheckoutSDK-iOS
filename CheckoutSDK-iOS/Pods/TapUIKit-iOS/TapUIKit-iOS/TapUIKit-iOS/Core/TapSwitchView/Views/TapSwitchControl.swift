@@ -21,7 +21,7 @@ protocol TapSwitchControlDelegate {
 
 /// The view  that renders a tap switch control view
 @objc public class TapSwitchControl: UIView {
-
+    
     /// The container view that holds everything from the XIB
     @IBOutlet weak internal var containerView: UIView!
     /// Represents the main title text for the switch control view
@@ -34,7 +34,7 @@ protocol TapSwitchControlDelegate {
     @IBOutlet weak private var switchButton: UISwitch!
     /// Represents the separator view to be shown in the bottom of the view
     @IBOutlet weak private var separator: UIView!
- 
+    
     @IBOutlet var toBeLocalizedLabels: [UILabel]!
     
     /// A protocol to communicate between switch control view and the parent view
