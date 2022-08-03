@@ -8,6 +8,7 @@
 
 import UIKit
 import TapThemeManager2020
+import LocalisationManagerKit_iOS
 
 /// The view  that renders a tap otp view
 @objc public class TapOtpView: UIView {
@@ -40,6 +41,8 @@ import TapThemeManager2020
     /// Used as a consolidated method to do all the needed steps upon creating the view
     private func commonInit() {
         self.containerView = setupXIB()
+        timerLabel.semanticContentAttribute = TapLocalisationManager.shared.localisationLocale == "ar" ? .forceRightToLeft : .forceLeftToRight
+        messageLabel.semanticContentAttribute = TapLocalisationManager.shared.localisationLocale == "ar" ? .forceRightToLeft : .forceLeftToRight
         //handlerImageView.translatesAutoresizingMaskIntoConstraints = false
         applyTheme()
     }

@@ -7,7 +7,7 @@
 //
 
 import TapThemeManager2020
-import SimpleAnimation
+// import SimpleAnimation
 import LocalisationManagerKit_iOS
 
 /// Represents the item table view cell that will show the items inside the items table view screen
@@ -21,6 +21,8 @@ import LocalisationManagerKit_iOS
     @IBOutlet weak var itemDescrriptionView: UIView!
     @IBOutlet weak var itemDescLabel: UILabel!
     @IBOutlet weak var separatorView: TapSeparatorView!
+    
+    @IBOutlet var toBeLocalizedDirectionViews: [UIView]!
     
     /// Holds the last style theme applied
     private var lastUserInterfaceStyle:UIUserInterfaceStyle = .light
@@ -51,6 +53,10 @@ import LocalisationManagerKit_iOS
     
     public override func awakeFromNib() {
         super.awakeFromNib()
+        semanticContentAttribute = TapLocalisationManager.shared.localisationLocale == "ar" ? .forceRightToLeft : .forceLeftToRight
+        self.contentView.semanticContentAttribute = TapLocalisationManager.shared.localisationLocale == "ar" ? .forceRightToLeft : .forceLeftToRight
+        toBeLocalizedDirectionViews.forEach{ $0.semanticContentAttribute = TapLocalisationManager.shared.localisationLocale == "ar" ? .forceRightToLeft : .forceLeftToRight }
+        
         lastUserInterfaceStyle = self.traitCollection.userInterfaceStyle
         commonInit()
     }

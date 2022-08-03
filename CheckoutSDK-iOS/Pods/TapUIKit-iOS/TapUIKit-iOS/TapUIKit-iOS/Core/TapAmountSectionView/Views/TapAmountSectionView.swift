@@ -8,7 +8,7 @@
 
 import UIKit
 import TapThemeManager2020
-import SimpleAnimation
+// import SimpleAnimation
 
 @objc public class TapAmountSectionView: UIView {
     
@@ -60,7 +60,7 @@ import SimpleAnimation
         bindVisibilities()
     }
     
-    ///Updates all the labels with the corresponding values in the view model
+    ///Updates all the labels with the corresponding values in the view modelt
     private func bindLabels() {
         guard let viewModel = viewModel else { return }
         

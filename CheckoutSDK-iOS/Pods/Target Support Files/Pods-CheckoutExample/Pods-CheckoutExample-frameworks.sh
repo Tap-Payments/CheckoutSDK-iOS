@@ -178,11 +178,9 @@ code_sign_if_enabled() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/CommonDataModelsKit-iOS/CommonDataModelsKit_iOS.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/LocalisationManagerKit-iOS/LocalisationManagerKit_iOS.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/MOLH/MOLH.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/McPicker/McPicker.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Nuke/Nuke.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PullUpController/PullUpController.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/SimpleAnimation/SimpleAnimation.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyRSA/SwiftyRSA.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TapAdditionsKitV2/TapAdditionsKitV2.framework"
@@ -201,11 +199,9 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/CommonDataModelsKit-iOS/CommonDataModelsKit_iOS.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/LocalisationManagerKit-iOS/LocalisationManagerKit_iOS.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/MOLH/MOLH.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/McPicker/McPicker.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Nuke/Nuke.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PullUpController/PullUpController.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/SimpleAnimation/SimpleAnimation.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyRSA/SwiftyRSA.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TapAdditionsKitV2/TapAdditionsKitV2.framework"

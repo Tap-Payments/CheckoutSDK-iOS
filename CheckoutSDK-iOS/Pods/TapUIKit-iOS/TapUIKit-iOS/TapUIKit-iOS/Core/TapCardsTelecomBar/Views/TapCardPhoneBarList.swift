@@ -7,7 +7,7 @@
 //
 
 import TapThemeManager2020
-import SimpleAnimation
+// import SimpleAnimation
 import LocalisationManagerKit_iOS
 
 /// Represent the view of tab bar list
@@ -63,6 +63,7 @@ import LocalisationManagerKit_iOS
     /// Used as a consolidated method to do all the needed steps upon creating the view
     private func commonInit() {
         self.contentView = setupXIB()
+        stackView.semanticContentAttribute = TapLocalisationManager.shared.localisationLocale == "ar" ? .forceRightToLeft : .forceLeftToRight
         applyTheme()
     }
     

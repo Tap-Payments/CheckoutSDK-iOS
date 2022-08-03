@@ -9,7 +9,7 @@
 import TapThemeManager2020
 import TapCardInputKit_iOS
 import CommonDataModelsKit_iOS
-import SimpleAnimation
+// import SimpleAnimation
 import LocalisationManagerKit_iOS
 /// External protocol to allow the GoPayLoginOptions to pass back data and events to the parent UIViewController
 @objc internal protocol GoPayLoginOptionsPorotocl {
@@ -157,6 +157,7 @@ class GoPayLoginOptions: UIView {
     /// Used as a consolidated method to do all the needed steps upon creating the view
     private func commonInit() {
         self.contentView = setupXIB()
+        hintLabel.semanticContentAttribute = TapLocalisationManager.shared.localisationLocale == "ar" ? .forceRightToLeft : .forceLeftToRight
         applyTheme()
         
     }
