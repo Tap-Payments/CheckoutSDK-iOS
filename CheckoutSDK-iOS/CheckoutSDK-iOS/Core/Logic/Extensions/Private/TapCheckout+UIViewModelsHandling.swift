@@ -222,7 +222,7 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         TapAmountedCurrencyFormatter.customCurrencySymbols = [:]
         
         paymentOptions.supportedCurrenciesAmounts.forEach { currency in
-            TapAmountedCurrencyFormatter.customCurrencySymbols?[currency.currency.rawValue] = currency.currencySymbol
+            TapAmountedCurrencyFormatter.customCurrencySymbols?[currency.currency.rawValue] = currency.displaybaleSymbol
         }
         
         // Now after getting the list, let us map them to the currencies chips view model

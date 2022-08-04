@@ -1,5 +1,5 @@
 PODS:
-  - CommonDataModelsKit-iOS (1.0.52):
+  - CommonDataModelsKit-iOS (1.0.55):
     - TapAdditionsKitV2
   - LocalisationManagerKit-iOS (1.0.4)
   - McPicker (3.0.0)
@@ -22,7 +22,7 @@ PODS:
     - SnapKit
     - TapCardVlidatorKit-iOS
     - TapThemeManager2020
-  - TapCardScanner-iOS (1.0.21):
+  - TapCardScanner-iOS (1.0.22):
     - CommonDataModelsKit-iOS
     - TapCardVlidatorKit-iOS
   - TapCardVlidatorKit-iOS (1.0.16)
@@ -41,7 +41,7 @@ PODS:
   - TapThemeManager2020 (1.0.50):
     - LocalisationManagerKit-iOS
     - TapFontKit-iOS
-  - TapUIKit-iOS (1.0.57):
+  - TapUIKit-iOS (1.0.59):
     - CommonDataModelsKit-iOS
     - LocalisationManagerKit-iOS
     - McPicker
@@ -84,7 +84,7 @@ SPEC REPOS:
     - TapUIKit-iOS
 
 SPEC CHECKSUMS:
-  CommonDataModelsKit-iOS: 3cb22d52f6fd82a89bab65b557e92ead545cef12
+  CommonDataModelsKit-iOS: 09b20bc17740eba9780cf0839c5359130811f756
   LocalisationManagerKit-iOS: bd1a9d16509a06dd1aea45b9f47cf21bdfe0796c
   McPicker: ba38be56a8194faa5249eca4226c364eed628044
   Nuke: 279f17a599fd1c83cf51de5e0e1f2db143a287b0
@@ -95,14 +95,14 @@ SPEC CHECKSUMS:
   TapApplePayKit-iOS: 940ab0575100d21e6080d17851cfe6c36bfebc24
   TapApplicationV2: aee3d046c4272778431e1535de6cab34e1269f8c
   TapCardInputKit-iOS: 69b20fad404c48b8e2cdcd8c6a88f42c69f3ed92
-  TapCardScanner-iOS: 4fe77bad44d216353ea083eaf3fb6dd6ff6dbdc8
+  TapCardScanner-iOS: 280e6cf4a34dba74e4822fae5205762a0612b859
   TapCardVlidatorKit-iOS: c89d510445a159d9f6967923096115783dcd1cdb
   TapFontKit-iOS: 51ed2ddbe9f2b5ece1cc587ed45af9147e5c6fc1
   TapKeychain: 143aa70bb2d1b094e0298e944660264034c79849
   TapNetworkKit-iOS: d1a6110b4f43e9b1cceafe469cf6cc3fb775a2cf
   TapSwiftFixesV2: a8623a7273c6790b9754ec7e272e96fce7d3a800
   TapThemeManager2020: d27a89804a3e950eae889033dcf40fe3a2cde187
-  TapUIKit-iOS: eb84212340658898b6604fe1e2393df7e6946db2
+  TapUIKit-iOS: 9379b4f5a3efc4ed0a07202f773847a51720076b
 
 PODFILE CHECKSUM: b23fbe71f82c6e742ffa802335a1d35e5f5c40d3
 
