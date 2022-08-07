@@ -9,6 +9,7 @@
 import Foundation
 import CoreTelephony
 import TapApplicationV2
+import CommonDataModelsKit_iOS
 
 /// Extension to the network manager when needed. To keep the network manager class itself clean and readable
 internal extension NetworkManager {

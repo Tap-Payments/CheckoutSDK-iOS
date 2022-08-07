@@ -9,6 +9,7 @@
 import TapNetworkKit_iOS
 import TapApplicationV2
 import CoreTelephony
+import CommonDataModelsKit_iOS
 
 internal protocol NetworkManagerDelegate {
     func apiCallInProgress(status:Bool)
