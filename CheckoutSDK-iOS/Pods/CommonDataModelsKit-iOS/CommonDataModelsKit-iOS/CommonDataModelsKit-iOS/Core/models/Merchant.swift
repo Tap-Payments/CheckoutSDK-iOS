@@ -12,13 +12,13 @@ public struct Merchant: Codable {
     // MARK: Properties
     
     /// Merchant identifier.
-    internal private(set) var identifier: String?
+    public private(set) var identifier: String?
     
     /// Merchant name
-    internal private(set) var name: String?
+    public private(set) var name: String?
     
     /// Merchant logo URL
-    internal private(set) var logoURL: String?
+    public private(set) var logoURL: String?
     
     // MARK: Methods
     

@@ -27,7 +27,7 @@ public struct CreateTokenSavedCard: Encodable {
     /// - Parameters:
     ///   - cardIdentifier: Card identifier.
     ///   - customerIdentifier: Customer identifier.
-    internal init(cardIdentifier: String, customerIdentifier: String) {
+    public init(cardIdentifier: String, customerIdentifier: String) {
         
         self.cardIdentifier = cardIdentifier
         self.customerIdentifier = customerIdentifier

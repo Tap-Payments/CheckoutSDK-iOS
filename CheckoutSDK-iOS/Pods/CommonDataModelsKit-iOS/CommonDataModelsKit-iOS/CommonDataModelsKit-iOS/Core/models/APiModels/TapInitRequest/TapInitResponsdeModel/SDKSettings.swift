@@ -17,17 +17,17 @@ public struct SDKSettings {
     internal let isLiveMode: Bool?
     
     /// Permissions.
-    internal let permissions: Permissions?
+    public let permissions: Permissions?
     
     /// Encryption key.
-    internal let encryptionKey: String?
+    public let encryptionKey: String?
     
     /// Unique device ID.
     // FIXME: Remove optionality here once backend is ready.
     internal let deviceID: String?
     
     /// Merchant information.
-    internal let merchant: Merchant?
+    public let merchant: Merchant?
     
     /// Internal SDK settings.
     internal let internalSettings: InternalSDKSettings?

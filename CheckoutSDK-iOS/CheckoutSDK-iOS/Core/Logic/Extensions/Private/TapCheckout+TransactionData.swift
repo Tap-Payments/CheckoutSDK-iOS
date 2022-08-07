@@ -207,7 +207,12 @@ internal class TransactionDataHolder {
     // MARK:- Transaction Configuration Variables
     
     /// Defines the mode sandbox or production the sdk will perform this transaction on. Please check [SDKMode](x-source-tag://SDKMode)
-    var sdkMode:SDKMode = .sandbox
+    var sdkMode:SDKMode = .sandbox{
+        didSet{
+            // Save the sdk mode for further access
+            SharedCommongDataModels.sharedCommongDataModels.sdkMode = sdkMode
+        }
+    }
     
     /// Represents The allowed payment types inclyding cards, apple pay, web and telecom
     var paymentType:TapPaymentType = .All

@@ -10,7 +10,7 @@ import Foundation
 
 /// Represents the extra fees model. This will be used when a user selects a payment option like credit card, he has to know he will be paying some more money for it :)
 /// - tag: ExtraFee
-internal final class ExtraFee: AmountModificatorModel {
+public final class ExtraFee: AmountModificatorModel {
     
     // MARK: - Internal -
     // MARK: Properties
@@ -20,12 +20,12 @@ internal final class ExtraFee: AmountModificatorModel {
     
     // MARK: Methods
     
-    internal required init(type: AmountModificationType, value: Double, currency: TapCurrencyCode, minFee:Double = 0, maxFee:Double = 0) {
+    public required init(type: AmountModificationType, value: Double, currency: TapCurrencyCode, minFee:Double = 0, maxFee:Double = 0) {
         self.currency = currency
         super.init(type: type, value: value, minFee: minFee, maxFee: maxFee)
     }
     
-    internal required convenience init(from decoder: Decoder) throws {
+    public required convenience init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
@@ -54,7 +54,7 @@ internal final class ExtraFee: AmountModificatorModel {
      - Parameter for: The amount we need to compute the extra fees regards to
      - Returns: The computed extra fees, putting in mind the type of the extra fees, the min and the max fees
      */
-    func extraFeeValue(for amount:Double) -> Double {
+    public func extraFeeValue(for amount:Double) -> Double {
         // First get the correct extra fee with regards the amount and the extra fee type Percentage or Fixed
         let computedExtraFee:Double = caluclateActualModificationValue(with: amount)
         // We need to make sure if the computed fixed fee is in the range of min/max, otherwise if it is less than than min we set it to min and if more than max we set it to max

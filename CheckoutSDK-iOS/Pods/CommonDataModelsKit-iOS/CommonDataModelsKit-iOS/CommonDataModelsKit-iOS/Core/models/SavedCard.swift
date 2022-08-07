@@ -73,7 +73,7 @@ import TapCardVlidatorKit_iOS
 	public let cardholderName: String?
     
     /// Card logo
-    internal let backendImage: String?
+    public let backendImage: String?
     
     
     /// Card Type
@@ -96,7 +96,7 @@ import TapCardVlidatorKit_iOS
 	// MARK: Properties
 	
 	/// Payment option identifier.
-	internal let paymentOptionIdentifier: String?
+	public let paymentOptionIdentifier: String?
 	
 	/// Expiration date.
 	internal let expiry: ExpirationDate?

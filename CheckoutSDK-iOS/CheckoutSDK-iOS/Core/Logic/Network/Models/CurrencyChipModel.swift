@@ -59,7 +59,24 @@ internal class ChipWithCurrencyModel:Codable {
      - Parameter savedCard:Represnts the saved card option model backend
      */
     init(savedCard:SavedCard) {
-        self.tapPaymentOption = TapCheckout.sharedCheckoutManager().fetchPaymentOption(for: savedCard) ?? .init(identifier: savedCard.paymentOptionIdentifier ?? "", brand: savedCard.brand, title: savedCard.lastFourDigits, backendImageURL: URL(string:savedCard.image )!, isAsync: false, paymentType: .Card, sourceIdentifier: nil, supportedCardBrands: [savedCard.brand], extraFees: [], supportedCurrencies: savedCard.supportedCurrencies, orderBy: 1, threeDLevel: .always)
+        self.tapPaymentOption = TapCheckout.sharedCheckoutManager().fetchPaymentOption(for: savedCard) ??
+            
+        
+            PaymentOption.init(identifier: savedCard.paymentOptionIdentifier ?? "",
+                  brand: savedCard.brand,
+                  title: savedCard.lastFourDigits,
+                  backendImageURL: URL(string:savedCard.image )!,
+                  isAsync: false,
+                  paymentType: TapPaymentType.Card,
+                  sourceIdentifier: nil,
+                  supportedCardBrands:
+                    [savedCard.brand],
+                  supportedCurrencies: savedCard.supportedCurrencies,
+                  orderBy: 1,
+                  threeDLevel: ThreeDSecurityState.always,
+                  savedCard: savedCard,
+                  extraFees: [])
+        
         self.savedCard = savedCard
         self.tapChipViewModel = generateCorrectChipType(from: tapPaymentOption!)
         self.supportedCurrencies = tapPaymentOption!.supportedCurrencies

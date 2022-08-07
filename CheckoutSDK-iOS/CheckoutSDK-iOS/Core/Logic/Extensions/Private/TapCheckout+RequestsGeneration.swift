@@ -33,7 +33,7 @@ extension TapCheckout {
         if transactionData.transactionMode == .cardSaving || transactionData.transactionMode == .cardTokenization {
             return TapPaymentOptionsRequestModel(customer: transactionData.customer)
         }else{
-            return TapPaymentOptionsRequestModel(transactionMode: transactionData.transactionMode, amount: transactionData.transactionTotalAmountValue, items: transactionData.transactionItemsValue, shipping: transactionData.shipping, taxes: transactionData.taxes, currency: transactionData.transactionCurrencyValue.currency, merchantID: transactionData.tapMerchantID, customer: transactionData.customer, destinationGroup: DestinationGroup(destinations: transactionData.destinations), paymentType: transactionData.paymentType)
+            return TapPaymentOptionsRequestModel(transactionMode: transactionData.transactionMode, amount: transactionData.transactionTotalAmountValue, items: transactionData.transactionItemsValue, shipping: transactionData.shipping, taxes: transactionData.taxes, currency: transactionData.transactionCurrencyValue.currency, merchantID: transactionData.tapMerchantID, customer: transactionData.customer, destinationGroup: DestinationGroup(destinations: transactionData.destinations), paymentType: transactionData.paymentType, totalAmount: TapCheckout.sharedCheckoutManager().calculateFinalAmount())
         }
     }
     

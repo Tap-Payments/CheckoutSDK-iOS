@@ -22,7 +22,7 @@ public struct TapAuthenticationRequest: Encodable {
     
     // MARK: Methods
     
-    internal init(type: AuthenticationType, value: String) {
+    public init(type: AuthenticationType, value: String) {
         
         self.type   = type
         self.value  = value

@@ -158,6 +158,8 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         let transactionMode = dataHolder.transactionData.transactionMode
         // Fetch the merchant header info
         dataHolder.viewModels.tapMerchantViewModel = .init(title: (transactionMode == .cardSaving) ? "SAVE CARD" : nil, subTitle: initModel.data.merchant?.name, iconURL: initModel.data.merchant?.logoURL)
+        // Save the encryption for further access
+        SharedCommongDataModels.sharedCommongDataModels.encryptionKey = initModel.data.encryptionKey
     }
     
     /** We will accept

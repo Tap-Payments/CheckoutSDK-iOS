@@ -19,7 +19,7 @@ public struct TapPaymentOptionsReponseModel: IdentifiableWithString {
     public let identifier: String
     
     /// Order identifier.
-    internal private(set) var orderIdentifier: String?
+    public private(set) var orderIdentifier: String?
     
     /// Object type.
     internal let object: String
@@ -28,16 +28,16 @@ public struct TapPaymentOptionsReponseModel: IdentifiableWithString {
     public let paymentOptions: [PaymentOption]
     
     /// Transaction currency.
-    internal let currency: TapCurrencyCode
+    public let currency: TapCurrencyCode
     
     /// Merchant iso country code.
     internal let merchantCountryCode: String?
     
     /// Amount for different currencies.
-    internal let supportedCurrenciesAmounts: [AmountedCurrency]
+    public let supportedCurrenciesAmounts: [AmountedCurrency]
     
     /// Saved cards.
-    internal var savedCards: [SavedCard]?
+    public var savedCards: [SavedCard]?
     
     // MARK: - Private -
     
@@ -58,13 +58,13 @@ public struct TapPaymentOptionsReponseModel: IdentifiableWithString {
     // MARK: Methods
     
     public init(identifier:                        String,
-                 orderIdentifier:                   String?,
-                 object:                            String,
-                 paymentOptions:                    [PaymentOption],
-                 currency:                          TapCurrencyCode,
-                 supportedCurrenciesAmounts:        [AmountedCurrency],
-                 savedCards:                        [SavedCard]?,
-                 merchantCountryCode:               String?) {
+                orderIdentifier:                   String?,
+                object:                            String,
+                paymentOptions:                    [PaymentOption],
+                currency:                          TapCurrencyCode,
+                supportedCurrenciesAmounts:        [AmountedCurrency],
+                savedCards:                        [SavedCard]?,
+                merchantCountryCode:               String?) {
         
         self.identifier                     = identifier
         self.orderIdentifier                = orderIdentifier
@@ -130,7 +130,7 @@ extension TapPaymentOptionsReponseModel {
      - Parameter with: The id of the needed payment option
      - Returns: Payment option if found with the specified id, else nil
      */
-    func fetchPaymentOption(with id:String) -> PaymentOption? {
+    public func fetchPaymentOption(with id:String) -> PaymentOption? {
         var requiredPaymentOption:PaymentOption?
         
         // Let us get the needed payment option if any

@@ -106,7 +106,7 @@ public class TapChargeRequestModel: Encodable {
     ///   - statementDescriptor: Statement descriptor.
     ///   - requires3DSecure: Defines if 3D secure is required.
     ///   - receipt: Receipt settings.
-    internal init(
+    public init(
         amount:                Double,
         selectedAmount:        Double,
         currency:                TapCurrencyCode,
@@ -126,27 +126,27 @@ public class TapChargeRequestModel: Encodable {
         statementDescriptor:    String?,
         requires3DSecure:        Bool?,
         receipt:                Receipt?) {
-        
-        self.amount                 = amount
-        self.selectedAmount        = selectedAmount
-        self.currency               = currency
-        self.selectedCurrency      = selectedCurrency
-        self.customer               = customer
-        self.merchant                = merchant
-        self.fee                    = fee
-        self.order                  = order
-        self.redirect               = redirect
-        self.post                   = post
-        self.source                 = source
-        self.destinationGroup        = destinationGroup
-        self.descriptionText        = descriptionText
-        self.metadata               = metadata
-        self.reference              = reference
-        self.shouldSaveCard         = shouldSaveCard
-        self.statementDescriptor    = statementDescriptor
-        self.requires3DSecure       = requires3DSecure
-        self.receipt                = receipt
-    }
+            
+            self.amount                 = amount
+            self.selectedAmount        = selectedAmount
+            self.currency               = currency
+            self.selectedCurrency      = selectedCurrency
+            self.customer               = customer
+            self.merchant                = merchant
+            self.fee                    = fee
+            self.order                  = order
+            self.redirect               = redirect
+            self.post                   = post
+            self.source                 = source
+            self.destinationGroup        = destinationGroup
+            self.descriptionText        = descriptionText
+            self.metadata               = metadata
+            self.reference              = reference
+            self.shouldSaveCard         = shouldSaveCard
+            self.statementDescriptor    = statementDescriptor
+            self.requires3DSecure       = requires3DSecure
+            self.receipt                = receipt
+        }
     
     // MARK: - Private -
     

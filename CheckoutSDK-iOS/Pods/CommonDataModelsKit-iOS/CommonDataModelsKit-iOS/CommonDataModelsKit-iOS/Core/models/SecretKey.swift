@@ -21,7 +21,7 @@ import Foundation
     public let production: String
     
     /// The used key based on the  selected mode production or sandbox
-    internal var usedKey:String {
+    public var usedKey:String {
         switch SharedCommongDataModels.sharedCommongDataModels.sdkMode {
         case .production:
             return production

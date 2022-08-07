@@ -12,6 +12,23 @@ import TapCardVlidatorKit_iOS
 /// Payment Option model.
 public struct PaymentOption: IdentifiableWithString {
     
+    public init(identifier: String, brand: CardBrand, title: String, backendImageURL: URL, isAsync: Bool, paymentType: TapPaymentType, sourceIdentifier: String? = nil, supportedCardBrands: [CardBrand], supportedCurrencies: [TapCurrencyCode], orderBy: Int, threeDLevel: ThreeDSecurityState, savedCard: SavedCard? = nil, extraFees: [ExtraFee] = []) {
+        self.identifier = identifier
+        self.brand = brand
+        self.title = title
+        self.backendImageURL = backendImageURL
+        self.isAsync = isAsync
+        self.paymentType = paymentType
+        self.sourceIdentifier = sourceIdentifier
+        self.supportedCardBrands = supportedCardBrands
+        self.supportedCurrencies = supportedCurrencies
+        self.orderBy = orderBy
+        self.threeDLevel = threeDLevel
+        self.savedCard = savedCard
+        self.extraFees = extraFees
+    }
+    
+    
     // MARK: - Internal -
     // MARK: Properties
     
@@ -22,7 +39,7 @@ public struct PaymentOption: IdentifiableWithString {
     public var brand: CardBrand
     
     /// Name of the payment option.
-    internal var title: String
+    public var title: String
     
     /// Image URL of the payment option.
     public let backendImageURL: URL
@@ -31,10 +48,10 @@ public struct PaymentOption: IdentifiableWithString {
     internal let isAsync: Bool
     
     /// Payment type.
-    internal var paymentType: TapPaymentType
+    public var paymentType: TapPaymentType
     
     /// Source identifier.
-    internal private(set) var sourceIdentifier: String?
+    public private(set) var sourceIdentifier: String?
     
     /// Supported card brands.
     public let supportedCardBrands: [CardBrand]
@@ -47,7 +64,13 @@ public struct PaymentOption: IdentifiableWithString {
     public let orderBy: Int
     
     /// Decide if the 3ds should be disabled, enabled or set by user for this payment option
-    internal let threeDLevel: ThreeDSecurityState
+    public let threeDLevel: ThreeDSecurityState
+    
+    /// Will hold the related saved card if the user selected saved card to pay with
+    public var savedCard:SavedCard? = nil
+    
+    /// Will hold the related extra fees in case of saved card payment
+    public var extraFees:[ExtraFee] = []
     
     // MARK: - Private -
     
@@ -77,6 +100,51 @@ public struct PaymentOption: IdentifiableWithString {
         {
             return .definedByMerchant
         }
+    }
+    
+    
+    /// Converts the payment option from Tap format to the acceptable format by Apple pay kit
+    public func applePayNetworkMapper() -> [PKPaymentNetwork]
+    {
+        var applePayMappednNetworks:[PKPaymentNetwork] = []
+        
+        // Check if the original brand is in the supported, otherwise add it to the list we need to search
+        var toBeCheckedCardBrands:[CardBrand] = supportedCardBrands
+        
+        if !toBeCheckedCardBrands.contains(brand)
+        {
+            toBeCheckedCardBrands.insert(brand, at: 0)
+        }
+        for cardBrand:CardBrand in toBeCheckedCardBrands
+        {
+            if cardBrand == .visa
+            {
+                applePayMappednNetworks.append(PKPaymentNetwork.visa)
+            }else if cardBrand == .masterCard
+            {
+                applePayMappednNetworks.append(PKPaymentNetwork.masterCard)
+            }else if cardBrand == .americanExpress
+            {
+                applePayMappednNetworks.append(PKPaymentNetwork.amex)
+            }else if cardBrand == .maestro
+            {
+                if #available(iOS 12.0, *) {
+                    applePayMappednNetworks.append(PKPaymentNetwork.maestro)
+                }
+            }else if cardBrand == .visaElectron
+            {
+                if #available(iOS 12.0, *) {
+                    applePayMappednNetworks.append(PKPaymentNetwork.electron)
+                }
+            }else if cardBrand == .mada
+            {
+                if #available(iOS 12.1.1, *) {
+                    applePayMappednNetworks.append(PKPaymentNetwork.mada)
+                }
+            }
+        }
+        
+        return applePayMappednNetworks.removingDuplicates()
     }
 }
 
@@ -114,14 +182,11 @@ extension PaymentOption: Decodable {
     }
 }
 
-extension PaymentOption
-{
-    internal enum ThreeDSecurityState {
-        
-        case always
-        case never
-        case definedByMerchant
-    }
+public enum ThreeDSecurityState {
+    
+    case always
+    case never
+    case definedByMerchant
 }
 
 // MARK: - FilterableByCurrency

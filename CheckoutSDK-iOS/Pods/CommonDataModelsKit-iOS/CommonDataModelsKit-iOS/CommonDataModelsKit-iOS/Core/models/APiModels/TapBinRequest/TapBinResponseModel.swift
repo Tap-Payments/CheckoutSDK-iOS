@@ -28,7 +28,7 @@ public struct TapBinResponseModel {
     public let binNumber: String
     
     /// Card brand.
-    internal let cardBrand: CardBrand
+    public let cardBrand: CardBrand
     
     /// Card scheme.
     public let scheme: CardScheme?
