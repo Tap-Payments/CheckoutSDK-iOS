@@ -212,6 +212,24 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         self.dataHolder.viewModels.goPayChipsViewModel = []
     }
     
+    /// Resets the entered data in the card form
+    /// - Parameter shouldFireCardDataChanged: Indicates whether we neeed to take actions post resetting (e.g. marking the button as invalid.)
+    func resetCardData(shouldFireCardDataChanged:Bool = false) {
+        // We reset the card form
+        
+        let currentCardDelegate = dataHolder.viewModels.tapCardTelecomPaymentViewModel.delegate
+        if !shouldFireCardDataChanged
+        {
+            //but we have to first tell the card delegate not to fire events upon resetting card data. As this will be considerd as user input to invalid data overriding the selection of the saved card
+            dataHolder.viewModels.tapCardTelecomPaymentViewModel.delegate = nil
+        }
+        // Reset the data
+        dataHolder.viewModels.tapCardTelecomPaymentViewModel.setCard(with: .init(tapCardNumber:"asd"), then: false)
+        
+        // Assign the delegate back
+        dataHolder.viewModels.tapCardTelecomPaymentViewModel.delegate = currentCardDelegate
+    }
+    
     /// Handles the logic to fetch different sections from the Payment options response
     func parsePaymentOptionsResponse() {
         // Double check

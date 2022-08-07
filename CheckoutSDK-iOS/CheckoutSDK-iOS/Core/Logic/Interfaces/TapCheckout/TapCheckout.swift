@@ -130,6 +130,8 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     @objc public static var localeIdentifier:String = "en"
     /// The secret keys providede to your business from TAP.
     @objc public static var secretKey:SecretKey = .init(sandbox: "", production: "")
+    /// Holds the bundle id data
+    @objc public static var bundleID:String = TapApplicationPlistInfo.shared.bundleIdentifier ?? ""
     
     // MARK:- Internal functions
     

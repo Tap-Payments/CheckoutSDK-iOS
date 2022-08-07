@@ -100,7 +100,7 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
         dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.editMode(changed: true)
         
         // Disable the card form and reset it
-        dataHolder.viewModels.tapCardTelecomPaymentViewModel.setCard(with: .init(tapCardNumber:"asd"), then: false)
+        resetCardData(shouldFireCardDataChanged: true)
         dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView.alpha = 0.7
         dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView.isUserInteractionEnabled = false
     }
@@ -145,6 +145,9 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
     }
     
     public func gateway(for viewModel: GatewayChipViewModel) {
+        // First reset the enetred data in the card form if any
+        resetCardData(shouldFireCardDataChanged: false)
+        
         // Save the selected payment option model for further processing
         dataHolder.transactionData.selectedPaymentOption = fetchPaymentOption(with: viewModel.paymentOptionIdentifier)
         

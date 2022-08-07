@@ -83,7 +83,7 @@ internal extension NetworkManager {
             fatalError("Application must have bundle identifier in order to use goSellSDK.")
         }*/
         
-        let bundleID = "company.tap.goSellSDKExamplee"
+        let bundleID = TapCheckout.bundleID
         
         let sdkPlistInfo = TapBundlePlistInfo(bundle: Bundle(for: TapCheckout.self))
         

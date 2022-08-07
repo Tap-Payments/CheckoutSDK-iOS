@@ -26,8 +26,17 @@ extension TapCheckout {
     /**
      The event will be fired when the user cliks on a  saved card chip
      - Parameter viewModel: Represents The attached view model
+     - Parameter shouldResetCardFormFirst: Indicates if we remove the entered data in the card form upon selecting a saved card chip. Default is true
      */
-    func handleSavedCard(for viewModel: SavedCardCollectionViewCellModel) {
+    func handleSavedCard(for viewModel: SavedCardCollectionViewCellModel, shouldResetCardFormFirst:Bool = true) {
+        // first check if we need to Reset the card form
+        guard !shouldResetCardFormFirst else {
+            // We reset the card form
+            resetCardData(shouldFireCardDataChanged: false)
+            // We reselct the selected saved card chip without the need to reset as we just did
+            handleSavedCard(for: viewModel, shouldResetCardFormFirst: false)
+            return
+        }
         // First of all deselct any selected cards in the goPay list
         dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.deselectAll()
         // Save the selected payment option model for further processing
