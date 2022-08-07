@@ -16,7 +16,5 @@ target 'CheckoutSDK-iOS' do
 pod 'TapUIKit-iOS'
 pod 'TapNetworkKit-iOS'
 pod 'TapApplicationV2'
-pod 'SwiftyRSA'
-pod 'TapKeychain'
 
 end
