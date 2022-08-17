@@ -36,13 +36,13 @@ extension TapCheckout {
         // We need to retrieve the object using the passed id and process it afterwards
         retrieveObject(with: tapID) { [weak self] (returnChargeOrAuthorize: T?, error: TapSDKError?) in
             if let error = error {
-                self?.handleError(error: error)
+                self?.handleError(session: nil, result: nil, error: error)
             }else if let returnChargeOrAuthorize = returnChargeOrAuthorize {
                 // No errors occured we need to process the current charge or authorize
                 self?.handleCharge(with: returnChargeOrAuthorize)
             }
-        } onErrorOccured: { [weak self] (error) in
-            self?.handleError(error: error)
+        } onErrorOccured: { [weak self] (session, result, error) in
+            self?.handleError(session: session, result: result, error: error)
         }
 
     }
@@ -82,7 +82,7 @@ extension TapCheckout:TapWebViewModelDelegate {
     
     public func didFail(with error: Error, for url: URL?) {
         // If any error happened, all what we need to do now is to go away :)
-        handleError(error: "Failed to load:\n\(url?.absoluteString ?? "")\nWith Error :\n\(error)")
+        handleError(session: nil, result: nil, error: "Failed to load:\n\(url?.absoluteString ?? "")\nWith Error :\n\(error)")
     }
     
     /**

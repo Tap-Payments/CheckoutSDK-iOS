@@ -33,14 +33,14 @@ internal extension TapCheckout {
         }) else { return }
         
         NetworkManager.shared.makeApiCall(routing: .ConfigAPI, resultType: TapConfigResponseModel.self, body: .init(body: bodyDictionary), httpMethod: .POST) { [weak self] (session, result, error) in
-            guard let configModel:TapConfigResponseModel = result as? TapConfigResponseModel else { self?.handleError(error: "Unexpected error when parsing into TapConfigResponseModel")
+            guard let configModel:TapConfigResponseModel = result as? TapConfigResponseModel else { self?.handleError(session: session, result: result, error: "Unexpected error when parsing into TapConfigResponseModel")
                 return }
             // Let us store the config object for further access
             self?.handleConfigResponse(configModel: configModel)
             // We got the middleware token, now let us init the SDK and get the merchant and payment types details
             self?.initialiseSDKFromAPI(onCheckOutReady: onCheckOutReady)
         } onError: { (session, result, errorr) in
-            self.handleError(error: errorr)
+            self.handleError(session: session, result: result, error: errorr)
         }
     }
     
@@ -48,7 +48,7 @@ internal extension TapCheckout {
     func initialiseSDKFromAPI(onCheckOutReady: @escaping () -> () = {}) {
         // As per the backend logic, we will have to hit INIT then Payment options APIs
         NetworkManager.shared.makeApiCall(routing: .InitAPI, resultType: TapInitResponseModel.self, httpMethod: .POST) { [weak self] (session, result, error) in
-            guard let initModel:TapInitResponseModel = result as? TapInitResponseModel else { self?.handleError(error: "Unexpected error when parsing into TapInitResponseModel")
+            guard let initModel:TapInitResponseModel = result as? TapInitResponseModel else { self?.handleError(session: session, result: result, error: "Unexpected error when parsing into TapInitResponseModel")
                 return }
             self?.handleInitResponse(initModel: initModel)
             // Let us now load the payment options
@@ -56,7 +56,7 @@ internal extension TapCheckout {
             
             
         } onError: { (session, result, errorr) in
-            self.handleError(error: errorr)
+            self.handleError(session: session, result: result, error: errorr)
         }
     }
     /// Responsible for making the network call to payment options api
@@ -75,13 +75,13 @@ internal extension TapCheckout {
         
         
         NetworkManager.shared.makeApiCall(routing: .PaymentOptionsAPI, resultType: TapPaymentOptionsReponseModel.self, body: .init(body: bodyDictionary), httpMethod: .POST) { [weak self] (session, result, error) in
-            guard let paymentOptionsResponse:TapPaymentOptionsReponseModel = result as? TapPaymentOptionsReponseModel else { self?.handleError(error: "Unexpected error when parsing TapPaymentOptionsReponseModel")
+            guard let paymentOptionsResponse:TapPaymentOptionsReponseModel = result as? TapPaymentOptionsReponseModel else { self?.handleError(session: session, result: result, error: "Unexpected error when parsing TapPaymentOptionsReponseModel")
                 return }
             // Let us now load the payment options
             TapCheckout.sharedCheckoutManager().dataHolder.transactionData.paymentOptionsModelResponse = paymentOptionsResponse
             onCheckOutReady()
         } onError: { (session, result, errorr) in
-            self.handleError(error: errorr)
+            self.handleError(session: session, result: result, error: errorr)
         }
     }
     
@@ -92,11 +92,11 @@ internal extension TapCheckout {
      - Parameter onResponseReady: A block to call when getting the response
      - Parameter onErrorOccured: A block to call when an error occured
      */
-    func callChargeOrAuthorizeAPI(chargeRequestModel:TapChargeRequestModel, onResponeReady: @escaping (ChargeProtocol) -> () = {_ in}, onErrorOccured: @escaping(Error)->() = {_ in}) {
+    func callChargeOrAuthorizeAPI(chargeRequestModel:TapChargeRequestModel, onResponeReady: @escaping (ChargeProtocol) -> () = {_ in}, onErrorOccured: @escaping(TapNetworkManager.RequestCompletionClosure)) {
         
         // Change the model into a dictionary
         guard let bodyDictionary = TapCheckout.convertModelToDictionary(chargeRequestModel, callingCompletionOnFailure: { error in
-            onErrorOccured(error.debugDescription)
+            onErrorOccured(nil,nil,error.debugDescription)
             return
         }) else { return }
         
@@ -115,11 +115,11 @@ internal extension TapCheckout {
      - Parameter onResponseReady: A block to call when getting the response
      - Parameter onErrorOccured: A block to call when an error occured
      */
-    func callCardVerifyAPI(cardVerifyRequestModel:TapCreateCardVerificationRequestModel, onResponeReady: @escaping (TapCreateCardVerificationResponseModel) -> () = {_ in}, onErrorOccured: @escaping(Error)->() = {_ in}) {
+    func callCardVerifyAPI(cardVerifyRequestModel:TapCreateCardVerificationRequestModel, onResponeReady: @escaping (TapCreateCardVerificationResponseModel) -> () = {_ in}, onErrorOccured: @escaping(TapNetworkManager.RequestCompletionClosure)) {
         
         // Change the model into a dictionary
         guard let bodyDictionary = TapCheckout.convertModelToDictionary(cardVerifyRequestModel, callingCompletionOnFailure: { error in
-            onErrorOccured(error.debugDescription)
+            onErrorOccured(nil,nil,error.debugDescription)
             return
         }) else { return }
         
@@ -128,14 +128,14 @@ internal extension TapCheckout {
         NetworkManager.shared.makeApiCall(routing: TapNetworkPath.cardVerification, resultType: TapCreateCardVerificationResponseModel.self, body: .init(body: bodyDictionary),httpMethod: .POST, urlModel: .none) { (session, result, error) in
             // Double check all went fine
             guard let parsedResponse:TapCreateCardVerificationResponseModel = result as? TapCreateCardVerificationResponseModel else {
-                onErrorOccured("Unexpected error parsing into TapCreateCardVerificationResponseModel")
+                onErrorOccured(session, result,"Unexpected error parsing into TapCreateCardVerificationResponseModel")
                 return
             }
             // Execute the on complete block
             onResponeReady(parsedResponse)
         } onError: { (session, result, errorr) in
             // In case of an error we execute the on error block
-            onErrorOccured(errorr.debugDescription)
+            onErrorOccured(session, result, errorr)
         }
     }
     
@@ -146,11 +146,11 @@ internal extension TapCheckout {
      - Parameter onResponseReady: A block to call when getting the response
      - Parameter onErrorOccured: A block to call when an error occured
      */
-    func callCardTokenAPI(cardTokenRequestModel:TapCreateTokenRequest, onResponeReady: @escaping (Token) -> () = {_ in}, onErrorOccured: @escaping(Error)->() = {_ in}) {
+    func callCardTokenAPI(cardTokenRequestModel:TapCreateTokenRequest, onResponeReady: @escaping (Token) -> () = {_ in}, onErrorOccured: @escaping(TapNetworkManager.RequestCompletionClosure)) {
         
         // Change the model into a dictionary
         guard let bodyDictionary = TapCheckout.convertModelToDictionary(cardTokenRequestModel, callingCompletionOnFailure: { error in
-            onErrorOccured(error.debugDescription)
+            onErrorOccured(nil,nil,error.debugDescription)
             return
         }) else { return }
         
@@ -159,14 +159,14 @@ internal extension TapCheckout {
         NetworkManager.shared.makeApiCall(routing: cardTokenRequestModel.route, resultType: Token.self, body: .init(body: bodyDictionary),httpMethod: .POST, urlModel: .none) { (session, result, error) in
             // Double check all went fine
             guard let parsedResponse:Token = result as? Token else {
-                onErrorOccured("Unexpected error parsing into token")
+                onErrorOccured(session, result, "Unexpected error parsing into token")
                 return
             }
             // Execute the on complete block
             onResponeReady(parsedResponse)
         } onError: { (session, result, errorr) in
             // In case of an error we execute the on error block
-            onErrorOccured(errorr.debugDescription)
+            onErrorOccured(session, result, errorr.debugDescription)
         }
     }
     
@@ -177,7 +177,7 @@ internal extension TapCheckout {
      - Parameter onResponseReady: A block to call when getting the response
      - Parameter onErrorOccured: A block to call when an error occured
      */
-    func retrieveObject<T: Retrievable>(with identifier: String, completion: @escaping Completion<T>, onErrorOccured: @escaping(Error)->() = {_ in}) {
+    func retrieveObject<T: Retrievable>(with identifier: String, completion: @escaping Completion<T>, onErrorOccured: @escaping(TapNetworkManager.RequestCompletionClosure)) {
         
         // Create the GET url parameter model
         let urlModel = TapURLModel.array(parameters: [identifier])
@@ -188,14 +188,14 @@ internal extension TapCheckout {
         NetworkManager.shared.makeApiCall(routing: route, resultType: T.self, body: .none,httpMethod: .GET, urlModel: urlModel) { (session, result, error) in
             // Double check all went fine
             guard let parsedResponse:T = result as? T else {
-                onErrorOccured("Unexpected error parsing into")
+                onErrorOccured(session, result, "Unexpected error parsing into")
                 return
             }
             // Execute the on complete block
             completion(parsedResponse,nil)
         } onError: { (session, result, errorr) in
             // In case of an error we execute the on error block
-            onErrorOccured(errorr.debugDescription)
+            onErrorOccured(session, result, errorr)
         }
     }
     
@@ -207,11 +207,11 @@ internal extension TapCheckout {
     ///   - details: Authentication details.
     ///   - completion: Completion that will be called when request finishes.
     ///   - onErrorOccured: A block to call when an error occured
-    func authenticate<T: Authenticatable>(_ object: T, details: TapAuthenticationRequest, onResponeReady: @escaping (T) -> (), onErrorOccured: @escaping(Error)->() = {_ in}) {
+    func authenticate<T: Authenticatable>(_ object: T, details: TapAuthenticationRequest, onResponeReady: @escaping (T) -> (), onErrorOccured: @escaping(TapNetworkManager.RequestCompletionClosure)) {
         
         // Change the model into a dictionary
         guard let bodyDictionary = TapCheckout.convertModelToDictionary(details, callingCompletionOnFailure: { error in
-            onErrorOccured(error.debugDescription)
+            onErrorOccured(nil,nil,error.debugDescription)
             return
         }) else { return }
         
@@ -226,14 +226,14 @@ internal extension TapCheckout {
         NetworkManager.shared.makeApiCall(routing: route, resultType: T.self, body: bodyModel,httpMethod: .POST, urlModel: urlModel) { (session, result, error) in
             // Double check all went fine
             guard let parsedResponse:T = result as? T else {
-                onErrorOccured("Unexpected error parsing verification of otp authentication details")
+                onErrorOccured(session, result, "Unexpected error parsing verification of otp authentication details")
                 return
             }
             // Execute the on complete block
             onResponeReady(parsedResponse)
         } onError: { (session, result, errorr) in
             // In case of an error we execute the on error block
-            onErrorOccured(errorr.debugDescription)
+            onErrorOccured(session, result, errorr)
         }
     }
     
@@ -243,7 +243,7 @@ internal extension TapCheckout {
     /// - Parameters:
     ///   - binNumber: First 6 digits of the card.
     ///   - completion: Completion that will be called when request finishes.
-    func getBINDetails(for binNumber: String, onResponeReady: @escaping (TapBinResponseModel) -> () = {_ in}, onErrorOccured: @escaping(Error)->() = {_ in}) {
+    func getBINDetails(for binNumber: String, onResponeReady: @escaping (TapBinResponseModel) -> () = {_ in}, onErrorOccured: @escaping(TapNetworkManager.RequestCompletionClosure)) {
         
         let bodyModel = ["bin":binNumber]
         
@@ -251,14 +251,14 @@ internal extension TapCheckout {
         NetworkManager.shared.makeApiCall(routing: TapNetworkPath.bin, resultType: TapBinResponseModel.self, body: .init(body: bodyModel), httpMethod: .POST) { (session, result, error) in
             // Double check all went fine
             guard let parsedResponse:TapBinResponseModel = result as? TapBinResponseModel else {
-                onErrorOccured("Unexpected error parsing bin details")
+                onErrorOccured(session, result, "Unexpected error parsing bin details")
                 return
             }
             // Execute the on complete block
             onResponeReady(parsedResponse)
         } onError: { (session, result, errorr) in
             // In case of an error we execute the on error block
-            onErrorOccured(errorr.debugDescription)
+            onErrorOccured(session, result, errorr)
         }
         
     }
@@ -270,19 +270,19 @@ internal extension TapCheckout {
      - Parameter onResponseReady: A block to call when getting the response
      - Parameter onErrorOccured: A block to call when an error occured
      */
-    fileprivate func callChargeAPI(bodyDictionary:[String : Any], onResponeReady: @escaping (Charge) -> () = {_ in}, onErrorOccured: @escaping(Error)->() = {_ in}) {
+    fileprivate func callChargeAPI(bodyDictionary:[String : Any], onResponeReady: @escaping (Charge) -> () = {_ in}, onErrorOccured: @escaping(TapNetworkManager.RequestCompletionClosure)) {
         // Call the charge API
         NetworkManager.shared.makeApiCall(routing: .charges, resultType: Charge.self, body: .init(body: bodyDictionary), httpMethod: .POST) { (session, result, error) in
             if let error = error {
-                onErrorOccured(error)
+                onErrorOccured(session, result, error)
             }else{
-                guard let charge:Charge = result as? Charge else { onErrorOccured("Unexpected error parsing into Charge")
+                guard let charge:Charge = result as? Charge else { onErrorOccured(session, result, "Unexpected error parsing into Charge")
                     return }
                 // Call success block
                 onResponeReady(charge)
             }
         } onError: { (session, result, errorr) in
-            onErrorOccured(errorr.debugDescription)
+            onErrorOccured(session, result, errorr)
         }
     }
     
@@ -292,19 +292,19 @@ internal extension TapCheckout {
      - Parameter onResponseReady: A block to call when getting the response
      - Parameter onErrorOccured: A block to call when an error occured
      */
-    fileprivate func callAuthorizeAPI(bodyDictionary:[String : Any], onResponeReady: @escaping (Authorize) -> () = {_ in}, onErrorOccured: @escaping(Error)->() = {_ in}) {
+    fileprivate func callAuthorizeAPI(bodyDictionary:[String : Any], onResponeReady: @escaping (Authorize) -> () = {_ in}, onErrorOccured: @escaping(TapNetworkManager.RequestCompletionClosure)) {
         // Call the authorize API
         NetworkManager.shared.makeApiCall(routing: .authorize, resultType: Authorize.self, body: .init(body: bodyDictionary), httpMethod: .POST) { (session, result, error) in
             if let error = error {
-                onErrorOccured(error)
+                onErrorOccured(session, result, error)
             }else{
-                guard let authorize:Authorize = result as? Authorize else { onErrorOccured("Unexpected error parsing into Authorize")
+                guard let authorize:Authorize = result as? Authorize else { onErrorOccured(session, result,  "Unexpected error parsing into Authorize")
                     return }
                 // Call success block
                 onResponeReady(authorize)
             }
         } onError: { (session, result, errorr) in
-            onErrorOccured(errorr.debugDescription)
+            onErrorOccured(session, result, errorr)
         }
     }
     
@@ -314,11 +314,11 @@ internal extension TapCheckout {
      - Parameter onResponseReady: A block to call when getting the response
      - Parameter onErrorOccured: A block to call when an error occured
      */
-    func callSavedCardDeletion(for savedCard:SavedCard,  onResponeReady: @escaping (TapDeleteSavedCardResponseModel) -> () = {_ in}, onErrorOccured: @escaping(Error)->() = {_ in}) {
+    func callSavedCardDeletion(for savedCard:SavedCard,  onResponeReady: @escaping (TapDeleteSavedCardResponseModel) -> () = {_ in}, onErrorOccured: @escaping(TapNetworkManager.RequestCompletionClosure)) {
         //Make sure the needed details are in its place
         guard let customerID:String  = dataHolder.transactionData.customer.identifier,
               let savedCardID:String = savedCard.identifier else {
-            handleError(error: "Cannot delete a saved card without a customer id")
+            handleError(session: nil, result: nil, error: "Cannot delete a saved card without a customer id")
             return
         }
         
@@ -331,14 +331,14 @@ internal extension TapCheckout {
         NetworkManager.shared.makeApiCall(routing: route, resultType: TapDeleteSavedCardResponseModel.self, body: nil, httpMethod: .DELETE, urlModel: urlModel) { (session, result, error) in
             // Double check all went fine
             guard let parsedResponse:TapDeleteSavedCardResponseModel = result as? TapDeleteSavedCardResponseModel else {
-                onErrorOccured("Unexpected error parsing into TapDeleteSavedCardResponseModel")
+                onErrorOccured(session, result, "Unexpected error parsing into TapDeleteSavedCardResponseModel")
                 return
             }
             // Execute the on complete block
             onResponeReady(parsedResponse)
         } onError: { (session, result, errorr) in
             // In case of an error we execute the on error block
-            onErrorOccured(errorr.debugDescription)
+            onErrorOccured(session, result, errorr)
         }
     }
     

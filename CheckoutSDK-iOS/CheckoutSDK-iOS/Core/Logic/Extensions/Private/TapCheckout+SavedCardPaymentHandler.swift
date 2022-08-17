@@ -25,7 +25,7 @@ extension TapCheckout {
     func verifyAuthenticationOTP<T:Authenticatable>(for otpAuthenticationID:String, with otp:String,chargeOrAuthorize:T) {
         // Let us make sure that we have the data needed for the authentication id passed
         guard let authentication = fetchAuthentication(with: otpAuthenticationID) else {
-            handleError(error: "Unexpected error, trying to validate OTP for a missing authentication model")
+            handleError(session: nil, result: nil, error: "Unexpected error, trying to validate OTP for a missing authentication model")
             return
         }
         
@@ -35,7 +35,7 @@ extension TapCheckout {
         // let us make the authentication verification api
         // Create the authentication request
         guard let authenticationRequest:TapAuthenticationRequest = createOTPAuthenticationRequest(for: authentication, and: otp) else {
-            handleError(error: "Unexpected error, cannot parse model into TapAuthenticationRequest")
+            handleError(session: nil, result: nil, error: "Unexpected error, cannot parse model into TapAuthenticationRequest")
             return
         }
         
@@ -45,10 +45,10 @@ extension TapCheckout {
             if let chargeorAuthorize:ChargeProtocol = authenticatedChargeOrAuthorize as? ChargeProtocol {
                 self?.handleCharge(with: chargeorAuthorize)
             }else{
-                self?.handleError(error: "Unexpected error, parsing authentication of a wrong type. Should be Charge or Authorize")
+                self?.handleError(session: nil, result: nil, error: "Unexpected error, parsing authentication of a wrong type. Should be Charge or Authorize")
             }
-        }, onErrorOccured: { [weak self] (error) in
-            self?.handleError(error: error)
+        }, onErrorOccured: { [weak self] (session, result, error) in
+            self?.handleError(session: session, result: result, error: error)
         })
     }
     
@@ -92,8 +92,8 @@ extension TapCheckout {
         callSavedCardDeletion(for: savedCard) { [weak self] (savedCardDeleteResponse) in
             // Time to perform mthe correct post deletion logic based on the api response
             self?.performPostSavedCardDeletion(for: savedCard.identifier ?? "",with: cardCellViewModel, and: savedCardDeleteResponse)
-        } onErrorOccured: { [weak self] (error) in
-            self?.handleError(error: error)
+        } onErrorOccured: { [weak self] (session, result, error) in
+            self?.handleError(session: session, result: result, error: error)
         }
     }
     

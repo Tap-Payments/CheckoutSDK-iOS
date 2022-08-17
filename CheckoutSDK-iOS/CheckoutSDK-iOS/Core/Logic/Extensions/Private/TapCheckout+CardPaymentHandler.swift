@@ -77,8 +77,8 @@ extension TapCheckout {
                 // Let us handle and do the needed logic with the latest fetched bin response model
                 // First, store it for further processing and access
                 self?.dataHolder.transactionData.binLookUpModelResponse = binResponseModel
-            } onErrorOccured: { [weak self] (error) in
-                self?.handleError(error: error)
+            } onErrorOccured: { [weak self] (session, result, error) in
+                self?.handleError(session: session, result: result, error: error)
             }
 
         }
@@ -201,7 +201,7 @@ extension TapCheckout {
             // Fetch the payment option related to the validated card brand
             let paymentOptions:[PaymentOption] = dataHolder.viewModels.tapCardPhoneListDataSource.filter{ $0.tapPaymentOption?.brand == cardBrand }.filter{ $0.tapPaymentOption != nil }.map{ $0.tapPaymentOption! }
             guard paymentOptions.count > 0, let selectedPaymentOption:PaymentOption = paymentOptions.first else {
-                handleError(error: "Unexpected error, trying to start card payment without a payemnt option selected.")
+                handleError(session: nil, result: nil, error: "Unexpected error, trying to start card payment without a payemnt option selected.")
                 return }
             // Assign the action to be done once clicked on the action button to start the payment
             let payAction:()->() = { [weak self] in self?.processCheckout(with:selectedPaymentOption,andCard:self?.dataHolder.transactionData.currentCard) }
@@ -227,13 +227,13 @@ extension TapCheckout {
         // We need to retrieve the object using the passed id and process it afterwards
         retrieveObject(with: tapID) { [weak self] (returnVerifiedSaveCard: TapCreateCardVerificationResponseModel?, error: TapSDKError?) in
             if let error = error {
-                self?.handleError(error: error)
+                self?.handleError(session: nil, result: nil, error: error)
             }else if let returnVerifiedSaveCard = returnVerifiedSaveCard {
                 // No errors occured we need to process the current charge or authorize
                 self?.handleCardVerify(with: returnVerifiedSaveCard)
             }
-        } onErrorOccured: { [weak self] (error) in
-            self?.handleError(error: error)
+        } onErrorOccured: { [weak self] (session, result, error) in
+            self?.handleError(session: session, result: result, error: error)
         }
         
     }

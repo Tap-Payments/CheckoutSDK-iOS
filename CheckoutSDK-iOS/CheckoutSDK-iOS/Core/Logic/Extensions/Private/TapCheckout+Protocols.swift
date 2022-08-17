@@ -27,7 +27,7 @@ import TapUIKit_iOS
     /**
      Will be fired once the checkout fails for any error
      */
-    @objc optional func checkoutFailed(with error:NSError)
+    @objc optional func checkoutFailed(in session:URLSessionDataTask?, for result:[String:String]?, with error:Error?)
     
     /**
      Will be fired once the charge (CAPTURE) successfully transacted
@@ -55,6 +55,21 @@ import TapUIKit_iOS
      */
     @objc optional func cardTokenized(with token:Token)
     
+    
+    /**
+     Will be fired once apply pay tokenization fails
+     */
+    @objc optional func applePayTokenizationFailed(in session:URLSessionDataTask?, for result:[String:String]?, with error:Error?)
+    
+    /**
+     Will be fired once card tokenization fails
+     */
+    @objc optional func cardTokenizationFailed(in session:URLSessionDataTask?, for result:[String:String]?, with error:Error?)
+    
+    /**
+     Will be fired once save card tokenization fails
+     */
+    @objc optional func saveCardTokenizationFailed(in session:URLSessionDataTask?, for result:[String:String]?, with error:Error?)
     
     /**
      Will be fired once the save card is done

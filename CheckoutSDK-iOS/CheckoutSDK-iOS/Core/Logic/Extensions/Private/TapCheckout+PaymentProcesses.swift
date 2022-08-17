@@ -65,8 +65,8 @@ internal extension TapCheckout {
                 guard let nonNullSelf = self else { return }
                 nonNullSelf.handleCharge(with: charge)
             }
-        } onErrorOccured: { [weak self] error in
-            self?.handleError(error: error)
+        } onErrorOccured: { [weak self] session, result, error in
+            self?.handleError(session: session, result: result, error: error)
         }
         
     }
@@ -81,7 +81,7 @@ internal extension TapCheckout {
         // Make sure we have a card info entered already and ready to use
         guard let _:TapBinResponseModel = dataHolder.transactionData.binLookUpModelResponse,
               let currentCard:TapCard = card else {
-            handleError(error: "UnExpected error, paying with a card while missing card data or binlookup data")
+            handleError(session: nil, result: nil, error: "UnExpected error, paying with a card while missing card data or binlookup data")
             return
         }
         // Change the action button to loading status
@@ -95,8 +95,9 @@ internal extension TapCheckout {
                 guard let nonNullSelf = self else { return }
                 nonNullSelf.handleToken(with: token,for: paymentOption)
             }
-        } onErrorOccured: { [weak self] (error) in
-            self?.handleError(error: error)
+        } onErrorOccured: { [weak self] (session, result, error)  in
+            TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.cardTokenizationFailed?(in: session, for: result as? [String:String], with: error)
+            self?.handleError(session: session, result: result, error: error)
         }
     }
     // MARK:- Token based methods
@@ -130,13 +131,13 @@ internal extension TapCheckout {
     func handleTokenCardSave(with token:Token,for paymentOption:PaymentOption? = nil) {
         // Let us first check if this card can be saved
         guard shouldSaveCard(with: token) else {
-            handleError(error: "Whether you don't have permission to save cards at your side so please contact TAP Payments. Or the customer already has this card saved before.")
+            handleError(session: nil, result: nil, error: "Whether you don't have permission to save cards at your side so please contact TAP Payments. Or the customer already has this card saved before.")
             return
         }
         
         // If all good we need to make a call to card verify api
         guard let cardVerifyRequest:TapCreateCardVerificationRequestModel = createCardVerificationRequestModel(for: token) else {
-            handleError(error: "Failed while creating TapCreateCardVerificationRequestModel")
+            handleError(session: nil, result: nil, error: "Failed while creating TapCreateCardVerificationRequestModel")
             return
         }
         
@@ -147,8 +148,8 @@ internal extension TapCheckout {
                 guard let nonNullSelf = self else { return }
                 nonNullSelf.handleCardVerify(with: cardVerifyResponse)
             }
-        } onErrorOccured: { [weak self] error in
-            self?.handleError(error: error)
+        } onErrorOccured: { [weak self] session, result, error in
+            self?.handleError(session: session, result: result, error: error)
         }
     }
     
@@ -181,8 +182,8 @@ internal extension TapCheckout {
                 guard let nonNullSelf = self else { return }
                 nonNullSelf.handleCharge(with: charge)
             }
-        } onErrorOccured: { [weak self] error in
-            self?.handleError(error: error)
+        } onErrorOccured: { [weak self] session, result, error in
+            self?.handleError(session: session, result: result, error: error)
         }
     }
     
@@ -375,7 +376,7 @@ internal extension TapCheckout {
         // Make sure we have the saved card info in place and stored
         guard let paymentOption:PaymentOption = paymentOption,
               let selectedSavedCard:SavedCard = paymentOption.savedCard else {
-            handleError(error: "UnExpected error, paying with a saved card while missing saved card data")
+            handleError(session: nil, result: nil, error: "UnExpected error, paying with a saved card while missing saved card data")
             return
         }
         // Change the action button to loading status
@@ -383,7 +384,7 @@ internal extension TapCheckout {
         
         // Create a saved card tokenization api to start with and call it
         guard let createSavedCardTokenRequest:TapCreateTokenRequest = createSavedCardTokenRequestModel(for: selectedSavedCard) else {
-            handleError(error: "Unexpected error while creating TapCreateTokenRequest")
+            handleError(session: nil, result: nil, error: "Unexpected error while creating TapCreateTokenRequest")
             return
         }
         
@@ -394,8 +395,9 @@ internal extension TapCheckout {
                 guard let nonNullSelf = self else { return }
                 nonNullSelf.handleToken(with: token,for: paymentOption)
             }
-        } onErrorOccured: { [weak self] (error) in
-            self?.handleError(error: error)
+        } onErrorOccured: { [weak self] (session, result, error) in
+            TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.saveCardTokenizationFailed?(in: session, for: result as? [String:String], with: error)
+            self?.handleError(session: session, result: result, error: error)
         }
     }
     
@@ -409,7 +411,7 @@ internal extension TapCheckout {
         case .otp:
             showOTP(with: authentication)
         default:
-            handleError(error: "Unexpected error, cannot handle authentication of type \(authentication.type)")
+            handleError(session: nil, result: nil, error: "Unexpected error, cannot handle authentication of type \(authentication.type)")
         }
     }
     
@@ -424,7 +426,7 @@ internal extension TapCheckout {
         
         // Double check the current authentication is of a correct type
         guard authentication.type == .otp else {
-            handleError(error: "Unexpected error, non OTP authentication in showOTP method")
+            handleError(session: nil, result: nil, error: "Unexpected error, non OTP authentication in showOTP method")
             return
         }
         
@@ -445,7 +447,7 @@ internal extension TapCheckout {
     func startApplePayPayment(with paymentOption:PaymentOption? = nil, and tapApplePayToken:TapApplePayToken? = nil) {
         // Make sure all needed data are passed correctly
         guard let paymentOption = paymentOption, let tapApplePayToken = tapApplePayToken else {
-            handleError(error: "Cannot start apple pay payment without its payment option and the iOS authorization token")
+            handleError(session: nil, result: nil, error: "Cannot start apple pay payment without its payment option and the iOS authorization token")
             return
         }
         
@@ -464,8 +466,9 @@ internal extension TapCheckout {
                 guard let nonNullSelf = self else { return }
                 nonNullSelf.handleToken(with: token,for: paymentOption)
             }
-        } onErrorOccured: { [weak self] (error) in
-            self?.handleError(error: error)
+        } onErrorOccured: { [weak self] (session, result, error) in
+            TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.applePayTokenizationFailed?(in: session, for: result as? [String:String], with: error)
+            self?.handleError(session: session, result: result, error: error)
         }
         
     }

@@ -280,14 +280,14 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      Used to deal with runtime errors in the SDK
      - Parameter error: The error we need to handle and deal with
      */
-    internal func handleError(error:Error?) {
+    internal func handleError(session:URLSessionDataTask?, result:Any?, error:Error?) {
         
-        let loggedDataModel:TapLogRequestModel = .init(application: .init(), customer: TapCheckout.sharedCheckoutManager().dataHolder.transactionData.customer, merchant: .init(), stack_trace: NetworkManager.shared.loggedApis, error_catgeroy: error?.localizedDescription)
+        /*let loggedDataModel:TapLogRequestModel = .init(application: .init(), customer: TapCheckout.sharedCheckoutManager().dataHolder.transactionData.customer, merchant: .init(), stack_trace: NetworkManager.shared.loggedApis, error_catgeroy: error?.localizedDescription)*/
         
         //callLogging(for: loggedDataModel)
         
         TapCheckout.sharedCheckoutManager().toBeExecutedBlock = {
-            TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.checkoutFailed?(with: (error! as NSError))
+            TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.checkoutFailed?(in: session, for: result as? [String:String], with: error)
         }
         
         if TapCheckout.isCheckoutSheenPresented {

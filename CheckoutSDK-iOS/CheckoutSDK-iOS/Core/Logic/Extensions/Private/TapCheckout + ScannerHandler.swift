@@ -58,8 +58,8 @@ extension TapCheckout {
             
             onValidationSuccess()
             
-        } onErrorOccured: { [weak self] (error) in
-            self?.handleError(error: error)
+        } onErrorOccured: { [weak self] (session, result, error) in
+            self?.handleError(session: session, result: result, error: error)
         }
     }
 }
