@@ -17,7 +17,7 @@ public struct TapPaymentOptionsRequestModel {
     public let transactionMode: TransactionMode?
     
     /// Items to pay for.
-    public let items: [ItemModel]?
+    public var items: [ItemModel]?
     
     /// Items shippings.
     public var shipping: [Shipping]?
@@ -40,11 +40,20 @@ public struct TapPaymentOptionsRequestModel {
     /// Payment type.
     public private(set) var paymentType: TapPaymentType = .All
     
+    /// Reference.
+    public private(set) var reference: Reference?
+    
+    /// Topup object if any
+    public let topup: Topup?
+    
+    /// Order.
+    internal private(set) var order: PaymentOptionsOrder?
+    
     // MARK: Methods
     
     public init(customer: TapCustomer?) {
         
-        self.init(transactionMode: nil, amount: nil, items: nil, shipping: nil, taxes: nil, currency: nil, merchantID: nil, customer: customer, destinationGroup: nil, paymentType: .All, totalAmount: 0)
+        self.init(transactionMode: nil, amount: nil, items: nil, shipping: nil, taxes: nil, currency: nil, merchantID: nil, customer: customer, destinationGroup: nil, paymentType: .All, totalAmount: 0, topup:nil, reference:nil)
     }
     
     public init(transactionMode:      TransactionMode?,
@@ -57,7 +66,9 @@ public struct TapPaymentOptionsRequestModel {
                   customer:             TapCustomer?,
                   destinationGroup:     DestinationGroup?,
                   paymentType:          TapPaymentType,
-                  totalAmount:          Double
+                  totalAmount:          Double,
+                  topup:                Topup?,
+                  reference:            Reference?
                   
     ) {
         
@@ -69,6 +80,8 @@ public struct TapPaymentOptionsRequestModel {
         self.customer               = (((customer?.identifier ?? "").tap_length == 0) && ((customer?.emailAddress?.value ?? "").tap_length == 0) && ((customer?.phoneNumber?.phoneNumber ?? "").tap_length == 0) ) ? nil : customer
         self.destinationGroup       = destinationGroup
         self.paymentType            = paymentType
+        self.reference = reference
+        self.topup = topup
         
         if let nonnullItems         = items, nonnullItems.count > 0 {
             
@@ -80,6 +93,11 @@ public struct TapPaymentOptionsRequestModel {
         }
         
         self.totalAmount = totalAmount
+        
+        // Create the order object with the payment options request data
+        self.order = .init(transactionMode: transactionMode, amount: self.totalAmount, items: self.items, shipping: self.shipping, taxes: self.taxes, currency: self.currency, merchantID: self.merchantID, customer: self.customer?.identifier, destinationGroup: self.destinationGroup, paymentType: self.paymentType, topup: self.topup, reference: self.reference)
+        // We will stop passing items in the payment options and pass it in order object only
+        self.items = []
     }
     
     // MARK: - Private -
@@ -96,6 +114,9 @@ public struct TapPaymentOptionsRequestModel {
         case merchantID             = "merchant_id"
         case destinationGroup       = "destinations"
         case paymentType            = "payment_type"
+        case topup                  = "topup"
+        case reference              = "reference"
+        case order                  = "order"
     }
     
     // MARK: Properties
@@ -115,8 +136,11 @@ extension TapPaymentOptionsRequestModel: Encodable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         try container.encodeIfPresent(self.transactionMode, forKey: .transactionMode)
+        try container.encodeIfPresent(self.topup, forKey: .topup)
         try container.encodeIfPresent(self.items, forKey: .items)
+        try container.encodeIfPresent(self.reference, forKey: .reference)
         try container.encodeIfPresent(self.paymentType, forKey: .paymentType)
+        try container.encodeIfPresent(self.order, forKey: .order)
         
         if self.shipping?.count ?? 0 > 0 {
             
