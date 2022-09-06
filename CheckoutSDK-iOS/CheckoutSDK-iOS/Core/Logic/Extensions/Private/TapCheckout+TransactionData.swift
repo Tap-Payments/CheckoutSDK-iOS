@@ -217,6 +217,11 @@ internal class TransactionDataHolder {
     /// Represents The allowed payment types inclyding cards, apple pay, web and telecom
     var paymentType:TapPaymentType = .All
     
+    /// Represnts the transaction reference model
+    var reference:Reference?
+    
+    /// Represents the wallet topup object
+    var topup:Topup?
     
     /// Represents The Apple pay merchant id to be used inside the apple pay kit
     var applePayMerchantID:String = ""

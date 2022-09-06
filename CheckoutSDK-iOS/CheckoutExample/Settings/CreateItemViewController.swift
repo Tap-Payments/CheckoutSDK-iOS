@@ -24,7 +24,7 @@ class CreateItemViewController: UIViewController {
     @IBOutlet weak var quantityLabel: UILabel!
     @IBOutlet weak var itemPriceSlider: UISlider!
     @IBOutlet weak var itemPriceLabel: UILabel!
-    var tax:[Tax] = []
+    var tax:[Tax]? = nil
     @IBOutlet weak var discountSegment: UISegmentedControl!
     @IBOutlet weak var taxLabel: UILabel!
     @IBOutlet weak var discountSlider: UISlider!
@@ -65,7 +65,7 @@ class CreateItemViewController: UIViewController {
     }
     
     func updateTax() {
-        taxLabel.text = "Tax (\(tax.count)) :"
+        taxLabel.text = "Tax (\((tax ?? []).count)) :"
     }
     
     @IBAction func priceSliderChanged(_ sender: Any) {
@@ -98,7 +98,7 @@ class CreateItemViewController: UIViewController {
             discountModel = .init(type: (discountSegment.selectedSegmentIndex == 0) ? .Fixed : .Percentage, value: Double(discValue))
         }
         
-        let item:ItemModel = .init(title: itemName, description: itemDescTextField.text, price: Double(priceValue), quantity: .init(value: Double(quntityValue), unitOfMeasurement: .units), discount: discountModel, taxes: tax, totalAmount: 0)
+        let item:ItemModel = .init(title: itemName, description: itemDescTextField.text, price: Double(priceValue), quantity: Double(quntityValue), discount: discountModel, taxes: tax, totalAmount: 0)
         
         saveItem(item: item)
         delegate?.itemAdded(with: item)
@@ -154,7 +154,12 @@ class CreateItemViewController: UIViewController {
 
 extension CreateItemViewController: UITextFieldDelegate, CreateTaxViewControllerDelegate {
     func taxAdded(with tax: Tax) {
-        self.tax.append(tax)
+        if let _ = self.tax {
+            
+        } else {
+            self.tax = []
+        }
+        self.tax?.append(tax)
         updateTax()
     }
     

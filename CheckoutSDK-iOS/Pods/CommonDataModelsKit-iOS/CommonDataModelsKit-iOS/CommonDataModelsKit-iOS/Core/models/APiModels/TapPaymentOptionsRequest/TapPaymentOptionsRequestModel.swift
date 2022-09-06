@@ -57,21 +57,27 @@ public struct TapPaymentOptionsRequestModel {
     }
     
     public init(transactionMode:      TransactionMode?,
-                  amount:               Double?,
-                  items:                [ItemModel]?,
-                  shipping:             [Shipping]?,
-                  taxes:                [Tax]?,
-                  currency:             TapCurrencyCode?,
-                  merchantID:           String?,
-                  customer:             TapCustomer?,
-                  destinationGroup:     DestinationGroup?,
-                  paymentType:          TapPaymentType,
-                  totalAmount:          Double,
-                  topup:                Topup?,
-                  reference:            Reference?
-                  
+                amount:               Double?,
+                items:                [ItemModel]?,
+                shipping:             [Shipping]?,
+                taxes:                [Tax]?,
+                currency:             TapCurrencyCode?,
+                merchantID:           String?,
+                customer:             TapCustomer?,
+                destinationGroup:     DestinationGroup?,
+                paymentType:          TapPaymentType,
+                totalAmount:          Double,
+                topup:                Topup?,
+                reference:            Reference?
+                
     ) {
         
+        // update the items currency
+        for item in items ?? [] {
+            if item.currency == .undefined {
+                item.currency = currency
+            }
+        }
         self.transactionMode        = transactionMode
         self.shipping               = shipping
         self.taxes                  = taxes
@@ -98,6 +104,8 @@ public struct TapPaymentOptionsRequestModel {
         self.order = .init(transactionMode: transactionMode, amount: self.totalAmount, items: self.items, shipping: self.shipping, taxes: self.taxes, currency: self.currency, merchantID: self.merchantID, customer: self.customer?.identifier, destinationGroup: self.destinationGroup, paymentType: self.paymentType, topup: self.topup, reference: self.reference)
         // We will stop passing items in the payment options and pass it in order object only
         self.items = []
+        // We will not be sending customr info in the payment types anymore
+        self.customer = nil
     }
     
     // MARK: - Private -

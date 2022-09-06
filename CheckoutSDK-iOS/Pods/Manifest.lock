@@ -1,5 +1,5 @@
 PODS:
-  - CommonDataModelsKit-iOS (1.0.63):
+  - CommonDataModelsKit-iOS (1.0.65):
     - SwiftyRSA
     - TapAdditionsKitV2
     - TapCardVlidatorKit-iOS
@@ -85,7 +85,7 @@ SPEC REPOS:
     - TapUIKit-iOS
 
 SPEC CHECKSUMS:
-  CommonDataModelsKit-iOS: 57f8793e6e7871c2a009dfbf517a0ad3a48d157a
+  CommonDataModelsKit-iOS: 6f0e005900bdee97fccfb259d5e20cc2dbda4ab6
   LocalisationManagerKit-iOS: bd1a9d16509a06dd1aea45b9f47cf21bdfe0796c
   McPicker: ba38be56a8194faa5249eca4226c364eed628044
   Nuke: 279f17a599fd1c83cf51de5e0e1f2db143a287b0

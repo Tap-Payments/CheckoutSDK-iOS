@@ -30,10 +30,10 @@ extension TapCheckout {
     func createPaymentOptionRequestModel() -> TapPaymentOptionsRequestModel {
         let transactionData:TransactionDataHolder = dataHolder.transactionData
         // Based on the transaction mode we decide the data we pass to the API
-        if transactionData.transactionMode == .cardSaving || transactionData.transactionMode == .cardTokenization {
+        if false {//transactionData.transactionMode == .cardSaving || transactionData.transactionMode == .cardTokenization {
             return TapPaymentOptionsRequestModel(customer: transactionData.customer)
         }else{
-            return TapPaymentOptionsRequestModel(transactionMode: transactionData.transactionMode, amount: transactionData.transactionTotalAmountValue, items: transactionData.transactionItemsValue, shipping: transactionData.shipping, taxes: transactionData.taxes, currency: transactionData.transactionCurrencyValue.currency, merchantID: transactionData.tapMerchantID, customer: transactionData.customer, destinationGroup: DestinationGroup(destinations: transactionData.destinations), paymentType: transactionData.paymentType, totalAmount: TapCheckout.sharedCheckoutManager().calculateFinalAmount())
+            return TapPaymentOptionsRequestModel(transactionMode: transactionData.transactionMode, amount: transactionData.transactionTotalAmountValue, items: transactionData.transactionItemsValue, shipping: transactionData.shipping, taxes: transactionData.taxes, currency: transactionData.transactionCurrencyValue.currency, merchantID: transactionData.tapMerchantID, customer: transactionData.customer, destinationGroup: DestinationGroup(destinations: transactionData.destinations), paymentType: transactionData.paymentType, totalAmount: TapCheckout.sharedCheckoutManager().calculateFinalAmount(),topup: transactionData.topup, reference: transactionData.reference)
         }
     }
     
@@ -157,7 +157,7 @@ extension TapCheckout {
         
         // Create the essential data
         
-        guard let orderID     = dataHolder.transactionData.paymentOptionsModelResponse?.orderIdentifier else { fatalError("This case should never happen.") }
+        guard let order       = dataHolder.transactionData.paymentOptionsModelResponse?.order else { fatalError("This case should never happen.") }
         
         var post: TrackingURL? = nil
         if let postURL = transactionData.postURL {
@@ -173,7 +173,6 @@ extension TapCheckout {
         /// the API is using destinationsGroup not destinations
         let destinationsGroup   = (transactionData.destinations?.count ?? 0 > 0) ? DestinationGroup(destinations: transactionData.destinations)!: nil
         
-        let order                   = Order(identifier: orderID)
         let redirect                = TrackingURL(url: WebPaymentHandlerConstants.returnURL)
         var shouldSaveCard          = saveCard ?? false
         var requires3DSecure        = transactionData.require3DSecure || shouldForce3DS()

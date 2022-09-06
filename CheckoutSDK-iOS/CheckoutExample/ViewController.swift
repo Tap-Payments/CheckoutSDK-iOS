@@ -109,6 +109,7 @@ class ViewController: UIViewController {
         TapCheckout.localeIdentifier = localeID
         // Checkout's sample keys. Make sure
         // you use yours before going live
+        TapCheckout.bundleID = "company.tap.goSellSDKExamplee"
         TapCheckout.secretKey = .init(sandbox: "sk_test_cvSHaplrPNkJO7dhoUxDYjqA",
                                       production: "sk_live_V4UDhitI0r7sFwHCfNB6xMKp")
         
