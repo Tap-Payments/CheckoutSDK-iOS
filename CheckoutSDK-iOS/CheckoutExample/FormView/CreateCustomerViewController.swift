@@ -48,7 +48,18 @@ class CreateCustomerViewController: UIViewController {
                 if let phoneText = phoneNumberTextField.text, let code = countryCodeTextField.text {
                     phone = try .init(isdNumber: code, phoneNumber: phoneText)
                 }
-                customerDelegate?.customerCreated(customer: try .init(emailAddress: email, phoneNumber: phone, name: firstName))
+                let tempCountry:Country = try! .init(isoCode: "KW")
+                let tempAdddress:Address = .init(type:.residential,
+                                                 country: tempCountry,
+                                                 line1: "asdasd",
+                                                 line2: "sadsadas",
+                                                 line3: "2312323",
+                                                 city: "Hawally",
+                                                 state: "Kuwait",
+                                                 zipCode: "30003"
+                                                 )
+                
+                customerDelegate?.customerCreated(customer: try .init(emailAddress: email, phoneNumber: phone, name: firstName, address: tempAdddress))
                 dismiss(animated: true)
             }catch {
                 if let nonNullerror:TapSDKKnownError = error as? TapSDKKnownError {

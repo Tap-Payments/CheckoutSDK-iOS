@@ -135,7 +135,7 @@ internal class ViewModelsHolder {
 /// Struct that holds transaction related variables
 internal class TransactionDataHolder {
     
-    internal init(dataHolderDelegate: TapCheckoutDataHolderDelegate? = nil, intitModelResponse: TapInitResponseModel? = nil, paymentOptionsModelResponse: TapPaymentOptionsReponseModel? = nil, sdkMode: SDKMode = .sandbox, paymentType: TapPaymentType = .All, applePayMerchantID: String = "", loggedInToGoPay: Bool = false, transactionMode: TransactionMode = .purchase, customer: TapCustomer = TapCustomer.defaultCustomer(), destinations: [Destination]? = nil, tapMerchantID: String? = nil, taxes: [Tax]? = nil, shipping: [Shipping] = [], allowedCardTypes: [CardType] = [CardType(cardType: .Debit), CardType(cardType: .Credit)], postURL: URL? = nil, paymentDescription: String? = nil, paymentMetadata: TapMetadata = [:], paymentReference: Reference? = nil, paymentStatementDescriptor: String? = nil, require3DSecure: Bool = true, receiptSettings: Receipt? = nil, authorizeAction: AuthorizeAction = AuthorizeAction.default, allowsToSaveSameCardMoreThanOnce: Bool = true, enableSaveCard: Bool = true, isSaveCardSwitchOnByDefault: Bool = true, transactionCurrencyValue: AmountedCurrency = .init(.undefined, 0, ""), transactionUserCurrencyValue: AmountedCurrency = .init(.undefined, 0, ""), transactionItemsValue: [ItemModel] = [], selectedPaymentOption: PaymentOption? = nil) {
+    internal init(dataHolderDelegate: TapCheckoutDataHolderDelegate? = nil, intitModelResponse: TapInitResponseModel? = nil, paymentOptionsModelResponse: TapPaymentOptionsReponseModel? = nil, sdkMode: SDKMode = .sandbox, paymentType: TapPaymentType = .All, applePayMerchantID: String = "", loggedInToGoPay: Bool = false, transactionMode: TransactionMode = .purchase, customer: TapCustomer = TapCustomer.defaultCustomer(), destinations: [Destination]? = nil, tapMerchantID: String? = nil, taxes: [Tax]? = nil, shipping: Shipping? = nil, allowedCardTypes: [CardType] = [CardType(cardType: .Debit), CardType(cardType: .Credit)], postURL: URL? = nil, paymentDescription: String? = nil, paymentMetadata: TapMetadata = [:], paymentReference: Reference? = nil, paymentStatementDescriptor: String? = nil, require3DSecure: Bool = true, receiptSettings: Receipt? = nil, authorizeAction: AuthorizeAction = AuthorizeAction.default, allowsToSaveSameCardMoreThanOnce: Bool = true, enableSaveCard: Bool = true, isSaveCardSwitchOnByDefault: Bool = true, transactionCurrencyValue: AmountedCurrency = .init(.undefined, 0, ""), transactionUserCurrencyValue: AmountedCurrency = .init(.undefined, 0, ""), transactionItemsValue: [ItemModel] = [], selectedPaymentOption: PaymentOption? = nil) {
         
         self.dataHolderDelegate = dataHolderDelegate
         self.intitModelResponse = intitModelResponse
@@ -247,7 +247,7 @@ internal class TransactionDataHolder {
     var taxes:[Tax]? = nil
     
     /// Optional. List of Shipping you want to apply to the order if any.
-    var shipping:[Shipping] = []
+    var shipping:Shipping? = nil
     
     /// allowed Card Types, if not set all will be accepeted.
     var allowedCardTypes:[CardType] = [CardType(cardType: .Debit), CardType(cardType: .Credit)] {

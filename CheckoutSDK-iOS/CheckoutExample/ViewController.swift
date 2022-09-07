@@ -109,9 +109,9 @@ class ViewController: UIViewController {
         TapCheckout.localeIdentifier = localeID
         // Checkout's sample keys. Make sure
         // you use yours before going live
-        TapCheckout.bundleID = "company.tap.goSellSDKExamplee"
-        TapCheckout.secretKey = .init(sandbox: "sk_test_cvSHaplrPNkJO7dhoUxDYjqA",
-                                      production: "sk_live_V4UDhitI0r7sFwHCfNB6xMKp")
+        TapCheckout.bundleID = "resources.gosell.io"
+        TapCheckout.secretKey = .init(sandbox: "sk_test_2kGVSuR6bKAXLF4rDe0wa9QU",
+                                      production: "sk_live_QglH8V7Fw6NPAom4qRcynDK2")
         
         //customTheme = .init(with: "https://menoalmotasel.online/RedLightTheme.json", and: "https://menoalmotasel.online/RedDarkTheme.json", from: .RemoteJsonFile)
         
@@ -128,9 +128,9 @@ class ViewController: UIViewController {
             showDragHandler:showDragHandler,
             transactionMode: tapSettings.transactionMode,
             customer: tapSettings.customer,/* try! .init(emailAddress: .with("osamaguc@gmail.com"), phoneNumber: nil, name: "Osama Ahmed Helmy")*/
-            tapMerchantID: "1124340",
+            tapMerchantID: "599424",
             taxes: [],
-            shipping: [],
+            shipping: .init(name: "Shipping 1", descriptionText: "Descrtiption", amount: 10, currency: tapSettings.currency, recipientName: "OSAMA AHMED", address: tempAdddress, provider: .init(id:"",name:"aramex")),
             require3DSecure: true,
             sdkMode: .sandbox,
             onCheckOutReady: {[weak self] tapCheckOut in

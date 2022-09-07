@@ -35,7 +35,15 @@ import Foundation
     /// The item's vendor
     public var vendor: Vendor?
     /// Payment item shiping
-    public var requiresShipping: Bool
+    public var requiresShipping: Bool {
+        didSet {
+            if requiresShipping {
+                category = "PHYSICAL_GOODS"
+            }else{
+                category = "DIGITAL_GOODS"
+            }
+        }
+    }
     /// The raw original price in the original currency
     public var price : Double? {
         didSet {
@@ -77,13 +85,13 @@ import Foundation
         self.quantity = quantity
         self.discount = discount
         self.taxes = taxes
+        self.requiresShipping = requiresShipping
         self.totalAmount = totalAmount
         self.currency = currency
         self.productID = productID
         self.category = category
         self.fulfillmentService = fulfillmentService
         self.vendor = vendor
-        self.requiresShipping = requiresShipping
         self.itemCode = itemCode
         self.accountCode = accountCode
         self.tags = tags
@@ -92,6 +100,7 @@ import Foundation
         super.init()
         defer {
             self.totalAmount = totalAmount
+            self.requiresShipping = requiresShipping
         }
     }
     

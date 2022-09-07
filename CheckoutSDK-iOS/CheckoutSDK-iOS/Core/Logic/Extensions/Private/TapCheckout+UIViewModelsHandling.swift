@@ -113,7 +113,7 @@ internal extension TapCheckout {
         // convert the payment items
         var items:[PKPaymentSummaryItem] = dataHolder.transactionData.transactionItemsValue.toApplePayItems(convertFromCurrency: dataHolder.transactionData.transactionCurrencyValue, convertToCurrenct: dataHolder.transactionData.transactionUserCurrencyValue)
         // convert any shipping items if any
-        items.append(contentsOf: dataHolder.transactionData.shipping.toApplePayShippings(convertFromCurrency: dataHolder.transactionData.transactionCurrencyValue, convertToCurrenct: dataHolder.transactionData.transactionUserCurrencyValue))
+        items.append(contentsOf: dataHolder.transactionData.shipping?.toApplePayShipping() ?? [])
         // convert any tax items if any
         //items.append(contentsOf: dataHolder.transactionData.taxes.toApplePayTaxes(convertFromCurrency: dataHolder.transactionData.transactionCurrencyValue, convertToCurrenct: dataHolder.transactionData.transactionUserCurrencyValue))
         return items
@@ -361,13 +361,13 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
             // locally computations
             // Get the transaction data like items, shipping and taxs lists
             let items:[ItemModel] = sharedManager.dataHolder.transactionData.transactionItemsValue
-            let transactionShipping:[Shipping] = sharedManager.dataHolder.transactionData.shipping
+            let transactionShipping:Shipping? = sharedManager.dataHolder.transactionData.shipping
             let transactionTaxes:[Tax] = sharedManager.dataHolder.transactionData.taxes ?? []
             
             // First calculate the plain total amount from the items inclyding for each item X : (X's price * Quantity) - X's Discounty + X's Shipping + X's Taxes
             let totalItemsPrices:Double =   items.totalItemsPrices(convertFromCurrency: dataHolder.transactionData.transactionCurrencyValue, convertToCurrenct: dataHolder.transactionData.transactionUserCurrencyValue)
             // Second calculate the total shipping fees for the transaction level
-            let shippingFees:Double     =   Double(truncating: transactionShipping.reduce(0.0, { $0 + $1.amount }) as NSNumber)
+            let shippingFees:Double     =   Double(truncating: (transactionShipping?.amount ?? 0) as NSNumber)
             // Third calculate the total Taxes fees for the transaction level
             let taxesFees = transactionTaxes.reduce(0) { $0 + $1.amount.caluclateActualModificationValue(with: totalItemsPrices+shippingFees) }
             // Now we can get the final amount

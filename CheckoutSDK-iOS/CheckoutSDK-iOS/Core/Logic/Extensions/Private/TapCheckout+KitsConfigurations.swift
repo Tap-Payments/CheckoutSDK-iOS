@@ -103,7 +103,7 @@ internal extension TapCheckout {
                                 destinations: [Destination]?,
                                 tapMerchantID: String? = nil,
                                 taxes:[Tax]? = nil,
-                                shipping:[Shipping] = [],
+                                shipping:Shipping? = nil,
                                 allowedCardTypes: [CardType] = [CardType(cardType: .All)],
                                 postURL:URL? = nil,
                                 paymentDescription:String? = nil,
@@ -155,7 +155,7 @@ internal extension TapCheckout {
         if items == [] {
             /// - tag: DefaultItemsCreation
             // Please note that we didn't call the init api yet, hence we don't know the merchant name. We will create one item and we will call it PAY TO TAP PAYMENTS, once the init api comes in, we will change the title to hold the merchant's name.
-            sharedManager.dataHolder.transactionData.transactionItemsValue = [ItemModel.init(title: TapCheckout.defaulItemTitle,description: "Total paid amount", price: amount, quantity: 1,discount: nil, totalAmount: 0)]
+            sharedManager.dataHolder.transactionData.transactionItemsValue = [ItemModel.init(title: TapCheckout.defaulItemTitle,description: "Total paid amount", price: amount, quantity: 1,discount: nil, totalAmount: 0,requiresShipping: true)]
         }else {
             sharedManager.dataHolder.transactionData.transactionItemsValue = items
         }

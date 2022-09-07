@@ -189,7 +189,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         destinations: [Destination]? = nil,
         tapMerchantID: String? = nil,
         taxes:[Tax]? = nil,
-        shipping:[Shipping] = [],
+        shipping:Shipping? = nil,
         allowedCardTypes: [CardType] = [CardType(cardType: .All)],
         postURL:URL? = nil,
         paymentDescription: String? = nil,
