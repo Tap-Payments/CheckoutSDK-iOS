@@ -23,6 +23,7 @@ class CreateCustomerViewController: UIViewController {
     @IBOutlet weak var countryCodeTextField: UITextField!
     @IBOutlet weak var phoneNumberTextField: UITextField!
     @IBOutlet weak var loadingLoader: UIActivityIndicatorView!
+    @IBOutlet weak var addAddressSwitch: UISwitch!
     var customerDelegate: CreateCustomerDelegate?
     
     override func viewDidLoad() {
@@ -59,7 +60,7 @@ class CreateCustomerViewController: UIViewController {
                                                  zipCode: "30003"
                                                  )
                 
-                customerDelegate?.customerCreated(customer: try .init(emailAddress: email, phoneNumber: phone, name: firstName, address: tempAdddress))
+                customerDelegate?.customerCreated(customer: try .init(emailAddress: email, phoneNumber: phone, name: firstName, address: addAddressSwitch.isOn ? tempAdddress : nil))
                 dismiss(animated: true)
             }catch {
                 if let nonNullerror:TapSDKKnownError = error as? TapSDKKnownError {

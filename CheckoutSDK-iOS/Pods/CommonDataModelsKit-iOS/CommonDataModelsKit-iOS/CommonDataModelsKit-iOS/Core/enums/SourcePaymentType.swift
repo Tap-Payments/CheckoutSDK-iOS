@@ -63,8 +63,8 @@
 			self = type
 			return
 		}
-		
-		throw ErrorUtils.createEnumStringInitializationError(for: SourcePaymentType.self, value: stringValue)
+        self = .null
+		//throw ErrorUtils.createEnumStringInitializationError(for: SourcePaymentType.self, value: stringValue)
     }
 }
 
