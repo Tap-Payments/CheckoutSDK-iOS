@@ -114,6 +114,16 @@ class ViewController: UIViewController {
                                       production: "sk_live_QglH8V7Fw6NPAom4qRcynDK2")
         
         //customTheme = .init(with: "https://menoalmotasel.online/RedLightTheme.json", and: "https://menoalmotasel.online/RedDarkTheme.json", from: .RemoteJsonFile)
+        let tempCountry:Country = try! .init(isoCode: "KW")
+        let tempAdddress:Address = .init(type:.residential,
+                                         country: tempCountry,
+                                         line1: "asdasd",
+                                         line2: "sadsadas",
+                                         line3: "2312323",
+                                         city: "Hawally",
+                                         state: "Kuwait",
+                                         zipCode: "30003"
+        )
         
         checkout.build(
             localiseFile: nil,//TapCheckoutLocalisation(with: URL(string: "https://menoalmotasel.online/CustomLocalisation.json")!, from:.RemoteJsonFile),
@@ -213,6 +223,10 @@ extension ViewController:CheckoutScreenDelegate {
         tapPayButtonViewModel.endLoading(with: false) {
             self.tapBottomSheetWillDismiss()
         }
+    }
+    
+    func checkoutCaptured(with charge: Charge) {
+        print("HERE")
     }
 }
 
