@@ -93,12 +93,14 @@ class CreateItemViewController: UIViewController {
         let quntityValue = round(quantitySlider.value)
         let discValue = round(discountSlider.value)
         
+        var discountModels:[AmountModificatorModel]? = nil
         var discountModel:AmountModificatorModel? = nil
         if discountSegment.selectedSegmentIndex != 2 {
             discountModel = .init(type: (discountSegment.selectedSegmentIndex == 0) ? .Fixed : .Percentage, value: Double(discValue))
+            discountModels = [discountModel!]
         }
         
-        let item:ItemModel = .init(title: itemName, description: itemDescTextField.text, price: Double(priceValue), quantity: Double(quntityValue), discount: discountModel, taxes: tax, totalAmount: 0)
+        let item:ItemModel = .init(title: itemName, description: itemDescTextField.text, price: Double(priceValue), quantity: Double(quntityValue), discount: discountModels, totalAmount: 0)
         
         saveItem(item: item)
         delegate?.itemAdded(with: item)

@@ -77,7 +77,7 @@ class AddItemViewController: FormViewController {
         let quantityVal = Int((dic["quantity"] as? String ?? "").replacingOccurrences(of: ",", with: "")) ?? 1
         let discountVal = Double((dic["discount"] as? String ?? "").replacingOccurrences(of: ",", with: "")) ?? 0.0
         
-        let item = ItemModel(title: titleVal, description: descriptionVal, price: priceVal, quantity: Double(quantityVal), discount: AmountModificatorModel(type: .Fixed, value: discountVal),totalAmount: 0)
+        let item = ItemModel(title: titleVal, description: descriptionVal, price: priceVal, quantity: Double(quantityVal), discount: [AmountModificatorModel(type: .Fixed, value: discountVal)],totalAmount: 0)
         self.delegate?.addNewItem(with: item)
            
         

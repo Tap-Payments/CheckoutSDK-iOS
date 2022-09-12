@@ -8,9 +8,9 @@
 
 import UIKit
 import CheckoutSDK_iOS
-
+import CommonDataModelsKit_iOS
 class ItemTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
@@ -25,7 +25,7 @@ class ItemTableViewCell: UITableViewCell {
         self.titleLabel.text = "Title: \(item.title ?? "")"
         self.descriptionLabel.text = "Description: \(item.itemDescription ?? "")"
         self.priceLabel.text = "Price: \(item.price ?? 0.0)"
-        self.discountLabel.text = "Discount: \(item.discount?.value ?? 0.0) \( (item.discount?.type == .Percentage) ? "%" : "")"
+        self.discountLabel.text = "Discount: \(item.discount?.first?.value ?? 0.0) \( (item.discount?.first?.type == .Percentage) ? "%" : "")"
         self.quantityLabel.text = "Quantity: \(item.quantity ?? 0)"
     }
 }
