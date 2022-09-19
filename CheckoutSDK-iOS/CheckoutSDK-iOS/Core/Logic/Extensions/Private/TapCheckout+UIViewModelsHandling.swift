@@ -49,12 +49,12 @@ internal extension TapCheckout {
         // Make sure we have a loyalty view model and it does support the new selected currency first
         guard let nonNullViewModel = dataHolder.viewModels.tapLoyaltyViewModel,
               let supportedLoyaltyCurrencies:[TapCurrencyCode] = nonNullViewModel.loyaltyModel?.supportedCurrencies?.map({ $0.currency?.currency ?? .undefined }),
-        supportedLoyaltyCurrencies.contains(dataHolder.viewModels.tapAmountSectionViewModel.convertedTransactionCurrency.currency) else {
+        supportedLoyaltyCurrencies.contains(dataHolder.viewModels.currentUsedCurrency) else {
             return
         }
         
         // Now it is there, let us update the view model
-        nonNullViewModel.change(currency: dataHolder.viewModels.tapAmountSectionViewModel.convertedTransactionCurrency.currency,transactionAmount: dataHolder.viewModels.tapAmountSectionViewModel.convertedTransactionCurrency.amount)
+        nonNullViewModel.change(currency: dataHolder.viewModels.currentUsedCurrency,transactionAmount: dataHolder.transactionData.transactionUserCurrencyValue.amount)
         nonNullViewModel.refreshData()
     }
     
@@ -212,7 +212,7 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         }
         // Otherwise let us update the viewmodel with the new model we got from the backend
         dataHolder.viewModels.tapLoyaltyViewModel?.loyaltyModel = nonNullLoyaltyModel
-        updateLoyaltySection()
+        //updateLoyaltySection()
     }
     
     /** Update the total payable amount as we got from the backend

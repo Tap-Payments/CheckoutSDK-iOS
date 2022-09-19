@@ -224,10 +224,12 @@ extension TapCheckout {
      */
     func handleLoyalty(for cardBrand: CardBrand,with validation: CrardInputTextFieldStatusEnum) {
         // Check of we can display loyalty section or not
-        if canShowLoyalty() {
+        if canShowLoyalty(),
+           let nonNullLoyaltyViewModel: TapLoyaltyViewModel = dataHolder.viewModels.tapLoyaltyViewModel {
+            //updateLoyaltySection()
             // Now let us show the loyalty section after a slight delay allowing the keyboard to be dismissed
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250), execute: { [weak self] in
-                self?.UIDelegate?.showLoyalty(with: (self?.dataHolder.viewModels.tapLoyaltyViewModel)!, animate:true)
+                self?.UIDelegate?.showLoyalty(with: nonNullLoyaltyViewModel, animate:true)
             })
         }else{
             // Then if no valid card data is provided, all what we need to do is to remove the loyalty section if any
