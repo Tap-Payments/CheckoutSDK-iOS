@@ -43,7 +43,7 @@ internal class DataHolder {
 /// Struct that holds view models and UI related variables
 internal class ViewModelsHolder {
     
-    internal init(tapMerchantViewModel: TapMerchantHeaderViewModel = .init(), tapAmountSectionViewModel: TapAmountSectionViewModel = .init(), tapItemsTableViewModel: TapGenericTableViewModel = .init(), tapGatewayChipHorizontalListViewModel: TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GateWayListWithGoPayListHeader), tapGoPayChipsHorizontalListViewModel: TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GoPayListHeader), tapCardPhoneListViewModel: TapCardPhoneBarListViewModel = .init(), tapCardTelecomPaymentViewModel: TapCardTelecomPaymentViewModel = .init(), tapCurrienciesChipHorizontalListViewModel: TapChipHorizontalListViewModel = .init(), tapSaveCardSwitchViewModel: TapSwitchViewModel = .init(with: .invalidCard, merchant: "jazeera airways", whichSwitchesToShow: .none), goPayBarViewModel: TapGoPayLoginBarViewModel? = nil, swipeDownToDismiss: Bool = false, currenciesChipsViewModel: [CurrencyChipViewModel] = [], goPayLoginCountries: [TapCountry] = [], closeButtonStyle: CheckoutCloseButtonEnum = .title, showDragHandler: Bool = false, tapCardPhoneListDataSource: [CurrencyCardsTelecomModel] = [], gatewayChipsViewModel: [ChipWithCurrencyModel] = [], goPayChipsViewModel: [ChipWithCurrencyModel] = []) {
+    internal init(tapMerchantViewModel: TapMerchantHeaderViewModel = .init(), tapAmountSectionViewModel: TapAmountSectionViewModel = .init(), tapItemsTableViewModel: TapGenericTableViewModel = .init(), tapGatewayChipHorizontalListViewModel: TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GateWayListWithGoPayListHeader), tapGoPayChipsHorizontalListViewModel: TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GoPayListHeader), tapCardPhoneListViewModel: TapCardPhoneBarListViewModel = .init(), tapCardTelecomPaymentViewModel: TapCardTelecomPaymentViewModel = .init(), tapCurrienciesChipHorizontalListViewModel: TapChipHorizontalListViewModel = .init(), tapSaveCardSwitchViewModel: TapSwitchViewModel = .init(with: .invalidCard, merchant: "jazeera airways", whichSwitchesToShow: .none), goPayBarViewModel: TapGoPayLoginBarViewModel? = nil, swipeDownToDismiss: Bool = false, currenciesChipsViewModel: [CurrencyChipViewModel] = [], goPayLoginCountries: [TapCountry] = [], closeButtonStyle: CheckoutCloseButtonEnum = .title, showDragHandler: Bool = false, tapCardPhoneListDataSource: [CurrencyCardsTelecomModel] = [], gatewayChipsViewModel: [ChipWithCurrencyModel] = [], goPayChipsViewModel: [ChipWithCurrencyModel] = [], tapLoyaltyViewModel:TapLoyaltyViewModel) {
         
         self.tapMerchantViewModel = tapMerchantViewModel
         self.tapAmountSectionViewModel = tapAmountSectionViewModel
@@ -63,6 +63,7 @@ internal class ViewModelsHolder {
         self.tapCardPhoneListDataSource = tapCardPhoneListDataSource
         self.gatewayChipsViewModel = gatewayChipsViewModel
         self.goPayChipsViewModel = goPayChipsViewModel
+        self.tapLoyaltyViewModel = tapLoyaltyViewModel
         
         assignViewModelsDelegates()
     }
@@ -117,7 +118,16 @@ internal class ViewModelsHolder {
     var gatewayChipsViewModel:[ChipWithCurrencyModel] = []
     /// Represents the list of ALL allowed goPay chips for the logged in customer
     var goPayChipsViewModel:[ChipWithCurrencyModel] = []
-    
+    /// Represents the view model controling the loyalty widget if any
+    var tapLoyaltyViewModel:TapLoyaltyViewModel? = .init()
+    /// Represents the current using currency, will send the conversion currency if any otherwise the original transation currency
+    var currentUsedCurrency:TapCurrencyCode {
+        if tapAmountSectionViewModel.convertedTransactionCurrency.currency == .undefined {
+            return tapAmountSectionViewModel.originalTransactionCurrency.currency
+        }else{
+            return tapAmountSectionViewModel.convertedTransactionCurrency.currency
+        }
+    }
     
     init() {
         
@@ -128,6 +138,7 @@ internal class ViewModelsHolder {
         tapCurrienciesChipHorizontalListViewModel.delegate = TapCheckout.sharedCheckoutManager()
         tapGatewayChipHorizontalListViewModel.delegate = TapCheckout.sharedCheckoutManager()
         tapGoPayChipsHorizontalListViewModel.delegate = TapCheckout.sharedCheckoutManager()
+        tapLoyaltyViewModel?.delegate = TapCheckout.sharedCheckoutManager()
     }
     
 }

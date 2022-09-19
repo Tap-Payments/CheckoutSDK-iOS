@@ -72,6 +72,18 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     func closeWebView()
     
     /**
+     Will be fired in case we want to hide/remove a loyalty widget
+     */
+    func hideLoyalty()
+    
+    /**
+     Will be fired in case we want to show  a loyalty widget
+     - Parameter with loyaltyViewModel: The view model for the loyalty widget we want to show
+     - Parameter animate: If true a fade in animation will be done while inserting the view, otherwise no animation will be used
+     */
+    func showLoyalty(with loyaltyViewModel: TapLoyaltyViewModel,animate:Bool)
+    
+    /**
      Will be fired in case we want to show saved card otp view
      - Parameter with authenticationID: The authentication process ID if any
      */
@@ -132,6 +144,9 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     @objc public static var secretKey:SecretKey = .init(sandbox: "", production: "")
     /// Holds the bundle id data
     @objc public static var bundleID:String = TapApplicationPlistInfo.shared.bundleIdentifier ?? ""
+    
+    /// Tells to demo the loyalty widget or not
+    @objc public static var loyaltyEnabled:Bool = false
     
     // MARK:- Internal functions
     

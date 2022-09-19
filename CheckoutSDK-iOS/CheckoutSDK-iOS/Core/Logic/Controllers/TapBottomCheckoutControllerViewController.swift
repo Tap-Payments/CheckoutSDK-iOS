@@ -290,6 +290,16 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
             self.sharedCheckoutDataManager.dataHolder.transactionData.loggedInToGoPay = false
         }
     }
+    
+    
+    func hideLoyalty() {
+        tapVerticalView.remove(viewType: TapLoyaltyView.self, with: .init(for: .fadeOut), and: false)
+    }
+    
+    
+    func showLoyalty(with loyaltyViewModel: TapLoyaltyViewModel, animate:Bool) {
+        tapVerticalView.add(views: [loyaltyViewModel.attachedView], with: [.init(for:.fadeIn,with: animate ? 0.25 : 0.1)])
+    }
 }
 
 

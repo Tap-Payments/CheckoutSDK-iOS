@@ -212,6 +212,49 @@ extension TapCheckout {
             dataHolder.viewModels.tapActionButtonViewModel.buttonActionBlock = {}
             dataHolder.viewModels.tapSaveCardSwitchViewModel.cardState = .invalidCard
         }
+        
+        // Check about the loyalty widget
+        handleLoyalty(for:cardBrand,with: validation)
+    }
+    
+    /**
+     Handles the logic needed to be applied upon card form validation status changes regrding the loyalty widget
+     - Parameter cardBrand: The detected card brand
+     - Parameter with validation: The validation status came out of the card validator
+     */
+    func handleLoyalty(for cardBrand: CardBrand,with validation: CrardInputTextFieldStatusEnum) {
+        // Check of we can display loyalty section or not
+        if canShowLoyalty() {
+            // Now let us show the loyalty section after a slight delay allowing the keyboard to be dismissed
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250), execute: { [weak self] in
+                self?.UIDelegate?.showLoyalty(with: (self?.dataHolder.viewModels.tapLoyaltyViewModel)!, animate:true)
+            })
+        }else{
+            // Then if no valid card data is provided, all what we need to do is to remove the loyalty section if any
+            UIDelegate?.hideLoyalty()
+        }
+    }
+    
+    /// Checks all the conditoins to show a loyalty section including
+    /// There is a loyalty model, card data is fully valid, used currency is supported by the loyalty model
+    func canShowLoyalty() -> Bool {
+        // Check if the card's data including number, CVV and expiry are valid
+        guard dataHolder.viewModels.tapCardTelecomPaymentViewModel.allCardFieldsValid(),
+              // Check if there is a loyalty model to display
+              let nonNullLoyaltyViewModel: TapLoyaltyViewModel = dataHolder.viewModels.tapLoyaltyViewModel,
+              // Check if the card's bank is the same providing the loyalty model
+              let binBankName:String = dataHolder.transactionData.binLookUpModelResponse?.bank?.lowercased(),
+              // Get the spported currencies by the loyalty model
+              let supportedLoyaltyCurrencies:[TapCurrencyCode] = nonNullLoyaltyViewModel.loyaltyModel?.supportedCurrencies?.map({ $0.currency?.currency ?? .undefined })
+              //binBankName.contains("adcb"),
+        else {
+              return false
+        }
+        
+        // Let us see which currency is being used now as we will use it to make sure it is one of the supported currencies by the loyalty model if any
+        let currenyUsedCurrency: TapCurrencyCode = dataHolder.viewModels.currentUsedCurrency
+        // Check if the current selected currency is one of the supported currencies in the loyalty model
+        return supportedLoyaltyCurrencies.contains(currenyUsedCurrency)
     }
     
     

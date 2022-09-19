@@ -66,6 +66,7 @@
 		E89B4F8A26A21B3B0077B0A6 /* TapCheckout+CDNUrlsGeneration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89B4F8926A21B3B0077B0A6 /* TapCheckout+CDNUrlsGeneration.swift */; };
 		E8A262C9288D856000143C50 /* CreateTaxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A262C8288D856000143C50 /* CreateTaxViewController.swift */; };
 		E8A262CB288D904B00143C50 /* CreateItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A262CA288D904B00143C50 /* CreateItemViewController.swift */; };
+		E8B5275428D727E90001FE24 /* TapCheckout+Loyalty.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B5275328D727E90001FE24 /* TapCheckout+Loyalty.swift */; };
 		E8C2052824E40E95006653CA /* CustomLocalisation.json in Resources */ = {isa = PBXBuildFile; fileRef = E8C2052724E40E95006653CA /* CustomLocalisation.json */; };
 		E8C58B3824E5344700E1F04F /* TapCheckOutTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C58B3724E5344700E1F04F /* TapCheckOutTheme.swift */; };
 		E8C58B3F24E53F8100E1F04F /* RedDarkTheme.json in Resources */ = {isa = PBXBuildFile; fileRef = E8C58B3D24E53F8100E1F04F /* RedDarkTheme.json */; };
@@ -183,6 +184,7 @@
 		E89B4F8926A21B3B0077B0A6 /* TapCheckout+CDNUrlsGeneration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+CDNUrlsGeneration.swift"; sourceTree = "<group>"; };
 		E8A262C8288D856000143C50 /* CreateTaxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaxViewController.swift; sourceTree = "<group>"; };
 		E8A262CA288D904B00143C50 /* CreateItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateItemViewController.swift; sourceTree = "<group>"; };
+		E8B5275328D727E90001FE24 /* TapCheckout+Loyalty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+Loyalty.swift"; sourceTree = "<group>"; };
 		E8C2052724E40E95006653CA /* CustomLocalisation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CustomLocalisation.json; sourceTree = "<group>"; };
 		E8C58B3724E5344700E1F04F /* TapCheckOutTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckOutTheme.swift; sourceTree = "<group>"; };
 		E8C58B3D24E53F8100E1F04F /* RedDarkTheme.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RedDarkTheme.json; sourceTree = "<group>"; };
@@ -433,6 +435,7 @@
 				E83923932695CFA200421E15 /* TapCheckout+SignInViewHandler.swift */,
 				E83923CA269F0C3900421E15 /* TapCheckout + ScannerHandler.swift */,
 				E89B4F8926A21B3B0077B0A6 /* TapCheckout+CDNUrlsGeneration.swift */,
+				E8B5275328D727E90001FE24 /* TapCheckout+Loyalty.swift */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -742,6 +745,7 @@
 				E86128B424ED23EF00774BAA /* TapCheckoutExtensions.swift in Sources */,
 				E8EC81C6267F73420080E760 /* TapCheckout+Reset.swift in Sources */,
 				E8EC80F9267C7D470080E760 /* TapCheckout+Calculations.swift in Sources */,
+				E8B5275428D727E90001FE24 /* TapCheckout+Loyalty.swift in Sources */,
 				E8845E7024D83D7B009E8B73 /* TapCheckout.swift in Sources */,
 				E8844E6826777B7B0073D777 /* NetworkManagerExtensions.swift in Sources */,
 				E8EC8179267CB7100080E760 /* TapCheckout+PaymentProcesses.swift in Sources */,

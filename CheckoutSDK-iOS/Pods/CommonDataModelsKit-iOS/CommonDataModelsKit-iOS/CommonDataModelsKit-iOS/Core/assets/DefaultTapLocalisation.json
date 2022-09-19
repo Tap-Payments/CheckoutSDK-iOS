@@ -11,6 +11,23 @@
         "TapMerchantSection": {
             "paymentFor" : "PAYMENT FOR"
         },
+        "TapLoyaltySection": {
+            "headerView": {
+                "tc": "T&C",
+                "redeem": "Redeem",
+                "balance": "Balance"
+            },
+            "amountView": {
+                "title" : "Amount to redeem"
+            },
+            "footerView": {
+                "points": "Remaining",
+                "amount": "Remaining amount to pay"
+            },
+            "hintView": {
+                "minimumWarning": "Minimum redemption is"
+            }
+        },
         "HorizontalHeaders": {
             "GatewayHeader":{
                 "leftTitle": "SELECT",
@@ -131,6 +148,23 @@
         },
         "TapMerchantSection": {
             "paymentFor" : "سأدفع لـ"
+        },
+        "TapLoyaltySection": {
+            "headerView": {
+                "tc": "شروط",
+                "redeem": "استخدام",
+                "balance": "الرصيد"
+            },
+            "amountView": {
+                "title" : "المبلغ المستبدل"
+            },
+            "footerView": {
+                "points": "متبقي",
+                "amount": "متبقي القيمة للدفع"
+            },
+            "hintView": {
+                "minimumWarning": "أقل قيمة للإستبدال"
+            }
         },
         "HorizontalHeaders": {
             "GatewayHeader":{

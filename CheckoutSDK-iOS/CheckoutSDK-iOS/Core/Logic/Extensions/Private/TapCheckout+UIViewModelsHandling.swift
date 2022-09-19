@@ -18,6 +18,7 @@ internal extension TapCheckout {
     /// Handles the logic required to update all required fields and variables upon a change in the current shared data manager state
     func updateManager() {
         updateAmountSection()
+        updateLoyaltySection()
         updateItemsList()
         updateApplePayRequest()
         updateGatewayChipsList()
@@ -41,6 +42,20 @@ internal extension TapCheckout {
         // Apply the changes of user currency and total amount into the Amount view model
         dataHolder.viewModels.tapAmountSectionViewModel.convertedTransactionCurrency = dataHolder.transactionData.transactionUserCurrencyValue
         dataHolder.viewModels.tapAmountSectionViewModel.originalTransactionCurrency  = dataHolder.transactionData.transactionCurrencyValue
+    }
+    
+    /// Handles all the logic needed when the amount or the user selected currency changed to reflect in the Loyalty section view
+    func updateLoyaltySection() {
+        // Make sure we have a loyalty view model and it does support the new selected currency first
+        guard let nonNullViewModel = dataHolder.viewModels.tapLoyaltyViewModel,
+              let supportedLoyaltyCurrencies:[TapCurrencyCode] = nonNullViewModel.loyaltyModel?.supportedCurrencies?.map({ $0.currency?.currency ?? .undefined }),
+        supportedLoyaltyCurrencies.contains(dataHolder.viewModels.tapAmountSectionViewModel.convertedTransactionCurrency.currency) else {
+            return
+        }
+        
+        // Now it is there, let us update the view model
+        nonNullViewModel.change(currency: dataHolder.viewModels.tapAmountSectionViewModel.convertedTransactionCurrency.currency,transactionAmount: dataHolder.viewModels.tapAmountSectionViewModel.convertedTransactionCurrency.amount)
+        nonNullViewModel.refreshData()
     }
     
     /// Handles all the logic needed when the user selected currency changed to reflect in the items list view
@@ -186,6 +201,20 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         }
     }
     
+    /** Fetches the loyalty model and updates the loyalty view model if any
+     - Parameter paymentOptions: The payment options response we got from payment types api.
+     */
+    fileprivate func fetchLoyaltyModel(_ paymentOptions: TapPaymentOptionsReponseModel) {
+        guard let nonNullLoyaltyModel : TapLoyaltyModel = paymentOptions.loyaltyModel else {
+            // That means no loyalty found so let us make it nil for now and we show nothing
+            dataHolder.viewModels.tapLoyaltyViewModel = nil
+            return
+        }
+        // Otherwise let us update the viewmodel with the new model we got from the backend
+        dataHolder.viewModels.tapLoyaltyViewModel?.loyaltyModel = nonNullLoyaltyModel
+        updateLoyaltySection()
+    }
+    
     /** Update the total payable amount as we got from the backend
      - Parameter paymentOptions: The payment options response we got from payment types api.
      */
@@ -256,6 +285,9 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         
         // Fetch the merchant payment gateways, make sure to fetch only the allowed ones as set by the merchant when starting the checkout process
         fetchGateways(paymentOptions)
+        
+        // Fetch the loyaly model from the payment options if any
+        fetchLoyaltyModel(paymentOptions)
         
         // Load the goPayLogin status
         dataHolder.transactionData.loggedInToGoPay = false//UserDefaults.standard.bool(forKey: TapCheckoutConstants.GoPayLoginUserDefaultsKey)
