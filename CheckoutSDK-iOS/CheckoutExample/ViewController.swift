@@ -13,7 +13,7 @@ class ViewController: UIViewController {
    
     @IBOutlet weak var tapPayButton: TapActionButton!
     let tapPayButtonViewModel:TapPayButtonViewModel = .init()
-    var tapSettings:TapSettings = TapSettings(language: "English", localisation: false, theme: "Default", currency: .USD, swipeToDismissFeature: true, paymentTypes: [.All],closeButtonTitleFeature: true, customer: try! .init(identifier: "cus_TS075220212320q2RD0707283"),transactionMode: .purchase)
+    var tapSettings:TapSettings = TapSettings(language: "English", localisation: false, theme: "Default", currency: .AED, swipeToDismissFeature: true, paymentTypes: [.All],closeButtonTitleFeature: true, customer: try! .init(identifier: "cus_TS075220212320q2RD0707283"),transactionMode: .purchase)
     
     var localeID:String = "en" {
         didSet{
@@ -23,7 +23,7 @@ class ViewController: UIViewController {
     var localisationFileName:String? = "CustomLocalisation"
     var customTheme:TapCheckOutTheme? = nil
     @IBOutlet weak var amountTextField: UITextField!
-    var selectedCurrency:TapCurrencyCode = .USD
+    var selectedCurrency:TapCurrencyCode = .AED
     var amount:Double {
         if(getPaymentItems().count == 0) {
             return Double(amountTextField.text ?? "") ?? 1000
