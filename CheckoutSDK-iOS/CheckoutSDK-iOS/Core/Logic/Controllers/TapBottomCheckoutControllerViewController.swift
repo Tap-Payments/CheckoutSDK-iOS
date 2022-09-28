@@ -92,9 +92,7 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
         sharedCheckoutDataManager.dataHolder.viewModels.tapSaveCardSwitchViewModel.delegate = self
         
         createTabBarViewModel()
-        dragView.delegate = self
         
-        dragView.changeCloseButton(to: sharedCheckoutDataManager.dataHolder.viewModels.closeButtonStyle)
         dragView.updateHandler(visiblity: sharedCheckoutDataManager.dataHolder.viewModels.showDragHandler)
     }
     
@@ -170,6 +168,9 @@ extension TapBottomCheckoutControllerViewController:TapMerchantHeaderViewDelegat
     }
     func merchantHeaderClicked() {
         //showAlert(title: "Merchant Header", message: "The user clicked on the header section, do you want me to do anything?")
+    }
+    func closeButtonClicked() {
+        delegate?.dismissMySelfClicked()
     }
 }
 
@@ -534,14 +535,6 @@ extension TapBottomCheckoutControllerViewController:TapWebViewModelDelegate {
         
     }
 }
-
-extension TapBottomCheckoutControllerViewController:TapDragHandlerViewDelegate {
-    
-    func closeButtonClicked() {
-        delegate?.dismissMySelfClicked()
-    }
-}
-
 
 
 extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDelegate {

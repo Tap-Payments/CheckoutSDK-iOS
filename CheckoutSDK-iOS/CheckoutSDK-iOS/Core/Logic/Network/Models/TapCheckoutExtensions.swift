@@ -117,8 +117,8 @@ internal extension Array where Element: Tax {
      */
     func toApplePayTaxes(convertFromCurrency:AmountedCurrency? = nil,convertToCurrenct:AmountedCurrency? = nil) -> [PKPaymentSummaryItem] {
         
-        guard let convertToCurrency = convertToCurrenct,
-              let convertFromCurrency = convertFromCurrency else {
+        guard let _ = convertToCurrenct,
+              let _ = convertFromCurrency else {
             return []
         }
         

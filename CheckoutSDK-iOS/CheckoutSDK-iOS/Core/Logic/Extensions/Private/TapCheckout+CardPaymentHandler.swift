@@ -245,7 +245,7 @@ extension TapCheckout {
               // Check if there is a loyalty model to display
               let nonNullLoyaltyViewModel: TapLoyaltyViewModel = dataHolder.viewModels.tapLoyaltyViewModel,
               // Check if the card's bank is the same providing the loyalty model
-              let binBankName:String = dataHolder.transactionData.binLookUpModelResponse?.bank?.lowercased(),
+              let _:String = dataHolder.transactionData.binLookUpModelResponse?.bank?.lowercased(),
               // Get the spported currencies by the loyalty model
               let supportedLoyaltyCurrencies:[TapCurrencyCode] = nonNullLoyaltyViewModel.loyaltyModel?.supportedCurrencies?.map({ $0.currency?.currency ?? .undefined })
               //binBankName.contains("adcb"),
