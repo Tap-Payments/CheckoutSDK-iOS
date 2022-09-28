@@ -14,9 +14,11 @@ import TapThemeManager2020
 
 /// A view represents the loyalty points view used while paying
 @objc public class TapLoyaltyView: UIView {
-
+    
     /// The container view that holds everything from the XIB
     internal lazy var containterView:UIView = UIView()
+    /// An empty padding at the bottom to allow space for expansion in case we want to show the hint warning view
+    internal lazy var bottomPaddingView:UIView = UIView()
     /// The path to look for theme entry in
     private let themePath = "loyaltyView"
     /// The header view part in the loyalty widget
@@ -82,21 +84,38 @@ import TapThemeManager2020
     
     
     /// Handles the logic to get the amount section back to its original data
-    internal func resetData() {
+    internal func resetData(forSubViews:[LoyaltySubViewsID] = [.All]) {
         // hide the keyboard if any
         amountView.amountTextField.resignFirstResponder()
-        // Reset the amount section data
-        reloadAmountView()
-        // Reset the header value
-        reloadHeaderView()
-        
+        // Decide which sub view should be reloaded based on the caller decision
+        forSubViews.forEach { loyaltySubViewsID in
+            switch loyaltySubViewsID {
+            case .Header:
+                reloadHeaderView()
+                break
+            case .Footer:
+                reloadFooterView()
+                break
+            case .Amount:
+                reloadAmountView()
+                break
+            default:
+                // Reset the amount section data
+                reloadAmountView()
+                // Reset the header value
+                reloadHeaderView()
+                // Reset the footer value
+                reloadFooterView()
+            }
+        }
     }
     
     /// Will change the UI state enable/disable based on the provided valye
     /// - Parameter to enabled: If true then it is enabled and clickable and expanded. Otehrwise, will be shrunk and disbaled
     internal func changeState(to enabled:Bool) {
         // In all cases we will need to reset the data
-        resetData()
+        viewModel?.calculateInitialAmount()
+        resetData(forSubViews: [.Amount,.Footer])
         if enabled {
             // let us show all the sub views again
             enablementEffectedViews.forEach{ view in
@@ -110,6 +129,14 @@ import TapThemeManager2020
                 view.isUserInteractionEnabled = false
             }
         }
+        
+        DispatchQueue.main.async  { [weak self] in
+            self?.bottomPaddingView.snp.updateConstraints({ make in
+                make.height.equalTo(enabled ? 44 : 0)
+            })
+            self?.bottomPaddingView.layoutIfNeeded()
+        }
+        
         // In all cases, we will need to re adjust our stack's height
         adjustHeight()
     }
@@ -129,11 +156,14 @@ import TapThemeManager2020
     /// Used to add the sub views originally to the non Xib view
     internal func addSubViews() {
         addSubview(containterView)
+        addSubview(bottomPaddingView)
+        
         containterView.addSubview(headerView)
         containterView.addSubview(amountView)
         containterView.addSubview(warningHintView)
         containterView.addSubview(footerView)
         // Mark the views that will change its visibility based in the enabelement of the loyalty widget
+        enablementEffectedViews.append(bottomPaddingView)
         enablementEffectedViews.append(amountView)
         enablementEffectedViews.append(warningHintView)
         enablementEffectedViews.append(footerView)
@@ -150,10 +180,18 @@ import TapThemeManager2020
             make.height.equalTo(viewModel?.widgetHeight ?? 44)
         }
         
+        // The bottom margin view
+        bottomPaddingView.snp.makeConstraints { make in
+            make.bottom.equalToSuperview()
+            make.height.equalTo(44)
+            make.trailing.equalToSuperview()
+            make.leading.equalToSuperview()
+        }
+        
         // The containter view itself
         containterView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(16)
-            make.bottom.equalToSuperview()
+            make.bottom.equalTo(bottomPaddingView.snp.top)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
         }
@@ -165,7 +203,7 @@ import TapThemeManager2020
             make.leading.equalToSuperview()
             make.top.equalToSuperview()
         }
-
+        
         // The amount view
         amountView.snp.makeConstraints { make in
             make.height.equalTo(44)
@@ -210,15 +248,19 @@ import TapThemeManager2020
             self?.warningHintView.snp.updateConstraints({ make in
                 make.height.equalTo(shouldShowIt ? 44 : 0)
             })
+            self?.bottomPaddingView.snp.updateConstraints({ make in
+                make.height.equalTo(shouldShowIt ? 0 : 44)
+            })
             if shouldShowIt && self?.warningHintView.alpha != 1 {
                 self?.warningHintView.fadeIn()
+                self?.bottomPaddingView.fadeOut()
             }
             else if !shouldShowIt && self?.warningHintView.alpha != 0 {
                 self?.warningHintView.fadeOut()
+                self?.bottomPaddingView.fadeIn()
             }
             self?.warningHintView.layoutIfNeeded()
-            // in all cases we will have to adjust the total height of the widget
-            self?.adjustHeight()
+            self?.bottomPaddingView.layoutIfNeeded()
         }
     }
     
@@ -244,7 +286,7 @@ import TapThemeManager2020
         reloadAmountView()
         reloadFooterView()
     }
-
+    
 }
 
 
@@ -260,6 +302,8 @@ extension TapLoyaltyView {
     private func matchThemeAttributes() {
         
         backgroundColor = .clear
+        bottomPaddingView.backgroundColor = .clear
+        
         containterView.layer.tap_theme_cornerRadious  = .init(keyPath: "\(themePath).cardView.radius")
         containterView.layer.tap_theme_shadowColor = .init(keyPath: "\(themePath).cardView.shadowColor")
         containterView.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
@@ -277,4 +321,18 @@ extension TapLoyaltyView {
         TapThemeManager.changeThemeDisplay(for: self.traitCollection.userInterfaceStyle)
         applyTheme()
     }
+}
+
+
+
+/// An enum to identify which sub view will need to be refreshed based on the context
+internal enum LoyaltySubViewsID {
+    /// Refresh all the subviews
+    case All
+    /// Refresh the header view
+    case Header
+    /// Refresh the footer view
+    case Footer
+    /// Refresh the amount view
+    case Amount
 }

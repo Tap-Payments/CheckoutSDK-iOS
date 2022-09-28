@@ -23,7 +23,7 @@ internal protocol TapLoyaltyAmountViewDelegate {
 }
 /// Represents the amount sub view in the loyalty widget
 internal class TapLoyaltyAmountView: UIView {
-
+    
     /// The container view that holds everything from the XIB
     @IBOutlet var containerView: UIView!
     /// The title label
@@ -87,7 +87,7 @@ internal class TapLoyaltyAmountView: UIView {
         // save the initial amount
         amount = initialAmount
         // put the initial amount if any
-        if initialAmount > 0 { amountTextField.text = "\(initialAmount)" }
+        if initialAmount > 0 { amountTextField.text = viewModel.formattedAmount }
         reloadData()
         
     }
@@ -117,10 +117,33 @@ internal class TapLoyaltyAmountView: UIView {
     
     /// Handles the logic needed to be done once the amount is changed
     internal func postAmountUpdated() {
-        // reload the text data in points deeduction basde on new amount
-        reloadData()
         // Inform the delegate that amount had changed
         delegate?.loyaltyRedemptionAmountChanged(with: amount)
+        // reload the text data in points deeduction basde on new amount
+        reloadData()
+    }
+    
+    /// Checks if a given string passes the decimal allowed places
+    /// - Parameter for toBeCheckedString : The string value to check
+    /// - Parameter regards ecimalPlaces: The max allowed decimal places
+    internal func allowedDecimalPlaces(for toBeCheckedString:String, regards decimalPlaces:Int) -> Bool {
+        var adjustedToBeCheckedString = toBeCheckedString
+        // Check if the . is the begining of the number e.g. .12 add a leading zero
+        if adjustedToBeCheckedString.hasPrefix(".") {
+            adjustedToBeCheckedString = "0\(adjustedToBeCheckedString)"
+        }
+        // Now check that the given string has at most 1 decimal point
+        let numberParts:[String] = adjustedToBeCheckedString.components(separatedBy: ".")
+        if numberParts.count == 1 {
+            // This means it has no decimal points at all
+            return true
+        }else if numberParts.count == 2 {
+            // This means it has one decimal point and we need to check the count of the decimal places
+            return numberParts[1].count <= decimalPlaces
+        }else{
+            // The given string has more than 1 decimal point, hence it is not a parsable number
+            return false
+        }
     }
     
     /// Will catch the event when the user changed the text in the amonut field with an accepted value
@@ -149,7 +172,7 @@ extension TapLoyaltyAmountView {
         pointsLabel.tap_theme_font = .init(stringLiteral: "\(themePath).pointsFont", shouldLocalise: false)
         pointsLabel.tap_theme_textColor = .init(stringLiteral: "\(themePath).pointsTextColor")
         
-        pointsProgramNameLabel.tap_theme_font = .init(stringLiteral: "\(themePath).pointsFont")
+        pointsProgramNameLabel.tap_theme_font = .init(stringLiteral: "\(themePath).pointsFont", shouldLocalise: false)
         pointsProgramNameLabel.tap_theme_textColor = .init(stringLiteral: "\(themePath).pointsTextColor")
         
         currencyLabel.tap_theme_font = .init(stringLiteral: "\(themePath).currencyFont")
@@ -157,6 +180,7 @@ extension TapLoyaltyAmountView {
         
         amountTextField.tap_theme_font = .init(stringLiteral: "\(themePath).amountFont")
         amountTextField.tap_theme_textColor = .init(stringLiteral: "\(themePath).amountTextColor")
+        
         amountTextField.textAlignment = (TapLocalisationManager.shared.localisationLocale == "ar") ? .right : .left
         
         layoutIfNeeded()
@@ -194,7 +218,8 @@ extension TapLoyaltyAmountView: UITextFieldDelegate {
             guard let decimalInput : Decimal = Decimal(string: newString, locale: Locale(identifier: "en_US")) else { return false }
             // Don't accept any more decimals than the allowed placed by the currency
             // We don't accept a value bigger than the max balance for the user with this currency and not bigger than the total transaction amount
-            guard decimalInput.significantFractionalDecimalDigits <= viewModel?.loyaltyCurrency(forCurrency: viewModel?.currency)?.currency?.decimalDigits ?? 0,
+            
+            guard allowedDecimalPlaces(for: newString, regards: viewModel?.loyaltyCurrency(forCurrency: viewModel?.currency)?.currency?.decimalDigits ?? 0),
                   NSDecimalNumber(decimal: decimalInput).doubleValue  <= viewModel?.loyaltyCurrency(forCurrency: viewModel?.currency)?.balanceAmount ?? 0,
                   NSDecimalNumber(decimal: decimalInput).doubleValue  <= viewModel?.transactionTotalAmount ?? 0
             else { return false }
@@ -204,6 +229,11 @@ extension TapLoyaltyAmountView: UITextFieldDelegate {
             return newString.count <= 8
         }
         return true
+    }
+    
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.text = viewModel?.formattedAmount
     }
     
 }
