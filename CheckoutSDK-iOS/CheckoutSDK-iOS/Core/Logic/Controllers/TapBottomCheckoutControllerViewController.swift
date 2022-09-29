@@ -375,7 +375,14 @@ extension TapBottomCheckoutControllerViewController: TapAuthenticateDelegate {
 
 extension TapBottomCheckoutControllerViewController:TapCardTelecomPaymentProtocol {
     func closeSavedCardClicked() {
-        
+        // Deselect the already selected saved card
+        sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deselectAll()
+        sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.deselectAll()
+        // Invalidate the payment button
+        // The status is invalid hence we need to clear the action button
+        sharedCheckoutDataManager.dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .InvalidPayment
+        sharedCheckoutDataManager.dataHolder.viewModels.tapActionButtonViewModel.buttonActionBlock = {}
+        sharedCheckoutDataManager.dataHolder.viewModels.tapSaveCardSwitchViewModel.cardState = .invalidCard
     }
     
     
