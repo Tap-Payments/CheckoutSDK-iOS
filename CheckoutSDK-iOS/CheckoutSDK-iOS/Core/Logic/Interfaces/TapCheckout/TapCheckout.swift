@@ -187,6 +187,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      - Parameter sdkMode: Defines the mode sandbox or production the sdk will perform this transaction on. Please check [SDKMode](x-source-tag://SDKMode)
      - Parameter collectCreditCardName: Decides whether or not, the card input should collect the card holder name. Default is false
      - Parameter enableApiLogging: Defines if you want to print the api calls. This is very helpful for you as a developer
+     - Parameter showSaveCreditCard: /// Decides whether or not, the card input should show save card option. Default is false
      */
     @objc public func build(
         localiseFile:TapCheckoutLocalisation? = nil,
@@ -221,12 +222,13 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         sdkMode:SDKMode = .sandbox,
         enableApiLogging:Bool = true,
         collectCreditCardName:Bool = false,
+        showSaveCreditCard:Bool = false,
         onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
         
         // Do the pre steps needed before starting a new SDK session
         prepareSDK(with: sdkMode,delegate:delegate, localiseFile:localiseFile, customTheme:customTheme, enableApiLogging:enableApiLogging)
         // Store the passed configurations for further processing
-            configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,swipeDownToDismiss:swipeDownToDismiss,paymentType:paymentType,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID,taxes: taxes, shipping: shipping, allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor,require3DSecure:require3DSecure,receiptSettings:receiptSettings, authorizeAction: authorizeAction,allowsToSaveSameCardMoreThanOnce: allowsToSaveSameCardMoreThanOnce, enableSaveCard: enableSaveCard, isSaveCardSwitchOnByDefault: isSaveCardSwitchOnByDefault, collectCreditCardName: collectCreditCardName)
+            configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,swipeDownToDismiss:swipeDownToDismiss,paymentType:paymentType,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID,taxes: taxes, shipping: shipping, allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor,require3DSecure:require3DSecure,receiptSettings:receiptSettings, authorizeAction: authorizeAction,allowsToSaveSameCardMoreThanOnce: allowsToSaveSameCardMoreThanOnce, enableSaveCard: enableSaveCard, isSaveCardSwitchOnByDefault: isSaveCardSwitchOnByDefault, collectCreditCardName: collectCreditCardName, showSaveCreditCard:showSaveCreditCard)
         
         // Initiate the needed calls to server to start the session
         configSDKFromAPI() {  [weak self] in

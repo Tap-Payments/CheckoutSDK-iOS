@@ -23,18 +23,6 @@ internal extension TapCheckout {
         updateApplePayRequest()
         updateGatewayChipsList()
         updateCardTelecomList()
-        updateSaveCardSwitchStatus()
-    }
-    
-    /// Handles the logic to determine the visibility and the status of the save card/ohone switch depending on the current card/telecom data source
-    func updateSaveCardSwitchStatus() {
-        // decide if we can show the save cars switch based on the switch type
-        dataHolder.viewModels.tapSaveCardSwitchViewModel.shouldShow = dataHolder.transactionData.saveCardSwitchType != .none
-        
-        if dataHolder.viewModels.tapSaveCardSwitchViewModel.shouldShow {
-            // If we will show it, let us decide its status based on the card form status
-            dataHolder.viewModels.tapSaveCardSwitchViewModel.cardState = (dataHolder.viewModels.tapCardPhoneListViewModel.dataSource[0].associatedCardBrand.brandSegmentIdentifier == "cards") ? .invalidCard : .invalidTelecom
-        }
     }
     
     /// Handles all the logic needed when the amount or the user selected currency changed to reflect in the Amount Section View
@@ -93,6 +81,9 @@ internal extension TapCheckout {
         dataHolder.viewModels.tapCardPhoneListViewModel.dataSource = dataHolder.viewModels.tapCardPhoneListDataSource.filter(for: dataHolder.transactionData.transactionUserCurrencyValue.currency)
         // Instruct if we have to collect the card name or not
         dataHolder.viewModels.tapCardTelecomPaymentViewModel.collectCardName = dataHolder.viewModels.collectCreditCardName
+        // Instruct if we have to show save card option or not
+        dataHolder.viewModels.tapCardTelecomPaymentViewModel.showSaveCardOption = dataHolder.viewModels.isSaveCardAllowed()
+        
         dataHolder.viewModels.tapCardTelecomPaymentViewModel.tapCardPhoneListViewModel = dataHolder.viewModels.tapCardPhoneListViewModel
         // Change the telecom part country to the country of the selected currency
         dataHolder.viewModels.tapCardTelecomPaymentViewModel.changeTapCountry(to: dataHolder.viewModels.tapCardPhoneListDataSource.telecomCountry(for: dataHolder.transactionData.transactionUserCurrencyValue.currency))
@@ -292,10 +283,7 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         
         // Load the goPayLogin status
         dataHolder.transactionData.loggedInToGoPay = false//UserDefaults.standard.bool(forKey: TapCheckoutConstants.GoPayLoginUserDefaultsKey)
-        
-        // Fetch the save card/phone switch data
-        dataHolder.viewModels.tapSaveCardSwitchViewModel = .init(with: .invalidCard, merchant: dataHolder.viewModels.tapMerchantViewModel.subTitle ?? "", whichSwitchesToShow: dataHolder.transactionData.saveCardSwitchType)
-        
+      
         // Fetch the cards + telecom payments options
         self.dataHolder.viewModels.tapCardPhoneListDataSource = paymentOptions.paymentOptions.filter{ (dataHolder.transactionData.paymentType == .Card || dataHolder.transactionData.paymentType == .All) && $0.paymentType == .Card }.map{ CurrencyCardsTelecomModel.init(paymentOption: $0) }
         
@@ -319,14 +307,12 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
             sharedManager.dataHolder.viewModels.tapAmountSectionViewModel.shouldShow = false
             sharedManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.shouldShow = false
             sharedManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.shouldShow = false
-            sharedManager.dataHolder.viewModels.tapSaveCardSwitchViewModel.shouldShow = false
             // stop auto dismiss
             sharedManager.dataHolder.viewModels.swipeDownToDismiss = false
             break
         case .cardTokenization:
             // We need to hide amount, and save card switch
             sharedManager.dataHolder.viewModels.tapAmountSectionViewModel.shouldShow = false
-            sharedManager.dataHolder.viewModels.tapSaveCardSwitchViewModel.shouldShow = false
             // stop auto dismiss
             sharedManager.dataHolder.viewModels.swipeDownToDismiss = false
             break

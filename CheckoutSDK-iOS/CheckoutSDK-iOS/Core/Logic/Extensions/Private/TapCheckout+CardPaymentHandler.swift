@@ -198,7 +198,6 @@ extension TapCheckout {
            dataHolder.viewModels.tapCardTelecomPaymentViewModel.decideHintStatus() == .None {
             // All good and we can start the payment once the user clicks on the action button
             dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .ValidPayment
-            dataHolder.viewModels.tapSaveCardSwitchViewModel.cardState = .validCard
             // Fetch the payment option related to the validated card brand
             let paymentOptions:[PaymentOption] = dataHolder.viewModels.tapCardPhoneListDataSource.filter{ $0.tapPaymentOption?.brand == cardBrand }.filter{ $0.tapPaymentOption != nil }.map{ $0.tapPaymentOption! }
             guard paymentOptions.count > 0, let selectedPaymentOption:PaymentOption = paymentOptions.first else {
@@ -211,7 +210,6 @@ extension TapCheckout {
             // The status is invalid hence we need to clear the action button
             dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .InvalidPayment
             dataHolder.viewModels.tapActionButtonViewModel.buttonActionBlock = {}
-            dataHolder.viewModels.tapSaveCardSwitchViewModel.cardState = .invalidCard
         }
         
         // Check about the loyalty widget

@@ -143,6 +143,7 @@ class ViewController: UIViewController {
             shipping: .init(name: "Shipping 1", descriptionText: "Descrtiption", amount: 10, currency: tapSettings.currency, recipientName: "OSAMA AHMED", address: tempAdddress, provider: .init(id:"",name:"aramex")),
             require3DSecure: true,
             sdkMode: .sandbox,
+            showSaveCreditCard: true,
             onCheckOutReady: {[weak self] tapCheckOut in
                 DispatchQueue.main.async() {
                     tapCheckOut.start(presentIn: self)

@@ -43,7 +43,7 @@ internal class DataHolder {
 /// Struct that holds view models and UI related variables
 internal class ViewModelsHolder {
     
-    internal init(tapMerchantViewModel: TapMerchantHeaderViewModel = .init(), tapAmountSectionViewModel: TapAmountSectionViewModel = .init(), tapItemsTableViewModel: TapGenericTableViewModel = .init(), tapGatewayChipHorizontalListViewModel: TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GateWayListWithGoPayListHeader), tapGoPayChipsHorizontalListViewModel: TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GoPayListHeader), tapCardPhoneListViewModel: TapCardPhoneBarListViewModel = .init(), tapCardTelecomPaymentViewModel: TapCardTelecomPaymentViewModel = .init(), tapCurrienciesChipHorizontalListViewModel: TapChipHorizontalListViewModel = .init(), tapSaveCardSwitchViewModel: TapSwitchViewModel = .init(with: .invalidCard, merchant: "jazeera airways", whichSwitchesToShow: .none), goPayBarViewModel: TapGoPayLoginBarViewModel? = nil, swipeDownToDismiss: Bool = false, currenciesChipsViewModel: [CurrencyChipViewModel] = [], goPayLoginCountries: [TapCountry] = [], closeButtonStyle: CheckoutCloseButtonEnum = .title, showDragHandler: Bool = false, tapCardPhoneListDataSource: [CurrencyCardsTelecomModel] = [], gatewayChipsViewModel: [ChipWithCurrencyModel] = [], goPayChipsViewModel: [ChipWithCurrencyModel] = [], tapLoyaltyViewModel:TapLoyaltyViewModel) {
+    internal init(tapMerchantViewModel: TapMerchantHeaderViewModel = .init(), tapAmountSectionViewModel: TapAmountSectionViewModel = .init(), tapItemsTableViewModel: TapGenericTableViewModel = .init(), tapGatewayChipHorizontalListViewModel: TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GateWayListWithGoPayListHeader), tapGoPayChipsHorizontalListViewModel: TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GoPayListHeader), tapCardPhoneListViewModel: TapCardPhoneBarListViewModel = .init(), tapCardTelecomPaymentViewModel: TapCardTelecomPaymentViewModel = .init(), tapCurrienciesChipHorizontalListViewModel: TapChipHorizontalListViewModel = .init(), goPayBarViewModel: TapGoPayLoginBarViewModel? = nil, swipeDownToDismiss: Bool = false, currenciesChipsViewModel: [CurrencyChipViewModel] = [], goPayLoginCountries: [TapCountry] = [], closeButtonStyle: CheckoutCloseButtonEnum = .title, showDragHandler: Bool = false, tapCardPhoneListDataSource: [CurrencyCardsTelecomModel] = [], gatewayChipsViewModel: [ChipWithCurrencyModel] = [], goPayChipsViewModel: [ChipWithCurrencyModel] = [], tapLoyaltyViewModel:TapLoyaltyViewModel) {
         
         self.tapMerchantViewModel = tapMerchantViewModel
         self.tapAmountSectionViewModel = tapAmountSectionViewModel
@@ -53,7 +53,6 @@ internal class ViewModelsHolder {
         self.tapCardPhoneListViewModel = tapCardPhoneListViewModel
         self.tapCardTelecomPaymentViewModel = tapCardTelecomPaymentViewModel
         self.tapCurrienciesChipHorizontalListViewModel = tapCurrienciesChipHorizontalListViewModel
-        self.tapSaveCardSwitchViewModel = tapSaveCardSwitchViewModel
         self.goPayBarViewModel = goPayBarViewModel
         self.swipeDownToDismiss = swipeDownToDismiss
         self.currenciesChipsViewModel = currenciesChipsViewModel
@@ -96,8 +95,6 @@ internal class ViewModelsHolder {
             assignViewModelsDelegates()
         }
     }
-    /// Represents the view model that controls the save card/number view
-    var tapSaveCardSwitchViewModel: TapSwitchViewModel = .init(with: .invalidCard, merchant: "jazeera airways",whichSwitchesToShow: .none)
     /// Represents the view model that controls the country picker when logging in to goPay using the phone number
     var goPayBarViewModel:TapGoPayLoginBarViewModel?
     /// Represents the view model that controls the action button view
@@ -106,6 +103,8 @@ internal class ViewModelsHolder {
     var swipeDownToDismiss:Bool = false
     /// Decides whether or not, the card input should collect the card holder name. Default is false
     var collectCreditCardName:Bool = false
+    /// Decides whether or not, the card input should show save card option. Default is false
+    var showSaveCreditCard:Bool = false
     /// Repreents the list fof supported currencies
     var currenciesChipsViewModel:[CurrencyChipViewModel] = []
     /// Repreents the list fof supported currencies
@@ -141,6 +140,11 @@ internal class ViewModelsHolder {
         tapGatewayChipHorizontalListViewModel.delegate = TapCheckout.sharedCheckoutManager()
         tapGoPayChipsHorizontalListViewModel.delegate = TapCheckout.sharedCheckoutManager()
         tapLoyaltyViewModel?.delegate = TapCheckout.sharedCheckoutManager()
+    }
+    
+    /// Checks if the user asked for showing save card and it is allowed from the backend as well
+    internal func isSaveCardAllowed() -> Bool {
+        return TapCheckout.sharedCheckoutManager().dataHolder.transactionData.saveCardSwitchType == .merchant && showSaveCreditCard
     }
     
 }
@@ -384,10 +388,11 @@ internal class TransactionDataHolder {
     /// Determines whether the user opt out for saving the card into the merchant's system
     var isSaveCardMerchantActivated:Bool {
         // First check that the save card is enabled
-        guard saveCardSwitchType == .merchant else { return false }
+        guard TapCheckout.sharedCheckoutManager().dataHolder.viewModels.isSaveCardAllowed()
+        else { return false }
         
         // Then check if the user opt to save the card
-        return TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapSaveCardSwitchViewModel.isMerchantSaveAllowed
+        return TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapCardTelecomPaymentViewModel.isMerchantSaveAllowed
     }
     
     
@@ -397,7 +402,7 @@ internal class TransactionDataHolder {
         guard saveCardSwitchType == .merchant else { return false }
         
         // Then check if the user opt to save the card
-        return TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapSaveCardSwitchViewModel.isGoPaySaveAllowed
+        return false
     }
     
 }
