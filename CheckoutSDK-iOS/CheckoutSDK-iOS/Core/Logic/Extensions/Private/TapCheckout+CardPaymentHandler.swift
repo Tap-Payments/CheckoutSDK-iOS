@@ -162,9 +162,10 @@ extension TapCheckout {
      - Parameter with card: The tap card we nede to fill the UI with
      - Parameter then focusCardNumber: Indicate whether we need to focus the card number after setting the card data
      - Parameter shouldRemoveCurrentCard:If there is a card number, first thing to do now is to clear the fields
+     - Parameter for cardUIStatus: Indicates whether the given card is from a normal process like scanning or to show the special UI for a saved card flow
      */
-    func setCardData(with card:TapCard,then focusCardNumber:Bool,shouldRemoveCurrentCard:Bool = true) {
-        dataHolder.viewModels.tapCardTelecomPaymentViewModel.setCard(with: card, then: true, shouldRemoveCurrentCard: shouldRemoveCurrentCard)
+    func setCardData(with card:TapCard,then focusCardNumber:Bool,shouldRemoveCurrentCard:Bool = true,for cardUIStatus:CardInputUIStatus) {
+        dataHolder.viewModels.tapCardTelecomPaymentViewModel.setCard(with: card, then: true, shouldRemoveCurrentCard: shouldRemoveCurrentCard, for: cardUIStatus)
     }
     
     /**

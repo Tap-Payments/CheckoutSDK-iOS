@@ -91,7 +91,8 @@ internal extension TapCheckout {
     func updateCardTelecomList() {
         // Set the supported card brands for the card bar data source to the supported cards for the selected currency
         dataHolder.viewModels.tapCardPhoneListViewModel.dataSource = dataHolder.viewModels.tapCardPhoneListDataSource.filter(for: dataHolder.transactionData.transactionUserCurrencyValue.currency)
-        
+        // Instruct if we have to collect the card name or not
+        dataHolder.viewModels.tapCardTelecomPaymentViewModel.collectCardName = dataHolder.viewModels.collectCreditCardName
         dataHolder.viewModels.tapCardTelecomPaymentViewModel.tapCardPhoneListViewModel = dataHolder.viewModels.tapCardPhoneListViewModel
         // Change the telecom part country to the country of the selected currency
         dataHolder.viewModels.tapCardTelecomPaymentViewModel.changeTapCountry(to: dataHolder.viewModels.tapCardPhoneListDataSource.telecomCountry(for: dataHolder.transactionData.transactionUserCurrencyValue.currency))
@@ -253,7 +254,7 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
             dataHolder.viewModels.tapCardTelecomPaymentViewModel.delegate = nil
         }
         // Reset the data
-        dataHolder.viewModels.tapCardTelecomPaymentViewModel.setCard(with: .init(tapCardNumber:"asd"), then: false)
+        dataHolder.viewModels.tapCardTelecomPaymentViewModel.setCard(with: .init(tapCardNumber:"asd"), then: false,for: .NormalCard)
         
         // Assign the delegate back
         dataHolder.viewModels.tapCardTelecomPaymentViewModel.delegate = currentCardDelegate
@@ -349,7 +350,7 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         // First, we need to check if the card is one of the allowed types.
         if !shouldAllowCard() {
             // We shall instruct the card form to stop accepting any new data as the entered card prefix indicates an unallowed card type. And to reset itself to the empty card form with only the first 5 digits
-            setCardData(with: .init(tapCardNumber:dataHolder.transactionData.currentCard?.tapCardNumber?.tap_substring(to: 5)), then: true)
+            setCardData(with: .init(tapCardNumber:dataHolder.transactionData.currentCard?.tapCardNumber?.tap_substring(to: 5)), then: true,for:.NormalCard)
         }
         
         // Second, we should indicate the card brand detector, that we now have a favorite/preferred brand to select for this card scheme
@@ -359,7 +360,7 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         // Third instruct the Card form to reselect the correct chip based on the new favorite brand from bin response if any
         guard let currentCard = dataHolder.transactionData.currentCard else { return }
         
-        setCardData(with: currentCard, then: (currentCard.tapCardNumber?.count ?? 0) < 12,shouldRemoveCurrentCard:false)
+        setCardData(with: currentCard, then: (currentCard.tapCardNumber?.count ?? 0) < 12,shouldRemoveCurrentCard:false, for:.NormalCard)
     }
     
     

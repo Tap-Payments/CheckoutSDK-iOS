@@ -374,6 +374,10 @@ extension TapBottomCheckoutControllerViewController: TapAuthenticateDelegate {
 
 
 extension TapBottomCheckoutControllerViewController:TapCardTelecomPaymentProtocol {
+    func closeSavedCardClicked() {
+        
+    }
+    
     
     func showHint(with status: TapHintViewStatusEnum) {
         let hintViewModel:TapHintViewModel = .init(with: status)

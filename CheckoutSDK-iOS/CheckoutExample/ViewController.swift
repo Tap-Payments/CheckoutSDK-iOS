@@ -109,8 +109,8 @@ class ViewController: UIViewController {
         TapCheckout.localeIdentifier = localeID
         // Checkout's sample keys. Make sure
         // you use yours before going live
-        TapCheckout.bundleID = "resources.gosell.io"
-        TapCheckout.secretKey = .init(sandbox: "sk_test_2kGVSuR6bKAXLF4rDe0wa9QU",
+        TapCheckout.bundleID = "company.tap.goSellSDKExamplee"
+        TapCheckout.secretKey = .init(sandbox: "sk_test_cvSHaplrPNkJO7dhoUxDYjqA",
                                       production: "sk_live_QglH8V7Fw6NPAom4qRcynDK2")
         
         //customTheme = .init(with: "https://menoalmotasel.online/RedLightTheme.json", and: "https://menoalmotasel.online/RedDarkTheme.json", from: .RemoteJsonFile)

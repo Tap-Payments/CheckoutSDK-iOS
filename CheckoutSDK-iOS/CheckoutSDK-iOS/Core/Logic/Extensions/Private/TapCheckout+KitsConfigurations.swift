@@ -90,6 +90,7 @@ internal extension TapCheckout {
      - Parameter allowsToSaveSameCardMoreThanOnce: Defines if same card can be saved more than once. Default is `true`.
      - Parameter enableSaveCard: Defines if the customer can save his card for upcoming payments. Default is `true`.
      - Parameter isSaveCardSwitchOnByDefault: Defines if save card switch is on by default.. Default is `true`.
+     - Parameter collectCreditCardName: Decides whether or not, the card input should collect the card holder name. Default is false
      */
     func configureSharedManager(currency:TapCurrencyCode,
                                 amount:Double,
@@ -115,13 +116,15 @@ internal extension TapCheckout {
                                 authorizeAction: AuthorizeAction = AuthorizeAction.default,
                                 allowsToSaveSameCardMoreThanOnce: Bool = true,
                                 enableSaveCard: Bool = true,
-                                isSaveCardSwitchOnByDefault: Bool = true) {
+                                isSaveCardSwitchOnByDefault: Bool = true,
+                                collectCreditCardName:Bool = false) {
         
         
         // Shared data manager attributes
         let sharedManager = TapCheckout.sharedCheckoutManager()
         
         sharedManager.dataHolder.viewModels.swipeDownToDismiss = swipeDownToDismiss
+        sharedManager.dataHolder.viewModels.collectCreditCardName = collectCreditCardName
         sharedManager.dataHolder.viewModels.closeButtonStyle = closeButtonStyle
         sharedManager.dataHolder.viewModels.showDragHandler = showDragHandler
         

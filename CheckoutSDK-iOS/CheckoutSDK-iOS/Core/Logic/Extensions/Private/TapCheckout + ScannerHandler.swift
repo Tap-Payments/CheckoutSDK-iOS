@@ -30,7 +30,7 @@ extension TapCheckout {
      - Parameter with tapCard: The card scanned data
      */
     func applyScannedCardData(with tapCard:TapCard) {
-        dataHolder.viewModels.tapCardTelecomPaymentViewModel.setCard(with: tapCard, then: false)
+        dataHolder.viewModels.tapCardTelecomPaymentViewModel.setCard(with: tapCard, then: false,for: .NormalCard)
     }
     
     /**
@@ -70,7 +70,7 @@ extension TapCheckout:TapInlineScannerProtocl {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500)) { [weak self] in
             self?.UIDelegate?.closeScannerClicked()
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) { [weak self] in
-                self?.dataHolder.viewModels.tapCardTelecomPaymentViewModel.setCard(with: .init(tapCardNumber: "4242424242424242", tapCardName: "DEFAULT CARD NAME", tapCardExpiryMonth: "11", tapCardExpiryYear: "22", tapCardCVV: "100"), then: false)
+                self?.dataHolder.viewModels.tapCardTelecomPaymentViewModel.setCard(with: .init(tapCardNumber: "4242424242424242", tapCardName: "DEFAULT CARD NAME", tapCardExpiryMonth: "11", tapCardExpiryYear: "22", tapCardCVV: "100"), then: false,for: .NormalCard)
             }
         }
     }
@@ -90,7 +90,7 @@ extension TapCheckout:TapInlineScannerProtocl {
         // let us validate the card to make sure it is allowed as per the card brands (AMEX,etc) and the cars types (CREDIT,DEBIT)
         validateScannedCard(with: tapCard) { [weak self] in
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500)) {
-                self?.dataHolder.viewModels.tapCardTelecomPaymentViewModel.setCard(with: tapCard, then: false)
+                self?.dataHolder.viewModels.tapCardTelecomPaymentViewModel.setCard(with: tapCard, then: false, for: .NormalCard)
                 self?.UIDelegate?.closeScannerClicked()
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) {
                     //self?.dataHolder.viewModels.tapCardTelecomPaymentViewModel.setCard(with: tapCard, then: false)

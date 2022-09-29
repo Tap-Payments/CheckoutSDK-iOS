@@ -104,6 +104,8 @@ internal class ViewModelsHolder {
     let tapActionButtonViewModel: TapActionButtonViewModel = .init()
     /// If it is set then when the user swipes down the payment will close, otherwise, there will be a shown button to dismiss the screen. Default is false
     var swipeDownToDismiss:Bool = false
+    /// Decides whether or not, the card input should collect the card holder name. Default is false
+    var collectCreditCardName:Bool = false
     /// Repreents the list fof supported currencies
     var currenciesChipsViewModel:[CurrencyChipViewModel] = []
     /// Repreents the list fof supported currencies
