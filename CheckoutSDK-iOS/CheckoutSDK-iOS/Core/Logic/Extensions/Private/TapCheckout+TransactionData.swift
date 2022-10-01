@@ -104,7 +104,7 @@ internal class ViewModelsHolder {
     /// Decides whether or not, the card input should collect the card holder name. Default is false
     var collectCreditCardName:Bool = false
     /// Decides whether or not, the card input should show save card option. Default is false
-    var showSaveCreditCard:Bool = false
+    var showSaveCreditCard:SaveCardType = .None
     /// Repreents the list fof supported currencies
     var currenciesChipsViewModel:[CurrencyChipViewModel] = []
     /// Repreents the list fof supported currencies
@@ -143,8 +143,11 @@ internal class ViewModelsHolder {
     }
     
     /// Checks if the user asked for showing save card and it is allowed from the backend as well
-    internal func isSaveCardAllowed() -> Bool {
-        return TapCheckout.sharedCheckoutManager().dataHolder.transactionData.saveCardSwitchType == .merchant && showSaveCreditCard
+    internal func isSaveCardAllowed() -> SaveCardType {
+        guard TapCheckout.sharedCheckoutManager().dataHolder.transactionData.saveCardSwitchType != .none else{
+            return .None
+        }
+        return showSaveCreditCard
     }
     
 }
@@ -388,7 +391,8 @@ internal class TransactionDataHolder {
     /// Determines whether the user opt out for saving the card into the merchant's system
     var isSaveCardMerchantActivated:Bool {
         // First check that the save card is enabled
-        guard TapCheckout.sharedCheckoutManager().dataHolder.viewModels.isSaveCardAllowed()
+        let saveCardType:SaveCardType = TapCheckout.sharedCheckoutManager().dataHolder.viewModels.isSaveCardAllowed()
+        guard (saveCardType == .Merchant || saveCardType == .All)
         else { return false }
         
         // Then check if the user opt to save the card
@@ -399,10 +403,13 @@ internal class TransactionDataHolder {
     /// Determines whether the user opt out for saving the card into the GoPay's system
     var isSaveCardGoPayActivated:Bool {
         // First check that the save card is enabled
-        guard saveCardSwitchType == .merchant else { return false }
+        let saveCardType:SaveCardType = TapCheckout.sharedCheckoutManager().dataHolder.viewModels.isSaveCardAllowed()
+        
+        guard (saveCardType == .Tap || saveCardType == .All)
+        else { return false }
         
         // Then check if the user opt to save the card
-        return false
+        return TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapCardTelecomPaymentViewModel.isTapSaveAllowed
     }
     
 }

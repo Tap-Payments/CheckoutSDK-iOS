@@ -82,7 +82,7 @@ internal extension TapCheckout {
         // Instruct if we have to collect the card name or not
         dataHolder.viewModels.tapCardTelecomPaymentViewModel.collectCardName = dataHolder.viewModels.collectCreditCardName
         // Instruct if we have to show save card option or not
-        dataHolder.viewModels.tapCardTelecomPaymentViewModel.showSaveCardOption = dataHolder.viewModels.isSaveCardAllowed()
+        dataHolder.viewModels.tapCardTelecomPaymentViewModel.saveCardType = dataHolder.viewModels.isSaveCardAllowed()
         
         dataHolder.viewModels.tapCardTelecomPaymentViewModel.tapCardPhoneListViewModel = dataHolder.viewModels.tapCardPhoneListViewModel
         // Change the telecom part country to the country of the selected currency

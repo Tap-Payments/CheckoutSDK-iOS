@@ -119,7 +119,7 @@ internal extension TapCheckout {
                                 enableSaveCard: Bool = true,
                                 isSaveCardSwitchOnByDefault: Bool = true,
                                 collectCreditCardName:Bool = false,
-                                showSaveCreditCard:Bool = false
+                                showSaveCreditCard:SaveCardType = .None
     ) {
         
         

@@ -370,7 +370,7 @@ extension TapBottomCheckoutControllerViewController: TapAuthenticateDelegate {
 
 
 extension TapBottomCheckoutControllerViewController:TapCardTelecomPaymentProtocol {
-    func saveCardChanged(enabled: Bool) {
+    func saveCardChanged(for saveCardType: SaveCardType, to enabled: Bool) {
         
     }
     

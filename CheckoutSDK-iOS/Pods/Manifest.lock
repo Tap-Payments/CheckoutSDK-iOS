@@ -1,9 +1,10 @@
 PODS:
-  - CommonDataModelsKit-iOS (1.0.79):
+  - CommonDataModelsKit-iOS (1.0.80):
     - SwiftyRSA
     - TapAdditionsKitV2
     - TapCardVlidatorKit-iOS
     - TapKeychain
+  - EasyTipView (2.1.0)
   - LocalisationManagerKit-iOS (1.0.4)
   - McPicker (3.0.0)
   - Nuke (10.7.1)
@@ -41,11 +42,12 @@ PODS:
   - TapSwiftFixesV2/CoreGraphics (1.0.0)
   - TapSwiftFixesV2/Exceptions (1.0.0)
   - TapSwiftFixesV2/Threading (1.0.0)
-  - TapThemeManager2020 (1.0.58):
+  - TapThemeManager2020 (1.0.59):
     - LocalisationManagerKit-iOS
     - TapFontKit-iOS
-  - TapUIKit-iOS (1.0.79):
+  - TapUIKit-iOS (1.0.82):
     - CommonDataModelsKit-iOS
+    - EasyTipView
     - LocalisationManagerKit-iOS
     - McPicker
     - Nuke
@@ -65,6 +67,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - CommonDataModelsKit-iOS
+    - EasyTipView
     - LocalisationManagerKit-iOS
     - McPicker
     - Nuke
@@ -85,7 +88,8 @@ SPEC REPOS:
     - TapUIKit-iOS
 
 SPEC CHECKSUMS:
-  CommonDataModelsKit-iOS: 55b551acc0a3acc350e87cf60576e6732e025b99
+  CommonDataModelsKit-iOS: 957e4445c4bc5230d5da403bd56f622e7fdb8d17
+  EasyTipView: a92b6edc377b81c5ac18e9fd35d5ee78e9409488
   LocalisationManagerKit-iOS: bd1a9d16509a06dd1aea45b9f47cf21bdfe0796c
   McPicker: ba38be56a8194faa5249eca4226c364eed628044
   Nuke: 279f17a599fd1c83cf51de5e0e1f2db143a287b0
@@ -102,8 +106,8 @@ SPEC CHECKSUMS:
   TapKeychain: 143aa70bb2d1b094e0298e944660264034c79849
   TapNetworkKit-iOS: d1a6110b4f43e9b1cceafe469cf6cc3fb775a2cf
   TapSwiftFixesV2: a8623a7273c6790b9754ec7e272e96fce7d3a800
-  TapThemeManager2020: ccae0a1e12432f4e8a84757fbc31ffcd90ab89c7
-  TapUIKit-iOS: 4e9b88fc74f3a81077effe874d64b7b0ed88ec4d
+  TapThemeManager2020: 54d391f0120172b1107a95ec3b137bfb339acd0c
+  TapUIKit-iOS: 1b8ef2f0df27aa3de9664d216569f32052e3a2f6
 
 PODFILE CHECKSUM: acb2f00207ad75cd7ce27ec1142bb7c0e58de83b
 
