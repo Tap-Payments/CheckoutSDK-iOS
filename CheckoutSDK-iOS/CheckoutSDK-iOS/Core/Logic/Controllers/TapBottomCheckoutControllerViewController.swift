@@ -395,21 +395,27 @@ extension TapBottomCheckoutControllerViewController:TapCardTelecomPaymentProtoco
         tapVerticalView.removeAllHintViews()
     }
     
-    func cardDataChanged(tapCard: TapCard) {
-        // When a new card data is entered, then we need to deselct any selected gatways like SAVED CARDS or Redirections chips
-        sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deselectAll()
-        sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.deselectAll()
-        // Let us inform the checkout shared manager about the new card please
-        sharedCheckoutDataManager.dataHolder.transactionData.currentCard = (tapCard.tapCardNumber?.tap_length ?? 0 > 0) ? tapCard : nil
+    func cardDataChanged(tapCard: TapCard,cardStatusUI:CardInputUIStatus) {
+        // Based on the card input status we decide what to do with the new card
+        if cardStatusUI == .SavedCard {
+            // We don't deselct the selected card, we reset the current card data
+            sharedCheckoutDataManager.dataHolder.transactionData.currentCard = nil
+        }else{
+            // When a new card data is entered, then we need to deselct any selected gatways like SAVED CARDS or Redirections chips
+            sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deselectAll()
+            sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.deselectAll()
+            // Let us inform the checkout shared manager about the new card please
+            sharedCheckoutDataManager.dataHolder.transactionData.currentCard = (tapCard.tapCardNumber?.tap_length ?? 0 > 0) ? tapCard : nil
+        }
     }
     
-    func brandDetected(for cardBrand: CardBrand, with validation: CrardInputTextFieldStatusEnum) {
+    func brandDetected(for cardBrand: CardBrand, with validation: CrardInputTextFieldStatusEnum,cardStatusUI: CardInputUIStatus) {
         //tapActionButtonViewModel.buttonStatus = (validation == .Valid) ? .ValidPayment : .InvalidPayment
         // Based on the detected brand type we decide the action button status
         if cardBrand.brandSegmentIdentifier == "telecom" {
             handleTelecomPayment(for: cardBrand, with: validation)
         }else if cardBrand.brandSegmentIdentifier == "cards" {
-            sharedCheckoutDataManager.handleCardValidationStatus(for:cardBrand, with: validation)
+            sharedCheckoutDataManager.handleCardValidationStatus(for:cardBrand, with: validation, cardStatusUI: cardStatusUI)
         }
     }
     

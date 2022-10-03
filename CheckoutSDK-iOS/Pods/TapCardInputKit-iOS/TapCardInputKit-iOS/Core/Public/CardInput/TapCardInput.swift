@@ -32,14 +32,16 @@ internal protocol TapCardInputCommonProtocol {
     /**
      This method will be called whenever the card data in the form has changed. It is being called in a live manner
      - Parameter tapCard: The TapCard model that hold sthe data the currently enetred by the user till now
+     - Parameter cardStatusUI: The current state of the card input. Saved card or normal card
      */
-    @objc func cardDataChanged(tapCard:TapCard)
+    @objc func cardDataChanged(tapCard:TapCard,cardStatusUI:CardInputUIStatus)
     /**
      This method will be called whenever the a brand is detected based on the current data typed by the user in the card form.
      - Parameter cardBrand: The detected card brand
      - Parameter validation: Tells the validity of the detected brand, whether it is invalid, valid or still incomplete
+     - Parameter cardStatusUI: The current state of the card input. Saved card or normal card
      */
-    @objc func brandDetected(for cardBrand:CardBrand,with validation:CrardInputTextFieldStatusEnum)
+    @objc func brandDetected(for cardBrand:CardBrand,with validation:CrardInputTextFieldStatusEnum,cardStatusUI:CardInputUIStatus)
     /// This method will be called once the user clicks on Scan button
     @objc func scanCardClicked()
     /**
@@ -280,14 +282,36 @@ internal protocol TapCardInputCommonProtocol {
      */
     @objc public func setSavedCard(savedCard:SavedCard) {
         // First of all, let us clear any data inside the card form if any
-        clearButtonClicked()
+        clearButtonClicked(cardStatusUI: .SavedCard)
         // Let us save the saved card for further usage
         self.savedCard = savedCard
         // Assign the needed UI data
-        savedCardNumberLabel.text = savedCard.displayTitle
+        let style = NSMutableParagraphStyle()
+        style.alignment = (sharedLocalisationManager.localisationLocale == "ar") ? .right : .left
+        
+        // theme the last four digits text
+        let offsett:Double = ((TapThemeManager.fontValue(for: "\(themePath).textFields.font",shouldLocalise: false) ?? .systemFont(ofSize: 14, weight: .regular)).capHeight - (TapThemeManager.fontValue(for: "\(themePath).textFields.saveCardFontDots",shouldLocalise: false) ?? .systemFont(ofSize: 14, weight: .regular)).capHeight)/2.0
+        
+        let lastFourDigits = NSAttributedString(string: savedCard.lastFourDigits, attributes: [
+            .foregroundColor: TapThemeManager.colorValue(for: "\(themePath).textFields.textColor") ?? .blue,
+            .font: TapThemeManager.fontValue(for: "\(themePath).textFields.font",shouldLocalise: false) ?? .systemFont(ofSize: 14, weight: .regular),
+            .paragraphStyle:style, .baselineOffset:-offsett])
+        
+        
+        // theme the prefix four dots
+        let prefixFourDots = NSMutableAttributedString(string: "•••• ", attributes: [
+            .foregroundColor: TapThemeManager.colorValue(for: "\(themePath).textFields.textColor") ?? .blue,
+            .font: TapThemeManager.fontValue(for: "\(themePath).textFields.saveCardFontDots",shouldLocalise: false) ?? .systemFont(ofSize: 14, weight: .regular),
+            .paragraphStyle:style])
+        
+        prefixFourDots.append(lastFourDigits)
+
+        savedCardNumberLabel.attributedText = prefixFourDots
+        
         savedCardExpiryLabel.text = "\(savedCard.expirationMonth)/\(savedCard.expirationYear)"
         // declare our status to be saved card
         self.cardUIStatus = .SavedCard
+        
     }
     
     
@@ -352,7 +376,8 @@ internal protocol TapCardInputCommonProtocol {
     internal func setFonts() {
         fields.forEach { (field) in
             // Fonts
-            field.tap_theme_font = ThemeFontSelector.init(stringLiteral: "\(themePath).textFields.font")
+            field.tap_theme_font = ThemeFontSelector.init(stringLiteral: "\(themePath).textFields.font",shouldLocalise: false)
+            field.fieldPlacedHolderFont = TapThemeManager.fontValue(for: "\(themePath).textFields.font", shouldLocalise: true) ?? .systemFont(ofSize: 12, weight: .regular)
         }
         
         // Set the font of the save label
@@ -362,8 +387,8 @@ internal protocol TapCardInputCommonProtocol {
     /// Helper method to natch the fonts from the theme to all the saved card fields
     internal func setSavedCardFonts() {
         // Fonts
-        savedCardExpiryLabel.tap_theme_font = ThemeFontSelector.init(stringLiteral: "\(themePath).textFields.font")
-        savedCardNumberLabel.tap_theme_font = ThemeFontSelector.init(stringLiteral: "\(themePath).textFields.font")
+        savedCardExpiryLabel.tap_theme_font = ThemeFontSelector.init(stringLiteral: "\(themePath).textFields.font", shouldLocalise: false)
+        savedCardNumberLabel.tap_theme_font = ThemeFontSelector.init(stringLiteral: "\(themePath).textFields.font", shouldLocalise: false)
         // Colors
         savedCardNumberLabel.tap_theme_textColor = .init(keyPath: "\(themePath).textFields.textColor")
         savedCardExpiryLabel.tap_theme_textColor = .init(keyPath: "\(themePath).textFields.textColor")
@@ -377,6 +402,7 @@ internal protocol TapCardInputCommonProtocol {
         // The default localisation file location
         let defaultLocalisationFilePath:URL = TapCommonConstants.pathForDefaultLocalisation()
         // Assign the localisation values
+        
         cardName.fieldPlaceHolder = sharedLocalisationManager.localisedValue(for: "TapCardInputKit.cardNamePlaceHolder", with: defaultLocalisationFilePath)
         
         cardNumber.fieldPlaceHolder = sharedLocalisationManager.localisedValue(for: "TapCardInputKit.cardNumberPlaceHolder", with: defaultLocalisationFilePath)
@@ -394,7 +420,11 @@ internal protocol TapCardInputCommonProtocol {
                 field.alignment = (sharedLocalisationManager.localisationLocale == "ar") ? .right : .left
             }
             
-            saveLabel.textAlignment = (sharedLocalisationManager.localisationLocale == "ar") ? .right : .left
+            //savedCardNumberLabel.textAlignment = (sharedLocalisationManager.localisationLocale == "ar") ? .right : .left
+            //savedCardNumberLabel.semanticContentAttribute = (sharedLocalisationManager.localisationLocale == "ar") ? .forceRightToLeft : .forceLeftToRight
+            //savedCardNumberLabel.semanticContentAttribute = (sharedLocalisationManager.localisationLocale == "ar") ? .forceRightToLeft : .forceLeftToRight
+            savedCardExpiryLabel.textAlignment = (sharedLocalisationManager.localisationLocale == "ar") ? .right : .left
+            //savedCardNumberLabel.semanticContentAttribute = (sharedLocalisationManager.localisationLocale == "ar") ? .forceRightToLeft : .forceLeftToRight
             semanticContentAttribute = (sharedLocalisationManager.localisationLocale == "ar") ? .forceRightToLeft : .forceLeftToRight
         }
         
@@ -412,10 +442,10 @@ internal protocol TapCardInputCommonProtocol {
         self.layer.tap_theme_cornerRadious = ThemeCGFloatSelector.init(keyPath: "\(themePath).commonAttributes.cornerRadius")
         
         // The shadow details
-       /* self.layer.shadowRadius = CGFloat(TapThemeManager.numberValue(for: "\(themePath).commonAttributes.shadow.radius")?.floatValue ?? 0)
-        self.layer.tap_theme_shadowColor = ThemeCgColorSelector.init(keyPath: "\(themePath).commonAttributes.shadow.color")
-        self.layer.shadowOffset = CGSize(width: CGFloat(TapThemeManager.numberValue(for: "\(themePath).commonAttributes.shadow.offsetWidth")?.floatValue ?? 0), height: CGFloat(TapThemeManager.numberValue(for: "\(themePath).commonAttributes.shadow.offsetHeight")?.floatValue ?? 0))
-        self.layer.shadowOpacity = Float(TapThemeManager.numberValue(for: "\(themePath).commonAttributes.shadow.opacity")?.floatValue ?? 0)*/
+        /* self.layer.shadowRadius = CGFloat(TapThemeManager.numberValue(for: "\(themePath).commonAttributes.shadow.radius")?.floatValue ?? 0)
+         self.layer.tap_theme_shadowColor = ThemeCgColorSelector.init(keyPath: "\(themePath).commonAttributes.shadow.color")
+         self.layer.shadowOffset = CGSize(width: CGFloat(TapThemeManager.numberValue(for: "\(themePath).commonAttributes.shadow.offsetWidth")?.floatValue ?? 0), height: CGFloat(TapThemeManager.numberValue(for: "\(themePath).commonAttributes.shadow.offsetHeight")?.floatValue ?? 0))
+         self.layer.shadowOpacity = Float(TapThemeManager.numberValue(for: "\(themePath).commonAttributes.shadow.opacity")?.floatValue ?? 0)*/
         self.layer.masksToBounds = false
         
         self.spacing = CGFloat(TapThemeManager.numberValue(for: "\(themePath).commonAttributes.itemSpacing")?.floatValue ?? 0)
@@ -528,7 +558,7 @@ internal protocol TapCardInputCommonProtocol {
         },cardCVVChanged: {  [weak self] (cardCVV) in
             // If the card cvv changed, we change the holding TapCard and we fire the logic needed to do when the card data changed
             self?.tapCard.tapCardCVV = cardCVV
-            self?.cardDatachanged()
+            self?.cardDatachanged(cardStatusUI: self?.cardUIStatus ?? .NormalCard)
             if self?.cardCVV.isValid() ?? false {
                 // Check if there is a name to collect
                 if self?.showCardName ?? false {
@@ -668,14 +698,20 @@ internal protocol TapCardInputCommonProtocol {
     }
     
     /// The method that holds the logic needed to do when any of the card fields changed
-    internal func cardDatachanged() {
+    internal func cardDatachanged(cardStatusUI:CardInputUIStatus = .NormalCard) {
         //adjustEnablementOfTextFields()
         adjustScanButton()
         if let nonNullDelegate = delegate {
             // If there is a delegate then we call the related method
-            nonNullDelegate.cardDataChanged(tapCard: tapCard)
-            let (detectedBrand, _) = cardNumber.cardBrand(for: tapCard.tapCardNumber ?? "")
-            nonNullDelegate.brandDetected(for: detectedBrand ?? .unknown, with: cardNumber.textFieldStatus(cardNumber: tapCard.tapCardNumber))
+            nonNullDelegate.cardDataChanged(tapCard: tapCard,cardStatusUI:cardStatusUI)
+            var (detectedBrand, _) = cardNumber.cardBrand(for: tapCard.tapCardNumber ?? "")
+            var validity = cardNumber.textFieldStatus(cardNumber: tapCard.tapCardNumber)
+            // in case of saved card we take the brand and the validation from the saved card itself
+            if cardStatusUI == .SavedCard, let nonNullSavedCard = savedCard {
+                detectedBrand = nonNullSavedCard.brand
+                validity = .Valid
+            }
+            nonNullDelegate.brandDetected(for: detectedBrand ?? .unknown, with: validity, cardStatusUI: cardStatusUI)
             handleOneBrandIcon(with: detectedBrand ?? .unknown)
         }
         //FlurryLogger.logEvent(with: "Tap_Card_Input_Data_Changed", timed:false , params:["card_number":tapCard.tapCardNumber ?? "","card_name":tapCard.tapCardName ?? "","card_month":tapCard.tapCardExpiryMonth ?? "","card_year":tapCard.tapCardExpiryYear ?? ""])
@@ -693,7 +729,7 @@ internal protocol TapCardInputCommonProtocol {
         cardCVV.snp.updateConstraints { make in
             var offset = 0
             if cardCVV.text != "" {
-                offset = (TapLocalisationManager.shared.localisationLocale == "ar") ? -6 : -2
+                offset = -2
             }
             make.centerY.equalTo(cardNumber.snp.centerY).offset(offset)
             cardCVV.updateConstraints()
@@ -731,7 +767,7 @@ internal protocol TapCardInputCommonProtocol {
     }
     
     
-    @objc internal func clearButtonClicked() {
+    @objc internal func clearButtonClicked(cardStatusUI:CardInputUIStatus = .NormalCard) {
         
         savedCard = nil
         cardUIStatus = .NormalCard
@@ -753,7 +789,7 @@ internal protocol TapCardInputCommonProtocol {
             }
             $0.resignFirstResponder()
         }
-        cardDatachanged()
+        cardDatachanged(cardStatusUI: cardStatusUI)
     }
     
     

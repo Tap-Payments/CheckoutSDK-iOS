@@ -46,12 +46,13 @@ extension TapCheckout {
         // Change its type to a saved card one to know that while processing the transaction
         dataHolder.transactionData.selectedPaymentOption?.paymentType = .SavedCard
         
-        // The action button should be in a valid state as saved cards are ready to process right away
-        // Make the button action to start the paymet with the selected saved card
-        // Start the payment with the selected saved card
-        let savedCardActionBlock:()->() = { [weak self] in
-            self?.processCheckout(with: (self?.dataHolder.transactionData.selectedPaymentOption!)!) }
-        chanegActionButton(status: .ValidPayment, actionBlock: savedCardActionBlock)
+        // We need to inform the card input, to start the saved card mode
+        if let nonNullSavedCard = fetchSavedCardOption(with: viewModel.savedCardID ?? "") {
+            dataHolder.viewModels.tapCardTelecomPaymentViewModel.setSavedCard(savedCard: nonNullSavedCard)
+            // Keep the button invalid until the CVV is correcly filled
+            dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .InvalidPayment
+            dataHolder.viewModels.tapActionButtonViewModel.buttonActionBlock = {}
+        }
     }
     
     /**
@@ -192,20 +193,32 @@ extension TapCheckout {
      - Parameter cardBrand: The detected card brand
      - Parameter with validation: The validation status came out of the card validator
      */
-    func handleCardValidationStatus(for cardBrand: CardBrand,with validation: CrardInputTextFieldStatusEnum) {
+    func handleCardValidationStatus(for cardBrand: CardBrand,with validation: CrardInputTextFieldStatusEnum,cardStatusUI:CardInputUIStatus) {
         // Check if valid or not and based on that we decide the logic to be done
         if validation == .Valid,
-           dataHolder.viewModels.tapCardTelecomPaymentViewModel.decideHintStatus() == .None {
+           dataHolder.viewModels.tapCardTelecomPaymentViewModel.decideHintStatus(and:cardStatusUI) == .None {
             // All good and we can start the payment once the user clicks on the action button
-            dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .ValidPayment
-            // Fetch the payment option related to the validated card brand
-            let paymentOptions:[PaymentOption] = dataHolder.viewModels.tapCardPhoneListDataSource.filter{ $0.tapPaymentOption?.brand == cardBrand }.filter{ $0.tapPaymentOption != nil }.map{ $0.tapPaymentOption! }
-            guard paymentOptions.count > 0, let selectedPaymentOption:PaymentOption = paymentOptions.first else {
-                handleError(session: nil, result: nil, error: "Unexpected error, trying to start card payment without a payemnt option selected.")
-                return }
-            // Assign the action to be done once clicked on the action button to start the payment
-            let payAction:()->() = { [weak self] in self?.processCheckout(with:selectedPaymentOption,andCard:self?.dataHolder.transactionData.currentCard) }
-            dataHolder.viewModels.tapActionButtonViewModel.buttonActionBlock = payAction
+            
+            // Based on the card input status (filling in CVV for a saved card or just finished filling in the data of a new card) we decide the actions to be done by the pay button
+            if cardStatusUI == .NormalCard {
+                dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .ValidPayment
+                // Fetch the payment option related to the validated card brand
+                let paymentOptions:[PaymentOption] = dataHolder.viewModels.tapCardPhoneListDataSource.filter{ $0.tapPaymentOption?.brand == cardBrand }.filter{ $0.tapPaymentOption != nil }.map{ $0.tapPaymentOption! }
+                guard paymentOptions.count > 0, let selectedPaymentOption:PaymentOption = paymentOptions.first else {
+                    handleError(session: nil, result: nil, error: "Unexpected error, trying to start card payment without a payemnt option selected.")
+                    return }
+                // Assign the action to be done once clicked on the action button to start the payment
+                dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .ValidPayment
+                let payAction:()->() = { [weak self] in self?.processCheckout(with:selectedPaymentOption,andCard:self?.dataHolder.transactionData.currentCard) }
+                dataHolder.viewModels.tapActionButtonViewModel.buttonActionBlock = payAction
+            }else{
+                // The action button should be in a valid state as saved cards are ready to process right away
+                // Make the button action to start the paymet with the selected saved card
+                // Start the payment with the selected saved card
+                let savedCardActionBlock:()->() = { [weak self] in
+                    self?.processCheckout(with: (self?.dataHolder.transactionData.selectedPaymentOption!)!) }
+                chanegActionButton(status: .ValidPayment, actionBlock: savedCardActionBlock)
+            }
         }else{
             // The status is invalid hence we need to clear the action button
             dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .InvalidPayment

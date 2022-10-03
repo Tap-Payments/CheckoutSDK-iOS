@@ -135,7 +135,6 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
     public func savedCard(for viewModel: SavedCardCollectionViewCellModel) {
         //showAlert(title: "\(viewModel.title ?? "") clicked", message: "Look we know that you saved the card. We promise we will make you use it soon :)")
         dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .ValidPayment
-        
         // Check the type of saved card source
         if viewModel.listSource == .GoPayListHeader {
             handleGoPaySavedCard(for: viewModel)

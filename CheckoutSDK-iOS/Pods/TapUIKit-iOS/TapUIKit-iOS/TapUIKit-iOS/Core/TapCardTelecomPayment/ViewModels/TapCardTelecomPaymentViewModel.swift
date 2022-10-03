@@ -16,14 +16,16 @@ import TapCardVlidatorKit_iOS
     /**
      This method will be called whenever the card data in the form has changed. It is being called in a live manner
      - Parameter tapCard: The TapCard model that hold sthe data the currently enetred by the user till now
+     - Parameter cardStatusUI: The current state of the card input. Saved card or normal card
      */
-    @objc func cardDataChanged(tapCard:TapCard)
+    @objc func cardDataChanged(tapCard:TapCard,cardStatusUI:CardInputUIStatus)
     /**
      This method will be called whenever the a brand is detected based on the current data typed by the user in the card form.
      - Parameter cardBrand: The detected card brand
      - Parameter validation: Tells the validity of the detected brand, whether it is invalid, valid or still incomplete
+     - Parameter cardStatusUI: The current state of the card input. Saved card or normal card
      */
-    @objc func brandDetected(for cardBrand:CardBrand,with validation:CrardInputTextFieldStatusEnum)
+    @objc func brandDetected(for cardBrand:CardBrand,with validation:CrardInputTextFieldStatusEnum,cardStatusUI:CardInputUIStatus)
     
     
     /// This method will be called once the user clicks on Scan button
@@ -166,6 +168,7 @@ import TapCardVlidatorKit_iOS
     @objc public func setCard(with card:TapCard,then focusCardNumber:Bool,shouldRemoveCurrentCard:Bool = true,for cardUIStatus:CardInputUIStatus) {
         tapCardTelecomPaymentView?.lastReportedTapCard = card
         tapCardTelecomPaymentView?.cardInputView.setCardData(tapCard: card, then: focusCardNumber,shouldRemoveCurrentCard:shouldRemoveCurrentCard,for: cardUIStatus)
+        tapCardTelecomPaymentView?.headerView.headerType = (cardUIStatus == .SavedCard) ? .SaveCardInputTitle : .CardInputTitle
     }
     
     
@@ -176,6 +179,7 @@ import TapCardVlidatorKit_iOS
     @objc public func setSavedCard(savedCard:SavedCard) {
         tapCardTelecomPaymentView?.cardInputView.setSavedCard(savedCard: savedCard)
         tapCardTelecomPaymentView?.shouldShowSupportedBrands(false)
+        tapCardTelecomPaymentView?.headerView.headerType = .SaveCardInputTitle
     }
     
     /**
@@ -287,6 +291,20 @@ extension TapCardTelecomPaymentViewModel: TapSaveCardViewDelegate {
             return "Tap"
         case .All:
             return "All"
+        }
+    }
+    
+    public init(stringValue:String) {
+        if stringValue.lowercased() == "none" {
+            self = .None
+        }else if stringValue.lowercased() == "merchant" {
+            self = .Merchant
+        }else if stringValue.lowercased() == "tap" {
+            self = .Tap
+        }else if stringValue.lowercased() == "all" {
+            self = .All
+        }else{
+            self = .None
         }
     }
 }
