@@ -305,7 +305,7 @@ internal protocol TapCardInputCommonProtocol {
             .paragraphStyle:style])
         
         prefixFourDots.append(lastFourDigits)
-
+        
         savedCardNumberLabel.attributedText = prefixFourDots
         
         savedCardExpiryLabel.text = "\(savedCard.expirationMonth)/\(savedCard.expirationYear)"

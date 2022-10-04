@@ -96,12 +96,10 @@ extension TapPaymentOptionsReponseModel: Decodable {
         var paymentOptions                  = try container.decode([PaymentOption].self, forKey: .paymentOptions)
         let currency                        = try container.decode(TapCurrencyCode.self, forKey: .currency)
         let supportedCurrenciesAmounts      = try container.decode([AmountedCurrency].self, forKey: .supportedCurrenciesAmounts)
-        var savedCards                      = try container.decodeIfPresent([SavedCard].self, forKey: .savedCards) ?? []
+        var savedCards                      = try container.decodeIfPresent([SavedCard].self, forKey: .savedCards)
         let merchantCountryCode             = try container.decodeIfPresent(String.self, forKey: .merchantCountryCode)
         let order                           = try container.decodeIfPresent(Order.self, forKey: .order)
         
-        
-        savedCards.append(.init(identifier: "ID", object: "sakdlj", firstSixDigits: "424242", lastFourDigits: "4242", brand: .visa, paymentOptionIdentifier: "asldkj", expiry: .init(month: 12, year: 24), cardholderName: "OSAMA AHMED", fingerprint: "ASDSAD", currency: .KWD, scheme: .init(.visa), supportedCurrencies: [.KWD,.AED], orderBy: 1, expirationMonth: 12, expirationYear: 24, cardType: .init(cardType: .Debit), image: "https://back-end.b-cdn.net/payment_methods/visa.png"))
         
         paymentOptions = paymentOptions.sorted(by: { $0.orderBy < $1.orderBy })
         
@@ -118,7 +116,7 @@ extension TapPaymentOptionsReponseModel: Decodable {
         
         // Filter saved cards based on allowed card types passed by the user when loading the SDK session
         let merchnantAllowedCards = SharedCommongDataModels.sharedCommongDataModels.allowedCardTypes
-        savedCards = savedCards.filter { (merchnantAllowedCards.contains($0.cardType ?? CardType(cardType: .All))) }
+        savedCards = savedCards?.filter { (merchnantAllowedCards.contains($0.cardType ?? CardType(cardType: .All))) }
         
         self.init(identifier:                   identifier,
                   object:                       object,
