@@ -153,9 +153,9 @@ extension TapVerticalView {
      */
     internal func addSpaceView(with spaceRect:CGRect) {
         // Push the action button by the required space height
-        tapActionButtonBottomConstraint.constant = spaceRect.height
+        tapActionButtonBottomConstraint.constant = spaceRect.height - 150
         // Save the current pushing padding height
-        keyboardPadding = spaceRect.height
+        keyboardPadding = spaceRect.height - 100
         if #available(iOS 13.0, *) {}else {
             keyboardPadding = 0
         }
@@ -202,11 +202,21 @@ extension TapVerticalView {
     @objc public func showActionButton(fadeInDuation:Double = 0, fadeInDelay:Double = 0) {
         if fadeInDuation != 0 {
             tapActionButton.fadeIn(duration: fadeInDuation, delay: fadeInDelay)
+            powereByTapView.fadeIn(duration: fadeInDuation, delay: fadeInDelay)
         }else{
             tapActionButton.fadeIn()
+            powereByTapView.fadeIn()
         }
+        
         tapActionButtonHeightConstraint.constant = 74
         tapActionButton.updateConstraints()
+        
+        powereByTapView.snp.remakeConstraints { make in
+            make.height.equalTo(33)
+        }
+        powereByTapView.layoutIfNeeded()
+        powereByTapView.updateConstraints()
+        
         layoutIfNeeded()
     }
     
@@ -216,6 +226,15 @@ extension TapVerticalView {
         tapActionButtonHeightConstraint.constant = 0
         tapActionButton.fadeOut()
         tapActionButton.updateConstraints()
+        
+        powereByTapView.snp.remakeConstraints { make in
+            make.height.equalTo(0)
+        }
+        
+        powereByTapView.fadeOut()
+        powereByTapView.layoutIfNeeded()
+        powereByTapView.updateConstraints()
+        
         layoutIfNeeded()
     }
     

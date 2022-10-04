@@ -16,18 +16,23 @@ import TapCardVlidatorKit_iOS
     /**
      This method will be called whenever the card data in the form has changed. It is being called in a live manner
      - Parameter tapCard: The TapCard model that hold sthe data the currently enetred by the user till now
+     - Parameter cardStatusUI: The current state of the card input. Saved card or normal card
      */
-    @objc func cardDataChanged(tapCard:TapCard)
+    @objc func cardDataChanged(tapCard:TapCard,cardStatusUI:CardInputUIStatus)
     /**
      This method will be called whenever the a brand is detected based on the current data typed by the user in the card form.
      - Parameter cardBrand: The detected card brand
      - Parameter validation: Tells the validity of the detected brand, whether it is invalid, valid or still incomplete
+     - Parameter cardStatusUI: The current state of the card input. Saved card or normal card
      */
-    @objc func brandDetected(for cardBrand:CardBrand,with validation:CrardInputTextFieldStatusEnum)
+    @objc func brandDetected(for cardBrand:CardBrand,with validation:CrardInputTextFieldStatusEnum,cardStatusUI:CardInputUIStatus)
     
     
     /// This method will be called once the user clicks on Scan button
     @objc func scanCardClicked()
+    
+    /// This method will be called once the user clicks on close saved card button
+    @objc func closeSavedCardClicked()
     
     /**
      This method will be called whenever there is a need to show a certain hint below the card phone input form
@@ -43,6 +48,13 @@ import TapCardVlidatorKit_iOS
      - Returns: True if the entered card number till now less than 6 digits or the prefix matches the allowed types (credit or debit)
      */
     @objc func shouldAllowChange(with cardNumber:String) -> Bool
+    
+    /**
+     This method will be called whenever the user change the status of the save card option for merchant or TAP
+     - Parameter for saveCard: Defines for which save card type the action was done. Merchant or TAP
+     - Parameter to enabled: The new status
+     */
+    @objc func saveCardChanged(for saveCardType:SaveCardType,to enabled:Bool)
 }
 
 /// Represents a view model to control the wrapper view that does the needed connections between cardtelecomBar, card input and telecom input
@@ -62,6 +74,16 @@ import TapCardVlidatorKit_iOS
     /// Represents if the attached view should be visible or not, based on the existence of items inside the list
     @objc public var shouldShow:Bool = false
     
+    /// Indicates if the saved card switch is activated for Merchant
+    @objc public var isMerchantSaveAllowed:Bool {
+        return attachedView.saveCrdView.saveCardSwitch.isOn
+    }
+    
+    /// Indicates if the saved card switch is activated for TAP
+    @objc public var isTapSaveAllowed:Bool {
+        return attachedView.saveCrdForTapView.isSavedCardEnabled
+    }
+    
     @objc public var tapCardPhoneListViewModel:TapCardPhoneBarListViewModel? {
         didSet{
             // Assign the list view model to it
@@ -69,23 +91,58 @@ import TapCardVlidatorKit_iOS
             tapCardTelecomPaymentView = nil
             tapCardTelecomPaymentView = .init()
             tapCardTelecomPaymentView?.lastReportedTapCard = .init()
-            tapCardTelecomPaymentView?.tapCardPhoneListViewModel = tapCardPhoneListViewModel!
             // Assign the view delegate to self
             tapCardTelecomPaymentView?.viewModel = self
+            tapCardTelecomPaymentView?.saveCrdView.delegate = self
+            tapCardTelecomPaymentView?.tapCardPhoneListViewModel = tapCardPhoneListViewModel!
             shouldShow =  tapCardTelecomPaymentView?.tapCardPhoneListViewModel.dataSource.count ?? 0 > 0
         }
     }
     
+    /// Decides whether to show or hide the supported brands bar. Based on the validty of the card data
+    internal func decideVisibilityOfSupportedBrandsBar() {
+        // Then we need to hide it. The user did enter a full valid card data
+        // Otherwise, We will have to show it. The user didn't yet type in a full valid card data
+        let (cardNumberValid,_,_,_) = tapCardTelecomPaymentView?.cardInputView.fieldsValidationStatuses() ?? (false,false,false,false)
+        tapCardTelecomPaymentView?.shouldShowSupportedBrands(!cardNumberValid)
+    }
+    
+    /// Computes if the conditions to show the save card switch are met and we have to
+    /// - Returns: Bool,Bool first for merchant save and second for Tap save
+    internal func shouldShowSaveCardView() -> (Bool,Bool) {
+        // Make sure that the view model enabled it and that user did enter a valid card data (all fields are valid)
+        // Also we need to make sure we are in the saved card flow already
+        guard saveCardType != .None,
+              allCardFieldsValid(),
+              attachedView.cardInputView.cardUIStatus != .SavedCard else { return (false,false) }
+        // Then yes we should show the save card view :)
+        return ((saveCardType == .All || saveCardType == .Merchant),( saveCardType == .All || saveCardType == .Tap))
+        
+    }
+    
+    /// Decides whether to show or hide the save card, then instructs the view to show/hide it
+    internal func showHideSaveCardView() {
+        let (showMerchantSaveCard, showTapSaveCard) = shouldShowSaveCardView()
+        tapCardTelecomPaymentView?.shouldShowSaveCardView(showMerchantSaveCard, showTapSaveCard)
+    }
+    
     /// The delegate that wants to hear from the view on new data and events
     @objc public var delegate:TapCardTelecomPaymentProtocol?
+    /// Indicates whether or not to collect the card name in case of credit card payment
+    @objc public var collectCardName:Bool = false
+    /// Indicates whether or not to offer the save card and to which level
+    public var saveCardType:SaveCardType = .None
     
     /**
      Creates a new view model to control the tabbar of payments icons + the card + the phone input view to be rendered
      - Parameter tapCardPhoneListViewModel: The view model that has the needed payment options and data source to display the payment view
      - Parameter tapCountry: Represents the country that telecom options are being shown for, used to handle country code and correct phone length
+     - Parameter showSaveCardOption: Indicates whether or not to offer the save card switch when a valid card info is filled
      */
-    @objc public init(with tapCardPhoneListViewModel:TapCardPhoneBarListViewModel, and tapCountry:TapCountry?) {
+    @objc public init(with tapCardPhoneListViewModel:TapCardPhoneBarListViewModel, and tapCountry:TapCountry? = nil,collectCardName:Bool = false, showSaveCardOption:SaveCardType) {
         super.init()
+        self.collectCardName = collectCardName
+        self.saveCardType = showSaveCardOption
         self.tapCardPhoneListViewModel = tapCardPhoneListViewModel
         tapCardTelecomPaymentView?.tapCountry = tapCountry
     }
@@ -106,12 +163,24 @@ import TapCardVlidatorKit_iOS
      Call this method when you  need to fill in the text fields with data.
      - Parameter tapCard: The TapCard that holds the data needed to be filled into the textfields
      - Parameter then focusCardNumber: Indicate whether we need to focus the card number after setting the card data
+     - Parameter for cardUIStatus: Indicates whether the given card is from a normal process like scanning or to show the special UI for a saved card flow
      */
-    @objc public func setCard(with card:TapCard,then focusCardNumber:Bool,shouldRemoveCurrentCard:Bool = true) {
+    @objc public func setCard(with card:TapCard,then focusCardNumber:Bool,shouldRemoveCurrentCard:Bool = true,for cardUIStatus:CardInputUIStatus) {
         tapCardTelecomPaymentView?.lastReportedTapCard = card
-        tapCardTelecomPaymentView?.cardInputView.setCardData(tapCard: card, then: focusCardNumber,shouldRemoveCurrentCard:shouldRemoveCurrentCard)
+        tapCardTelecomPaymentView?.cardInputView.setCardData(tapCard: card, then: focusCardNumber,shouldRemoveCurrentCard:shouldRemoveCurrentCard,for: cardUIStatus)
+        tapCardTelecomPaymentView?.headerView.headerType = (cardUIStatus == .SavedCard) ? .SaveCardInputTitle : .CardInputTitle
     }
     
+    
+    /**
+     Call this method to display the saved card details for the user and prompt him to enter the CVV
+     - Parameter savedCard: The saved card you want to validate before using
+     */
+    @objc public func setSavedCard(savedCard:SavedCard) {
+        tapCardTelecomPaymentView?.cardInputView.setSavedCard(savedCard: savedCard)
+        tapCardTelecomPaymentView?.shouldShowSupportedBrands(false)
+        tapCardTelecomPaymentView?.headerView.headerType = .SaveCardInputTitle
+    }
     
     /**
      Call this method when scanner is closed to reset the scanning icon
@@ -125,7 +194,7 @@ import TapCardVlidatorKit_iOS
      Decides which hint status to be shown based on the validation statuses for the card input fields
      - Parameter tapCard: The current tap card input by the user
      */
-    @objc public func decideHintStatus(with tapCard:TapCard? = nil) -> TapHintViewStatusEnum {
+    @objc public func decideHintStatus(with tapCard:TapCard? = nil, and cardUIStatus:CardInputUIStatus = .NormalCard) -> TapHintViewStatusEnum {
         
         guard let tapCardTelecomPaymentView = tapCardTelecomPaymentView else {
             return .None
@@ -134,6 +203,15 @@ import TapCardVlidatorKit_iOS
         let tapCard:TapCard = tapCard ?? tapCardTelecomPaymentView.lastReportedTapCard
         
         var newStatus:TapHintViewStatusEnum = .None
+        
+        // If we are in saved card scenario, we only need to show hints based on CVV validty
+        if cardUIStatus == .SavedCard {
+            let (_,_,cardCVVValid,_) = tapCardTelecomPaymentView.cardInputView.fieldsValidationStatuses()
+            if !cardCVVValid {
+                newStatus = .WarningCVV
+            }
+            return newStatus
+        }
         
         // Check first if the card nnumber has data otherwise we are in the IDLE state
         guard let cardNumber:String = tapCard.tapCardNumber, cardNumber != "" else {
@@ -159,4 +237,74 @@ import TapCardVlidatorKit_iOS
         return newStatus
     }
     
+    
+    /**
+     Decides if each field is a valid one or not
+     - Returns: tuble of (card number valid or not, card expiry valid or not, card cvv is valid or not, card name is valid or not)
+     */
+    public func fieldsValidationStatuses() -> (Bool,Bool,Bool, Bool) {
+        return tapCardTelecomPaymentView?.cardInputView.fieldsValidationStatuses() ?? (false,false,false,false)
+    }
+    
+    /**
+     Decides if each field is a valid one or not
+     - Returns: tuble of (card number valid or not, card expiry valid or not, card cvv is valid or not, card name is valid or not)
+     */
+    @objc public func allCardFieldsValid() -> Bool {
+        guard let tapCardTelecomPaymentView = tapCardTelecomPaymentView else {
+            return false
+        }
+        // Let us get the validation status of the fields
+        let (cardNumberValid,cardExpiryValid,cardCVVValid,cardNameValid) = tapCardTelecomPaymentView.cardInputView.fieldsValidationStatuses()
+        // Check if all fields are valid
+        return cardCVVValid && cardNameValid && cardNumberValid && cardExpiryValid
+    }
+    
+}
+
+
+extension TapCardTelecomPaymentViewModel: TapSaveCardViewDelegate {
+    public func saveCardChanged(for saveCardType: SaveCardType, to enabled: Bool) {
+        delegate?.saveCardChanged(for: saveCardType, to: enabled)
+    }
+}
+
+/// Defines which save card should be displayed
+@objc public enum SaveCardType:Int,Codable,CaseIterable {
+    /// Don't show the save card option at all
+    case None
+    /// Only display save card for merchant
+    case Merchant
+    /// Only display save card for TAP
+    case Tap
+    /// Display save card for merchant & TAP
+    case All
+    
+    /// Retrusn string representation for the enum
+    public func toString() -> String {
+        switch self {
+        case .None:
+            return "None"
+        case .Merchant:
+            return "Merchant"
+        case .Tap:
+            return "Tap"
+        case .All:
+            return "All"
+        }
+    }
+    
+    public init(stringValue:String) {
+        if stringValue.lowercased() == "none" {
+            self = .None
+        }else if stringValue.lowercased() == "merchant" {
+            self = .Merchant
+        }else if stringValue.lowercased() == "tap" {
+            self = .Tap
+        }else if stringValue.lowercased() == "all" {
+            self = .All
+        }else{
+            self = .None
+        }
+    }
 }

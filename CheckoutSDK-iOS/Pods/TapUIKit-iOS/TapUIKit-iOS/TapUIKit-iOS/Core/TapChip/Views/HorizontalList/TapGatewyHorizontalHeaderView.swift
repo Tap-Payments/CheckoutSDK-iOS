@@ -175,6 +175,10 @@ class TapHorizontalHeaderView: UIView {
 
 /// Represents the enum of different implemented horizontal chip list header views
 @objc public enum TapHorizontalHeaderType:Int {
+    /// Enter card information title displayed befire the card input section
+    case CardInputTitle
+    /// Save card information title displayed befire the card input section
+    case SaveCardInputTitle
     /// The SELECT - EDIT header view for the list of payment gatewas and saved cards
     case GatewayListHeader
     /// The SELECT - EDIT header view for the list of saved card from goPay
@@ -185,7 +189,7 @@ class TapHorizontalHeaderView: UIView {
     /// Defines the theme entry based on the type
     func themePath() -> String {
         switch self {
-        case .GatewayListHeader,.GoPayListHeader,.GateWayListWithGoPayListHeader:
+        case .GatewayListHeader,.GoPayListHeader,.GateWayListWithGoPayListHeader,.CardInputTitle,.SaveCardInputTitle:
             return "horizontalList.headers.gatewayHeader"
         case .NoHeader:
             return ""
@@ -209,6 +213,10 @@ class TapHorizontalHeaderView: UIView {
             (leftTitleKey,rightTitleKey,endEditTitleKey) = ("HorizontalHeaders.GatewayHeader.leftTitle","","")
         case .NoHeader:
             (leftTitleKey,rightTitleKey,endEditTitleKey) = ("","","")
+        case .CardInputTitle:
+            (leftTitleKey,rightTitleKey,endEditTitleKey) = ("TapCardInputKit.cardSectionTitle","","")
+        case .SaveCardInputTitle:
+            (leftTitleKey,rightTitleKey,endEditTitleKey) = ("TapCardInputKit.savedCardSectionTitle","","")
         }
         
         // The left title will be GOPAY always for the case of GoPayListHeader
