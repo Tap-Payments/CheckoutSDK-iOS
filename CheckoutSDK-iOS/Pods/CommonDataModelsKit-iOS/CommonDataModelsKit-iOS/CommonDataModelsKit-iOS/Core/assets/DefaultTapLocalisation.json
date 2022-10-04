@@ -64,7 +64,7 @@
             "Warning":
             {
                 "missingExpiryCVV": "Expiry date & CVV number are missing.",
-                "missingCVV": "CVV number is missing.",
+                "missingCVV": "Enter the %i-digits CVV (usually at the back of the card.)",
                 "missingName": "Card name should be greater than 3 charachters",
             },
             "Error":
@@ -215,7 +215,7 @@
             "Warning":
             {
                 "missingExpiryCVV": "تاريخ الإنتهاء و الرمز الأمني مطلوبين",
-                "missingCVV": "الرمز الأمني مطلوب",
+                "missingCVV": "أدخل %i-أرقام الرمز الأمني (عادة بخلف البطاقة.)",
                 "missingName": "يجب إدخال ٣ أحرف على الاقل للإسم",
             },
             "Error":
