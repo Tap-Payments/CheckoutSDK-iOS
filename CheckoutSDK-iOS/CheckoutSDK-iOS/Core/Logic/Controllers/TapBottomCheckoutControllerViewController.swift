@@ -247,7 +247,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         webViewModel.delegate = navigationDelegate
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) { [weak self] in
-            self?.tapVerticalView.hideActionButton()
+            //self?.tapVerticalView.hideActionButton()
             self?.tapVerticalView.add(view: self!.webViewModel.attachedView, with: [.init(for: .fadeIn, with:self!.fadeInAnimationDuration, wait: self!.fadeInAnimationDelay)],shouldFillHeight: true)
             self?.webViewModel.load(with: url)
             // Set it back to swipe on dismiss
