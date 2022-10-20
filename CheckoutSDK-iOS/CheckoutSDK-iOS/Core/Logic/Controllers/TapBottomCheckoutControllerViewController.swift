@@ -241,7 +241,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         // Stop the dismiss on swipe feature, because when we remove all views, the height will be minium than the threshold, ending up the whole sheet being dimissed
         let originalDismissOnSwipeValue = disableAutoDismiss()
         
-        self.removeView(viewType: TapDragHandlerView.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true, skipSelf: true)
+        self.removeView(viewType: TapAmountSectionView.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true, skipSelf: true)
         
         webViewModel = .init()
         webViewModel.delegate = navigationDelegate

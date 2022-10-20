@@ -140,7 +140,7 @@ class ViewController: UIViewController {
             customer: try! .init(emailAddress: .with("osamaguc@gmail.com"), phoneNumber: nil, name: "Osama Ahmed Helmy", address: nil),
             tapMerchantID: "599424",
             taxes: [],
-            shipping: .init(name: "Shipping 1", descriptionText: "Descrtiption", amount: 10, currency: tapSettings.currency, recipientName: "OSAMA AHMED", address: tempAdddress, provider: .init(id:"",name:"aramex")),
+            shipping: .init(name: "Shipping 1", descriptionText: "Descrtiption", amount: 10, currency: .KWD, recipientName: "OSAMA AHMED", address: tempAdddress, provider: .init(id:"",name:"aramex")),
             require3DSecure: true,
             sdkMode: .sandbox,
             showSaveCreditCard: .Merchant,
@@ -220,11 +220,22 @@ extension ViewController:CheckoutScreenDelegate {
         tapPayButtonViewModel.expandButton()
         adjustTapButton()
     }
-    func checkoutFailed(with error:Error) {
+    func checkoutFailed(with authorize: Authorize) {
         tapPayButtonViewModel.endLoading(with: false) {
             self.tapBottomSheetWillDismiss()
         }
     }
+    func checkoutFailed(with charge: Charge) {
+        tapPayButtonViewModel.endLoading(with: false) {
+            self.tapBottomSheetWillDismiss()
+        }
+    }
+    func checkoutFailed(in session: URLSessionDataTask?, for result: [String : String]?, with error: Error?) {
+        tapPayButtonViewModel.endLoading(with: false) {
+            self.tapBottomSheetWillDismiss()
+        }
+    }
+    
     
     func checkoutCaptured(with charge: Charge) {
         print("HERE")
