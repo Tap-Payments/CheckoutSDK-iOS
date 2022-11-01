@@ -30,6 +30,7 @@ extension TapCheckout {
      */
     func webPaymentProcessFinished<T: ChargeProtocol>(with tapID:String,of type: T.Type) {
         // Hide the webview
+        TapCheckout.sharedCheckoutManager().chanegActionButton(status: .ValidPayment, actionBlock: nil)
         UIDelegate?.closeWebView()
         // Show the button in a loading state
         dataHolder.viewModels.tapActionButtonViewModel.startLoading()
@@ -72,6 +73,7 @@ extension TapCheckout:TapWebViewModelDelegate {
             }
         }else if decision.shouldCloseWebPaymentScreen {
             // The backend told us we need to close the web view :)
+            TapCheckout.sharedCheckoutManager().chanegActionButton(status: .ValidPayment, actionBlock: nil)
             self.UIDelegate?.closeWebView()
         }
         

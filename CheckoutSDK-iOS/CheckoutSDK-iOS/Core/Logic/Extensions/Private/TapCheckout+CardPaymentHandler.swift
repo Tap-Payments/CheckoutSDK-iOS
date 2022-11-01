@@ -277,6 +277,7 @@ extension TapCheckout {
      - Parameter with tapID: The tap id of the object (card saving) generated from the backend in the URL
      */
     func cardPaymentProcessFinished(with tapID:String) {
+        TapCheckout.sharedCheckoutManager().chanegActionButton(status: .ValidPayment, actionBlock: nil)
         // Hide the webview
         UIDelegate?.closeWebView()
         // Show the button in a loading state

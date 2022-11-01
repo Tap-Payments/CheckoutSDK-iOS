@@ -22,7 +22,7 @@ class CardCVVTextField:TapCardTextField {
         didSet{
             // If the cvv length changed, then we need to make sure, if the user did input more than that then we need to trim it to the allowed max new length
             if let text = self.text,
-                text.count > cvvLength {
+               text.count > cvvLength {
                 self.text = text.substring(to: cvvLength)
             }
         }

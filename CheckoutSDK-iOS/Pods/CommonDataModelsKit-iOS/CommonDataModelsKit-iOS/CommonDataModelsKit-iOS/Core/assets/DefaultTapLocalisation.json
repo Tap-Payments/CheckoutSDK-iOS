@@ -37,7 +37,8 @@
         "HorizontalHeaders": {
             "GatewayHeader":{
                 "leftTitle": "SELECT",
-                "rightTitle": "EDIT"
+                "rightTitle": "EDIT",
+                "webViewTitle": "APPROVE PAYMENT"
             }
         },
         "ItemList": {
@@ -140,7 +141,8 @@
             "confirm": "Confirm",
             "resend": "Resend OTP",
             "next": "Next",
-            "signin": "Signin"
+            "signin": "Signin",
+            "cancel":"Cancel"
         }
     },
     "ar": {
@@ -181,7 +183,8 @@
         "HorizontalHeaders": {
             "GatewayHeader":{
                 "leftTitle": "إختر",
-                "rightTitle": "تعديل"
+                "rightTitle": "تعديل",
+                "webViewTitle": "توثيق الدفع"
             }
         },
         "ItemList": {
@@ -282,7 +285,8 @@
             "confirm": "تأكيد",
             "resend": "إعادة إرسال",
             "next": "التالي",
-            "signin": "دخول"
+            "signin": "دخول",
+            "cancel":"إلغاء"
         }
     }
 }
