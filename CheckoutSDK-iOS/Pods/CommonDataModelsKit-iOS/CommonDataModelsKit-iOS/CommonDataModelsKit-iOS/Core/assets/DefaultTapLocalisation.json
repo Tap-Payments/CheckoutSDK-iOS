@@ -39,6 +39,10 @@
                 "leftTitle": "SELECT",
                 "rightTitle": "EDIT",
                 "webViewTitle": "APPROVE PAYMENT"
+            },
+            "SaveCardHeader": {
+                "shippingSectionTitle" : "SHIPPING",
+                "contactDetailsSectionTitle" : "CONTACT DETAILS"
             }
         },
         "ItemList": {
@@ -185,6 +189,10 @@
                 "leftTitle": "إختر",
                 "rightTitle": "تعديل",
                 "webViewTitle": "توثيق الدفع"
+            },
+            "SaveCardHeader": {
+                "shippingSectionTitle" : "العنوان",
+                "contactDetailsSectionTitle" : "بيانات الاتصال"
             }
         },
         "ItemList": {
