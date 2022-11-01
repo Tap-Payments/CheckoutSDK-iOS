@@ -624,6 +624,7 @@
 		E887737D976704D5C57E9C89F1D06A5A /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E7E2417905CFA42DB11F5AFE63126B /* CameraView.swift */; };
 		E89B3A822910FDD40094E1D9 /* SaveCardCustomerDataSectionEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89B3A812910FDD40094E1D9 /* SaveCardCustomerDataSectionEnum.swift */; };
 		E89B3A842910FF190094E1D9 /* SaveCardCustomerDataSFieldEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89B3A832910FF190094E1D9 /* SaveCardCustomerDataSFieldEnum.swift */; };
+		E89B3A86291102F40094E1D9 /* SaveCardRequiredFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89B3A85291102F40094E1D9 /* SaveCardRequiredFields.swift */; };
 		E8DA782338A800027262CFA539F07155 /* SwiftyGifManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D16C7F99696A140390A93905593B70 /* SwiftyGifManager.swift */; };
 		E98DC8FB2578E76A812E0C94BA10E1B1 /* ConstraintDirectionalInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAC418BCD44F1C52AEE80F4B1EBDFD /* ConstraintDirectionalInsets.swift */; };
 		EADAF947C7540CA94087BACD684119E2 /* Tajawal-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF0BAD7C3FFA9CB1B9B353CC596464B2 /* Tajawal-Bold.ttf */; };
@@ -1923,6 +1924,7 @@
 		E86DB405084B607726F968E4521FB956 /* AmountModificatorModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AmountModificatorModel.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/models/AmountModificatorModel.swift"; sourceTree = "<group>"; };
 		E89B3A812910FDD40094E1D9 /* SaveCardCustomerDataSectionEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveCardCustomerDataSectionEnum.swift; sourceTree = "<group>"; };
 		E89B3A832910FF190094E1D9 /* SaveCardCustomerDataSFieldEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveCardCustomerDataSFieldEnum.swift; sourceTree = "<group>"; };
+		E89B3A85291102F40094E1D9 /* SaveCardRequiredFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveCardRequiredFields.swift; sourceTree = "<group>"; };
 		E91D2C2378AE11B9533062F514B6F73D /* ItemTableViewCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ItemTableViewCell.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/TapItemsSectionView/Views/ItemTableViewCell.swift"; sourceTree = "<group>"; };
 		E91D5AB45396F2B2A39CFFCB6BBD5468 /* TapChargeRequestModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapChargeRequestModel.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/models/APiModels/TapChargeRequest/TapChargeRequestModel.swift"; sourceTree = "<group>"; };
 		E9548789C2E047A91C1D1F666CA7875C /* TapApplicationV2-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "TapApplicationV2-dummy.m"; sourceTree = "<group>"; };
@@ -2508,6 +2510,7 @@
 				A5EEF38B740CC0615CB5036C26B4BBE0 /* TransactionMode.swift */,
 				E89B3A812910FDD40094E1D9 /* SaveCardCustomerDataSectionEnum.swift */,
 				E89B3A832910FF190094E1D9 /* SaveCardCustomerDataSFieldEnum.swift */,
+				E89B3A85291102F40094E1D9 /* SaveCardRequiredFields.swift */,
 				EE96DAB46D40317C2E03C6B437664FC2 /* TransactionOrder.swift */,
 				264CA765F73FF9F9C359293F1BA08B73 /* Transfer.swift */,
 				2E8703F23C0E8244CDF0EB43ED5FEADD /* URLStatus.swift */,
@@ -4813,6 +4816,7 @@
 				2201DFD26FAC64D4C32CF9BE6BDCBADC /* Gateway.swift in Sources */,
 				5567479C34AADB28C1A6A7F8C7733A7D /* InternalSDKSettings.swift in Sources */,
 				FF1DDDDE5D5B72201DE14569EC896E5C /* ItemModel.swift in Sources */,
+				E89B3A86291102F40094E1D9 /* SaveCardRequiredFields.swift in Sources */,
 				B15D0DB694EB92129BAFAA9B851A8FD0 /* KeychainManager.swift in Sources */,
 				3441F37A5BE29BAFCC5D666CAD8F1301 /* Length.swift in Sources */,
 				A844C5CA90DE1204056C2EE9E9361774 /* Mass.swift in Sources */,
