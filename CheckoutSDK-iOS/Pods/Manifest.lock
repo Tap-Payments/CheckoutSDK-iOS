@@ -1,5 +1,5 @@
 PODS:
-  - CommonDataModelsKit-iOS (1.0.83):
+  - CommonDataModelsKit-iOS (1.0.86):
     - SwiftyRSA
     - TapAdditionsKitV2
     - TapCardVlidatorKit-iOS
@@ -7,6 +7,7 @@ PODS:
   - EasyTipView (2.1.0)
   - LocalisationManagerKit-iOS (1.0.4)
   - McPicker (3.0.0)
+  - NBBottomSheet (1.2.0)
   - Nuke (10.7.1)
   - PullUpController (0.8.0)
   - SnapKit (5.6.0)
@@ -42,14 +43,15 @@ PODS:
   - TapSwiftFixesV2/CoreGraphics (1.0.0)
   - TapSwiftFixesV2/Exceptions (1.0.0)
   - TapSwiftFixesV2/Threading (1.0.0)
-  - TapThemeManager2020 (1.0.62):
+  - TapThemeManager2020 (1.0.63):
     - LocalisationManagerKit-iOS
     - TapFontKit-iOS
-  - TapUIKit-iOS (1.0.87):
+  - TapUIKit-iOS (1.0.90):
     - CommonDataModelsKit-iOS
     - EasyTipView
     - LocalisationManagerKit-iOS
     - McPicker
+    - NBBottomSheet
     - Nuke
     - PullUpController
     - SnapKit
@@ -70,6 +72,7 @@ SPEC REPOS:
     - EasyTipView
     - LocalisationManagerKit-iOS
     - McPicker
+    - NBBottomSheet
     - Nuke
     - PullUpController
     - SnapKit
@@ -88,10 +91,11 @@ SPEC REPOS:
     - TapUIKit-iOS
 
 SPEC CHECKSUMS:
-  CommonDataModelsKit-iOS: a4565406105e6f08d3719d6c58cae0f023b75dad
+  CommonDataModelsKit-iOS: fbc7741430fbc6010862955755fb00253b78a334
   EasyTipView: a92b6edc377b81c5ac18e9fd35d5ee78e9409488
   LocalisationManagerKit-iOS: bd1a9d16509a06dd1aea45b9f47cf21bdfe0796c
   McPicker: ba38be56a8194faa5249eca4226c364eed628044
+  NBBottomSheet: aa7a52809b2d7b193f733247b8ce391a59904372
   Nuke: 279f17a599fd1c83cf51de5e0e1f2db143a287b0
   PullUpController: 2f7ccaa0f35b31b47e3efbe1854c7f781552b3c7
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
@@ -106,8 +110,8 @@ SPEC CHECKSUMS:
   TapKeychain: 143aa70bb2d1b094e0298e944660264034c79849
   TapNetworkKit-iOS: d1a6110b4f43e9b1cceafe469cf6cc3fb775a2cf
   TapSwiftFixesV2: a8623a7273c6790b9754ec7e272e96fce7d3a800
-  TapThemeManager2020: 34cb7cc0bc2071b7e27f2661ac9dd6f1554d7dd8
-  TapUIKit-iOS: 148568aa16676db7852491dd6e724dc51adeaae9
+  TapThemeManager2020: 01eae2a452971e4b68c042f788dee20a9b4d25d2
+  TapUIKit-iOS: 760dd12591ef1637587c4376d2f085597c7cc663
 
 PODFILE CHECKSUM: acb2f00207ad75cd7ce27ec1142bb7c0e58de83b
 

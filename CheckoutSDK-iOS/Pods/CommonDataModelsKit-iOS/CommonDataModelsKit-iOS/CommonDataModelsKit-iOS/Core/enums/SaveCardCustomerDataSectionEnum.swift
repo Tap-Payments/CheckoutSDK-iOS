@@ -16,7 +16,7 @@ import Foundation
     @objc(ContactDetails) case contactDetails
     
     /// SHIPPING info section
-    @objc(Shipping) case shipping
+    @objc(ShippingDetails) case shipping
     
     // MARK: - Internal -
     // MARK: Properties

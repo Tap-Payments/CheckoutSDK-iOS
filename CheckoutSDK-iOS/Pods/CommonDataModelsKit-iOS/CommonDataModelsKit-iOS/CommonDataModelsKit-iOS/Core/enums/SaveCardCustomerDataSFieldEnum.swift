@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import UIKit
 
 /**
  Defines the different fields we may have when we are collecting customer's data when he saves a card for TAP. For example, phone, email etc
@@ -29,7 +29,7 @@ import Foundation
     @objc(City) case city
     
     /// SHIPPING DETAILS --> country
-    @objc(Country) case country
+    @objc(CountryDetails) case country
     
     
     // MARK: - Internal -
