@@ -227,6 +227,29 @@ extension TapCheckout {
         
         // Check about the loyalty widget
         handleLoyalty(for:cardBrand,with: validation)
+        // Check about customer data collection if needed
+        handleCustomerContact(with: validation)
+    }
+    
+    
+    /**
+     Handles the logic needed to be applied upon card form validation status changes regrding the loyalty widget
+     - Parameter cardBrand: The detected card brand
+     - Parameter with validation: The validation status came out of the card validator
+     */
+    func handleCustomerContact(with validation: CrardInputTextFieldStatusEnum) {
+        // Check of we can display loyalty section or not
+        if canShowCustomerContactData(),
+           let nonCustomerContactViewModel: CustomerContactDataCollectionViewModel = dataHolder.viewModels.customerDataViewModel {
+            //updateLoyaltySection()
+            // Now let us show the loyalty section after a slight delay allowing the keyboard to be dismissed
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250), execute: { [weak self] in
+                self?.UIDelegate?.showCustomerContactDataCollection(with: nonCustomerContactViewModel, animate: true)
+            })
+        }else{
+            // Then if no valid card data is provided, all what we need to do is to remove the loyalty section if any
+            UIDelegate?.hideCustomerContactDataCollection()
+        }
     }
     
     /**
@@ -247,6 +270,22 @@ extension TapCheckout {
             // Then if no valid card data is provided, all what we need to do is to remove the loyalty section if any
             UIDelegate?.hideLoyalty()
         }
+    }
+    
+    
+    /// Checks all the conditoins to show a customer contact data collection section including
+    func canShowCustomerContactData() -> Bool {
+        // Check if the card's data including number, CVV and expiry are valid
+        guard dataHolder.viewModels.tapCardTelecomPaymentViewModel.allCardFieldsValid(),
+              // Check if the user activated saving for TAP
+              dataHolder.viewModels.tapCardTelecomPaymentViewModel.isTapSaveAllowed,
+              // Check if there is a data needed to be collected
+              let _: CustomerContactDataCollectionViewModel = dataHolder.viewModels.customerDataViewModel
+        else {
+            return false
+        }
+        
+        return true
     }
     
     /// Checks all the conditoins to show a loyalty section including

@@ -403,7 +403,11 @@ extension TapBottomCheckoutControllerViewController: TapAuthenticateDelegate {
 
 extension TapBottomCheckoutControllerViewController:TapCardTelecomPaymentProtocol {
     func saveCardChanged(for saveCardType: SaveCardType, to enabled: Bool) {
-        
+        // update the saving card status for the checkout manager
+        // If activated for TAP we need to check if we have to collect user's data
+        if saveCardType == .Tap {
+            sharedCheckoutDataManager.handleCustomerContact(with: .Valid)
+        }
     }
     
     func closeSavedCardClicked() {
@@ -586,6 +590,15 @@ extension TapBottomCheckoutControllerViewController:TapWebViewModelDelegate {
 
 
 extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDelegate {
+    func hideCustomerContactDataCollection() {
+        tapVerticalView.remove(viewType: CustomerContactDataCollectionView .self, with: .init(for: .fadeOut), and: false)
+    }
+    
+    
+    func showCustomerContactDataCollection(with customerDataViewModel: CustomerContactDataCollectionViewModel, animate: Bool) {
+        tapVerticalView.add(views: [customerDataViewModel.attachedView], with: [.init(for:.fadeIn,with: animate ? 0.25 : 0.1)])
+    }
+    
     
     func attach(hintView: TapHintView, to: AnyClass, with animations: Bool) {
         tapVerticalView.attach(hintView: hintView, to: to, with: animations)

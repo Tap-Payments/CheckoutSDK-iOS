@@ -94,6 +94,7 @@ import TapCardVlidatorKit_iOS
             // Assign the view delegate to self
             tapCardTelecomPaymentView?.viewModel = self
             tapCardTelecomPaymentView?.saveCrdView.delegate = self
+            tapCardTelecomPaymentView?.saveCrdForTapView.delegate = self
             tapCardTelecomPaymentView?.tapCardPhoneListViewModel = tapCardPhoneListViewModel!
             shouldShow =  tapCardTelecomPaymentView?.tapCardPhoneListViewModel.dataSource.count ?? 0 > 0
         }

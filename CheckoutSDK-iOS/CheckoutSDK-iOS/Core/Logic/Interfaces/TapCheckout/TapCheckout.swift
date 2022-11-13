@@ -77,11 +77,23 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     func hideLoyalty()
     
     /**
+     Will be fired in case we want to hide/remove a customer contact data collection widget
+     */
+    func hideCustomerContactDataCollection()
+    
+    /**
      Will be fired in case we want to show  a loyalty widget
      - Parameter with loyaltyViewModel: The view model for the loyalty widget we want to show
      - Parameter animate: If true a fade in animation will be done while inserting the view, otherwise no animation will be used
      */
     func showLoyalty(with loyaltyViewModel: TapLoyaltyViewModel,animate:Bool)
+    
+    /**
+     Will be fired in case we want to show  customer contact data collection
+     - Parameter with customerDataViewModel: The view model that controls the customer contact data collection view
+     - Parameter animate: If true a fade in animation will be done while inserting the view, otherwise no animation will be used
+     */
+    func showCustomerContactDataCollection(with customerDataViewModel: CustomerContactDataCollectionViewModel,animate:Bool)
     
     /**
      Will be fired in case we want to show saved card otp view

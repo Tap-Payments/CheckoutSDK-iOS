@@ -207,6 +207,15 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         //updateLoyaltySection()
     }
     
+    
+    /** Fetches thecustomer collected data if any
+     - Parameter paymentOptions: The payment options response we got from payment types api.
+     */
+    fileprivate func fetchCustomerContactDataModel(_ paymentOptions: TapPaymentOptionsReponseModel) {
+        // Dummy creation until coming from API
+        dataHolder.viewModels.customerDataViewModel = CustomerContactDataCollectionViewModel.init(toBeCollectedData: [.email,.phone], allowedCountries: [.init(nameAR: "الكويت", nameEN: "Kuwait", code: "965", phoneLength: 8),.init(nameAR: "مصر", nameEN: "Egypt", code: "20", phoneLength: 10)], selectedCountry: .init(nameAR: "الكويت", nameEN: "Kuwait", code: "965", phoneLength: 8))
+    }
+    
     /** Update the total payable amount as we got from the backend
      - Parameter paymentOptions: The payment options response we got from payment types api.
      */
@@ -280,6 +289,9 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         
         // Fetch the loyaly model from the payment options if any
         fetchLoyaltyModel(paymentOptions)
+        
+        // Fetch the customer data collection if any
+        fetchCustomerContactDataModel(paymentOptions)
         
         // Load the goPayLogin status
         dataHolder.transactionData.loggedInToGoPay = false//UserDefaults.standard.bool(forKey: TapCheckoutConstants.GoPayLoginUserDefaultsKey)
