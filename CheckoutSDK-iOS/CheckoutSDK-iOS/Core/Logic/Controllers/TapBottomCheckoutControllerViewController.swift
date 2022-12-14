@@ -129,10 +129,10 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
      */
     func updateItemsList(with currency:TapCurrencyCode) {
         /*dataHolder.viewModels.tapItemsTableViewModel.dataSource.forEach { (genericCellModel) in
-            if let itemViewModel:ItemCellViewModel = genericCellModel as? ItemCellViewModel {
-                itemViewModel.convertCurrency = currency
-            }
-        }*/
+         if let itemViewModel:ItemCellViewModel = genericCellModel as? ItemCellViewModel {
+         itemViewModel.convertCurrency = currency
+         }
+         }*/
     }
     
     /*
@@ -269,12 +269,12 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
     func cancelWebView() {
         // First thing, animate closing the web view
         /*// We will remove all the shown views below the amount section first
-        self.removeView(viewType: TapWebView.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true)
-        // Now let us add back the default views
-        DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [weak self] in
-            self?.tapVerticalView.showActionButton(fadeInDuation:self!.fadeInAnimationDuration,fadeInDelay:self!.fadeInAnimationDelay)
-            self?.tapVerticalView.add(views: [ self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView], with: [.init(for: .fadeIn, with:self!.fadeInAnimationDuration, wait: self!.fadeInAnimationDelay)])
-        })*/
+         self.removeView(viewType: TapWebView.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true)
+         // Now let us add back the default views
+         DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [weak self] in
+         self?.tapVerticalView.showActionButton(fadeInDuation:self!.fadeInAnimationDuration,fadeInDelay:self!.fadeInAnimationDelay)
+         self?.tapVerticalView.add(views: [ self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView], with: [.init(for: .fadeIn, with:self!.fadeInAnimationDuration, wait: self!.fadeInAnimationDelay)])
+         })*/
         
         closeWebView()
         // Reset data
@@ -339,7 +339,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
 
 
 extension TapBottomCheckoutControllerViewController {
-
+    
     
     func handleTelecomPayment(for cardBrand: CardBrand, with validation: CrardInputTextFieldStatusEnum) {
         if validation == .Valid {
@@ -505,16 +505,16 @@ extension TapBottomCheckoutControllerViewController: TapGoPaySignInViewProtocol 
         // Get the authenticable model based on the current transaction mode
         switch sharedCheckoutDataManager.dataHolder.transactionData.transactionMode
         {
-            case .purchase:
-                // Then we are dealing with a charge mode
-                sharedCheckoutDataManager.verifyAuthenticationOTP(for: otpAuthenticationID, with: otp, chargeOrAuthorize:sharedCheckoutDataManager.dataHolder.transactionData.currentCharge!)
-                break
-            case .authorizeCapture:
-                // Then we are dealing with authorize model
-                sharedCheckoutDataManager.verifyAuthenticationOTP(for: otpAuthenticationID, with: otp, chargeOrAuthorize:sharedCheckoutDataManager.dataHolder.transactionData.currentAuthorize!)
-                break
-            default:
-                break
+        case .purchase:
+            // Then we are dealing with a charge mode
+            sharedCheckoutDataManager.verifyAuthenticationOTP(for: otpAuthenticationID, with: otp, chargeOrAuthorize:sharedCheckoutDataManager.dataHolder.transactionData.currentCharge!)
+            break
+        case .authorizeCapture:
+            // Then we are dealing with authorize model
+            sharedCheckoutDataManager.verifyAuthenticationOTP(for: otpAuthenticationID, with: otp, chargeOrAuthorize:sharedCheckoutDataManager.dataHolder.transactionData.currentAuthorize!)
+            break
+        default:
+            break
         }
     }
     
@@ -596,7 +596,7 @@ extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDe
     
     
     func showCustomerContactDataCollection(with customerDataViewModel: CustomerContactDataCollectionViewModel, animate: Bool) {
-        tapVerticalView.add(views: [customerDataViewModel.attachedView], with: [.init(for:.fadeIn,with: animate ? 0.25 : 0.1)])
+        tapVerticalView.add(views: [customerDataViewModel.attachedView], with: [.init(for:.fadeIn,with: animate ? 0.25 : 0.1)], shouldScrollToBottom: true)
     }
     
     
@@ -625,7 +625,7 @@ extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDe
         }
     }
     
-   
+    
     func goPaySignIn(status: Bool) {
         
         tapActionButtonViewModel.endLoading(with: true, completion: {
