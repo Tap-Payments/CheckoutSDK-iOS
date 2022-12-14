@@ -572,6 +572,10 @@ extension TapBottomCheckoutControllerViewController: TapSwitchViewModelDelegate 
 }
 
 extension TapBottomCheckoutControllerViewController:TapWebViewModelDelegate {
+    func webViewCanceled() {
+        
+    }
+    
     func willLoad(request: URLRequest) -> WKNavigationActionPolicy {
         return .allow
     }

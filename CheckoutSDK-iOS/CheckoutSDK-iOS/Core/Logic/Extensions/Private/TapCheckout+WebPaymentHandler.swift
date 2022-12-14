@@ -50,6 +50,10 @@ extension TapCheckout {
 }
 
 extension TapCheckout:TapWebViewModelDelegate {
+    public func webViewCanceled() {
+        
+    }
+    
     
     public func willLoad(request: URLRequest) -> WKNavigationActionPolicy {
         // Double check, there is a url to load :)

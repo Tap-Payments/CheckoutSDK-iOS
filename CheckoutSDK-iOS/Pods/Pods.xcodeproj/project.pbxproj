@@ -1245,7 +1245,7 @@
 		01BBA5EAFFEB4AB20D5A2D2B9145BF2A /* TapCheckoutFlipStatus.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapCheckoutFlipStatus.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/enums/TapCheckoutFlipStatus.swift"; sourceTree = "<group>"; };
 		0237C031F7B4FCB26E2C92DD75B897CA /* ThemeFontSelector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThemeFontSelector.swift; path = TapThemeManager2020/TapThemeManager2020/Core/ThemeSelectors/ThemeFontSelector.swift; sourceTree = "<group>"; };
 		027F1D4FAA8D33C49B38260244762B58 /* CustomerDataCollectionView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CustomerDataCollectionView.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/TapSaveCardDataCollectionView/CustomerDataCollectionView.swift"; sourceTree = "<group>"; };
-		02A57D65E7D50BD50B806797722D078B /* Tajawal-Regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "Tajawal-Regular.ttf"; path = "TapFontKit-iOS/TapFontKit-iOS/Resources/Tajawal-Regular.ttf"; sourceTree = "<group>"; };
+		02A57D65E7D50BD50B806797722D078B /* Tajawal-Regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "Tajawal-Regular.ttf"; path = "TapFontKit-iOS/TapFontKit-iOS/Resources/Tajawal-Regular.ttf"; sourceTree = "<group>"; };
 		0356820B41E1D10111F885E3E657C2AF /* discover.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = discover.png; path = "TapCardInputKit-iOS/Core/assets/discover.png"; sourceTree = "<group>"; };
 		03E51C8C59C9C071EE2B236078F6D9AA /* CNContactFetchRequest+Additions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CNContactFetchRequest+Additions.swift"; path = "TapAdditionsKitV2/TapAdditionsKitV2/Contacts/CNContactFetchRequest+Additions.swift"; sourceTree = "<group>"; };
 		041349DDA129A68488F69933322B03F1 /* TapCardInputKit-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "TapCardInputKit-iOS-dummy.m"; sourceTree = "<group>"; };
@@ -1280,7 +1280,7 @@
 		0CECC497BD0463CF494BF342F1FB0456 /* TapPaymentType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapPaymentType.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/enums/TapPaymentType.swift"; sourceTree = "<group>"; };
 		0D30E0F21C9A612C0A1BB5B2F5708EBA /* TapGoPayChipCollectionViewCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapGoPayChipCollectionViewCell.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/TapChip/Views/Chips/GoPayyChip/TapGoPayChipCollectionViewCell.swift"; sourceTree = "<group>"; };
 		0D751A122799B728574C90ADF2C43A6B /* UIGestureRecognizer+Additions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIGestureRecognizer+Additions.swift"; path = "TapAdditionsKitV2/TapAdditionsKitV2/UIKit/UIGestureRecognizer+Additions.swift"; sourceTree = "<group>"; };
-		0DA4828908E30CE4A29CB9AD3A405635 /* SwiftyRSA */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftyRSA; path = SwiftyRSA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0DA4828908E30CE4A29CB9AD3A405635 /* SwiftyRSA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyRSA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DA803D8C507CBE5BCAB9FAB771BBABF /* ImageProcessors+RoundedCorners.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ImageProcessors+RoundedCorners.swift"; path = "Sources/Core/Processing/ImageProcessors+RoundedCorners.swift"; sourceTree = "<group>"; };
 		0E27AAA7F44F3A6DF06DD365D65933E1 /* TapRecentCardCollectionViewCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = TapRecentCardCollectionViewCell.xib; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/TapRecentCardCollectionViewCell.xib"; sourceTree = "<group>"; };
 		0E2F2970F22605483211F7ED302F55BF /* ConstraintConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintConfig.swift; path = Sources/ConstraintConfig.swift; sourceTree = "<group>"; };
@@ -1388,11 +1388,11 @@
 		2C5E52E6032A8D5BCC18301BADD581AE /* DataLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DataLoader.swift; path = Sources/Core/Loading/DataLoader.swift; sourceTree = "<group>"; };
 		2C7409ABC9F473F3824949995A75BCB9 /* ThreadingFixes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThreadingFixes.swift; path = Common/Source/ThreadingFixes/ThreadingFixes.swift; sourceTree = "<group>"; };
 		2C77DECCE6EBDBD283C5EE3463944355 /* CardInputMode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CardInputMode.swift; path = "TapCardInputKit-iOS/Core/Public/enums/CardInputMode.swift"; sourceTree = "<group>"; };
-		2CCD28338355003C3715B42023524748 /* PullUpController */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = PullUpController; path = PullUpController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CCD28338355003C3715B42023524748 /* PullUpController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PullUpController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CFB216A932389859AF4B94649DF560C /* ImagePipelineConfiguration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImagePipelineConfiguration.swift; path = Sources/Core/ImagePipelineConfiguration.swift; sourceTree = "<group>"; };
 		2D2AAC969303C5970E30E8E69FDD9226 /* TapGoPayPasswordView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapGoPayPasswordView.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/goPay/Views/TapGoPayPasswordView.swift"; sourceTree = "<group>"; };
-		2D41B9F4CEBB9B60CB1D59B47B865132 /* goPayIcon.pdf */ = {isa = PBXFileReference; includeInIndex = 1; name = goPayIcon.pdf; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/goPayIcon.pdf"; sourceTree = "<group>"; };
-		2DAD7D76FC007F48AE48F2FD15BF01BB /* Nuke */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Nuke; path = Nuke.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D41B9F4CEBB9B60CB1D59B47B865132 /* goPayIcon.pdf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.pdf; name = goPayIcon.pdf; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/goPayIcon.pdf"; sourceTree = "<group>"; };
+		2DAD7D76FC007F48AE48F2FD15BF01BB /* Nuke.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nuke.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E21C56A7DF39944585F50BAE34DC127 /* TapApplePayStatus.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapApplePayStatus.swift; path = "TapApplePayKit-iOS/Core/public/enums/TapApplePayStatus.swift"; sourceTree = "<group>"; };
 		2EEA592FFC98DC41FC5F581B2CC747DA /* CardBrand.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CardBrand.swift; path = "TapCardVlidatorKit-iOS/TapCardVlidatorKit-iOS/Core/public/CardBrand.swift"; sourceTree = "<group>"; };
 		2F9705BD572F86C232336905D26EA299 /* AuthorizeActionStatus.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AuthorizeActionStatus.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/enums/AuthorizeActionStatus.swift"; sourceTree = "<group>"; };
@@ -1406,7 +1406,7 @@
 		31F9FC42F783AA6E4AF63AA93409F86E /* TapWebViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapWebViewModel.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/TapWebView/ViewModels/TapWebViewModel.swift"; sourceTree = "<group>"; };
 		32051DF658E44642E027EA76E37BACD8 /* Nuke-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Nuke-dummy.m"; sourceTree = "<group>"; };
 		320D31F1575242458484CB08A97A1032 /* GoPayLoginOptions.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = GoPayLoginOptions.xib; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/GoPayLoginOptions.xib"; sourceTree = "<group>"; };
-		324E7578413670459F2055EA9E908920 /* CommonDataModelsKit-iOS */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "CommonDataModelsKit-iOS"; path = CommonDataModelsKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		324E7578413670459F2055EA9E908920 /* CommonDataModelsKit_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CommonDataModelsKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		33542E7A883B7004DC8AD2473D0E15C6 /* SwiftyRSA-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyRSA-prefix.pch"; sourceTree = "<group>"; };
 		33DFFC23E547E2380EA887B6143C7E74 /* Message.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Message.swift; path = Source/Message.swift; sourceTree = "<group>"; };
 		344490ED41BBB5FA5495DFBED325670A /* Debugging.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Debugging.swift; path = Sources/Debugging.swift; sourceTree = "<group>"; };
@@ -1419,12 +1419,12 @@
 		35B1B5D3538C4123061721F37F62062D /* Pods-CheckoutSDK-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CheckoutSDK-iOS-dummy.m"; sourceTree = "<group>"; };
 		35D729804DA3EC5B846BB386728B73EB /* TapKeychain-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TapKeychain-prefix.pch"; sourceTree = "<group>"; };
 		366FFD20B297C76E9EDC11AE59B45F4A /* ExtraFee.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExtraFee.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/models/ExtraFee.swift"; sourceTree = "<group>"; };
-		3675449D69F3FC534403410B15292458 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "Roboto-Thin.ttf"; path = "TapFontKit-iOS/TapFontKit-iOS/Resources/Roboto-Thin.ttf"; sourceTree = "<group>"; };
+		3675449D69F3FC534403410B15292458 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "Roboto-Thin.ttf"; path = "TapFontKit-iOS/TapFontKit-iOS/Resources/Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		367F96AC52BE26E13BDBABC8D4EAAC84 /* Pods-CheckoutExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CheckoutExample.release.xcconfig"; sourceTree = "<group>"; };
 		3696135A338DECA1498EEA2DBE3B6476 /* tap.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = tap.png; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/tap.png"; sourceTree = "<group>"; };
 		36C3EA8E1D833302F6A9236B1B1DDD13 /* Energy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Energy.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/enums/Measurements/Energy.swift"; sourceTree = "<group>"; };
 		36C5A2F2614B8C7B564242D2CC680FDA /* Authorize.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Authorize.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/models/Authorize.swift"; sourceTree = "<group>"; };
-		3718F412237E9E01548B87C017CCCE22 /* DefaultDarkTheme.json */ = {isa = PBXFileReference; includeInIndex = 1; name = DefaultDarkTheme.json; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/DefaultDarkTheme.json"; sourceTree = "<group>"; };
+		3718F412237E9E01548B87C017CCCE22 /* DefaultDarkTheme.json */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json; name = DefaultDarkTheme.json; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/DefaultDarkTheme.json"; sourceTree = "<group>"; };
 		384B72B7D2E8E85E0D8E819C5EE3C498 /* TapChargeRequestModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapChargeRequestModel.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/models/APiModels/TapChargeRequest/TapChargeRequestModel.swift"; sourceTree = "<group>"; };
 		3869FAF397E68A7252368438C32C4782 /* TopupChargeModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TopupChargeModel.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/models/TopupChargeModel.swift"; sourceTree = "<group>"; };
 		38A0CF4AC710AD5502A82022CD5847AB /* ErrorDetail.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ErrorDetail.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/ErrorDetail.swift"; sourceTree = "<group>"; };
@@ -1470,14 +1470,14 @@
 		44337D020574AD1E3C86174D57B40E98 /* TapApplePayKit-iOS */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "TapApplePayKit-iOS"; path = TapApplePayKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45254908D3000A1EE9157FF114E367BA /* TapLoyaltyModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapLoyaltyModel.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/models/TapLoyaltyModel.swift"; sourceTree = "<group>"; };
 		453A0E28BC484206965A227FEFAEA67C /* CGPoint+Additions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CGPoint+Additions.swift"; path = "TapAdditionsKitV2/TapAdditionsKitV2/CoreGraphics/CGPoint+Additions.swift"; sourceTree = "<group>"; };
-		45562118B787C86BCB2E41423D6179C1 /* Tajawal-Black.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "Tajawal-Black.ttf"; path = "TapFontKit-iOS/TapFontKit-iOS/Resources/Tajawal-Black.ttf"; sourceTree = "<group>"; };
+		45562118B787C86BCB2E41423D6179C1 /* Tajawal-Black.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "Tajawal-Black.ttf"; path = "TapFontKit-iOS/TapFontKit-iOS/Resources/Tajawal-Black.ttf"; sourceTree = "<group>"; };
 		45C7992F8398E57B1255C91C3BA1A182 /* ExtensionProtocols.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExtensionProtocols.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/models/ExtensionProtocols.swift"; sourceTree = "<group>"; };
 		461C79F531F9BA96DA9DEA74B75F0FE9 /* TapCreateTokenRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapCreateTokenRequest.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/models/APiModels/TapTokenRequest/TapCreateTokenRequest.swift"; sourceTree = "<group>"; };
 		463649ECF38842DC4297232E935149C7 /* CustomerContactDataCollectionView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CustomerContactDataCollectionView.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/TapSaveCardDataCollectionView/CustomerContactDataCollectionView.swift"; sourceTree = "<group>"; };
-		46981811FD24CCE9B64664CB5B681746 /* TapThemeManager2020 */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = TapThemeManager2020; path = TapThemeManager2020.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		46981811FD24CCE9B64664CB5B681746 /* TapThemeManager2020.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TapThemeManager2020.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		46AB1A37436A95637F9780E02B54A197 /* TapCardPhoneIconViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapCardPhoneIconViewModel.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/TapCardsTelecomBar/ViewModels/TapCardPhoneIconViewModel.swift"; sourceTree = "<group>"; };
 		47031F83BB1EFFBBA311A5028D084F92 /* ConstraintLayoutSupport.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintLayoutSupport.swift; path = Sources/ConstraintLayoutSupport.swift; sourceTree = "<group>"; };
-		475A22EEC85B755510F60A01E5E3FE38 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "Roboto-Regular.ttf"; path = "TapFontKit-iOS/TapFontKit-iOS/Resources/Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		475A22EEC85B755510F60A01E5E3FE38 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "Roboto-Regular.ttf"; path = "TapFontKit-iOS/TapFontKit-iOS/Resources/Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		47CF9AEBE393121921C32355BDEEF65C /* TapBlackWhiteImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapBlackWhiteImage.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/TapCardsTelecomBar/Views/TapBlackWhiteImage.swift"; sourceTree = "<group>"; };
 		480BB226A2796566E5C1699B4DF6A1C6 /* URLStatus.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = URLStatus.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/enums/URLStatus.swift"; sourceTree = "<group>"; };
 		486FB15BE40F4821A417621C4FBEC468 /* TapLogoutChipCollectionViewCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapLogoutChipCollectionViewCell.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/TapChip/Views/Chips/LogoutChip/TapLogoutChipCollectionViewCell.swift"; sourceTree = "<group>"; };
@@ -1489,7 +1489,7 @@
 		4930AF2054D681B91E78E5975E0B916D /* McPickerBarButtonItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = McPickerBarButtonItem.swift; path = McPicker/Classes/McPickerBarButtonItem.swift; sourceTree = "<group>"; };
 		49782D4D7C41E8B7BD9079D93F599C9F /* TapSerializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapSerializer.swift; path = "TapNetworkKit-iOS/TapNetworkKit-iOS/Source/Core/TapSerializer.swift"; sourceTree = "<group>"; };
 		49E2C9FED4953C50B3061D2665433FAB /* ClearMessage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ClearMessage.swift; path = Source/ClearMessage.swift; sourceTree = "<group>"; };
-		4A3EA2BC59F6FDC976EFDBCA24564513 /* DefaultLightTheme.json */ = {isa = PBXFileReference; includeInIndex = 1; name = DefaultLightTheme.json; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/DefaultLightTheme.json"; sourceTree = "<group>"; };
+		4A3EA2BC59F6FDC976EFDBCA24564513 /* DefaultLightTheme.json */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json; name = DefaultLightTheme.json; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/DefaultLightTheme.json"; sourceTree = "<group>"; };
 		4A5EC29BD34B05FA533A9796EA209E7B /* ImageDecoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageDecoding.swift; path = Sources/Core/Decoding/ImageDecoding.swift; sourceTree = "<group>"; };
 		4AB5CCE77AF9327CE1112D0B8E12B257 /* FullCardInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FullCardInput.swift; path = "TapCardInputKit-iOS/Core/Private/Views/FullCardInput.swift"; sourceTree = "<group>"; };
 		4AD758446B9F95BAAEA081748158E6E3 /* TapVerticalView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapVerticalView.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/TapVerticalViewController/TapVerticalView.swift"; sourceTree = "<group>"; };
@@ -1632,7 +1632,7 @@
 		793A79224EDCE4824AF29644DE9C8096 /* ImagePipelineTask.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImagePipelineTask.swift; path = Sources/Core/Tasks/ImagePipelineTask.swift; sourceTree = "<group>"; };
 		79C5C13A6D0F6CD1B952CD71C5631024 /* TapGoPayLoginBarView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapGoPayLoginBarView.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/goPay/Views/TapGoPayLoginBarView.swift"; sourceTree = "<group>"; };
 		79D3856BBC32C682179CE0DF19111000 /* TapAdditionsKitV2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = TapAdditionsKitV2.release.xcconfig; sourceTree = "<group>"; };
-		7A4CDC16D5D97F8A915A0FA1F8C4E286 /* DefaultTapLocalisation.json */ = {isa = PBXFileReference; includeInIndex = 1; name = DefaultTapLocalisation.json; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/assets/DefaultTapLocalisation.json"; sourceTree = "<group>"; };
+		7A4CDC16D5D97F8A915A0FA1F8C4E286 /* DefaultTapLocalisation.json */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json; name = DefaultTapLocalisation.json; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/assets/DefaultTapLocalisation.json"; sourceTree = "<group>"; };
 		7AB384F4FED33812545EA37EC8B0E976 /* TapGoPayPasswordTextField.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapGoPayPasswordTextField.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/goPay/Views/TapGoPayPasswordTextField.swift"; sourceTree = "<group>"; };
 		7AC8E20A203CA365FFF3AA6BD7CAEE64 /* ConstraintView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintView.swift; path = Sources/ConstraintView.swift; sourceTree = "<group>"; };
 		7AD75E8B715D019C1FA0AB7A46641127 /* TapSwitchControl.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapSwitchControl.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/TapSwitchView/Views/TapSwitchControl.swift"; sourceTree = "<group>"; };
@@ -1642,7 +1642,7 @@
 		7C4C179359B48FCCAEE3F5C138A1BD84 /* TapCardBarButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapCardBarButton.swift; path = "TapCardInputKit-iOS/Core/Private/Views/TapCardBarButton.swift"; sourceTree = "<group>"; };
 		7CF9A52C4D25F8B845C269006D4E5B2B /* TransactionDetails.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TransactionDetails.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/models/TransactionDetails.swift"; sourceTree = "<group>"; };
 		7D78E26B472A51CAF057ED92DB864EA5 /* TapThemeManager+array.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "TapThemeManager+array.swift"; path = "TapThemeManager2020/TapThemeManager2020/Core/Manager/TapThemeManager+array.swift"; sourceTree = "<group>"; };
-		7D9EAA1EED471F2AF96779DD393CCB73 /* TapSwiftFixesV2 */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = TapSwiftFixesV2; path = TapSwiftFixesV2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D9EAA1EED471F2AF96779DD393CCB73 /* TapSwiftFixesV2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TapSwiftFixesV2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E15C3508E51CA767F2E39DAF1755EC9 /* TaskLoadData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TaskLoadData.swift; path = Sources/Core/Tasks/TaskLoadData.swift; sourceTree = "<group>"; };
 		7EC15C1EB899EF1E12AEFD7C2FF09C0C /* american-express.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "american-express.png"; path = "TapCardInputKit-iOS/Core/assets/american-express.png"; sourceTree = "<group>"; };
 		7ED5DEC97A6D910E14B45A203E618C71 /* PoweredByTapView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = PoweredByTapView.xib; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/PoweredByTapView.xib"; sourceTree = "<group>"; };
@@ -1659,9 +1659,9 @@
 		8295B240697C89020FCE951D7A9402B2 /* NBBottomSheet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = NBBottomSheet.debug.xcconfig; sourceTree = "<group>"; };
 		829918C6557E441F267BCFDB81663677 /* TapUIKit-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "TapUIKit-iOS-dummy.m"; sourceTree = "<group>"; };
 		82FF659CBF90746847BB62512B134119 /* TapGoPayChipCollectionViewCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = TapGoPayChipCollectionViewCell.xib; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/TapGoPayChipCollectionViewCell.xib"; sourceTree = "<group>"; };
-		83073E2CD873098AD06701CD3DE59EA3 /* Tajawal-Bold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "Tajawal-Bold.ttf"; path = "TapFontKit-iOS/TapFontKit-iOS/Resources/Tajawal-Bold.ttf"; sourceTree = "<group>"; };
+		83073E2CD873098AD06701CD3DE59EA3 /* Tajawal-Bold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "Tajawal-Bold.ttf"; path = "TapFontKit-iOS/TapFontKit-iOS/Resources/Tajawal-Bold.ttf"; sourceTree = "<group>"; };
 		83A3BA03FD78EB62527CBBC92D18CDDC /* TapApplication.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapApplication.swift; path = TapApplicationV2/TapApplicationV2/Source/TapApplication.swift; sourceTree = "<group>"; };
-		84871724B175C65C3532EA38AF2E0265 /* TapAdditionsKitV2 */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = TapAdditionsKitV2; path = TapAdditionsKitV2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		84871724B175C65C3532EA38AF2E0265 /* TapAdditionsKitV2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TapAdditionsKitV2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84FFFD23F743A46DCFF0C3555C1003F6 /* TapGenericTableCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapGenericTableCell.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/TapGenericTableView/TapGenericTableCell/TapGenericTableCell.swift"; sourceTree = "<group>"; };
 		85F8345F40BAA0ADF42B33064141DD7B /* EasyTipView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = EasyTipView.debug.xcconfig; sourceTree = "<group>"; };
 		861131F755E4FBA5659BFDD63DDBD432 /* SourceRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SourceRequest.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/models/SourceRequest.swift"; sourceTree = "<group>"; };
@@ -1674,14 +1674,14 @@
 		87CF7142C5669EC6329BAA42C6F3A5CF /* EasyTipView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = EasyTipView.release.xcconfig; sourceTree = "<group>"; };
 		87E855EFB641FE3AB0CA4CF218C147C1 /* UIHexColor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UIHexColor.swift; path = TapThemeManager2020/TapThemeManager2020/Core/Extensions/UIHexColor.swift; sourceTree = "<group>"; };
 		885876CDC4FBEE63E869E72547F4ED9A /* ThemeKeyboardAppearanceSelector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThemeKeyboardAppearanceSelector.swift; path = TapThemeManager2020/TapThemeManager2020/Core/ThemeSelectors/ThemeKeyboardAppearanceSelector.swift; sourceTree = "<group>"; };
-		88F30235A5F5067E94B9AB6E8028F9B6 /* TapFontKit-iOS */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "TapFontKit-iOS"; path = TapFontKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		88F30235A5F5067E94B9AB6E8028F9B6 /* TapFontKit_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TapFontKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		88F88217329EEB4E4B39D3DD6A4018D9 /* LocalisationManagerKit-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "LocalisationManagerKit-iOS-dummy.m"; sourceTree = "<group>"; };
 		899642FE13712F097127B0AA59EDB452 /* TapInlineCardScanner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapInlineCardScanner.swift; path = "TapCardScanner-iOS/Core/Public/TapInlineCardScanner.swift"; sourceTree = "<group>"; };
 		89AB2782EC1C235E4AFCAD89E0AAFA61 /* ImageTask.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageTask.swift; path = Sources/Core/ImageTask.swift; sourceTree = "<group>"; };
-		89D0F556A15858BEA39CCECFC1C3ABFD /* TapKeychain */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = TapKeychain; path = TapKeychain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		89D0F556A15858BEA39CCECFC1C3ABFD /* TapKeychain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TapKeychain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		89D113944AC553F8481E2E9CC828BE2B /* TapLogStackTraceEntryModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapLogStackTraceEntryModel.swift; path = "TapNetworkKit-iOS/TapNetworkKit-iOS/Source/Core/Logger/TapLogStackTraceEntryModel.swift"; sourceTree = "<group>"; };
 		8A018C9B24E20C897C380CB780C11350 /* TapCountryCode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapCountryCode.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/enums/TapCountryCode.swift"; sourceTree = "<group>"; };
-		8A63F6AA6A1D241970B6D28C2970A8B9 /* EasyTipView */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = EasyTipView; path = EasyTipView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A63F6AA6A1D241970B6D28C2970A8B9 /* EasyTipView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EasyTipView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A8037395FCC57B393B19D23091E3D31 /* TapAdditionsKitV2.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TapAdditionsKitV2.h; path = TapAdditionsKitV2/TapAdditionsKitV2/TapAdditionsKitV2.h; sourceTree = "<group>"; };
 		8AA19A3A6087B9340E30F3D5956E9A15 /* SwiftyRSA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftyRSA.release.xcconfig; sourceTree = "<group>"; };
 		8B0571F89F3EE0CF34F588F1ED72523C /* UILayoutSupport+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UILayoutSupport+Extensions.swift"; path = "Sources/UILayoutSupport+Extensions.swift"; sourceTree = "<group>"; };
@@ -1693,7 +1693,7 @@
 		8D51A3B1178DD1A6E670E72FB0FA35A3 /* ImageCaching.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageCaching.swift; path = Sources/Core/Caching/ImageCaching.swift; sourceTree = "<group>"; };
 		8D71B9A277A74A21940EAA0FF190F4BA /* TapAuthenticate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapAuthenticate.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/TapAuthenticate/TapAuthenticate.swift"; sourceTree = "<group>"; };
 		8DABC77C7BF93CE64EF15EC960D7F631 /* Combine.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Combine.swift; path = Sources/Internal/Combine.swift; sourceTree = "<group>"; };
-		8DC993DBEE5E313270DD8516E0A0923D /* Roboto-Medium.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "Roboto-Medium.ttf"; path = "TapFontKit-iOS/TapFontKit-iOS/Resources/Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		8DC993DBEE5E313270DD8516E0A0923D /* Roboto-Medium.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "Roboto-Medium.ttf"; path = "TapFontKit-iOS/TapFontKit-iOS/Resources/Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		8DE62F4813B8143FF9A561F0B1268507 /* TapGenericTableCellViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapGenericTableCellViewModel.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/TapGenericTableView/TapGenericTableCell/TapGenericTableCellViewModel.swift"; sourceTree = "<group>"; };
 		8DFAA6DD41875EF266023AA424638303 /* TapGoPayLoginBarView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = TapGoPayLoginBarView.xib; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/TapGoPayLoginBarView.xib"; sourceTree = "<group>"; };
 		8E29781A6F155CAB435C398472D798BC /* CurrencyChipCollectionViewCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = CurrencyChipCollectionViewCell.xib; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/CurrencyChipCollectionViewCell.xib"; sourceTree = "<group>"; };
@@ -1703,7 +1703,7 @@
 		901C6D025D49DE2D230C6C4983528D02 /* TapGoPayOTPView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = TapGoPayOTPView.xib; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/TapGoPayOTPView.xib"; sourceTree = "<group>"; };
 		91199B4B9DF4FFB1B225872CCC40EB32 /* ConstraintLayoutGuide.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintLayoutGuide.swift; path = Sources/ConstraintLayoutGuide.swift; sourceTree = "<group>"; };
 		919B7128CC9E78E42BC9E51B381A67CF /* TapCardPhoneIconView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = TapCardPhoneIconView.xib; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/TapCardPhoneIconView.xib"; sourceTree = "<group>"; };
-		91BC4F27F2DA380ABC44B3609495F0E1 /* NBBottomSheet */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = NBBottomSheet; path = NBBottomSheet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		91BC4F27F2DA380ABC44B3609495F0E1 /* NBBottomSheet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NBBottomSheet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		91DB857F1B5DC7582E488947B436D54E /* McPicker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = McPicker.debug.xcconfig; sourceTree = "<group>"; };
 		92393B0812C0E8E9BFAAF8ED6FE3B604 /* ApplePayChipCollectionViewCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = ApplePayChipCollectionViewCell.xib; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/ApplePayChipCollectionViewCell.xib"; sourceTree = "<group>"; };
 		9255017E7E5C2F96437D276ABE516C65 /* ImageProcessors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageProcessors.swift; path = Sources/Core/Processing/ImageProcessors.swift; sourceTree = "<group>"; };
@@ -1712,7 +1712,7 @@
 		938CA24E8CE2D1AB3557BED01B38AF83 /* TokenizedCard.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TokenizedCard.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/models/TokenizedCard.swift"; sourceTree = "<group>"; };
 		93C502BE55EE964A33D880EA9F2B0361 /* TapPresentableViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapPresentableViewController.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/TapBottomSheetDialog/TapPresentableViewController.swift"; sourceTree = "<group>"; };
 		940655450A19170F149535BF7A5226AD /* McPicker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = McPicker.swift; path = McPicker/Classes/McPicker.swift; sourceTree = "<group>"; };
-		94BEB02876B701D94F72110FABD5A9CF /* LocalisationManagerKit-iOS */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "LocalisationManagerKit-iOS"; path = LocalisationManagerKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		94BEB02876B701D94F72110FABD5A9CF /* LocalisationManagerKit_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LocalisationManagerKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		94F17F818A1DE16404F4AB68BC76E815 /* TapAdditionsKitV2-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "TapAdditionsKitV2-Info.plist"; sourceTree = "<group>"; };
 		95D0862CC23E04800CF3DFB65D7DF258 /* TapNetworkManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapNetworkManager.swift; path = "TapNetworkKit-iOS/TapNetworkKit-iOS/Source/Core/TapNetworkManager.swift"; sourceTree = "<group>"; };
 		964076D0776654B77A4B984033D6FAC6 /* Charge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Charge.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/models/Charge.swift"; sourceTree = "<group>"; };
@@ -1720,9 +1720,9 @@
 		96FC4DC10B9E358350FB25FCB5C49247 /* CommonDataModelsKit-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CommonDataModelsKit-iOS-dummy.m"; sourceTree = "<group>"; };
 		970E6E7F07AD794B94DE60FFBC5EC196 /* Graphics.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Graphics.swift; path = Sources/Internal/Graphics.swift; sourceTree = "<group>"; };
 		9742C654D5C7FF2870B5BFB141574634 /* NBBottomSheetController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NBBottomSheetController.swift; path = NBBottomSheet/NBBottomSheet/Sources/NBBottomSheetController.swift; sourceTree = "<group>"; };
-		978909736F92A0D633842472D577F1D8 /* McPicker */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = McPicker; path = McPicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		978909736F92A0D633842472D577F1D8 /* McPicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = McPicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		979132383628367F371335F7CB354C2F /* BinaryInteger+Additions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "BinaryInteger+Additions.swift"; path = "TapAdditionsKitV2/TapAdditionsKitV2/SwiftStandartLibrary/BinaryInteger+Additions.swift"; sourceTree = "<group>"; };
-		979486118B3E90C08386079D57962701 /* SnapKit */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SnapKit; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		979486118B3E90C08386079D57962701 /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		97C5127AAC06155EE3418B5CAA496643 /* TapMerchantHeaderView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = TapMerchantHeaderView.xib; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/TapMerchantHeaderView.xib"; sourceTree = "<group>"; };
 		97EE51DDABB6B13A01DC68E661C3D48D /* TapNetworkPath.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapNetworkPath.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/enums/TapNetworkPath.swift"; sourceTree = "<group>"; };
 		97FFB154586F13AB8391A1093D7EAE1A /* Source.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Source.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/models/Source.swift"; sourceTree = "<group>"; };
@@ -1743,7 +1743,7 @@
 		9BBB6D11AA45DB4D62949FED76DAA26F /* Pods-CheckoutSDK-iOS */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-CheckoutSDK-iOS"; path = Pods_CheckoutSDK_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C9BB5478F8394B553116F925EA6E0FE /* TapAmountSectionView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = TapAmountSectionView.xib; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/TapAmountSectionView.xib"; sourceTree = "<group>"; };
 		9CEA5E2DB6C2DAD7E8F6BBB7D5565649 /* ImageEncoders+ImageIO.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ImageEncoders+ImageIO.swift"; path = "Sources/Core/Encoding/ImageEncoders+ImageIO.swift"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9E55E8385594EB859D61D18F0E97E920 /* TaskFetchDecodedImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TaskFetchDecodedImage.swift; path = Sources/Core/Tasks/TaskFetchDecodedImage.swift; sourceTree = "<group>"; };
 		9E9C5213EE2047EFAF11D20D6E7957C1 /* CustomerContactDataCollectionViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CustomerContactDataCollectionViewModel.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/TapSaveCardDataCollectionView/CustomerContactDataCollectionViewModel.swift"; sourceTree = "<group>"; };
 		9EC3184BD3A255E664B45F17324A3ACF /* unionpay.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = unionpay.png; path = "TapCardInputKit-iOS/Core/assets/unionpay.png"; sourceTree = "<group>"; };
@@ -1762,7 +1762,7 @@
 		A4124E7D2C8BCCD69362F19C7BF1AA3F /* TapPhoneInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapPhoneInput.swift; path = "TapCardInputKit-iOS/Core/Public/PhoneInput/TapPhoneInput.swift"; sourceTree = "<group>"; };
 		A414BDE7830B3EB28079EF40FE6B6548 /* TapActionButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapActionButton.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/TapActionButton/Views/TapActionButton.swift"; sourceTree = "<group>"; };
 		A4285741630A174A8502513E3E3A81D4 /* TapCardInputKit-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "TapCardInputKit-iOS.debug.xcconfig"; sourceTree = "<group>"; };
-		A4DD2D287D733B28913E21F9A7F59749 /* Tajawal-ExtraLight.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "Tajawal-ExtraLight.ttf"; path = "TapFontKit-iOS/TapFontKit-iOS/Resources/Tajawal-ExtraLight.ttf"; sourceTree = "<group>"; };
+		A4DD2D287D733B28913E21F9A7F59749 /* Tajawal-ExtraLight.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "Tajawal-ExtraLight.ttf"; path = "TapFontKit-iOS/TapFontKit-iOS/Resources/Tajawal-ExtraLight.ttf"; sourceTree = "<group>"; };
 		A58CFD8879F14DDAA495B847E09B85BA /* TapScannerProtocl.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapScannerProtocl.swift; path = "TapCardScanner-iOS/Core/Private/TapScannerProtocl.swift"; sourceTree = "<group>"; };
 		A59D4E351911A206EAC977FBE7279477 /* ImageCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageCache.swift; path = Sources/Core/Caching/ImageCache.swift; sourceTree = "<group>"; };
 		A5EB26C87192BB15A3765CACB8DC7522 /* white-success-mob.gif */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.gif; name = "white-success-mob.gif"; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/white-success-mob.gif"; sourceTree = "<group>"; };
@@ -1777,7 +1777,7 @@
 		A9FA351092690BCD2C60E9063301221E /* Response.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Response.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/models/Response.swift"; sourceTree = "<group>"; };
 		AA54EF73716148ABD5E6316A7DA7B829 /* ImageEncoders.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageEncoders.swift; path = Sources/Core/Encoding/ImageEncoders.swift; sourceTree = "<group>"; };
 		AB33475BDBAEC15D55043FD1FB4FA515 /* TapSeparatorView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapSeparatorView.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/TapSeparatorView/TapSeparatorView.swift"; sourceTree = "<group>"; };
-		ABB4E111A0097F04399519AFA934623F /* DefaultLightTheme.json */ = {isa = PBXFileReference; includeInIndex = 1; name = DefaultLightTheme.json; path = TapThemeManager2020/TapThemeManager2020/Core/assets/DefaultLightTheme.json; sourceTree = "<group>"; };
+		ABB4E111A0097F04399519AFA934623F /* DefaultLightTheme.json */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json; name = DefaultLightTheme.json; path = TapThemeManager2020/TapThemeManager2020/Core/assets/DefaultLightTheme.json; sourceTree = "<group>"; };
 		ABBF36A169BBE3AE61E23D51EAC8C3BB /* ImageProcessing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageProcessing.swift; path = Sources/Core/Processing/ImageProcessing.swift; sourceTree = "<group>"; };
 		ABC22477BAFEF19E00FD8A1252512210 /* TapSwiftFixesV2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = TapSwiftFixesV2.modulemap; sourceTree = "<group>"; };
 		ABDF9E8A0702B6AC9FDC50671833E40F /* ImageProcessors+Circle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ImageProcessors+Circle.swift"; path = "Sources/Core/Processing/ImageProcessors+Circle.swift"; sourceTree = "<group>"; };
@@ -1804,13 +1804,13 @@
 		B2EDA9DBD7548165F422785F747A11EE /* TapGenericTableView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = TapGenericTableView.xib; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/TapGenericTableView.xib"; sourceTree = "<group>"; };
 		B38CFBC11E3B86D98DDA88BDAB8373F9 /* SnapKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SnapKit.release.xcconfig; sourceTree = "<group>"; };
 		B3CECBB276C762DA8675A3952653F9C2 /* ThemeImageSelector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThemeImageSelector.swift; path = TapThemeManager2020/TapThemeManager2020/Core/ThemeSelectors/ThemeImageSelector.swift; sourceTree = "<group>"; };
-		B3F97206D80502A21FAE7F1DE4561582 /* Tajawal-Medium.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "Tajawal-Medium.ttf"; path = "TapFontKit-iOS/TapFontKit-iOS/Resources/Tajawal-Medium.ttf"; sourceTree = "<group>"; };
+		B3F97206D80502A21FAE7F1DE4561582 /* Tajawal-Medium.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "Tajawal-Medium.ttf"; path = "TapFontKit-iOS/TapFontKit-iOS/Resources/Tajawal-Medium.ttf"; sourceTree = "<group>"; };
 		B43B1000E1DAF4410550913580A3E749 /* TapApplicationV2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = TapApplicationV2.debug.xcconfig; sourceTree = "<group>"; };
 		B46284CD6E2992385249A46396A5E306 /* Nuke-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Nuke-umbrella.h"; sourceTree = "<group>"; };
 		B4687E99115DBB76B34724FC03DE3588 /* ImageProcessors+CoreImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ImageProcessors+CoreImage.swift"; path = "Sources/Core/Processing/ImageProcessors+CoreImage.swift"; sourceTree = "<group>"; };
 		B48480B4353352721EFCFE9E657F7AC8 /* FlurryLogger.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FlurryLogger.swift; path = "TapApplePayKit-iOS/Core/private/FlurryLogger.swift"; sourceTree = "<group>"; };
 		B4B0D700F0D2584B915F999737500D4D /* CGContext+Additions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CGContext+Additions.swift"; path = "TapAdditionsKitV2/TapAdditionsKitV2/CoreGraphics/CGContext+Additions.swift"; sourceTree = "<group>"; };
-		B541E3114F01C49D046FB659F84AA747 /* TapApplicationV2 */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = TapApplicationV2; path = TapApplicationV2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B541E3114F01C49D046FB659F84AA747 /* TapApplicationV2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TapApplicationV2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5A745D0379517C43797F9AC867A64CA /* CountryPickerTableView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = CountryPickerTableView.xib; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/CountryPickerTableView.xib"; sourceTree = "<group>"; };
 		B5B866E3414DA351D4CFF7291F9E1B8E /* TapMerchantHeaderView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapMerchantHeaderView.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/TapMerchantHeaderView/Views/TapMerchantHeaderView.swift"; sourceTree = "<group>"; };
 		B5C0732BEE867B013DE38630A68B2728 /* TapCardScannerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapCardScannerView.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/TapCardScanner/Views/TapCardScannerView.swift"; sourceTree = "<group>"; };
@@ -1824,7 +1824,7 @@
 		B72D02A331A501855494EDEA6DBD9DFC /* CardVerificationStatus.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CardVerificationStatus.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/enums/CardVerificationStatus.swift"; sourceTree = "<group>"; };
 		B747A129F29C07FCA39053B46E1C0580 /* SwiftyRSA.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SwiftyRSA.h; path = Source/SwiftyRSA.h; sourceTree = "<group>"; };
 		B76529FBF7F8E0EC9AF10604EAE55D3C /* Operation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Operation.swift; path = Sources/Internal/Operation.swift; sourceTree = "<group>"; };
-		B78C3385EB639D568AA1AA9ADCB7F5B2 /* Tajawal-Light.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "Tajawal-Light.ttf"; path = "TapFontKit-iOS/TapFontKit-iOS/Resources/Tajawal-Light.ttf"; sourceTree = "<group>"; };
+		B78C3385EB639D568AA1AA9ADCB7F5B2 /* Tajawal-Light.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "Tajawal-Light.ttf"; path = "TapFontKit-iOS/TapFontKit-iOS/Resources/Tajawal-Light.ttf"; sourceTree = "<group>"; };
 		B7B0B53143D03FD8D2555641CB80B47D /* TapCardInputKit-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "TapCardInputKit-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		B7F9B058D898FBF9F30E5B3044143329 /* TapApplicationWithPlist.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapApplicationWithPlist.swift; path = TapApplicationV2/TapApplicationV2/Source/TapApplicationWithPlist.swift; sourceTree = "<group>"; };
 		B8D79DD8A03227028A773FFAF4FE83CD /* ConstraintMakerExtendable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMakerExtendable.swift; path = Sources/ConstraintMakerExtendable.swift; sourceTree = "<group>"; };
@@ -1877,7 +1877,7 @@
 		CA565FA894964D0B0FE17FB3139BD049 /* UIEdgeInsets+Additions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIEdgeInsets+Additions.swift"; path = "TapAdditionsKitV2/TapAdditionsKitV2/UIKit/UIEdgeInsets+Additions.swift"; sourceTree = "<group>"; };
 		CA923B00BA6D035BB3D6DE3D065238E0 /* CAKeyframeAnimation+Additions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CAKeyframeAnimation+Additions.swift"; path = "TapAdditionsKitV2/TapAdditionsKitV2/QuartzCore/CAKeyframeAnimation+Additions.swift"; sourceTree = "<group>"; };
 		CACAF7332FEA1F67149EB3B0EFE32851 /* TypeAlias.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TypeAlias.swift; path = TapAdditionsKitV2/TapAdditionsKitV2/Tap/TypeAlias.swift; sourceTree = "<group>"; };
-		CAD35CA91B088CCB1054A8C3202DEC9C /* Roboto-Light.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "Roboto-Light.ttf"; path = "TapFontKit-iOS/TapFontKit-iOS/Resources/Roboto-Light.ttf"; sourceTree = "<group>"; };
+		CAD35CA91B088CCB1054A8C3202DEC9C /* Roboto-Light.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "Roboto-Light.ttf"; path = "TapFontKit-iOS/TapFontKit-iOS/Resources/Roboto-Light.ttf"; sourceTree = "<group>"; };
 		CB0B41E6834A2593EA3CB34173C7C589 /* TapGoPayViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapGoPayViewModel.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/TapChip/Views/Chips/GoPayyChip/TapGoPayViewModel.swift"; sourceTree = "<group>"; };
 		CB4B655926B93ACA3693D8D4B87999E7 /* AddressFormat.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AddressFormat.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/enums/AddressFormat.swift"; sourceTree = "<group>"; };
 		CC33C349DC4987549EBF6ABE5ECDEAB8 /* RateLimiter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RateLimiter.swift; path = Sources/Internal/RateLimiter.swift; sourceTree = "<group>"; };
@@ -1893,7 +1893,7 @@
 		CFA241946E8427AEF0406721E47CBA52 /* TapGoPayTitleView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapGoPayTitleView.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/goPay/Views/TapGoPayTitleView.swift"; sourceTree = "<group>"; };
 		CFDE95DCDF4056E3045ED2453CB43873 /* FlurryLogger.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FlurryLogger.swift; path = "TapCardScanner-iOS/Core/Private/FlurryLogger.swift"; sourceTree = "<group>"; };
 		D00EE98BDEDED24798F7D842A17E7AB1 /* ImagePipeline.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImagePipeline.swift; path = Sources/Core/ImagePipeline.swift; sourceTree = "<group>"; };
-		D08AB4CD09B8D34CBDA2929E1E068EE4 /* TapCardVlidatorKit-iOS */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "TapCardVlidatorKit-iOS"; path = TapCardVlidatorKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D08AB4CD09B8D34CBDA2929E1E068EE4 /* TapCardVlidatorKit_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TapCardVlidatorKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0B09AC722993A6AADEB60AB3A71803D /* CardTypeEnum.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CardTypeEnum.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/enums/CardTypeEnum.swift"; sourceTree = "<group>"; };
 		D0D0C5CD97AF73F1ADDCB7106A2ECC37 /* ConstraintDescription.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintDescription.swift; path = Sources/ConstraintDescription.swift; sourceTree = "<group>"; };
 		D13DF7236CB65E78A2C89D110A2FBB40 /* TapCardTelecomPaymentView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = TapCardTelecomPaymentView.xib; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/TapCardTelecomPaymentView.xib"; sourceTree = "<group>"; };
@@ -1913,7 +1913,7 @@
 		D5D1824D194A2F35E06574096F8EFC72 /* TapNetworkKit-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TapNetworkKit-iOS-prefix.pch"; sourceTree = "<group>"; };
 		D5E11377751F47B7F0FC56A990CCD285 /* CommonDataModelsKit-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "CommonDataModelsKit-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		D5E44B9BB81484EF759006E1383CA535 /* TapFontKit-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "TapFontKit-iOS.release.xcconfig"; sourceTree = "<group>"; };
-		D5F12BB3B400776139B0E7A3B89C5BFA /* Tajawal-ExtraBold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "Tajawal-ExtraBold.ttf"; path = "TapFontKit-iOS/TapFontKit-iOS/Resources/Tajawal-ExtraBold.ttf"; sourceTree = "<group>"; };
+		D5F12BB3B400776139B0E7A3B89C5BFA /* Tajawal-ExtraBold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "Tajawal-ExtraBold.ttf"; path = "TapFontKit-iOS/TapFontKit-iOS/Resources/Tajawal-ExtraBold.ttf"; sourceTree = "<group>"; };
 		D657C5D27C6AEDEEC255FA3610B3E232 /* TapWebView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = TapWebView.xib; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/TapWebView.xib"; sourceTree = "<group>"; };
 		D7AE9A3AF9DB89698BF49465F39C7617 /* Key.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Key.swift; path = Source/Key.swift; sourceTree = "<group>"; };
 		D7D8B4F59FFFCC490F7ED338229BF9E6 /* UIImage+SwiftyGif.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIImage+SwiftyGif.swift"; path = "TapUIKit-iOS/TapUIKit-iOS/Core/TapActionButton/Views/UIImage+SwiftyGif.swift"; sourceTree = "<group>"; };
@@ -1979,7 +1979,7 @@
 		E877454F10CB5E42234DE12F82690518 /* ConstraintItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintItem.swift; path = Sources/ConstraintItem.swift; sourceTree = "<group>"; };
 		E8B0C1F4ED3BEA108915736ED0BDAA28 /* TapCardTelecomPaymentView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapCardTelecomPaymentView.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/TapCardTelecomPayment/Views/TapCardTelecomPaymentView.swift"; sourceTree = "<group>"; };
 		E93A46C4D7CC7ACB011C9633FAB01E60 /* LocalisationManagerKit-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "LocalisationManagerKit-iOS.debug.xcconfig"; sourceTree = "<group>"; };
-		E992BD8C02814E227CCEC232F8E44FF8 /* DefaultDarkTheme.json */ = {isa = PBXFileReference; includeInIndex = 1; name = DefaultDarkTheme.json; path = TapThemeManager2020/TapThemeManager2020/Core/assets/DefaultDarkTheme.json; sourceTree = "<group>"; };
+		E992BD8C02814E227CCEC232F8E44FF8 /* DefaultDarkTheme.json */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json; name = DefaultDarkTheme.json; path = TapThemeManager2020/TapThemeManager2020/Core/assets/DefaultDarkTheme.json; sourceTree = "<group>"; };
 		E99E1C06D6CC049F9CB8B680E5F6D38A /* TapApplePayKit-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TapApplePayKit-iOS-prefix.pch"; sourceTree = "<group>"; };
 		E9A40C016285C2828AABE37EF0A747D5 /* TapBundlePlistInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapBundlePlistInfo.swift; path = TapApplicationV2/TapApplicationV2/Source/TapBundlePlistInfo.swift; sourceTree = "<group>"; };
 		E9B3ECD8B0E6C30D55FB78B2A00C9EAB /* TapUIKit-iOS */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "TapUIKit-iOS"; path = TapUIKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1990,7 +1990,7 @@
 		EACDAE969599D1F6D394F8CC1CA659EF /* TapApplePayPaymentNetwork.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapApplePayPaymentNetwork.swift; path = "TapApplePayKit-iOS/Core/public/enums/TapApplePayPaymentNetwork.swift"; sourceTree = "<group>"; };
 		EADF10D5FC83114B92EA5213CDAC812B /* TapLoyaltyFooterView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = TapLoyaltyFooterView.xib; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/TapLoyaltyFooterView.xib"; sourceTree = "<group>"; };
 		EB24A356AC2646883DA71AA9D78DDB56 /* TapKeychain-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "TapKeychain-dummy.m"; sourceTree = "<group>"; };
-		EB3B993C2023316C257AC073CA9DBC8C /* Roboto-Black.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "Roboto-Black.ttf"; path = "TapFontKit-iOS/TapFontKit-iOS/Resources/Roboto-Black.ttf"; sourceTree = "<group>"; };
+		EB3B993C2023316C257AC073CA9DBC8C /* Roboto-Black.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "Roboto-Black.ttf"; path = "TapFontKit-iOS/TapFontKit-iOS/Resources/Roboto-Black.ttf"; sourceTree = "<group>"; };
 		EB9D08779D068FBA5779D0F5CDE29EEF /* LocalisationManagerKit-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "LocalisationManagerKit-iOS.modulemap"; sourceTree = "<group>"; };
 		EBAA0D6A422A26EDA32A2631FF480941 /* TapAmountSectionView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapAmountSectionView.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/TapAmountSectionView/Views/TapAmountSectionView.swift"; sourceTree = "<group>"; };
 		EBF59B1E4DA2513060C81147D0A39578 /* Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Sources/Internal/Extensions.swift; sourceTree = "<group>"; };
@@ -2009,7 +2009,7 @@
 		EF7B02774EB8EDB131F84DE9A88AEEF2 /* TapSaveCardView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = TapSaveCardView.xib; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/TapSaveCardView.xib"; sourceTree = "<group>"; };
 		EFA999F18C6B2B9F4AF05EE176665EEA /* UInt8+Additions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UInt8+Additions.swift"; path = "TapAdditionsKitV2/TapAdditionsKitV2/SwiftStandartLibrary/UInt8+Additions.swift"; sourceTree = "<group>"; };
 		EFCCDA0F72277BCCC4F6546675D9FFBE /* EncryptedMessage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EncryptedMessage.swift; path = Source/EncryptedMessage.swift; sourceTree = "<group>"; };
-		EFE6FE85E738DC82A1F36D30C0F09900 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "Roboto-Bold.ttf"; path = "TapFontKit-iOS/TapFontKit-iOS/Resources/Roboto-Bold.ttf"; sourceTree = "<group>"; };
+		EFE6FE85E738DC82A1F36D30C0F09900 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "Roboto-Bold.ttf"; path = "TapFontKit-iOS/TapFontKit-iOS/Resources/Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		F07010F482F99EFABE04EE41A13B847E /* SourcePaymentType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SourcePaymentType.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/enums/SourcePaymentType.swift"; sourceTree = "<group>"; };
 		F0AFD8F3FBF840C02C919DDD8D1CFD88 /* TapLocalisationManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapLocalisationManager.swift; path = "LocalisationManagerKit-iOS/LocalisationManagerKit-iOS/Core/Public/TapLocalisationManager.swift"; sourceTree = "<group>"; };
 		F0C0EDEDB75FD3815D57A760B0793E53 /* ThemeStateSelector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThemeStateSelector.swift; path = TapThemeManager2020/TapThemeManager2020/Core/ThemeSelectors/ThemeStateSelector.swift; sourceTree = "<group>"; };
@@ -2284,35 +2284,34 @@
 				2BB7239EB52240AE4A06D9D9A4C7D52C /* TapSystemPermission.swift */,
 				C038281CF905CA8CF99F20DF6A83156B /* Support Files */,
 			);
-			name = TapApplicationV2;
 			path = TapApplicationV2;
 			sourceTree = "<group>";
 		};
 		04A73E7FD4978991C38B7A809951317F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				324E7578413670459F2055EA9E908920 /* CommonDataModelsKit-iOS */,
-				8A63F6AA6A1D241970B6D28C2970A8B9 /* EasyTipView */,
-				94BEB02876B701D94F72110FABD5A9CF /* LocalisationManagerKit-iOS */,
-				978909736F92A0D633842472D577F1D8 /* McPicker */,
-				91BC4F27F2DA380ABC44B3609495F0E1 /* NBBottomSheet */,
-				2DAD7D76FC007F48AE48F2FD15BF01BB /* Nuke */,
+				324E7578413670459F2055EA9E908920 /* CommonDataModelsKit_iOS.framework */,
+				8A63F6AA6A1D241970B6D28C2970A8B9 /* EasyTipView.framework */,
+				94BEB02876B701D94F72110FABD5A9CF /* LocalisationManagerKit_iOS.framework */,
+				978909736F92A0D633842472D577F1D8 /* McPicker.framework */,
+				91BC4F27F2DA380ABC44B3609495F0E1 /* NBBottomSheet.framework */,
+				2DAD7D76FC007F48AE48F2FD15BF01BB /* Nuke.framework */,
 				CD5AE3F254D6EDCBD1314BFE32F976CC /* Pods-CheckoutExample */,
 				9BBB6D11AA45DB4D62949FED76DAA26F /* Pods-CheckoutSDK-iOS */,
-				2CCD28338355003C3715B42023524748 /* PullUpController */,
-				979486118B3E90C08386079D57962701 /* SnapKit */,
-				0DA4828908E30CE4A29CB9AD3A405635 /* SwiftyRSA */,
-				84871724B175C65C3532EA38AF2E0265 /* TapAdditionsKitV2 */,
+				2CCD28338355003C3715B42023524748 /* PullUpController.framework */,
+				979486118B3E90C08386079D57962701 /* SnapKit.framework */,
+				0DA4828908E30CE4A29CB9AD3A405635 /* SwiftyRSA.framework */,
+				84871724B175C65C3532EA38AF2E0265 /* TapAdditionsKitV2.framework */,
 				44337D020574AD1E3C86174D57B40E98 /* TapApplePayKit-iOS */,
-				B541E3114F01C49D046FB659F84AA747 /* TapApplicationV2 */,
+				B541E3114F01C49D046FB659F84AA747 /* TapApplicationV2.framework */,
 				9A72B1336885F88F7935C287A3CAA343 /* TapCardInputKit-iOS */,
 				00B43F878022A9966D58DB488C1B6FB7 /* TapCardScanner-iOS */,
-				D08AB4CD09B8D34CBDA2929E1E068EE4 /* TapCardVlidatorKit-iOS */,
-				88F30235A5F5067E94B9AB6E8028F9B6 /* TapFontKit-iOS */,
-				89D0F556A15858BEA39CCECFC1C3ABFD /* TapKeychain */,
+				D08AB4CD09B8D34CBDA2929E1E068EE4 /* TapCardVlidatorKit_iOS.framework */,
+				88F30235A5F5067E94B9AB6E8028F9B6 /* TapFontKit_iOS.framework */,
+				89D0F556A15858BEA39CCECFC1C3ABFD /* TapKeychain.framework */,
 				0660992B0D7A1FD5E9552281147AC859 /* TapNetworkKit-iOS */,
-				7D9EAA1EED471F2AF96779DD393CCB73 /* TapSwiftFixesV2 */,
-				46981811FD24CCE9B64664CB5B681746 /* TapThemeManager2020 */,
+				7D9EAA1EED471F2AF96779DD393CCB73 /* TapSwiftFixesV2.framework */,
+				46981811FD24CCE9B64664CB5B681746 /* TapThemeManager2020.framework */,
 				E9B3ECD8B0E6C30D55FB78B2A00C9EAB /* TapUIKit-iOS */,
 			);
 			name = Products;
@@ -2333,7 +2332,6 @@
 				3551E1F11ECEC954FF88EC4D7C90FC72 /* PullUpController.swift */,
 				99D2EB241D0ABF21435049BDB85D89C4 /* Support Files */,
 			);
-			name = PullUpController;
 			path = PullUpController;
 			sourceTree = "<group>";
 		};
@@ -2519,7 +2517,6 @@
 				4A8F66FE3080760E758285D9ABCA70AF /* Resources */,
 				32B9EDBB7BB2CC3B43700DE36276C708 /* Support Files */,
 			);
-			name = "TapUIKit-iOS";
 			path = "TapUIKit-iOS";
 			sourceTree = "<group>";
 		};
@@ -2602,7 +2599,6 @@
 				22227893C04315F6721D54C6782C1FDD /* Resources */,
 				5D1B80C1DC47E8F23942EB16A73B4660 /* Support Files */,
 			);
-			name = "TapFontKit-iOS";
 			path = "TapFontKit-iOS";
 			sourceTree = "<group>";
 		};
@@ -2628,7 +2624,6 @@
 				F0AFD8F3FBF840C02C919DDD8D1CFD88 /* TapLocalisationManager.swift */,
 				244B55FD892BD3933F5F61AA7ADBBE87 /* Support Files */,
 			);
-			name = "LocalisationManagerKit-iOS";
 			path = "LocalisationManagerKit-iOS";
 			sourceTree = "<group>";
 		};
@@ -2689,7 +2684,6 @@
 				8B0571F89F3EE0CF34F588F1ED72523C /* UILayoutSupport+Extensions.swift */,
 				1554A17900A341F5D9C6A8FF66612D3E /* Support Files */,
 			);
-			name = SnapKit;
 			path = SnapKit;
 			sourceTree = "<group>";
 		};
@@ -2785,7 +2779,6 @@
 				6C0797E6FD7A2C775EB8E1E614965544 /* TapURLSerializer.swift */,
 				B5FEBCB6BDE44734BADBB41EDC88011B /* Support Files */,
 			);
-			name = "TapNetworkKit-iOS";
 			path = "TapNetworkKit-iOS";
 			sourceTree = "<group>";
 		};
@@ -2866,7 +2859,6 @@
 				488703FBC51DACC7FBBCFE8EC8B21661 /* UserDefaults+Additions.swift */,
 				9531A35A0BC49DC5C74BEA4BA5031B5E /* Support Files */,
 			);
-			name = TapAdditionsKitV2;
 			path = TapAdditionsKitV2;
 			sourceTree = "<group>";
 		};
@@ -2898,7 +2890,6 @@
 				E408A5FBD7E5788D90025775565BD4D0 /* NBConfiguration.swift */,
 				98C573874068B1068921061BCEE165FB /* Support Files */,
 			);
-			name = NBBottomSheet;
 			path = NBBottomSheet;
 			sourceTree = "<group>";
 		};
@@ -2965,7 +2956,6 @@
 				A778823C0E3BD6921FAF604C01611788 /* TaskLoadImage.swift */,
 				44CE2A619CEDC45343938782FE10C920 /* Support Files */,
 			);
-			name = Nuke;
 			path = Nuke;
 			sourceTree = "<group>";
 		};
@@ -2990,7 +2980,6 @@
 				89F54F0D27D796FF943BCDA4B206BDC6 /* Resources */,
 				2F68A07FD815E30F82FA081AD144028F /* Support Files */,
 			);
-			name = "TapCardInputKit-iOS";
 			path = "TapCardInputKit-iOS";
 			sourceTree = "<group>";
 		};
@@ -3002,7 +2991,6 @@
 				01A5FCB34FE2286D6AB9A7B5662EF0FB /* Support Files */,
 				744B943FBB20F9A1A7651776E58DB431 /* Threading */,
 			);
-			name = TapSwiftFixesV2;
 			path = TapSwiftFixesV2;
 			sourceTree = "<group>";
 		};
@@ -3042,7 +3030,6 @@
 				D6C7426D04942CE9912FC6768C3354F6 /* Resources */,
 				BD73535E939C59F9B711CFE98AB5755A /* Support Files */,
 			);
-			name = "TapCardScanner-iOS";
 			path = "TapCardScanner-iOS";
 			sourceTree = "<group>";
 		};
@@ -3187,7 +3174,6 @@
 				3795F4B60B4AC9309625524F97F790C7 /* Resources */,
 				89F2D0BF7F1E47C07A65BBA9031D9F0A /* Support Files */,
 			);
-			name = TapThemeManager2020;
 			path = TapThemeManager2020;
 			sourceTree = "<group>";
 		};
@@ -3233,7 +3219,6 @@
 				E5B0CEDE03AE98E387C1EB49D4C58BAD /* TapApplePayToken.swift */,
 				9A27D051ABA8A2B3791377FCBF561442 /* Support Files */,
 			);
-			name = "TapApplePayKit-iOS";
 			path = "TapApplePayKit-iOS";
 			sourceTree = "<group>";
 		};
@@ -3344,7 +3329,6 @@
 				115BB71DEA290A62AD77255C695B9557 /* String+Additions.swift */,
 				3E4BAF6198CC365421BCA1958BFABBCB /* Support Files */,
 			);
-			name = TapKeychain;
 			path = TapKeychain;
 			sourceTree = "<group>";
 		};
@@ -3359,7 +3343,6 @@
 				F28A2402F74786FDDA1188753D3711FE /* DefinedCardBrand.swift */,
 				34B95F8D64370E08F83ADE82CCA938EC /* Support Files */,
 			);
-			name = "TapCardVlidatorKit-iOS";
 			path = "TapCardVlidatorKit-iOS";
 			sourceTree = "<group>";
 		};
@@ -3372,7 +3355,6 @@
 				741033E566C9ECD94B0A534138817E2A /* McTextField.swift */,
 				0EDD9C5FE6411D17FEE46FF285387985 /* Support Files */,
 			);
-			name = McPicker;
 			path = McPicker;
 			sourceTree = "<group>";
 		};
@@ -3426,7 +3408,6 @@
 				739CF207346613141BC5810E4196F58F /* UIKitExtensions.swift */,
 				C0F62C9C30D615C8AB5D9ADA7208AB07 /* Support Files */,
 			);
-			name = EasyTipView;
 			path = EasyTipView;
 			sourceTree = "<group>";
 		};
@@ -3450,7 +3431,6 @@
 				8AFE5CED7D593DBAF0F164CDA4F375D0 /* ObjC */,
 				D51D8C20F8728A22497DDDA55A8A4171 /* Support Files */,
 			);
-			name = SwiftyRSA;
 			path = SwiftyRSA;
 			sourceTree = "<group>";
 		};
@@ -3589,7 +3569,6 @@
 				B78D51EC73C20E12F141BF4F15C2938B /* Resources */,
 				211B65ADA1D1A230AB2709E374DC7068 /* Support Files */,
 			);
-			name = "CommonDataModelsKit-iOS";
 			path = "CommonDataModelsKit-iOS";
 			sourceTree = "<group>";
 		};
@@ -3804,7 +3783,7 @@
 			);
 			name = EasyTipView;
 			productName = EasyTipView;
-			productReference = 8A63F6AA6A1D241970B6D28C2970A8B9 /* EasyTipView */;
+			productReference = 8A63F6AA6A1D241970B6D28C2970A8B9 /* EasyTipView.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		062A64896E847A6749F58B6BA9A931B1 /* Nuke */ = {
@@ -3822,7 +3801,7 @@
 			);
 			name = Nuke;
 			productName = Nuke;
-			productReference = 2DAD7D76FC007F48AE48F2FD15BF01BB /* Nuke */;
+			productReference = 2DAD7D76FC007F48AE48F2FD15BF01BB /* Nuke.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		19622742EBA51E823D6DAE3F8CDBFAD4 /* SnapKit */ = {
@@ -3840,7 +3819,7 @@
 			);
 			name = SnapKit;
 			productName = SnapKit;
-			productReference = 979486118B3E90C08386079D57962701 /* SnapKit */;
+			productReference = 979486118B3E90C08386079D57962701 /* SnapKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		1CF0AD6C5098A55AD7DF9645E42E09E7 /* PullUpController */ = {
@@ -3858,7 +3837,7 @@
 			);
 			name = PullUpController;
 			productName = PullUpController;
-			productReference = 2CCD28338355003C3715B42023524748 /* PullUpController */;
+			productReference = 2CCD28338355003C3715B42023524748 /* PullUpController.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		3615B323ECE97BB00B6167A5847EF0FF /* TapCardVlidatorKit-iOS */ = {
@@ -3876,7 +3855,7 @@
 			);
 			name = "TapCardVlidatorKit-iOS";
 			productName = TapCardVlidatorKit_iOS;
-			productReference = D08AB4CD09B8D34CBDA2929E1E068EE4 /* TapCardVlidatorKit-iOS */;
+			productReference = D08AB4CD09B8D34CBDA2929E1E068EE4 /* TapCardVlidatorKit_iOS.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		473C08B3D856915C204623033941AC9D /* TapCardInputKit-iOS */ = {
@@ -3918,7 +3897,7 @@
 			);
 			name = "LocalisationManagerKit-iOS";
 			productName = LocalisationManagerKit_iOS;
-			productReference = 94BEB02876B701D94F72110FABD5A9CF /* LocalisationManagerKit-iOS */;
+			productReference = 94BEB02876B701D94F72110FABD5A9CF /* LocalisationManagerKit_iOS.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		4BB6A950A7EC459648E7DC212CB8D691 /* TapUIKit-iOS */ = {
@@ -3986,7 +3965,7 @@
 			);
 			name = NBBottomSheet;
 			productName = NBBottomSheet;
-			productReference = 91BC4F27F2DA380ABC44B3609495F0E1 /* NBBottomSheet */;
+			productReference = 91BC4F27F2DA380ABC44B3609495F0E1 /* NBBottomSheet.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		87D01FBA5C9E03D06F499B22E3F19026 /* TapKeychain */ = {
@@ -4004,7 +3983,7 @@
 			);
 			name = TapKeychain;
 			productName = TapKeychain;
-			productReference = 89D0F556A15858BEA39CCECFC1C3ABFD /* TapKeychain */;
+			productReference = 89D0F556A15858BEA39CCECFC1C3ABFD /* TapKeychain.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		92A1C13902E7ACDA3ABB5BA1FEACC86C /* SwiftyRSA */ = {
@@ -4022,7 +4001,7 @@
 			);
 			name = SwiftyRSA;
 			productName = SwiftyRSA;
-			productReference = 0DA4828908E30CE4A29CB9AD3A405635 /* SwiftyRSA */;
+			productReference = 0DA4828908E30CE4A29CB9AD3A405635 /* SwiftyRSA.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		9A8B22F15674A78FC57F1E9B3018E88B /* TapApplicationV2 */ = {
@@ -4041,7 +4020,7 @@
 			);
 			name = TapApplicationV2;
 			productName = TapApplicationV2;
-			productReference = B541E3114F01C49D046FB659F84AA747 /* TapApplicationV2 */;
+			productReference = B541E3114F01C49D046FB659F84AA747 /* TapApplicationV2.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		9A9B66AFC097DEF0813D59E11C47E490 /* TapNetworkKit-iOS */ = {
@@ -4078,7 +4057,7 @@
 			);
 			name = McPicker;
 			productName = McPicker;
-			productReference = 978909736F92A0D633842472D577F1D8 /* McPicker */;
+			productReference = 978909736F92A0D633842472D577F1D8 /* McPicker.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		A3DF3C18C03F8EAEC754928B8CBFE78B /* TapAdditionsKitV2 */ = {
@@ -4097,7 +4076,7 @@
 			);
 			name = TapAdditionsKitV2;
 			productName = TapAdditionsKitV2;
-			productReference = 84871724B175C65C3532EA38AF2E0265 /* TapAdditionsKitV2 */;
+			productReference = 84871724B175C65C3532EA38AF2E0265 /* TapAdditionsKitV2.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		A69E391A11C234F827CD955C6FE288C0 /* TapCardScanner-iOS */ = {
@@ -4178,7 +4157,7 @@
 			);
 			name = "CommonDataModelsKit-iOS";
 			productName = CommonDataModelsKit_iOS;
-			productReference = 324E7578413670459F2055EA9E908920 /* CommonDataModelsKit-iOS */;
+			productReference = 324E7578413670459F2055EA9E908920 /* CommonDataModelsKit_iOS.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		E216967D71699A6EF43A16A4B8B6D624 /* TapSwiftFixesV2 */ = {
@@ -4196,7 +4175,7 @@
 			);
 			name = TapSwiftFixesV2;
 			productName = TapSwiftFixesV2;
-			productReference = 7D9EAA1EED471F2AF96779DD393CCB73 /* TapSwiftFixesV2 */;
+			productReference = 7D9EAA1EED471F2AF96779DD393CCB73 /* TapSwiftFixesV2.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		F533AA510B62E4F3B56C094378F820D6 /* TapFontKit-iOS */ = {
@@ -4215,7 +4194,7 @@
 			);
 			name = "TapFontKit-iOS";
 			productName = TapFontKit_iOS;
-			productReference = 88F30235A5F5067E94B9AB6E8028F9B6 /* TapFontKit-iOS */;
+			productReference = 88F30235A5F5067E94B9AB6E8028F9B6 /* TapFontKit_iOS.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		F73BD4CA6A0B23F38687F2A3BB7E5EC7 /* TapThemeManager2020 */ = {
@@ -4235,7 +4214,7 @@
 			);
 			name = TapThemeManager2020;
 			productName = TapThemeManager2020;
-			productReference = 46981811FD24CCE9B64664CB5B681746 /* TapThemeManager2020 */;
+			productReference = 46981811FD24CCE9B64664CB5B681746 /* TapThemeManager2020.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		FD733E46CED5D29FA3399CF37CEFC535 /* Pods-CheckoutExample */ = {
@@ -4284,7 +4263,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1410;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 10.0";
@@ -5765,7 +5744,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/TapAdditionsKitV2/TapAdditionsKitV2-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/TapAdditionsKitV2/TapAdditionsKitV2-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5946,7 +5925,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/EasyTipView/EasyTipView-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/EasyTipView/EasyTipView-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5981,7 +5960,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/PullUpController/PullUpController-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/PullUpController/PullUpController-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6052,7 +6031,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/TapFontKit-iOS/TapFontKit-iOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/TapFontKit-iOS/TapFontKit-iOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6123,7 +6102,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/EasyTipView/EasyTipView-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/EasyTipView/EasyTipView-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6195,7 +6174,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/TapSwiftFixesV2/TapSwiftFixesV2-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/TapSwiftFixesV2/TapSwiftFixesV2-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6231,7 +6210,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/Nuke/Nuke-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/Nuke/Nuke-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6267,7 +6246,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/CommonDataModelsKit-iOS/CommonDataModelsKit-iOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/CommonDataModelsKit-iOS/CommonDataModelsKit-iOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6303,7 +6282,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/TapCardVlidatorKit-iOS/TapCardVlidatorKit-iOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/TapCardVlidatorKit-iOS/TapCardVlidatorKit-iOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6337,7 +6316,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/TapKeychain/TapKeychain-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/TapKeychain/TapKeychain-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6407,7 +6386,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/LocalisationManagerKit-iOS/LocalisationManagerKit-iOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/LocalisationManagerKit-iOS/LocalisationManagerKit-iOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6441,7 +6420,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/TapApplicationV2/TapApplicationV2-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/TapApplicationV2/TapApplicationV2-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6477,7 +6456,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SnapKit/SnapKit-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SnapKit/SnapKit-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6532,6 +6511,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -6614,7 +6594,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/TapThemeManager2020/TapThemeManager2020-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/TapThemeManager2020/TapThemeManager2020-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6669,6 +6649,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -6712,7 +6693,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SnapKit/SnapKit-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SnapKit/SnapKit-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6747,7 +6728,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/Nuke/Nuke-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/Nuke/Nuke-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6817,7 +6798,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/CommonDataModelsKit-iOS/CommonDataModelsKit-iOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/CommonDataModelsKit-iOS/CommonDataModelsKit-iOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6851,7 +6832,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/TapSwiftFixesV2/TapSwiftFixesV2-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/TapSwiftFixesV2/TapSwiftFixesV2-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6885,7 +6866,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/NBBottomSheet/NBBottomSheet-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/NBBottomSheet/NBBottomSheet-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6919,7 +6900,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/PullUpController/PullUpController-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/PullUpController/PullUpController-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6953,7 +6934,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/TapAdditionsKitV2/TapAdditionsKitV2-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/TapAdditionsKitV2/TapAdditionsKitV2-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6987,7 +6968,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/TapKeychain/TapKeychain-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/TapKeychain/TapKeychain-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -7022,7 +7003,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/TapApplicationV2/TapApplicationV2-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/TapApplicationV2/TapApplicationV2-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -7092,7 +7073,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/TapCardVlidatorKit-iOS/TapCardVlidatorKit-iOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/TapCardVlidatorKit-iOS/TapCardVlidatorKit-iOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -7127,7 +7108,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/McPicker/McPicker-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/McPicker/McPicker-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -7162,7 +7143,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/McPicker/McPicker-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/McPicker/McPicker-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -7197,7 +7178,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/TapThemeManager2020/TapThemeManager2020-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/TapThemeManager2020/TapThemeManager2020-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -7232,7 +7213,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SwiftyRSA/SwiftyRSA-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SwiftyRSA/SwiftyRSA-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -7303,7 +7284,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/TapFontKit-iOS/TapFontKit-iOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/TapFontKit-iOS/TapFontKit-iOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -7339,7 +7320,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/LocalisationManagerKit-iOS/LocalisationManagerKit-iOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/LocalisationManagerKit-iOS/LocalisationManagerKit-iOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -7411,7 +7392,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/NBBottomSheet/NBBottomSheet-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/NBBottomSheet/NBBottomSheet-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -7485,7 +7466,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SwiftyRSA/SwiftyRSA-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SwiftyRSA/SwiftyRSA-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

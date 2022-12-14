@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -53,13 +53,13 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="VLF-Re-aM8" secondAttribute="trailing" id="4eK-w4-mrf"/>
-                <constraint firstItem="or1-yo-2AD" firstAttribute="top" secondItem="CZk-jP-kZU" secondAttribute="bottom" priority="750" constant="8" id="5bI-D9-kXM"/>
+                <constraint firstItem="or1-yo-2AD" firstAttribute="top" secondItem="CZk-jP-kZU" secondAttribute="bottom" constant="8" id="5bI-D9-kXM"/>
                 <constraint firstItem="VLF-Re-aM8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Dna-gj-QlP"/>
                 <constraint firstItem="or1-yo-2AD" firstAttribute="leading" secondItem="CZk-jP-kZU" secondAttribute="leading" id="ENA-kU-aBy"/>
                 <constraint firstAttribute="trailing" secondItem="CZk-jP-kZU" secondAttribute="trailing" constant="16" id="Fda-Gy-8NT"/>
                 <constraint firstItem="or1-yo-2AD" firstAttribute="trailing" secondItem="CZk-jP-kZU" secondAttribute="trailing" id="HkT-c2-1U6"/>
                 <constraint firstItem="CZk-jP-kZU" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="OM3-6q-VAy"/>
-                <constraint firstItem="or1-yo-2AD" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="lfc-qu-aN1"/>
+                <constraint firstItem="or1-yo-2AD" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" priority="750" id="lfc-qu-aN1"/>
                 <constraint firstItem="VLF-Re-aM8" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="yBb-TV-koC"/>
                 <constraint firstItem="CZk-jP-kZU" firstAttribute="top" secondItem="VLF-Re-aM8" secondAttribute="bottom" id="ziM-T8-dVV"/>
             </constraints>
