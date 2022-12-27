@@ -12,6 +12,7 @@ import LocalisationManagerKit_iOS
 import CommonDataModelsKit_iOS
 import TapUIKit_iOS
 import TapApplicationV2
+import PassKit
 
 /// A protocol to comminicate between the UIManager and the data manager
 internal protocol TapCheckoutSharedManagerUIDelegate {
@@ -200,6 +201,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      - Parameter collectCreditCardName: Decides whether or not, the card input should collect the card holder name. Default is false
      - Parameter enableApiLogging: Defines if you want to print the api calls. This is very helpful for you as a developer
      - Parameter isSubscription: Defines if you want to make a subscription based transaction. Default is false
+     - Parameter recurringPaymentRequest: Defines the recurring payment request Please check [Apple Pay docs](https://developer.apple.com/documentation/passkit/pkrecurringpaymentrequest). NOTE: This will only be availble for iOS 16+ and subscripion parameter is on.
      - Parameter showSaveCreditCard:Decides whether or not, the card input should show save card option for Tap and Merchant sides. Default is None
      */
     @objc public func build(
@@ -237,6 +239,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         collectCreditCardName:Bool = false,
         showSaveCreditCard:SaveCardType = .None,
         isSubscription:Bool = false,
+        recurringPaymentRequest:Any? = nil,
         onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
         
         // Do the pre steps needed before starting a new SDK session

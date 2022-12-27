@@ -11,6 +11,7 @@ import Foundation
 import CommonDataModelsKit_iOS
 import TapUIKit_iOS
 import TapThemeManager2020
+import PassKit
 
 /// An extensions that groups methods related to configuring other Tap Kits before starting the checkout SDK itself
 internal extension TapCheckout {
@@ -93,6 +94,7 @@ internal extension TapCheckout {
      - Parameter collectCreditCardName: Decides whether or not, the card input should collect the card holder name. Default is false
      - Parameter showSaveCreditCard: Decides whether or not, the card input should show save card option. Default is false
      - Parameter isSubscription: Defines if you want to make a subscription based transaction. Default is false
+     - Parameter recurringPaymentRequest: Defines the recurring payment request Please check [Apple Pay docs](https://developer.apple.com/documentation/passkit/pkrecurringpaymentrequest). NOTE: This will only be availble for iOS 16+ and subscripion parameter is on.
      */
     func configureSharedManager(currency:TapCurrencyCode,
                                 amount:Double,
@@ -121,7 +123,8 @@ internal extension TapCheckout {
                                 isSaveCardSwitchOnByDefault: Bool = true,
                                 collectCreditCardName:Bool = false,
                                 showSaveCreditCard:SaveCardType = .None,
-                                isSubscription:Bool = false
+                                isSubscription:Bool = false,
+                                recurringPaymentRequest:Any? = nil
     ) {
         
         
@@ -159,6 +162,17 @@ internal extension TapCheckout {
         sharedManager.dataHolder.transactionData.enableSaveCard                 = enableSaveCard
         sharedManager.dataHolder.transactionData.isSaveCardSwitchOnByDefault    = isSaveCardSwitchOnByDefault
         
+        // Correctly set the recurring payment request
+        if #available(iOS 16.0, *),
+           isSubscription,
+           let correctRequest:PKRecurringPaymentRequest = recurringPaymentRequest as?  PKRecurringPaymentRequest {
+            sharedManager.dataHolder.transactionData.isSubscription = true
+            sharedManager.dataHolder.transactionData.recurringPaymentRequest = correctRequest
+        } else {
+            // Fallback on earlier versions
+            sharedManager.dataHolder.transactionData.isSubscription = false
+            sharedManager.dataHolder.transactionData.recurringPaymentRequest = nil
+        }
         
         // if items has no items, we need to add the default items
         if items == [] {

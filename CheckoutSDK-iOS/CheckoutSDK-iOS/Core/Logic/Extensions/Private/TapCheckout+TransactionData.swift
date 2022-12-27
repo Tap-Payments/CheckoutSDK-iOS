@@ -9,6 +9,7 @@
 import Foundation
 import TapUIKit_iOS
 import CommonDataModelsKit_iOS
+import PassKit
 
 /// Protocol to instruct parent upon important data changes to act upon
 internal protocol TapCheckoutDataHolderDelegate {
@@ -309,6 +310,8 @@ internal class TransactionDataHolder {
     /// Default is `true`.
     var allowsToSaveSameCardMoreThanOnce: Bool = true
     
+    /// Defines the recurring payment request Please check [Apple Pay docs](https://developer.apple.com/documentation/passkit/pkrecurringpaymentrequest). NOTE: This will only be availble for iOS 16+ and subscripion parameter is on.
+    var recurringPaymentRequest: Any? = nil
     
     //// Defines if you want to make a subscription based transaction. Default is false
     var isSubscription:Bool = false
