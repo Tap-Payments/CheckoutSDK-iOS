@@ -111,7 +111,8 @@ internal extension TapCheckout {
                                                        applePayButtonType: applePayButtonStyle,
                                                        paymentItems: applePayItems,
                                                        amount: dataHolder.transactionData.transactionUserCurrencyValue.amount,
-                                                       merchantID: dataHolder.transactionData.applePayMerchantID)
+                                                       merchantID: dataHolder.transactionData.applePayMerchantID,
+                                                       recurringPaymentRequest: dataHolder.transactionData.recurringPaymentRequest)
         
     }
     

@@ -8,6 +8,7 @@
 
 import UIKit
 import CheckoutSDK_iOS
+import PassKit
 
 class ViewController: UIViewController {
    
@@ -140,10 +141,12 @@ class ViewController: UIViewController {
             customer: try! .init(emailAddress: .with("osamaguc@gmail.com"), phoneNumber: nil, name: "Osama Ahmed Helmy", address: nil),
             tapMerchantID: "599424",
             taxes: [],
-            shipping: .init(name: "Shipping 1", descriptionText: "Descrtiption", amount: 10, currency: .KWD, recipientName: "OSAMA AHMED", address: tempAdddress, provider: .init(id:"",name:"aramex")),
+            shipping: nil,//.init(name: "Shipping 1", descriptionText: "Descrtiption", amount: 10, currency: .KWD, recipientName: "OSAMA AHMED", address: tempAdddress, provider: .init(id:"",name:"aramex")),
             require3DSecure: true,
             sdkMode: .sandbox,
             showSaveCreditCard: .All,
+            isSubscription: true,
+            recurringPaymentRequest: generateRecurring(),
             onCheckOutReady: {[weak self] tapCheckOut in
                 DispatchQueue.main.async() {
                     tapCheckOut.start(presentIn: self)
@@ -161,6 +164,25 @@ class ViewController: UIViewController {
         viewController.delegate = self
         present(viewController, animated: true)
     }
+    
+    
+    func generateRecurring() -> Any? {
+        
+        if #available(iOS 16.0, *) {
+            let billing = PKRecurringPaymentSummaryItem(label: "My Subscription", amount: NSDecimalNumber(string: "59.99"))
+            billing.startDate = Date()
+            billing.endDate = Date().addingTimeInterval(60 * 60 * 24 * 365)
+            billing.intervalUnit = .month
+            let recurringRequest:PKRecurringPaymentRequest = PKRecurringPaymentRequest(paymentDescription: "Recurring",
+                                                                             regularBilling: billing,
+                                                                             managementURL: URL(string: "https://my-backend.example.com/customer-portal")!)
+            recurringRequest.billingAgreement = "You'll be billed $59.99 every month for the next 12 months. To cancel at any time, go to Account and click 'Cancel Membership.'"
+            return recurringRequest
+        } else {
+            return nil
+        }
+    }
+    
 }
 
 extension ViewController: SettingsDelegate {
@@ -338,5 +360,6 @@ extension UIViewController {
 
 //MARK:- CHANGED FILE NAMES
 /**
- 
+ TapApplePayKit-iOS/TapApplePayKit-iOS/Core/public/Models/TapApplePayRequest.swift
+ TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapChip/Views/Chips/ApplePayChip/ApplePayChipViewCellModel.swift
  */
