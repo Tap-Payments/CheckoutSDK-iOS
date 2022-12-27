@@ -310,6 +310,10 @@ internal class TransactionDataHolder {
     var allowsToSaveSameCardMoreThanOnce: Bool = true
     
     
+    //// Defines if you want to make a subscription based transaction. Default is false
+    var isSubscription:Bool = false
+    
+    
     /// Defines if the customer can save his card for upcoming payments
     /// Default is `true`.
     var enableSaveCard: Bool = true

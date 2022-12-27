@@ -92,6 +92,7 @@ internal extension TapCheckout {
      - Parameter isSaveCardSwitchOnByDefault: Defines if save card switch is on by default.. Default is `true`.
      - Parameter collectCreditCardName: Decides whether or not, the card input should collect the card holder name. Default is false
      - Parameter showSaveCreditCard: Decides whether or not, the card input should show save card option. Default is false
+     - Parameter isSubscription: Defines if you want to make a subscription based transaction. Default is false
      */
     func configureSharedManager(currency:TapCurrencyCode,
                                 amount:Double,
@@ -119,7 +120,8 @@ internal extension TapCheckout {
                                 enableSaveCard: Bool = true,
                                 isSaveCardSwitchOnByDefault: Bool = true,
                                 collectCreditCardName:Bool = false,
-                                showSaveCreditCard:SaveCardType = .None
+                                showSaveCreditCard:SaveCardType = .None,
+                                isSubscription:Bool = false
     ) {
         
         

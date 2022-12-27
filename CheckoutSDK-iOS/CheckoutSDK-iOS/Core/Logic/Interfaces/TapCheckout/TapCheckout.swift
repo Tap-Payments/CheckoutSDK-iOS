@@ -199,6 +199,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      - Parameter sdkMode: Defines the mode sandbox or production the sdk will perform this transaction on. Please check [SDKMode](x-source-tag://SDKMode)
      - Parameter collectCreditCardName: Decides whether or not, the card input should collect the card holder name. Default is false
      - Parameter enableApiLogging: Defines if you want to print the api calls. This is very helpful for you as a developer
+     - Parameter isSubscription: Defines if you want to make a subscription based transaction. Default is false
      - Parameter showSaveCreditCard:Decides whether or not, the card input should show save card option for Tap and Merchant sides. Default is None
      */
     @objc public func build(
@@ -235,6 +236,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         enableApiLogging:Bool = true,
         collectCreditCardName:Bool = false,
         showSaveCreditCard:SaveCardType = .None,
+        isSubscription:Bool = false,
         onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
         
         // Do the pre steps needed before starting a new SDK session
