@@ -38,6 +38,7 @@ class SettingsViewController: UIViewController {
         settingsList.removeAll()
         settingsList.append(.Language)
         settingsList.append(.Localisation)
+        settingsList.append(.SDKMode)
         settingsList.append(.TransactionMode)
         settingsList.append(.Theme)
         settingsList.append(.Currency)
@@ -45,6 +46,9 @@ class SettingsViewController: UIViewController {
         settingsList.append(.CloseButtonTitle)
         settingsList.append(.PyamentOptions)
         settingsList.append(.Customer)
+        if #available(iOS 16.0, *) {
+            settingsList.append(.ApplePaySubscription)
+        }
     }
 }
 
@@ -92,6 +96,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.detailTextLabel?.text = getCustomerName()
             case .TransactionMode:
                 cell.detailTextLabel?.text = tapSettings.transactionMode.description
+            case .ApplePaySubscription:
+                cell.detailTextLabel?.text = ""
             default: break
             }
             return cell

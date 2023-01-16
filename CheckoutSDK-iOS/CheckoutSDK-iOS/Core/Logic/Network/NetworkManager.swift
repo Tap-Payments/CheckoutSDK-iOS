@@ -13,6 +13,8 @@ import CommonDataModelsKit_iOS
 
 internal protocol NetworkManagerDelegate {
     func apiCallInProgress(status:Bool)
+    /// Inform the delegate that network manager wants to log a peice of info
+    func log(string:String)
 }
 
 /// The shared network manager related to configure the network/api class between the SDK and the Server
@@ -23,7 +25,7 @@ internal class NetworkManager: NSObject {
     var delegate:NetworkManagerDelegate?
     /// The static headers to be sent with every call/request
     private var headers:[String:String] {
-      return  NetworkManager.staticHTTPHeaders
+        return  NetworkManager.staticHTTPHeaders
     }
     private var networkManager: TapNetworkManager
     /// The server base url
@@ -39,7 +41,9 @@ internal class NetworkManager: NSObject {
     
     private override init () {
         networkManager = TapNetworkManager(baseURL: URL(string: baseURL)!)
+        super.init()
         networkManager.loggedInApiCalls = []
+        networkManager.delegate = self
     }
     
     /// Used to clear any previous api stack trace log
@@ -113,4 +117,13 @@ internal class NetworkManager: NSObject {
         // All good!
         return nil
     }
+}
+
+
+extension NetworkManager:TapNetworkManagerDelegate {
+    
+    func log(string: String) {
+        delegate?.log(string: string)
+    }
+    
 }

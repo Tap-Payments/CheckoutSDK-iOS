@@ -183,6 +183,8 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
             self!.sharedCheckoutDataManager.dataHolder.viewModels.tapCurrienciesChipHorizontalListViewModel.attachedView.alpha = 0
             self!.sharedCheckoutDataManager.dataHolder.viewModels.tapItemsTableViewModel.attachedView.alpha = 0
             self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deselectAll()
+            self!.sharedCheckoutDataManager.resetCardData(shouldFireCardDataChanged: false)
+            CardValidator.favoriteCardBrand = nil
             self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.dataHolder.viewModels.tapCurrienciesChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapItemsTableViewModel.attachedView], with: [.init(for: .fadeIn, with:self!.fadeInAnimationDuration, wait: self!.fadeInAnimationDelay)])
             if let locale = TapLocalisationManager.shared.localisationLocale, locale == "ar" {
                 //self?.sharedCheckoutDataManager.dataHolder.viewModels.tapCurrienciesChipHorizontalListViewModel.refreshLayout()
@@ -280,6 +282,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         // Reset data
         sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deselectAll()
         sharedCheckoutDataManager.resetCardData(shouldFireCardDataChanged: false)
+        CardValidator.favoriteCardBrand = nil
         // Adjust the button back
         sharedCheckoutDataManager.chanegActionButton(status: .InvalidPayment, actionBlock: nil)
         // Add back the default views & reset the

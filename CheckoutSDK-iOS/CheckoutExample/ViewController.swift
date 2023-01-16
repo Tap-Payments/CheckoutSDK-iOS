@@ -170,13 +170,23 @@ class ViewController: UIViewController {
         
         if #available(iOS 16.0, *) {
             let billing = PKRecurringPaymentSummaryItem(label: "My Subscription", amount: NSDecimalNumber(string: "59.99"))
-            billing.startDate = Date()
+            billing.startDate = Date().addingTimeInterval(60 * 60 * 24 * 7)
             billing.endDate = Date().addingTimeInterval(60 * 60 * 24 * 365)
             billing.intervalUnit = .month
             let recurringRequest:PKRecurringPaymentRequest = PKRecurringPaymentRequest(paymentDescription: "Recurring",
                                                                              regularBilling: billing,
                                                                              managementURL: URL(string: "https://my-backend.example.com/customer-portal")!)
             recurringRequest.billingAgreement = "You'll be billed $59.99 every month for the next 12 months. To cancel at any time, go to Account and click 'Cancel Membership.'"
+            
+            
+            
+            
+            let billingTrail = PKRecurringPaymentSummaryItem(label: "My Subscription Trail", amount: NSDecimalNumber(string: "0"))
+            billingTrail.startDate = Date()
+            billingTrail.endDate = Date().addingTimeInterval(60 * 60 * 24 * 7)
+            billing.intervalUnit = .month
+            recurringRequest.trialBilling = billing
+            
             return recurringRequest
         } else {
             return nil

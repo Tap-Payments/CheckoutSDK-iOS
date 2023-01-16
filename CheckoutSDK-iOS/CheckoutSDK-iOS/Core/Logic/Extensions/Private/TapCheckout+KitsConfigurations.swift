@@ -15,7 +15,7 @@ import PassKit
 
 /// An extensions that groups methods related to configuring other Tap Kits before starting the checkout SDK itself
 internal extension TapCheckout {
- 
+    
     
     /// Configures the bottom sheet by creating one and assigning the correct delegates and datasources
     func configureBottomSheet() {
@@ -44,7 +44,7 @@ internal extension TapCheckout {
         // Check if the user provided a custom localisation file to use and it is a correct and a reachable one
         // Depends on the type of the localisation whether remote or locale
         guard let nonNullLocalisationModel = localiseFile,
-        let nonNullLocaltionType = nonNullLocalisationModel.localisationType else { return }
+              let nonNullLocaltionType = nonNullLocalisationModel.localisationType else { return }
         let _ = sharedLocalisationManager.configureLocalisation(with: nonNullLocalisationModel.filePath, or: nonNullLocalisationModel.localisationData, from: nonNullLocaltionType)
     }
     

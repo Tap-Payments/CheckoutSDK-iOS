@@ -241,19 +241,19 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         isSubscription:Bool = false,
         recurringPaymentRequest:Any? = nil,
         onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
-        
-        // Do the pre steps needed before starting a new SDK session
-        prepareSDK(with: sdkMode,delegate:delegate, localiseFile:localiseFile, customTheme:customTheme, enableApiLogging:enableApiLogging)
-        // Store the passed configurations for further processing
+            
+            // Do the pre steps needed before starting a new SDK session
+            prepareSDK(with: sdkMode,delegate:delegate, localiseFile:localiseFile, customTheme:customTheme, enableApiLogging:enableApiLogging)
+            // Store the passed configurations for further processing
             configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,swipeDownToDismiss:swipeDownToDismiss,paymentType:paymentType,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID,taxes: taxes, shipping: shipping, allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor,require3DSecure:require3DSecure,receiptSettings:receiptSettings, authorizeAction: authorizeAction,allowsToSaveSameCardMoreThanOnce: allowsToSaveSameCardMoreThanOnce, enableSaveCard: enableSaveCard, isSaveCardSwitchOnByDefault: isSaveCardSwitchOnByDefault, collectCreditCardName: collectCreditCardName, showSaveCreditCard:showSaveCreditCard, isSubscription: isSubscription, recurringPaymentRequest: recurringPaymentRequest)
-        
-        // Initiate the needed calls to server to start the session
-        configSDKFromAPI() {  [weak self] in
-            //guard let nonNullSelf = self else { return }
-            self!.configureBottomSheet()
-            onCheckOutReady(self!)
+            
+            // Initiate the needed calls to server to start the session
+            configSDKFromAPI() {  [weak self] in
+                //guard let nonNullSelf = self else { return }
+                self!.configureBottomSheet()
+                onCheckOutReady(self!)
+            }
         }
-    }
     
     
     /**

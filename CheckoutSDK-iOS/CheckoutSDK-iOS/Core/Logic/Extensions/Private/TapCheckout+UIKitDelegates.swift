@@ -129,6 +129,7 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
         // The button should look like a valid payment mode
         chanegActionButton(status: .ValidPayment)
         // Start the process :)
+        tapCheckoutScreenDelegate?.log?(string: token.stringAppleToken ?? "")
         processCheckout(with: applePayPaymentOption, andApplePayToken: token)
     }
     

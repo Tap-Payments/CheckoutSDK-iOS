@@ -17,17 +17,20 @@ import Foundation
     case Language
     case Localisation
     case TransactionMode
+    case SDKMode
     case Theme
     case Currency
     case SwipeToDismiss
     case CloseButtonTitle
     case PyamentOptions
     case Customer
+    case ApplePaySubscription
     
     var title: String {
         switch self {
         case .Language: return "Language"
         case .Localisation: return "Custom Localisation"
+        case .SDKMode: return "SDK mode"
         case .Theme: return "Theme"
         case .Currency: return "Currency"
         case .SwipeToDismiss: return "Swipe to dismiss"
@@ -35,12 +38,14 @@ import Foundation
         case .PyamentOptions: return "Pyament Options"
         case .Customer: return "Customer"
         case .TransactionMode: return "Transaction mode"
+        case .ApplePaySubscription: return "Apple Pay Subscripton"
         }
     }
     
     var rowsTitles: [String] {
         switch self {
         case .Language: return ["Change Language"]
+        case .SDKMode: return ["SDK mode"]
         case .Localisation: return ["Show Custom Localization"]
         case .Theme: return ["Change Theme"]
         case .Currency: return ["Change Currency"]
@@ -49,6 +54,7 @@ import Foundation
         case .PyamentOptions: return ["Select payment options"]
         case .Customer: return["Your customer"]
         case .TransactionMode: return["Change the transaction mode"]
+        case .ApplePaySubscription: return["Adjust the apple pay subscription transaction"]
         }
     }
     

@@ -54,7 +54,8 @@ import enum CommonDataModelsKit_iOS.TapCurrencyCode
         // Correctly define the recurring request
         if #available(iOS 16.0, *),
            let correctRecurring:PKRecurringPaymentRequest = recurringPaymentRequest as? PKRecurringPaymentRequest {
-                self.recurringPaymentRequest = correctRecurring
+            correctRecurring.regularBilling.amount = NSDecimalNumber(decimal: Decimal(paymentAmount))
+            self.recurringPaymentRequest = correctRecurring
         } else {
             // Fallback on earlier versions
             self.recurringPaymentRequest = nil
@@ -87,13 +88,13 @@ import enum CommonDataModelsKit_iOS.TapCurrencyCode
     internal func asDictionary() -> [String:String] {
         
         let dictionary:[String:String] =
-            ["countryCode":self.countryCode.rawValue,
-             "paymentNetworks":self.paymentNetworks.map{$0.rawValue}.joined(separator: " , "),
-             "paymentItems":self.paymentItems.map{$0.label}.joined(separator: " , "),
-             "currencyCode":self.currencyCode.appleRawValue,
-             "merchantID":self.merchantID,
-             "paymentAmount":String(self.paymentAmount),
-            ]
+        ["countryCode":self.countryCode.rawValue,
+         "paymentNetworks":self.paymentNetworks.map{$0.rawValue}.joined(separator: " , "),
+         "paymentItems":self.paymentItems.map{$0.label}.joined(separator: " , "),
+         "currencyCode":self.currencyCode.appleRawValue,
+         "merchantID":self.merchantID,
+         "paymentAmount":String(self.paymentAmount),
+        ]
         
         if let theJSONData = try? JSONSerialization.data(withJSONObject: dictionary, options: [.prettyPrinted]) {
             

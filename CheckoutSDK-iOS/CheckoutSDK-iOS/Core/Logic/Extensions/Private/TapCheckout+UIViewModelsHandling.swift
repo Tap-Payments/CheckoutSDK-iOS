@@ -37,7 +37,7 @@ internal extension TapCheckout {
         // Make sure we have a loyalty view model and it does support the new selected currency first
         guard let nonNullViewModel = dataHolder.viewModels.tapLoyaltyViewModel,
               let supportedLoyaltyCurrencies:[TapCurrencyCode] = nonNullViewModel.loyaltyModel?.supportedCurrencies?.map({ $0.currency?.currency ?? .undefined }),
-        supportedLoyaltyCurrencies.contains(dataHolder.viewModels.currentUsedCurrency) else {
+              supportedLoyaltyCurrencies.contains(dataHolder.viewModels.currentUsedCurrency) else {
             return
         }
         
@@ -181,12 +181,12 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
     fileprivate func fetchGateways(_ paymentOptions: TapPaymentOptionsReponseModel) {
         // Now let us add everything allowed except for saved cards in the next step
         self.dataHolder.viewModels.gatewayChipsViewModel = (
-                    // Filter out the saved card payment options
-                    paymentOptions.paymentOptions.filter{ $0.paymentType != .Card }
-                    // Filter out apple pay if the device is not allowed to perform any apple pay transactions
-                        .filter{ $0.paymentType != .ApplePay || ($0.paymentType == .ApplePay && PKPaymentAuthorizationController.canMakePayments(usingNetworks: $0.applePayNetworkMapper())) }
-                    // Filter the matching the payment options
-                    .filter{ (dataHolder.transactionData.paymentType == .All || dataHolder.transactionData.paymentType == $0.paymentType || $0.paymentType == .All)}).map{ ChipWithCurrencyModel.init(paymentOption: $0) }
+            // Filter out the saved card payment options
+            paymentOptions.paymentOptions.filter{ $0.paymentType != .Card }
+            // Filter out apple pay if the device is not allowed to perform any apple pay transactions
+                .filter{ $0.paymentType != .ApplePay || ($0.paymentType == .ApplePay && PKPaymentAuthorizationController.canMakePayments(usingNetworks: $0.applePayNetworkMapper())) }
+            // Filter the matching the payment options
+                .filter{ (dataHolder.transactionData.paymentType == .All || dataHolder.transactionData.paymentType == $0.paymentType || $0.paymentType == .All)}).map{ ChipWithCurrencyModel.init(paymentOption: $0) }
         
         // Fetch the merchant saved card if cards are allowed
         if dataHolder.transactionData.paymentType == .All || dataHolder.transactionData.paymentType == .Card {
@@ -296,7 +296,7 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         
         // Load the goPayLogin status
         dataHolder.transactionData.loggedInToGoPay = false//UserDefaults.standard.bool(forKey: TapCheckoutConstants.GoPayLoginUserDefaultsKey)
-      
+        
         // Fetch the cards + telecom payments options
         self.dataHolder.viewModels.tapCardPhoneListDataSource = paymentOptions.paymentOptions.filter{ (dataHolder.transactionData.paymentType == .Card || dataHolder.transactionData.paymentType == .All) && $0.paymentType == .Card }.map{ CurrencyCardsTelecomModel.init(paymentOption: $0) }
         
@@ -311,7 +311,7 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         let sharedManager = TapCheckout.sharedCheckoutManager()
         
         switch sharedManager.dataHolder.transactionData.transactionMode {
-        
+            
         case .purchase,.authorizeCapture:
             // nothing to do as we will show all views in those modes
             break
@@ -423,5 +423,8 @@ extension TapCheckout:NetworkManagerDelegate {
     func apiCallInProgress(status: Bool) {
         TapCheckout.sharedCheckoutManager().UIDelegate?.enableInteraction(with: !status)
     }
+    
+    func log(string: String) {
+        tapCheckoutScreenDelegate?.log?(string: string)
+    }
 }
-

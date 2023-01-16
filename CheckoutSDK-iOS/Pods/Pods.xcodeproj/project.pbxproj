@@ -644,6 +644,7 @@
 		E75B24E8DFC2411EF15F8D49EECCE86A /* CardTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B09AC722993A6AADEB60AB3A71803D /* CardTypeEnum.swift */; };
 		E7F48CBB0A469127035E86D05B929515 /* TapScannerProtocl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58CFD8879F14DDAA495B847E09B85BA /* TapScannerProtocl.swift */; };
 		E7FCF0191C973E06C653FDC07ADF22EC /* ExtensionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C7992F8398E57B1255C91C3BA1A182 /* ExtensionProtocols.swift */; };
+		E826ABA629701D3B0074E55A /* Black-loader.gif in Resources */ = {isa = PBXBuildFile; fileRef = E826ABA529701D3B0074E55A /* Black-loader.gif */; };
 		E8485FD9E4232702416F26CFF9927AAE /* TapGoPaySignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CAD3F92F7712241FC91FCBA6E674C2 /* TapGoPaySignInView.swift */; };
 		E887737D976704D5C57E9C89F1D06A5A /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01881E0A2B5F390F82557ACE7F3F1F61 /* CameraView.swift */; };
 		E98D8DC3E250A38632BD27226FD143EB /* TapPaymentOptionsReponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A04EDCFC505B54C63DD6B4033F323C /* TapPaymentOptionsReponseModel.swift */; };
@@ -1974,6 +1975,7 @@
 		E75E5BC2DDC85F337FC6DBD9E441CA84 /* TapThemeManager2020.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = TapThemeManager2020.release.xcconfig; sourceTree = "<group>"; };
 		E7C7AF6090EF2F6EDE3E148A99C4268D /* TapGenericTableCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = TapGenericTableCell.xib; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/TapGenericTableCell.xib"; sourceTree = "<group>"; };
 		E7C8B1E576392749D995909A5F7E676A /* TapCardInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapCardInput.swift; path = "TapCardInputKit-iOS/Core/Public/CardInput/TapCardInput.swift"; sourceTree = "<group>"; };
+		E826ABA529701D3B0074E55A /* Black-loader.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Black-loader.gif"; sourceTree = "<group>"; };
 		E834FFE878CF2DC57A79FE3CAC3F2CC1 /* TapSwitchModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapSwitchModel.swift; path = "TapUIKit-iOS/TapUIKit-iOS/Core/TapSwitchView/Models/TapSwitchModel.swift"; sourceTree = "<group>"; };
 		E83F08884EBE936EF575BA4F4C45A44A /* TapCreateCardVerificationRequestModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapCreateCardVerificationRequestModel.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/models/APiModels/TapCardVerifyRequest/TapCreateCardVerificationRequestModel.swift"; sourceTree = "<group>"; };
 		E877454F10CB5E42234DE12F82690518 /* ConstraintItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintItem.swift; path = Sources/ConstraintItem.swift; sourceTree = "<group>"; };
@@ -2690,6 +2692,7 @@
 		4A8F66FE3080760E758285D9ABCA70AF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E826ABA529701D3B0074E55A /* Black-loader.gif */,
 				BABD0A81A6633B3BD52D479A1AFBC439 /* 3sec-white-loader-2.gif */,
 				92393B0812C0E8E9BFAAF8ED6FE3B604 /* ApplePayChipCollectionViewCell.xib */,
 				0B28CC798E90045DFE19E2009501892B /* CountryCodeTableViewCell.xib */,
@@ -4544,6 +4547,7 @@
 				9CD4F959E7DE12A8BFAC9A5164A1522A /* TapInternalSaveCard.xib in Resources */,
 				D2754F01C3BA0D8CECFC7FD495EF5F35 /* tapLogo.png in Resources */,
 				D729A610C855C3F85C530611CA298B27 /* TapLogoutChipCollectionViewCell.xib in Resources */,
+				E826ABA629701D3B0074E55A /* Black-loader.gif in Resources */,
 				DADAFAF4C6A2EA810456585BB2996D33 /* TapLoyaltyAmountView.xib in Resources */,
 				0F68F6F4413D1FA33B7E8A1E19718511 /* TapLoyaltyFooterView.xib in Resources */,
 				B4E732A702CCEC089019A2B1B11C62F8 /* TapLoyaltyHeaderView.xib in Resources */,

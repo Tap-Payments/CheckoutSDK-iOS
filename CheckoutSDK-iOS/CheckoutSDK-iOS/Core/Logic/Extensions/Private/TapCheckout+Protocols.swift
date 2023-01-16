@@ -16,6 +16,10 @@ import TapUIKit_iOS
 
 /// A protocol to communicate with the Presente tap sheet controller
 @objc public protocol CheckoutScreenDelegate {
+    
+    /// Inform the delegate that we may need log some strings for further analysis
+    @objc optional func log(string:String)
+    
     /**
      Will be fired just before the sheet is dismissed
      */
