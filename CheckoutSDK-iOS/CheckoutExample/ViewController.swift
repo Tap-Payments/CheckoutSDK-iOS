@@ -130,7 +130,7 @@ class ViewController: UIViewController {
             localiseFile: nil,//TapCheckoutLocalisation(with: URL(string: "https://menoalmotasel.online/CustomLocalisation.json")!, from:.RemoteJsonFile),
             customTheme: customTheme,
             delegate: self,
-            currency: .KWD,
+            currency: tapSettings.currency,
             amount: amount,
             items: getPaymentItems(),
             swipeDownToDismiss: swipeToDismiss,

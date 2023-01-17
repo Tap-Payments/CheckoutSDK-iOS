@@ -33,7 +33,7 @@ internal extension TapCheckout {
         // For non amount based modes like save or tokenize these values are not needed
         if dataHolder.transactionData.transactionMode == .purchase || dataHolder.transactionData.transactionMode == .authorizeCapture {
             // We need to add the following to the title {CurrencySymbol Amount}
-            customAppendedTitle = "\(dataHolder.transactionData.transactionUserCurrencyValue.displaybaleSymbol) \(dataHolder.transactionData.transactionUserCurrencyValue.amount)"
+            customAppendedTitle = dataHolder.viewModels.tapAmountSectionViewModel.convertedTransactionCurrency.currency != .undefined ? dataHolder.viewModels.tapAmountSectionViewModel.convertedTransactionAmountFormated : dataHolder.viewModels.tapAmountSectionViewModel.originalTransactionAmountFormated //"\(dataHolder.transactionData.transactionUserCurrencyValue.displaybaleSymbol) \(dataHolder.transactionData.transactionUserCurrencyValue.amount)"
             print(customAppendedTitle)
         }
         dataHolder.viewModels.tapActionButtonViewModel.appendCustomTitle = customAppendedTitle
@@ -44,6 +44,7 @@ internal extension TapCheckout {
         // Apply the changes of user currency and total amount into the Amount view model
         dataHolder.viewModels.tapAmountSectionViewModel.convertedTransactionCurrency = dataHolder.transactionData.transactionUserCurrencyValue
         dataHolder.viewModels.tapAmountSectionViewModel.originalTransactionCurrency  = dataHolder.transactionData.transactionCurrencyValue
+        dataHolder.viewModels.tapAmountSectionViewModel.configureItemsLabel()
     }
     
     /// Handles all the logic needed when the amount or the user selected currency changed to reflect in the Loyalty section view
@@ -280,15 +281,20 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         // Double check
         guard let paymentOptions = dataHolder.transactionData.paymentOptionsModelResponse else { return }
         
-        // Fetch the list of supported currencies
-        self.dataHolder.viewModels.currenciesChipsViewModel = paymentOptions.supportedCurrenciesAmounts.map{ CurrencyChipViewModel.init(currency: $0,icon: $0.cdnFlag) }
-        
         // Set the custom symbols to display with currencies as we got from backend
         TapAmountedCurrencyFormatter.customCurrencySymbols = [:]
         
         paymentOptions.supportedCurrenciesAmounts.forEach { currency in
             TapAmountedCurrencyFormatter.customCurrencySymbols?[currency.currency.rawValue] = currency.displaybaleSymbol
         }
+        
+        // Set the transction currency to the one matching the object we got from the backend
+        if let backendCurrencyModel:AmountedCurrency = paymentOptions.supportedCurrenciesAmounts.first(where: { $0.currency.appleRawValue == self.dataHolder.transactionData.transactionCurrencyValue.currency.appleRawValue }) {
+            self.dataHolder.transactionData.transactionCurrencyValue = backendCurrencyModel
+        }
+        
+        // Fetch the list of supported currencies
+        self.dataHolder.viewModels.currenciesChipsViewModel = paymentOptions.supportedCurrenciesAmounts.map{ CurrencyChipViewModel.init(currency: $0,icon: $0.cdnFlag) }
         
         // Now after getting the list, let us map them to the currencies chips view model
         self.dataHolder.viewModels.tapCurrienciesChipHorizontalListViewModel = .init(dataSource: dataHolder.viewModels.currenciesChipsViewModel, headerType: .NoHeader,selectedChip: dataHolder.viewModels.currenciesChipsViewModel.filter{ $0.currency == dataHolder.transactionData.transactionUserCurrencyValue }[0])

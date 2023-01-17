@@ -350,10 +350,13 @@ internal class TransactionDataHolder {
     /// Represents the original transaction currency stated by the merchant on checkout start
     var transactionCurrencyValue:AmountedCurrency = .init(.undefined, 0, "") {
         didSet{
-            guard oldValue != transactionCurrencyValue else { return }
-            if transactionCurrencyValue.currency != .undefined {
-                // Listen to the changes in transaction currency
-                dataHolderDelegate?.transactionCurrencyUpdated()
+            if  oldValue != transactionCurrencyValue ||
+                oldValue.displaybaleSymbol != transactionCurrencyValue.displaybaleSymbol {
+                
+                if transactionCurrencyValue.currency != .undefined {
+                    // Listen to the changes in transaction currency
+                    dataHolderDelegate?.transactionCurrencyUpdated()
+                }
             }
         }
     }
