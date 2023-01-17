@@ -144,7 +144,8 @@ class ViewController: UIViewController {
             shipping: nil,//.init(name: "Shipping 1", descriptionText: "Descrtiption", amount: 10, currency: .KWD, recipientName: "OSAMA AHMED", address: tempAdddress, provider: .init(id:"",name:"aramex")),
             require3DSecure: true,
             sdkMode: .sandbox,
-            showSaveCreditCard: .None,
+            collectCreditCardName: true,
+            showSaveCreditCard: .All,
             isSubscription: true,
             recurringPaymentRequest: generateRecurring(),
             onCheckOutReady: {[weak self] tapCheckOut in
