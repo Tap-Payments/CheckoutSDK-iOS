@@ -23,6 +23,20 @@ internal extension TapCheckout {
         updateApplePayRequest()
         updateGatewayChipsList()
         updateCardTelecomList()
+        updateActionButtonTitle()
+    }
+    /// Updates the textual title of the action button upon changing the currency.
+    /// This will only take effect if the mode is purchase or authorize
+    func updateActionButtonTitle() {
+        var customAppendedTitle:String = ""
+        // Only if we are charging or authorizing we need to display ythe currency and the amount
+        // For non amount based modes like save or tokenize these values are not needed
+        if dataHolder.transactionData.transactionMode == .purchase || dataHolder.transactionData.transactionMode == .authorizeCapture {
+            // We need to add the following to the title {CurrencySymbol Amount}
+            customAppendedTitle = "\(dataHolder.transactionData.transactionUserCurrencyValue.displaybaleSymbol) \(dataHolder.transactionData.transactionUserCurrencyValue.amount)"
+            print(customAppendedTitle)
+        }
+        dataHolder.viewModels.tapActionButtonViewModel.appendCustomTitle = customAppendedTitle
     }
     
     /// Handles all the logic needed when the amount or the user selected currency changed to reflect in the Amount Section View
