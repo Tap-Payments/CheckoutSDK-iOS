@@ -276,7 +276,7 @@ internal extension TapCheckout {
         
         // Case 1: Redirection // Check if we need to make a redirection
         if let redirectionURL:URL = charge?.transactionDetails.url {
-            showWebView(with: redirectionURL)
+            showWebView(with: redirectionURL, for: self.dataHolder.transactionData.selectedPaymentOption?.paymentType == .Web ? .FullScreen : .InScreen)
         }else // Case 2: Authentication
         if let authentication:Authentication = charge?.authentication {
             showAuthentication(with: authentication)
@@ -286,12 +286,13 @@ internal extension TapCheckout {
     /**
      Handles the logic needed to open the webview
      - PArameter with url: The url to be opened
+     - Parameter for webViewType: An enum to state all the possible ways to display a web view inside.
      */
-    func showWebView(with url:URL) {
+    func showWebView(with url:URL, for webViewType:WebViewTypeEnum) {
         DispatchQueue.main.async{ [weak self] in
             // Instruct the view to open a web view with the redirection url
             guard let nonNullSelf = self else { return }
-            nonNullSelf.UIDelegate?.showWebView(with: url,and: nonNullSelf)
+            nonNullSelf.UIDelegate?.showWebView(with: url,and: nonNullSelf, for: webViewType)
         }
     }
     
@@ -359,7 +360,7 @@ internal extension TapCheckout {
     func handleCardSaveInitiated(for cardVerifyResponse:TapCreateCardVerificationResponseModel) {
         // Check if we need to make a redirection
         if let redirectionURL:URL = cardVerifyResponse.transactionDetails.url {
-            showWebView(with: redirectionURL)
+            showWebView(with: redirectionURL, for: .InScreen)
         }
     }
     

@@ -22,6 +22,8 @@ internal protocol TapWebViewDelegate {
     func stopLoading()
     /// Will be fired when the view model wants to hide/show the header view
     func updateHeaderView(with visibility:Bool)
+    /// Will be fires when the viewmode wants to change the size of the webview with respect to the superview
+    func updateSize(with shouldBeFullScreen: Bool)
 }
 
 /// Protocol to communicate between the view model and the parent view
@@ -70,6 +72,13 @@ internal protocol TapWebViewDelegate {
     @objc public var shouldShowHeaderView:Bool = true {
         didSet{
             viewDelegate?.updateHeaderView(with: shouldShowHeaderView)
+        }
+    }
+    
+    /// Indicates whetehr or not the web view should take the whole screen
+    @objc public var shouldBeFullScreen:Bool = false {
+        didSet{
+            viewDelegate?.updateSize(with: shouldBeFullScreen)
         }
     }
     /**

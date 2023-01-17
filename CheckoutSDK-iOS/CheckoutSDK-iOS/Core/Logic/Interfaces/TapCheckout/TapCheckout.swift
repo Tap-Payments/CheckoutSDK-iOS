@@ -64,8 +64,9 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      Will be fired when we want the checkout controller to show a webview
      - Parameter with url: The url we want to load
      - Parameter and navigationDelegate: The navigationDelegate to handle the webview navigation flow
+     - Parameter for webViewType: An enum to state all the possible ways to display a web view inside.
      */
-    func showWebView(with url:URL,and navigationDelegate:TapWebViewModelDelegate?)
+    func showWebView(with url:URL,and navigationDelegate:TapWebViewModelDelegate?,for webViewType:WebViewTypeEnum)
     
     /**
      Will be fired in case we want to close/hide the currently shown web view in the checkout controller

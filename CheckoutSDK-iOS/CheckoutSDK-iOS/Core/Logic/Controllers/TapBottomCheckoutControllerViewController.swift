@@ -241,7 +241,15 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         tapVerticalView.showScanner(with: sharedCheckoutDataManager, for: self)
     }
     
-    func showWebView(with url:URL, and navigationDelegate:TapWebViewModelDelegate? = nil) {
+    func showWebView(with url:URL, and navigationDelegate:TapWebViewModelDelegate? = nil, for webViewType:WebViewTypeEnum) {
+        if webViewType == .InScreen {
+            showWebViewInScreen(with: url, and: navigationDelegate)
+        }else{
+            showWebViewFullScreen(with: url, and: navigationDelegate)
+        }
+    }
+    
+    func showWebViewInScreen(with url:URL, and navigationDelegate:TapWebViewModelDelegate? = nil) {
         // Stop the dismiss on swipe feature, because when we remove all views, the height will be minium than the threshold, ending up the whole sheet being dimissed
         let originalDismissOnSwipeValue = disableAutoDismiss()
         
@@ -260,6 +268,27 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
                     //TapCheckout.sharedCheckoutManager().dismissMySelfClicked()
                 }
             }
+            self?.tapVerticalView.add(view: self!.webViewModel.attachedView, with: [.init(for: .fadeIn, with:self!.fadeInAnimationDuration, wait: self!.fadeInAnimationDelay)],shouldFillHeight: true)
+            self?.webViewModel.load(with: url)
+            // Set it back to swipe on dismiss
+            TapCheckout.sharedCheckoutManager().dataHolder.viewModels.swipeDownToDismiss = originalDismissOnSwipeValue
+        }
+    }
+    
+    func showWebViewFullScreen(with url:URL, and navigationDelegate:TapWebViewModelDelegate? = nil) {
+        // Stop the dismiss on swipe feature, because when we remove all views, the height will be minium than the threshold, ending up the whole sheet being dimissed
+        let originalDismissOnSwipeValue = disableAutoDismiss()
+        
+        self.removeView(viewType: TapMerchantHeaderView.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true, skipSelf: false)
+        
+        webViewModel = .init()
+        webViewModel.shouldShowHeaderView = false
+        webViewModel.shouldBeFullScreen = true
+        
+        webViewModel.delegate = navigationDelegate
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) { [weak self] in
+            self?.tapVerticalView.hideActionButton()
             self?.tapVerticalView.add(view: self!.webViewModel.attachedView, with: [.init(for: .fadeIn, with:self!.fadeInAnimationDuration, wait: self!.fadeInAnimationDelay)],shouldFillHeight: true)
             self?.webViewModel.load(with: url)
             // Set it back to swipe on dismiss
