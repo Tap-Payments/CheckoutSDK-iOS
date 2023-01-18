@@ -49,7 +49,7 @@ internal protocol TapWebViewDelegate {
     
     /// Will be fired when the user cancels the authentication web view
     @objc func webViewCanceled()
-
+    
 }
 
 
@@ -94,7 +94,7 @@ internal protocol TapWebViewDelegate {
         viewDelegate?.reloadWebView()
     }
     
-     /// Will be fired when the view model wants to tell the webview to stop loading
+    /// Will be fired when the view model wants to tell the webview to stop loading
     @objc public func stopLoading() {
         viewDelegate?.stopLoading()
     }
