@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "CheckoutSDK-iOS"
-  spec.version      = "0.0.44"
+  spec.version      = "0.0.45"
   spec.summary      = "The new era of mobile payments is here with Tap."
 
   # This description is used to generate tags and improve search results.
