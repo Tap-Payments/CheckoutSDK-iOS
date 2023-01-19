@@ -74,6 +74,11 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     func closeWebView()
     
     /**
+     Will be fired in case we want to close/hide the currently shown web view in the checkout controller
+     */
+    func cancelWebView(showingFullScreen:Bool)
+    
+    /**
      Will be fired in case we want to hide/remove a loyalty widget
      */
     func hideLoyalty()

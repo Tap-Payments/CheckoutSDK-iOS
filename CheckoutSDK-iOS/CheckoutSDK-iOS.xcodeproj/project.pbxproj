@@ -61,6 +61,7 @@
 		E8845E7924D851E2009E8B73 /* TapCheckoutBlurView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8845E7824D851E2009E8B73 /* TapCheckoutBlurView.xib */; };
 		E8845E7C24D851FF009E8B73 /* TapCheckoutBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8845E7B24D851FF009E8B73 /* TapCheckoutBlurView.swift */; };
 		E8845E7E24D85466009E8B73 /* sampleBG.png in Resources */ = {isa = PBXBuildFile; fileRef = E8845E7D24D85466009E8B73 /* sampleBG.png */; };
+		E88834A329792E33006225E6 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = E88834A229792E33006225E6 /* bg.png */; };
 		E89225EA24E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89225E924E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift */; };
 		E8983DCD24EEC3D900C34E50 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CF141924EE8F140036015C /* NetworkManager.swift */; };
 		E8983DD124F1469700C34E50 /* TapEntitResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8983DD024F1469700C34E50 /* TapEntitResponseModel.swift */; };
@@ -181,6 +182,7 @@
 		E8845E7824D851E2009E8B73 /* TapCheckoutBlurView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TapCheckoutBlurView.xib; sourceTree = "<group>"; };
 		E8845E7B24D851FF009E8B73 /* TapCheckoutBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckoutBlurView.swift; sourceTree = "<group>"; };
 		E8845E7D24D85466009E8B73 /* sampleBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sampleBG.png; sourceTree = "<group>"; };
+		E88834A229792E33006225E6 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		E89225E924E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+KitsConfigurations.swift"; sourceTree = "<group>"; };
 		E8983DD024F1469700C34E50 /* TapEntitResponseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapEntitResponseModel.swift; sourceTree = "<group>"; };
 		E89B4F8926A21B3B0077B0A6 /* TapCheckout+CDNUrlsGeneration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+CDNUrlsGeneration.swift"; sourceTree = "<group>"; };
@@ -375,6 +377,7 @@
 			isa = PBXGroup;
 			children = (
 				E86128B524ED2E3B00774BAA /* CheckoutExample.entitlements */,
+				E88834A229792E33006225E6 /* bg.png */,
 				62B45FA324EBE1810094FB4B /* Items */,
 				62570A6924EBD5B500274C2C /* FormView */,
 				62570A0E24EA6F0F00274C2C /* Models */,
@@ -639,6 +642,7 @@
 			files = (
 				E8C58B4024E53F8100E1F04F /* RedLightTheme.json in Resources */,
 				E8811AF424D4287500DE95D1 /* LaunchScreen.storyboard in Resources */,
+				E88834A329792E33006225E6 /* bg.png in Resources */,
 				E8C58B4424E54AF400E1F04F /* GreenLightTheme.json in Resources */,
 				62B45FAB24EBF2620094FB4B /* ItemTableViewCell.xib in Resources */,
 				620965FD24E4364100BD9985 /* LocalisationSwitchTableViewCell.xib in Resources */,

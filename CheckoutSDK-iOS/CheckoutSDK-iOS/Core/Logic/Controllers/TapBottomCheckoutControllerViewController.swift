@@ -297,7 +297,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
     }
     
     /// Handles closing the web view and getting back normal views
-    func cancelWebView() {
+    func cancelWebView(showingFullScreen:Bool = false) {
         // First thing, animate closing the web view
         /*// We will remove all the shown views below the amount section first
          self.removeView(viewType: TapWebView.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true)
@@ -306,17 +306,35 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
          self?.tapVerticalView.showActionButton(fadeInDuation:self!.fadeInAnimationDuration,fadeInDelay:self!.fadeInAnimationDelay)
          self?.tapVerticalView.add(views: [ self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView], with: [.init(for: .fadeIn, with:self!.fadeInAnimationDuration, wait: self!.fadeInAnimationDelay)])
          })*/
+        let isAsyncPayment = sharedCheckoutDataManager.dataHolder.transactionData.selectedPaymentOption?.isAsync ?? false
+        let isAsyncPaymentFinished = sharedCheckoutDataManager.dataHolder.transactionData.currentCharge?.status
         
-        closeWebView()
-        // Reset data
-        sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deselectAll()
-        sharedCheckoutDataManager.resetCardData(shouldFireCardDataChanged: false)
-        CardValidator.favoriteCardBrand = nil
-        // Adjust the button back
-        sharedCheckoutDataManager.chanegActionButton(status: .InvalidPayment, actionBlock: nil)
-        // Add back the default views & reset the
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(800)) { [weak self] in
-            self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView], with: [.init(for: .fadeIn, with:self!.fadeInAnimationDuration, wait: self!.fadeInAnimationDelay)])
+        if isAsyncPayment, isAsyncPaymentFinished == .inProgress {
+            delegate?.dismissMySelfClicked()
+        }else{
+            closeWebView()
+            // Reset data
+            sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deselectAll()
+            sharedCheckoutDataManager.resetCardData(shouldFireCardDataChanged: false)
+            CardValidator.favoriteCardBrand = nil
+            // Adjust the button back
+            sharedCheckoutDataManager.chanegActionButton(status: .InvalidPayment, actionBlock: nil)
+            
+            if showingFullScreen {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                    self.sharedCheckoutDataManager.dataHolder.viewModels.tapActionButtonViewModel.expandButton()
+                }
+                
+                // Add back the default views & reset the
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) { [weak self] in
+                    self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.dataHolder.viewModels.tapMerchantViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapAmountSectionViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView], with: [.init(for: .fadeIn, with:self!.fadeInAnimationDuration - 0.4, wait: self!.fadeInAnimationDelay)])
+                }
+            }else{
+                // Add back the default views & reset the
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(650)) { [weak self] in
+                    self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView], with: [.init(for: .fadeIn, with:self!.fadeInAnimationDuration, wait: self!.fadeInAnimationDelay)])
+                }
+            }
         }
     }
     
@@ -326,7 +344,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         let originalDismissOnSwipeValue = disableAutoDismiss()
         
         self.view.endEditing(true)
-        self.tapVerticalView.remove(view: webViewModel.attachedView, with: .init(for: .fadeOut, with: fadeInAnimationDuration))
+        self.tapVerticalView.remove(view: webViewModel.attachedView, with: .init(for: .fadeOut, with: fadeOutAnimationDuration))
         self.tapVerticalView.showActionButton()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
@@ -604,8 +622,8 @@ extension TapBottomCheckoutControllerViewController: TapSwitchViewModelDelegate 
 }
 
 extension TapBottomCheckoutControllerViewController:TapWebViewModelDelegate {
-    func webViewCanceled() {
-        
+    func webViewCanceled(showingFullScreen:Bool) {
+        cancelWebView(showingFullScreen: showingFullScreen)
     }
     
     func willLoad(request: URLRequest) -> WKNavigationActionPolicy {

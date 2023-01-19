@@ -174,6 +174,7 @@ internal extension TapCheckout {
     func handleTokenCharge(with token:Token,for paymentOption:PaymentOption? = nil) {
         // Change the action button to loading status
         TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapActionButtonViewModel.startLoading()
+        TapCheckout.sharedCheckoutManager().dataHolder.transactionData.selectedPaymentOption = paymentOption
         // Create the charge request and call it
         let chargeRequest:TapChargeRequestModel = createChargeOrAuthorizeRequestModel(with: paymentOption!, token: token, cardBIN: token.card.binNumber,saveCard: dataHolder.transactionData.isSaveCardMerchantActivated)
         callChargeOrAuthorizeAPI(chargeRequestModel: chargeRequest) { [weak self] charge in

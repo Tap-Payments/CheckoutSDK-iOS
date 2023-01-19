@@ -50,8 +50,8 @@ extension TapCheckout {
 }
 
 extension TapCheckout:TapWebViewModelDelegate {
-    public func webViewCanceled() {
-        
+    public func webViewCanceled(showingFullScreen:Bool) {
+        UIDelegate?.cancelWebView(showingFullScreen: showingFullScreen)
     }
     
     
