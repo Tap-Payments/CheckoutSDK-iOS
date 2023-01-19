@@ -213,9 +213,11 @@ internal extension TapCheckout {
         case .failed,.declined:
             handleFailed(for:chargeOrAuthorize)
             break
-        case .initiated,.inProgress:
+        case .initiated:
             handleInitated(for:chargeOrAuthorize)
             break
+        case .inProgress:
+            handleInProgress(for:chargeOrAuthorize)
         default:
             handleCancelled(for:chargeOrAuthorize)
         }
@@ -237,8 +239,12 @@ internal extension TapCheckout {
                 TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.checkoutCaptured?(with: authorize)
             }
         }
-        // Now it is time to safely dismiss ourselves showing a green tick :)
-        dismissCheckout(with: true)
+        // Now it is time to safely dismiss ourselves showing a green tick :) if it is not an ASYNC payment
+        if dataHolder.transactionData.selectedPaymentOption?.isAsync ?? false {
+            
+        }else{
+            dismissCheckout(with: true)
+        }
     }
     
     /**
@@ -281,6 +287,22 @@ internal extension TapCheckout {
         }else // Case 2: Authentication
         if let authentication:Authentication = charge?.authentication {
             showAuthentication(with: authentication)
+        }
+    }
+    
+    /**
+     Will be called once the charge response shows that, the charge has been progress like ASYNC payments
+     - Parameter for charge: The charge object we will pass back to the user
+     */
+    func handleInProgress(for charge:ChargeProtocol?) {
+        handleCaptured(for: charge)
+        if let charge = charge as? Charge {
+            let merchantModel = dataHolder.viewModels.tapMerchantViewModel
+            DispatchQueue.main.async{ [weak self] in
+                // Instruct the view to open a web view with the redirection url
+                guard let nonNullSelf = self else { return }
+                nonNullSelf.UIDelegate?.showAsyncView(merchantModel: merchantModel, chargeModel: charge)
+            }
         }
     }
     

@@ -69,6 +69,13 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     func showWebView(with url:URL,and navigationDelegate:TapWebViewModelDelegate?,for webViewType:WebViewTypeEnum)
     
     /**
+     Will be fired when we want the checkout controller to show a async payment view confirmation
+     - Parameter merchantModel: The merchant data
+     - Parameter chargeModel: The charge data
+     */
+    func showAsyncView(merchantModel:TapMerchantHeaderViewModel, chargeModel:Charge)
+    
+    /**
      Will be fired in case we want to close/hide the currently shown web view in the checkout controller
      */
     func closeWebView()

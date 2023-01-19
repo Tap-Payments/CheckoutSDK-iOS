@@ -35,6 +35,8 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     
     var webViewModel:TapWebViewModel = .init()
     
+    var asyncViewModel:TapAsyncViewModel?
+    
     var rates:[String:Double] = [:]
     var loadedWebPages:Int = 0
     var fadeOutAnimationDuration:Double = 0.3
@@ -239,6 +241,29 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
     
     func showScanner() {
         tapVerticalView.showScanner(with: sharedCheckoutDataManager, for: self)
+    }
+    
+    func showAsyncView(merchantModel: TapMerchantHeaderViewModel, chargeModel: Charge) {
+        // Create the view model
+        asyncViewModel = nil
+        asyncViewModel = .init(merchantModel: merchantModel, chargeModel: chargeModel)
+        guard let asyncView = asyncViewModel?.attachedView else {
+            return
+        }
+        // Add the async view to the screen
+        self.removeView(viewType: TapMerchantHeaderView.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true, skipSelf: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) { [weak self] in
+            self?.tapActionButtonViewModel.expandButton()
+            self?.tapActionButtonViewModel.buttonStatus = .AsyncClosePayment
+            self?.tapActionButtonViewModel.buttonActionBlock = {
+                DispatchQueue.main.async {
+                    self?.delegate?.dismissMySelfClicked()
+                }
+            }
+            self?.tapVerticalView.add(view: asyncView, with: [.init(for: .fadeIn, with:self!.fadeInAnimationDuration, wait: self!.fadeInAnimationDelay)],shouldFillHeight: true)
+            
+        }
     }
     
     func showWebView(with url:URL, and navigationDelegate:TapWebViewModelDelegate? = nil, for webViewType:WebViewTypeEnum) {
