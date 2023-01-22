@@ -212,6 +212,8 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      - Parameter isSaveCardSwitchOnByDefault: Defines if save card switch is on by default.. Default is `true`.
      - Parameter sdkMode: Defines the mode sandbox or production the sdk will perform this transaction on. Please check [SDKMode](x-source-tag://SDKMode)
      - Parameter collectCreditCardName: Decides whether or not, the card input should collect the card holder name. Default is false
+     - Parameter creditCardNameEditable: Decides whether or not, the card name field will be editable
+     - Parameter creditCardNamePreload: Decides whether or not, the card name field should be prefilled
      - Parameter enableApiLogging: Defines if you want to print the api calls. This is very helpful for you as a developer
      - Parameter isSubscription: Defines if you want to make a subscription based transaction. Default is false
      - Parameter recurringPaymentRequest: Defines the recurring payment request Please check [Apple Pay docs](https://developer.apple.com/documentation/passkit/pkrecurringpaymentrequest). NOTE: This will only be availble for iOS 16+ and subscripion parameter is on.
@@ -250,6 +252,8 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         sdkMode:SDKMode = .sandbox,
         enableApiLogging:Bool = true,
         collectCreditCardName:Bool = false,
+        creditCardNameEditable:Bool = true,
+        creditCardNamePreload:String = "",
         showSaveCreditCard:SaveCardType = .None,
         isSubscription:Bool = false,
         recurringPaymentRequest:Any? = nil,
@@ -258,7 +262,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
             // Do the pre steps needed before starting a new SDK session
             prepareSDK(with: sdkMode,delegate:delegate, localiseFile:localiseFile, customTheme:customTheme, enableApiLogging:enableApiLogging)
             // Store the passed configurations for further processing
-            configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,swipeDownToDismiss:swipeDownToDismiss,paymentType:paymentType,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID,taxes: taxes, shipping: shipping, allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor,require3DSecure:require3DSecure,receiptSettings:receiptSettings, authorizeAction: authorizeAction,allowsToSaveSameCardMoreThanOnce: allowsToSaveSameCardMoreThanOnce, enableSaveCard: enableSaveCard, isSaveCardSwitchOnByDefault: isSaveCardSwitchOnByDefault, collectCreditCardName: collectCreditCardName, showSaveCreditCard:showSaveCreditCard, isSubscription: isSubscription, recurringPaymentRequest: recurringPaymentRequest)
+            configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,swipeDownToDismiss:swipeDownToDismiss,paymentType:paymentType,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID,taxes: taxes, shipping: shipping, allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor,require3DSecure:require3DSecure,receiptSettings:receiptSettings, authorizeAction: authorizeAction,allowsToSaveSameCardMoreThanOnce: allowsToSaveSameCardMoreThanOnce, enableSaveCard: enableSaveCard, isSaveCardSwitchOnByDefault: isSaveCardSwitchOnByDefault, collectCreditCardName: collectCreditCardName, creditCardNameEditable: creditCardNameEditable, creditCardNamePreload: creditCardNamePreload, showSaveCreditCard:showSaveCreditCard, isSubscription: isSubscription, recurringPaymentRequest: recurringPaymentRequest)
             
             // Initiate the needed calls to server to start the session
             configSDKFromAPI() {  [weak self] in

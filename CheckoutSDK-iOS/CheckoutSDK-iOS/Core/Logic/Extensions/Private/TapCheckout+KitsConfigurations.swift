@@ -92,6 +92,8 @@ internal extension TapCheckout {
      - Parameter enableSaveCard: Defines if the customer can save his card for upcoming payments. Default is `true`.
      - Parameter isSaveCardSwitchOnByDefault: Defines if save card switch is on by default.. Default is `true`.
      - Parameter collectCreditCardName: Decides whether or not, the card input should collect the card holder name. Default is false
+     - Parameter creditCardNameEditable: Decides whether or not, the card name field will be editable
+     - Parameter creditCardNamePreload: Decides whether or not, the card name field should be prefilled
      - Parameter showSaveCreditCard: Decides whether or not, the card input should show save card option. Default is false
      - Parameter isSubscription: Defines if you want to make a subscription based transaction. Default is false
      - Parameter recurringPaymentRequest: Defines the recurring payment request Please check [Apple Pay docs](https://developer.apple.com/documentation/passkit/pkrecurringpaymentrequest). NOTE: This will only be availble for iOS 16+ and subscripion parameter is on.
@@ -122,6 +124,8 @@ internal extension TapCheckout {
                                 enableSaveCard: Bool = true,
                                 isSaveCardSwitchOnByDefault: Bool = true,
                                 collectCreditCardName:Bool = false,
+                                creditCardNameEditable:Bool = true,
+                                creditCardNamePreload:String = "",
                                 showSaveCreditCard:SaveCardType = .None,
                                 isSubscription:Bool = false,
                                 recurringPaymentRequest:Any? = nil
@@ -133,6 +137,8 @@ internal extension TapCheckout {
         
         sharedManager.dataHolder.viewModels.swipeDownToDismiss = swipeDownToDismiss
         sharedManager.dataHolder.viewModels.collectCreditCardName = collectCreditCardName
+        sharedManager.dataHolder.viewModels.creditCardNameEditable = creditCardNameEditable
+        sharedManager.dataHolder.viewModels.creditCardNamePreload = creditCardNamePreload
         sharedManager.dataHolder.viewModels.showSaveCreditCard = showSaveCreditCard
         sharedManager.dataHolder.viewModels.closeButtonStyle = closeButtonStyle
         sharedManager.dataHolder.viewModels.showDragHandler = showDragHandler

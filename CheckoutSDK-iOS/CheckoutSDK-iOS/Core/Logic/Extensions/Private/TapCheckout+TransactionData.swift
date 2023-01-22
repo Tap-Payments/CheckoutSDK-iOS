@@ -105,6 +105,10 @@ internal class ViewModelsHolder {
     var swipeDownToDismiss:Bool = false
     /// Decides whether or not, the card input should collect the card holder name. Default is false
     var collectCreditCardName:Bool = false
+    /// Decides whether or not, the card name field will be editable
+    var creditCardNameEditable:Bool = true
+    // Decides whether or not, the card name field should be prefilled
+    var creditCardNamePreload:String = ""
     /// Decides whether or not, the card input should show save card option. Default is false
     var showSaveCreditCard:SaveCardType = .None
     /// Repreents the list fof supported currencies
@@ -140,10 +144,11 @@ internal class ViewModelsHolder {
     
     /// Used to assign the view delegates to the correct delegate source
     internal func assignViewModelsDelegates() {
-        tapCurrienciesChipHorizontalListViewModel.delegate = TapCheckout.sharedCheckoutManager()
-        tapGatewayChipHorizontalListViewModel.delegate = TapCheckout.sharedCheckoutManager()
-        tapGoPayChipsHorizontalListViewModel.delegate = TapCheckout.sharedCheckoutManager()
-        tapLoyaltyViewModel?.delegate = TapCheckout.sharedCheckoutManager()
+        tapCurrienciesChipHorizontalListViewModel.delegate  = TapCheckout.sharedCheckoutManager()
+        tapGatewayChipHorizontalListViewModel.delegate      = TapCheckout.sharedCheckoutManager()
+        tapGoPayChipsHorizontalListViewModel.delegate       = TapCheckout.sharedCheckoutManager()
+        tapLoyaltyViewModel?.delegate                       = TapCheckout.sharedCheckoutManager()
+        tapActionButtonViewModel.delegate                  = TapCheckout.sharedCheckoutManager()
     }
     
     /// Checks if the user asked for showing save card and it is allowed from the backend as well

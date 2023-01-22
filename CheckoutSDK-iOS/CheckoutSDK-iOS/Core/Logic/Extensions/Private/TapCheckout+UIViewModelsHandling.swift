@@ -96,6 +96,11 @@ internal extension TapCheckout {
         dataHolder.viewModels.tapCardPhoneListViewModel.dataSource = dataHolder.viewModels.tapCardPhoneListDataSource.filter(for: dataHolder.transactionData.transactionUserCurrencyValue.currency)
         // Instruct if we have to collect the card name or not
         dataHolder.viewModels.tapCardTelecomPaymentViewModel.collectCardName = dataHolder.viewModels.collectCreditCardName
+        // Decides whether or not, the card name field will be editable
+        dataHolder.viewModels.tapCardTelecomPaymentViewModel.editCardName = dataHolder.viewModels.creditCardNameEditable
+        // Decides whether or not, the card name field should be prefilled
+        dataHolder.viewModels.tapCardTelecomPaymentViewModel.preloadCardHolderName = dataHolder.viewModels.creditCardNamePreload
+        
         // Instruct if we have to show save card option or not
         dataHolder.viewModels.tapCardTelecomPaymentViewModel.saveCardType = dataHolder.viewModels.isSaveCardAllowed()
         
@@ -448,4 +453,17 @@ extension TapCheckout:NetworkManagerDelegate {
     func log(string: String) {
         tapCheckoutScreenDelegate?.log?(string: string)
     }
+}
+
+
+extension TapCheckout:TapActionButtonViewModelDelegate {
+    public func didStartLoading() {
+        TapCheckout.sharedCheckoutManager().UIDelegate?.enableInteraction(with: false)
+    }
+    
+    public func didEndLoading() {
+        TapCheckout.sharedCheckoutManager().UIDelegate?.enableInteraction(with: true)
+    }
+    
+    
 }

@@ -138,7 +138,7 @@ class ViewController: UIViewController {
             closeButtonStyle: closeButtonTitleStyle,
             showDragHandler:showDragHandler,
             transactionMode: tapSettings.transactionMode,
-            customer: try! .init(emailAddress: .with("osamaguc@gmail.com"), phoneNumber: nil, name: "Osama Ahmed Helmy", address: nil),
+            customer: try! .init(identifier: "cus_TS075220212320q2RD0707283"),//try! .init(emailAddress: .with("osamaguc@gmail.com"), phoneNumber: nil, name: "Osama Ahmed Helmy", address: nil),
             tapMerchantID: "599424",
             taxes: [],
             shipping: nil,//.init(name: "Shipping 1", descriptionText: "Descrtiption", amount: 10, currency: .KWD, recipientName: "OSAMA AHMED", address: tempAdddress, provider: .init(id:"",name:"aramex")),

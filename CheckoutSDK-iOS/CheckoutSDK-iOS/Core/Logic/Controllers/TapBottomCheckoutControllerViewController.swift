@@ -729,7 +729,18 @@ extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDe
     }
     
     func enableInteraction(with status: Bool) {
-        //view.isUserInteractionEnabled = status
+        if let addedBeforeView:UIView = view.viewWithTag(12341234) {
+            addedBeforeView.removeFromSuperview()
+        }
+        
+        // Add an idle view if the caller wants to disable
+        if !status {
+            let idleView:UIView = .init(frame: view.frame)
+            idleView.backgroundColor = .clear
+            idleView.tag = 12341234
+            view.addSubview(idleView)
+            view.bringSubviewToFront(idleView)
+        }
     }
 }
 
