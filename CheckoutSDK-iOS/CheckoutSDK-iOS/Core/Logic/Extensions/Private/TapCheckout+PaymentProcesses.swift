@@ -8,7 +8,7 @@
 
 import Foundation
 import CommonDataModelsKit_iOS
-//import TapApplePayKit_iOS
+import TapApplePayKit_iOS
 /// Collection of logic to process a payment with different flows
 internal extension TapCheckout {
     
