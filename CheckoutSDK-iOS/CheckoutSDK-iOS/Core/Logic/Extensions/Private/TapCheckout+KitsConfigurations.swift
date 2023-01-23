@@ -12,6 +12,7 @@ import CommonDataModelsKit_iOS
 import TapUIKit_iOS
 import TapThemeManager2020
 import PassKit
+import TapApplePayKit_iOS
 
 /// An extensions that groups methods related to configuring other Tap Kits before starting the checkout SDK itself
 internal extension TapCheckout {
@@ -97,6 +98,8 @@ internal extension TapCheckout {
      - Parameter showSaveCreditCard: Decides whether or not, the card input should show save card option. Default is false
      - Parameter isSubscription: Defines if you want to make a subscription based transaction. Default is false
      - Parameter recurringPaymentRequest: Defines the recurring payment request Please check [Apple Pay docs](https://developer.apple.com/documentation/passkit/pkrecurringpaymentrequest). NOTE: This will only be availble for iOS 16+ and subscripion parameter is on.
+     - Parameter applePayButtonType: Defines the type of the apple pay button like Pay with or Subscripe with  etc. Default is Pay
+     - Parameter applePayButtonStyle: Defines the UI of the apple pay button white, black or outlined. Default is black
      */
     func configureSharedManager(currency:TapCurrencyCode,
                                 amount:Double,
@@ -128,7 +131,9 @@ internal extension TapCheckout {
                                 creditCardNamePreload:String = "",
                                 showSaveCreditCard:SaveCardType = .None,
                                 isSubscription:Bool = false,
-                                recurringPaymentRequest:Any? = nil
+                                recurringPaymentRequest:Any? = nil,
+                                applePayButtonType:TapApplePayButtonType = .AppleLogoOnly,
+                                applePayButtonStyle:TapApplePayButtonStyleOutline = .Auto
     ) {
         
         
@@ -179,6 +184,9 @@ internal extension TapCheckout {
             sharedManager.dataHolder.transactionData.isSubscription = false
             sharedManager.dataHolder.transactionData.recurringPaymentRequest = nil
         }
+        
+        sharedManager.dataHolder.transactionData.applePayButtonType     = applePayButtonType
+        sharedManager.dataHolder.transactionData.applePayButtonStyle    = applePayButtonStyle
         
         // if items has no items, we need to add the default items
         if items == [] {

@@ -122,13 +122,17 @@ internal extension TapCheckout {
         
         // This means, we have apple pay! let us configyre the apple pay request to reflect the current transaction data like items, user currency, allowed payment networks etc.
         // Decide the style of the apple pay button, whether we need to show as setup or the normal pay with apple button
-        let applePayButtonStyle:TapApplePayButtonType = (PKPaymentAuthorizationController.canMakePayments() && PKPaymentAuthorizationController.canMakePayments(usingNetworks: applePaymentOption.applePayNetworkMapper())) ? .AppleLogoOnly : .SetupApplePay
+        let applePayButtonType:TapApplePayButtonType = (PKPaymentAuthorizationController.canMakePayments() && PKPaymentAuthorizationController.canMakePayments(usingNetworks: applePaymentOption.applePayNetworkMapper())) ? dataHolder.transactionData.applePayButtonType : .SetupApplePay
+        
+        let applePayButtonStyle: TapApplePayButtonStyleOutline = dataHolder.transactionData.applePayButtonStyle == .Auto ?
+        self.bottomSheetController.traitCollection.userInterfaceStyle == .dark ? .White : .Black : dataHolder.transactionData.applePayButtonStyle
         
         let applePayItems:[PKPaymentSummaryItem] = generateApplePaymentItems()
         
         applePayChipViewModel.configureApplePayRequest(currencyCode: dataHolder.transactionData.transactionUserCurrencyValue.currency,
                                                        paymentNetworks: applePaymentOption.applePayNetworkMapper().map{ $0.rawValue },
-                                                       applePayButtonType: applePayButtonStyle,
+                                                       applePayButtonType: applePayButtonType,
+                                                       applePayButtonStyle: applePayButtonStyle,
                                                        paymentItems: applePayItems,
                                                        amount: dataHolder.transactionData.transactionUserCurrencyValue.amount,
                                                        merchantID: dataHolder.transactionData.applePayMerchantID,

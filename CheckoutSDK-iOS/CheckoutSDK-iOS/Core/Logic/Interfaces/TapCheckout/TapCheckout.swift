@@ -216,7 +216,10 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      - Parameter creditCardNamePreload: Decides whether or not, the card name field should be prefilled
      - Parameter enableApiLogging: Defines if you want to print the api calls. This is very helpful for you as a developer
      - Parameter isSubscription: Defines if you want to make a subscription based transaction. Default is false
-     - Parameter recurringPaymentRequest: Defines the recurring payment request Please check [Apple Pay docs](https://developer.apple.com/documentation/passkit/pkrecurringpaymentrequest). NOTE: This will only be availble for iOS 16+ and subscripion parameter is on.
+     - Parameter recurringPaymentRequest: Defines the recurring payment request Please check [Apple Pay
+     docs](https://developer.apple.com/documentation/passkit/pkrecurringpaymentrequest). NOTE: This will only be availble for iOS 16+ and subscripion parameter is on.
+     - Parameter applePayButtonType: Defines the type of the apple pay button like Pay with or Subscripe with  etc. Default is Pay
+     - Parameter applePayButtonStyle: Defines the UI of the apple pay button white, black or outlined. Default is black
      - Parameter showSaveCreditCard:Decides whether or not, the card input should show save card option for Tap and Merchant sides. Default is None
      */
     @objc public func build(
@@ -257,12 +260,14 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         showSaveCreditCard:SaveCardType = .None,
         isSubscription:Bool = false,
         recurringPaymentRequest:Any? = nil,
+        applePayButtonType:TapApplePayButtonType = .AppleLogoOnly,
+        applePayButtonStyle:TapApplePayButtonStyleOutline = .Auto,
         onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
             
             // Do the pre steps needed before starting a new SDK session
             prepareSDK(with: sdkMode,delegate:delegate, localiseFile:localiseFile, customTheme:customTheme, enableApiLogging:enableApiLogging)
             // Store the passed configurations for further processing
-            configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,swipeDownToDismiss:swipeDownToDismiss,paymentType:paymentType,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID,taxes: taxes, shipping: shipping, allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor,require3DSecure:require3DSecure,receiptSettings:receiptSettings, authorizeAction: authorizeAction,allowsToSaveSameCardMoreThanOnce: allowsToSaveSameCardMoreThanOnce, enableSaveCard: enableSaveCard, isSaveCardSwitchOnByDefault: isSaveCardSwitchOnByDefault, collectCreditCardName: collectCreditCardName, creditCardNameEditable: creditCardNameEditable, creditCardNamePreload: creditCardNamePreload, showSaveCreditCard:showSaveCreditCard, isSubscription: isSubscription, recurringPaymentRequest: recurringPaymentRequest)
+            configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,swipeDownToDismiss:swipeDownToDismiss,paymentType:paymentType,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID,taxes: taxes, shipping: shipping, allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor,require3DSecure:require3DSecure,receiptSettings:receiptSettings, authorizeAction: authorizeAction,allowsToSaveSameCardMoreThanOnce: allowsToSaveSameCardMoreThanOnce, enableSaveCard: enableSaveCard, isSaveCardSwitchOnByDefault: isSaveCardSwitchOnByDefault, collectCreditCardName: collectCreditCardName, creditCardNameEditable: creditCardNameEditable, creditCardNamePreload: creditCardNamePreload, showSaveCreditCard:showSaveCreditCard, isSubscription: isSubscription, recurringPaymentRequest: recurringPaymentRequest, applePayButtonType :applePayButtonType, applePayButtonStyle: applePayButtonStyle)
             
             // Initiate the needed calls to server to start the session
             configSDKFromAPI() {  [weak self] in

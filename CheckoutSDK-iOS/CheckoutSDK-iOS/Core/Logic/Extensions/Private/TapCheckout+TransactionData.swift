@@ -321,6 +321,10 @@ internal class TransactionDataHolder {
     //// Defines if you want to make a subscription based transaction. Default is false
     var isSubscription:Bool = false
     
+    /// Defines the type of the apple pay button like Pay with or Subscripe with  etc. Default is Pay
+    var applePayButtonType:TapApplePayButtonType = .AppleLogoOnly
+    /// Defines the UI of the apple pay button white, black or outlined. Default is black
+    var applePayButtonStyle:TapApplePayButtonStyleOutline = .Auto
     
     /// Defines if the customer can save his card for upcoming payments
     /// Default is `true`.

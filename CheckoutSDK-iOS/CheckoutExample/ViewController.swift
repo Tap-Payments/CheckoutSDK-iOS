@@ -146,8 +146,10 @@ class ViewController: UIViewController {
             sdkMode: .sandbox,
             collectCreditCardName: true,
             showSaveCreditCard: .All,
-            isSubscription: true,
+            isSubscription: false,
             recurringPaymentRequest: generateRecurring(),
+            applePayButtonType: .BuyWithApplePay,
+            applePayButtonStyle: .Auto,
             onCheckOutReady: {[weak self] tapCheckOut in
                 DispatchQueue.main.async() {
                     tapCheckOut.start(presentIn: self)
