@@ -13,7 +13,7 @@ import CommonDataModelsKit_iOS
 import TapUIKit_iOS
 import TapApplicationV2
 import PassKit
-
+import TapApplePayKit_iOS
 /// A protocol to comminicate between the UIManager and the data manager
 internal protocol TapCheckoutSharedManagerUIDelegate {
     
