@@ -178,8 +178,8 @@ extension TapBottomCheckoutControllerViewController:TapMerchantHeaderViewDelegat
 extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDelegate {
     func showItemsClicked() {
         self.view.endEditing(true)
-        self.removeView(viewType: TapAmountSectionView.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true, skipSelf: true)
-        tapVerticalView.hideActionButton()
+        self.removeView(viewType: TapAmountSectionView.self, with: .init(for: .none, with: 0), and: true, skipSelf: true)
+        tapVerticalView.hideActionButton(fadeInDuation: 0, fadeInDelay: 0)
         DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [weak self] in
             self!.sharedCheckoutDataManager.chanegActionButton(status: .InvalidPayment, actionBlock: nil)
             self!.sharedCheckoutDataManager.dataHolder.viewModels.tapCurrienciesChipHorizontalListViewModel.attachedView.alpha = 0
@@ -187,7 +187,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
             self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deselectAll()
             self!.sharedCheckoutDataManager.resetCardData(shouldFireCardDataChanged: false)
             CardValidator.favoriteCardBrand = nil
-            self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.dataHolder.viewModels.tapCurrienciesChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapItemsTableViewModel.attachedView], with: [.init(for: .fadeIn, with:self!.fadeInAnimationDuration, wait: self!.fadeInAnimationDelay)])
+            self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.dataHolder.viewModels.tapCurrienciesChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapItemsTableViewModel.attachedView], with: [.init(for: .slideIn, with:self!.fadeInAnimationDuration, wait: 0)])
             if let locale = TapLocalisationManager.shared.localisationLocale, locale == "ar" {
                 //self?.sharedCheckoutDataManager.dataHolder.viewModels.tapCurrienciesChipHorizontalListViewModel.refreshLayout()
             }
@@ -204,11 +204,11 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         // First we need to close any keyboard if any
         self.view.endEditing(true)
         // We will remove all the shown views below the amount section first
-        self.removeView(viewType: TapChipHorizontalList.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true)
+        self.removeView(viewType: TapChipHorizontalList.self, with: .init(for: .none, with: 0), and: true)
         // Now let us add back the default views
         DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [weak self] in
-            self?.tapVerticalView.showActionButton(fadeInDuation:self!.fadeInAnimationDuration,fadeInDelay:self!.fadeInAnimationDelay)
-            self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView], with: [.init(for: .fadeIn, with:self!.fadeInAnimationDuration, wait: self!.fadeInAnimationDelay)])
+            self?.tapVerticalView.showActionButton(fadeInDuation:self!.fadeInAnimationDuration,fadeInDelay:0)
+            self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView], with: [.init(for: .slideIn, with:self!.fadeInAnimationDuration, wait: 0)])
         })
     }
     
@@ -220,7 +220,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         tapVerticalView.closeScanner()
         sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.scanerClosed()
         DispatchQueue.main.async{ [weak self] in
-            self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView], with: [.init(for: .fadeIn, with:self!.fadeInAnimationDuration, wait: self!.fadeInAnimationDelay)])
+            self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView], with: [.init(for: .slideIn, with:self!.fadeInAnimationDuration, wait: 0)])
         }
     }
     
@@ -251,9 +251,9 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
             return
         }
         // Add the async view to the screen
-        self.removeView(viewType: TapMerchantHeaderView.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true, skipSelf: true)
+        self.removeView(viewType: TapMerchantHeaderView.self, with: .init(for: .none, with: 0), and: true, skipSelf: true)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(150)) { [weak self] in
             self?.tapActionButtonViewModel.expandButton()
             self?.tapActionButtonViewModel.buttonStatus = .AsyncClosePayment
             self?.tapActionButtonViewModel.buttonActionBlock = {
@@ -261,7 +261,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
                     self?.delegate?.dismissMySelfClicked()
                 }
             }
-            self?.tapVerticalView.add(view: asyncView, with: [.init(for: .fadeIn, with:self!.fadeInAnimationDuration, wait: self!.fadeInAnimationDelay)],shouldFillHeight: true)
+            self?.tapVerticalView.add(view: asyncView, with: [.init(for: .slideIn, with:self!.fadeInAnimationDuration, wait: 0)],shouldFillHeight: true)
             
         }
     }
@@ -304,7 +304,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         // Stop the dismiss on swipe feature, because when we remove all views, the height will be minium than the threshold, ending up the whole sheet being dimissed
         let originalDismissOnSwipeValue = disableAutoDismiss()
         
-        self.removeView(viewType: TapMerchantHeaderView.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true, skipSelf: false)
+        self.removeView(viewType: TapMerchantHeaderView.self, with: .init(for: .none, with: 0), and: true, skipSelf: false)
         
         webViewModel = .init()
         webViewModel.shouldShowHeaderView = false
@@ -312,9 +312,9 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         
         webViewModel.delegate = navigationDelegate
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(150)) { [weak self] in
             self?.tapVerticalView.hideActionButton()
-            self?.tapVerticalView.add(view: self!.webViewModel.attachedView, with: [.init(for: .fadeIn, with:self!.fadeInAnimationDuration, wait: self!.fadeInAnimationDelay)],shouldFillHeight: true)
+            self?.tapVerticalView.add(view: self!.webViewModel.attachedView, with: [.init(for: .slideIn, with:self!.fadeInAnimationDuration, wait: 0.1)],shouldFillHeight: true)
             self?.webViewModel.load(with: url)
             // Set it back to swipe on dismiss
             TapCheckout.sharedCheckoutManager().dataHolder.viewModels.swipeDownToDismiss = originalDismissOnSwipeValue
@@ -729,17 +729,20 @@ extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDe
     }
     
     func enableInteraction(with status: Bool) {
-        if let addedBeforeView:UIView = view.viewWithTag(12341234) {
-            addedBeforeView.removeFromSuperview()
-        }
-        
-        // Add an idle view if the caller wants to disable
-        if !status {
-            let idleView:UIView = .init(frame: view.frame)
-            idleView.backgroundColor = .clear
-            idleView.tag = 12341234
-            view.addSubview(idleView)
-            view.bringSubviewToFront(idleView)
+        DispatchQueue.main.async { [weak self] in
+            guard let nonNullSelf = self else {return}
+            if let addedBeforeView:UIView = nonNullSelf.view.viewWithTag(12341234) {
+                addedBeforeView.removeFromSuperview()
+            }
+            
+            // Add an idle view if the caller wants to disable
+            if !status {
+                let idleView:UIView = .init(frame: nonNullSelf.view.frame)
+                idleView.backgroundColor = .clear
+                idleView.tag = 12341234
+                nonNullSelf.view.addSubview(idleView)
+                nonNullSelf.view.bringSubviewToFront(idleView)
+            }
         }
     }
 }

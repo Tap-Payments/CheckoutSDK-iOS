@@ -156,7 +156,7 @@ internal extension UIView {
     /**
      An extension method to detect the viewcontroller which the current view is embedded in
      - Returns: UIViewcontroller that holds the current view or nil if not found for any case
- **/
+     **/
     func findViewController() -> UIViewController? {
         if let nextResponder = self.next as? UIViewController {
             return nextResponder

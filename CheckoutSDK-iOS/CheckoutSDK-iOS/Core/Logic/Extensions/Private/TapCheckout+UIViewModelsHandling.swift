@@ -100,7 +100,8 @@ internal extension TapCheckout {
         dataHolder.viewModels.tapCardTelecomPaymentViewModel.editCardName = dataHolder.viewModels.creditCardNameEditable
         // Decides whether or not, the card name field should be prefilled
         dataHolder.viewModels.tapCardTelecomPaymentViewModel.preloadCardHolderName = dataHolder.viewModels.creditCardNamePreload
-        
+        // Decides whether or not, there is other payment methods allowed other than the card form or not
+        dataHolder.viewModels.tapCardTelecomPaymentViewModel.cardHeaderType = (dataHolder.viewModels.gatewayChipsViewModel.count > 0 || dataHolder.viewModels.gatewayChipsViewModel.count > 0) ? .CardInputTitleOR : .CardInputTitle
         // Instruct if we have to show save card option or not
         dataHolder.viewModels.tapCardTelecomPaymentViewModel.saveCardType = dataHolder.viewModels.isSaveCardAllowed()
         
