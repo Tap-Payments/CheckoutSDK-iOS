@@ -674,8 +674,8 @@ extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDe
     }
     
     
-    func showCustomerContactDataCollection(with customerDataViewModel: CustomerContactDataCollectionViewModel, animate: Bool) {
-        tapVerticalView.add(views: [customerDataViewModel.attachedView], with: [.init(for:.fadeIn,with: animate ? 0.25 : 0.1)], shouldScrollToBottom: true)
+    func showCustomerContactDataCollection(with customerDataViewModel: CustomerContactDataCollectionViewModel, and customerShippingViewModel:CustomerShippingDataCollectionViewModel, animate: Bool) {
+        tapVerticalView.add(views: [customerDataViewModel.attachedView, customerShippingViewModel.attachedView], with: [.init(for:.fadeIn,with: animate ? 0.25 : 0.1)], shouldScrollToBottom: true)
     }
     
     

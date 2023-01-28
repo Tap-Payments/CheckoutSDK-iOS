@@ -240,11 +240,12 @@ extension TapCheckout {
     func handleCustomerContact(with validation: CrardInputTextFieldStatusEnum) {
         // Check of we can display loyalty section or not
         if canShowCustomerContactData(),
-           let nonCustomerContactViewModel: CustomerContactDataCollectionViewModel = dataHolder.viewModels.customerDataViewModel {
+           let nonCustomerContactViewModel: CustomerContactDataCollectionViewModel = dataHolder.viewModels.customerDataViewModel,
+           let nonCustomerShippingViewModel: CustomerShippingDataCollectionViewModel = dataHolder.viewModels.customerShippingViewModel{
             //updateLoyaltySection()
             // Now let us show the loyalty section after a slight delay allowing the keyboard to be dismissed
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250), execute: { [weak self] in
-                self?.UIDelegate?.showCustomerContactDataCollection(with: nonCustomerContactViewModel, animate: true)
+                self?.UIDelegate?.showCustomerContactDataCollection(with: nonCustomerContactViewModel, and: nonCustomerShippingViewModel, animate: true)
             })
         }else{
             // Then if no valid card data is provided, all what we need to do is to remove the loyalty section if any
@@ -280,7 +281,8 @@ extension TapCheckout {
               // Check if the user activated saving for TAP
               dataHolder.viewModels.tapCardTelecomPaymentViewModel.isTapSaveAllowed,
               // Check if there is a data needed to be collected
-              let _: CustomerContactDataCollectionViewModel = dataHolder.viewModels.customerDataViewModel
+              let _: CustomerContactDataCollectionViewModel = dataHolder.viewModels.customerDataViewModel,
+              let _: CustomerShippingDataCollectionViewModel = dataHolder.viewModels.customerShippingViewModel
         else {
             return false
         }

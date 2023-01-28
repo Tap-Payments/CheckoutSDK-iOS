@@ -18,21 +18,21 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
-		<key>LocalisationManagerKit-iOS.xcscheme</key>
+		<key>FlagKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
-		<key>McPicker.xcscheme</key>
+		<key>LocalisationManagerKit-iOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
-		<key>NBBottomSheet.xcscheme</key>
+		<key>McPicker.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

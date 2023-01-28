@@ -49,7 +49,7 @@ class CreateCustomerViewController: UIViewController {
                 if let phoneText = phoneNumberTextField.text, let code = countryCodeTextField.text {
                     phone = try .init(isdNumber: code, phoneNumber: phoneText)
                 }
-                let tempCountry:Country = try! .init(isoCode: "KW")
+                let tempCountry:CommonDataModelsKit_iOS.Country = try! .init(isoCode: "KW")
                 let tempAdddress:Address = .init(type:.residential,
                                                  country: tempCountry,
                                                  line1: "asdasd",

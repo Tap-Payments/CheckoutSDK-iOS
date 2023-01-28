@@ -240,7 +240,8 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
      */
     fileprivate func fetchCustomerContactDataModel(_ paymentOptions: TapPaymentOptionsReponseModel) {
         // Dummy creation until coming from API
-        dataHolder.viewModels.customerDataViewModel = CustomerContactDataCollectionViewModel.init(toBeCollectedData: [.email,.phone], allowedCountries: [.init(nameAR: "الكويت", nameEN: "Kuwait", code: "965", phoneLength: 8),.init(nameAR: "مصر", nameEN: "Egypt", code: "20", phoneLength: 10)], selectedCountry: .init(nameAR: "الكويت", nameEN: "Kuwait", code: "965", phoneLength: 8))
+        dataHolder.viewModels.customerDataViewModel = CustomerContactDataCollectionViewModel.init(toBeCollectedData: [.email,.phone], allowedCountries: [.EG,.KW,.SA,.BH,.AE,.OM,.QA,.JO,.LB], selectedCountry: .EG)
+        dataHolder.viewModels.customerShippingViewModel = CustomerShippingDataCollectionViewModel.init(allowedCountries: TapCountryCode.allCases, selectedCountry: .EG)
     }
     
     /** Update the total payable amount as we got from the backend

@@ -48,6 +48,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
+        TapLocalisationManager.shared.localisationLocale = "en"
         // Do any additional setup after loading the view.
         amountTextField.delegate = self
         tapSettings.load()
@@ -115,7 +116,7 @@ class ViewController: UIViewController {
                                       production: "sk_live_QglH8V7Fw6NPAom4qRcynDK2")
         
         //customTheme = .init(with: "https://menoalmotasel.online/RedLightTheme.json", and: "https://menoalmotasel.online/RedDarkTheme.json", from: .RemoteJsonFile)
-        let tempCountry:Country = try! .init(isoCode: "KW")
+        let tempCountry:CommonDataModelsKit_iOS.Country = try! .init(isoCode: "KW")
         let tempAdddress:Address = .init(type:.residential,
                                          country: tempCountry,
                                          line1: "asdasd",

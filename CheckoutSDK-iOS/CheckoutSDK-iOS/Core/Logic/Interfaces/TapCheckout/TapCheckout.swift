@@ -105,9 +105,10 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     /**
      Will be fired in case we want to show  customer contact data collection
      - Parameter with customerDataViewModel: The view model that controls the customer contact data collection view
+     - Parameter and customerShippingViewModel: The view model that controls the customer shipping data collection view
      - Parameter animate: If true a fade in animation will be done while inserting the view, otherwise no animation will be used
      */
-    func showCustomerContactDataCollection(with customerDataViewModel: CustomerContactDataCollectionViewModel,animate:Bool)
+    func showCustomerContactDataCollection(with customerDataViewModel: CustomerContactDataCollectionViewModel, and customerShippingViewModel: CustomerShippingDataCollectionViewModel, animate:Bool)
     
     /**
      Will be fired in case we want to show saved card otp view
