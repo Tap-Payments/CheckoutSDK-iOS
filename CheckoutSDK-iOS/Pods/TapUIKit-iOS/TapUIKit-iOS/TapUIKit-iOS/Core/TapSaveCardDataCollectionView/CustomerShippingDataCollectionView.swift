@@ -83,8 +83,8 @@ import FlagKit
     private func adjustHeight() {
         // Assign the height for the text fields
         textFields.forEach{ $0.snp.remakeConstraints { make in
-                make.height.equalTo(48)
-            }
+            make.height.equalTo(48)
+        }
         }
         
         // Assing the height for the fields container view
