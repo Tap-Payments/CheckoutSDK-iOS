@@ -102,7 +102,7 @@ import LocalisationManagerKit_iOS
         CountryManager.shared.config = configMaker
         CountryManager.shared.localeIdentifier = TapLocalisationManager.shared.localisationLocale ?? "en"
         let countryPicker = CountryPickerViewController()
-
+        
         countryPicker.selectedCountry = selectedCountry?.countryCode.rawValue ?? "KW"
         countryPicker.delegate = self
         topController.present(countryPicker, animated: true)
