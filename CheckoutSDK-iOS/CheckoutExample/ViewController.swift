@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     let tapPayButtonViewModel:TapPayButtonViewModel = .init()
     var tapSettings:TapSettings = TapSettings(language: "English", localisation: false, theme: "Default", currency: .USD, swipeToDismissFeature: true, paymentTypes: [.All],closeButtonTitleFeature: true, customer: try! .init(identifier: "cus_TS075220212320q2RD0707283"),transactionMode: .purchase)
     
-    var localeID:String = "en" {
+    var localeID:String = "ar" {
         didSet{
             TapLocalisationManager.shared.localisationLocale = localeID
         }
@@ -52,7 +52,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         amountTextField.delegate = self
         tapSettings.load()
-        //TapLocalisationManager.shared.localisationLocale = "en"
+        //TapLocalisationManager.shared.localisationLocale = "ar"
         //TapThemeManager.setDefaultTapTheme()
         adjustTapButton()
         paymentItemsTableView.estimatedRowHeight = 100
@@ -108,7 +108,7 @@ class ViewController: UIViewController {
         let checkout:TapCheckout = .init()
         TapCheckout.flippingStatus = .FlipOnLoadWithFlippingBack
         // Checkout's localization. Currently supporting en and ar
-        TapCheckout.localeIdentifier = TapLocalisationManager.shared.localisationLocale ?? "en"
+        TapCheckout.localeIdentifier = TapLocalisationManager.shared.localisationLocale ?? "ar"
         // Checkout's sample keys. Make sure
         // you use yours before going live
         TapCheckout.bundleID = "company.tap.goSellSDKExamplee"

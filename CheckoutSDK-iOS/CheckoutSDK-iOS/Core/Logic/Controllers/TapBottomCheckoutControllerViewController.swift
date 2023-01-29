@@ -670,7 +670,8 @@ extension TapBottomCheckoutControllerViewController:TapWebViewModelDelegate {
 
 extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDelegate {
     func hideCustomerContactDataCollection() {
-        tapVerticalView.remove(viewType: CustomerContactDataCollectionView .self, with: .init(for: .fadeOut), and: false)
+        tapVerticalView.remove(viewType: CustomerContactDataCollectionView .self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: false)
+        tapVerticalView.remove(viewType: CustomerShippingDataCollectionView .self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: false)
     }
     
     
