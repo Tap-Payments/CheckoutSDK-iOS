@@ -48,7 +48,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
-        TapLocalisationManager.shared.localisationLocale = "en"
+        TapLocalisationManager.shared.localisationLocale = "ar"
         // Do any additional setup after loading the view.
         amountTextField.delegate = self
         tapSettings.load()
@@ -108,7 +108,7 @@ class ViewController: UIViewController {
         let checkout:TapCheckout = .init()
         TapCheckout.flippingStatus = .FlipOnLoadWithFlippingBack
         // Checkout's localization. Currently supporting en and ar
-        TapCheckout.localeIdentifier = localeID
+        TapCheckout.localeIdentifier = TapLocalisationManager.shared.localisationLocale ?? "en"
         // Checkout's sample keys. Make sure
         // you use yours before going live
         TapCheckout.bundleID = "company.tap.goSellSDKExamplee"

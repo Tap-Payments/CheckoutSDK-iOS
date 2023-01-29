@@ -104,10 +104,9 @@ import FlagKit
     /// reload the country details
     internal func reloadCountryDetails() {
         guard let country:TapCountry = viewModel?.selectedCountry else { return }
-        let countryCode:TapCountryCode = .EG
         
-        countryNameLabel.text = country.nameEN
-        countryFlagImageView.image = Flag(countryCode: countryCode.rawValue)!.originalImage
+        countryNameLabel.text = country.localizedName(for: TapLocalisationManager.shared.localisationLocale ?? "en")
+        countryFlagImageView.image = Flag(countryCode: country.countryCode.rawValue)!.originalImage
     }
     
     /// Assigns the text fields delegates to self
