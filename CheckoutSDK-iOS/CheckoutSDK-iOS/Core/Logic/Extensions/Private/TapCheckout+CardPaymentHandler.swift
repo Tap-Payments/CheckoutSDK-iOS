@@ -232,6 +232,24 @@ extension TapCheckout {
     }
     
     
+    /// Handles the logic needed when the card form is being focused. Which is deselecting all payment schemes chips
+    func handleCardFormIsFocused() {
+        
+        // We will need to act only if there is a redirection scheme was selected, as all others will not need.
+        // Apple pay is a one step payment hence it is not selected by default
+        // Saved card chip will already disable the card form only allowing CVV to be entered
+        if dataHolder.transactionData.selectedPaymentOption?.paymentType == .Web {
+            // First step to deselect everything selected in the gopay and gateways horizontal chips
+            dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deselectAll()
+            dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.deselectAll()
+            // Second step, is remove the selected gateway if any from the selected payment option
+            dataHolder.transactionData.selectedPaymentOption = nil
+            // Then we update the action button style
+            dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .InvalidPayment
+            dataHolder.viewModels.tapActionButtonViewModel.buttonActionBlock = {}
+        }
+    }
+    
     /**
      Handles the logic needed to be applied upon card form validation status changes regrding the loyalty widget
      - Parameter cardBrand: The detected card brand

@@ -477,6 +477,10 @@ extension TapBottomCheckoutControllerViewController: TapAuthenticateDelegate {
 
 
 extension TapBottomCheckoutControllerViewController:TapCardTelecomPaymentProtocol {
+    func cardFieldsAreFocused() {
+        sharedCheckoutDataManager.handleCardFormIsFocused()
+    }
+    
     func saveCardChanged(for saveCardType: SaveCardType, to enabled: Bool) {
         // update the saving card status for the checkout manager
         // If activated for TAP we need to check if we have to collect user's data
