@@ -41,7 +41,7 @@ internal extension TapCheckout {
         case .Card:
             startCardPayment(with: paymentOption, and: andCard)
         case .SavedCard:
-            startSavedCardPayment(with: paymentOption)
+            startSavedCardPayment(with: paymentOption, and: andCard?.tapCardCVV)
         case .ApplePay,.Device:
             startApplePayPayment(with: paymentOption, and: andApplePayToken)
         default:
@@ -394,9 +394,9 @@ internal extension TapCheckout {
     /**
      Used to call the correct checkout logic for the web based payment options
      - Parameter with paymentOption: The payment option to start the checkout process with
-     - Parameter and card: The card object to be used in the transaction.
+     - Parameter and cardCVV: The cvv enetred by the user
      */
-    func startSavedCardPayment(with paymentOption:PaymentOption? = nil) {
+    func startSavedCardPayment(with paymentOption:PaymentOption? = nil, and cardCVV:String?) {
         // Make sure we have the saved card info in place and stored
         guard let paymentOption:PaymentOption = paymentOption,
               let selectedSavedCard:SavedCard = paymentOption.savedCard else {
@@ -407,7 +407,7 @@ internal extension TapCheckout {
         TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapActionButtonViewModel.startLoading()
         
         // Create a saved card tokenization api to start with and call it
-        guard let createSavedCardTokenRequest:TapCreateTokenRequest = createSavedCardTokenRequestModel(for: selectedSavedCard) else {
+        guard let createSavedCardTokenRequest:TapCreateTokenRequest = createSavedCardTokenRequestModel(for: selectedSavedCard,and: cardCVV) else {
             handleError(session: nil, result: nil, error: "Unexpected error while creating TapCreateTokenRequest")
             return
         }

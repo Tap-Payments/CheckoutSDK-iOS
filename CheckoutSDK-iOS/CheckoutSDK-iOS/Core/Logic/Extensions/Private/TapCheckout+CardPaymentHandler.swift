@@ -216,7 +216,7 @@ extension TapCheckout {
                 // Make the button action to start the paymet with the selected saved card
                 // Start the payment with the selected saved card
                 let savedCardActionBlock:()->() = { [weak self] in
-                    self?.processCheckout(with: (self?.dataHolder.transactionData.selectedPaymentOption!)!) }
+                    self?.processCheckout(with: (self?.dataHolder.transactionData.selectedPaymentOption!)!, andCard: self?.dataHolder.transactionData.currentCard) }
                 chanegActionButton(status: .ValidPayment, actionBlock: savedCardActionBlock)
             }
         }else{

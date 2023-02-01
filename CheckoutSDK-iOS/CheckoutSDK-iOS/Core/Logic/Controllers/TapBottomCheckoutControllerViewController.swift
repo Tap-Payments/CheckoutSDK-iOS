@@ -510,7 +510,7 @@ extension TapBottomCheckoutControllerViewController:TapCardTelecomPaymentProtoco
         // Based on the card input status we decide what to do with the new card
         if cardStatusUI == .SavedCard {
             // We don't deselct the selected card, we reset the current card data
-            sharedCheckoutDataManager.dataHolder.transactionData.currentCard = nil
+            sharedCheckoutDataManager.dataHolder.transactionData.currentCard = .init(tapCardCVV:tapCard.tapCardCVV)
         }else{
             // When a new card data is entered, then we need to deselct any selected gatways like SAVED CARDS or Redirections chips
             sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deselectAll()

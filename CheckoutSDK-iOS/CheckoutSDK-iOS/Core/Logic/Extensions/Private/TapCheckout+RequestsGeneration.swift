@@ -113,9 +113,10 @@ extension TapCheckout {
     /**
      Create a saved card token api request
      - Parameter for card: The saved card we need to generate a token for
+     - Parameter and cardCVV: The cvv enetred by the user
      - Returns: The Saved Card create token api request model
      */
-    func createSavedCardTokenRequestModel(for card:SavedCard) -> TapCreateTokenRequest? {
+    func createSavedCardTokenRequestModel(for card:SavedCard, and cardCVV:String?) -> TapCreateTokenRequest? {
         // double check, make sure all the data we need are correctly stored and set. Card ID and Customer ID
         guard let savedCardID = card.identifier else {
             handleError(session: nil, result: nil, error: "Unexpected error, tokenizing a saved card but cannot find the saved card id")
@@ -125,9 +126,8 @@ extension TapCheckout {
             handleError(session: nil, result: nil, error: "Unexpected error, tokenizing a saved card but cannot find the customer id")
             return nil
         }
-        
         // All good, we can now safely create the saved card token request
-        return TapCreateTokenWithSavedCardRequest(savedCard: .init(cardIdentifier: savedCardID, customerIdentifier: customerID))
+        return TapCreateTokenWithSavedCardRequest(savedCard: .init(cardIdentifier: savedCardID, customerIdentifier: customerID, cardCVV: cardCVV))
     }
     
     /**
