@@ -7,7 +7,11 @@
 //
 
 import UIKit
+import UIKit
 import CheckoutSDK_iOS
+import LocalisationManagerKit_iOS
+import CommonDataModelsKit_iOS
+import TapUIKit_iOS
 
 protocol AddItemViewControllerDelegate {
     func addNewItem(with itemModel: ItemModel)

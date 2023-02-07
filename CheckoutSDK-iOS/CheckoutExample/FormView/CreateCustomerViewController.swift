@@ -1,9 +1,9 @@
 //
-//  CreateCustomerViewController.swift
-//  CheckoutExample
+// CreateCustomerViewController.swift
+// CheckoutExample
 //
-//  Created by Osama Rabie on 20/07/2022.
-//  Copyright © 2022 Tap Payments. All rights reserved.
+// Created by Osama Rabie on 20/07/2022.
+// Copyright © 2022 Tap Payments. All rights reserved.
 //
 
 import UIKit
@@ -15,7 +15,7 @@ protocol CreateCustomerDelegate {
 }
 
 class CreateCustomerViewController: UIViewController {
-
+    
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
@@ -28,11 +28,11 @@ class CreateCustomerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     
-
+    
     @IBAction func createCustomerClicked(_ sender: Any) {
         // to add a customer whether he adds name + (email or phone) or the customer id
         if let customerID = customerIDTextField.text,
@@ -58,7 +58,7 @@ class CreateCustomerViewController: UIViewController {
                                                  city: "Hawally",
                                                  state: "Kuwait",
                                                  zipCode: "30003"
-                                                 )
+                )
                 
                 customerDelegate?.customerCreated(customer: try .init(emailAddress: email, phoneNumber: phone, name: firstName, address: addAddressSwitch.isOn ? tempAdddress : nil))
                 dismiss(animated: true)
@@ -76,13 +76,13 @@ class CreateCustomerViewController: UIViewController {
         }
     }
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

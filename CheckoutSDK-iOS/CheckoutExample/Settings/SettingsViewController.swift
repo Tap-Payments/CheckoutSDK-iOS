@@ -8,6 +8,8 @@
 
 import UIKit
 import CheckoutSDK_iOS
+import CommonDataModelsKit_iOS
+import TapUIKit_iOS
 
 class SettingsViewController: UIViewController {
 
@@ -17,7 +19,7 @@ class SettingsViewController: UIViewController {
     public var delegate: SettingsDelegate?
     
     private var settingsList: [SettingsSectionEnum] = []
-    private var tapSettings = TapSettings(language: "English", localisation: false, theme: "Default", currency: .USD, swipeToDismissFeature: true, paymentTypes: [.All],closeButtonTitleFeature: true, customer: try! .init(identifier: "cus_TS075220212320q2RD0707283"), transactionMode: .purchase)
+    private var tapSettings = TapSettings(localisation: false, theme: "Default", currency: .KWD, swipeToDismissFeature: true, paymentTypes: [.All],closeButtonTitleFeature: true, customer: try! .init(identifier: "cus_TS075220212320q2RD0707283"), transactionMode: .purchase, addShippingFeature: false)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +31,12 @@ class SettingsViewController: UIViewController {
         self.refillTableView()
     }
     
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        //tapSettings.updateSavedData()
+    }
+    
     private func refillTableView() {
         self.fillDataSource()
         self.settingsTableView.reloadData()
@@ -37,18 +45,21 @@ class SettingsViewController: UIViewController {
     func fillDataSource() {
         settingsList.removeAll()
         settingsList.append(.Language)
-        settingsList.append(.Localisation)
         settingsList.append(.SDKMode)
+        settingsList.append(.Localisation)
         settingsList.append(.TransactionMode)
         settingsList.append(.Theme)
         settingsList.append(.Currency)
         settingsList.append(.SwipeToDismiss)
+        settingsList.append(.AddShipping)
         settingsList.append(.CloseButtonTitle)
         settingsList.append(.PyamentOptions)
+        settingsList.append(.CreditCardName)
+        settingsList.append(.CreditSaveCardName)
         settingsList.append(.Customer)
-        if #available(iOS 16.0, *) {
-            settingsList.append(.ApplePaySubscription)
-        }
+        settingsList.append(.Bundle)
+        settingsList.append(.Loyalty)
+        settingsList.append(.ApplePayRecurring)
     }
 }
 
@@ -75,6 +86,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             switch currentsection {
             case .Localisation: cell.switchButton.isOn = tapSettings.localisation
             case .SwipeToDismiss: cell.switchButton.isOn = tapSettings.swipeToDismissFeature
+            case .AddShipping: cell.switchButton.isOn = tapSettings.addShipingFeature
+            case .CreditCardName: cell.switchButton.isOn = tapSettings.creditNameFeature
             case .CloseButtonTitle: cell.switchButton.isOn = tapSettings.closeButtonTitleFeature
             default: break
             }
@@ -85,7 +98,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")!
             cell.textLabel?.text = currentsection.rowsTitles[indexPath.row]
             switch currentsection {
-            case .Language: cell.detailTextLabel?.text = tapSettings.language
+            case .Language: cell.detailTextLabel?.text = TapSettings.language
+            case .SDKMode: cell.detailTextLabel?.text = TapSettings.sdkMode.description
             case .Theme: cell.detailTextLabel?.text = tapSettings.theme
             case .Currency: cell.detailTextLabel?.text = tapSettings.currency.appleRawValue
             case .PyamentOptions:
@@ -94,10 +108,16 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.detailTextLabel?.text = strings.joined(separator: ",")
             case .Customer:
                 cell.detailTextLabel?.text = getCustomerName()
+            case .Bundle:
+                cell.detailTextLabel?.text = "Set your bundle id + tap keys"
+            case .ApplePayRecurring:
+                cell.detailTextLabel?.text = "Set apple pay recurring details if needed"
+            case .Loyalty:
+                cell.detailTextLabel?.text = "Set a loyalty point redemption program"
             case .TransactionMode:
                 cell.detailTextLabel?.text = tapSettings.transactionMode.description
-            case .ApplePaySubscription:
-                cell.detailTextLabel?.text = ""
+            case .CreditSaveCardName:
+                cell.detailTextLabel?.text = TapSettings.saveCardFeature.toString()
             default: break
             }
             return cell
@@ -121,11 +141,16 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         let settingSection = SettingsSectionEnum(rawValue: indexPath.section)! as SettingsSectionEnum
         switch settingSection {
         case .Language: showLanguageActionSheet()
+        case .SDKMode: showSDKModeActionSheet()
         case .Theme: showThemeActionSheet()
         case .Currency: showCurrencyActionSheet()
         case .PyamentOptions: showPaypentTypesList()
+        case .CreditSaveCardName: showSaveCardType()
         case .Customer: showCustomerDetails()
+        case .Bundle: showBundleDetails()
+        case .Loyalty: showLoyaltyDetails()
         case .TransactionMode: showTransactionTypesList()
+        case .ApplePayRecurring: showApplePayRecurring()
         default: break
         }
     }
@@ -144,6 +169,11 @@ extension SettingsViewController: SwitchTableViewCellDelegate, MultipleSelection
             self.delegate?.didUpdateLocalisation(to: enabled)
         case .SwipeToDismiss:
             self.delegate?.didUpdateSwipeToDismiss(to: enabled)
+        case .AddShipping:
+            self.delegate?.didUpdateAddShipping(to: enabled)
+        case .CreditCardName:
+            UserDefaults.standard.set(enabled, forKey: TapSettings.creditNameFeatureSevedKey)
+            self.delegate?.didUpdateCredCardName(to: enabled)
         case .CloseButtonTitle:
             self.delegate?.didUpdateCloseButtonTitle(to: enabled)
         default: break
@@ -182,6 +212,23 @@ extension SettingsViewController  {
         self.present(transactionModeActionSheet, animated: true, completion: nil)
     }
     
+    
+    func showBundleDetails() {
+        let createBundleViewController = self.storyboard?.instantiateViewController(withIdentifier: "CreateBundleViewController") as! CreateBundleViewController
+        self.present(createBundleViewController, animated: true, completion: nil)
+    }
+    
+    
+    func showApplePayRecurring() {
+        let createApplePayRecurringController = self.storyboard?.instantiateViewController(withIdentifier: "ApplePaySubscriptionDetailsViewController") as! ApplePaySubscriptionDetailsViewController
+        self.present(createApplePayRecurringController, animated: true, completion: nil)
+    }
+    
+    func showLoyaltyDetails() {
+        let createLoyaltyViewController = self.storyboard?.instantiateViewController(withIdentifier: "CreateLoyaltyViewController") as! CreateLoyaltyViewController
+        self.present(createLoyaltyViewController, animated: true, completion: nil)
+    }
+    
     func showCustomerDetails() {
         let createCustomerViewController = self.storyboard?.instantiateViewController(withIdentifier: "CreateCustomerViewController") as! CreateCustomerViewController
         createCustomerViewController.customerDelegate = self
@@ -196,12 +243,34 @@ extension SettingsViewController  {
         let cancelActionButton = UIAlertAction(title: "Cancel", style: .cancel)
         languageActionSheet.addAction(cancelActionButton)
         
-        ["Arabic","English","French","Hindi"].forEach { language in
-            languageActionSheet.addAction(UIAlertAction(title: language, style: .default, handler: { [weak self] _ in
-                self?.tapSettings.language = language!
-                self?.delegate?.didUpdateLanguage(with: String(language!.lowercased().prefix(2)))
+        ["Arabic","English"].forEach { language in
+            languageActionSheet.addAction(UIAlertAction(title: language, style: .default, handler: { _ in
+                UserDefaults.standard.set(String(language!.lowercased().prefix(2)).lowercased(), forKey: TapSettings.localIDSevedKey)
+                UserDefaults.standard.synchronize()
+                self.delegate?.didUpdateLanguage(with: TapSettings.language)
+                self.settingsTableView.reloadData()
             }))
         }
+        self.present(languageActionSheet, animated: true, completion: nil)
+    }
+    
+    
+    func showSDKModeActionSheet() {
+        //Create the AlertController and add Its action like button in Actionsheet
+        let languageActionSheet = UIAlertController(title: nil, message: "Select SDK mode", preferredStyle: .actionSheet)
+        
+        let cancelActionButton = UIAlertAction(title: "Cancel", style: .cancel)
+        languageActionSheet.addAction(cancelActionButton)
+        
+        languageActionSheet.addAction(.init(title: "sandbox", style: .default, handler: { _ in
+            UserDefaults.standard.set(SDKMode.sandbox.rawValue,forKey: TapSettings.sdkModeSevedKey)
+            self.settingsTableView.reloadData()
+        }))
+        
+        languageActionSheet.addAction(.init(title: "production", style: .default, handler: { _ in
+            UserDefaults.standard.set(SDKMode.production.rawValue,forKey: TapSettings.sdkModeSevedKey)
+            self.settingsTableView.reloadData()
+        }))
         self.present(languageActionSheet, animated: true, completion: nil)
     }
     
@@ -247,6 +316,21 @@ extension SettingsViewController  {
         
         self.present(currencyActionSheet, animated: true, completion: nil)
     }
+    func showSaveCardType() {
+        //Create the AlertController and add Its action like button in Actionsheet
+        let saveCardActionSheet = UIAlertController(title: nil, message: "Select Save cards options", preferredStyle: .actionSheet)
+        SaveCardType.allCases.forEach { (saveCardType) in
+            saveCardActionSheet.addAction(UIAlertAction(title: "\(saveCardType.toString())", style: .default) { [weak self] _ in
+                UserDefaults.standard.set(saveCardType.toString(), forKey: TapSettings.saveCardFeatureSevedKey)
+                self?.delegate?.didUpdateCredCardSave(to: saveCardType)
+                self?.settingsTableView.reloadData()
+            })
+        }
+        
+        self.present(saveCardActionSheet, animated: true, completion: nil)
+    }
+    
+    
 }
 
 

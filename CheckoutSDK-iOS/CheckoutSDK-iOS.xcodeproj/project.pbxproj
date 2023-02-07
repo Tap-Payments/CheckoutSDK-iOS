@@ -3,26 +3,37 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		5B453A3F4FF0BE6BFE5129CB /* Pods_CheckoutExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9641A958A3B669E7ED3F097E /* Pods_CheckoutExample.framework */; };
-		620965F524E41F1E00BD9985 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620965F424E41F1E00BD9985 /* SettingsViewController.swift */; };
 		620965F824E42ED800BD9985 /* SettingsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620965F724E42ED800BD9985 /* SettingsDelegate.swift */; };
 		620965FC24E4364100BD9985 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620965FA24E4364100BD9985 /* SwitchTableViewCell.swift */; };
 		620965FD24E4364100BD9985 /* LocalisationSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 620965FB24E4364100BD9985 /* LocalisationSwitchTableViewCell.xib */; };
-		62570A1024EA6F2500274C2C /* TapSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62570A0F24EA6F2500274C2C /* TapSettings.swift */; };
 		625E2CCA24F6A176008C2019 /* MultipleSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625E2CC924F6A176008C2019 /* MultipleSelectionViewController.swift */; };
-		628D7D182504E6D1007D6A7F /* SettingsSectionEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628D7D172504E6D1007D6A7F /* SettingsSectionEnum.swift */; };
-		62B45FA024EBD6680094FB4B /* FormCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B45F9D24EBD6680094FB4B /* FormCells.swift */; };
-		62B45FA124EBD6680094FB4B /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B45F9E24EBD6680094FB4B /* FormViewController.swift */; };
-		62B45FA224EBD6680094FB4B /* FormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B45F9F24EBD6680094FB4B /* FormView.swift */; };
-		62B45FA524EBE19B0094FB4B /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B45FA424EBE19B0094FB4B /* AddItemViewController.swift */; };
-		62B45FA724EBE2210094FB4B /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B45FA624EBE2210094FB4B /* TableViewController.swift */; };
-		62B45FAA24EBF2620094FB4B /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B45FA824EBF2620094FB4B /* ItemTableViewCell.swift */; };
-		62B45FAB24EBF2620094FB4B /* ItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62B45FA924EBF2620094FB4B /* ItemTableViewCell.xib */; };
-		62E4415B24FD132C00B0F87C /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E4415A24FD132C00B0F87C /* UserDefaultsHelper.swift */; };
+		E8082E4C2992886E00F001F3 /* FormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8082E432992886C00F001F3 /* FormView.swift */; };
+		E8082E4D2992886E00F001F3 /* CreateBundleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8082E442992886C00F001F3 /* CreateBundleViewController.swift */; };
+		E8082E4E2992886E00F001F3 /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8082E452992886C00F001F3 /* FormViewController.swift */; };
+		E8082E4F2992886E00F001F3 /* LogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8082E462992886D00F001F3 /* LogsViewController.swift */; };
+		E8082E502992886E00F001F3 /* FormCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8082E472992886D00F001F3 /* FormCells.swift */; };
+		E8082E512992886E00F001F3 /* CreateLoyaltyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8082E482992886D00F001F3 /* CreateLoyaltyViewController.swift */; };
+		E8082E522992886E00F001F3 /* ApplePaySubscriptionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8082E492992886D00F001F3 /* ApplePaySubscriptionDetailsViewController.swift */; };
+		E8082E532992886E00F001F3 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8082E4A2992886E00F001F3 /* TableViewController.swift */; };
+		E8082E542992886E00F001F3 /* CreateCustomerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8082E4B2992886E00F001F3 /* CreateCustomerViewController.swift */; };
+		E8082E582992888800F001F3 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8082E552992888800F001F3 /* ItemTableViewCell.swift */; };
+		E8082E592992888800F001F3 /* ItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8082E562992888800F001F3 /* ItemTableViewCell.xib */; };
+		E8082E5A2992888800F001F3 /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8082E572992888800F001F3 /* AddItemViewController.swift */; };
+		E8082E5D2992889700F001F3 /* TapSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8082E5B2992889600F001F3 /* TapSettings.swift */; };
+		E8082E5E2992889700F001F3 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8082E5C2992889700F001F3 /* UserDefaultsHelper.swift */; };
+		E8082E63299288AC00F001F3 /* CreateTaxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8082E5F299288AB00F001F3 /* CreateTaxViewController.swift */; };
+		E8082E64299288AC00F001F3 /* SettingsSectionEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8082E60299288AB00F001F3 /* SettingsSectionEnum.swift */; };
+		E8082E65299288AC00F001F3 /* CreateItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8082E61299288AB00F001F3 /* CreateItemViewController.swift */; };
+		E8082E66299288AC00F001F3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8082E62299288AC00F001F3 /* SettingsViewController.swift */; };
+		E8082E68299288F400F001F3 /* TapFormSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8082E67299288F400F001F3 /* TapFormSettingsViewController.swift */; };
+		E8082E6B29928A0200F001F3 /* Eureka in Frameworks */ = {isa = PBXBuildFile; productRef = E8082E6A29928A0200F001F3 /* Eureka */; };
+		E8082E6D29928CEF00F001F3 /* LocalisationSettingsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8082E6C29928CEF00F001F3 /* LocalisationSettingsDelegate.swift */; };
+		E8082E6F29928D2000F001F3 /* TaxTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8082E6E29928D2000F001F3 /* TaxTableViewController.swift */; };
 		E830B7F324F3E96900B62713 /* TapPayButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E830B7F224F3E96900B62713 /* TapPayButtonViewModel.swift */; };
 		E830B7F724FA3BF100B62713 /* TapCheckout+UIKitDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = E830B7F624FA3BF100B62713 /* TapCheckout+UIKitDelegates.swift */; };
 		E830B7FC24FA430800B62713 /* TapGoPayLoginResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E830B7FB24FA430800B62713 /* TapGoPayLoginResponseModel.swift */; };
@@ -34,7 +45,6 @@
 		E83923CB269F0C3A00421E15 /* TapCheckout + ScannerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83923CA269F0C3900421E15 /* TapCheckout + ScannerHandler.swift */; };
 		E83D221125777E4A00AE6DA0 /* Pods_CheckoutSDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21BD535F94169C44719615A6 /* Pods_CheckoutSDK_iOS.framework */; };
 		E83D221225777E4A00AE6DA0 /* Pods_CheckoutSDK_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 21BD535F94169C44719615A6 /* Pods_CheckoutSDK_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E83FD08928888F7E00057F22 /* CreateCustomerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83FD08828888F7E00057F22 /* CreateCustomerViewController.swift */; };
 		E85B5539289FCC6B00362990 /* TapCreateTokenWithApplePayTokenRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85B5538289FCC6B00362990 /* TapCreateTokenWithApplePayTokenRequestModel.swift */; };
 		E85B553B289FCC8B00362990 /* TapCreateTokenWithSavedCardRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85B553A289FCC8B00362990 /* TapCreateTokenWithSavedCardRequest.swift */; };
 		E861286D24EA7F7F00774BAA /* CurrencyChipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E861286C24EA7F7F00774BAA /* CurrencyChipModel.swift */; };
@@ -66,8 +76,6 @@
 		E8983DCD24EEC3D900C34E50 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CF141924EE8F140036015C /* NetworkManager.swift */; };
 		E8983DD124F1469700C34E50 /* TapEntitResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8983DD024F1469700C34E50 /* TapEntitResponseModel.swift */; };
 		E89B4F8A26A21B3B0077B0A6 /* TapCheckout+CDNUrlsGeneration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89B4F8926A21B3B0077B0A6 /* TapCheckout+CDNUrlsGeneration.swift */; };
-		E8A262C9288D856000143C50 /* CreateTaxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A262C8288D856000143C50 /* CreateTaxViewController.swift */; };
-		E8A262CB288D904B00143C50 /* CreateItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A262CA288D904B00143C50 /* CreateItemViewController.swift */; };
 		E8B5275428D727E90001FE24 /* TapCheckout+Loyalty.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B5275328D727E90001FE24 /* TapCheckout+Loyalty.swift */; };
 		E8C2052824E40E95006653CA /* CustomLocalisation.json in Resources */ = {isa = PBXBuildFile; fileRef = E8C2052724E40E95006653CA /* CustomLocalisation.json */; };
 		E8C58B3824E5344700E1F04F /* TapCheckOutTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C58B3724E5344700E1F04F /* TapCheckOutTheme.swift */; };
@@ -125,24 +133,34 @@
 		0802648EECEE8D8A9592697F /* Pods-CheckoutSDK-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutSDK-iOS.release.xcconfig"; path = "Target Support Files/Pods-CheckoutSDK-iOS/Pods-CheckoutSDK-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		21BD535F94169C44719615A6 /* Pods_CheckoutSDK_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CheckoutSDK_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		308B270DB224DA958A7F9DB1 /* Pods-CheckoutExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutExample.release.xcconfig"; path = "Target Support Files/Pods-CheckoutExample/Pods-CheckoutExample.release.xcconfig"; sourceTree = "<group>"; };
-		620965F424E41F1E00BD9985 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		620965F724E42ED800BD9985 /* SettingsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDelegate.swift; sourceTree = "<group>"; };
 		620965FA24E4364100BD9985 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		620965FB24E4364100BD9985 /* LocalisationSwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocalisationSwitchTableViewCell.xib; sourceTree = "<group>"; };
-		62570A0F24EA6F2500274C2C /* TapSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapSettings.swift; sourceTree = "<group>"; };
 		625E2CC924F6A176008C2019 /* MultipleSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSelectionViewController.swift; sourceTree = "<group>"; };
-		628D7D172504E6D1007D6A7F /* SettingsSectionEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSectionEnum.swift; sourceTree = "<group>"; };
-		62B45F9D24EBD6680094FB4B /* FormCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormCells.swift; sourceTree = "<group>"; };
-		62B45F9E24EBD6680094FB4B /* FormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
-		62B45F9F24EBD6680094FB4B /* FormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormView.swift; sourceTree = "<group>"; };
-		62B45FA424EBE19B0094FB4B /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
-		62B45FA624EBE2210094FB4B /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
-		62B45FA824EBF2620094FB4B /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
-		62B45FA924EBF2620094FB4B /* ItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemTableViewCell.xib; sourceTree = "<group>"; };
 		62CF141924EE8F140036015C /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		62E4415A24FD132C00B0F87C /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
 		9641A958A3B669E7ED3F097E /* Pods_CheckoutExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CheckoutExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EA23C9D0ACA6A832C046E7C /* Pods-CheckoutExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutExample.debug.xcconfig"; path = "Target Support Files/Pods-CheckoutExample/Pods-CheckoutExample.debug.xcconfig"; sourceTree = "<group>"; };
+		E8082E432992886C00F001F3 /* FormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormView.swift; sourceTree = "<group>"; };
+		E8082E442992886C00F001F3 /* CreateBundleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateBundleViewController.swift; sourceTree = "<group>"; };
+		E8082E452992886C00F001F3 /* FormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
+		E8082E462992886D00F001F3 /* LogsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsViewController.swift; sourceTree = "<group>"; };
+		E8082E472992886D00F001F3 /* FormCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormCells.swift; sourceTree = "<group>"; };
+		E8082E482992886D00F001F3 /* CreateLoyaltyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateLoyaltyViewController.swift; sourceTree = "<group>"; };
+		E8082E492992886D00F001F3 /* ApplePaySubscriptionDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplePaySubscriptionDetailsViewController.swift; sourceTree = "<group>"; };
+		E8082E4A2992886E00F001F3 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		E8082E4B2992886E00F001F3 /* CreateCustomerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateCustomerViewController.swift; sourceTree = "<group>"; };
+		E8082E552992888800F001F3 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
+		E8082E562992888800F001F3 /* ItemTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemTableViewCell.xib; sourceTree = "<group>"; };
+		E8082E572992888800F001F3 /* AddItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
+		E8082E5B2992889600F001F3 /* TapSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapSettings.swift; sourceTree = "<group>"; };
+		E8082E5C2992889700F001F3 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
+		E8082E5F299288AB00F001F3 /* CreateTaxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTaxViewController.swift; sourceTree = "<group>"; };
+		E8082E60299288AB00F001F3 /* SettingsSectionEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSectionEnum.swift; sourceTree = "<group>"; };
+		E8082E61299288AB00F001F3 /* CreateItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateItemViewController.swift; sourceTree = "<group>"; };
+		E8082E62299288AC00F001F3 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		E8082E67299288F400F001F3 /* TapFormSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapFormSettingsViewController.swift; sourceTree = "<group>"; };
+		E8082E6C29928CEF00F001F3 /* LocalisationSettingsDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocalisationSettingsDelegate.swift; path = ../../../../CheckoutExample/CheckoutExample/Protocols/LocalisationSettingsDelegate.swift; sourceTree = "<group>"; };
+		E8082E6E29928D2000F001F3 /* TaxTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxTableViewController.swift; sourceTree = "<group>"; };
 		E830B7F224F3E96900B62713 /* TapPayButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapPayButtonViewModel.swift; sourceTree = "<group>"; };
 		E830B7F624FA3BF100B62713 /* TapCheckout+UIKitDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+UIKitDelegates.swift"; sourceTree = "<group>"; };
 		E830B7FB24FA430800B62713 /* TapGoPayLoginResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGoPayLoginResponseModel.swift; sourceTree = "<group>"; };
@@ -152,7 +170,6 @@
 		E83923952695E3C800421E15 /* TapCheckout+SavedCardPaymentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+SavedCardPaymentHandler.swift"; sourceTree = "<group>"; };
 		E83923B9269A13A400421E15 /* TapCheckout+ApplePayPaymentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+ApplePayPaymentHandler.swift"; sourceTree = "<group>"; };
 		E83923CA269F0C3900421E15 /* TapCheckout + ScannerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout + ScannerHandler.swift"; sourceTree = "<group>"; };
-		E83FD08828888F7E00057F22 /* CreateCustomerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCustomerViewController.swift; sourceTree = "<group>"; };
 		E85B5538289FCC6B00362990 /* TapCreateTokenWithApplePayTokenRequestModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapCreateTokenWithApplePayTokenRequestModel.swift; sourceTree = "<group>"; };
 		E85B553A289FCC8B00362990 /* TapCreateTokenWithSavedCardRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapCreateTokenWithSavedCardRequest.swift; sourceTree = "<group>"; };
 		E861286C24EA7F7F00774BAA /* CurrencyChipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyChipModel.swift; sourceTree = "<group>"; };
@@ -186,8 +203,6 @@
 		E89225E924E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+KitsConfigurations.swift"; sourceTree = "<group>"; };
 		E8983DD024F1469700C34E50 /* TapEntitResponseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapEntitResponseModel.swift; sourceTree = "<group>"; };
 		E89B4F8926A21B3B0077B0A6 /* TapCheckout+CDNUrlsGeneration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+CDNUrlsGeneration.swift"; sourceTree = "<group>"; };
-		E8A262C8288D856000143C50 /* CreateTaxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaxViewController.swift; sourceTree = "<group>"; };
-		E8A262CA288D904B00143C50 /* CreateItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateItemViewController.swift; sourceTree = "<group>"; };
 		E8B5275328D727E90001FE24 /* TapCheckout+Loyalty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+Loyalty.swift"; sourceTree = "<group>"; };
 		E8C2052724E40E95006653CA /* CustomLocalisation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CustomLocalisation.json; sourceTree = "<group>"; };
 		E8C58B3724E5344700E1F04F /* TapCheckOutTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckOutTheme.swift; sourceTree = "<group>"; };
@@ -223,6 +238,7 @@
 				E87684E82886D83E0008D540 /* PassKit.framework in Frameworks */,
 				5B453A3F4FF0BE6BFE5129CB /* Pods_CheckoutExample.framework in Frameworks */,
 				E8845E6A24D835B1009E8B73 /* CheckoutSDK_iOS.framework in Frameworks */,
+				E8082E6B29928A0200F001F3 /* Eureka in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,6 +258,7 @@
 		620965F624E42EB000BD9985 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				E8082E6C29928CEF00F001F3 /* LocalisationSettingsDelegate.swift */,
 				620965F724E42ED800BD9985 /* SettingsDelegate.swift */,
 			);
 			path = Protocols;
@@ -259,8 +276,8 @@
 		62570A0E24EA6F0F00274C2C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				62570A0F24EA6F2500274C2C /* TapSettings.swift */,
-				62E4415A24FD132C00B0F87C /* UserDefaultsHelper.swift */,
+				E8082E5B2992889600F001F3 /* TapSettings.swift */,
+				E8082E5C2992889700F001F3 /* UserDefaultsHelper.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -268,11 +285,15 @@
 		62570A6924EBD5B500274C2C /* FormView */ = {
 			isa = PBXGroup;
 			children = (
-				62B45FA624EBE2210094FB4B /* TableViewController.swift */,
-				62B45F9D24EBD6680094FB4B /* FormCells.swift */,
-				62B45F9F24EBD6680094FB4B /* FormView.swift */,
-				62B45F9E24EBD6680094FB4B /* FormViewController.swift */,
-				E83FD08828888F7E00057F22 /* CreateCustomerViewController.swift */,
+				E8082E492992886D00F001F3 /* ApplePaySubscriptionDetailsViewController.swift */,
+				E8082E442992886C00F001F3 /* CreateBundleViewController.swift */,
+				E8082E4B2992886E00F001F3 /* CreateCustomerViewController.swift */,
+				E8082E482992886D00F001F3 /* CreateLoyaltyViewController.swift */,
+				E8082E472992886D00F001F3 /* FormCells.swift */,
+				E8082E432992886C00F001F3 /* FormView.swift */,
+				E8082E452992886C00F001F3 /* FormViewController.swift */,
+				E8082E462992886D00F001F3 /* LogsViewController.swift */,
+				E8082E4A2992886E00F001F3 /* TableViewController.swift */,
 			);
 			path = FormView;
 			sourceTree = "<group>";
@@ -280,10 +301,11 @@
 		628D7D162504E6B1007D6A7F /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				620965F424E41F1E00BD9985 /* SettingsViewController.swift */,
-				628D7D172504E6D1007D6A7F /* SettingsSectionEnum.swift */,
-				E8A262C8288D856000143C50 /* CreateTaxViewController.swift */,
-				E8A262CA288D904B00143C50 /* CreateItemViewController.swift */,
+				E8082E6E29928D2000F001F3 /* TaxTableViewController.swift */,
+				E8082E61299288AB00F001F3 /* CreateItemViewController.swift */,
+				E8082E5F299288AB00F001F3 /* CreateTaxViewController.swift */,
+				E8082E60299288AB00F001F3 /* SettingsSectionEnum.swift */,
+				E8082E62299288AC00F001F3 /* SettingsViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -291,9 +313,9 @@
 		62B45FA324EBE1810094FB4B /* Items */ = {
 			isa = PBXGroup;
 			children = (
-				62B45FA424EBE19B0094FB4B /* AddItemViewController.swift */,
-				62B45FA824EBF2620094FB4B /* ItemTableViewCell.swift */,
-				62B45FA924EBF2620094FB4B /* ItemTableViewCell.xib */,
+				E8082E572992888800F001F3 /* AddItemViewController.swift */,
+				E8082E552992888800F001F3 /* ItemTableViewCell.swift */,
+				E8082E562992888800F001F3 /* ItemTableViewCell.xib */,
 			);
 			path = Items;
 			sourceTree = "<group>";
@@ -397,6 +419,7 @@
 				E8811AED24D4287400DE95D1 /* Main.storyboard */,
 				E8811AF024D4287500DE95D1 /* Assets.xcassets */,
 				E8811AF224D4287500DE95D1 /* LaunchScreen.storyboard */,
+				E8082E67299288F400F001F3 /* TapFormSettingsViewController.swift */,
 				E8811AF524D4287500DE95D1 /* Info.plist */,
 			);
 			path = CheckoutExample;
@@ -585,6 +608,9 @@
 				E8845E6D24D835B1009E8B73 /* PBXTargetDependency */,
 			);
 			name = CheckoutExample;
+			packageProductDependencies = (
+				E8082E6A29928A0200F001F3 /* Eureka */,
+			);
 			productName = CheckoutExample;
 			productReference = E8811AE524D4287400DE95D1 /* CheckoutExample.app */;
 			productType = "com.apple.product-type.application";
@@ -617,6 +643,9 @@
 				Base,
 			);
 			mainGroup = E8811ACC24D4283C00DE95D1;
+			packageReferences = (
+				E8082E6929928A0200F001F3 /* XCRemoteSwiftPackageReference "Eureka" */,
+			);
 			productRefGroup = E8811AD724D4283C00DE95D1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -644,7 +673,7 @@
 				E8811AF424D4287500DE95D1 /* LaunchScreen.storyboard in Resources */,
 				E88834A329792E33006225E6 /* bg.png in Resources */,
 				E8C58B4424E54AF400E1F04F /* GreenLightTheme.json in Resources */,
-				62B45FAB24EBF2620094FB4B /* ItemTableViewCell.xib in Resources */,
+				E8082E592992888800F001F3 /* ItemTableViewCell.xib in Resources */,
 				620965FD24E4364100BD9985 /* LocalisationSwitchTableViewCell.xib in Resources */,
 				E8C2052824E40E95006653CA /* CustomLocalisation.json in Resources */,
 				E8C58B4324E54AF400E1F04F /* GreenDarkTheme.json in Resources */,
@@ -771,25 +800,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8A262CB288D904B00143C50 /* CreateItemViewController.swift in Sources */,
-				E83FD08928888F7E00057F22 /* CreateCustomerViewController.swift in Sources */,
-				62E4415B24FD132C00B0F87C /* UserDefaultsHelper.swift in Sources */,
-				62B45FA124EBD6680094FB4B /* FormViewController.swift in Sources */,
+				E8082E6D29928CEF00F001F3 /* LocalisationSettingsDelegate.swift in Sources */,
+				E8082E522992886E00F001F3 /* ApplePaySubscriptionDetailsViewController.swift in Sources */,
+				E8082E4D2992886E00F001F3 /* CreateBundleViewController.swift in Sources */,
 				E8811AEC24D4287400DE95D1 /* ViewController.swift in Sources */,
-				62B45FA224EBD6680094FB4B /* FormView.swift in Sources */,
-				62B45FA024EBD6680094FB4B /* FormCells.swift in Sources */,
+				E8082E5D2992889700F001F3 /* TapSettings.swift in Sources */,
+				E8082E5A2992888800F001F3 /* AddItemViewController.swift in Sources */,
+				E8082E65299288AC00F001F3 /* CreateItemViewController.swift in Sources */,
 				620965FC24E4364100BD9985 /* SwitchTableViewCell.swift in Sources */,
 				E8811AE824D4287400DE95D1 /* AppDelegate.swift in Sources */,
-				62B45FAA24EBF2620094FB4B /* ItemTableViewCell.swift in Sources */,
 				625E2CCA24F6A176008C2019 /* MultipleSelectionViewController.swift in Sources */,
 				E8811AEA24D4287400DE95D1 /* SceneDelegate.swift in Sources */,
-				62B45FA724EBE2210094FB4B /* TableViewController.swift in Sources */,
-				620965F524E41F1E00BD9985 /* SettingsViewController.swift in Sources */,
+				E8082E5E2992889700F001F3 /* UserDefaultsHelper.swift in Sources */,
 				620965F824E42ED800BD9985 /* SettingsDelegate.swift in Sources */,
-				E8A262C9288D856000143C50 /* CreateTaxViewController.swift in Sources */,
-				62570A1024EA6F2500274C2C /* TapSettings.swift in Sources */,
-				62B45FA524EBE19B0094FB4B /* AddItemViewController.swift in Sources */,
-				628D7D182504E6D1007D6A7F /* SettingsSectionEnum.swift in Sources */,
+				E8082E512992886E00F001F3 /* CreateLoyaltyViewController.swift in Sources */,
+				E8082E4F2992886E00F001F3 /* LogsViewController.swift in Sources */,
+				E8082E502992886E00F001F3 /* FormCells.swift in Sources */,
+				E8082E68299288F400F001F3 /* TapFormSettingsViewController.swift in Sources */,
+				E8082E66299288AC00F001F3 /* SettingsViewController.swift in Sources */,
+				E8082E532992886E00F001F3 /* TableViewController.swift in Sources */,
+				E8082E4C2992886E00F001F3 /* FormView.swift in Sources */,
+				E8082E63299288AC00F001F3 /* CreateTaxViewController.swift in Sources */,
+				E8082E4E2992886E00F001F3 /* FormViewController.swift in Sources */,
+				E8082E582992888800F001F3 /* ItemTableViewCell.swift in Sources */,
+				E8082E6F29928D2000F001F3 /* TaxTableViewController.swift in Sources */,
+				E8082E64299288AC00F001F3 /* SettingsSectionEnum.swift in Sources */,
+				E8082E542992886E00F001F3 /* CreateCustomerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1085,6 +1121,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E8082E6929928A0200F001F3 /* XCRemoteSwiftPackageReference "Eureka" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/xmartlabs/Eureka.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E8082E6A29928A0200F001F3 /* Eureka */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E8082E6929928A0200F001F3 /* XCRemoteSwiftPackageReference "Eureka" */;
+			productName = Eureka;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E8811ACD24D4283C00DE95D1 /* Project object */;
 }

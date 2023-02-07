@@ -8,6 +8,7 @@
 
 import UIKit
 import CheckoutSDK_iOS
+import CommonDataModelsKit_iOS
 
 protocol MultipleSelectionViewDelegate {
     func didUpdatePaymentTypes(paymentTypes: [TapPaymentType])

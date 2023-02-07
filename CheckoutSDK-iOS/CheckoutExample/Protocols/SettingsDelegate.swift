@@ -7,6 +7,8 @@
 //
 import Foundation
 import CheckoutSDK_iOS
+import CommonDataModelsKit_iOS
+import TapUIKit_iOS
 
 public protocol SettingsDelegate {
     func didUpdateLanguage(with locale: String)
@@ -15,6 +17,9 @@ public protocol SettingsDelegate {
     func didChangeCurrency(with currency: TapCurrencyCode)
     func didChangeCustomer(with customer: TapCustomer)
     func didUpdateSwipeToDismiss(to enabled: Bool)
+    func didUpdateAddShipping(to enabled:Bool)
+    func didUpdateCredCardName(to enabled:Bool)
+    func didUpdateCredCardSave(to type:SaveCardType)
     func didUpdateCloseButtonTitle(to enabled:Bool)
     func didUpdatePaymentTypes(to types:[TapPaymentType])
     func didUpdateTransactionMode(to mode:TransactionMode)

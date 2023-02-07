@@ -24,11 +24,12 @@ class CreateItemViewController: UIViewController {
     @IBOutlet weak var quantityLabel: UILabel!
     @IBOutlet weak var itemPriceSlider: UISlider!
     @IBOutlet weak var itemPriceLabel: UILabel!
-    var tax:[Tax]? = nil
+    var tax:[Tax] = []
     @IBOutlet weak var discountSegment: UISegmentedControl!
     @IBOutlet weak var taxLabel: UILabel!
     @IBOutlet weak var discountSlider: UISlider!
     @IBOutlet weak var discountLabel: UILabel!
+    @IBOutlet weak var shippingSwitch: UISwitch!
     var delegate:CreateItemViewControllerDelegate?
     
     override func viewDidLoad() {
@@ -65,7 +66,7 @@ class CreateItemViewController: UIViewController {
     }
     
     func updateTax() {
-        taxLabel.text = "Tax (\((tax ?? []).count)) :"
+        taxLabel.text = "Tax (\(tax.count)) :"
     }
     
     @IBAction func priceSliderChanged(_ sender: Any) {
@@ -94,13 +95,15 @@ class CreateItemViewController: UIViewController {
         let discValue = round(discountSlider.value)
         
         var discountModels:[AmountModificatorModel]? = nil
-        var discountModel:AmountModificatorModel? = nil
+        var discountModel: AmountModificatorModel? = nil
+        
         if discountSegment.selectedSegmentIndex != 2 {
             discountModel = .init(type: (discountSegment.selectedSegmentIndex == 0) ? .Fixed : .Percentage, value: Double(discValue))
-            discountModels = [discountModel!]
+            discountModels = []
+            discountModels?.append(discountModel!)
         }
         
-        let item:ItemModel = .init(title: itemName, description: itemDescTextField.text, price: Double(priceValue), quantity: Double(quntityValue), discount: discountModels, totalAmount: 0)
+        let item:ItemModel = .init(title: itemName, description: itemDescTextField.text, price: Double(priceValue), quantity: Double(quntityValue), discount: discountModels, taxes: tax, totalAmount: 0,requiresShipping: shippingSwitch.isOn)
         
         saveItem(item: item)
         delegate?.itemAdded(with: item)
@@ -156,12 +159,7 @@ class CreateItemViewController: UIViewController {
 
 extension CreateItemViewController: UITextFieldDelegate, CreateTaxViewControllerDelegate {
     func taxAdded(with tax: Tax) {
-        if let _ = self.tax {
-            
-        } else {
-            self.tax = []
-        }
-        self.tax?.append(tax)
+        self.tax.append(tax)
         updateTax()
     }
     

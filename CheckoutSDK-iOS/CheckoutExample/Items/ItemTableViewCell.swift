@@ -10,7 +10,7 @@ import UIKit
 import CheckoutSDK_iOS
 import CommonDataModelsKit_iOS
 class ItemTableViewCell: UITableViewCell {
-    
+
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
