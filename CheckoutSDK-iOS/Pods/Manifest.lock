@@ -16,7 +16,7 @@ PODS:
   - SwiftyRSA/ObjC (1.7.0)
   - TapAdditionsKitV2 (0.0.9):
     - TapSwiftFixesV2
-  - TapApplePayKit-iOS (1.0.12):
+  - TapApplePayKit-iOS (1.0.13):
     - CommonDataModelsKit-iOS
     - TapApplicationV2
     - TapNetworkKit-iOS
@@ -107,7 +107,7 @@ SPEC CHECKSUMS:
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   SwiftyRSA: 8c6dd1ea7db1b8dc4fb517a202f88bb1354bc2c6
   TapAdditionsKitV2: 9846381c32b150303cbeff355550d3500a98f77d
-  TapApplePayKit-iOS: 171a166dc2852d6462bbcc1adfeb743f3390b23b
+  TapApplePayKit-iOS: bf44341123ea2c2b6bd4a6ee81122a3ab17c8d2e
   TapApplicationV2: aee3d046c4272778431e1535de6cab34e1269f8c
   TapCardInputKit-iOS: 9fde120c4f2561a843d638bfeb514111b6a5452d
   TapCardScanner-iOS: 9db044847348ddb7a3b4ca262b33842e83d71a6e

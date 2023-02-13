@@ -7,80 +7,33 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A197D2F0-24AE-4AA5-87FD-C69F764B6FFA"
+            uuid = "32CACC3B-B4B5-478B-AA09-C2D54BEE6D2D"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pods/TapCardInputKit-iOS/TapCardInputKit-iOS/Core/Public/CardInput/TapCardInput.swift"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+CDNUrlsGeneration.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
-            landmarkName = "TapCardInput"
-            landmarkType = "3">
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "imageURL"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "93E5F6EB-ED8E-43D5-B290-DEC5871881E7"
+            uuid = "B1C19D08-059C-45D7-98F9-9F2FF87C3197"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pods/TapCardInputKit-iOS/TapCardInputKit-iOS/Core/Public/CardInput/TapCardInput.swift"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+CDNUrlsGeneration.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "732"
-            endingLineNumber = "732"
-            landmarkName = "updateShadow()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "93E5F6EB-ED8E-43D5-B290-DEC5871881E7 - cd56152ee1fff95c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TapCardInputKit_iOS.TapCardInput.updateFousedStatus() -&gt; ()"
-                  moduleName = "TapCardInputKit_iOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapCardInputKit-iOS/TapCardInputKit-iOS/Core/Public/CardInput/TapCardInput.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "707"
-                  endingLineNumber = "707"
-                  offsetFromSymbolStart = "33">
-               </Location>
-               <Location
-                  uuid = "93E5F6EB-ED8E-43D5-B290-DEC5871881E7 - 73814bf1ac20497e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (TapCardInputKit_iOS.TapCardTextField) -&gt; Swift.Bool in TapCardInputKit_iOS.TapCardInput.updateFousedStatus() -&gt; ()"
-                  moduleName = "TapCardInputKit_iOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapCardInputKit-iOS/TapCardInputKit-iOS/Core/Public/CardInput/TapCardInput.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "707"
-                  endingLineNumber = "707"
-                  offsetFromSymbolStart = "35">
-               </Location>
-               <Location
-                  uuid = "93E5F6EB-ED8E-43D5-B290-DEC5871881E7 - 319a87570576edf0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (Swift.Bool, Swift.Bool) -&gt; Swift.Bool in TapCardInputKit_iOS.TapCardInput.updateFousedStatus() -&gt; ()"
-                  moduleName = "TapCardInputKit_iOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapCardInputKit-iOS/TapCardInputKit-iOS/Core/Public/CardInput/TapCardInput.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "707"
-                  endingLineNumber = "707"
-                  offsetFromSymbolStart = "85">
-               </Location>
-            </Locations>
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "imageURL"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
