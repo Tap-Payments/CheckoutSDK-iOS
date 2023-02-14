@@ -282,7 +282,7 @@ class TapFormSettingsViewController: Eureka.FormViewController {
             row.placeholder = "Merchant id"
             row.value = TapFormSettingsViewController.merchantSettings().3
             row.onChange { textRow in
-                UserDefaults.standard.set(textRow.value ?? "599424", forKey: TapSettingsKeys.SDKBMerchantID.rawValue)
+                UserDefaults.standard.set(textRow.value ?? "", forKey: TapSettingsKeys.SDKBMerchantID.rawValue)
             }
         })
         
@@ -389,7 +389,12 @@ extension TapFormSettingsViewController {
     }
     
     static func sdkMode() -> SDKMode {
-        return (UserDefaults.standard.object(forKey: TapSettingsKeys.SDKMode.rawValue) as? SDKMode) ?? SDKMode.sandbox
+        let sdkMode:String = (UserDefaults.standard.object(forKey: TapSettingsKeys.SDKMode.rawValue) as? String) ?? "sandbox"
+        
+        
+        return SDKMode.allCases.first{ $0.description.lowercased() == sdkMode.lowercased() } ?? .sandbox
+            
+        //return (UserDefaults.standard.object(forKey: TapSettingsKeys.SDKMode.rawValue) as? SDKMode) ?? SDKMode.sandbox
     }
     
     static func showCloseButtonTitle() -> Bool {
@@ -403,7 +408,7 @@ extension TapFormSettingsViewController {
         
         let SDKBundleID:String = UserDefaults.standard.string(forKey: TapSettingsKeys.SDKBundleID.rawValue) ?? "company.tap.goSellSDKExamplee"
         
-        let SDKBMerchantID:String = UserDefaults.standard.string(forKey: TapSettingsKeys.SDKBMerchantID.rawValue) ?? "599424"
+        let SDKBMerchantID:String = UserDefaults.standard.string(forKey: TapSettingsKeys.SDKBMerchantID.rawValue) ?? ""
         
         let SDKApplePayMerchantID:String = UserDefaults.standard.string(forKey: TapSettingsKeys.SDKApplePayMerchantID.rawValue) ?? "merchant.tap.gosell"
         
