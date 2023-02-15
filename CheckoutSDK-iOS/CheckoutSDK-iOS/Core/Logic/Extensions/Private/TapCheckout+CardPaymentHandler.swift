@@ -31,6 +31,8 @@ extension TapCheckout {
     func handleSavedCard(for viewModel: SavedCardCollectionViewCellModel, shouldResetCardFormFirst:Bool = true) {
         // first check if we need to Reset the card form
         guard !shouldResetCardFormFirst else {
+            // We cache current card data for further usage
+            dataHolder.viewModels.tapCardTelecomPaymentViewModel.cacheCard()
             // We reset the card form
             resetCardData(shouldFireCardDataChanged: false)
             // We reselct the selected saved card chip without the need to reset as we just did
@@ -166,7 +168,7 @@ extension TapCheckout {
      - Parameter for cardUIStatus: Indicates whether the given card is from a normal process like scanning or to show the special UI for a saved card flow
      */
     func setCardData(with card:TapCard,then focusCardNumber:Bool,shouldRemoveCurrentCard:Bool = true,for cardUIStatus:CardInputUIStatus) {
-        dataHolder.viewModels.tapCardTelecomPaymentViewModel.setCard(with: card, then: true, shouldRemoveCurrentCard: shouldRemoveCurrentCard, for: cardUIStatus)
+        dataHolder.viewModels.tapCardTelecomPaymentViewModel.setCard(with: card, then: focusCardNumber, shouldRemoveCurrentCard: shouldRemoveCurrentCard, for: cardUIStatus)
     }
     
     /**

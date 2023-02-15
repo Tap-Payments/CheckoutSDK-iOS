@@ -664,9 +664,6 @@
 		E74667B2CC4461D370AD6C7F5AD56FF2 /* ImageEncoders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA600517E082680E62261B51A92FA49 /* ImageEncoders.swift */; };
 		E7A8BA1793C7D144F038B81619BB934F /* TapThemePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A3BD94953C469339D3005001866E74 /* TapThemePath.swift */; };
 		E7F48CBB0A469127035E86D05B929515 /* TapScannerProtocl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67F161AE0AA16FE9FBFBFBD793DBC50 /* TapScannerProtocl.swift */; };
-		E8685316299AB78E00FD3EA0 /* 177.png in Resources */ = {isa = PBXBuildFile; fileRef = E8685314299AB78E00FD3EA0 /* 177.png */; };
-		E8685317299AB78E00FD3EA0 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = E8685315299AB78E00FD3EA0 /* 1.png */; };
-		E8796C4F299AB6F7009FD1C1 /* 187.png in Resources */ = {isa = PBXBuildFile; fileRef = E8796C4E299AB6F7009FD1C1 /* 187.png */; };
 		E887737D976704D5C57E9C89F1D06A5A /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008C68C8AD8E2EDFD298A9095D329FAD /* CameraView.swift */; };
 		E88BFC2EC76A8834EAAC76BE4D829F5B /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F421A61DEFA514343050DAEB1905E3 /* String+Extension.swift */; };
 		E936A050C7E37D6BD0AABC7657B1BC18 /* TapPaymentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A0218CCDF3BF7360A1E4BA3E2A55E6 /* TapPaymentType.swift */; };
@@ -2076,10 +2073,7 @@
 		E72B658CBDC9C2FFEE1DB57CEC4F37E4 /* AuthorizeAction.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AuthorizeAction.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/models/AuthorizeAction.swift"; sourceTree = "<group>"; };
 		E790005B84B5C2E67C59C822C925E23A /* TapApplicationWithPlist.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapApplicationWithPlist.swift; path = TapApplicationV2/TapApplicationV2/Source/TapApplicationWithPlist.swift; sourceTree = "<group>"; };
 		E7A8D09E252F7959249456645917F24D /* FlurryLogger.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FlurryLogger.swift; path = "TapCardInputKit-iOS/Core/Private/FlurryLogger.swift"; sourceTree = "<group>"; };
-		E8685314299AB78E00FD3EA0 /* 177.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 177.png; sourceTree = "<group>"; };
-		E8685315299AB78E00FD3EA0 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		E8779F5410F2088AA41ACB9A60267215 /* CNSocialProfile+Additions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CNSocialProfile+Additions.swift"; path = "TapAdditionsKitV2/TapAdditionsKitV2/Contacts/CNSocialProfile+Additions.swift"; sourceTree = "<group>"; };
-		E8796C4E299AB6F7009FD1C1 /* 187.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 187.png; sourceTree = "<group>"; };
 		E904454AC471095C1C95C81F3A820F80 /* Debugging.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Debugging.swift; path = Sources/Debugging.swift; sourceTree = "<group>"; };
 		E915FBF7B8F618D0925C19BB1F73FCDA /* Length.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Length.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/enums/Measurements/Length.swift"; sourceTree = "<group>"; };
 		E9B3ECD8B0E6C30D55FB78B2A00C9EAB /* TapUIKit-iOS */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "TapUIKit-iOS"; path = TapUIKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3072,9 +3066,6 @@
 		863F456AB758C4900969DAE55FDD91AD /* TapUIKit-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				E8685315299AB78E00FD3EA0 /* 1.png */,
-				E8685314299AB78E00FD3EA0 /* 177.png */,
-				E8796C4E299AB6F7009FD1C1 /* 187.png */,
 				A8E38C44F4D69C76DD2840F8DB122FFB /* ApplePayChipCollectionViewCell.swift */,
 				6F7EED01643C72D2DDC4B2B6D7F7581C /* ApplePayChipViewCellModel.swift */,
 				7A9C3BC08714A342CD8C2F678DB1FD75 /* BottomLineTextField.swift */,
@@ -4497,7 +4488,6 @@
 				4DCCB7FE52CA4E3584B8710954142DE7 /* CurrencyChipCollectionViewCell.xib in Resources */,
 				143595DEE064D520F949061C9BEE454C /* CustomerContactDataCollectionView.xib in Resources */,
 				F091ED31FAC1074B4039F50B1380EC17 /* CustomerDataCollectionView.xib in Resources */,
-				E8796C4F299AB6F7009FD1C1 /* 187.png in Resources */,
 				AB78F9A0833A90E907325A18866630E7 /* CustomerShippingDataCollectionView.xib in Resources */,
 				91B626753F679048E5772BF3921ACF07 /* DefaultDarkTheme.json in Resources */,
 				ABF133BB02B7DA0DEE932823EC4D158D /* DefaultLightTheme.json in Resources */,
@@ -4553,10 +4543,8 @@
 				D291B4D10B145E1427F87D3A01C559D3 /* TapUIKitStoryboard.storyboard in Resources */,
 				24DD6A9B5EB301AC5C4ED1A082DB0E04 /* TapVerticalView.xib in Resources */,
 				EF6C0DF5E030A6BD3B2F1EAE6EF79ECD /* TapWebView.xib in Resources */,
-				E8685316299AB78E00FD3EA0 /* 177.png in Resources */,
 				6AA7F18410CCDA44028BD79A3297151C /* white-error-mob.gif in Resources */,
 				22199C5B9308F64906A68AC3573F9F79 /* white-success-mob.gif in Resources */,
-				E8685317299AB78E00FD3EA0 /* 1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
