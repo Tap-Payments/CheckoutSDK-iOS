@@ -161,7 +161,7 @@ import Foundation
         
         //price - (discount?.caluclateActualModificationValue(with: price) ?? 0)
         // Secondly apply the taxes if any
-        var discountedWithTaxesPrice:Double = taxes?.reduce(discountedItemPrice) { $0 + $1.amount.caluclateActualModificationValue(with: discountedItemPrice) } ?? discountedItemPrice
+        let discountedWithTaxesPrice:Double = taxes?.reduce(discountedItemPrice) { $0 + $1.amount.caluclateActualModificationValue(with: discountedItemPrice) } ?? discountedItemPrice
         
         // Check if the caller wants to make a conversion to a certain currency
         guard let originalCurrency = convertFromCurrency, let conversionCurrency = convertToCurrenct,

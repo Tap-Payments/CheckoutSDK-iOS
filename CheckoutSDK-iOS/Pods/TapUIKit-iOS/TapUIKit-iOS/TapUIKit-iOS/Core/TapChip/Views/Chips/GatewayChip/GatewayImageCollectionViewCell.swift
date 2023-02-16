@@ -100,7 +100,7 @@ extension GatewayImageCollectionViewCell {
     
     /// Match the UI attributes with the correct theming entries
     private func matchThemeAttributes() {
-
+        
         let shadowPath:String = isSelected ? "selected" : "unSelected"
         
         tap_theme_backgroundColor = .init(keyPath: "\(themePath).backgroundColor")
