@@ -255,7 +255,7 @@ internal protocol TapCardInputCommonProtocol {
         if focusCardNumber || !cardNumber.isValid(cardNumber: providedCardNumber) {
             cardNumber.becomeFirstResponder()
         }else {
-            cardNumber.resignFirstResponder()
+            //cardNumber.resignFirstResponder()
         }
         updateWidths(for: cardNumber)
         
@@ -268,7 +268,7 @@ internal protocol TapCardInputCommonProtocol {
             return
         }
         
-        cardExpiry.resignFirstResponder()
+        //cardExpiry.resignFirstResponder()
         updateWidths(for: cardExpiry)
         
         // Then check if the usder provided a correct cvv
@@ -280,7 +280,7 @@ internal protocol TapCardInputCommonProtocol {
             return
         }
         
-        cardCVV.resignFirstResponder()
+        //cardCVV.resignFirstResponder()
         updateWidths(for: cardCVV)
         
         // Then check if the usder provided a correct name
@@ -386,7 +386,7 @@ internal protocol TapCardInputCommonProtocol {
     internal func restoreCachedCardData() {
         // Let us restore the previously typed card data whenever we display the new card status coming from saved card one
         if cardUIStatus == .NormalCard {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(700)) { [ weak self ] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(0)) { [ weak self ] in
                 self?.tapCard = .init(tapCardNumber: self?.cachedTapCard.tapCardNumber, tapCardName: self?.cachedTapCard.tapCardName, tapCardExpiryMonth: self?.cachedTapCard.tapCardExpiryMonth, tapCardExpiryYear: self?.cachedTapCard.tapCardExpiryYear, tapCardCVV: self?.cachedTapCard.tapCardCVV)
                 
                 self?.setCardData(tapCard: .init(tapCardNumber: self?.cachedTapCard.tapCardNumber, tapCardName: self?.cachedTapCard.tapCardName, tapCardExpiryMonth: self?.cachedTapCard.tapCardExpiryMonth, tapCardExpiryYear: self?.cachedTapCard.tapCardExpiryYear, tapCardCVV: self?.cachedTapCard.tapCardCVV), then: false, for: .NormalCard)
@@ -414,7 +414,7 @@ internal protocol TapCardInputCommonProtocol {
         // now let us see if we have to focus the CVV if we are filling in saved card data
         if cardUIStatus == .SavedCard {
             cardCVV.isUserInteractionEnabled = true
-            cardCVV.becomeFirstResponder()
+            //cardCVV.becomeFirstResponder()
             cardCVV.cvvLength = CardValidator.cvvLength(for: savedCard?.brand)
             adjustScanButton()
         }
@@ -588,7 +588,7 @@ internal protocol TapCardInputCommonProtocol {
             self?.tapCard.tapCardNumber = cardNumber
             self?.cardDatachanged()
             if self?.cardInputMode == .InlineCardInput, self?.cardNumber.isValid() ?? false {
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
                     if !(self?.cardExpiry.isValid() ?? false) {
                         self?.cardExpiry.becomeFirstResponder()
                     }else if !(self?.cardCVV.isValid() ?? false) {
@@ -596,7 +596,7 @@ internal protocol TapCardInputCommonProtocol {
                     }else if self?.showCardName ?? false && !(self?.cardName.isValid() ?? false) {
                         self?.cardName.becomeFirstResponder()
                     }else{
-                        self?.cardNumber.resignFirstResponder()
+                        //self?.cardNumber.resignFirstResponder()
                     }
                 }
             }
@@ -652,12 +652,11 @@ internal protocol TapCardInputCommonProtocol {
             self?.cardDatachanged(cardStatusUI: self?.cardUIStatus ?? .NormalCard)
             if self?.cardCVV.isValid() ?? false {
                 // Check if there is a name to collect
-                if self?.showCardName ?? false && !(self?.cardName.isValid() ?? false) {
-                    // Then we need to move to filling the card name
+                if self?.cardUIStatus == .SavedCard || !(self?.showCardName ?? false) {
+                    // In case of saved card, after entering the CVV we are done
+                    self?.cardCVV.resignFirstResponder()
+                }else if self?.showCardName ?? false && !(self?.cardName.isValid() ?? false) {// Then we need to move to filling the card name
                     self?.cardName.becomeFirstResponder()
-                }else{
-                    // We finished collecting the names, let us hide the keyboard :)
-                    //self?.cardCVV.resignFirstResponder()
                 }
             }
         })
@@ -848,7 +847,7 @@ internal protocol TapCardInputCommonProtocol {
         delegate?.closeSavedCard()
         // Update restoring/saving current card data for further usage
         //self.restoreCachedCardData()
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(0)) {
             self.restoreCachedCardData()
         }
     }

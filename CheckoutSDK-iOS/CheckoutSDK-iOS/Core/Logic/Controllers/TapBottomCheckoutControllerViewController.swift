@@ -47,11 +47,15 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        TapKeyboardAvoiding.avoidingView = self.view
+        TapKeyboardAvoiding.paddingForCurrentAvoidingView = -130
+        //TapKeyboardAvoiding.keyboardAvoidingMode = .minimumDelayed
+        //KeyboardAvoiding.setAvoidingView(self.view, withTriggerView:sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView)
         addDefaultViews()
         sharedCheckoutDataManager.UIDelegate = self
         tapVerticalView.delegate = self
         // Do any additional setup after  the view.
-        tapVerticalView.updateKeyBoardHandling(with: true)
+        tapVerticalView.updateKeyBoardHandling(with: false)
         createDefaultViewModels()
         // Setting up the number of lines and doing a word wrapping
         UILabel.appearance(whenContainedInInstancesOf:[UIAlertController.self]).numberOfLines = 2
@@ -691,9 +695,11 @@ extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDe
     
     func showSavedCardOTPView(with authenticationID:String = "") {
         tapVerticalView.showGoPaySignInForm(with: self, and: sharedCheckoutDataManager.dataHolder.viewModels.goPayBarViewModel!,hintViewStatus: .SavedCardOTP, for: authenticationID)
+        //KeyboardAvoiding.setAvoidingView(self.view, withTriggerView:self.tapVerticalView.powereByTapView.poweredbyLabel)
     }
     
     func hideSavedCardOTP() {
+        //KeyboardAvoiding.setAvoidingView(self.view, withTriggerView:sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView)
         hideGoPay()
     }
     

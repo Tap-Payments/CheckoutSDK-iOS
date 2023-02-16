@@ -50,6 +50,8 @@
 		E861286D24EA7F7F00774BAA /* CurrencyChipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E861286C24EA7F7F00774BAA /* CurrencyChipModel.swift */; };
 		E861286F24EAA38A00774BAA /* CurrencyCardsTelecomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E861286E24EAA38A00774BAA /* CurrencyCardsTelecomModel.swift */; };
 		E86128B424ED23EF00774BAA /* TapCheckoutExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86128B324ED23EF00774BAA /* TapCheckoutExtensions.swift */; };
+		E868531A299E00FB00FD3EA0 /* TapKeyboardAvoiding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8685318299E00FA00FD3EA0 /* TapKeyboardAvoiding.swift */; };
+		E868531B299E00FB00FD3EA0 /* TapKeyboardDismissingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8685319299E00FB00FD3EA0 /* TapKeyboardDismissingView.swift */; };
 		E86D2509295B226E00FBCD72 /* TapApplePayPKRecurringPaymentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86D2508295B226E00FBCD72 /* TapApplePayPKRecurringPaymentRequest.swift */; };
 		E87684E82886D83E0008D540 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E87684E72886D83E0008D540 /* PassKit.framework */; };
 		E87D79BE26B3227500CF001C /* TapLogRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87D79BD26B3227500CF001C /* TapLogRequest.swift */; };
@@ -176,6 +178,8 @@
 		E861286E24EAA38A00774BAA /* CurrencyCardsTelecomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCardsTelecomModel.swift; sourceTree = "<group>"; };
 		E86128B324ED23EF00774BAA /* TapCheckoutExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckoutExtensions.swift; sourceTree = "<group>"; };
 		E86128B524ED2E3B00774BAA /* CheckoutExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CheckoutExample.entitlements; sourceTree = "<group>"; };
+		E8685318299E00FA00FD3EA0 /* TapKeyboardAvoiding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapKeyboardAvoiding.swift; sourceTree = "<group>"; };
+		E8685319299E00FB00FD3EA0 /* TapKeyboardDismissingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapKeyboardDismissingView.swift; sourceTree = "<group>"; };
 		E86D2508295B226E00FBCD72 /* TapApplePayPKRecurringPaymentRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapApplePayPKRecurringPaymentRequest.swift; sourceTree = "<group>"; };
 		E87684E72886D83E0008D540 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		E87D79BD26B3227500CF001C /* TapLogRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapLogRequest.swift; sourceTree = "<group>"; };
@@ -444,6 +448,8 @@
 		E8844E6626777B670073D777 /* Private */ = {
 			isa = PBXGroup;
 			children = (
+				E8685318299E00FA00FD3EA0 /* TapKeyboardAvoiding.swift */,
+				E8685319299E00FB00FD3EA0 /* TapKeyboardDismissingView.swift */,
 				E8844E6726777B7B0073D777 /* NetworkManagerExtensions.swift */,
 				E8844F532678A1150073D777 /* TapCheckoutApiCallsExtensions.swift */,
 				E88450EB267B33E20073D777 /* TapCheckout+Utils.swift */,
@@ -760,6 +766,7 @@
 				E83923BA269A13A400421E15 /* TapCheckout+ApplePayPaymentHandler.swift in Sources */,
 				E89B4F8A26A21B3B0077B0A6 /* TapCheckout+CDNUrlsGeneration.swift in Sources */,
 				E89225EA24E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift in Sources */,
+				E868531B299E00FB00FD3EA0 /* TapKeyboardDismissingView.swift in Sources */,
 				E830B7F324F3E96900B62713 /* TapPayButtonViewModel.swift in Sources */,
 				E87D79BE26B3227500CF001C /* TapLogRequest.swift in Sources */,
 				E839216B268EE7DA00421E15 /* TapCheckout+CardPaymentHandler.swift in Sources */,
@@ -774,6 +781,7 @@
 				E8845E7C24D851FF009E8B73 /* TapCheckoutBlurView.swift in Sources */,
 				E8EC81BC267D30740080E760 /* TapCheckout+RequestsGeneration.swift in Sources */,
 				E8983DD124F1469700C34E50 /* TapEntitResponseModel.swift in Sources */,
+				E868531A299E00FB00FD3EA0 /* TapKeyboardAvoiding.swift in Sources */,
 				E83923942695CFA200421E15 /* TapCheckout+SignInViewHandler.swift in Sources */,
 				E8EEFCDF27E3390E00B69A9F /* TapCheckoutLocalisation.swift in Sources */,
 				E87D79C226B32F1700CF001C /* TapLogApplicationModel.swift in Sources */,

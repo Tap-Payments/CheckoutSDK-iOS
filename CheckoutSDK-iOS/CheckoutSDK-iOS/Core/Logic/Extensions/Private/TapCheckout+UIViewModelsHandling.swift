@@ -453,7 +453,7 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
 
 extension TapCheckout:NetworkManagerDelegate {
     func apiCallInProgress(status: Bool) {
-        TapCheckout.sharedCheckoutManager().UIDelegate?.enableInteraction(with: !status)
+        //TapCheckout.sharedCheckoutManager().UIDelegate?.enableInteraction(with: !status)
     }
     
     func log(string: String) {
