@@ -748,6 +748,7 @@ extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDe
             
             // Add an idle view if the caller wants to disable
             if !status {
+                nonNullSelf.view.endEditing(false)
                 let idleView:UIView = .init(frame: nonNullSelf.view.frame)
                 idleView.backgroundColor = .clear
                 idleView.tag = 12341234
