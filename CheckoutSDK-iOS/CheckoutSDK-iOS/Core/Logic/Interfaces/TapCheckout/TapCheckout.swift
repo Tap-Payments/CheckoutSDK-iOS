@@ -14,6 +14,7 @@ import TapUIKit_iOS
 import TapApplicationV2
 import PassKit
 import TapApplePayKit_iOS
+import BugfenderSDK
 
 /// A protocol to comminicate between the UIManager and the data manager
 internal protocol TapCheckoutSharedManagerUIDelegate {
@@ -267,6 +268,11 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
             
             // Log session start
+            Bugfender.activateLogger("722zS708zuKi2owFgjUpgLYUk12hFwLY")
+            Bugfender.enableCrashReporting()
+            Bugfender.enableUIEventLogging()
+            Bugfender.setDeviceString(NetworkManager.staticHTTPHeaders.tap_jsonString, forKey: "Static Headers")
+            bfprint("New Session Started")
             log().verbose("New session is going to start", context: "OSAMA")
             
             // Do the pre steps needed before starting a new SDK session
@@ -294,6 +300,10 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         }
     }
     
+    /// Sets the customer data for the logging session
+    internal func setLoggingCustomerData() {
+        Bugfender.setDeviceString("Customer ID : \(dataHolder.transactionData.customer.identifier ?? "NA") | Customer name : \(dataHolder.transactionData.customer.firstName ?? "NA") | Customer email : \(dataHolder.transactionData.customer.emailAddress?.value ?? "NA") | Customer phone : \(dataHolder.transactionData.customer.phoneNumber?.phoneNumber ?? "NA")",forKey: "Customer")
+    }
     
     /// The logger for analytics
     internal func log() -> SwiftyBeaver.Type {

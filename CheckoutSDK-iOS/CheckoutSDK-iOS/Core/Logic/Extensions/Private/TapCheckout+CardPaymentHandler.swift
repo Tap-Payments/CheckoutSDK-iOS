@@ -11,6 +11,8 @@ import TapCardVlidatorKit_iOS
 import CommonDataModelsKit_iOS
 import TapCardInputKit_iOS
 import TapUIKit_iOS
+import BugfenderSDK
+
 /// Logic to handle card payment flow
 extension TapCheckout {
     
@@ -59,8 +61,11 @@ extension TapCheckout {
             
             // Log it
             log().verbose("Saved card selected : \( nonNullSavedCard.displayTitle ) & \( nonNullSavedCard.identifier ?? "" )")
+            setLoggingCustomerData()
+            bfprint("Saved card selected : \( nonNullSavedCard.displayTitle ) & \( nonNullSavedCard.identifier ?? "" )")
         }
     }
+    
     
     /**
      Provides the logic needed to be done upon changing the card data provided by the user in the card form or the scanner
@@ -220,7 +225,9 @@ extension TapCheckout {
                 dataHolder.viewModels.tapActionButtonViewModel.buttonActionBlock = payAction
                 
                 // Log the brand
+                setLoggingCustomerData()
                 log().verbose("Finished valid raw card data for \(selectedPaymentOption.title)")
+                bfprint("Finished valid raw card data for \(selectedPaymentOption.title)")
             }else{
                 // The action button should be in a valid state as saved cards are ready to process right away
                 // Make the button action to start the paymet with the selected saved card
