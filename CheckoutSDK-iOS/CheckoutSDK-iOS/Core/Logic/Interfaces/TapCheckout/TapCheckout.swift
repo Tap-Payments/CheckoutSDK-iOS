@@ -14,6 +14,7 @@ import TapUIKit_iOS
 import TapApplicationV2
 import PassKit
 import TapApplePayKit_iOS
+
 /// A protocol to comminicate between the UIManager and the data manager
 internal protocol TapCheckoutSharedManagerUIDelegate {
     
@@ -265,6 +266,9 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         applePayButtonStyle:TapApplePayButtonStyleOutline = .Auto,
         onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
             
+            // Log session start
+            log().verbose("New session is going to start", context: "OSAMA")
+            
             // Do the pre steps needed before starting a new SDK session
             prepareSDK(with: sdkMode,delegate:delegate, localiseFile:localiseFile, customTheme:customTheme, enableApiLogging:enableApiLogging)
             // Store the passed configurations for further processing
@@ -290,6 +294,28 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         }
     }
     
+    
+    /// The logger for analytics
+    internal func log() -> SwiftyBeaver.Type {
+        
+        let log = SwiftyBeaver.self
+        
+        // add log destinations. at least one is needed!
+        let console = ConsoleDestination()  // log to Xcode Console
+        let googleCloud = GoogleCloudDestination(serviceName: "")
+        let cloud = SBPlatformDestination(appID: "r7xElo", appSecret: "1xcyjpgckJGdg5rfckbzfzaih0Znpewf", encryptionKey: "axpogXqu5wey1hjvmTopu1pmeqgfgprJ") // to cloud
+        cloud.analyticsUserName = (dataHolder.transactionData.customer.identifier ?? dataHolder.transactionData.customer.firstName) ?? ""
+        // use custom format and set console output to short time, log level & message
+        console.format = "$J"
+        cloud.format = "$DHH:mm:ss$d $N.$F():$l $L: $M"
+        // or use this for JSON output: console.format = "$J"
+        
+        // add the destinations to SwiftyBeaver
+        log.addDestination(console)
+        log.addDestination(cloud)
+        
+        return log
+    }
     
     /**
      Creates a shared instance of the CheckoutDataManager

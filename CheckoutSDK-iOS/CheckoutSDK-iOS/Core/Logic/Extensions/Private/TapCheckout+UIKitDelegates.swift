@@ -120,6 +120,10 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
     }
     
     public func applePayAuthoized(for viewModel: ApplePayChipViewCellModel, with token: TapApplePayToken) {
+        
+        // Log the apple pay token
+        log().verbose("Apple pay raw token : \(token.stringAppleToken ?? "")")
+        
         // Save the selected payment option model for further processing
         guard let applePayPaymentOption = fetchPaymentOption(with: viewModel.paymentOptionIdentifier) else {
             handleError(session: nil, result: nil, error: "Cannot find apple pay payment option with id \(viewModel.paymentOptionIdentifier) from the payment/types api respons.")
@@ -134,7 +138,6 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
     }
     
     public func savedCard(for viewModel: SavedCardCollectionViewCellModel) {
-        //showAlert(title: "\(viewModel.title ?? "") clicked", message: "Look we know that you saved the card. We promise we will make you use it soon :)")
         dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .ValidPayment
         // Check the type of saved card source
         if viewModel.listSource == .GoPayListHeader {
@@ -145,11 +148,18 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
     }
     
     public func gateway(for viewModel: GatewayChipViewModel) {
-        // First reset the enetred data in the card form if any
-        resetCardData(shouldFireCardDataChanged: false)
-        
+        // First reset the enetred data in the card form if any if the current visible status is for a saved card view
+        if dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView.cardInputView.cardUIStatus == .SavedCard {
+            resetCardData(shouldFireCardDataChanged: false)
+        }else{
+            // Otherwise we have to disable the card view
+            dataHolder.viewModels.tapCardTelecomPaymentViewModel.changeEnableStatus(to: false, doPostLogic: true)
+        }
         // Save the selected payment option model for further processing
         dataHolder.transactionData.selectedPaymentOption = fetchPaymentOption(with: viewModel.paymentOptionIdentifier)
+        
+        // Log it
+        log().verbose("Payment scheme selected: title : \(dataHolder.transactionData.selectedPaymentOption?.title ?? "") & ID : \(dataHolder.transactionData.selectedPaymentOption?.identifier ?? "")")
         
         // Make the payment button in a Valid payment mode
         // Make the button action to start the paymet with the selected gateway
@@ -160,6 +170,8 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
     
     public func currencyChip(for viewModel: CurrencyChipViewModel) {
         dataHolder.transactionData.transactionUserCurrencyValue = viewModel.currency
+        // Log it
+        log().verbose("Currency changed to : \( viewModel.currency.displaybaleSymbol )")
     }
     
     public func deleteChip(for viewModel: SavedCardCollectionViewCellModel) {

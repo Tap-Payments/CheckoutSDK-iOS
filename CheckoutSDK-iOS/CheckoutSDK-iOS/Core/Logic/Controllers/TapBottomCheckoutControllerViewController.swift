@@ -49,6 +49,7 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
         super.viewDidLoad()
         TapKeyboardAvoiding.avoidingView = self.view
         TapKeyboardAvoiding.paddingForCurrentAvoidingView = -130
+        //self.view.addKeyboardListener(30)
         //TapKeyboardAvoiding.keyboardAvoidingMode = .minimumDelayed
         //KeyboardAvoiding.setAvoidingView(self.view, withTriggerView:sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView)
         addDefaultViews()

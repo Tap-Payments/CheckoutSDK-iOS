@@ -29,6 +29,8 @@ extension TapCheckout {
      - Parameter shouldResetCardFormFirst: Indicates if we remove the entered data in the card form upon selecting a saved card chip. Default is true
      */
     func handleSavedCard(for viewModel: SavedCardCollectionViewCellModel, shouldResetCardFormFirst:Bool = true) {
+        // First thing to do is to enable the card form, just in case it was disabled due to clicking on a redirectional payment gateway
+        dataHolder.viewModels.tapCardTelecomPaymentViewModel.changeEnableStatus(to:true)
         // first check if we need to Reset the card form
         guard !shouldResetCardFormFirst else {
             // We cache current card data for further usage
@@ -54,6 +56,9 @@ extension TapCheckout {
             // Keep the button invalid until the CVV is correcly filled
             dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .InvalidPayment
             dataHolder.viewModels.tapActionButtonViewModel.buttonActionBlock = {}
+            
+            // Log it
+            log().verbose("Saved card selected : \( nonNullSavedCard.displayTitle ) & \( nonNullSavedCard.identifier ?? "" )")
         }
     }
     
@@ -213,6 +218,9 @@ extension TapCheckout {
                 dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .ValidPayment
                 let payAction:()->() = { [weak self] in self?.processCheckout(with:selectedPaymentOption,andCard:self?.dataHolder.transactionData.currentCard) }
                 dataHolder.viewModels.tapActionButtonViewModel.buttonActionBlock = payAction
+                
+                // Log the brand
+                log().verbose("Finished valid raw card data for \(selectedPaymentOption.title)")
             }else{
                 // The action button should be in a valid state as saved cards are ready to process right away
                 // Make the button action to start the paymet with the selected saved card
@@ -249,6 +257,8 @@ extension TapCheckout {
             // Then we update the action button style
             dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .InvalidPayment
             dataHolder.viewModels.tapActionButtonViewModel.buttonActionBlock = {}
+            // Then let us enable the card form back
+            dataHolder.viewModels.tapCardTelecomPaymentViewModel.changeEnableStatus(to: true, doPostLogic: true)
         }
     }
     
