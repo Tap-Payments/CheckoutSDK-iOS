@@ -123,9 +123,9 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
     public func applePayAuthoized(for viewModel: ApplePayChipViewCellModel, with token: TapApplePayToken) {
         
         // Log the apple pay token
-        log().verbose("Apple pay raw token : \(token.stringAppleToken ?? "")")
+        //log().verbose("Apple pay raw token : \(token.stringAppleToken ?? "")")
         setLoggingCustomerData()
-        bfprint("Apple pay raw token : \(token.stringAppleToken ?? "")")
+        logBF(message: "Apple pay raw token : \(token.stringAppleToken ?? "")", tag: .EVENTS)
         // Save the selected payment option model for further processing
         guard let applePayPaymentOption = fetchPaymentOption(with: viewModel.paymentOptionIdentifier) else {
             handleError(session: nil, result: nil, error: "Cannot find apple pay payment option with id \(viewModel.paymentOptionIdentifier) from the payment/types api respons.")
@@ -161,9 +161,9 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
         dataHolder.transactionData.selectedPaymentOption = fetchPaymentOption(with: viewModel.paymentOptionIdentifier)
         
         // Log it
-        log().verbose("Payment scheme selected: title : \(dataHolder.transactionData.selectedPaymentOption?.title ?? "") & ID : \(dataHolder.transactionData.selectedPaymentOption?.identifier ?? "")")
+        //log().verbose("Payment scheme selected: title : \(dataHolder.transactionData.selectedPaymentOption?.title ?? "") & ID : \(dataHolder.transactionData.selectedPaymentOption?.identifier ?? "")")
         setLoggingCustomerData()
-        bfprint("Payment scheme selected: title : \(dataHolder.transactionData.selectedPaymentOption?.title ?? "") & ID : \(dataHolder.transactionData.selectedPaymentOption?.identifier ?? "")")
+        logBF(message: "Payment scheme selected: title : \(dataHolder.transactionData.selectedPaymentOption?.title ?? "") & ID : \(dataHolder.transactionData.selectedPaymentOption?.identifier ?? "")", tag: .EVENTS)
         // Make the payment button in a Valid payment mode
         // Make the button action to start the paymet with the selected gateway
         // Start the payment with the selected payment option
@@ -174,9 +174,9 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
     public func currencyChip(for viewModel: CurrencyChipViewModel) {
         dataHolder.transactionData.transactionUserCurrencyValue = viewModel.currency
         // Log it
-        log().verbose("Currency changed to : \( viewModel.currency.displaybaleSymbol )")
+        //log().verbose("Currency changed to : \( viewModel.currency.displaybaleSymbol )")
         setLoggingCustomerData()
-        bfprint("Currency changed to : \( viewModel.currency.displaybaleSymbol )")
+        logBF(message: "Currency changed to : \( viewModel.currency.displaybaleSymbol )", tag: .EVENTS)
     }
     
     public func deleteChip(for viewModel: SavedCardCollectionViewCellModel) {

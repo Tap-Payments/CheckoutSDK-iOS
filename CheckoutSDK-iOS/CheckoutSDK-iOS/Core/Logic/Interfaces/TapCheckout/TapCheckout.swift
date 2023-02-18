@@ -178,9 +178,23 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     @objc public static var loyaltyEnabled:Bool = false
     
     // MARK:- Internal functions
-    
+    /// Configures and start sthe session with the bug finder logging platform
+    internal func configureBugFinder() {
+        // Log session start
+        Bugfender.activateLogger("722zS708zuKi2owFgjUpgLYUk12hFwLY")
+        Bugfender.enableCrashReporting()
+        Bugfender.setPrintToConsole(TapCheckout.sharedCheckoutManager().dataHolder.transactionData.enableApiLogging.contains(.CONSOLE))
+        Bugfender.setDeviceString(NetworkManager.staticHTTPHeaders.tap_jsonString, forKey: "Static Headers")
+        logBF(message: "New Session", tag: .EVENTS)
+        if TapCheckout.sharedCheckoutManager().dataHolder.transactionData.enableApiLogging.contains(.UI) {
+            Bugfender.enableUIEventLogging()
+        }
+
+    }
     
     // MARK:- Public functions
+    
+    
     /**
      Defines the tap checkout bottom sheet controller
      - Parameter localiseFile: Please pass the name of the custom localisation file model if needed. If not set, the normal and default TAP localisations will be used
@@ -217,7 +231,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      - Parameter collectCreditCardName: Decides whether or not, the card input should collect the card holder name. Default is false
      - Parameter creditCardNameEditable: Decides whether or not, the card name field will be editable
      - Parameter creditCardNamePreload: Decides whether or not, the card name field should be prefilled
-     - Parameter enableApiLogging: Defines if you want to print the api calls. This is very helpful for you as a developer
+     - Parameter enableApiLogging: Defines which level of logging do you wnt to enable. Please pass the raw value for the enums [TapLoggingType](x-source-tag://TapLoggingType)
      - Parameter isSubscription: Defines if you want to make a subscription based transaction. Default is false
      - Parameter recurringPaymentRequest: Defines the recurring payment request Please check [Apple Pay
      docs](https://developer.apple.com/documentation/passkit/pkrecurringpaymentrequest). NOTE: This will only be availble for iOS 16+ and subscripion parameter is on.
@@ -256,7 +270,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         enableSaveCard: Bool = true,
         isSaveCardSwitchOnByDefault: Bool = true,
         sdkMode:SDKMode = .sandbox,
-        enableApiLogging:Bool = true,
+        enableApiLogging:[Int] = [TapLoggingType.CONSOLE.rawValue],
         collectCreditCardName:Bool = false,
         creditCardNameEditable:Bool = true,
         creditCardNamePreload:String = "",
@@ -267,18 +281,11 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         applePayButtonStyle:TapApplePayButtonStyleOutline = .Auto,
         onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
             
-            // Log session start
-            Bugfender.activateLogger("722zS708zuKi2owFgjUpgLYUk12hFwLY")
-            Bugfender.enableCrashReporting()
-            Bugfender.enableUIEventLogging()
-            Bugfender.setDeviceString(NetworkManager.staticHTTPHeaders.tap_jsonString, forKey: "Static Headers")
-            bfprint("New Session Started")
-            log().verbose("New session is going to start", context: "OSAMA")
-            
             // Do the pre steps needed before starting a new SDK session
-            prepareSDK(with: sdkMode,delegate:delegate, localiseFile:localiseFile, customTheme:customTheme, enableApiLogging:enableApiLogging)
+            prepareSDK(with: sdkMode,delegate:delegate, localiseFile:localiseFile, customTheme:customTheme, enableApiLogging:enableApiLogging.map{ TapLoggingType(rawValue: $0) ?? .CONSOLE })
+            
             // Store the passed configurations for further processing
-            configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,swipeDownToDismiss:swipeDownToDismiss,paymentType:paymentType,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID,taxes: taxes, shipping: shipping, allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor,require3DSecure:require3DSecure,receiptSettings:receiptSettings, authorizeAction: authorizeAction,allowsToSaveSameCardMoreThanOnce: allowsToSaveSameCardMoreThanOnce, enableSaveCard: enableSaveCard, isSaveCardSwitchOnByDefault: isSaveCardSwitchOnByDefault, collectCreditCardName: collectCreditCardName, creditCardNameEditable: creditCardNameEditable, creditCardNamePreload: creditCardNamePreload, showSaveCreditCard:showSaveCreditCard, isSubscription: isSubscription, recurringPaymentRequest: recurringPaymentRequest, applePayButtonType :applePayButtonType, applePayButtonStyle: applePayButtonStyle)
+            configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,swipeDownToDismiss:swipeDownToDismiss,paymentType:paymentType,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID,taxes: taxes, shipping: shipping, allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor,require3DSecure:require3DSecure,receiptSettings:receiptSettings, authorizeAction: authorizeAction,allowsToSaveSameCardMoreThanOnce: allowsToSaveSameCardMoreThanOnce, enableSaveCard: enableSaveCard, enableApiLogging: enableApiLogging.map{ TapLoggingType(rawValue: $0) ?? .CONSOLE }, isSaveCardSwitchOnByDefault: isSaveCardSwitchOnByDefault, collectCreditCardName: collectCreditCardName, creditCardNameEditable: creditCardNameEditable, creditCardNamePreload: creditCardNamePreload, showSaveCreditCard:showSaveCreditCard, isSubscription: isSubscription, recurringPaymentRequest: recurringPaymentRequest, applePayButtonType :applePayButtonType, applePayButtonStyle: applePayButtonStyle)
             
             // Initiate the needed calls to server to start the session
             configSDKFromAPI() {  [weak self] in
@@ -305,7 +312,22 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         Bugfender.setDeviceString("Customer ID : \(dataHolder.transactionData.customer.identifier ?? "NA") | Customer name : \(dataHolder.transactionData.customer.firstName ?? "NA") | Customer email : \(dataHolder.transactionData.customer.emailAddress?.value ?? "NA") | Customer phone : \(dataHolder.transactionData.customer.phoneNumber?.phoneNumber ?? "NA")",forKey: "Customer")
     }
     
-    /// The logger for analytics
+    /**
+     Sends a message to the logging platform
+     - Parameter message: The message to be dispatched
+     - Parameter tag: The tag identigyin the category
+     */
+    internal func logBF(message:String?, tag:TapLoggingType) {
+        // Validate the message
+        guard let message = message else { return }
+        // Decide the level based on the logging type
+        let level:BFLogLevel = (tag == .EVENTS) ? .trace : .default
+        // Check if the user allowed to log this type
+        guard (tag == .EVENTS && TapCheckout.sharedCheckoutManager().dataHolder.transactionData.enableApiLogging.contains(.EVENTS)) || (tag == .API && TapCheckout.sharedCheckoutManager().dataHolder.transactionData.enableApiLogging.contains(.API)) else { return }
+        // Log it happily :)
+        bfprint(message, tag: tag.stringValue, level: level)
+    }
+    /*/// The logger for analytics
     internal func log() -> SwiftyBeaver.Type {
         
         let log = SwiftyBeaver.self
@@ -325,7 +347,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         log.addDestination(cloud)
         
         return log
-    }
+    }*/
     
     /**
      Creates a shared instance of the CheckoutDataManager
@@ -345,13 +367,13 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      - Parameter customTheme: Please pass the tap checkout theme object with the names of your custom theme files if needed. If not set, the normal and default TAP theme will be used
      - Parameter delegate: A protocol to communicate with the Presente tap sheet controller
      - Parameter sdkMode: Defines the mode sandbox or production the sdk will perform this transaction on. Please check [SDKMode](x-source-tag://SDKMode)
-     - Parameter enableApiLogging: Defines if you want to print the api calls. This is very helpful for you as a developer
+     - Parameter enableApiLogging: Defines which level of logging do you wnt to enable.  [TapLoggingType](x-source-tag://TapLoggingType)
      */
     internal func prepareSDK(with sdkMode:SDKMode = .sandbox,
                              delegate:CheckoutScreenDelegate? = nil,
                              localiseFile:TapCheckoutLocalisation? = nil,
                              customTheme:TapCheckOutTheme? = nil,
-                             enableApiLogging:Bool = true) {
+                             enableApiLogging:[TapLoggingType] = [.CONSOLE]) {
         
         // remove any pending things from an old session
         TapCheckout.destroy()
@@ -367,8 +389,8 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         // Listen to events from network manager
         NetworkManager.shared.delegate = TapCheckout.sharedCheckoutManager()
         // Adjust the logging ability
-        NetworkManager.shared.enableLogging = enableApiLogging
-        NetworkManager.shared.consoleLogging = enableApiLogging
+        NetworkManager.shared.enableLogging  = enableApiLogging.contains(.CONSOLE)
+        NetworkManager.shared.consoleLogging = enableApiLogging.contains(.CONSOLE)
     }
     
     /**

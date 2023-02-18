@@ -124,7 +124,7 @@ extension NetworkManager:TapNetworkManagerDelegate {
     
     func log(string: String) {
         delegate?.log(string: string)
-        TapCheckout.sharedCheckoutManager().log().debug("API CALL:\(string)")
+        TapCheckout.sharedCheckoutManager().logBF(message: string, tag: .API)
     }
     
 }

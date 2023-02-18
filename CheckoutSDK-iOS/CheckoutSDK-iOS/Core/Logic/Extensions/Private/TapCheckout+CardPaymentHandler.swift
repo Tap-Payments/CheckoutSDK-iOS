@@ -60,9 +60,9 @@ extension TapCheckout {
             dataHolder.viewModels.tapActionButtonViewModel.buttonActionBlock = {}
             
             // Log it
-            log().verbose("Saved card selected : \( nonNullSavedCard.displayTitle ) & \( nonNullSavedCard.identifier ?? "" )")
+            //log().verbose("Saved card selected : \( nonNullSavedCard.displayTitle ) & \( nonNullSavedCard.identifier ?? "" )")
             setLoggingCustomerData()
-            bfprint("Saved card selected : \( nonNullSavedCard.displayTitle ) & \( nonNullSavedCard.identifier ?? "" )")
+            logBF(message: "Saved card selected : \( nonNullSavedCard.displayTitle ) & \( nonNullSavedCard.identifier ?? "" )", tag: .EVENTS)
         }
     }
     
@@ -226,8 +226,8 @@ extension TapCheckout {
                 
                 // Log the brand
                 setLoggingCustomerData()
-                log().verbose("Finished valid raw card data for \(selectedPaymentOption.title)")
-                bfprint("Finished valid raw card data for \(selectedPaymentOption.title)")
+                //log().verbose("Finished valid raw card data for \(selectedPaymentOption.title)")
+                logBF(message: "Finished valid raw card data for \(selectedPaymentOption.title)", tag: .EVENTS)
             }else{
                 // The action button should be in a valid state as saved cards are ready to process right away
                 // Make the button action to start the paymet with the selected saved card

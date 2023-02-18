@@ -1,6 +1,6 @@
 PODS:
   - BugfenderSDK (1.11.0)
-  - CommonDataModelsKit-iOS (1.0.102):
+  - CommonDataModelsKit-iOS (1.0.103):
     - SwiftyRSA
     - TapAdditionsKitV2
     - TapCardVlidatorKit-iOS
@@ -101,7 +101,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   BugfenderSDK: b31a017a6a6ee3e2e834ae36148e9b70fb33c20f
-  CommonDataModelsKit-iOS: 4342b9bf1fbf8c4ee2f4e9eb5b98dde730e58167
+  CommonDataModelsKit-iOS: bc493cd0bf39a90fe5884936700079d68da20c12
   EasyTipView: a92b6edc377b81c5ac18e9fd35d5ee78e9409488
   FlagKit: eca7dc89064b0c986302ba9acefad1bf80a435b1
   LocalisationManagerKit-iOS: bd1a9d16509a06dd1aea45b9f47cf21bdfe0796c

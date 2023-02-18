@@ -48,6 +48,45 @@ class TapFormSettingsViewController: Eureka.FormViewController {
             }
         })
         
+        
+        form +++ Section("Logging Configuration")
+        <<< SwitchRow(TapSettingsKeys.SDKULogUI.rawValue, { row in
+            row.title = "Log UI events"
+            row.value = TapFormSettingsViewController.loggingCapabilities().0
+            row.onChange { switchRow in
+                UserDefaults.standard.set(switchRow.value, forKey: TapSettingsKeys.SDKULogUI.rawValue)
+                UserDefaults.standard.synchronize()
+            }
+        })
+        
+        <<< SwitchRow(TapSettingsKeys.SDKLogApi.rawValue, { row in
+            row.title = "Log Api calls"
+            row.value = TapFormSettingsViewController.loggingCapabilities().1
+            row.onChange { switchRow in
+                UserDefaults.standard.set(switchRow.value, forKey: TapSettingsKeys.SDKLogApi.rawValue)
+                UserDefaults.standard.synchronize()
+            }
+        })
+        
+        <<< SwitchRow(TapSettingsKeys.SDKLogEvents.rawValue, { row in
+            row.title = "Log user's events"
+            row.value = TapFormSettingsViewController.loggingCapabilities().2
+            row.onChange { switchRow in
+                UserDefaults.standard.set(switchRow.value, forKey: TapSettingsKeys.SDKLogEvents.rawValue)
+                UserDefaults.standard.synchronize()
+            }
+        })
+        
+        <<< SwitchRow(TapSettingsKeys.SDKLogConsole.rawValue, { row in
+            row.title = "Log to Xcode console for development"
+            row.value = TapFormSettingsViewController.loggingCapabilities().3
+            row.onChange { switchRow in
+                UserDefaults.standard.set(switchRow.value, forKey: TapSettingsKeys.SDKLogConsole.rawValue)
+                UserDefaults.standard.synchronize()
+            }
+        })
+        
+        
         form +++ Section("Transaction Configuration")
         <<< PickerInlineRow<String>(TapSettingsKeys.SDKTransactionMode.rawValue, { row in
             row.title = "Trx mode"
@@ -352,6 +391,11 @@ fileprivate enum TapSettingsKeys:String {
     case SDKBMerchantID
     case SDKApplePayMerchantID
     
+    case SDKULogUI
+    case SDKLogApi
+    case SDKLogEvents
+    case SDKLogConsole
+    
     case SDKCardName
     case SDKCardType
     case SDKCardSave
@@ -400,6 +444,30 @@ extension TapFormSettingsViewController {
     static func showCloseButtonTitle() -> Bool {
         return UserDefaults.standard.bool(forKey: TapSettingsKeys.SDKCloseButton.rawValue)
     }
+    
+    
+    static func loggingCapabilities() -> (Bool,Bool,Bool,Bool,[TapLoggingType]) {
+        let SDKULogUI       = UserDefaults.standard.bool(forKey: TapSettingsKeys.SDKULogUI.rawValue)
+        let SDKLogApi       = UserDefaults.standard.bool(forKey: TapSettingsKeys.SDKLogApi.rawValue)
+        let SDKLogEvents    = UserDefaults.standard.bool(forKey: TapSettingsKeys.SDKLogEvents.rawValue)
+        let SDKLogConsole   = UserDefaults.standard.bool(forKey: TapSettingsKeys.SDKLogConsole.rawValue)
+        var allowedLogging:[TapLoggingType] = []
+        if SDKULogUI {
+            allowedLogging.append(.UI)
+        }
+        if SDKLogApi {
+            allowedLogging.append(.API)
+        }
+        if SDKLogEvents {
+            allowedLogging.append(.EVENTS)
+        }
+        if SDKLogConsole {
+            allowedLogging.append(.CONSOLE)
+        }
+        
+        return (SDKULogUI, SDKLogApi, SDKLogEvents, SDKLogConsole, allowedLogging)
+    }
+    
     
     static func merchantSettings() -> (String, String, String, String, String) {
         let SDKSandBoxKey:String = UserDefaults.standard.string(forKey: TapSettingsKeys.SDKSandBoxKey.rawValue) ?? "sk_test_cvSHaplrPNkJO7dhoUxDYjqA"

@@ -91,6 +91,7 @@ internal extension TapCheckout {
      - Parameter authorizeAction: Defines what to do with the authorized amount after being authorized for a certain time interval. Please check [AuthorizeAction](x-source-tag://AuthorizeAction)
      - Parameter allowsToSaveSameCardMoreThanOnce: Defines if same card can be saved more than once. Default is `true`.
      - Parameter enableSaveCard: Defines if the customer can save his card for upcoming payments. Default is `true`.
+     - Parameter enableApiLogging: Defines which level of logging do you wnt to enable. [TapLoggingType](x-source-tag://TapLoggingType)
      - Parameter isSaveCardSwitchOnByDefault: Defines if save card switch is on by default.. Default is `true`.
      - Parameter collectCreditCardName: Decides whether or not, the card input should collect the card holder name. Default is false
      - Parameter creditCardNameEditable: Decides whether or not, the card name field will be editable
@@ -125,6 +126,7 @@ internal extension TapCheckout {
                                 authorizeAction: AuthorizeAction = AuthorizeAction.default,
                                 allowsToSaveSameCardMoreThanOnce: Bool = true,
                                 enableSaveCard: Bool = true,
+                                enableApiLogging:[TapLoggingType] = [.CONSOLE],
                                 isSaveCardSwitchOnByDefault: Bool = true,
                                 collectCreditCardName:Bool = false,
                                 creditCardNameEditable:Bool = true,
@@ -140,6 +142,11 @@ internal extension TapCheckout {
         // Shared data manager attributes
         let sharedManager = TapCheckout.sharedCheckoutManager()
         
+        // Configure the logger
+        sharedManager.dataHolder.transactionData.enableApiLogging = enableApiLogging
+        configureBugFinder()
+        
+        // Set the transaction and view models data
         sharedManager.dataHolder.viewModels.swipeDownToDismiss = swipeDownToDismiss
         sharedManager.dataHolder.viewModels.collectCreditCardName = collectCreditCardName
         sharedManager.dataHolder.viewModels.creditCardNameEditable = creditCardNameEditable

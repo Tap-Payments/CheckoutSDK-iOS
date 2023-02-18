@@ -147,6 +147,7 @@ class ViewController: UIViewController {
             shipping: TapFormSettingsViewController.extraFees().2,
             require3DSecure: TapFormSettingsViewController.cardSettings().5,
             sdkMode: TapFormSettingsViewController.sdkMode(),
+            enableApiLogging: TapFormSettingsViewController.loggingCapabilities().4.map{ $0.rawValue },
             collectCreditCardName: TapFormSettingsViewController.cardSettings().0,
             creditCardNameEditable: TapFormSettingsViewController.cardSettings().3,
             creditCardNamePreload: TapFormSettingsViewController.cardSettings().4,
