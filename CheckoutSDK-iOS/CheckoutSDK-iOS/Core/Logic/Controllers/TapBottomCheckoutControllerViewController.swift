@@ -283,6 +283,9 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         // Stop the dismiss on swipe feature, because when we remove all views, the height will be minium than the threshold, ending up the whole sheet being dimissed
         let originalDismissOnSwipeValue = disableAutoDismiss()
         
+        // Stop OTP timers if any
+        tapVerticalView.stopOTPTimers()
+        
         self.removeView(viewType: TapAmountSectionView.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true, skipSelf: true)
         
         webViewModel = .init()
@@ -290,6 +293,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) { [weak self] in
             //self?.tapVerticalView.hideActionButton()
+            self?.sharedCheckoutDataManager.dataHolder.viewModels.tapAmountSectionViewModel.screenChanged(to: .SavedCardView)
             self?.tapActionButtonViewModel.expandButton()
             self?.tapActionButtonViewModel.buttonStatus = .CancelPayment
             self?.tapActionButtonViewModel.buttonActionBlock = {
@@ -321,6 +325,8 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
             self?.tapVerticalView.hideActionButton()
             self?.tapVerticalView.add(view: self!.webViewModel.attachedView, with: [.init(for: .slideIn, with:self!.fadeInAnimationDuration, wait: 0.1)],shouldFillHeight: true)
             self?.webViewModel.load(with: url)
+            // remove any loading view if needed
+            self?.enableInteraction(with: true)
             // Set it back to swipe on dismiss
             TapCheckout.sharedCheckoutManager().dataHolder.viewModels.swipeDownToDismiss = originalDismissOnSwipeValue
         }
@@ -357,11 +363,14 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
                 
                 // Add back the default views & reset the
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) { [weak self] in
+                    // Once we finished the password/OTP views of goPay we have to make sure that the blur view is now invisible
                     self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.dataHolder.viewModels.tapMerchantViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapAmountSectionViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView], with: [.init(for: .fadeIn, with:self!.fadeInAnimationDuration - 0.4, wait: self!.fadeInAnimationDelay)])
                 }
             }else{
                 // Add back the default views & reset the
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(650)) { [weak self] in
+                    self?.tapVerticalView.showBlur = false
+                    self?.sharedCheckoutDataManager.dataHolder.viewModels.tapAmountSectionViewModel.screenChanged(to: .DefaultView)
                     self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView], with: [.init(for: .fadeIn, with:self!.fadeInAnimationDuration, wait: self!.fadeInAnimationDelay)])
                 }
             }
