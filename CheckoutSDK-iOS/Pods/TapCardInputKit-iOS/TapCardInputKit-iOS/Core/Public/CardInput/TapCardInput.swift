@@ -133,6 +133,12 @@ internal protocol TapCardInputCommonProtocol {
     internal let sharedLocalisationManager = TapLocalisationManager.shared
     /// A preloading value for the card holder name if needed
     internal var preloadCardHolderName:String = ""
+    /// Indicates if the card form shall have its own background theming or it should be clear and reflect whatever is behind it
+    internal var shouldThemeSelf:Bool = false {
+        didSet{
+            setCommonUI()
+        }
+    }
     /// Indicates whether or not the user can edit the card holder name field. Default is true
     internal var editCardName:Bool = true
     
@@ -212,14 +218,16 @@ internal protocol TapCardInputCommonProtocol {
      - Parameter preloadCardHolderName: A preloading value for the card holder name if needed. Default is none
      - Parameter editCardName: Indicates whether or not the user can edit the card holder name field. Default is true
      - Parameter shouldFlip: Indicates whether the card fields should be in RTL in Arabic. If false, the card info fields will force LTR even in Arabic mode
+     - Parameter shouldThemeSelf: Indicates if the card form shall have its own background theming or it should be clear and reflect whatever is behind it
      */
-    @objc public func setup(for cardInputMode:CardInputMode,showCardName:Bool = false, showCardBrandIcon:Bool = false,allowedCardBrands:[Int] = [],cardsIconsUrls:[CardBrand.RawValue:String]? = nil, preloadCardHolderName:String = "", editCardName:Bool = true, shouldFlip:Bool) {
+    @objc public func setup(for cardInputMode:CardInputMode,showCardName:Bool = false, showCardBrandIcon:Bool = false,allowedCardBrands:[Int] = [],cardsIconsUrls:[CardBrand.RawValue:String]? = nil, preloadCardHolderName:String = "", editCardName:Bool = true, shouldFlip:Bool, shouldThemeSelf:Bool) {
         
         self.cardInputMode = cardInputMode
         self.showCardName = showCardName
         self.showCardBrandIcon = showCardBrandIcon
         self.preloadCardHolderName = preloadCardHolderName
         self.editCardName = editCardName
+        self.shouldThemeSelf = shouldThemeSelf
         // After applying the theme, we need now to actually setup the views
         //FlurryLogger.logEvent(with: "Tap_Card_Input_Setup_Called", timed:false , params:["defaultTheme":"true","cardInputMode":"\(cardInputMode)"])
         self.cardsIconsUrls = cardsIconsUrls
@@ -500,7 +508,13 @@ internal protocol TapCardInputCommonProtocol {
     /// Helper method to match the common theming values to the view from the theme file
     internal func setCommonUI() {
         // background color
-        self.backgroundColor = .clear //ThemeUIColorSelector.init(keyPath: "\(themePath).commonAttributes.backgroundColor")
+        // If the card field is set to theme itself, then we set the color
+        if shouldThemeSelf {
+            self.tap_theme_backgroundColor = ThemeUIColorSelector.init(keyPath: "inlineCard.commonAttributes.backgroundColor")
+        }else{
+            // Otherwise, the parent view will theme instead
+            self.backgroundColor = .clear
+        }
         // The border color
         self.layer.tap_theme_borderColor = ThemeCgColorSelector.init(keyPath: "\(themePath).commonAttributes.borderColor")
         // The border width

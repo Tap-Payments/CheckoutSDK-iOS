@@ -102,6 +102,7 @@ internal extension TapCheckout {
      - Parameter applePayButtonType: Defines the type of the apple pay button like Pay with or Subscripe with  etc. Default is Pay
      - Parameter applePayButtonStyle: Defines the UI of the apple pay button white, black or outlined. Default is black
      - Parameter shouldFlipCardData: Defines if the card info textfields should support RTL in Arabic mode or not
+     - Parameter cardShouldThemeItself: Indicates if the card form shall have its own background theming or it should be clear and reflect whatever is behind it
      */
     func configureSharedManager(currency:TapCurrencyCode,
                                 amount:Double,
@@ -137,7 +138,8 @@ internal extension TapCheckout {
                                 recurringPaymentRequest:Any? = nil,
                                 applePayButtonType:TapApplePayButtonType = .AppleLogoOnly,
                                 applePayButtonStyle:TapApplePayButtonStyleOutline = .Black,
-                                shouldFlipCardData:Bool = true
+                                shouldFlipCardData:Bool = true,
+                                cardShouldThemeItself:Bool = false
     ) {
         
         
@@ -154,6 +156,7 @@ internal extension TapCheckout {
         sharedManager.dataHolder.viewModels.creditCardNameEditable  = creditCardNameEditable
         sharedManager.dataHolder.viewModels.creditCardNamePreload   = creditCardNamePreload
         sharedManager.dataHolder.viewModels.shouldFlipCardInfo      = shouldFlipCardData
+        sharedManager.dataHolder.viewModels.cardShouldThemeItself   = cardShouldThemeItself
         sharedManager.dataHolder.viewModels.showSaveCreditCard      = showSaveCreditCard
         sharedManager.dataHolder.viewModels.closeButtonStyle        = closeButtonStyle
         sharedManager.dataHolder.viewModels.showDragHandler         = showDragHandler

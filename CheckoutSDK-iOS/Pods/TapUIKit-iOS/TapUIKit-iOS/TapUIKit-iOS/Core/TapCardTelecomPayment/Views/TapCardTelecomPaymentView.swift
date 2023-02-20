@@ -279,7 +279,7 @@ import TapThemeManager2020
         // Reset the card input
         cardInputView.reset()
         // Re init the card input
-        cardInputView.setup(for: .InlineCardInput, showCardName: viewModel?.collectCardName ?? false, showCardBrandIcon: true, allowedCardBrands: tapCardPhoneListViewModel.dataSource.map{ $0.associatedCardBrand }.filter{ $0.brandSegmentIdentifier == "cards" }.map{ $0.rawValue }, cardsIconsUrls: tapCardPhoneListViewModel.generateBrandsWithIcons(), preloadCardHolderName: viewModel?.preloadCardHolderName ?? "", editCardName: viewModel?.editCardName ?? true, shouldFlip: viewModel?.shouldFlip ?? true)
+        cardInputView.setup(for: .InlineCardInput, showCardName: viewModel?.collectCardName ?? false, showCardBrandIcon: true, allowedCardBrands: tapCardPhoneListViewModel.dataSource.map{ $0.associatedCardBrand }.filter{ $0.brandSegmentIdentifier == "cards" }.map{ $0.rawValue }, cardsIconsUrls: tapCardPhoneListViewModel.generateBrandsWithIcons(), preloadCardHolderName: viewModel?.preloadCardHolderName ?? "", editCardName: viewModel?.editCardName ?? true, shouldFlip: viewModel?.shouldFlip ?? true, shouldThemeSelf: viewModel?.shouldThemeSelf ?? false)
         // Reset any selection done on the bar layout
         tapCardPhoneListViewModel.resetCurrentSegment()
         lastReportedTapCard = .init()
@@ -411,7 +411,15 @@ extension TapCardTelecomPaymentView {
         contentView.backgroundColor = .clear
         
         // background color
-        stackView.tap_theme_backgroundColor = ThemeUIColorSelector.init(keyPath: "inlineCard.commonAttributes.backgroundColor")
+        // If the card field is set to theme itself, then our parent view will be clear and coloring
+        if viewModel?.shouldThemeSelf ?? false {
+            stackView.backgroundColor = .clear
+            saveCrdView.changeSeparatorViewVisibilty(to: false)
+        }else{
+            // Otherwise, the parent view will have to theme instead
+            stackView.tap_theme_backgroundColor = ThemeUIColorSelector.init(keyPath: "inlineCard.commonAttributes.backgroundColor")
+            saveCrdView.changeSeparatorViewVisibilty(to: true)
+        }
         // The border color
         stackView.layer.tap_theme_borderColor = ThemeCgColorSelector.init(keyPath: "inlineCard.commonAttributes.borderColor")
         // The border width

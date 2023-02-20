@@ -113,6 +113,8 @@ internal class ViewModelsHolder {
     var creditCardNamePreload:String = ""
     /// Defines if the card info textfields should support RTL in Arabic mode or not
     var shouldFlipCardInfo:Bool = true
+    /// Indicates if the card form shall have its own background theming or it should be clear and reflect whatever is behind it
+    var cardShouldThemeItself:Bool = false
     /// Decides whether or not, the card input should show save card option. Default is false
     var showSaveCreditCard:SaveCardType = .None
     /// Repreents the list fof supported currencies

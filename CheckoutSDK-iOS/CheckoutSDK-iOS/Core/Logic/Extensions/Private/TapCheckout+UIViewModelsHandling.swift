@@ -102,6 +102,8 @@ internal extension TapCheckout {
         dataHolder.viewModels.tapCardTelecomPaymentViewModel.preloadCardHolderName = dataHolder.viewModels.creditCardNamePreload
         // Defines if the card info textfields should support RTL in Arabic mode or not
         dataHolder.viewModels.tapCardTelecomPaymentViewModel.shouldFlip = dataHolder.viewModels.shouldFlipCardInfo
+        // Defines if the card should theme itself
+        dataHolder.viewModels.tapCardTelecomPaymentViewModel.shouldThemeSelf = dataHolder.viewModels.cardShouldThemeItself
         // Decides whether or not, there is other payment methods allowed other than the card form or not
         dataHolder.viewModels.tapCardTelecomPaymentViewModel.cardHeaderType = (dataHolder.viewModels.gatewayChipsViewModel.count > 0 || dataHolder.viewModels.gatewayChipsViewModel.count > 0) ? .CardInputTitleOR : .CardInputTitle
         // Instruct if we have to show save card option or not
