@@ -12,7 +12,7 @@ import TapUIKit_iOS
 import TapApplePayKit_iOS
 
 class TapFormSettingsViewController: Eureka.FormViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         TapFormSettingsViewController.funcPreFillData()
@@ -84,6 +84,15 @@ class TapFormSettingsViewController: Eureka.FormViewController {
                 UserDefaults.standard.set(switchRow.value, forKey: TapSettingsKeys.SDKLogConsole.rawValue)
                 UserDefaults.standard.synchronize()
             }
+        })
+        
+        <<< ButtonRow(TapSettingsKeys.SDKLogPlatform.rawValue, { row in
+            row.title = "See logs"
+            row.onCellSelection({ cell, row in
+                DispatchQueue.main.async {
+                    UIApplication.shared.open(URL(string: "https://dashboard.bugfender.com/login?next=%2F")!)
+                }
+            })
         })
         
         
@@ -177,6 +186,15 @@ class TapFormSettingsViewController: Eureka.FormViewController {
             row.value = TapFormSettingsViewController.cardSettings().5
             row.onChange { switchRow in
                 UserDefaults.standard.set(switchRow.value, forKey: TapSettingsKeys.SDKCardRequire3DS.rawValue)
+                UserDefaults.standard.synchronize()
+            }
+        })
+        
+        <<< SwitchRow(TapSettingsKeys.SDKCardForceLTR.rawValue, { row in
+            row.title = "Force LTR"
+            row.value = TapFormSettingsViewController.cardSettings().6
+            row.onChange { switchRow in
+                UserDefaults.standard.set(switchRow.value, forKey: TapSettingsKeys.SDKCardForceLTR.rawValue)
                 UserDefaults.standard.synchronize()
             }
         })
@@ -395,6 +413,7 @@ fileprivate enum TapSettingsKeys:String {
     case SDKLogApi
     case SDKLogEvents
     case SDKLogConsole
+    case SDKLogPlatform
     
     case SDKCardName
     case SDKCardType
@@ -402,6 +421,7 @@ fileprivate enum TapSettingsKeys:String {
     case SDKCardNameEnabled
     case SDKCardNamePreload
     case SDKCardRequire3DS
+    case SDKCardForceLTR
     
     case SDKTransactionMode
     case SDKTransactionCurrency
@@ -437,7 +457,7 @@ extension TapFormSettingsViewController {
         
         
         return SDKMode.allCases.first{ $0.description.lowercased() == sdkMode.lowercased() } ?? .sandbox
-            
+        
         //return (UserDefaults.standard.object(forKey: TapSettingsKeys.SDKMode.rawValue) as? SDKMode) ?? SDKMode.sandbox
     }
     
@@ -483,7 +503,7 @@ extension TapFormSettingsViewController {
         return (SDKSandBoxKey, SDKProductionKey, SDKBundleID, SDKBMerchantID, SDKApplePayMerchantID)
     }
     
-    static func cardSettings() -> (Bool, CardType, SaveCardType, Bool, String, Bool) {
+    static func cardSettings() -> (Bool, CardType, SaveCardType, Bool, String, Bool, Bool) {
         
         let SDKCardName:Bool = UserDefaults.standard.bool(forKey: TapSettingsKeys.SDKCardName.rawValue)
         
@@ -495,10 +515,11 @@ extension TapFormSettingsViewController {
         
         let SDKCardNamePreload:String = UserDefaults.standard.string(forKey: TapSettingsKeys.SDKCardNamePreload.rawValue) ?? ""
         
-        
         let SDKCardRequire3DS:Bool = UserDefaults.standard.bool(forKey: TapSettingsKeys.SDKCardRequire3DS.rawValue)
         
-        return (SDKCardName, SDKCardType, SDKCardSave, SDKCardNameEnabled, SDKCardNamePreload, SDKCardRequire3DS)
+        let SDKCardForceLTR:Bool = UserDefaults.standard.bool(forKey: TapSettingsKeys.SDKCardForceLTR.rawValue)
+        
+        return (SDKCardName, SDKCardType, SDKCardSave, SDKCardNameEnabled, SDKCardNamePreload, SDKCardRequire3DS, SDKCardForceLTR)
         
     }
     
@@ -517,7 +538,7 @@ extension TapFormSettingsViewController {
     
     
     static func customerSettings() -> (SDKCustomerType, String, String, String, String, String, Bool, TapCustomer) {
-         
+        
         let SDKCustomerType:SDKCustomerType = SDKCustomerType(rawValue: UserDefaults.standard.string(forKey: TapSettingsKeys.SDKCustomerType.rawValue) ?? "CustomerID") ?? .CustomerID
         
         let SDKCustomerID:String =  UserDefaults.standard.string(forKey: TapSettingsKeys.SDKCustomerID.rawValue) ?? "cus_TS075220212320q2RD0707283"
@@ -548,13 +569,13 @@ extension TapFormSettingsViewController {
             if SDKCustomerShippingAddress {
                 let tempCountry:CommonDataModelsKit_iOS.Country = try! .init(isoCode: "KW")
                 address = .init(type:.residential,
-                                                 country: tempCountry,
-                                                 line1: "Street 13",
-                                                 line2: "Building 4",
-                                                 line3: "Flat 51",
-                                                 city: "Hawally",
-                                                 state: "Kuwait",
-                                                 zipCode: "30003"
+                                country: tempCountry,
+                                line1: "Street 13",
+                                line2: "Building 4",
+                                line3: "Flat 51",
+                                city: "Hawally",
+                                state: "Kuwait",
+                                zipCode: "30003"
                 )
             }
             
@@ -576,13 +597,13 @@ extension TapFormSettingsViewController {
         
         let tempCountry:CommonDataModelsKit_iOS.Country = try! .init(isoCode: "KW")
         let shipping:Shipping? = SDKFeesShipping ? .init(name: "Shipping", descriptionText: "This is a custom shipping", amount: 10, currency: TapFormSettingsViewController.transactionSettings().1, recipientName: "Tap Payments", address: .init(type:.residential,
-                                                                                                                                                                           country: tempCountry,
-                                                                                                                                                                           line1: "Street 13",
-                                                                                                                                                                           line2: "Building 4",
-                                                                                                                                                                           line3: "Glat 51",
-                                                                                                                                                                           city: "Hawally",
-                                                                                                                                                                           state: "Kuwait",
-                                                                                                                                                                           zipCode: "30003"
+                                                                                                                                                                                                                                                    country: tempCountry,
+                                                                                                                                                                                                                                                    line1: "Street 13",
+                                                                                                                                                                                                                                                    line2: "Building 4",
+                                                                                                                                                                                                                                                    line3: "Glat 51",
+                                                                                                                                                                                                                                                    city: "Hawally",
+                                                                                                                                                                                                                                                    state: "Kuwait",
+                                                                                                                                                                                                                                                    zipCode: "30003"
                                                                                                                                                                                                                                                    ), provider: .init(id: "Prov", name: "Aramex")) : nil
         
         let tax:Tax = .init(title: "VAT", amount: .init(type: .Percentage,value: 10))
@@ -601,11 +622,15 @@ extension TapFormSettingsViewController {
     }
     
     static func funcPreFillData () {
-        if !UserDefaults.standard.bool(forKey: "SettingsBrefilled") {
+        if !UserDefaults.standard.bool(forKey: "SettingsBrefilled2") {
             
             UserDefaults.standard.set(true, forKey: TapSettingsKeys.SDKCardRequire3DS.rawValue)
             UserDefaults.standard.set(true, forKey: TapSettingsKeys.SDKCardNameEnabled.rawValue)
-            UserDefaults.standard.set(true, forKey: "SettingsBrefilled")
+            UserDefaults.standard.set(true, forKey: TapSettingsKeys.SDKLogApi.rawValue)
+            UserDefaults.standard.set(true, forKey: TapSettingsKeys.SDKULogUI.rawValue)
+            UserDefaults.standard.set(true, forKey: TapSettingsKeys.SDKLogEvents.rawValue)
+            UserDefaults.standard.set(true, forKey: TapSettingsKeys.SDKLogConsole.rawValue)
+            UserDefaults.standard.set(true, forKey: "SettingsBrefilled2")
             UserDefaults.standard.synchronize()
         }
     }

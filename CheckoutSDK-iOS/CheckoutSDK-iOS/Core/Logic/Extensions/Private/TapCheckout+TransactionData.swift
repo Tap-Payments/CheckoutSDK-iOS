@@ -111,6 +111,8 @@ internal class ViewModelsHolder {
     var creditCardNameEditable:Bool = true
     // Decides whether or not, the card name field should be prefilled
     var creditCardNamePreload:String = ""
+    /// Defines if the card info textfields should support RTL in Arabic mode or not
+    var shouldFlipCardInfo:Bool = true
     /// Decides whether or not, the card input should show save card option. Default is false
     var showSaveCreditCard:SaveCardType = .None
     /// Repreents the list fof supported currencies
@@ -152,7 +154,7 @@ internal class ViewModelsHolder {
         tapGatewayChipHorizontalListViewModel.delegate      = TapCheckout.sharedCheckoutManager()
         tapGoPayChipsHorizontalListViewModel.delegate       = TapCheckout.sharedCheckoutManager()
         tapLoyaltyViewModel?.delegate                       = TapCheckout.sharedCheckoutManager()
-        tapActionButtonViewModel.delegate                  = TapCheckout.sharedCheckoutManager()
+        tapActionButtonViewModel.delegate                   = TapCheckout.sharedCheckoutManager()
     }
     
     /// Checks if the user asked for showing save card and it is allowed from the backend as well

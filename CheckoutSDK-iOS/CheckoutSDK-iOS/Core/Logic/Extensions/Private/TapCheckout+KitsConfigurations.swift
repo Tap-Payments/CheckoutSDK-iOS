@@ -101,6 +101,7 @@ internal extension TapCheckout {
      - Parameter recurringPaymentRequest: Defines the recurring payment request Please check [Apple Pay docs](https://developer.apple.com/documentation/passkit/pkrecurringpaymentrequest). NOTE: This will only be availble for iOS 16+ and subscripion parameter is on.
      - Parameter applePayButtonType: Defines the type of the apple pay button like Pay with or Subscripe with  etc. Default is Pay
      - Parameter applePayButtonStyle: Defines the UI of the apple pay button white, black or outlined. Default is black
+     - Parameter shouldFlipCardData: Defines if the card info textfields should support RTL in Arabic mode or not
      */
     func configureSharedManager(currency:TapCurrencyCode,
                                 amount:Double,
@@ -135,7 +136,8 @@ internal extension TapCheckout {
                                 isSubscription:Bool = false,
                                 recurringPaymentRequest:Any? = nil,
                                 applePayButtonType:TapApplePayButtonType = .AppleLogoOnly,
-                                applePayButtonStyle:TapApplePayButtonStyleOutline = .Black
+                                applePayButtonStyle:TapApplePayButtonStyleOutline = .Black,
+                                shouldFlipCardData:Bool = true
     ) {
         
         
@@ -147,13 +149,14 @@ internal extension TapCheckout {
         configureBugFinder()
         
         // Set the transaction and view models data
-        sharedManager.dataHolder.viewModels.swipeDownToDismiss = swipeDownToDismiss
-        sharedManager.dataHolder.viewModels.collectCreditCardName = collectCreditCardName
-        sharedManager.dataHolder.viewModels.creditCardNameEditable = creditCardNameEditable
-        sharedManager.dataHolder.viewModels.creditCardNamePreload = creditCardNamePreload
-        sharedManager.dataHolder.viewModels.showSaveCreditCard = showSaveCreditCard
-        sharedManager.dataHolder.viewModels.closeButtonStyle = closeButtonStyle
-        sharedManager.dataHolder.viewModels.showDragHandler = showDragHandler
+        sharedManager.dataHolder.viewModels.swipeDownToDismiss      = swipeDownToDismiss
+        sharedManager.dataHolder.viewModels.collectCreditCardName   = collectCreditCardName
+        sharedManager.dataHolder.viewModels.creditCardNameEditable  = creditCardNameEditable
+        sharedManager.dataHolder.viewModels.creditCardNamePreload   = creditCardNamePreload
+        sharedManager.dataHolder.viewModels.shouldFlipCardInfo      = shouldFlipCardData
+        sharedManager.dataHolder.viewModels.showSaveCreditCard      = showSaveCreditCard
+        sharedManager.dataHolder.viewModels.closeButtonStyle        = closeButtonStyle
+        sharedManager.dataHolder.viewModels.showDragHandler         = showDragHandler
         
         sharedManager.dataHolder.transactionData.dataHolderDelegate = sharedManager
         

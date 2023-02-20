@@ -115,6 +115,8 @@ internal protocol TapCardInputCommonProtocol {
     internal var spacing:CGFloat = 7
     /// The left and right padding around the input card
     internal var inputLeftRightMargin:CGFloat = 15
+    /// Defines if the card info textfields should support RTL in Arabic mode or not
+    internal var shouldFlip:Bool = true
     /// The last saved card called
     public var savedCard:SavedCard?
     
@@ -209,8 +211,9 @@ internal protocol TapCardInputCommonProtocol {
      - Parameter cardIconUrl: States if the parent controller wants to show a card image instead of placeholder when valid
      - Parameter preloadCardHolderName: A preloading value for the card holder name if needed. Default is none
      - Parameter editCardName: Indicates whether or not the user can edit the card holder name field. Default is true
+     - Parameter shouldFlip: Indicates whether the card fields should be in RTL in Arabic. If false, the card info fields will force LTR even in Arabic mode
      */
-    @objc public func setup(for cardInputMode:CardInputMode,showCardName:Bool = false, showCardBrandIcon:Bool = false,allowedCardBrands:[Int] = [],cardsIconsUrls:[CardBrand.RawValue:String]? = nil, preloadCardHolderName:String = "", editCardName:Bool = true) {
+    @objc public func setup(for cardInputMode:CardInputMode,showCardName:Bool = false, showCardBrandIcon:Bool = false,allowedCardBrands:[Int] = [],cardsIconsUrls:[CardBrand.RawValue:String]? = nil, preloadCardHolderName:String = "", editCardName:Bool = true, shouldFlip:Bool) {
         
         self.cardInputMode = cardInputMode
         self.showCardName = showCardName
@@ -220,6 +223,7 @@ internal protocol TapCardInputCommonProtocol {
         // After applying the theme, we need now to actually setup the views
         //FlurryLogger.logEvent(with: "Tap_Card_Input_Setup_Called", timed:false , params:["defaultTheme":"true","cardInputMode":"\(cardInputMode)"])
         self.cardsIconsUrls = cardsIconsUrls
+        self.shouldFlip = shouldFlip
         defer {
             self.allowedCardBrands = allowedCardBrands
         }
@@ -320,7 +324,7 @@ internal protocol TapCardInputCommonProtocol {
         self.savedCard = savedCard
         // Assign the needed UI data
         let style = NSMutableParagraphStyle()
-        style.alignment = (sharedLocalisationManager.localisationLocale == "ar") ? .right : .left
+        style.alignment = (sharedLocalisationManager.localisationLocale == "ar" && shouldFlip) ? .right : .left
         
         // theme the last four digits text
         let offsett:Double = ((TapThemeManager.fontValue(for: "\(themePath).textFields.font",shouldLocalise: false) ?? .systemFont(ofSize: 14, weight: .regular)).capHeight - (TapThemeManager.fontValue(for: "\(themePath).textFields.saveCardFontDots",shouldLocalise: false) ?? .systemFont(ofSize: 14, weight: .regular)).capHeight)/2.0
@@ -477,7 +481,7 @@ internal protocol TapCardInputCommonProtocol {
         saveLabel.text = sharedLocalisationManager.localisedValue(for: "TapCardInputKit.cardSaveLabel", with: defaultLocalisationFilePath)
         
         
-        if shouldFlip {
+        if self.shouldFlip && shouldFlip {
             // Change the alignments
             fields.forEach { (field) in
                 field.alignment = (sharedLocalisationManager.localisationLocale == "ar") ? .right : .left
@@ -525,7 +529,7 @@ internal protocol TapCardInputCommonProtocol {
         // Defines close saved card button icon
         var closeSavedCardStatusImage:UIImage? = TapThemeManager.imageValue(for: "\(themePath).closeSavedCardIcon",from: Bundle(for: type(of: self)))
         // We will need to flip it in case of Arabic as it is an arrow
-        if sharedLocalisationManager.localisationLocale == "ar" {
+        if sharedLocalisationManager.localisationLocale == "ar" && shouldFlip {
             closeSavedCardStatusImage = closeSavedCardStatusImage?.withHorizontallyFlippedOrientation()
         }
         

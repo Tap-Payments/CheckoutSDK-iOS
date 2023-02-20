@@ -156,6 +156,7 @@ class ViewController: UIViewController {
             recurringPaymentRequest: generateRecurring(),
             applePayButtonType: TapFormSettingsViewController.applePaySettings().0,
             applePayButtonStyle: TapFormSettingsViewController.applePaySettings().1,
+            shouldFlipCardData: !TapFormSettingsViewController.cardSettings().6,
             onCheckOutReady: {[weak self] tapCheckOut in
                 DispatchQueue.main.async() {
                     tapCheckOut.start(presentIn: self)

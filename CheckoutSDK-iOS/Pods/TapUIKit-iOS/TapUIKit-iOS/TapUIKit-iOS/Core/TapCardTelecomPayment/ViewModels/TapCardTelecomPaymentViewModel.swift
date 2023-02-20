@@ -145,7 +145,9 @@ import TapCardVlidatorKit_iOS
     /// Indicates if we have to pre fill the card holder name
     @objc public var preloadCardHolderName:String = ""
     /// Indicates whether or not to offer the save card and to which level
-    public var saveCardType:SaveCardType = .None
+    @objc public var saveCardType:SaveCardType = .None
+    /// Defines if the card info textfields should support RTL in Arabic mode or not
+    @objc public var shouldFlip:Bool = true
     /// Indicates whether or not the user can edit the card holder name field. Default is true
     @objc public var editCardName:Bool = true
     /**
@@ -153,11 +155,13 @@ import TapCardVlidatorKit_iOS
      - Parameter tapCardPhoneListViewModel: The view model that has the needed payment options and data source to display the payment view
      - Parameter tapCountry: Represents the country that telecom options are being shown for, used to handle country code and correct phone length
      - Parameter showSaveCardOption: Indicates whether or not to offer the save card switch when a valid card info is filled
+     - Parameter shouldFlip: Defines if the card info textfields should support RTL in Arabic mode or not
      */
-    @objc public init(with tapCardPhoneListViewModel:TapCardPhoneBarListViewModel, and tapCountry:TapCountry? = nil,collectCardName:Bool = false, showSaveCardOption:SaveCardType) {
+    @objc public init(with tapCardPhoneListViewModel:TapCardPhoneBarListViewModel, and tapCountry:TapCountry? = nil,collectCardName:Bool = false, showSaveCardOption:SaveCardType, shouldFlip:Bool) {
         super.init()
         self.collectCardName = collectCardName
         self.saveCardType = showSaveCardOption
+        self.shouldFlip = shouldFlip
         self.tapCardPhoneListViewModel = tapCardPhoneListViewModel
         tapCardTelecomPaymentView?.tapCountry = tapCountry
     }
