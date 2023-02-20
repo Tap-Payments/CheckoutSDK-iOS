@@ -33,15 +33,17 @@ internal protocol TapCardInputCommonProtocol {
      This method will be called whenever the card data in the form has changed. It is being called in a live manner
      - Parameter tapCard: The TapCard model that hold sthe data the currently enetred by the user till now
      - Parameter cardStatusUI: The current state of the card input. Saved card or normal card
+     - Parameter isCVVFocused: Will tell the focusing state of the CVV, will be used not to show CVV hint if the field is focused in the saved card view
      */
-    @objc func cardDataChanged(tapCard:TapCard,cardStatusUI:CardInputUIStatus)
+    @objc func cardDataChanged(tapCard:TapCard,cardStatusUI:CardInputUIStatus, isCVVFocused:Bool)
     /**
      This method will be called whenever the a brand is detected based on the current data typed by the user in the card form.
      - Parameter cardBrand: The detected card brand
      - Parameter validation: Tells the validity of the detected brand, whether it is invalid, valid or still incomplete
      - Parameter cardStatusUI: The current state of the card input. Saved card or normal card
+     - Parameter isCVVFocused: Will tell the focusing state of the CVV, will be used not to show CVV hint if the field is focused in the saved card view
      */
-    @objc func brandDetected(for cardBrand:CardBrand,with validation:CrardInputTextFieldStatusEnum,cardStatusUI:CardInputUIStatus)
+    @objc func brandDetected(for cardBrand:CardBrand,with validation:CrardInputTextFieldStatusEnum,cardStatusUI:CardInputUIStatus, isCVVFocused:Bool)
     /// This method will be called once the user clicks on Scan button
     @objc func scanCardClicked()
     /**
@@ -52,8 +54,9 @@ internal protocol TapCardInputCommonProtocol {
     /**
      This method will be called whenever any text change occures
      - Parameter tapCard: The TapCard model that hold sthe data the currently enetred by the user till now
+     - Parameter isCVVFocused: Will tell the focusing state of the CVV, will be used not to show CVV hint if the field is focused in the saved card view
      */
-    @objc func dataChanged(tapCard:TapCard)
+    @objc func dataChanged(tapCard:TapCard,isCVVFocused:Bool)
     
     /// This method will be called whenever the user opted out from filling in the CVV for the saved card
     @objc func closeSavedCard()
@@ -426,7 +429,7 @@ internal protocol TapCardInputCommonProtocol {
         // now let us see if we have to focus the CVV if we are filling in saved card data
         if cardUIStatus == .SavedCard {
             cardCVV.isUserInteractionEnabled = true
-            //cardCVV.becomeFirstResponder()
+            cardCVV.becomeFirstResponder()
             cardCVV.cvvLength = CardValidator.cvvLength(for: savedCard?.brand)
             adjustScanButton()
         }
@@ -471,6 +474,11 @@ internal protocol TapCardInputCommonProtocol {
         saveLabel.tap_theme_font = ThemeFontSelector.init(stringLiteral: "\(themePath).saveCardOption.labelTextFont")
     }
     
+    /// Call it if you want to round specific corners only. By default, all of them are being rounded equally
+    ///  - Parameter for corners: The corners you want to apply the roun
+    @objc public func applyRoundedCornersMask(for corners:CACornerMask) {
+        self.layer.maskedCorners = corners
+    }
     
     /// Helper method to natch the localized values
     @objc public func localize(shouldFlip:Bool = true) {
@@ -520,8 +528,9 @@ internal protocol TapCardInputCommonProtocol {
         // The border width
         self.layer.tap_theme_borderWidth = ThemeCGFloatSelector.init(keyPath: "\(themePath).commonAttributes.borderWidth")
         // The border rounded corners
-        self.layer.tap_theme_cornerRadious = ThemeCGFloatSelector.init(keyPath: "\(themePath).commonAttributes.cornerRadius")
+        //self.layer.tap_theme_cornerRadious = ThemeCGFloatSelector.init(keyPath: "\(themePath).commonAttributes.cornerRadius")
         
+        self.layer.tap_theme_cornerRadious = ThemeCGFloatSelector.init(keyPath: "\(themePath).commonAttributes.cornerRadius")
         // The shadow details
         /* self.layer.shadowRadius = CGFloat(TapThemeManager.numberValue(for: "\(themePath).commonAttributes.shadow.radius")?.floatValue ?? 0)
          self.layer.tap_theme_shadowColor = ThemeCgColorSelector.init(keyPath: "\(themePath).commonAttributes.shadow.color")
@@ -660,6 +669,10 @@ internal protocol TapCardInputCommonProtocol {
         cardCVV.setup(with:sharedLocalisationManager.localisationLocale == "en" ? 5 : 6, placeholder: "CVV",editingStatusChanged: { [weak self] (isEditing) in
             // Checks if any of the card fields is newly focused
             self?.updateFousedStatus()
+            // Instruct the view model to adjust the hint view if only in saved card view
+            if self?.cardUIStatus == .SavedCard {
+                self?.cardDatachanged(cardStatusUI: .SavedCard)
+            }
             // We will glow the shadow if needed
             self?.updateShadow()
             // We will need to adjuust the width for the field when it is being active or inactive in the Inline mode
@@ -679,7 +692,7 @@ internal protocol TapCardInputCommonProtocol {
             }
         })
         
-        fields.forEach{ $0.textChanged = { [weak self] _ in self?.delegate?.dataChanged(tapCard: self!.tapCard) }}
+        fields.forEach{ $0.textChanged = { [weak self] _ in self?.delegate?.dataChanged(tapCard: self!.tapCard,isCVVFocused: self?.cardCVV.isEditing ?? false) }}
         
         saveSwitch.addTarget(self, action: #selector(saveCardSwitchChanged), for: .valueChanged)
         localize()
@@ -816,7 +829,7 @@ internal protocol TapCardInputCommonProtocol {
         adjustScanButton()
         if let nonNullDelegate = delegate {
             // If there is a delegate then we call the related method
-            nonNullDelegate.cardDataChanged(tapCard: tapCard,cardStatusUI:cardStatusUI)
+            nonNullDelegate.cardDataChanged(tapCard: tapCard,cardStatusUI:cardStatusUI, isCVVFocused: cardCVV.isEditing)
             var (detectedBrand, _) = cardNumber.cardBrand(for: tapCard.tapCardNumber ?? "")
             var validity = cardNumber.textFieldStatus(cardNumber: tapCard.tapCardNumber)
             // in case of saved card we take the brand and the validation from the saved card itself
@@ -824,7 +837,7 @@ internal protocol TapCardInputCommonProtocol {
                 detectedBrand = nonNullSavedCard.brand
                 validity = .Valid
             }
-            nonNullDelegate.brandDetected(for: detectedBrand ?? .unknown, with: validity, cardStatusUI: cardStatusUI)
+            nonNullDelegate.brandDetected(for: detectedBrand ?? .unknown, with: validity, cardStatusUI: cardStatusUI, isCVVFocused: cardCVV.isEditing)
             handleOneBrandIcon(with: detectedBrand ?? .unknown)
         }
         //FlurryLogger.logEvent(with: "Tap_Card_Input_Data_Changed", timed:false , params:["card_number":tapCard.tapCardNumber ?? "","card_name":tapCard.tapCardName ?? "","card_month":tapCard.tapCardExpiryMonth ?? "","card_year":tapCard.tapCardExpiryYear ?? ""])

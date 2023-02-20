@@ -204,11 +204,12 @@ extension TapCheckout {
      Handles the logic needed to be applied upon card form validation status changes
      - Parameter cardBrand: The detected card brand
      - Parameter with validation: The validation status came out of the card validator
+     - Parameter isCVVFocused: Will tell the focusing state of the CVV, will be used not to show CVV hint if the field is focused in the saved card view
      */
-    func handleCardValidationStatus(for cardBrand: CardBrand,with validation: CrardInputTextFieldStatusEnum,cardStatusUI:CardInputUIStatus) {
+    func handleCardValidationStatus(for cardBrand: CardBrand,with validation: CrardInputTextFieldStatusEnum,cardStatusUI:CardInputUIStatus, isCVVFocused:Bool) {
         // Check if valid or not and based on that we decide the logic to be done
         if validation == .Valid,
-           dataHolder.viewModels.tapCardTelecomPaymentViewModel.decideHintStatus(and:cardStatusUI) == .None {
+           dataHolder.viewModels.tapCardTelecomPaymentViewModel.decideHintStatus(and:cardStatusUI,isCVVFocused: isCVVFocused) == .None {
             // All good and we can start the payment once the user clicks on the action button
             
             // Based on the card input status (filling in CVV for a saved card or just finished filling in the data of a new card) we decide the actions to be done by the pay button

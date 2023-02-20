@@ -24,8 +24,9 @@ import TapCardVlidatorKit_iOS
      - Parameter cardBrand: The detected card brand
      - Parameter validation: Tells the validity of the detected brand, whether it is invalid, valid or still incomplete
      - Parameter cardStatusUI: The current state of the card input. Saved card or normal card
+     - Parameter isCVVFocused: Will tell the focusing state of the CVV, will be used not to show CVV hint if the field is focused in the saved card view
      */
-    @objc func brandDetected(for cardBrand:CardBrand,with validation:CrardInputTextFieldStatusEnum,cardStatusUI:CardInputUIStatus)
+    @objc func brandDetected(for cardBrand:CardBrand,with validation:CrardInputTextFieldStatusEnum,cardStatusUI:CardInputUIStatus,isCVVFocused:Bool)
     
     
     /// This method will be called once the user clicks on Scan button
@@ -264,9 +265,11 @@ import TapCardVlidatorKit_iOS
     
     /**
      Decides which hint status to be shown based on the validation statuses for the card input fields
-     - Parameter tapCard: The current tap card input by the user
+     - Parameter with tapCard: The current tap card input by the user
+     - Parameter and cardUIStatus: The current card status whether a new card form or a saved card one
+     - Parameter isCVVFocused: Will tell the focusing state of the CVV, will be used not to show CVV hint if the field is focused in the saved card view
      */
-    @objc public func decideHintStatus(with tapCard:TapCard? = nil, and cardUIStatus:CardInputUIStatus = .NormalCard) -> TapHintViewStatusEnum {
+    @objc public func decideHintStatus(with tapCard:TapCard? = nil, and cardUIStatus:CardInputUIStatus = .NormalCard, isCVVFocused:Bool) -> TapHintViewStatusEnum {
         
         guard let tapCardTelecomPaymentView = tapCardTelecomPaymentView else {
             return .None
@@ -279,10 +282,9 @@ import TapCardVlidatorKit_iOS
         // If we are in saved card scenario, we only need to show hints based on CVV validty
         if cardUIStatus == .SavedCard {
             let (_,_,cardCVVValid,_) = tapCardTelecomPaymentView.cardInputView.fieldsValidationStatuses()
-            if !cardCVVValid {
-                newStatus = .WarningCVV
-            }
-            return newStatus
+            // We will only display the CVV hint for saved card if CVV is not focused and the CVV is not valid
+            guard !isCVVFocused, !cardCVVValid else { return .None }
+            return .WarningCVV
         }
         
         // Check first if the card nnumber has data otherwise we are in the IDLE state
