@@ -278,7 +278,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         isSubscription:Bool = false,
         recurringPaymentRequest:Any? = nil,
         applePayButtonType:TapApplePayButtonType = .AppleLogoOnly,
-        applePayButtonStyle:TapApplePayButtonStyleOutline = .Auto,
+        applePayButtonStyle:TapApplePayButtonStyleOutline = .Black,
         onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
             
             // Do the pre steps needed before starting a new SDK session

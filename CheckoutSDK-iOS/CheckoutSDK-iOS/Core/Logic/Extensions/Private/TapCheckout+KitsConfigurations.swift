@@ -135,7 +135,7 @@ internal extension TapCheckout {
                                 isSubscription:Bool = false,
                                 recurringPaymentRequest:Any? = nil,
                                 applePayButtonType:TapApplePayButtonType = .AppleLogoOnly,
-                                applePayButtonStyle:TapApplePayButtonStyleOutline = .Auto
+                                applePayButtonStyle:TapApplePayButtonStyleOutline = .Black
     ) {
         
         
