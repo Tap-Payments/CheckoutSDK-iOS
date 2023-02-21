@@ -53,7 +53,7 @@ PODS:
   - TapThemeManager2020 (1.0.75):
     - LocalisationManagerKit-iOS
     - TapFontKit-iOS
-  - TapUIKit-iOS (1.0.119):
+  - TapUIKit-iOS (1.0.120):
     - CommonDataModelsKit-iOS
     - EasyTipView
     - FlagKit
@@ -121,7 +121,7 @@ SPEC CHECKSUMS:
   TapNetworkKit-iOS: fbd921325fa218eaa17b8ca3d461133c45da715a
   TapSwiftFixesV2: a8623a7273c6790b9754ec7e272e96fce7d3a800
   TapThemeManager2020: b7dcf147075f2a4b0cfee554b95dfd7d11573a32
-  TapUIKit-iOS: 9ef5944d11e40b8f0e8c6ea30703b596bc2a3248
+  TapUIKit-iOS: 5c23af7d2d2a32a074e9dcdbea17724e5bf9cc31
 
 PODFILE CHECKSUM: 1c2f5f1484381e0d33770c14615619392b21ce3a
 
