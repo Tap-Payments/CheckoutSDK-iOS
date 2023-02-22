@@ -175,6 +175,10 @@ internal extension TapCheckout {
         // Change the action button to loading status
         TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapActionButtonViewModel.startLoading()
         TapCheckout.sharedCheckoutManager().dataHolder.transactionData.selectedPaymentOption = paymentOption
+        // Do the pre animation needed to show 3ds when paying with a new card if any
+        if paymentOption?.paymentType == .Card {
+            UIDelegate?.prepareFor3DSInCardAnimation()
+        }
         // Create the charge request and call it
         let chargeRequest:TapChargeRequestModel = createChargeOrAuthorizeRequestModel(with: paymentOption!, token: token, cardBIN: token.card.binNumber,saveCard: dataHolder.transactionData.isSaveCardMerchantActivated)
         callChargeOrAuthorizeAPI(chargeRequestModel: chargeRequest) { [weak self] charge in
@@ -283,7 +287,8 @@ internal extension TapCheckout {
         
         // Case 1: Redirection // Check if we need to make a redirection
         if let redirectionURL:URL = charge?.transactionDetails.url {
-            showWebView(with: redirectionURL, for: self.dataHolder.transactionData.selectedPaymentOption?.paymentType == .Web ? .FullScreen : .InScreen)
+            showWebView(with: redirectionURL, for: self.dataHolder.transactionData.selectedPaymentOption?.paymentType == .Web ? .FullScreen :
+                            self.dataHolder.transactionData.selectedPaymentOption?.paymentType == .SavedCard ? .InScreen : .InCard)
         }else // Case 2: Authentication
         if let authentication:Authentication = charge?.authentication {
             showAuthentication(with: authentication)

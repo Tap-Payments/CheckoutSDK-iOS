@@ -123,6 +123,12 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      - Parameter with status: if true then enable if false then disable the checkout's interaction capabilty
      */
     func enableInteraction(with status:Bool)
+    
+    /// Will be fired in case you want to do the pre-3d animations.
+    /// It will remove all other sub views except the card form
+    /// It will shrink the card form into the ideal height
+    /// It will show loading view inside the card form waiting until the web view is ready from the charge response
+    func prepareFor3DSInCardAnimation()
 }
 
 

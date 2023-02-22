@@ -204,6 +204,24 @@ import TapCardVlidatorKit_iOS
         tapCardTelecomPaymentView?.cardInputView.saveCardDataBeforeMovingToSavedCard()
     }
     
+    @objc public func addFullScreen(view:UIView?) {
+        guard let view = view else { return }
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.alpha = 0
+        
+        attachedView.addSubview(view)
+        attachedView.bringSubviewToFront(view)
+        view.snp.remakeConstraints { make in
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview()
+            make.leading.equalToSuperview()
+        }
+        view.layoutIfNeeded()
+        attachedView.layoutIfNeeded()
+        view.fadeIn(duration:1)
+    }
+    
     /**
      Will adjust the enablement of the card form baed on the given value.
      - Parameter to: If true, the card will be dimmed & if false it will look normal again

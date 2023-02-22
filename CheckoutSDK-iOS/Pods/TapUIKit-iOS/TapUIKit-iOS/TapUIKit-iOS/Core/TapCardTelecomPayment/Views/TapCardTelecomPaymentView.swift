@@ -94,8 +94,6 @@ import TapThemeManager2020
         }
     }
     
-    
-    
     // Mark:- Init methods
     override init(frame: CGRect) {
         super.init(frame: frame)
