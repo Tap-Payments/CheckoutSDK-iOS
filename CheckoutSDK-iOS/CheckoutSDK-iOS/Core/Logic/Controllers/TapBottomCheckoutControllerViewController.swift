@@ -320,9 +320,9 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         
         webViewModel = .init()
         webViewModel.delegate = navigationDelegate
+        webViewModel.load(with: url)
         
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(0)) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) { [weak self] in
             // make sure all is set
             guard let paymentViewModel = self?.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel else {return}
             let cardView = paymentViewModel.attachedView
@@ -331,23 +331,16 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
             paymentViewModel.addFullScreen(view: self?.webViewModel.attachedView)
             // adjust the button and the cancel button to get back from the web view when needed
             self?.sharedCheckoutDataManager.dataHolder.viewModels.tapAmountSectionViewModel.screenChanged(to: .SavedCardView)
-            self?.tapActionButtonViewModel.expandButton()
-            self?.tapActionButtonViewModel.buttonStatus = .CancelPayment
-            self?.tapActionButtonViewModel.buttonActionBlock = {
-                DispatchQueue.main.async {
-                    self?.cancelWebView()
-                    //TapCheckout.sharedCheckoutManager().dismissMySelfClicked()
-                }
-            }
-            self?.webViewModel.load(with: url)
+            
             
             // Time to scale the size to show the web view after the fade in animation
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
-                let newMaxSize = cardView.frame.height + (self?.tapVerticalView.getMaxAvailableHeight(showingCardWebView: true) ?? 0) - 83
+                let newMaxSize = cardView.frame.height + (self?.tapVerticalView.getMaxAvailableHeight(showingCardWebView: true) ?? 0) - 50
                 cardView.snp.updateConstraints { make in
                     make.height.equalTo(newMaxSize)
                 }
                 cardView.layoutIfNeeded()
+                self?.enableInteraction(with: true)
             }
             TapCheckout.sharedCheckoutManager().dataHolder.viewModels.swipeDownToDismiss = originalDismissOnSwipeValue
         }
@@ -427,6 +420,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         let originalDismissOnSwipeValue = disableAutoDismiss()
         
         self.view.endEditing(true)
+        self.tapVerticalView.remove(view: sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView, with: .init(for: .fadeOut, with: fadeOutAnimationDuration))
         self.tapVerticalView.remove(view: webViewModel.attachedView, with: .init(for: .fadeOut, with: fadeOutAnimationDuration))
         self.tapVerticalView.showActionButton()
         
@@ -733,8 +727,8 @@ extension TapBottomCheckoutControllerViewController:TapWebViewModelDelegate {
 extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDelegate {
     func prepareFor3DSInCardAnimation() {
         // First let us remove the gateways view if any
-        tapVerticalView.remove(viewType: TapChipHorizontalList .self, with: .init(for: .fadeOut, with: 0.5), and: false, skipSelf: false)
-        
+        tapVerticalView.remove(viewType: TapChipHorizontalList .self, with: .init(for: .fadeOut, with: 0.3), and: false, skipSelf: false)
+        tapVerticalView.hideActionButton(fadeInDuation: 0.4)
         // Second let us shrink the card view and make it in the ideal height,
         // Which is mainly hiding the save card view
         let cardViewModel = sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel
@@ -742,14 +736,8 @@ extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDe
         let idealCardHeight = card.cardInputView.requiredHeight() + 25
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(550)) {
-            card.snp.updateConstraints { make in
-                make.height.equalTo(idealCardHeight)
-            }
-            card.layoutIfNeeded()
-            //cardViewModel.change3dsLoadingStatus(to: true)
+            cardViewModel.change3dsLoadingStatus(to: true)
         }
-        // Inform the card view to show loading status
-        //cardViewModel.change3dsLoadingStatus(to: true)
     }
     
     func hideCustomerContactDataCollection() {

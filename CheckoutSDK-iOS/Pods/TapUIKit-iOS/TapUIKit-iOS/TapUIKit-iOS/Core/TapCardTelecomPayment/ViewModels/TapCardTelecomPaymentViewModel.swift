@@ -219,7 +219,17 @@ import TapCardVlidatorKit_iOS
         }
         view.layoutIfNeeded()
         attachedView.layoutIfNeeded()
-        view.fadeIn(duration:1)
+        view.fadeIn()
+        attachedView.pre3DSLoadingView.fadeOut()
+    }
+    
+    
+    /**
+     Changes the card view to show/hide the pre loading status before showing a 3ds page inside the card
+     - Parameter to: If true it will be visible and invisible otherwise
+     */
+    @objc public func change3dsLoadingStatus(to:Bool) {
+        attachedView.change3dsLoadingStatus(to: to)
     }
     
     /**
