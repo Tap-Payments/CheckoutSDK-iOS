@@ -10,6 +10,7 @@ import Foundation
 import TapCardInputKit_iOS
 import CommonDataModelsKit_iOS
 import TapCardVlidatorKit_iOS
+import TapThemeManager2020
 
 /// External protocol to allow the TapCardInput to pass back data and events to the parent UIViewController
 @objc public protocol TapCardTelecomPaymentProtocol {
@@ -214,13 +215,13 @@ import TapCardVlidatorKit_iOS
         view.snp.remakeConstraints { make in
             make.top.equalToSuperview()
             make.bottom.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview()
-            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-16)
+            make.leading.equalToSuperview().offset(16)
         }
         view.layoutIfNeeded()
         attachedView.layoutIfNeeded()
-        view.fadeIn()
-        attachedView.pre3DSLoadingView.fadeOut()
+        view.fadeIn(duration:0.5)
+        attachedView.pre3DSLoadingView.fadeOut(duration:0.1)
     }
     
     
