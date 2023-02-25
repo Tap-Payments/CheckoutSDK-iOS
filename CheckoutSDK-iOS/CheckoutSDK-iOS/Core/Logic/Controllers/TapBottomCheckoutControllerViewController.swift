@@ -744,12 +744,13 @@ extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDe
     func prepareFor3DSInCardAnimation() {
         // First let us remove the gateways view if any
         tapVerticalView.remove(viewType: TapChipHorizontalList .self, with: .init(for: .fadeOut, with: 0.35), and: false, skipSelf: false)
+        tapVerticalView.remove(viewType: CustomerContactDataCollectionView.self, with: .init(for: .fadeOut, with: 0.35), and: false, skipSelf: false)
+        tapVerticalView.remove(viewType: CustomerShippingDataCollectionView.self, with: .init(for: .fadeOut, with: 0.35), and: false, skipSelf: false)
+        
         tapVerticalView.hideActionButton(fadeInDuation: 0.15)
         // Second let us shrink the card view and make it in the ideal height,
         // Which is mainly hiding the save card view
         let cardViewModel = sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel
-        let card = cardViewModel.attachedView
-        let idealCardHeight = card.cardInputView.requiredHeight() + 25
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(450)) {
             cardViewModel.change3dsLoadingStatus(to: true)

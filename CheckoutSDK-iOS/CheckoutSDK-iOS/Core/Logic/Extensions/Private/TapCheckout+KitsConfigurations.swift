@@ -217,6 +217,10 @@ internal extension TapCheckout {
      - Parameter with buttonStatus: The success or failure to be displayed on the action button before dismissing
      */
     func dismissCheckout(with buttonStatus:Bool) {
+        // make a haptic feedback
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(buttonStatus ? .success : .error)
+        
         dataHolder.viewModels.tapActionButtonViewModel.endLoading(with: buttonStatus, completion: {
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
                 self.UIDelegate?.dismissCheckout(with: "")

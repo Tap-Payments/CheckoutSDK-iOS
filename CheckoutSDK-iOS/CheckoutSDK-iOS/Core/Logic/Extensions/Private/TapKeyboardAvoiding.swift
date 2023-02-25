@@ -60,7 +60,7 @@ import UIKit
         var isKeyBoardShowing = false
         // isKeyBoardShowing and is it merged and docked.
         
-        let isPortrait =  UIApplication.shared.statusBarOrientation.isPortrait
+        let isPortrait =  UIWindow.isPortrait
         // get the keyboard & window frames
         
         let keyboardFrame = notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
@@ -82,7 +82,7 @@ import UIKit
         let animationOptions = animationCurve << 16
         // if split keyboard is being dragged, then skip notification
         
-        if keyboardFrame.size.height == 0 && (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad) {
+        if keyboardFrame.size.height == 0 && (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad) {
             if isPortrait && keyboardFrameBegin.origin.y + keyboardFrameBegin.size.height == screenSize.height {
                 return
             }
@@ -114,7 +114,7 @@ import UIKit
                 }
                 else {
                     let originInWindow = triggerView.convert(triggerView.bounds.origin, to: nil)
-                    switch UIApplication.shared.statusBarOrientation {
+                    switch UIWindow.orientation {
                     case .portrait, .landscapeLeft:
                         diff = keyboardFrame.origin.y
                         diff = diff - (originInWindow.y + triggerView.frame.size.height)
@@ -297,3 +297,42 @@ import UIKit
     }
 }
 
+
+
+
+fileprivate extension UIWindow {
+    static var isLandscape: Bool {
+        if #available(iOS 13.0, *) {
+            return UIApplication.shared.windows
+                .first?
+                .windowScene?
+                .interfaceOrientation
+                .isLandscape ?? false
+        } else {
+            return UIApplication.shared.statusBarOrientation.isLandscape
+        }
+    }
+    
+    static var isPortrait: Bool {
+        if #available(iOS 13.0, *) {
+            return UIApplication.shared.windows
+                .first?
+                .windowScene?
+                .interfaceOrientation
+                .isPortrait ?? false
+        } else {
+            return UIApplication.shared.statusBarOrientation.isPortrait
+        }
+    }
+    
+    static var orientation: UIInterfaceOrientation {
+        if #available(iOS 13.0, *) {
+            return UIApplication.shared.windows
+                .first?
+                .windowScene?
+                .interfaceOrientation ?? .portrait
+        } else {
+            return UIApplication.shared.statusBarOrientation
+        }
+    }
+}

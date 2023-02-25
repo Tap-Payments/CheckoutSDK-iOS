@@ -121,9 +121,10 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
     }
     
     public func applePayAuthoized(for viewModel: ApplePayChipViewCellModel, with token: TapApplePayToken) {
+        // make a haptic feedback
+        generateHapticFeedbackForChipClicking()
         
-        // Log the apple pay token
-        //log().verbose("Apple pay raw token : \(token.stringAppleToken ?? "")")
+        // log selecting apple pay chip event
         setLoggingCustomerData()
         logBF(message: "Apple pay raw token : \(token.stringAppleToken ?? "")", tag: .EVENTS)
         // Save the selected payment option model for further processing
@@ -140,6 +141,9 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
     }
     
     public func savedCard(for viewModel: SavedCardCollectionViewCellModel) {
+        // make a haptic feedback
+        generateHapticFeedbackForChipClicking()
+        
         dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .ValidPayment
         // Check the type of saved card source
         if viewModel.listSource == .GoPayListHeader {
@@ -150,6 +154,9 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
     }
     
     public func gateway(for viewModel: GatewayChipViewModel) {
+        // make a haptic feedback
+        generateHapticFeedbackForChipClicking()
+        
         // First reset the enetred data in the card form if any if the current visible status is for a saved card view
         if dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView.cardInputView.cardUIStatus == .SavedCard {
             resetCardData(shouldFireCardDataChanged: false)
@@ -159,9 +166,7 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
         }
         // Save the selected payment option model for further processing
         dataHolder.transactionData.selectedPaymentOption = fetchPaymentOption(with: viewModel.paymentOptionIdentifier)
-        
-        // Log it
-        //log().verbose("Payment scheme selected: title : \(dataHolder.transactionData.selectedPaymentOption?.title ?? "") & ID : \(dataHolder.transactionData.selectedPaymentOption?.identifier ?? "")")
+        // Log the event of selecting a gateway chip
         setLoggingCustomerData()
         logBF(message: "Payment scheme selected: title : \(dataHolder.transactionData.selectedPaymentOption?.title ?? "") & ID : \(dataHolder.transactionData.selectedPaymentOption?.identifier ?? "")", tag: .EVENTS)
         // Make the payment button in a Valid payment mode
@@ -172,14 +177,21 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
     }
     
     public func currencyChip(for viewModel: CurrencyChipViewModel) {
+        // make a haptic feedback
+        generateHapticFeedbackForChipClicking()
         dataHolder.transactionData.transactionUserCurrencyValue = viewModel.currency
-        // Log it
-        //log().verbose("Currency changed to : \( viewModel.currency.displaybaleSymbol )")
         setLoggingCustomerData()
         logBF(message: "Currency changed to : \( viewModel.currency.displaybaleSymbol )", tag: .EVENTS)
     }
     
     public func deleteChip(for viewModel: SavedCardCollectionViewCellModel) {
         askForCardDeletion(with: viewModel)
+    }
+    
+    /// Will make a haptic feedback to indicate selecting a chip
+    internal func generateHapticFeedbackForChipClicking() {
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+        
     }
 }
