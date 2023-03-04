@@ -767,6 +767,15 @@ extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDe
         tapVerticalView.add(views: [customerDataViewModel.attachedView, customerShippingViewModel.attachedView], with: [.init(for:.fadeIn,with: animate ? 0.25 : 0.1)], shouldScrollToBottom: true)
     }
     
+    func showTableTestCollection(with tableTestView: TestTableView,animate: Bool) {
+        tapVerticalView.add(views: [tableTestView], with: [.init(for:.fadeIn,with: animate ? 0.25 : 0.1)], shouldScrollToBottom: true)
+    }
+    
+    func hideTableTestCollection() {
+        tapVerticalView.remove(viewType: TestTableView .self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: false)
+    }
+    
+    
     
     func attach(hintView: TapHintView, to: AnyClass, with animations: Bool) {
         tapVerticalView.attach(hintView: hintView, to: to, with: animations)

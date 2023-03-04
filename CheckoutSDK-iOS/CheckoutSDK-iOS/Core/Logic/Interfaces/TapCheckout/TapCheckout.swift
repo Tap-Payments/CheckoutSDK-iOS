@@ -112,6 +112,10 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      */
     func showCustomerContactDataCollection(with customerDataViewModel: CustomerContactDataCollectionViewModel, and customerShippingViewModel: CustomerShippingDataCollectionViewModel, animate:Bool)
     
+    func showTableTestCollection(with tableTestView: TestTableView,animate: Bool)
+    
+    func hideTableTestCollection()
+    
     /**
      Will be fired in case we want to show saved card otp view
      - Parameter with authenticationID: The authentication process ID if any

@@ -135,6 +135,7 @@ internal class ViewModelsHolder {
     var tapLoyaltyViewModel:TapLoyaltyViewModel? = .init()
     /// Represents the view mdoel cotrolling collecting customer contact data
     var customerDataViewModel:CustomerContactDataCollectionViewModel?
+    var testTable:TestTableView? = .init()
     /// The view model that controls the customer shipping data collection view
     var customerShippingViewModel:CustomerShippingDataCollectionViewModel?
     /// Represents the current using currency, will send the conversion currency if any otherwise the original transation currency
