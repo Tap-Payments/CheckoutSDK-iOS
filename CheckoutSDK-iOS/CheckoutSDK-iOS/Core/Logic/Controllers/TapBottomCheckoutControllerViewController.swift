@@ -324,7 +324,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         
         // add a blur view to spice up the 3ds bg
         
-        let blurEffect = UIBlurEffect(style: .prominent)
+        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterial)
         let blurView = UIVisualEffectView(effect: blurEffect)
         blurView.layer.cornerRadius = 8
         
@@ -342,7 +342,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
             // make sure all is set
             guard let paymentViewModel = self?.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel else {return}
             let cardView = paymentViewModel.attachedView
-            
+            cardView.cardInputView.alpha = 0
             // let us add the web view inside the card and fade it in
             paymentViewModel.addFullScreen(view: self?.webViewModel.attachedView)
             // adjust the button and the cancel button to get back from the web view when needed
@@ -743,16 +743,16 @@ extension TapBottomCheckoutControllerViewController:TapWebViewModelDelegate {
 extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDelegate {
     func prepareFor3DSInCardAnimation() {
         // First let us remove the gateways view if any
-        tapVerticalView.remove(viewType: TapChipHorizontalList .self, with: .init(for: .fadeOut, with: 0.35), and: false, skipSelf: false)
+        //tapVerticalView.remove(viewType: TapChipHorizontalList .self, with: .init(for: .fadeOut, with: 0.35), and: false, skipSelf: false)
         tapVerticalView.remove(viewType: CustomerContactDataCollectionView.self, with: .init(for: .fadeOut, with: 0.35), and: false, skipSelf: false)
         tapVerticalView.remove(viewType: CustomerShippingDataCollectionView.self, with: .init(for: .fadeOut, with: 0.35), and: false, skipSelf: false)
         
-        tapVerticalView.hideActionButton(fadeInDuation: 0.15)
+        tapVerticalView.hideActionButton(fadeInDuation: 0.35)
         // Second let us shrink the card view and make it in the ideal height,
         // Which is mainly hiding the save card view
         let cardViewModel = sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(450)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(550)) {
             cardViewModel.change3dsLoadingStatus(to: true)
         }
     }

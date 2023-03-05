@@ -25,12 +25,25 @@
                             <constraint firstAttribute="height" priority="750" constant="40" id="xHu-7Z-Y9M"/>
                         </constraints>
                     </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="O8V-dW-sfo">
+                        <rect key="frame" x="80.5" y="-7.5" width="15" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="15" id="ZK0-Z0-AHe"/>
+                            <constraint firstAttribute="width" secondItem="O8V-dW-sfo" secondAttribute="height" multiplier="1:1" id="vWn-Ht-LOf"/>
+                        </constraints>
+                    </imageView>
                     <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OAf-DC-1aD">
                         <rect key="frame" x="76" y="-12" width="24" height="24"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="65q-PP-qRe"/>
                             <constraint firstAttribute="width" constant="24" id="RLG-Rp-jeD"/>
                         </constraints>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <state key="normal">
+                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
                         <connections>
                             <action selector="deleteButtonClicked:" destination="gTV-IL-0wX" eventType="touchUpInside" id="d71-XX-NpA"/>
                         </connections>
@@ -61,14 +74,17 @@
                 <constraint firstItem="CPc-y7-NiM" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Pp1-94-cag"/>
                 <constraint firstItem="OAf-DC-1aD" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="-12" id="TZN-5K-3Hh"/>
                 <constraint firstAttribute="trailing" secondItem="fNd-Jf-LNd" secondAttribute="trailing" priority="750" constant="12" id="jjl-Tm-wNP"/>
+                <constraint firstItem="O8V-dW-sfo" firstAttribute="centerX" secondItem="OAf-DC-1aD" secondAttribute="centerX" id="lKE-cB-ns8"/>
                 <constraint firstItem="K4y-CQ-e8Q" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="tp7-kq-sag"/>
                 <constraint firstAttribute="trailing" secondItem="OAf-DC-1aD" secondAttribute="trailing" id="uGi-OC-YAE"/>
                 <constraint firstItem="K4y-CQ-e8Q" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="yQ8-gX-Ozk"/>
+                <constraint firstItem="O8V-dW-sfo" firstAttribute="centerY" secondItem="OAf-DC-1aD" secondAttribute="centerY" id="zc5-Jw-VHt"/>
             </constraints>
             <connections>
                 <outlet property="cardBrandIconImageView" destination="K4y-CQ-e8Q" id="uJG-Z0-BCJ"/>
                 <outlet property="cardSchemeLabel" destination="fNd-Jf-LNd" id="dcA-V8-Yfe"/>
                 <outlet property="deleteCardButton" destination="OAf-DC-1aD" id="jHi-pL-myJ"/>
+                <outlet property="deleteIconImageView" destination="O8V-dW-sfo" id="MXE-7l-RB7"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="152.67857142857142"/>
         </collectionViewCell>

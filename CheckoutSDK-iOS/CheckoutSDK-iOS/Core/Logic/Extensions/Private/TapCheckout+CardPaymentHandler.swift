@@ -11,7 +11,6 @@ import TapCardVlidatorKit_iOS
 import CommonDataModelsKit_iOS
 import TapCardInputKit_iOS
 import TapUIKit_iOS
-import BugfenderSDK
 
 /// Logic to handle card payment flow
 extension TapCheckout {

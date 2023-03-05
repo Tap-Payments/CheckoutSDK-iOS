@@ -86,18 +86,22 @@ internal extension TapCheckout {
         }
         // Change the action button to loading status
         TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapActionButtonViewModel.startLoading()
-        
+        // Remove the payment scheme list
+        TapCheckout.sharedCheckoutManager().UIDelegate?.removeView(view: dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView, with: .init(for: .fadeOut, with: 0.25, and: .top))
         // Create a card tokenization api to start with and call it
-        guard let createCardTokenRequest:TapCreateTokenRequest = createCardTokenRequestModel(for: currentCard) else { return }
-        callCardTokenAPI(cardTokenRequestModel: createCardTokenRequest) { (token) in
-            DispatchQueue.main.async{ [weak self] in
-                // Process the token we got from the server
-                guard let nonNullSelf = self else { return }
-                nonNullSelf.handleToken(with: token,for: paymentOption)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)){ [weak self] in
+            
+            guard let createCardTokenRequest:TapCreateTokenRequest = self?.createCardTokenRequestModel(for: currentCard) else { return }
+            self?.callCardTokenAPI(cardTokenRequestModel: createCardTokenRequest) { (token) in
+                DispatchQueue.main.async{ [weak self] in
+                    // Process the token we got from the server
+                    guard let nonNullSelf = self else { return }
+                    nonNullSelf.handleToken(with: token,for: paymentOption)
+                }
+            } onErrorOccured: { [weak self] (session, result, error)  in
+                TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.cardTokenizationFailed?(in: session, for: result as? [String:String], with: error)
+                self?.handleError(session: session, result: result, error: error)
             }
-        } onErrorOccured: { [weak self] (session, result, error)  in
-            TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.cardTokenizationFailed?(in: session, for: result as? [String:String], with: error)
-            self?.handleError(session: session, result: result, error: error)
         }
     }
     // MARK:- Token based methods
