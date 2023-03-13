@@ -89,7 +89,7 @@ internal extension TapCheckout {
         // Remove the payment scheme list
         TapCheckout.sharedCheckoutManager().UIDelegate?.removeView(view: dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView, with: .init(for: .fadeOut, with: 0.25, and: .top))
         // Create a card tokenization api to start with and call it
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)){ [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(450)){ [weak self] in
             
             guard let createCardTokenRequest:TapCreateTokenRequest = self?.createCardTokenRequestModel(for: currentCard) else { return }
             self?.callCardTokenAPI(cardTokenRequestModel: createCardTokenRequest) { (token) in
