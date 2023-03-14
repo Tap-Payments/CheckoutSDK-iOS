@@ -13,6 +13,7 @@ import TapUIKit_iOS
 import TapThemeManager2020
 import PassKit
 import TapApplePayKit_iOS
+import LocalisationManagerKit_iOS
 
 /// An extensions that groups methods related to configuring other Tap Kits before starting the checkout SDK itself
 internal extension TapCheckout {
