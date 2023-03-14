@@ -129,8 +129,6 @@ class ViewController: UIViewController {
         TapSettings.logs = []
         
         checkout.build(
-            localiseFile: nil,//TapCheckoutLocalisation(with: URL(string: "https://menoalmotasel.online/CustomLocalisation.json")!, from:.RemoteJsonFile),
-            customTheme: customTheme,
             delegate: self,
             currency: TapFormSettingsViewController.transactionSettings().1,
             amount: amount,

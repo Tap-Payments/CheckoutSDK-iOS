@@ -200,11 +200,20 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     
     // MARK:- Public functions
     
+    /// It is a required method to be called as fast as possible (on app delegate).
+    /// This will make sure whever the checkout process is needed, it will be ready and fast for better UX
+    /// - Parameter localiseFile: Please pass the name of the custom localisation file model if needed. If not set, the normal and default TAP localisations will be used
+    /// - Parameter customTheme: Please pass the tap checkout theme object with the names of your custom theme files if needed. If not set, the normal and default TAP theme will be used
+    @objc public static func PreloadSDKData(localiseFile:TapCheckoutLocalisation? = .init(with: URL(string: "https://tap-assets.b-cdn.net/localisation/checkoutsdk/DefaultTapLocalisation.json")!, from: .RemoteJsonFile),
+                                            customTheme:TapCheckOutTheme? = .init(with: "https://tap-assets.b-cdn.net/theme/checkoutsdk/mobile/DefaultLightTheme.json", and: "https://tap-assets.b-cdn.net/theme/checkoutsdk/mobile/DefaultDarkTheme.json", from: .RemoteJsonFile)) {
+        // Init the localsiation manager
+        TapCheckout.configureLocalisationManager(localiseFile: localiseFile)
+        // Init the theme manager
+        TapCheckout.configureThemeManager(customTheme:customTheme)
+    }
     
     /**
      Defines the tap checkout bottom sheet controller
-     - Parameter localiseFile: Please pass the name of the custom localisation file model if needed. If not set, the normal and default TAP localisations will be used
-     - Parameter customTheme: Please pass the tap checkout theme object with the names of your custom theme files if needed. If not set, the normal and default TAP theme will be used
      - Parameter delegate: A protocol to communicate with the Presente tap sheet controller
      - Parameter currency: Represents the original transaction currency stated by the merchant on checkout start
      - Parameter amount: Represents the original total transaction amount stated by the merchant on checkout start
@@ -248,8 +257,6 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      - Parameter cardShouldThemeItself: Indicates if the card form shall have its own background theming or it should be clear and reflect whatever is behind it
      */
     @objc public func build(
-        localiseFile:TapCheckoutLocalisation? = nil,
-        customTheme:TapCheckOutTheme? = nil,
         delegate: CheckoutScreenDelegate? = nil,
         currency:TapCurrencyCode = .USD,
         amount:Double = 1,
@@ -291,7 +298,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
             
             // Do the pre steps needed before starting a new SDK session
-            prepareSDK(with: sdkMode,delegate:delegate, localiseFile:localiseFile, customTheme:customTheme, enableApiLogging:enableApiLogging.map{ TapLoggingType(rawValue: $0) ?? .CONSOLE })
+            prepareSDK(with: sdkMode,delegate:delegate, enableApiLogging:enableApiLogging.map{ TapLoggingType(rawValue: $0) ?? .CONSOLE })
             
             // Store the passed configurations for further processing
             configureSharedManager(currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,swipeDownToDismiss:swipeDownToDismiss,paymentType:paymentType,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID,taxes: taxes, shipping: shipping, allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor,require3DSecure:require3DSecure,receiptSettings:receiptSettings, authorizeAction: authorizeAction,allowsToSaveSameCardMoreThanOnce: allowsToSaveSameCardMoreThanOnce, enableSaveCard: enableSaveCard, enableApiLogging: enableApiLogging.map{ TapLoggingType(rawValue: $0) ?? .CONSOLE }, isSaveCardSwitchOnByDefault: isSaveCardSwitchOnByDefault, collectCreditCardName: collectCreditCardName, creditCardNameEditable: creditCardNameEditable, creditCardNamePreload: creditCardNamePreload, showSaveCreditCard:showSaveCreditCard, isSubscription: isSubscription, recurringPaymentRequest: recurringPaymentRequest, applePayButtonType :applePayButtonType, applePayButtonStyle: applePayButtonStyle, shouldFlipCardData: shouldFlipCardData, cardShouldThemeItself: true)
@@ -391,10 +398,6 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         // Set the SDK mode and the delegate
         TapCheckout.sharedCheckoutManager().dataHolder.transactionData.sdkMode = sdkMode
         TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate = delegate
-        // Init the localsiation manager
-        configureLocalisationManager(localiseFile: localiseFile)
-        // Init the theme manager
-        configureThemeManager(customTheme:customTheme)
         // Listen to events from network manager
         NetworkManager.shared.delegate = TapCheckout.sharedCheckoutManager()
         // Adjust the logging ability

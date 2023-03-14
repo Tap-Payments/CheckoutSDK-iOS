@@ -34,9 +34,9 @@ internal extension TapCheckout {
     /** Configures the localisation manager bu setting the locale, adjusting the flipping and the localisation custom model if any
      - Parameter localiseFile: Please pass the name of the custom localisation model if needed. If not set, the normal and default TAP localisations will be used
      */
-    func configureLocalisationManager(localiseFile:TapCheckoutLocalisation? = nil) {
+    static func configureLocalisationManager(localiseFile:TapCheckoutLocalisation? = nil) {
         // Set the required locale
-        sharedLocalisationManager.localisationLocale = TapCheckout.localeIdentifier
+        TapLocalisationManager.shared.localisationLocale = TapCheckout.localeIdentifier
         // Adjust the flipping
         if TapCheckout.flippingStatus != .NoFlipping {
             //MOLH.setLanguageTo(TapCheckout.localeIdentifier)
@@ -46,13 +46,13 @@ internal extension TapCheckout {
         // Depends on the type of the localisation whether remote or locale
         guard let nonNullLocalisationModel = localiseFile,
               let nonNullLocaltionType = nonNullLocalisationModel.localisationType else { return }
-        let _ = sharedLocalisationManager.configureLocalisation(with: nonNullLocalisationModel.filePath, or: nonNullLocalisationModel.localisationData, from: nonNullLocaltionType)
+        let _ = TapLocalisationManager.shared.configureLocalisation(with: nonNullLocalisationModel.filePath, or: nonNullLocalisationModel.localisationData, from: nonNullLocaltionType)
     }
     
     /** Configures the theme manager by setting the provided custom theme file names
      - Parameter customTheme: Please pass the tap checkout theme object with the names of your custom theme files if needed. If not set, the normal and default TAP theme will be used
      */
-    func configureThemeManager(customTheme:TapCheckOutTheme? = nil) {
+    static func configureThemeManager(customTheme:TapCheckOutTheme? = nil) {
         guard let nonNullCustomTheme = customTheme else {
             TapThemeManager.setDefaultTapTheme()
             return
