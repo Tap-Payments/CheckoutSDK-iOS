@@ -15,6 +15,14 @@ import CommonDataModelsKit_iOS
 internal extension NetworkManager {
     
     
+    static var headersEncryptionPublicKey:String = """
+-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC8AX++RtxPZFtns4XzXFlDIxPB
+h0umN4qRXZaKDIlb6a3MknaB7psJWmf2l+e4Cfh9b5tey/+rZqpQ065eXTZfGCAu
+BLt+fYLQBhLfjRpk8S6hlIzc1Kdjg65uqzMwcTd0p7I4KLwHk1I0oXzuEu53fU1L
+SZhWp4Mnd6wjVgXAsQIDAQAB
+-----END PUBLIC KEY-----
+"""
     /// Static HTTP headers sent with each request. including device info, language and SDK secret keys
     static var staticHTTPHeaders: [String: String] {
         
@@ -110,17 +118,16 @@ internal extension NetworkManager {
         
         
         let result: [String: String] = [
-            
-            Constants.HTTPHeaderValueKey.appID: bundleID,
-            Constants.HTTPHeaderValueKey.requirer: Constants.HTTPHeaderValueKey.requirerValue,
-            Constants.HTTPHeaderValueKey.requirerVersion: requirerVersion,
-            Constants.HTTPHeaderValueKey.requirerOS: osName,
-            Constants.HTTPHeaderValueKey.requirerOSVersion: osVersion,
-            Constants.HTTPHeaderValueKey.requirerDeviceName: deviceNameFiltered,
-            Constants.HTTPHeaderValueKey.requirerDeviceType: deviceType,
-            Constants.HTTPHeaderValueKey.requirerDeviceModel: deviceModel,
-            Constants.HTTPHeaderValueKey.requirerSimNetworkName: simNetWorkName ?? "",
-            Constants.HTTPHeaderValueKey.requirerSimCountryIso: simCountryISO ?? "",
+            Constants.HTTPHeaderValueKey.appID: Crypter.encrypt(bundleID, using: NetworkManager.headersEncryptionPublicKey) ?? "",
+            Constants.HTTPHeaderValueKey.requirer: Crypter.encrypt(Constants.HTTPHeaderValueKey.requirerValue, using: NetworkManager.headersEncryptionPublicKey) ?? "",
+            Constants.HTTPHeaderValueKey.requirerVersion: Crypter.encrypt(requirerVersion, using: NetworkManager.headersEncryptionPublicKey) ?? "",
+            Constants.HTTPHeaderValueKey.requirerOS: Crypter.encrypt(osName, using: NetworkManager.headersEncryptionPublicKey) ?? "",
+            Constants.HTTPHeaderValueKey.requirerOSVersion: Crypter.encrypt(osVersion, using: NetworkManager.headersEncryptionPublicKey) ?? "",
+            Constants.HTTPHeaderValueKey.requirerDeviceName: Crypter.encrypt(deviceNameFiltered, using: NetworkManager.headersEncryptionPublicKey) ?? "",
+            Constants.HTTPHeaderValueKey.requirerDeviceType: Crypter.encrypt(deviceType, using: NetworkManager.headersEncryptionPublicKey) ?? "",
+            Constants.HTTPHeaderValueKey.requirerDeviceModel: Crypter.encrypt(deviceModel, using: NetworkManager.headersEncryptionPublicKey) ?? "",
+            Constants.HTTPHeaderValueKey.requirerSimNetworkName: Crypter.encrypt(simNetWorkName ?? "", using: NetworkManager.headersEncryptionPublicKey) ?? "",
+            Constants.HTTPHeaderValueKey.requirerSimCountryIso: Crypter.encrypt(simCountryISO ?? "", using: NetworkManager.headersEncryptionPublicKey) ?? ""
         ]
         
         return result
@@ -139,31 +146,32 @@ internal extension NetworkManager {
         
         fileprivate struct HTTPHeaderKey {
             
-            fileprivate static let authorization    = "Authorization"
-            fileprivate static let application      = "application"
-            fileprivate static let sessionToken     = "session_token"
-            fileprivate static let contentTypeHeaderName        = "Content-Type"
-            fileprivate static let token                = "token"
+            fileprivate static let authorization            = "Authorization"
+            fileprivate static let application              = "application"
+            fileprivate static let sessionToken             = "session_token"
+            fileprivate static let contentTypeHeaderName    = "Content-Type"
+            fileprivate static let token                    = "token"
             
             //@available(*, unavailable) private init() { }
         }
         
         fileprivate struct HTTPHeaderValueKey {
             
-            fileprivate static let appID                = "app_id"
+            fileprivate static let appID                    = "cu"
+            fileprivate static let appLocale                = "al"
+            fileprivate static let appType                  = "at"
+            fileprivate static let deviceID                 = "device_id"
+            fileprivate static let requirer                 = "aid"
+            fileprivate static let requirerOS               = "ro"
+            fileprivate static let requirerOSVersion        = "rov"
+            fileprivate static let requirerValue            = "iOS-checkout-sdk"
+            fileprivate static let requirerVersion          = "av"
+            fileprivate static let requirerDeviceName       = "rn"
+            fileprivate static let requirerDeviceType       = "rt"
+            fileprivate static let requirerDeviceModel      = "rm"
+            fileprivate static let requirerSimNetworkName   = "rsn"
+            fileprivate static let requirerSimCountryIso    = "rsc"
             
-            fileprivate static let appLocale                = "app_locale"
-            fileprivate static let deviceID                = "device_id"
-            fileprivate static let requirer                = "requirer"
-            fileprivate static let requirerOS            = "requirer_os"
-            fileprivate static let requirerOSVersion        = "requirer_os_version"
-            fileprivate static let requirerValue            = "SDK"
-            fileprivate static let requirerVersion        = "requirer_version"
-            fileprivate static let requirerDeviceName        = "requirer_device_name"
-            fileprivate static let requirerDeviceType        = "requirer_device_type"
-            fileprivate static let requirerDeviceModel    = "requirer_device_model"
-            fileprivate static let requirerSimNetworkName    = "requirer_sim_network_name"
-            fileprivate static let requirerSimCountryIso    = "requirer_sim_country_iso"
             fileprivate static let jsonContentTypeHeaderValue   = "application/json"
             
             //@available(*, unavailable) private init() { }
