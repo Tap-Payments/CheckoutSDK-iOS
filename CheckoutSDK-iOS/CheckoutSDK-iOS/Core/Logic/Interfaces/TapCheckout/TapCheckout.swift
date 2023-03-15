@@ -204,8 +204,8 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     /// This will make sure whever the checkout process is needed, it will be ready and fast for better UX
     /// - Parameter localiseFile: Please pass the name of the custom localisation file model if needed. If not set, the normal and default TAP localisations will be used
     /// - Parameter customTheme: Please pass the tap checkout theme object with the names of your custom theme files if needed. If not set, the normal and default TAP theme will be used
-    @objc public static func PreloadSDKData(localiseFile:TapCheckoutLocalisation? = .init(with: URL(string: "https://tap-assets.b-cdn.net/localisation/checkoutsdk/DefaultTapLocalisation.json")!, from: .RemoteJsonFile),
-                                            customTheme:TapCheckOutTheme? = .init(with: "https://tap-assets.b-cdn.net/theme/checkoutsdk/mobile/DefaultLightTheme.json", and: "https://tap-assets.b-cdn.net/theme/checkoutsdk/mobile/DefaultDarkTheme.json", from: .RemoteJsonFile)) {
+    @objc public static func PreloadSDKData(localiseFile:TapCheckoutLocalisation? = .init(with: URL(string: "https://tapcheckoutsdk.firebaseio.com/TapLocalisation.json")!, from: .RemoteJsonFile),
+                                            customTheme:TapCheckOutTheme? = .init(with: "https://tapcheckoutsdk.firebaseio.com/TapThemeMobile/light.json", and: "https://tapcheckoutsdk.firebaseio.com/TapThemeMobile/dark.json", from: .RemoteJsonFile)) {
         // Init the localsiation manager
         TapCheckout.configureLocalisationManager(localiseFile: localiseFile)
         // Init the theme manager
