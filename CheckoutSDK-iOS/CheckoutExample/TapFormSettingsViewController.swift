@@ -312,7 +312,7 @@ class TapFormSettingsViewController: Eureka.FormViewController {
             row.placeholder = "Key"
             row.value = TapFormSettingsViewController.merchantSettings().0
             row.onChange { textRow in
-                UserDefaults.standard.set(textRow.value ?? "sk_test_cvSHaplrPNkJO7dhoUxDYjqA", forKey: TapSettingsKeys.SDKSandBoxKey.rawValue)
+                UserDefaults.standard.set(textRow.value ?? "pk_test_YhUjg9PNT8oDlKJ1aE2fMRz7", forKey: TapSettingsKeys.SDKSandBoxKey.rawValue)
             }
         })
         
@@ -490,7 +490,7 @@ extension TapFormSettingsViewController {
     
     
     static func merchantSettings() -> (String, String, String, String, String) {
-        let SDKSandBoxKey:String = UserDefaults.standard.string(forKey: TapSettingsKeys.SDKSandBoxKey.rawValue) ?? "sk_test_cvSHaplrPNkJO7dhoUxDYjqA"
+        let SDKSandBoxKey:String = UserDefaults.standard.string(forKey: TapSettingsKeys.SDKSandBoxKey.rawValue) ?? "pk_test_YhUjg9PNT8oDlKJ1aE2fMRz7"
         
         let SDKProductionKey:String = UserDefaults.standard.string(forKey: TapSettingsKeys.SDKProductionKey.rawValue) ?? "sk_live_V4UDhitI0r7sFwHCfNB6xMKp"
         

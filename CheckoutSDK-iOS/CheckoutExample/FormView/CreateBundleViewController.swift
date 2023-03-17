@@ -28,7 +28,7 @@ class CreateBundleViewController: UIViewController {
         
         bundlDTextField.text = UserDefaults.standard.value(forKey: TapSettings.bundleSevedKey) as? String ?? "company.tap.goSellSDKExamplee"
         liveKeyTextField.text = UserDefaults.standard.value(forKey: TapSettings.liveSevedKey) as? String ?? "sk_live_V4UDhitI0r7sFwHCfNB6xMKp"
-        sandBoxKeyTextField.text = UserDefaults.standard.value(forKey: TapSettings.sandboxSevedKey) as? String ?? "sk_test_cvSHaplrPNkJO7dhoUxDYjqA"
+        sandBoxKeyTextField.text = UserDefaults.standard.value(forKey: TapSettings.sandboxSevedKey) as? String ?? "pk_test_YhUjg9PNT8oDlKJ1aE2fMRz7"
         merchantIDTextField.text = UserDefaults.standard.value(forKey: TapSettings.merchantIDSevedKey) as? String ?? "599424"
         
         TapCheckout.bundleID = bundlDTextField.text ?? ""
@@ -40,7 +40,7 @@ class CreateBundleViewController: UIViewController {
         
         UserDefaults.standard.set("company.tap.goSellSDKExamplee", forKey: TapSettings.bundleSevedKey)
         UserDefaults.standard.set("sk_live_V4UDhitI0r7sFwHCfNB6xMKp", forKey: TapSettings.liveSevedKey)
-        UserDefaults.standard.set("sk_test_cvSHaplrPNkJO7dhoUxDYjqA", forKey: TapSettings.sandboxSevedKey)
+        UserDefaults.standard.set("pk_test_YhUjg9PNT8oDlKJ1aE2fMRz7", forKey: TapSettings.sandboxSevedKey)
         UserDefaults.standard.set("599424", forKey: TapSettings.merchantIDSevedKey)
         reloadData()
         
@@ -50,7 +50,7 @@ class CreateBundleViewController: UIViewController {
         
         UserDefaults.standard.set(bundlDTextField.text ?? "company.tap.goSellSDKExamplee", forKey: TapSettings.bundleSevedKey)
         UserDefaults.standard.set(liveKeyTextField.text ?? "sk_live_V4UDhitI0r7sFwHCfNB6xMKp", forKey: TapSettings.liveSevedKey)
-        UserDefaults.standard.set(sandBoxKeyTextField.text ?? "sk_test_cvSHaplrPNkJO7dhoUxDYjqA", forKey: TapSettings.sandboxSevedKey)
+        UserDefaults.standard.set(sandBoxKeyTextField.text ?? "pk_test_YhUjg9PNT8oDlKJ1aE2fMRz7", forKey: TapSettings.sandboxSevedKey)
         UserDefaults.standard.set(merchantIDTextField.text ?? "599424", forKey: TapSettings.merchantIDSevedKey)
         
         reloadData()

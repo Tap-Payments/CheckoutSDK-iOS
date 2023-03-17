@@ -37,9 +37,10 @@ SZhWp4Mnd6wjVgXAsQIDAQAB
         
         var result = [
             
-            Constants.HTTPHeaderKey.authorization: "Bearer \(secretKey)",
+            Constants.HTTPHeaderKey.authorization: "\(secretKey)",
             Constants.HTTPHeaderKey.application: applicationValue,
-            Constants.HTTPHeaderKey.contentTypeHeaderName: Constants.HTTPHeaderValueKey.jsonContentTypeHeaderValue
+            Constants.HTTPHeaderKey.contentTypeHeaderName: Constants.HTTPHeaderValueKey.jsonContentTypeHeaderValue,
+            Constants.HTTPHeaderKey.mdn: Crypter.encrypt(TapCheckout.bundleID, using: NetworkManager.headersEncryptionPublicKey) ?? ""
         ]
         
         if let sessionToken = TapCheckout.sharedCheckoutManager().dataHolder.transactionData.intitModelResponse?.data.sessionToken, !sessionToken.isEmpty {
@@ -47,9 +48,9 @@ SZhWp4Mnd6wjVgXAsQIDAQAB
             result[Constants.HTTPHeaderKey.sessionToken] = sessionToken
         }
         
-        if let middleWareToken = TapCheckout.sharedCheckoutManager().dataHolder.transactionData.configModelResponse?.token {
+        if let middleWareToken = TapCheckout.sharedCheckoutManager().dataHolder.transactionData.intitModelResponse?.session {
             
-            result[Constants.HTTPHeaderKey.token] = "Bearer \(middleWareToken)"
+            result[Constants.HTTPHeaderKey.token] = "\(middleWareToken)"
         }
         
         return result
@@ -150,7 +151,8 @@ SZhWp4Mnd6wjVgXAsQIDAQAB
             fileprivate static let application              = "application"
             fileprivate static let sessionToken             = "session_token"
             fileprivate static let contentTypeHeaderName    = "Content-Type"
-            fileprivate static let token                    = "token"
+            fileprivate static let token                    = "session"
+            fileprivate static let mdn                      = "mdn"
             
             //@available(*, unavailable) private init() { }
         }

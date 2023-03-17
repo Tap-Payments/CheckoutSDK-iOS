@@ -219,7 +219,7 @@ import TapUIKit_iOS
     func load() {
         TapCheckout.bundleID = UserDefaults.standard.value(forKey: TapSettings.bundleSevedKey) as? String ?? "company.tap.goSellSDKExamplee"
         
-        TapCheckout.secretKey = .init(sandbox: UserDefaults.standard.value(forKey: TapSettings.sandboxSevedKey) as? String ?? "sk_test_cvSHaplrPNkJO7dhoUxDYjqA", production: UserDefaults.standard.value(forKey: TapSettings.liveSevedKey) as? String ?? "sk_live_V4UDhitI0r7sFwHCfNB6xMKp")
+        TapCheckout.secretKey = .init(sandbox: UserDefaults.standard.value(forKey: TapSettings.sandboxSevedKey) as? String ?? "pk_test_YhUjg9PNT8oDlKJ1aE2fMRz7", production: UserDefaults.standard.value(forKey: TapSettings.liveSevedKey) as? String ?? "sk_live_V4UDhitI0r7sFwHCfNB6xMKp")
         
         localisation = UserDefaults.standard.value(forKey: localisationSevedKey) as? Bool ?? false
         theme = UserDefaults.standard.value(forKey: themeSevedKey) as? String ?? "Default"
