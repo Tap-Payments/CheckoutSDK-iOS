@@ -173,7 +173,7 @@ extension ItemTableViewCell:ItemCellViewModelDelegate {
     
     func reloadDescription(with state: DescriptionState) {
         guard let tableView:UITableView = self.superview as? UITableView,
-            let indexPath:IndexPath = tableView.indexPath(for: self) else { return }
+              let indexPath:IndexPath = tableView.indexPath(for: self) else { return }
         // Reload the expanded/collapsed the
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(0)) {
             tableView.reloadRows(at: [indexPath], with: .none)
