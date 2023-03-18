@@ -145,10 +145,10 @@ import Foundation
      - Returns: True if successfuly the file was located and converted into a JSON format, false otherwise
      */
     internal func fetchRemoteLocalisationData(filePath:URL) -> Bool {
-        var result:Bool = false
+        //var result:Bool = false
         // Validate the url
         guard validateJsonRemoteURL(remoteURL: filePath) else {
-            return result
+            return false
         }
         
         // Try to fetch the localised value from the givn file

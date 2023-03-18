@@ -120,7 +120,7 @@ class ViewController: UIViewController {
         TapCheckout.secretKey = .init(sandbox: TapFormSettingsViewController.merchantSettings().0,
                                       production: TapFormSettingsViewController.merchantSettings().1)
         
-        //TapCheckout.secretKey = .init(sandbox: "sk_test_cvSHaplrPNkJO7dhoUxDYjqA",
+        //TapCheckout.secretKey = .init(sandbox: "pk_test_YhUjg9PNT8oDlKJ1aE2fMRz7",
           //                            production:"sk_live_V4UDhitI0r7sFwHCfNB6xMKp")
   
         //customTheme = .init(with: "https://menoalmotasel.online/RedLightTheme.json", and: "https://menoalmotasel.online/RedDarkTheme.json", from: .RemoteJsonFile)
