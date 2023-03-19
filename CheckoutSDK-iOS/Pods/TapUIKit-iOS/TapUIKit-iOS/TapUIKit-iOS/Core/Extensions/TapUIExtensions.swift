@@ -27,11 +27,11 @@ internal extension UIImageView {
     func downloadImage(with url:URL,nukeOptions:ImageLoadingOptions? = nil) {
         // check if it is a SVG image
         /*if(url.absoluteString.contains("svg")) {
-            //let svgCoder = SDImageSVGKCoder.shared
-            //SDImageCodersManager.shared.addCoder(svgCoder)
-            //self.sd_setImage(with: url)
-        }else{*/
-            Nuke.loadImage(with: URL(string: url.absoluteString.replacingOccurrences(of: ".svg", with: ".png")) ?? url, options:nukeOptions ?? ImageLoadingOptions.shared, into: self)
+         //let svgCoder = SDImageSVGKCoder.shared
+         //SDImageCodersManager.shared.addCoder(svgCoder)
+         //self.sd_setImage(with: url)
+         }else{*/
+        Nuke.loadImage(with: URL(string: url.absoluteString.replacingOccurrences(of: ".svg", with: ".png")) ?? url, options:nukeOptions ?? ImageLoadingOptions.shared, into: self)
         //}
     }
     

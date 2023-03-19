@@ -372,10 +372,10 @@ import TapThemeManager2020
                 UIView.animate(withDuration: animationDuration,animations: { [weak self] in
                     self?.backgroundView?.alpha = 0
                     //modalController.view.alpha = 0
-                    },completion: { _ in
-                        self?.dismiss(animated: true, completion: {
-                            self?.delegate?.tapBottomSheetDismissed?()
-                        })
+                },completion: { _ in
+                    self?.dismiss(animated: true, completion: {
+                        self?.delegate?.tapBottomSheetDismissed?()
+                    })
                 })
             }
             //self?.dismiss(animated: true, completion: nil)
