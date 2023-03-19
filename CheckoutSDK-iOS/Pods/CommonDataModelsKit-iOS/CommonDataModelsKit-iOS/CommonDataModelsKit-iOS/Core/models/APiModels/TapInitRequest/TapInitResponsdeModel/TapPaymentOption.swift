@@ -12,7 +12,7 @@ import TapCardVlidatorKit_iOS
 /// Payment Option model.
 public struct PaymentOption: IdentifiableWithString {
     
-    public init(identifier: String, brand: CardBrand, title: String, backendImageURL: URL, isAsync: Bool, paymentType: TapPaymentType, sourceIdentifier: String? = nil, supportedCardBrands: [CardBrand], supportedCurrencies: [TapCurrencyCode], orderBy: Int, threeDLevel: ThreeDSecurityState, savedCard: SavedCard? = nil, extraFees: [ExtraFee] = []) {
+    public init(identifier: String, brand: CardBrand, title: String, backendImageURL: URL, isAsync: Bool, paymentType: TapPaymentType, sourceIdentifier: String? = nil, supportedCardBrands: [CardBrand], supportedCurrencies: [TapCurrencyCode], orderBy: Int, threeDLevel: ThreeDSecurityState, savedCard: SavedCard? = nil, extraFees: [ExtraFee] = [], paymentOptionsLogos:PaymentOptionLogos? = nil) {
         self.identifier = identifier
         self.brand = brand
         self.title = title
@@ -26,6 +26,7 @@ public struct PaymentOption: IdentifiableWithString {
         self.threeDLevel = threeDLevel
         self.savedCard = savedCard
         self.extraFees = extraFees
+        self.paymentOptionsLogos = paymentOptionsLogos
     }
     
     
@@ -72,6 +73,32 @@ public struct PaymentOption: IdentifiableWithString {
     /// Will hold the related extra fees in case of saved card payment
     public var extraFees:[ExtraFee] = []
     
+    public let paymentOptionsLogos:PaymentOptionLogos?
+    
+    /// Will do the correct fetching of which image to use, the default backend url or the correct light-dark cdn hosted url
+    public var correctBackEndImageURL: URL {
+        // Check if we have right values passed in the cdn logos options
+        guard let logos = paymentOptionsLogos,
+              let lightModePNGString = logos.light?.png,
+              let darkModePNGString  = logos.dark?.png,
+              let lightModePNGUrl    = URL(string: lightModePNGString),
+              let darkModePNGUrl     = URL(string: darkModePNGString) else { return backendImageURL }
+        
+        
+        // we will return based on the theme
+        if #available(iOS 12.0, *) {
+            if UIScreen.main.traitCollection.userInterfaceStyle == .light {
+                return lightModePNGUrl
+            } else {
+                return darkModePNGUrl
+            }
+        } else {
+            // Fallback on earlier versions
+            return lightModePNGUrl
+        }
+        
+    }
+    
     // MARK: - Private -
     
     private enum CodingKeys: String, CodingKey {
@@ -86,6 +113,7 @@ public struct PaymentOption: IdentifiableWithString {
         case orderBy                = "order_by"
         case isAsync                = "asynchronous"
         case threeDLevel            = "threeDS"
+        case paymentoptionsLogos    = "logos"
     }
     
     private static func mapThreeDLevel(with threeD:String) -> ThreeDSecurityState
@@ -166,6 +194,7 @@ extension PaymentOption: Decodable {
         let orderBy             = try container.decode          (Int.self,                  forKey: .orderBy)
         let isAsync             = try container.decode          (Bool.self,                 forKey: .isAsync)
         let threeDLevel         = try container.decodeIfPresent (String.self,               forKey: .threeDLevel) ?? "U"
+        let paymentOptionsLogos = try container.decodeIfPresent (PaymentOptionLogos.self,   forKey: .paymentoptionsLogos)
         
         supportedCardBrands = supportedCardBrands.filter { $0 != .unknown }
         
@@ -178,7 +207,8 @@ extension PaymentOption: Decodable {
                   supportedCardBrands: supportedCardBrands,
                   supportedCurrencies: supportedCurrencies,
                   orderBy: orderBy,
-                  threeDLevel: PaymentOption.mapThreeDLevel(with: threeDLevel))
+                  threeDLevel: PaymentOption.mapThreeDLevel(with: threeDLevel),
+                  paymentOptionsLogos: paymentOptionsLogos)
     }
 }
 
@@ -208,4 +238,23 @@ extension PaymentOption: Equatable {
         
         return lhs.identifier == rhs.identifier
     }
+}
+
+/// Payment Option Logo model.
+public struct PaymentOptionLogo: Codable {
+    /// The SVG url
+    public let svg: String?
+    /// The PNG url
+    public let png:String?
+}
+
+
+/// Payment Option Logos model.
+public struct PaymentOptionLogos: Codable {
+    /// The light icons urls
+    public let light: PaymentOptionLogo?
+    /// The dark icons urls
+    public let dark: PaymentOptionLogo?
+    /// The light_colored icons urls
+    public let light_colored: PaymentOptionLogo?
 }

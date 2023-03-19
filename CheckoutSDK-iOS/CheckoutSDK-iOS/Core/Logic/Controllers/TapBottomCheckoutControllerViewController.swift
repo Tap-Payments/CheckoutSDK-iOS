@@ -741,6 +741,14 @@ extension TapBottomCheckoutControllerViewController:TapWebViewModelDelegate {
 
 
 extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDelegate {
+    
+    func changeHeightt(to: CGFloat) {
+        //print("DELEGATE CALL BACK WITH SIZE \(newSize) and Frame of :\(frame)")
+        guard let delegate = delegate else { return }
+        
+        delegate.reduceHeight(by: to)
+    }
+    
     func prepareFor3DSInCardAnimation() {
         // First let us remove the gateways view if any
         //tapVerticalView.remove(viewType: TapChipHorizontalList .self, with: .init(for: .fadeOut, with: 0.35), and: false, skipSelf: false)

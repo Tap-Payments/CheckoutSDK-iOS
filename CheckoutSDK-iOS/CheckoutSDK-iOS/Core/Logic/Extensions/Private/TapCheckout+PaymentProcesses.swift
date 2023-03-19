@@ -87,7 +87,8 @@ internal extension TapCheckout {
         // Change the action button to loading status
         TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapActionButtonViewModel.startLoading()
         // Remove the payment scheme list
-        TapCheckout.sharedCheckoutManager().UIDelegate?.removeView(view: dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView, with: .init(for: .fadeOut, with: 0.25, and: .top))
+        TapCheckout.sharedCheckoutManager().UIDelegate?.changeHeightt(to: dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView.frame.height)
+        TapCheckout.sharedCheckoutManager().UIDelegate?.removeView(view: dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView, with: .init(for: .fadeOut, with: 0.1, and: .top))
         // Create a card tokenization api to start with and call it
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(450)){ [weak self] in
             
@@ -296,6 +297,11 @@ internal extension TapCheckout {
         }else // Case 2: Authentication
         if let authentication:Authentication = charge?.authentication {
             showAuthentication(with: authentication)
+        }
+        // Case 3: Unhandled payment flow
+        else{
+            handleError(session: nil, result: charge, error: "Unsupported payment scheme")
+            //handleFailed(for: charge)
         }
     }
     

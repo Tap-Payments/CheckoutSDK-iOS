@@ -15,7 +15,7 @@ extension PaymentOption {
     internal var imageURL:URL {
         // Check if it is allowed to load from cdn or it is unreachable
         guard TapCheckout.sharedCheckoutManager().canLoadFromCDN else {
-            return backendImageURL
+            return correctBackEndImageURL
         }
         return URL(string: "https://checkoutsdkios.b-cdn.net/\(CDNPath.PaymentOption.generateCDNPath())/\(identifier).png")!
     }

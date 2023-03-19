@@ -388,6 +388,16 @@ import TapThemeManager2020
         dismissBottomSheet()
     }
     
+    
+    /**
+     Will be fired once the tap sheet content needs to reduce its height in preparing to removing a view
+     - Parameter newHeight: The height to be reduced
+     */
+    @objc public func reduceHeight(by newHeight:CGFloat) {
+        lastRequestedHeight = lastRequestedHeight - newHeight
+        timerAction()
+    }
+    
     /**
      Will change the height of the presented bottom sheet, with maximum of maxHeight -10 and minimum of minHeight + 10
      - Parameter newHeight: The new height the sheet should animate itself to

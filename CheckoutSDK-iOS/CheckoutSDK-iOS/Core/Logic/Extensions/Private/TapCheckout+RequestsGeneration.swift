@@ -150,7 +150,8 @@ extension TapCheckout {
         }else if let sourceID = paymentOption.sourceIdentifier {
             sourceIdentifier = sourceID
         }else{
-            fatalError("No payment source identifier")
+            //fatalError("No payment source identifier")
+            handleError(session: nil, result: paymentOption, error: "Cannot create a request without source identifier.")
         }
         
         let source = SourceRequest(identifier: sourceIdentifier)

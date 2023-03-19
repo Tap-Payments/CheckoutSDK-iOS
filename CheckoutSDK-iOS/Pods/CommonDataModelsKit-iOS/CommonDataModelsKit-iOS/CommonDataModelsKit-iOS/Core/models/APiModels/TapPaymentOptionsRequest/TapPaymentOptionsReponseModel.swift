@@ -116,7 +116,7 @@ extension TapPaymentOptionsReponseModel: Decodable {
             }
         }
         
-        paymentOptions = paymentOptions.filter { ($0.brand != .unknown || $0.paymentType == .ApplePay) }
+        paymentOptions = paymentOptions.filter { ($0.brand != .unknown || $0.paymentType == .ApplePay) && $0.paymentType != .All }
         paymentOptions = paymentOptions.sorted(by: { $0.orderBy < $1.orderBy })
         
         // Filter saved cards based on allowed card types passed by the user when loading the SDK session

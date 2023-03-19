@@ -129,6 +129,9 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     /// It will shrink the card form into the ideal height
     /// It will show loading view inside the card form waiting until the web view is ready from the charge response
     func prepareFor3DSInCardAnimation()
+    
+    
+    func changeHeightt(to:CGFloat)
 }
 
 
@@ -394,7 +397,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         // remove any pending things from an old session
         TapCheckout.destroy()
         // Decide the availability of the CDN
-        TapCheckout.sharedCheckoutManager().decideIfWeCanLoadAssetsFromCDN()
+        //TapCheckout.sharedCheckoutManager().decideIfWeCanLoadAssetsFromCDN()
         // Set the SDK mode and the delegate
         TapCheckout.sharedCheckoutManager().dataHolder.transactionData.sdkMode = sdkMode
         TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate = delegate
