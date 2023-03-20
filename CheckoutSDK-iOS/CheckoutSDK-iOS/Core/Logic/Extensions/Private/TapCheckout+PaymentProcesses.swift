@@ -87,8 +87,10 @@ internal extension TapCheckout {
         // Change the action button to loading status
         TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapActionButtonViewModel.startLoading()
         // Remove the payment scheme list
-        TapCheckout.sharedCheckoutManager().UIDelegate?.changeHeightt(to: dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView.frame.height)
-        TapCheckout.sharedCheckoutManager().UIDelegate?.removeView(view: dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView, with: .init(for: .fadeOut, with: 0.2, and: .top))
+        if dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.dataSource.count > 0 {
+            TapCheckout.sharedCheckoutManager().UIDelegate?.changeHeightt(to: dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView.frame.height)
+            TapCheckout.sharedCheckoutManager().UIDelegate?.removeView(view: dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView, with: .init(for: .fadeOut, with: 0.2, and: .top))
+        }
         // Create a card tokenization api to start with and call it
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(450)){ [weak self] in
             
