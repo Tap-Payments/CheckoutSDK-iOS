@@ -190,7 +190,7 @@ internal extension TapCheckout {
             DispatchQueue.main.async{
                 // Process the charge protocol response we got from the server
                 guard let nonNullSelf = self else { return }
-                nonNullSelf.handleCharge(with: charge)
+                //nonNullSelf.handleCharge(with: charge)
             }
         } onErrorOccured: { [weak self] session, result, error in
             self?.handleError(session: session, result: result, error: error)

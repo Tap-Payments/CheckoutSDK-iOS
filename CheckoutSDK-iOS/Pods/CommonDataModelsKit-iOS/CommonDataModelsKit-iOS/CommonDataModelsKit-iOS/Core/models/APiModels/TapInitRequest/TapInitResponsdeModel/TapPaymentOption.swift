@@ -73,6 +73,7 @@ public struct PaymentOption: IdentifiableWithString {
     /// Will hold the related extra fees in case of saved card payment
     public var extraFees:[ExtraFee] = []
     
+    /// Will hold the list of urls to support different themes for the icons
     public let paymentOptionsLogos:PaymentOptionLogos?
     
     /// Will do the correct fetching of which image to use, the default backend url or the correct light-dark cdn hosted url

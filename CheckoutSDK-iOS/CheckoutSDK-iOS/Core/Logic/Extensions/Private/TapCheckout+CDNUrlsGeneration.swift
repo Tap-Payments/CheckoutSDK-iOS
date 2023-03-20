@@ -37,7 +37,7 @@ extension AmountedCurrency {
     internal var cdnFlag:String {
         // Check if it is allowed to load from cdn or it is unreachable
         guard TapCheckout.sharedCheckoutManager().canLoadFromCDN else {
-            return flag
+            return correctBackEndImageURL.absoluteString
         }
         return "https://checkoutsdkios.b-cdn.net/\(CDNPath.Currency.generateCDNPath())/\(currency.appleRawValue).png"
     }
