@@ -88,7 +88,7 @@ internal extension TapCheckout {
         TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapActionButtonViewModel.startLoading()
         // Remove the payment scheme list
         TapCheckout.sharedCheckoutManager().UIDelegate?.changeHeightt(to: dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView.frame.height)
-        TapCheckout.sharedCheckoutManager().UIDelegate?.removeView(view: dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView, with: .init(for: .fadeOut, with: 0.1, and: .top))
+        TapCheckout.sharedCheckoutManager().UIDelegate?.removeView(view: dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView, with: .init(for: .fadeOut, with: 0.2, and: .top))
         // Create a card tokenization api to start with and call it
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(450)){ [weak self] in
             
@@ -190,7 +190,7 @@ internal extension TapCheckout {
             DispatchQueue.main.async{
                 // Process the charge protocol response we got from the server
                 guard let nonNullSelf = self else { return }
-                //nonNullSelf.handleCharge(with: charge)
+                nonNullSelf.handleCharge(with: charge)
             }
         } onErrorOccured: { [weak self] session, result, error in
             self?.handleError(session: session, result: result, error: error)
@@ -311,12 +311,13 @@ internal extension TapCheckout {
      */
     func handleInProgress(for charge:ChargeProtocol?) {
         handleCaptured(for: charge)
-        if let charge = charge as? Charge {
+        if let charge = charge as? Charge,
+           let paymentOption = dataHolder.transactionData.selectedPaymentOption {
             let merchantModel = dataHolder.viewModels.tapMerchantViewModel
             DispatchQueue.main.async{ [weak self] in
                 // Instruct the view to open a web view with the redirection url
                 guard let nonNullSelf = self else { return }
-                nonNullSelf.UIDelegate?.showAsyncView(merchantModel: merchantModel, chargeModel: charge)
+                nonNullSelf.UIDelegate?.showAsyncView(merchantModel: merchantModel, chargeModel: charge, paymentOption: paymentOption)
             }
         }
     }
