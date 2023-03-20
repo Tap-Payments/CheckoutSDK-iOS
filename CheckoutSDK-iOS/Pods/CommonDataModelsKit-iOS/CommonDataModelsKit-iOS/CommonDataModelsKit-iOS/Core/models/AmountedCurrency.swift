@@ -4,7 +4,7 @@
 //
 //  Copyright © 2019 Tap Payments. All rights reserved.
 //
-
+import UIKit
 /// Structure holding currency and the amount.
 @objc public class AmountedCurrency: NSObject,Codable {
     

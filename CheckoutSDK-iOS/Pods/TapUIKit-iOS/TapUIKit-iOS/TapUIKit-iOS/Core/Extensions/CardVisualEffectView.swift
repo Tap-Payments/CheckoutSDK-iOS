@@ -38,7 +38,7 @@ internal class CardVisualEffectView: UIVisualEffectView {
     
     /**
      Tint color alpha.
-
+     
      Don't use it unless `colorTint` is not nil.
      The default value is 0.0.
      */
