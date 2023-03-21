@@ -43,7 +43,7 @@ class ViewController: UIViewController {
     var showDragHandler:Bool {
         return !TapFormSettingsViewController.showCloseButtonTitle()
     }
-   
+    
     @IBOutlet weak var paymentItemsTableView: UITableView!
     
     
@@ -121,14 +121,16 @@ class ViewController: UIViewController {
                                       production: TapFormSettingsViewController.merchantSettings().1)
         
         //TapCheckout.secretKey = .init(sandbox: "pk_test_YhUjg9PNT8oDlKJ1aE2fMRz7",
-          //                            production:"sk_live_V4UDhitI0r7sFwHCfNB6xMKp")
-  
+        //                            production:"sk_live_V4UDhitI0r7sFwHCfNB6xMKp")
+        
         //customTheme = .init(with: "https://menoalmotasel.online/RedLightTheme.json", and: "https://menoalmotasel.online/RedDarkTheme.json", from: .RemoteJsonFile)
         
-    
+        
         TapSettings.logs = []
         
         checkout.build(
+            customTheme: TapFormSettingsViewController.sdkTheme(),
+            localiseFile: TapFormSettingsViewController.sdkLocalisation(),
             delegate: self,
             currency: TapFormSettingsViewController.transactionSettings().1,
             amount: amount,
@@ -213,69 +215,69 @@ class ViewController: UIViewController {
     }
 }
 /*
-extension ViewController: SettingsDelegate {
-    func didUpdateCredCardSave(to type: TapUIKit_iOS.SaveCardType) {
-        
-    }
-    
-    func didUpdateCredCardName(to enabled: Bool) {
-        creditNameFeature = enabled
-    }
-    
-    
-    func didUpdateTransactionMode(to mode: TransactionMode) {
-        tapSettings.load()
-    }
-    
-    func didChangeCustomer(with customer: TapCustomer) {
-        self.customer = customer
-        tapSettings.load()
-    }
-    
-    func didUpdatePaymentTypes(to types: [TapPaymentType]) {
-        paymentTypes = types
-        tapSettings.load()
-    }
-    
-    func didUpdateCloseButtonTitle(to enabled: Bool) {
-        closeButtonTitleStyle = enabled ? .title : .icon
-        tapSettings.load()
-    }
-    
-    func didUpdateLanguage(with locale: String) {
-        localeID = locale
-        tapSettings.load()
-        adjustTapButton()
-    }
-    
-    func didUpdateLocalisation(to enabled: Bool) {
-        localisationFileName = (enabled) ? "CustomLocalisation" : nil
-        adjustTapButton()
-    }
-    
-    func didChangeTheme(with themeName: String?) {
-        print("selected theme: \(String(describing: themeName))")
-        guard let nonNullThemeName = themeName else {
-            customTheme = nil
-            return
-        }
-        
-        customTheme = .init(with: "\(nonNullThemeName)LightTheme", and: "\(nonNullThemeName)DarkTheme")
-    }
-    
-    func didChangeCurrency(with currency: TapCurrencyCode) {
-        selectedCurrency = currency
-    }
-    
-    func didUpdateSwipeToDismiss(to enabled: Bool) {
-        swipeToDismiss = enabled
-    }
-    
-    func didUpdateAddShipping(to enabled: Bool) {
-        addShipping = enabled
-    }
-}
-*/
+ extension ViewController: SettingsDelegate {
+ func didUpdateCredCardSave(to type: TapUIKit_iOS.SaveCardType) {
+ 
+ }
+ 
+ func didUpdateCredCardName(to enabled: Bool) {
+ creditNameFeature = enabled
+ }
+ 
+ 
+ func didUpdateTransactionMode(to mode: TransactionMode) {
+ tapSettings.load()
+ }
+ 
+ func didChangeCustomer(with customer: TapCustomer) {
+ self.customer = customer
+ tapSettings.load()
+ }
+ 
+ func didUpdatePaymentTypes(to types: [TapPaymentType]) {
+ paymentTypes = types
+ tapSettings.load()
+ }
+ 
+ func didUpdateCloseButtonTitle(to enabled: Bool) {
+ closeButtonTitleStyle = enabled ? .title : .icon
+ tapSettings.load()
+ }
+ 
+ func didUpdateLanguage(with locale: String) {
+ localeID = locale
+ tapSettings.load()
+ adjustTapButton()
+ }
+ 
+ func didUpdateLocalisation(to enabled: Bool) {
+ localisationFileName = (enabled) ? "CustomLocalisation" : nil
+ adjustTapButton()
+ }
+ 
+ func didChangeTheme(with themeName: String?) {
+ print("selected theme: \(String(describing: themeName))")
+ guard let nonNullThemeName = themeName else {
+ customTheme = nil
+ return
+ }
+ 
+ customTheme = .init(with: "\(nonNullThemeName)LightTheme", and: "\(nonNullThemeName)DarkTheme")
+ }
+ 
+ func didChangeCurrency(with currency: TapCurrencyCode) {
+ selectedCurrency = currency
+ }
+ 
+ func didUpdateSwipeToDismiss(to enabled: Bool) {
+ swipeToDismiss = enabled
+ }
+ 
+ func didUpdateAddShipping(to enabled: Bool) {
+ addShipping = enabled
+ }
+ }
+ */
 
 
 extension ViewController:CheckoutScreenDelegate {

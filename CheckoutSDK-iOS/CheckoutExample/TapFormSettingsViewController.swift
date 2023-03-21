@@ -10,6 +10,7 @@ import Eureka
 import CommonDataModelsKit_iOS
 import TapUIKit_iOS
 import TapApplePayKit_iOS
+import CheckoutSDK_iOS
 
 class TapFormSettingsViewController: Eureka.FormViewController {
     
@@ -44,6 +45,26 @@ class TapFormSettingsViewController: Eureka.FormViewController {
             row.value = TapFormSettingsViewController.showCloseButtonTitle() ? "Title" : "Icon"
             row.onChange { segmentRow in
                 UserDefaults.standard.set(row.options?.firstIndex(of: segmentRow.value ?? "Icon") == 1 , forKey: TapSettingsKeys.SDKCloseButton.rawValue)
+                UserDefaults.standard.synchronize()
+            }
+        })
+        
+        <<< SegmentedRow<String>(TapSettingsKeys.SDKThemeKey.rawValue, { row in
+            row.title = "SDK theme"
+            row.options = ["Default","Green","Red"]
+            row.value = UserDefaults.standard.string(forKey: TapSettingsKeys.SDKThemeKey.rawValue) ?? "Default"
+            row.onChange { segmentRow in
+                UserDefaults.standard.set(segmentRow.value ?? "Default", forKey: TapSettingsKeys.SDKThemeKey.rawValue)
+                UserDefaults.standard.synchronize()
+            }
+        })
+        
+        <<< SegmentedRow<String>(TapSettingsKeys.SDKLocaliseKey.rawValue, { row in
+            row.title = "SDK localisation"
+            row.options = ["Default","Custom"]
+            row.value = UserDefaults.standard.string(forKey: TapSettingsKeys.SDKLocaliseKey.rawValue) ?? "Default"
+            row.onChange { segmentRow in
+                UserDefaults.standard.set(segmentRow.value ?? "Default", forKey: TapSettingsKeys.SDKLocaliseKey.rawValue)
                 UserDefaults.standard.synchronize()
             }
         })
@@ -402,6 +423,8 @@ fileprivate enum TapSettingsKeys:String {
     case SDKLanguage
     case SDKMode
     case SDKCloseButton
+    case SDKThemeKey
+    case SDKLocaliseKey
     
     case SDKSandBoxKey
     case SDKProductionKey
@@ -465,6 +488,36 @@ extension TapFormSettingsViewController {
         return UserDefaults.standard.bool(forKey: TapSettingsKeys.SDKCloseButton.rawValue)
     }
     
+    static func sdkTheme() -> TapCheckOutTheme? {
+        let sdkTheme:String = (UserDefaults.standard.object(forKey: TapSettingsKeys.SDKThemeKey.rawValue) as? String) ?? "Default"
+        if sdkTheme == "Default" {
+            // use the oone coming from api
+            return nil
+        }else if sdkTheme == "Green" {
+            // Use the custom green theme by user
+            return .init(with: "GreenLightTheme", and: "GreenDarkTheme", from: .LocalJsonFile)
+        }else if sdkTheme == "Red" {
+            // Use the custom red theme by user
+            return .init(with: "RedLightTheme", and: "RedDarkTheme", from: .LocalJsonFile)
+        }
+        
+        return nil
+    }
+    
+    
+    static func sdkLocalisation() -> TapCheckoutLocalisation? {
+        let sdkLocalisation:String = (UserDefaults.standard.object(forKey: TapSettingsKeys.SDKLocaliseKey.rawValue) as? String) ?? "Default"
+        if sdkLocalisation == "Default" {
+            // use the oone coming from api
+            return nil
+        }else if sdkLocalisation == "Custom" {
+            // Use the custom green theme by user
+            return .init(with: Bundle.main.url(forResource: "CustomLocalisation", withExtension: "json")!, from: .LocalJsonFile)
+        }
+        
+        return nil
+    }
+    
     
     static func loggingCapabilities() -> (Bool,Bool,Bool,Bool,[TapLoggingType]) {
         let SDKULogUI       = UserDefaults.standard.bool(forKey: TapSettingsKeys.SDKULogUI.rawValue)
@@ -509,7 +562,7 @@ extension TapFormSettingsViewController {
         
         let SDKCardType:CardType = CardType(cardTypeString: UserDefaults.standard.string(forKey: TapSettingsKeys.SDKCardType.rawValue) ?? "All")
         
-        let SDKCardSave:SaveCardType = .init(stringValue: UserDefaults.standard.string(forKey: TapSettingsKeys.SDKCardSave.rawValue) ?? "All")
+        let SDKCardSave:SaveCardType = .init(stringValue: UserDefaults.standard.string(forKey: TapSettingsKeys.SDKCardSave.rawValue) ?? "Merchant")
         
         let SDKCardNameEnabled:Bool = UserDefaults.standard.bool(forKey: TapSettingsKeys.SDKCardNameEnabled.rawValue)
         
@@ -622,7 +675,7 @@ extension TapFormSettingsViewController {
     }
     
     static func funcPreFillData () {
-        if !UserDefaults.standard.bool(forKey: "SettingsBrefilled2") {
+        if !UserDefaults.standard.bool(forKey: "SettingsBrefilled3") {
             
             UserDefaults.standard.set(true, forKey: TapSettingsKeys.SDKCardRequire3DS.rawValue)
             UserDefaults.standard.set(true, forKey: TapSettingsKeys.SDKCardNameEnabled.rawValue)
@@ -630,7 +683,7 @@ extension TapFormSettingsViewController {
             UserDefaults.standard.set(true, forKey: TapSettingsKeys.SDKULogUI.rawValue)
             UserDefaults.standard.set(true, forKey: TapSettingsKeys.SDKLogEvents.rawValue)
             UserDefaults.standard.set(true, forKey: TapSettingsKeys.SDKLogConsole.rawValue)
-            UserDefaults.standard.set(true, forKey: "SettingsBrefilled2")
+            UserDefaults.standard.set(true, forKey: "SettingsBrefilled3")
             UserDefaults.standard.synchronize()
         }
     }

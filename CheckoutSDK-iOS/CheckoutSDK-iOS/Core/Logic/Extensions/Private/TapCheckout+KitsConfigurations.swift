@@ -48,6 +48,7 @@ internal extension TapCheckout {
         guard let nonNullLocalisationModel = localiseFile,
               let nonNullLocaltionType = nonNullLocalisationModel.localisationType else { return }
         let _ = TapLocalisationManager.shared.configureLocalisation(with: nonNullLocalisationModel.filePath, or: nonNullLocalisationModel.localisationData, from: nonNullLocaltionType)
+        sharedCheckoutManager().sharedLocalisationManager = TapLocalisationManager.shared
     }
     
     /** Configures the theme manager by setting the provided custom theme file names
@@ -67,6 +68,8 @@ internal extension TapCheckout {
     }
     
     /** Configures the Checkout shared manager by setting the provided custom data gatherd by the merchant
+     - Parameter customTheme: Please pass the tap checkout theme object with the names of your custom theme files if needed. If not set, the normal and default TAP theme will be used
+     - Parameter localiseFile: Please pass the name of the custom localisation file model if needed. If not set, the normal and default TAP localisations will be used
      - Parameter currency: Represents the original transaction currency stated by the merchant on checkout start
      - Parameter amount: Represents the original transaction amount stated by the merchant on checkout start
      - Parameter items: Represents the List of payment items if any. If no items are provided one will be created by default as PAY TO [MERCHANT NAME] -- Total value
@@ -105,7 +108,9 @@ internal extension TapCheckout {
      - Parameter shouldFlipCardData: Defines if the card info textfields should support RTL in Arabic mode or not
      - Parameter cardShouldThemeItself: Indicates if the card form shall have its own background theming or it should be clear and reflect whatever is behind it
      */
-    func configureSharedManager(currency:TapCurrencyCode,
+    func configureSharedManager(customTheme:TapCheckOutTheme? = nil,
+                                localiseFile:TapCheckoutLocalisation? = nil,
+                                currency:TapCurrencyCode,
                                 amount:Double,
                                 items:[ItemModel],applePayMerchantID:String = "merchant.tap.gosell",
                                 swipeDownToDismiss:Bool = false,
@@ -210,6 +215,9 @@ internal extension TapCheckout {
         }else {
             sharedManager.dataHolder.transactionData.transactionItemsValue = items
         }
+        
+        // Set the passed custom localisation and/or theme if any
+        sharedManager.dataHolder.themeLocalisationHolder = .init(customTheme: customTheme, localiseFile: localiseFile)
     }
     
     

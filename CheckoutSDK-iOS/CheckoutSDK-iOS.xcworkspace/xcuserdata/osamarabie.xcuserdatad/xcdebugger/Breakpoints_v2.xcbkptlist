@@ -3,4 +3,86 @@
    uuid = "51793A65-FEC8-406C-9954-D9C03F638AB7"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C3188D65-8DCB-4B20-B19C-160E96D2E642"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+UIViewModelsHandling.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
+            landmarkName = "parseInitResponse()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B1FF9DF9-F93C-481A-89F4-0CD01D3377BE"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+KitsConfigurations.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "configureThemeManager(customTheme:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9DC2D5B6-4C8A-4281-8C61-4921727F278C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pods/TapThemeManager2020/TapThemeManager2020/TapThemeManager2020/Core/Manager/TapThemeManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
+            landmarkName = "setDefaultTapTheme(lightModeJSONTheme:darkModeJSONTheme:in:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "9DC2D5B6-4C8A-4281-8C61-4921727F278C - d0af3a85876ebd54"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static TapThemeManager2020.TapThemeManager.setDefaultTapTheme(lightModeJSONTheme: Swift.String, darkModeJSONTheme: Swift.String, in: __C.NSBundle) -&gt; ()"
+                  moduleName = "TapThemeManager2020"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapThemeManager2020/TapThemeManager2020/TapThemeManager2020/Core/Manager/TapThemeManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "208"
+                  endingLineNumber = "208"
+                  offsetFromSymbolStart = "226">
+               </Location>
+               <Location
+                  uuid = "9DC2D5B6-4C8A-4281-8C61-4921727F278C - d0af3a85876ebd54"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static TapThemeManager2020.TapThemeManager.setDefaultTapTheme(lightModeJSONTheme: Swift.String, darkModeJSONTheme: Swift.String, in: __C.NSBundle) -&gt; ()"
+                  moduleName = "TapThemeManager2020"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osamarabie/Desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapThemeManager2020/TapThemeManager2020/TapThemeManager2020/Core/Manager/TapThemeManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "208"
+                  endingLineNumber = "208"
+                  offsetFromSymbolStart = "260">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

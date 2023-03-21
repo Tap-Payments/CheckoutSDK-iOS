@@ -198,6 +198,9 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         dataHolder.viewModels.tapMerchantViewModel.iconURL = "https://i.ibb.co/9pWFvpt/VND1124340.png"
         // Save the encryption for further access
         SharedCommongDataModels.sharedCommongDataModels.encryptionKey = initModel.data.encryptionKey
+        // Load the default theme & localisations if the user didn't pass his own custom theme and localisation
+        TapCheckout.PreloadSDKData(localiseFile: dataHolder.themeLocalisationHolder.localiseFile ?? .init(with: URL(string: initModel.assets.localisation.url)!, from: .RemoteJsonFile),
+                                   customTheme: dataHolder.themeLocalisationHolder.customTheme ?? .init(with: initModel.assets.theme.light, and: initModel.assets.theme.dark, from: .RemoteJsonFile))
     }
     
     /** We will accept

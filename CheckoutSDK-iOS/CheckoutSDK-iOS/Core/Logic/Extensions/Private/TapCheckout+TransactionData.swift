@@ -35,11 +35,26 @@ internal protocol TapCheckoutDataHolderDelegate {
 internal class DataHolder {
     var viewModels:ViewModelsHolder = .init()
     var transactionData:TransactionDataHolder = .init()
+    var themeLocalisationHolder:ThemeLocalisationHolder = .init()
     
-    init(viewModels:ViewModelsHolder = .init() ,transactionData:TransactionDataHolder = .init()) {
+    init(viewModels:ViewModelsHolder = .init() ,transactionData:TransactionDataHolder = .init(), themeLocalisationHolder:ThemeLocalisationHolder = .init()) {
         self.viewModels = viewModels
         self.transactionData = transactionData
+        self.themeLocalisationHolder = themeLocalisationHolder
     }
+}
+
+/// A struct to hold the custom theme and localisations passed by the merchant
+internal class ThemeLocalisationHolder {
+    internal init(customTheme: TapCheckOutTheme? = nil, localiseFile: TapCheckoutLocalisation? = nil) {
+        self.customTheme = customTheme
+        self.localiseFile = localiseFile
+    }
+    
+    /// The custom theme passed by the merchant
+    var customTheme:TapCheckOutTheme? = nil
+    /// The custom localisation passed by the merchant
+    var localiseFile:TapCheckoutLocalisation? = nil
 }
 
 /// Struct that holds view models and UI related variables
