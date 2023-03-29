@@ -219,10 +219,10 @@ extension TapVerticalView {
         tapActionButton.updateConstraints()
         
         /*powereByTapView.snp.remakeConstraints { make in
-            make.height.equalTo(33)
-        }
-        powereByTapView.layoutIfNeeded()
-        powereByTapView.updateConstraints()*/
+         make.height.equalTo(33)
+         }
+         powereByTapView.layoutIfNeeded()
+         powereByTapView.updateConstraints()*/
         
         layoutIfNeeded()
     }
@@ -239,16 +239,16 @@ extension TapVerticalView {
         }
         
         /*if !keepPowredByTapView {
-            powereByTapView.fadeOut(duration: fadeInDuation, delay: fadeInDelay){ _ in
-                DispatchQueue.main.async {
-                    self.powereByTapView.snp.remakeConstraints { make in
-                        make.height.equalTo(0)
-                    }
-                    self.powereByTapView.layoutIfNeeded()
-                    self.powereByTapView.updateConstraints()
-                }
-            }
-        }*/
+         powereByTapView.fadeOut(duration: fadeInDuation, delay: fadeInDelay){ _ in
+         DispatchQueue.main.async {
+         self.powereByTapView.snp.remakeConstraints { make in
+         make.height.equalTo(0)
+         }
+         self.powereByTapView.layoutIfNeeded()
+         self.powereByTapView.updateConstraints()
+         }
+         }
+         }*/
         layoutIfNeeded()
     }
     

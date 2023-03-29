@@ -274,9 +274,9 @@ import TapThemeManager2020
         blurredEffectView.frame = view.bounds
         //blurredEffectView.alpha = 0.95
         /*let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
-        let vibrancyEffectView = UIVisualEffectView(effect: vibrancyEffect)
-        vibrancyEffectView.frame = view.bounds
-        blurredEffectView.contentView.addSubview(vibrancyEffectView)*/
+         let vibrancyEffectView = UIVisualEffectView(effect: vibrancyEffect)
+         vibrancyEffectView.frame = view.bounds
+         blurredEffectView.contentView.addSubview(vibrancyEffectView)*/
         view.addSubview(blurredEffectView)
     }
     
@@ -312,10 +312,10 @@ import TapThemeManager2020
                     delegate.tapBottomSheetPresented?()
                     self?.backgroundView?.alpha = 1
                     /*DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
-                        UIView.animate(withDuration: 0.0,animations: { [weak self] in
-                            self?.backgroundView?.alpha = 1
-                        })
-                    }*/
+                     UIView.animate(withDuration: 0.0,animations: { [weak self] in
+                     self?.backgroundView?.alpha = 1
+                     })
+                     }*/
                 })
             }
         })
