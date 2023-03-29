@@ -66,22 +66,41 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     
     func addDefaultViews() {
         
-        let tapBlurView:TapCheckoutBlurView = .init(frame: view.bounds)
+        let tapBlurView:TapCheckoutBlurView = .init(frame: tapVerticalView.bounds)
         
+        let poweredByTapView:PoweredByTapView = .init()
         // Add the views
         view.addSubview(tapBlurView)
+        view.addSubview(poweredByTapView)
         view.addSubview(tapVerticalView)
         
         view.backgroundColor = .clear
         tapVerticalView.backgroundColor = .clear
         
+        tapVerticalView.layer.cornerRadius = CGFloat(12)
+        tapVerticalView.clipsToBounds = true
+        tapVerticalView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        
+        tapBlurView.layer.cornerRadius = CGFloat(12)
+        tapBlurView.clipsToBounds = true
+        tapBlurView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         // Add the constraints
-        tapBlurView.snp.remakeConstraints { (make) in
-            make.edges.equalToSuperview()
+        poweredByTapView.snp.remakeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.height.equalTo(68)
         }
         
         tapVerticalView.snp.remakeConstraints { (make) in
-            make.edges.equalToSuperview()
+            make.top.equalTo(poweredByTapView.snp.bottom).offset(-12)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        
+        tapBlurView.snp.remakeConstraints { (make) in
+            make.edges.equalTo(tapVerticalView.snp.edges)
         }
         
         view.layoutIfNeeded()
@@ -295,6 +314,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) { [weak self] in
             //self?.tapVerticalView.hideActionButton()
+            self?.changeBlur(to: false)
             self?.sharedCheckoutDataManager.dataHolder.viewModels.tapAmountSectionViewModel.screenChanged(to: .SavedCardView)
             self?.tapActionButtonViewModel.expandButton()
             self?.tapActionButtonViewModel.buttonStatus = .CancelPayment
@@ -379,7 +399,9 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(150)) { [weak self] in
             self?.tapVerticalView.hideActionButton()
-            self?.tapVerticalView.add(view: self!.webViewModel.attachedView, with: [.init(for: .slideIn, with:self!.fadeInAnimationDuration, wait: 0.1)],shouldFillHeight: true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300)) {
+                self?.tapVerticalView.add(view: self!.webViewModel.attachedView, with: [.init(for: .slideIn, with:self!.fadeInAnimationDuration, wait: 0.1)],shouldFillHeight: true)
+            }
             self?.webViewModel.load(with: url)
             // remove any loading view if needed
             self?.enableInteraction(with: true)

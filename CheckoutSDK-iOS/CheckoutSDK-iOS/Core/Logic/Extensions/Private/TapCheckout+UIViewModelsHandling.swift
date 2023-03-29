@@ -130,7 +130,7 @@ internal extension TapCheckout {
         let applePayButtonType:TapApplePayButtonType = (PKPaymentAuthorizationController.canMakePayments() && PKPaymentAuthorizationController.canMakePayments(usingNetworks: applePaymentOption.applePayNetworkMapper())) ? dataHolder.transactionData.applePayButtonType : .SetupApplePay
         
         let applePayButtonStyle: TapApplePayButtonStyleOutline = dataHolder.transactionData.applePayButtonStyle == .Auto ?
-        self.bottomSheetController.traitCollection.userInterfaceStyle == .dark ? .White : .Black : dataHolder.transactionData.applePayButtonStyle
+        self.bottomSheetController.traitCollection.userInterfaceStyle == .dark ? .Black : .White : dataHolder.transactionData.applePayButtonStyle
         
         let applePayItems:[PKPaymentSummaryItem] = generateApplePaymentItems()
         
@@ -193,14 +193,16 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         guard let initModel = dataHolder.transactionData.intitModelResponse else { return }
         // Based on the transaciton mode we define the header title
         let transactionMode = dataHolder.transactionData.transactionMode
-        // Fetch the merchant header info
-        dataHolder.viewModels.tapMerchantViewModel = .init(title: (transactionMode == .cardSaving) ? "SAVE CARD" : nil, subTitle: initModel.data.merchant?.name, iconURL: initModel.data.merchant?.logoURL)
-        dataHolder.viewModels.tapMerchantViewModel.iconURL = "https://i.ibb.co/9pWFvpt/VND1124340.png"
         // Save the encryption for further access
         SharedCommongDataModels.sharedCommongDataModels.encryptionKey = initModel.data.encryptionKey
         // Load the default theme & localisations if the user didn't pass his own custom theme and localisation
-        TapCheckout.PreloadSDKData(localiseFile: dataHolder.themeLocalisationHolder.localiseFile ?? .init(with: URL(string: initModel.assets.localisation.url)!, from: .RemoteJsonFile),
-                                   customTheme: dataHolder.themeLocalisationHolder.customTheme ?? .init(with: initModel.assets.theme.light, and: initModel.assets.theme.dark, from: .RemoteJsonFile))
+        TapCheckout.PreloadSDKData(localiseFile: self.dataHolder.themeLocalisationHolder.localiseFile ?? .init(with: URL(string: initModel.assets.localisation.url)!, from: .RemoteJsonFile),
+                                   customTheme: self.dataHolder.themeLocalisationHolder.customTheme ?? .init(with: initModel.assets.theme.light, and: initModel.assets.theme.dark, from: .RemoteJsonFile))
+        // Fetch the merchant header info
+        DispatchQueue.main.async {
+            self.dataHolder.viewModels.tapMerchantViewModel = .init(title: (transactionMode == .cardSaving) ? "SAVE CARD" : nil, subTitle: initModel.data.merchant?.name, iconURL: initModel.data.merchant?.logoURL)
+            self.dataHolder.viewModels.tapMerchantViewModel.iconURL = "https://i.ibb.co/9pWFvpt/VND1124340.png"
+        }
     }
     
     /** We will accept
@@ -478,5 +480,21 @@ extension TapCheckout:TapActionButtonViewModelDelegate {
         TapCheckout.sharedCheckoutManager().UIDelegate?.enableInteraction(with: true)
     }
     
+    
+}
+
+
+internal extension DispatchQueue {
+    
+    static func background(delay: Double = 0.0, background: (()->Void)? = nil, completion: (() -> Void)? = nil) {
+        DispatchQueue.global(qos: .background).async {
+            background?()
+            if let completion = completion {
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
+                    completion()
+                })
+            }
+        }
+    }
     
 }

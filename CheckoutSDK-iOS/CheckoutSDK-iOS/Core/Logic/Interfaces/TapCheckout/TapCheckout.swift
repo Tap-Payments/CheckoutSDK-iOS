@@ -143,7 +143,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     /// Reference to the color of the dimming of the tap sheet controller
     internal var bottomSheetBackgroundColor:UIColor? = .init(white: 0, alpha: 0.5)
     /// Initial height to start the sheet with
-    internal var initialHeight:CGFloat = 100
+    internal var initialHeight:CGFloat = 550
     /// The corner radius of the sheet
     internal var cornerRadius:CGFloat = 12
     /// Indicates whether we  can load assets from CDN or not
@@ -214,7 +214,9 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         TapCheckout.configureLocalisationManager(localiseFile: localiseFile)
         sharedCheckoutManager().sharedLocalisationManager = TapLocalisationManager.shared
         // Init the theme manager
-        TapCheckout.configureThemeManager(customTheme:customTheme)
+        DispatchQueue.main.async {
+            TapCheckout.configureThemeManager(customTheme:customTheme)
+        }
     }
     
     /**
@@ -313,10 +315,10 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
             configureSharedManager(customTheme:customTheme, localiseFile: localiseFile, currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,swipeDownToDismiss:swipeDownToDismiss,paymentType:paymentType,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID,taxes: taxes, shipping: shipping, allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor,require3DSecure:require3DSecure,receiptSettings:receiptSettings, authorizeAction: authorizeAction,allowsToSaveSameCardMoreThanOnce: allowsToSaveSameCardMoreThanOnce, enableSaveCard: enableSaveCard, enableApiLogging: enableApiLogging.map{ TapLoggingType(rawValue: $0) ?? .CONSOLE }, isSaveCardSwitchOnByDefault: isSaveCardSwitchOnByDefault, collectCreditCardName: collectCreditCardName, creditCardNameEditable: creditCardNameEditable, creditCardNamePreload: creditCardNamePreload, showSaveCreditCard:showSaveCreditCard, isSubscription: isSubscription, recurringPaymentRequest: recurringPaymentRequest, applePayButtonType :applePayButtonType, applePayButtonStyle: applePayButtonStyle, shouldFlipCardData: shouldFlipCardData, cardShouldThemeItself: true)
             
             // Initiate the needed calls to server to start the session
-            initialiseSDKFromAPI() {  [weak self] in
+            initialiseSDKFromAPI() {  [self] in
                 //guard let nonNullSelf = self else { return }
-                self!.configureBottomSheet()
-                onCheckOutReady(self!)
+                self.configureBottomSheet()
+                onCheckOutReady(self)
             }
         }
     

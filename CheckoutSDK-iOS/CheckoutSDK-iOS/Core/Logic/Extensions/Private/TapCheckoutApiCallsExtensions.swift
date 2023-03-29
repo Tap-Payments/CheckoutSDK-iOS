@@ -33,10 +33,14 @@ internal extension TapCheckout {
         NetworkManager.shared.makeApiCall(routing: .CheckoutProfileApi, resultType: TapInitResponseModel.self, body: .init(body: bodyDictionary), httpMethod: .POST) { [weak self] (session, result, error) in
             guard let initModel:TapInitResponseModel = result as? TapInitResponseModel else { self?.handleError(session: session, result: result, error: "Unexpected error when parsing into TapInitResponseModel")
                 return }
-            DispatchQueue.main.async {
+            
+            DispatchQueue.background(background: {
                 self?.handleInitResponse(initModel: initModel)
-            }
-            onCheckOutReady()
+            }, completion:{
+                // when background job finished, do something in main thread
+                print("COMPLETED")
+                onCheckOutReady()
+            })
         } onError: { (session, result, errorr) in
             self.handleError(session: session, result: result, error: errorr)
         }
@@ -339,7 +343,9 @@ internal extension TapCheckout {
     func handleInitResponse(initModel:TapInitResponseModel) {
         // Store the init model for further access
         TapCheckout.sharedCheckoutManager().dataHolder.transactionData.intitModelResponse = initModel
-        TapCheckout.sharedCheckoutManager().dataHolder.transactionData.paymentOptionsModelResponse = initModel.paymentOptions
+        DispatchQueue.main.async {
+            TapCheckout.sharedCheckoutManager().dataHolder.transactionData.paymentOptionsModelResponse = initModel.paymentOptions
+        }
     }
     
     
