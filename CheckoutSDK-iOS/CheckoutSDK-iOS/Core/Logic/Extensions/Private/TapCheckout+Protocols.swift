@@ -11,6 +11,7 @@ import LocalisationManagerKit_iOS
 //import MOLH
 import CommonDataModelsKit_iOS
 import TapUIKit_iOS
+import TapThemeManager2020
 
 //MARK: TapCheckout Protocols
 

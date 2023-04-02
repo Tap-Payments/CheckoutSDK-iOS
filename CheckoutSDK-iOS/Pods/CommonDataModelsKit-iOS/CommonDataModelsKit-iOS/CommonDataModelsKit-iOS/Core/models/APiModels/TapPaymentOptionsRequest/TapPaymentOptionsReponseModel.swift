@@ -121,7 +121,9 @@ extension TapPaymentOptionsReponseModel: Decodable {
         
         // Filter saved cards based on allowed card types passed by the user when loading the SDK session
         let merchnantAllowedCards = SharedCommongDataModels.sharedCommongDataModels.allowedCardTypes
+        
         savedCards = savedCards?.filter { (merchnantAllowedCards.contains($0.cardType ?? CardType(cardType: .All))) }
+        savedCards = savedCards?.sorted(by: { $0.orderBy < $1.orderBy })
         
         self.init(identifier:                   identifier,
                   object:                       object,
