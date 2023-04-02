@@ -175,6 +175,8 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     @objc public var tapCheckoutScreenDelegate:CheckoutScreenDelegate?
     /// Indicates whether the checkout sheet is presented or not
     internal static var isCheckoutSheenPresented:Bool = false
+    /// Indicates whether to display the light colored or light mono icons in the light theme mode
+    @objc public static var displayMonoLight:Bool = false
     /// Indicates what to do when using RTL languages
     @objc public static var flippingStatus:TapCheckoutFlipStatus = .FlipOnLoadWithFlippingBack
     /// The ISO 639-1 Code language identefier, please note if the passed locale is wrong or not found in the localisation files, we will show the keys instead of the values

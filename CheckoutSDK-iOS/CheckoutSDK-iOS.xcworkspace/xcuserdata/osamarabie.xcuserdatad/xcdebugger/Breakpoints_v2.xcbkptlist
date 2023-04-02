@@ -8,7 +8,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "979790EF-0C9D-472E-B082-C8D617FEBD8D"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/PullUpController/PullUpController/PullUpController.swift"
@@ -17,6 +17,38 @@
             startingLineNumber = "487"
             endingLineNumber = "487"
             landmarkName = "addPullUpController(_:initialStickyPointOffset:animated:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "914E5ABC-C628-4AF5-8A7E-CFC391A064CB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pods/CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/models/APiModels/TapInitRequest/TapInitResponsdeModel/TapPaymentOption.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
+            landmarkName = "correctBackEndImageURL(showMonoForLightMode:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F9AF936E-AF77-4270-8F1F-DAD4A294882C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pods/CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/models/AmountedCurrency.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "correctBackEndImageURL(showMonoForLightMode:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

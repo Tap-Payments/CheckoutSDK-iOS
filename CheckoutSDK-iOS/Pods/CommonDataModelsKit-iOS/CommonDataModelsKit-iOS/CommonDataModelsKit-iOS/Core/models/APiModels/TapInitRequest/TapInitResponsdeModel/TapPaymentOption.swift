@@ -77,7 +77,8 @@ public struct PaymentOption: IdentifiableWithString {
     public let paymentOptionsLogos:PaymentOptionLogos?
     
     /// Will do the correct fetching of which image to use, the default backend url or the correct light-dark cdn hosted url
-    public var correctBackEndImageURL: URL {
+    /// - Parameter showMonoForLightMode: Indicates whether to show the light or the light colored
+    public func correctBackEndImageURL(showMonoForLightMode:Bool = false) -> URL {
         // Check if we have right values passed in the cdn logos options
         guard let logos = paymentOptionsLogos,
               let lightModePNGString = logos.light?.png,
@@ -89,6 +90,11 @@ public struct PaymentOption: IdentifiableWithString {
         // we will return based on the theme
         if #available(iOS 12.0, *) {
             if UIScreen.main.traitCollection.userInterfaceStyle == .light {
+                if showMonoForLightMode {
+                    guard let lightMonoModePNGString = logos.light_colored?.png,
+                          let lightMonoModePNGUrl    = URL(string: lightMonoModePNGString) else { return lightModePNGUrl }
+                    return lightMonoModePNGUrl
+                }
                 return lightModePNGUrl
             } else {
                 return darkModePNGUrl

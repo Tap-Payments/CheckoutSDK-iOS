@@ -15,7 +15,7 @@ extension PaymentOption {
     internal var imageURL:URL {
         // Check if it is allowed to load from cdn or it is unreachable
         guard TapCheckout.sharedCheckoutManager().canLoadFromCDN else {
-            return correctBackEndImageURL
+            return correctBackEndImageURL(showMonoForLightMode: TapCheckout.displayMonoLight)
         }
         return URL(string: "https://checkoutsdkios.b-cdn.net/\(CDNPath.PaymentOption.generateCDNPath())/\(identifier).png")!
     }
@@ -37,7 +37,7 @@ extension AmountedCurrency {
     internal var cdnFlag:String {
         // Check if it is allowed to load from cdn or it is unreachable
         guard TapCheckout.sharedCheckoutManager().canLoadFromCDN else {
-            return correctBackEndImageURL.absoluteString
+            return correctBackEndImageURL(showMonoForLightMode: TapCheckout.displayMonoLight).absoluteString
         }
         return "https://checkoutsdkios.b-cdn.net/\(CDNPath.Currency.generateCDNPath())/\(currency.appleRawValue).png"
     }
