@@ -50,10 +50,10 @@ PODS:
   - TapSwiftFixesV2/CoreGraphics (1.0.0)
   - TapSwiftFixesV2/Exceptions (1.0.0)
   - TapSwiftFixesV2/Threading (1.0.0)
-  - TapThemeManager2020 (1.0.78):
+  - TapThemeManager2020 (1.0.79):
     - LocalisationManagerKit-iOS
     - TapFontKit-iOS
-  - TapUIKit-iOS (1.0.132):
+  - TapUIKit-iOS (1.0.134):
     - CommonDataModelsKit-iOS
     - EasyTipView
     - FlagKit
@@ -120,8 +120,8 @@ SPEC CHECKSUMS:
   TapKeychain: 143aa70bb2d1b094e0298e944660264034c79849
   TapNetworkKit-iOS: 92c8c7feae384dc2595f8f270853ee3cf8ea3380
   TapSwiftFixesV2: a8623a7273c6790b9754ec7e272e96fce7d3a800
-  TapThemeManager2020: 6f6325c27c9adf8f1f2176ca3ebac3ce0b721140
-  TapUIKit-iOS: cbad3e157d7f1cd189cf7b83455a488dfd21f02f
+  TapThemeManager2020: c064188a552487326fb77c91b052a075dd861cd8
+  TapUIKit-iOS: acf45c301ed45b2536d7f07db3b8795a25306b0c
 
 PODFILE CHECKSUM: 1c2f5f1484381e0d33770c14615619392b21ce3a
 
