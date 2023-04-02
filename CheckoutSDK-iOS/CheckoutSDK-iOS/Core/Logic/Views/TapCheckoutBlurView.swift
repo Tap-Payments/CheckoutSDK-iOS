@@ -29,12 +29,11 @@ class TapCheckoutBlurView: UIView {
     /// Used as a consolidated method to do all the needed steps upon creating the view
     private func commonInit() {
         self.contentView = setupXIB()
-        if  UIScreen.main.traitCollection.userInterfaceStyle == .dark {
+        if traitCollection.userInterfaceStyle == .dark {
             blurEffectView.effect = UIBlurEffect(style: .dark)
-            blurEffectView.alpha = 1
         }else {
-            blurEffectView.effect = UIBlurEffect(style: .light)
-            blurEffectView.alpha = 0.3
+            blurEffectView.effect = UIBlurEffect(style: .prominent)
+            blurEffectView.alpha = 0.8
         }
     }
 }
@@ -44,10 +43,9 @@ extension TapCheckoutBlurView {
         // Change the blurring effect based on the current display status
         if traitCollection.userInterfaceStyle == .dark {
             blurEffectView.effect = UIBlurEffect(style: .dark)
-            blurEffectView.alpha = 1
         }else {
-            blurEffectView.effect = UIBlurEffect(style: .light)
-            blurEffectView.alpha = 0.4
+            blurEffectView.effect = UIBlurEffect(style: .prominent)
+            blurEffectView.alpha = 0.8
         }
     }
 }

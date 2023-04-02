@@ -27,7 +27,7 @@ import TapUIKit_iOS
     /**
      Will be fired once the controller is presented
      */
-    @objc optional func tapBottomSheetPresented()
+    @objc optional func tapBottomSheetPresented(viewController:UIViewController?)
     /**
      Will be fired once the checkout fails for any error
      */
@@ -115,7 +115,7 @@ extension TapCheckout:TapBottomSheetDialogDataSource {
     }
     
     public func tapBottomSheetBlurEffect() -> UIBlurEffect? {
-        return .init(style: .systemUltraThinMaterialDark)
+        return nil//.init(style: .systemUltraThinMaterialDark)
     }
     
     public func tapBottomSheetViewControllerToPresent() -> UIViewController? {
@@ -150,9 +150,9 @@ extension TapCheckout:TapBottomSheetDialogDataSource {
 extension TapCheckout: TapBottomSheetDialogDelegate {
     
     
-    public func tapBottomSheetPresented() {
+    public func tapBottomSheetPresented(viewController:UIViewController?) {
         TapCheckout.isCheckoutSheenPresented = true
-        TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.tapBottomSheetPresented?()
+        TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.tapBottomSheetPresented?(viewController: viewController)
     }
     
     public func tapBottomSheetWillDismiss() {
