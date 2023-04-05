@@ -35,10 +35,13 @@ internal extension TapCheckout {
                 return }
             
             DispatchQueue.background(background: {
-                self?.handleInitResponse(initModel: initModel)
+                // Load the default theme & localisations if the user didn't pass his own custom theme and localisation
+                TapCheckout.PreloadSDKData(localiseFile: self?.dataHolder.themeLocalisationHolder.localiseFile ?? .init(with: URL(string: initModel.assets.localisation.url)!, from: .RemoteJsonFile),
+                                           customTheme: self?.dataHolder.themeLocalisationHolder.customTheme ?? .init(with: initModel.assets.theme.light, and: initModel.assets.theme.dark, from: .RemoteJsonFile))
             }, completion:{
                 // when background job finished, do something in main thread
                 print("COMPLETED")
+                self?.handleInitResponse(initModel: initModel)
                 onCheckOutReady()
             })
         } onError: { (session, result, errorr) in

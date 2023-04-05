@@ -275,20 +275,28 @@ import TapThemeManager2020
             make.height.equalTo(48)
         }
         hintView.isHidden = false
+        //hintView.alpha = 0
         stackView.addArrangedSubview(hintView)
+        //hintView.fadeIn()
+        
         updateHeight()
     }
     
     /// Will remove a warning/error hint view under the card input form to indicate to the user what does he miss
     internal func removeHintView() {
         // We will have to update our height to reflect the removal of the hint view
-        hintView.isHidden = true
-        stackView.removeArrangedSubview(hintView)
+        /*hintView.fadeOut(){_ in
+            DispatchQueue.main.async {
+                
+            }
+        }*/
+        self.hintView.isHidden = true
+        self.stackView.removeArrangedSubview(self.hintView)
         // Update the hint view type and height
-        hintView.snp.remakeConstraints { make in
+        self.hintView.snp.remakeConstraints { make in
             make.height.equalTo(0)
         }
-        updateHeight()
+        self.updateHeight()
     }
     
     /**

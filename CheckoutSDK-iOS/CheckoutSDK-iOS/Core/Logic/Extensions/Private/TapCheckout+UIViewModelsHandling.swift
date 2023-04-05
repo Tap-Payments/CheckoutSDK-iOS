@@ -195,9 +195,7 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         let transactionMode = dataHolder.transactionData.transactionMode
         // Save the encryption for further access
         SharedCommongDataModels.sharedCommongDataModels.encryptionKey = initModel.data.encryptionKey
-        // Load the default theme & localisations if the user didn't pass his own custom theme and localisation
-        TapCheckout.PreloadSDKData(localiseFile: self.dataHolder.themeLocalisationHolder.localiseFile ?? .init(with: URL(string: initModel.assets.localisation.url)!, from: .RemoteJsonFile),
-                                   customTheme: self.dataHolder.themeLocalisationHolder.customTheme ?? .init(with: initModel.assets.theme.light, and: initModel.assets.theme.dark, from: .RemoteJsonFile))
+        
         // Fetch the merchant header info
         DispatchQueue.main.async {
             self.dataHolder.viewModels.tapMerchantViewModel = .init(title: (transactionMode == .cardSaving) ? "SAVE CARD" : nil, subTitle: initModel.data.merchant?.name, iconURL: initModel.data.merchant?.logoURL)

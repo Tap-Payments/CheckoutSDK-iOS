@@ -7,6 +7,7 @@
 
 import UIKit
 import TapThemeManager2020
+import LocalisationManagerKit_iOS
 
 /// Represents the power by tap view
 @objc public class PoweredByTapView: UIView {
@@ -52,6 +53,7 @@ extension PoweredByTapView {
     private func matchThemeAttributes() {
         poweredByTapLogo.image = TapThemeManager.imageValue(for: "\(themePath).tapLogo")
         blurView.tap_theme_backgroundColor = .init(stringLiteral: "\(themePath).blurColor")
+        poweredByTapLogo.contentMode = TapLocalisationManager.shared.localisationLocale == "ar" ? .left : .right
         backgroundColor = .clear
         layoutIfNeeded()
     }
