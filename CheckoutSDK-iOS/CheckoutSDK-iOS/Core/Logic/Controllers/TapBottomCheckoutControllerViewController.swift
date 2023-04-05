@@ -99,11 +99,11 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.height.equalTo(68)
+            make.height.equalTo(58)
         }
         
         tapVerticalView.snp.remakeConstraints { (make) in
-            make.top.equalTo(poweredByTapView.snp.bottom).offset(-12)
+            make.top.equalTo(poweredByTapView.snp.bottom).offset(-10)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.bottom.equalToSuperview()

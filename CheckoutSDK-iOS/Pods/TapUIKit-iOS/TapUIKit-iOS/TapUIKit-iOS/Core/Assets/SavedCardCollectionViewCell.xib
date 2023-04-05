@@ -61,6 +61,31 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uw6-85-iWk">
+                        <rect key="frame" x="0.0" y="0.0" width="100" height="40"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dyT-BF-dcH" customClass="CardVisualEffectView" customModule="TapUIKit_iOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="100" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="htg-Co-YgC">
+                                <rect key="frame" x="38" y="8" width="24" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="24" id="blU-Fg-9HC"/>
+                                    <constraint firstAttribute="width" secondItem="htg-Co-YgC" secondAttribute="height" multiplier="1:1" id="cg2-1e-6Jf"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="dyT-BF-dcH" secondAttribute="trailing" id="2uI-ji-NJV"/>
+                            <constraint firstItem="dyT-BF-dcH" firstAttribute="top" secondItem="uw6-85-iWk" secondAttribute="top" id="3i8-tC-sxg"/>
+                            <constraint firstItem="htg-Co-YgC" firstAttribute="centerY" secondItem="uw6-85-iWk" secondAttribute="centerY" id="E9T-Ir-HTq"/>
+                            <constraint firstAttribute="bottom" secondItem="dyT-BF-dcH" secondAttribute="bottom" id="HcU-v6-3BS"/>
+                            <constraint firstItem="htg-Co-YgC" firstAttribute="centerX" secondItem="uw6-85-iWk" secondAttribute="centerX" id="jSp-6h-g9j"/>
+                            <constraint firstItem="dyT-BF-dcH" firstAttribute="leading" secondItem="uw6-85-iWk" secondAttribute="leading" id="p0T-0w-9EZ"/>
+                        </constraints>
+                    </view>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
@@ -71,20 +96,27 @@
                 <constraint firstItem="fNd-Jf-LNd" firstAttribute="leading" secondItem="K4y-CQ-e8Q" secondAttribute="trailing" constant="11" id="FT0-wP-GiN"/>
                 <constraint firstAttribute="trailing" secondItem="CPc-y7-NiM" secondAttribute="trailing" id="LEE-9p-3m8"/>
                 <constraint firstAttribute="bottom" secondItem="CPc-y7-NiM" secondAttribute="bottom" id="MeP-qP-aJS"/>
+                <constraint firstAttribute="trailing" secondItem="uw6-85-iWk" secondAttribute="trailing" id="PYZ-qr-wtq"/>
                 <constraint firstItem="CPc-y7-NiM" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Pp1-94-cag"/>
                 <constraint firstItem="OAf-DC-1aD" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="-12" id="TZN-5K-3Hh"/>
+                <constraint firstItem="uw6-85-iWk" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="f6a-71-H6N"/>
                 <constraint firstAttribute="trailing" secondItem="fNd-Jf-LNd" secondAttribute="trailing" priority="750" constant="12" id="jjl-Tm-wNP"/>
+                <constraint firstItem="uw6-85-iWk" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="l0d-2L-iRq"/>
                 <constraint firstItem="O8V-dW-sfo" firstAttribute="centerX" secondItem="OAf-DC-1aD" secondAttribute="centerX" id="lKE-cB-ns8"/>
+                <constraint firstAttribute="bottom" secondItem="uw6-85-iWk" secondAttribute="bottom" id="sJM-UK-Csy"/>
                 <constraint firstItem="K4y-CQ-e8Q" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="tp7-kq-sag"/>
                 <constraint firstAttribute="trailing" secondItem="OAf-DC-1aD" secondAttribute="trailing" constant="-6" id="uGi-OC-YAE"/>
                 <constraint firstItem="K4y-CQ-e8Q" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="yQ8-gX-Ozk"/>
                 <constraint firstItem="O8V-dW-sfo" firstAttribute="centerY" secondItem="OAf-DC-1aD" secondAttribute="centerY" id="zc5-Jw-VHt"/>
             </constraints>
             <connections>
+                <outlet property="blurView" destination="dyT-BF-dcH" id="Is7-sT-l0h"/>
                 <outlet property="cardBrandIconImageView" destination="K4y-CQ-e8Q" id="uJG-Z0-BCJ"/>
                 <outlet property="cardSchemeLabel" destination="fNd-Jf-LNd" id="dcA-V8-Yfe"/>
                 <outlet property="deleteCardButton" destination="OAf-DC-1aD" id="jHi-pL-myJ"/>
+                <outlet property="deleteCardLoadingView" destination="uw6-85-iWk" id="V1z-s1-cbo"/>
                 <outlet property="deleteIconImageView" destination="O8V-dW-sfo" id="MXE-7l-RB7"/>
+                <outlet property="loaderGif" destination="htg-Co-YgC" id="CYq-5i-jAM"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="152.67857142857142"/>
         </collectionViewCell>
