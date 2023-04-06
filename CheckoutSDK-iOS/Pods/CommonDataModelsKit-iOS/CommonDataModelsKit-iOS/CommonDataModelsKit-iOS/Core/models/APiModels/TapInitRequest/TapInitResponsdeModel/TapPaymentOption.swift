@@ -91,7 +91,7 @@ public struct PaymentOption: IdentifiableWithString {
         if #available(iOS 12.0, *) {
             if UIScreen.main.traitCollection.userInterfaceStyle == .light {
                 if showMonoForLightMode {
-                    guard let lightMonoModePNGString = logos.light_colored?.png,
+                    guard let lightMonoModePNGString = logos.light_colored?.png?.replacingOccurrences(of: ".png", with: ".pdf"),
                           let lightMonoModePNGUrl    = URL(string: lightMonoModePNGString) else { return lightModePNGUrl }
                     return lightMonoModePNGUrl
                 }

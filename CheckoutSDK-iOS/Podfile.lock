@@ -1,6 +1,6 @@
 PODS:
-  - BugfenderSDK (1.11.0)
-  - CommonDataModelsKit-iOS (1.0.114):
+  - BugfenderSDK (1.12.0)
+  - CommonDataModelsKit-iOS (1.0.116):
     - SwiftyRSA
     - TapAdditionsKitV2
     - TapCardVlidatorKit-iOS
@@ -53,7 +53,7 @@ PODS:
   - TapThemeManager2020 (1.0.79):
     - LocalisationManagerKit-iOS
     - TapFontKit-iOS
-  - TapUIKit-iOS (1.0.134):
+  - TapUIKit-iOS (1.0.135):
     - CommonDataModelsKit-iOS
     - EasyTipView
     - FlagKit
@@ -100,8 +100,8 @@ SPEC REPOS:
     - TapUIKit-iOS
 
 SPEC CHECKSUMS:
-  BugfenderSDK: b31a017a6a6ee3e2e834ae36148e9b70fb33c20f
-  CommonDataModelsKit-iOS: 4e793f1fe1546b4331fe47ec8eed9b876d59e00c
+  BugfenderSDK: 96943aa224308f0deecd11185cd4e438d82a6350
+  CommonDataModelsKit-iOS: 4ff68228b6154f9bc37bb55ad6ddde67b396035f
   EasyTipView: a92b6edc377b81c5ac18e9fd35d5ee78e9409488
   FlagKit: eca7dc89064b0c986302ba9acefad1bf80a435b1
   LocalisationManagerKit-iOS: 4c140a36e66d34af69424a311659df3bd6cc793a
@@ -121,7 +121,7 @@ SPEC CHECKSUMS:
   TapNetworkKit-iOS: 92c8c7feae384dc2595f8f270853ee3cf8ea3380
   TapSwiftFixesV2: a8623a7273c6790b9754ec7e272e96fce7d3a800
   TapThemeManager2020: c064188a552487326fb77c91b052a075dd861cd8
-  TapUIKit-iOS: acf45c301ed45b2536d7f07db3b8795a25306b0c
+  TapUIKit-iOS: 0448a6e64cb7a61172ff73faf51614697b343d00
 
 PODFILE CHECKSUM: 1c2f5f1484381e0d33770c14615619392b21ce3a
 

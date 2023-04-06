@@ -105,5 +105,5 @@ install_xcframework() {
   echo "Copied $source to $destination"
 }
 
-install_xcframework "${PODS_ROOT}/BugfenderSDK/BugfenderSDK.xcframework" "BugfenderSDK" "framework" "ios-arm64" "ios-arm64_x86_64-maccatalyst" "ios-arm64_x86_64-simulator"
+install_xcframework "${PODS_ROOT}/BugfenderSDK/BugfenderSDK.xcframework" "BugfenderSDK" "framework" "ios-arm64_x86_64-maccatalyst" "ios-arm64" "ios-arm64_x86_64-simulator"
 
