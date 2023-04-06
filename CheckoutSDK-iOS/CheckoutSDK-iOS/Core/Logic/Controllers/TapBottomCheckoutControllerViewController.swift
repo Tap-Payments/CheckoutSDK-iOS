@@ -399,24 +399,33 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         // Stop the dismiss on swipe feature, because when we remove all views, the height will be minium than the threshold, ending up the whole sheet being dimissed
         let originalDismissOnSwipeValue = disableAutoDismiss()
         
-        self.removeView(viewType: TapMerchantHeaderView.self, with: .init(for: .none, with: 0), and: true, skipSelf: false)
+        self.removeView(viewType: TapMerchantHeaderView.self, with: .init(for: .fadeOut), and: true, skipSelf: false)
         
         webViewModel = .init()
         webViewModel.shouldShowHeaderView = false
         webViewModel.shouldBeFullScreen = true
         
         webViewModel.delegate = navigationDelegate
+        webViewModel.load(with: url)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(150)) { [weak self] in
-            self?.tapVerticalView.hideActionButton()
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300)) {
-                self?.tapVerticalView.add(view: self!.webViewModel.attachedView, with: [.init(for: .slideIn, with:self!.fadeInAnimationDuration, wait: 0.1)],shouldFillHeight: true)
+        webViewModel.idleForWhile = {
+            self.webViewModel.idleForWhile = {}
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300)) { [weak self] in
+                self?.tapVerticalView.hideActionButton()
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300)) {
+                    self?.tapVerticalView.add(view: self!.webViewModel.attachedView, with: [.init(for: .slideIn, with:self!.fadeInAnimationDuration, wait: 0.1)],shouldFillHeight: true)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) {
+                        self?.webViewModel.webView.webView.scrollView.tap_scrollToBottom(animated: false)
+                        self?.webViewModel.webView.webView.scrollView.tap_scrollToTop(animated: false)
+                        print("SCROLLED")
+                    }
+                }
+                self?.webViewModel.attachedView.layoutIfNeeded()
+                // remove any loading view if needed
+                self?.enableInteraction(with: true)
+                // Set it back to swipe on dismiss
+                TapCheckout.sharedCheckoutManager().dataHolder.viewModels.swipeDownToDismiss = originalDismissOnSwipeValue
             }
-            self?.webViewModel.load(with: url)
-            // remove any loading view if needed
-            self?.enableInteraction(with: true)
-            // Set it back to swipe on dismiss
-            TapCheckout.sharedCheckoutManager().dataHolder.viewModels.swipeDownToDismiss = originalDismissOnSwipeValue
         }
     }
     

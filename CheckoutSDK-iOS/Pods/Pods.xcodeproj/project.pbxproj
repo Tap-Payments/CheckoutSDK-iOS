@@ -671,6 +671,8 @@
 		E790AD0A8F499EB80FCFEB6E9A3E65FE /* TapVerticalView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11FC8015F64A8DDA9F5175069E2B2891 /* TapVerticalView.xib */; };
 		E79DABABE32587048940F44E693E6649 /* SwiftyRSA.h in Headers */ = {isa = PBXBuildFile; fileRef = 52CC31D6BE889C880D1A7E5D49A6A2FE /* SwiftyRSA.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E7F48CBB0A469127035E86D05B929515 /* TapScannerProtocl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22096F55FB5AC4EB2F098E434E5303AD /* TapScannerProtocl.swift */; };
+		E80E446829DE9F780019E10B /* black-error-mob.gif in Resources */ = {isa = PBXBuildFile; fileRef = E80E446629DE9F770019E10B /* black-error-mob.gif */; };
+		E80E446929DE9F780019E10B /* black-success-mob.gif in Resources */ = {isa = PBXBuildFile; fileRef = E80E446729DE9F780019E10B /* black-success-mob.gif */; };
 		E8692645D0EB012F7246985773B16F61 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5168EE3BFF7F815DF10AB57848D6F438 /* Order.swift */; };
 		E86DBDC2495F5367E1E51178AC4958FD /* TapGoPayTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C155DFD082ED158DDC943FFE0F52E2 /* TapGoPayTitleView.swift */; };
 		E887737D976704D5C57E9C89F1D06A5A /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39C055C3361FCB0B41CE8360D3D8DE4 /* CameraView.swift */; };
@@ -2104,6 +2106,8 @@
 		E6E75EBD351FE6451E6D2832AD293504 /* FlagKit-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "FlagKit-Info.plist"; sourceTree = "<group>"; };
 		E75DDD94B09D63AEAE18CC650D5B0842 /* Destination.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Destination.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/models/Destination.swift"; sourceTree = "<group>"; };
 		E770C3A667E9CB076154D31F24C47E99 /* ExtensionProtocols.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExtensionProtocols.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/models/ExtensionProtocols.swift"; sourceTree = "<group>"; };
+		E80E446629DE9F770019E10B /* black-error-mob.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "black-error-mob.gif"; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/black-error-mob.gif"; sourceTree = "<group>"; };
+		E80E446729DE9F780019E10B /* black-success-mob.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "black-success-mob.gif"; path = "TapUIKit-iOS/TapUIKit-iOS/Core/Assets/black-success-mob.gif"; sourceTree = "<group>"; };
 		E8162B951E03BD7ECFAF0387196384DC /* ConstraintDescription.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintDescription.swift; path = Sources/ConstraintDescription.swift; sourceTree = "<group>"; };
 		E87473C9D955BC6721D985D26C451596 /* BugfenderSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BugfenderSDK.debug.xcconfig; sourceTree = "<group>"; };
 		E8EACAC7C0E4A70BE7148283B887EDCF /* TapCard.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TapCard.swift; path = "CommonDataModelsKit-iOS/CommonDataModelsKit-iOS/Core/models/TapCard.swift"; sourceTree = "<group>"; };
@@ -3114,6 +3118,8 @@
 				83A8BF1510DBE0588FCFC8C5C4A3F487 /* tap.png */,
 				4BBD097848FFB0E6EF2EBA1DE937F0C0 /* tap@2x.png */,
 				782DD9C8CBA309A56BBE8647B1DA3B34 /* tap@3x.png */,
+				E80E446629DE9F770019E10B /* black-error-mob.gif */,
+				E80E446729DE9F780019E10B /* black-success-mob.gif */,
 				A2998D87484EE252E1637984396A5044 /* TapActionButton.xib */,
 				752BCCB895F5A0C2AF4037B6DF7E23A2 /* TapAmountSectionView.xib */,
 				E4A25DF2EAA3E9F3FF280A95D0243881 /* TapAsyncView.xib */,
@@ -4617,6 +4623,7 @@
 				DD6E61400C99219E13565C689937FC59 /* tap@2x.png in Resources */,
 				4F1C81388886CBE86D0A23B43C591A4E /* tap@3x.png in Resources */,
 				3B88A659F3BB8FCF5ACE07CBF4C871DE /* TapActionButton.xib in Resources */,
+				E80E446829DE9F780019E10B /* black-error-mob.gif in Resources */,
 				1FC472286669750845BBC610C5FF5EA6 /* TapAmountSectionView.xib in Resources */,
 				C3D7ED50932C51B5C713D8DB611777AA /* TapAsyncView.xib in Resources */,
 				457C8C0DED64D0ADE28F6A3004ED8D90 /* TapCardPhoneBarList.xib in Resources */,
@@ -4632,6 +4639,7 @@
 				DCB2B3A67D32DE27981E2322B4B2353B /* TapGoPayLoginBarView.xib in Resources */,
 				62A6D88ACC163330AD515C93FD6CEFE1 /* TapGoPayOTPView.xib in Resources */,
 				2521CB37DEF042073D0285D9AE1BF11C /* TapGoPayPasswordTextField.xib in Resources */,
+				E80E446929DE9F780019E10B /* black-success-mob.gif in Resources */,
 				906CE45F27FE1EE8D89517D4611C4E40 /* TapGoPayPasswordView.xib in Resources */,
 				6791355479AF310DC34C3FF6C12F0C61 /* TapGoPaySignInView.xib in Resources */,
 				80B9D6669A20CAC9063CAFD79B80E55B /* TapGoPayTitleView.xib in Resources */,
