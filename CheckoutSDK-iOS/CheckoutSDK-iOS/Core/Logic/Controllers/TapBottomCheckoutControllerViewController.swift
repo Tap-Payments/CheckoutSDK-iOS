@@ -354,6 +354,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         
         webViewModel.idleForWhile = {
             self.webViewModel.idleForWhile = {}
+            self.tapVerticalView.hideActionButton(fadeInDuation: 0.25,keepPowredByTapView: true)
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) { [weak self] in
                 // make sure all is set
                 guard let paymentViewModel = self?.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel else {return}
@@ -799,7 +800,7 @@ extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDe
         //tapVerticalView.remove(viewType: CustomerContactDataCollectionView.self, with: .init(for: .fadeOut, with: 0.35), and: false, skipSelf: false)
         //tapVerticalView.remove(viewType: CustomerShippingDataCollectionView.self, with: .init(for: .fadeOut, with: 0.35), and: false, skipSelf: false)
         
-        tapVerticalView.hideActionButton(fadeInDuation: 0.25,keepPowredByTapView: true)
+        
         // Second let us shrink the card view and make it in the ideal height,
         // Which is mainly hiding the save card view
         let cardViewModel = sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel

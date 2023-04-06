@@ -1,5 +1,5 @@
 PODS:
-  - BugfenderSDK (1.12.0)
+  - BugfenderSDK (1.11.0)
   - CommonDataModelsKit-iOS (1.0.116):
     - SwiftyRSA
     - TapAdditionsKitV2
@@ -69,7 +69,7 @@ PODS:
     - TapThemeManager2020
 
 DEPENDENCIES:
-  - BugfenderSDK
+  - BugfenderSDK (= 1.11.0)
   - TapApplicationV2
   - TapNetworkKit-iOS
   - TapUIKit-iOS
@@ -100,7 +100,7 @@ SPEC REPOS:
     - TapUIKit-iOS
 
 SPEC CHECKSUMS:
-  BugfenderSDK: 96943aa224308f0deecd11185cd4e438d82a6350
+  BugfenderSDK: b31a017a6a6ee3e2e834ae36148e9b70fb33c20f
   CommonDataModelsKit-iOS: 4ff68228b6154f9bc37bb55ad6ddde67b396035f
   EasyTipView: a92b6edc377b81c5ac18e9fd35d5ee78e9409488
   FlagKit: eca7dc89064b0c986302ba9acefad1bf80a435b1
@@ -123,6 +123,6 @@ SPEC CHECKSUMS:
   TapThemeManager2020: c064188a552487326fb77c91b052a075dd861cd8
   TapUIKit-iOS: 0448a6e64cb7a61172ff73faf51614697b343d00
 
-PODFILE CHECKSUM: 1c2f5f1484381e0d33770c14615619392b21ce3a
+PODFILE CHECKSUM: a11d355f0de25be5c6356b85b5389ad9ba1e396d
 
 COCOAPODS: 1.11.2

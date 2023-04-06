@@ -183,10 +183,10 @@
         },
         "Common": {
             "assets": {
-                "error": "white-error-mob.gif",
+                "error": "white-error-mob",
                 "faceID": "faceID",
                 "loading": "Black-loader",
-                "success": "white-success-mob.gif",
+                "success": "white-success-mob",
                 "touchID": "touchID"
             },
             "borderColor": "clear",

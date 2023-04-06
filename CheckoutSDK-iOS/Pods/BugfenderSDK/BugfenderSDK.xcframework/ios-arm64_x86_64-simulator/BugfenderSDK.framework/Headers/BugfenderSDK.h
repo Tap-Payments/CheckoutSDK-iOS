@@ -5,8 +5,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BFLogInterceptor.h"
-#import "BFDefaultLogInterceptor.h"
 
 #if TARGET_OS_IOS
 
@@ -85,7 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
 #define BFLibraryVersionNumber_1_10_5  66
 #define BFLibraryVersionNumber_1_10_6  67
 #define BFLibraryVersionNumber_1_11_0  68
-#define BFLibraryVersionNumber_1_12_0  69
+
 
 /**
  * Current Bugfender version number.
@@ -421,17 +419,6 @@ typedef NS_ENUM(NSUInteger, BFLogLevel)
  @return URL linking to Bugfender
  */
 + (nullable NSURL *)sendUserFeedbackReturningUrlWithSubject:(NSString *)subject message:(NSString *)message;
-
-/**
- * Logs all logs written via NSLog or OSLog.
- */
-+ (void)enableNSLogLogging API_AVAILABLE(macos(10.15), ios(15.0), tvos(15.0), watchos(8.0));
-
-/**
- * Logs all logs written via NSLog or OSLog.
- * @param interceptor intercept the logs and allow to modify or to block them before they are sent to Bugfender
- */
-+ (void)enableNSLogLoggingWithInterceptor:(id <BFLogInterceptor>)interceptor API_AVAILABLE(macos(10.15), ios(15.0), tvos(15.0), watchos(8.0)) NS_SWIFT_NAME(enableNSLogLogging(withInterceptor:));
 
 @end
 

@@ -16,6 +16,6 @@ target 'CheckoutSDK-iOS' do
 pod 'TapUIKit-iOS'
 pod 'TapNetworkKit-iOS'
 pod 'TapApplicationV2'
-pod 'BugfenderSDK'
+pod 'BugfenderSDK', '1.11.0'
 
 end

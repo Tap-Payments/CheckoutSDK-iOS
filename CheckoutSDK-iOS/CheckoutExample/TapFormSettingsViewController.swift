@@ -16,6 +16,7 @@ class TapFormSettingsViewController: Eureka.FormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         TapFormSettingsViewController.funcPreFillData()
         
         form +++ Section("SDK Configuration")
