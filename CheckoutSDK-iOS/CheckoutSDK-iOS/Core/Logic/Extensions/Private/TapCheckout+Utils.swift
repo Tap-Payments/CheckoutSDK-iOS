@@ -9,6 +9,7 @@
 import Foundation
 import CommonDataModelsKit_iOS
 import TapCardVlidatorKit_iOS
+import CoreTelephony
 /// A collection of logic to provide utils and singleton interfaces for multiple required methods
 internal extension TapCheckout {
     
@@ -125,5 +126,16 @@ internal extension TapCheckout {
         }
         // Return now all the brands that supports the selected currency
         return supportedPaymentOptions.map{ $0.brand }
+    }
+    
+    /// Detect the country code based on SIM network first/
+    func detectSimCountryCode() -> String? {
+        let networkInfo = CTTelephonyNetworkInfo()
+        let providers = networkInfo.serviceSubscriberCellularProviders
+        var simCountryISO:String? = "EG"
+        if let nonNullSimCountryIso:String = providers?.values.first(where: {$0.isoCountryCode != nil})?.isoCountryCode {
+            simCountryISO = nonNullSimCountryIso
+        }
+        return simCountryISO
     }
 }

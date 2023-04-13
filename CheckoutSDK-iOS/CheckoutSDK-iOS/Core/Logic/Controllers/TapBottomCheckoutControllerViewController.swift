@@ -259,6 +259,14 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
     }
     
     
+    func localCurrencyPromptClicked(currencyCode: String) {
+        // Make sure we have a valid currency view model (Just defensive code)
+        guard let nonNullCurrencyCode:TapCurrencyCode = .init(appleRawValue: currencyCode),
+              let nonNullCurrencyViewModel:CurrencyChipViewModel = self.sharedCheckoutDataManager.dataHolder.viewModels.currenciesChipsViewModel.first(where: { $0.currency.currency == nonNullCurrencyCode }) else { return }
+        
+        self.sharedCheckoutDataManager.currencyChip(for: nonNullCurrencyViewModel)
+    }
+    
     func closeGoPayClicked() {
         // Deselect all the selected chips
         sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deselectAll()

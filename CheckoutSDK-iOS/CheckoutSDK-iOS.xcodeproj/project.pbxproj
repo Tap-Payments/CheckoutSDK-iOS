@@ -78,6 +78,7 @@
 		E8983DCD24EEC3D900C34E50 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CF141924EE8F140036015C /* NetworkManager.swift */; };
 		E8983DD124F1469700C34E50 /* TapEntitResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8983DD024F1469700C34E50 /* TapEntitResponseModel.swift */; };
 		E89B4F8A26A21B3B0077B0A6 /* TapCheckout+CDNUrlsGeneration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89B4F8926A21B3B0077B0A6 /* TapCheckout+CDNUrlsGeneration.swift */; };
+		E8B3C4D429E593EF00CD5DD1 /* TapCheckout+Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B3C4D329E593EF00CD5DD1 /* TapCheckout+Locale.swift */; };
 		E8B5275428D727E90001FE24 /* TapCheckout+Loyalty.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B5275328D727E90001FE24 /* TapCheckout+Loyalty.swift */; };
 		E8C2052824E40E95006653CA /* CustomLocalisation.json in Resources */ = {isa = PBXBuildFile; fileRef = E8C2052724E40E95006653CA /* CustomLocalisation.json */; };
 		E8C58B3824E5344700E1F04F /* TapCheckOutTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C58B3724E5344700E1F04F /* TapCheckOutTheme.swift */; };
@@ -218,6 +219,7 @@
 		E89225E924E92CE7001D5CAB /* TapCheckout+KitsConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+KitsConfigurations.swift"; sourceTree = "<group>"; };
 		E8983DD024F1469700C34E50 /* TapEntitResponseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapEntitResponseModel.swift; sourceTree = "<group>"; };
 		E89B4F8926A21B3B0077B0A6 /* TapCheckout+CDNUrlsGeneration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+CDNUrlsGeneration.swift"; sourceTree = "<group>"; };
+		E8B3C4D329E593EF00CD5DD1 /* TapCheckout+Locale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+Locale.swift"; sourceTree = "<group>"; };
 		E8B5275328D727E90001FE24 /* TapCheckout+Loyalty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+Loyalty.swift"; sourceTree = "<group>"; };
 		E8C2052724E40E95006653CA /* CustomLocalisation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CustomLocalisation.json; sourceTree = "<group>"; };
 		E8C58B3724E5344700E1F04F /* TapCheckOutTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckOutTheme.swift; sourceTree = "<group>"; };
@@ -492,6 +494,7 @@
 				E83923CA269F0C3900421E15 /* TapCheckout + ScannerHandler.swift */,
 				E89B4F8926A21B3B0077B0A6 /* TapCheckout+CDNUrlsGeneration.swift */,
 				E8B5275328D727E90001FE24 /* TapCheckout+Loyalty.swift */,
+				E8B3C4D329E593EF00CD5DD1 /* TapCheckout+Locale.swift */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -849,6 +852,7 @@
 				E8DE2C81299FD3E800A02639 /* TapGoogleCloudDestination.swift in Sources */,
 				E83923CB269F0C3A00421E15 /* TapCheckout + ScannerHandler.swift in Sources */,
 				E8844F542678A1150073D777 /* TapCheckoutApiCallsExtensions.swift in Sources */,
+				E8B3C4D429E593EF00CD5DD1 /* TapCheckout+Locale.swift in Sources */,
 				E8EC81C2267F57650080E760 /* TapCheckout+TransactionData.swift in Sources */,
 				E8DE2C82299FD3E800A02639 /* TapExtensions.swift in Sources */,
 				E8DE2C87299FD3E800A02639 /* TapFilterValidator.swift in Sources */,

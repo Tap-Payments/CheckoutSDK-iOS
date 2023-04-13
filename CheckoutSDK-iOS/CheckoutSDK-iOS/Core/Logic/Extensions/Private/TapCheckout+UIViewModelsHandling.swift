@@ -12,7 +12,7 @@ import CommonDataModelsKit_iOS
 import TapCardVlidatorKit_iOS
 import PassKit
 import TapApplePayKit_iOS
-
+import CoreTelephony
 /// Extension to handle logic to update ui view models based on data changes
 internal extension TapCheckout {
     /// Handles the logic required to update all required fields and variables upon a change in the current shared data manager state
@@ -78,6 +78,26 @@ internal extension TapCheckout {
         TapCheckout.defaulItemTitle = "PAY TO \(merchantName)"
         dataHolder.transactionData.transactionItemsValue.first?.title       = TapCheckout.defaulItemTitle
         dataHolder.transactionData.transactionItemsValue.first?.totalAmount = dataHolder.transactionData.transactionCurrencyValue.amount
+    }
+    
+    /// Fetch local currency prompt needed data
+    func updateDefaultCurrenyPromptData() {
+        // Make sure we have valid detected country and detected currency code
+        guard let nonNullCountryCode:String = detectSimCountryCode()?.uppercased(),
+        let nonNullCurrencyCode:String = Locale.currency[nonNullCountryCode] ?? "",
+        let tapCurrency:TapCurrencyCode = .init(appleRawValue: nonNullCurrencyCode),
+        tapCurrency != .undefined else { return }
+        
+        // Make sure detected local currency is one of the supported currencies & it is not the transaction currency itself
+        guard dataHolder.transactionData.paymentOptionsModelResponse?.currency != tapCurrency,
+        let amountedCurrency = dataHolder.transactionData.paymentOptionsModelResponse?.supportedCurrenciesAmounts.first(where: { $0.currency == tapCurrency }) else { return }
+        
+        // Make sure detected local currency has at least 1 supported payment method, shouldn't come as supported currency from backend if not but defensive coding won't harm
+        guard let _ = dataHolder.transactionData.paymentOptionsModelResponse?.paymentOptions.first(where: { $0.supportedCurrencies.contains(tapCurrency) }) else { return }
+        
+        
+        // Tell the view model to update the currency prompt with the correct local currency values
+        dataHolder.viewModels.tapAmountSectionViewModel.configureCurrencyPrompt(with: nonNullCurrencyCode, and: amountedCurrency.correctBackEndImageURL())
     }
     
     /// Handles if goPay should be shown if the user is logged in, determine the header of the both gateways cards and goPay cards based on the visibility ot the goPay cards
@@ -339,9 +359,13 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         // Fetch the cards + telecom payments options
         self.dataHolder.viewModels.tapCardPhoneListDataSource = paymentOptions.paymentOptions.filter{ (dataHolder.transactionData.paymentType == .Card || dataHolder.transactionData.paymentType == .All) && $0.paymentType == .Card }.map{ CurrencyCardsTelecomModel.init(paymentOption: $0) }
         
+        // Fetch local currency prompt needed data
+        updateDefaultCurrenyPromptData()
+        
         // We need to change the default item title in case the user didn't pass any items to have the correct name of the merchant we just got from the INIT api.
         updateDefaultItemTitle()
         
+        // Update the values for the views based on the all the fetched data from the api
         updateManager()
     }
     
