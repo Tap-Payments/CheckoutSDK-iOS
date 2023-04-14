@@ -181,10 +181,10 @@
         },
         "Common": {
             "assets": {
-                "error": "white-error-mob",
+                "error": "white-error-mob.gif",
                 "faceID": "faceID",
-                "loading": "3sec-white-loader-2",
-                "success": "white-success-mob",
+                "loading": "3sec-white-loader-2.gif",
+                "success": "white-success-mob.gif",
                 "touchID": "touchID"
             },
             "borderColor": "clear",
@@ -515,11 +515,6 @@
             "radius": 8,
             "savedCardChip": {
                 "backgroundColor": "white",
-                "blurOverlay": {
-                    "alpha": 0.5,
-                    "color": "#FFFFFF",
-                    "radius": 8
-                },
                 "editMode": {
                     "alpha": 0.8,
                     "deleteIcon": "deleteCardIconLight"
@@ -741,8 +736,7 @@
     },
     "poweredByTap": {
         "backgroundColor": "#0000000F",
-        "blurAlpha": 0.06,
-        "blurColor": "#0000000",
+        "blurColor": "#0000000F",
         "powerLabel": {
             "font": "Roboto-Light,10",
             "textColor": "lightGrey"

@@ -183,10 +183,10 @@
         },
         "Common": {
             "assets": {
-                "error": "white-error-mob",
+                "error": "white-error-mob.gif",
                 "faceID": "faceID",
-                "loading": "Black-loader",
-                "success": "white-success-mob",
+                "loading": "3sec-white-loader-2.gif",
+                "success": "white-success-mob.gif",
                 "touchID": "touchID"
             },
             "borderColor": "clear",
@@ -198,9 +198,9 @@
             "titleLabelColor": "#626262"
         },
         "Valid": {
-            "goLoginBackgroundColor": "#FFFFFF",
-            "paymentBackgroundColor": "#FFFFFF",
-            "titleLabelColor": "#000000"
+            "goLoginBackgroundColor": "deepSkyBlue",
+            "paymentBackgroundColor": "vibrantGreen",
+            "titleLabelColor": "greyishBrown"
         }
     },
     "amountSectionView": {
@@ -518,11 +518,6 @@
             "radius": 8,
             "savedCardChip": {
                 "backgroundColor": "black",
-                "blurOverlay": {
-                    "alpha": 0.5,
-                    "color": "#000000",
-                    "radius": 8
-                },
                 "editMode": {
                     "alpha": 0.8,
                     "deleteIcon": "deleteCardIconLight"
@@ -744,8 +739,7 @@
     },
     "poweredByTap": {
         "backgroundColor": "#00000052",
-        "blurAlpha": 0.32,
-        "blurColor": "#000000",
+        "blurColor": "#00000052",
         "powerLabel": {
             "font": "Roboto-Light,10",
             "textColor": "greyishBrown"
