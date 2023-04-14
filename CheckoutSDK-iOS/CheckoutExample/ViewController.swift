@@ -134,6 +134,7 @@ class ViewController: UIViewController {
             localiseFile: TapFormSettingsViewController.sdkLocalisation(),
             delegate: self,
             currency: TapFormSettingsViewController.transactionSettings().1,
+            supportedCurrencies: Array(TapFormSettingsViewController.transactionSettings().3),
             amount: amount,
             items: getPaymentItems(),
             applePayMerchantID: TapFormSettingsViewController.merchantSettings().4,

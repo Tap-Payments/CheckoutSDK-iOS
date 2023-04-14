@@ -227,6 +227,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      - Parameter localiseFile: Please pass the name of the custom localisation file model if needed. If not set, the normal and default TAP localisations will be used
      - Parameter delegate: A protocol to communicate with the Presente tap sheet controller
      - Parameter currency: Represents the original transaction currency stated by the merchant on checkout start
+     - Parameter supportedCurrencies: Represents the allowed currencies for the transaction. Leave nil for ALL, pass the 3 digits iso KWD, EGP, etc.
      - Parameter amount: Represents the original total transaction amount stated by the merchant on checkout start
      - Parameter items: Represents the List of payment items if any. If no items are provided one will be created by default as PAY TO [MERCHANT NAME] -- Total value
      - Parameter applePayMerchantID: The Apple pay merchant id to be used inside the apple pay kit
@@ -272,6 +273,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         localiseFile:TapCheckoutLocalisation? = nil,
         delegate: CheckoutScreenDelegate? = nil,
         currency:TapCurrencyCode = .USD,
+        supportedCurrencies:[String]? = nil,
         amount:Double = 1,
         items:[ItemModel] = [],
         applePayMerchantID:String = "merchant.tap.gosell",
@@ -314,7 +316,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
             prepareSDK(with: sdkMode,delegate:delegate, enableApiLogging:enableApiLogging.map{ TapLoggingType(rawValue: $0) ?? .CONSOLE })
             
             // Store the passed configurations for further processing
-            configureSharedManager(customTheme:customTheme, localiseFile: localiseFile, currency:currency, amount:amount,items:items,applePayMerchantID:applePayMerchantID,swipeDownToDismiss:swipeDownToDismiss,paymentType:paymentType,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID,taxes: taxes, shipping: shipping, allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor,require3DSecure:require3DSecure,receiptSettings:receiptSettings, authorizeAction: authorizeAction,allowsToSaveSameCardMoreThanOnce: allowsToSaveSameCardMoreThanOnce, enableSaveCard: enableSaveCard, enableApiLogging: enableApiLogging.map{ TapLoggingType(rawValue: $0) ?? .CONSOLE }, isSaveCardSwitchOnByDefault: isSaveCardSwitchOnByDefault, collectCreditCardName: collectCreditCardName, creditCardNameEditable: creditCardNameEditable, creditCardNamePreload: creditCardNamePreload, showSaveCreditCard:showSaveCreditCard, isSubscription: isSubscription, recurringPaymentRequest: recurringPaymentRequest, applePayButtonType :applePayButtonType, applePayButtonStyle: applePayButtonStyle, shouldFlipCardData: shouldFlipCardData, cardShouldThemeItself: true)
+            configureSharedManager(customTheme:customTheme, localiseFile: localiseFile, currency:currency, supportedCurrencies:supportedCurrencies?.compactMap{ TapCurrencyCode(appleRawValue: $0) }.filter{$0 != .undefined }, amount:amount,items:items,applePayMerchantID:applePayMerchantID,swipeDownToDismiss:swipeDownToDismiss,paymentType:paymentType,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID,taxes: taxes, shipping: shipping, allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor,require3DSecure:require3DSecure,receiptSettings:receiptSettings, authorizeAction: authorizeAction,allowsToSaveSameCardMoreThanOnce: allowsToSaveSameCardMoreThanOnce, enableSaveCard: enableSaveCard, enableApiLogging: enableApiLogging.map{ TapLoggingType(rawValue: $0) ?? .CONSOLE }, isSaveCardSwitchOnByDefault: isSaveCardSwitchOnByDefault, collectCreditCardName: collectCreditCardName, creditCardNameEditable: creditCardNameEditable, creditCardNamePreload: creditCardNamePreload, showSaveCreditCard:showSaveCreditCard, isSubscription: isSubscription, recurringPaymentRequest: recurringPaymentRequest, applePayButtonType :applePayButtonType, applePayButtonStyle: applePayButtonStyle, shouldFlipCardData: shouldFlipCardData, cardShouldThemeItself: true)
             
             // Initiate the needed calls to server to start the session
             initialiseSDKFromAPI() {  [self] in

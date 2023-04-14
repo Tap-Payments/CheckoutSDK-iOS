@@ -126,8 +126,8 @@ class TapFormSettingsViewController: Eureka.FormViewController {
             })
         })
         
-        
         form +++ Section("Transaction Configuration")
+        
         <<< PickerInlineRow<String>(TapSettingsKeys.SDKTransactionMode.rawValue, { row in
             row.title = "Trx mode"
             row.options = TransactionMode.allCases.map{ $0.description }
@@ -137,6 +137,27 @@ class TapFormSettingsViewController: Eureka.FormViewController {
                 UserDefaults.standard.synchronize()
             }
         })
+        
+        <<< MultipleSelectorRow<String>(tag: TapSettingsKeys.SDKTransactionAllowedCurrencies.rawValue)
+            .cellSetup { cell, row in
+                row.title = "Supported currencies"
+                row.options = [TapCurrencyCode.KWD.appleRawValue,
+                               TapCurrencyCode.AED.appleRawValue,
+                               TapCurrencyCode.SAR.appleRawValue,
+                               TapCurrencyCode.BHD.appleRawValue,
+                               TapCurrencyCode.OMR.appleRawValue,
+                               TapCurrencyCode.QAR.appleRawValue,
+                               TapCurrencyCode.EGP.appleRawValue,
+                               TapCurrencyCode.USD.appleRawValue,
+                               TapCurrencyCode.EUR.appleRawValue,
+                               TapCurrencyCode.GBP.appleRawValue]
+                row.value = TapFormSettingsViewController.transactionSettings().3
+            }
+            .cellUpdate{ cell, row in
+                let selected:[String] = Array(row.value ?? [])
+                UserDefaults.standard.set(selected.isEmpty ? [] : selected, forKey: TapSettingsKeys.SDKTransactionAllowedCurrencies.rawValue)
+            }
+        
         
         
         <<< PickerInlineRow<String>(TapSettingsKeys.SDKTransactionCurrency.rawValue, { row in
@@ -459,6 +480,8 @@ fileprivate enum TapSettingsKeys:String {
     
     case SDKTransactionMode
     case SDKTransactionCurrency
+    case SDKTransactionAllowedCurrencies
+    case SDKTransactionAllowedAllCurrencies
     case SDKTransactionPaymentTypes
     
     case SDKCustomerType
@@ -591,7 +614,7 @@ extension TapFormSettingsViewController {
         
     }
     
-    static func transactionSettings() -> (TransactionMode, TapCurrencyCode, TapPaymentType) {
+    static func transactionSettings() -> (TransactionMode, TapCurrencyCode, TapPaymentType, Set<String>) {
         
         let SDKTransactionMode:TransactionMode = TransactionMode.allCases.first(where: {$0.description == UserDefaults.standard.string(forKey: TapSettingsKeys.SDKTransactionMode.rawValue) ?? "" }) ?? .purchase
         
@@ -600,7 +623,9 @@ extension TapFormSettingsViewController {
         
         let SDKTransactionPaymentTypes:TapPaymentType = TapPaymentType(stringValue: UserDefaults.standard.string(forKey: TapSettingsKeys.SDKTransactionPaymentTypes.rawValue) ?? "all")
         
-        return (SDKTransactionMode, SDKTransactionCurrency, SDKTransactionPaymentTypes)
+        let allowedCurrencies:[String] = UserDefaults.standard.stringArray(forKey: TapSettingsKeys.SDKTransactionAllowedCurrencies.rawValue) ?? []
+        
+        return (SDKTransactionMode, SDKTransactionCurrency, SDKTransactionPaymentTypes,Set(allowedCurrencies))
         
     }
     
@@ -690,7 +715,7 @@ extension TapFormSettingsViewController {
     }
     
     static func funcPreFillData () {
-        if !UserDefaults.standard.bool(forKey: "SettingsBrefilled3") {
+        if !UserDefaults.standard.bool(forKey: "SettingsBrefilled9") {
             
             UserDefaults.standard.set(true, forKey: TapSettingsKeys.SDKCardRequire3DS.rawValue)
             UserDefaults.standard.set(true, forKey: TapSettingsKeys.SDKCardNameEnabled.rawValue)
@@ -698,7 +723,17 @@ extension TapFormSettingsViewController {
             UserDefaults.standard.set(true, forKey: TapSettingsKeys.SDKULogUI.rawValue)
             UserDefaults.standard.set(true, forKey: TapSettingsKeys.SDKLogEvents.rawValue)
             UserDefaults.standard.set(true, forKey: TapSettingsKeys.SDKLogConsole.rawValue)
-            UserDefaults.standard.set(true, forKey: "SettingsBrefilled3")
+            UserDefaults.standard.set(true, forKey: "SettingsBrefilled9")
+            UserDefaults.standard.set([TapCurrencyCode.KWD.appleRawValue,
+                                        TapCurrencyCode.AED.appleRawValue,
+                                        TapCurrencyCode.SAR.appleRawValue,
+                                        TapCurrencyCode.BHD.appleRawValue,
+                                        TapCurrencyCode.OMR.appleRawValue,
+                                        TapCurrencyCode.QAR.appleRawValue,
+                                        TapCurrencyCode.EGP.appleRawValue,
+                                        TapCurrencyCode.USD.appleRawValue,
+                                        TapCurrencyCode.EUR.appleRawValue,
+                                        TapCurrencyCode.GBP.appleRawValue], forKey: TapSettingsKeys.SDKTransactionAllowedCurrencies.rawValue)
             UserDefaults.standard.synchronize()
         }
     }

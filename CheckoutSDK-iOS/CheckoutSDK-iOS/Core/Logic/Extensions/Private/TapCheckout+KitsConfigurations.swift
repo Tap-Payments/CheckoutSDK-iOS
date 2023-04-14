@@ -71,6 +71,7 @@ internal extension TapCheckout {
      - Parameter customTheme: Please pass the tap checkout theme object with the names of your custom theme files if needed. If not set, the normal and default TAP theme will be used
      - Parameter localiseFile: Please pass the name of the custom localisation file model if needed. If not set, the normal and default TAP localisations will be used
      - Parameter currency: Represents the original transaction currency stated by the merchant on checkout start
+     - Parameter supportedCurrencies: Represents the allowed currencies for the transaction. Leave nil for ALL
      - Parameter amount: Represents the original transaction amount stated by the merchant on checkout start
      - Parameter items: Represents the List of payment items if any. If no items are provided one will be created by default as PAY TO [MERCHANT NAME] -- Total value
      - Parameter applePayMerchantID: The Apple pay merchant id to be used inside the apple pay kit
@@ -111,6 +112,7 @@ internal extension TapCheckout {
     func configureSharedManager(customTheme:TapCheckOutTheme? = nil,
                                 localiseFile:TapCheckoutLocalisation? = nil,
                                 currency:TapCurrencyCode,
+                                supportedCurrencies:[TapCurrencyCode]? = nil,
                                 amount:Double,
                                 items:[ItemModel],applePayMerchantID:String = "merchant.tap.gosell",
                                 swipeDownToDismiss:Bool = false,
@@ -170,6 +172,7 @@ internal extension TapCheckout {
         sharedManager.dataHolder.transactionData.dataHolderDelegate = sharedManager
         
         sharedManager.dataHolder.transactionData.transactionCurrencyValue       = .init(currency, amount, "")
+        sharedManager.dataHolder.transactionData.supportedCurrencies              = supportedCurrencies
         sharedManager.dataHolder.transactionData.applePayMerchantID             = applePayMerchantID
         sharedManager.dataHolder.transactionData.paymentType                    = paymentType
         

@@ -293,6 +293,9 @@ internal class TransactionDataHolder {
     /// Decides which destination(s) this transaction's amount should split to. Please check [Destination](x-source-tag://Destination)
     var destinations: [Destination]?
     
+    /// Decides which currency(s) this transaction can be paid with.
+    var supportedCurrencies: [TapCurrencyCode]?
+    
     /// Merchant ID. Optional. Useful when you have multiple Tap accounts and would like to do the `switch` on the fly within the single app.
     var tapMerchantID:String?
     
