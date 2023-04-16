@@ -274,8 +274,10 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
               let nonNullCurrencyViewModel:CurrencyChipViewModel = self.sharedCheckoutDataManager.dataHolder.viewModels.currenciesChipsViewModel.first(where: { $0.currency.currency == nonNullCurrencyCode }) else { return }
         sharedCheckoutDataManager.resetCardData(shouldFireCardDataChanged: false)
         CardValidator.favoriteCardBrand = nil
+        self.sharedCheckoutDataManager.currencyChip(for: nonNullCurrencyViewModel)
+        
         self.removeView(viewType: TapAmountSectionView.self, with: .init(for: .fadeOut, with: 0.0), and: true, skipSelf: true)
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(75)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
             self.sharedCheckoutDataManager.currencyChip(for: nonNullCurrencyViewModel)
             self.tapVerticalView.add(views: [self.sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView, self.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView], with: [.init(for: .fadeIn, with: 0.0 , wait: 0)])
         }
