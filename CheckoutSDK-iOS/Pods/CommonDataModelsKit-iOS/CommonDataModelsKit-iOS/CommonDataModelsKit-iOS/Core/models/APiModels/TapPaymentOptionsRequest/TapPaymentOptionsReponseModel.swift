@@ -8,6 +8,8 @@
 
 import Foundation
 import TapCardVlidatorKit_iOS
+import PassKit
+
 
 /// Payment Options Response model.
 public struct TapPaymentOptionsReponseModel: IdentifiableWithString {
@@ -108,6 +110,7 @@ extension TapPaymentOptionsReponseModel: Decodable {
         
         paymentOptions = paymentOptions.sorted(by: { $0.orderBy < $1.orderBy })
         
+        // Move any new card brand added for web based payment methods to a default one, to allow backend add new redirection payment methods on the fly
         for i in 0...paymentOptions.count-1 {
             if paymentOptions[i].brand == .unknown {
                 if paymentOptions[i].paymentType == .Web {
@@ -122,6 +125,9 @@ extension TapPaymentOptionsReponseModel: Decodable {
         
         // Sort the payment options and filter any unknown out
         paymentOptions = paymentOptions.filter { ($0.brand != .unknown || $0.paymentType == .ApplePay) && $0.paymentType != .All }
+        // Remove the apple pay, if the device is not supporting it
+        paymentOptions = paymentOptions.filter{ $0.paymentType != .ApplePay || ($0.paymentType == .ApplePay && PKPaymentAuthorizationController.canMakePayments(usingNetworks: $0.applePayNetworkMapper())) }
+        // Let us sort it out
         paymentOptions = paymentOptions.sorted(by: { $0.orderBy < $1.orderBy })
         
         // Filter saved cards based on allowed card types passed by the user when loading the SDK session

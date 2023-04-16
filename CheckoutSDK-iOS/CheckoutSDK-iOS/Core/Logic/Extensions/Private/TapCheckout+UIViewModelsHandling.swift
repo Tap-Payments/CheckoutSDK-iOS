@@ -82,22 +82,32 @@ internal extension TapCheckout {
     
     /// Fetch local currency prompt needed data
     func updateDefaultCurrenyPromptData() {
+        let (shouldShow, tapCurrency, amountedCurrency) = shouldShowLocalPrompt()
+        
+        guard shouldShow,
+              let nonNullCurrencyCode = tapCurrency,
+              let nonNullAmountedCurrency = amountedCurrency else { return }
+            
+        // Tell the view model to update the currency prompt with the correct local currency values
+        dataHolder.viewModels.tapAmountSectionViewModel.configureCurrencyPrompt(with: nonNullCurrencyCode.appleRawValue, and: nonNullAmountedCurrency.correctBackEndImageURL())
+        
+    }
+    
+    /// Decides whether or not we should show the local currency prompt
+    func shouldShowLocalPrompt() -> (Bool,TapCurrencyCode?,AmountedCurrency?) {
         // Make sure we have valid detected country and detected currency code
-        guard let nonNullCountryCode:String = detectSimCountryCode()?.uppercased(),
-        let nonNullCurrencyCode:String = Locale.currency[nonNullCountryCode] ?? "",
-        let tapCurrency:TapCurrencyCode = .init(appleRawValue: nonNullCurrencyCode),
-        tapCurrency != .undefined else { return }
+        let tapCurrency:TapCurrencyCode = detectSimCurrencyCode()
+        guard tapCurrency != .undefined else { return (false,nil,nil) }
         
         // Make sure detected local currency is one of the supported currencies & it is not the transaction currency itself
         guard dataHolder.transactionData.paymentOptionsModelResponse?.currency != tapCurrency,
-        let amountedCurrency = dataHolder.transactionData.paymentOptionsModelResponse?.supportedCurrenciesAmounts.first(where: { $0.currency == tapCurrency }) else { return }
+              dataHolder.transactionData.transactionUserCurrencyValue.currency != tapCurrency,
+              let amountedCurrency = dataHolder.transactionData.paymentOptionsModelResponse?.supportedCurrenciesAmounts.first(where: { $0.currency == tapCurrency }) else { return (false,nil,nil) }
         
         // Make sure detected local currency has at least 1 supported payment method, shouldn't come as supported currency from backend if not but defensive coding won't harm
-        guard let _ = dataHolder.transactionData.paymentOptionsModelResponse?.paymentOptions.first(where: { $0.supportedCurrencies.contains(tapCurrency) }) else { return }
+        guard let _ = dataHolder.transactionData.paymentOptionsModelResponse?.paymentOptions.first(where: { $0.supportedCurrencies.contains(tapCurrency) }) else { return (false,nil,nil) }
         
-        
-        // Tell the view model to update the currency prompt with the correct local currency values
-        dataHolder.viewModels.tapAmountSectionViewModel.configureCurrencyPrompt(with: nonNullCurrencyCode, and: amountedCurrency.correctBackEndImageURL())
+        return (true, tapCurrency, amountedCurrency)
     }
     
     /// Handles if goPay should be shown if the user is logged in, determine the header of the both gateways cards and goPay cards based on the visibility ot the goPay cards

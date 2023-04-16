@@ -244,6 +244,15 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
             self?.tapVerticalView.showActionButton(fadeInDuation:self!.fadeInAnimationDuration,fadeInDelay:0)
             self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView], with: [.init(for: .slideIn, with:self!.fadeInAnimationDuration, wait: 0)])
         })
+        // Decide whether we have to show the local currency prompt back or not
+        let (shouldShow, tapCurrency, amountedCurrency) = self.sharedCheckoutDataManager.shouldShowLocalPrompt()
+        
+        guard shouldShow,
+              let _ = tapCurrency,
+              let _ = amountedCurrency else { return }
+        
+        // Tell the view model to update the currency prompt with the correct local currency values
+        self.sharedCheckoutDataManager.dataHolder.viewModels.tapAmountSectionViewModel.showLocalCurrencyPromptBack()
     }
     
     func amountSectionClicked() {
@@ -263,8 +272,13 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         // Make sure we have a valid currency view model (Just defensive code)
         guard let nonNullCurrencyCode:TapCurrencyCode = .init(appleRawValue: currencyCode),
               let nonNullCurrencyViewModel:CurrencyChipViewModel = self.sharedCheckoutDataManager.dataHolder.viewModels.currenciesChipsViewModel.first(where: { $0.currency.currency == nonNullCurrencyCode }) else { return }
-        
-        self.sharedCheckoutDataManager.currencyChip(for: nonNullCurrencyViewModel)
+        sharedCheckoutDataManager.resetCardData(shouldFireCardDataChanged: false)
+        CardValidator.favoriteCardBrand = nil
+        self.removeView(viewType: TapAmountSectionView.self, with: .init(for: .fadeOut, with: 0.0), and: true, skipSelf: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(75)) {
+            self.sharedCheckoutDataManager.currencyChip(for: nonNullCurrencyViewModel)
+            self.tapVerticalView.add(views: [self.sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView, self.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView], with: [.init(for: .fadeIn, with: 0.0 , wait: 0)])
+        }
     }
     
     func closeGoPayClicked() {

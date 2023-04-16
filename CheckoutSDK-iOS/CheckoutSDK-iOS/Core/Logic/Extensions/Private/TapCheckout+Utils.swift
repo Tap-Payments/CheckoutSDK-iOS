@@ -138,4 +138,13 @@ internal extension TapCheckout {
         }
         return simCountryISO
     }
+    
+    /// Detect the local currency of the user
+    func detectSimCurrencyCode() -> TapCurrencyCode {
+        guard let nonNullCountryCode:String = detectSimCountryCode()?.uppercased(),
+              let nonNullCurrencyCode:String = Locale.currency[nonNullCountryCode] ?? "",
+              let tapCurrency:TapCurrencyCode = .init(appleRawValue: nonNullCurrencyCode),
+              tapCurrency != .undefined else { return TapCurrencyCode.undefined }
+        return tapCurrency
+    }
 }
