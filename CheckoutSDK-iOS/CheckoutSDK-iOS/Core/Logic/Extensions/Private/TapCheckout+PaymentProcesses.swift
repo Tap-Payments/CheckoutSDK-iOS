@@ -90,8 +90,9 @@ internal extension TapCheckout {
         if dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.dataSource.count > 0 {
             TapCheckout.sharedCheckoutManager().UIDelegate?.changeHeightt(to: dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView.frame.height + dataHolder.viewModels.tapAmountSectionViewModel.attachedView.frame.height)
             
-            TapCheckout.sharedCheckoutManager().UIDelegate?.removeView(view: dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView, with: .init(for: .fadeOut, with: 0.3, and: .top))
-            TapCheckout.sharedCheckoutManager().UIDelegate?.removeView(view: dataHolder.viewModels.tapAmountSectionViewModel.attachedView, with: .init(for: .fadeOut, with: 0.3, and: .top))
+            TapCheckout.sharedCheckoutManager().UIDelegate?.removeView(view: dataHolder.viewModels.tapAmountSectionViewModel.attachedView, with: .init(for: .fadeOut, with: 0.1, and: .bottom))
+            TapCheckout.sharedCheckoutManager().UIDelegate?.removeView(view: dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView, with: .init(for: .fadeOut, with: 0.1, and: .top))
+            
         }
         // Create a card tokenization api to start with and call it
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(450)){ [weak self] in
