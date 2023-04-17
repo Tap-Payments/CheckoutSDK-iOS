@@ -112,7 +112,7 @@ internal protocol  ToPresentAsPopupViewControllerDelegate {
 extension TapCheckout:TapBottomSheetDialogDataSource {
     
     public func tapBottomSheetBackGroundColor() -> UIColor? {
-        return TapThemeManager.colorValue(for: "TapVerticalView.backgroundOverlayColor") ?? .clear
+        return .clear// TapThemeManager.colorValue(for: "TapVerticalView.backgroundOverlayColor") ?? .clear
     }
     
     public func tapBottomSheetBlurEffect() -> UIBlurEffect? {
