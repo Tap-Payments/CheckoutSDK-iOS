@@ -46,7 +46,7 @@ internal extension TapCheckout {
             startApplePayPayment(with: paymentOption, and: andApplePayToken)
         default:
             // in all cases, as long as the user opted out to pay , let us hide the local currency prompt
-            TapCheckout.sharedCheckoutManager().hideLocalCurrency()
+            hideLocalCurrency()
             return
         }
     }

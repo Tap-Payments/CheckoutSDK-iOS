@@ -186,6 +186,12 @@ internal extension TapCheckout {
         return items
     }
     
+    
+    /// Call it whenever needed to hide the local currency prompt for good
+    func hideLocalCurrency() {
+        sharedCheckoutDataManager.dataHolder.viewModels.tapAmountSectionViewModel.removeCurrencyPrompt()
+    }
+    
     /// We need to highlight the default currency of the user didn't select a new currency other than the default currency
     func highlightDefaultCurrency() {
         
