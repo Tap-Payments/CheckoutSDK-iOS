@@ -267,6 +267,10 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         }
     }
     
+    /// Call it whenever needed to hide the local currency prompt for good
+    func hideLocalCurrency() {
+        sharedCheckoutDataManager.dataHolder.viewModels.tapAmountSectionViewModel.removeCurrencyPrompt()
+    }
     
     func localCurrencyPromptClicked(currencyCode: String) {
         // Make sure we have a valid currency view model (Just defensive code)
