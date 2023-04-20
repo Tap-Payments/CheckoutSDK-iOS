@@ -11,8 +11,9 @@ import struct PassKit.PKPaymentNetwork
 import TapCardVlidatorKit_iOS
 /// Payment Option model.
 public struct PaymentOption: IdentifiableWithString {
+    fileprivate class Bar {}
     
-    public init(identifier: String, brand: CardBrand, title: String, backendImageURL: URL, isAsync: Bool, paymentType: TapPaymentType, sourceIdentifier: String? = nil, supportedCardBrands: [CardBrand], supportedCurrencies: [TapCurrencyCode], orderBy: Int, threeDLevel: ThreeDSecurityState, savedCard: SavedCard? = nil, extraFees: [ExtraFee] = [], paymentOptionsLogos:PaymentOptionLogos? = nil) {
+    public init(identifier: String, brand: CardBrand, title: String, backendImageURL: URL, isAsync: Bool, paymentType: TapPaymentType, sourceIdentifier: String? = nil, supportedCardBrands: [CardBrand], supportedCurrencies: [TapCurrencyCode], orderBy: Int, threeDLevel: ThreeDSecurityState, savedCard: SavedCard? = nil, extraFees: [ExtraFee] = [], paymentOptionsLogos:PaymentOptionLogos? = nil, buttonStyle: PaymentOptionButtonStyle? = nil) {
         self.identifier = identifier
         self.brand = brand
         self.title = title
@@ -27,6 +28,13 @@ public struct PaymentOption: IdentifiableWithString {
         self.savedCard = savedCard
         self.extraFees = extraFees
         self.paymentOptionsLogos = paymentOptionsLogos
+        self.buttonStyle = buttonStyle
+        defer{
+            if buttonStyle == nil {
+                // let us set the button style locally as a fallback
+                setButtonStyleLocally()
+            }
+        }
     }
     
     
@@ -76,6 +84,9 @@ public struct PaymentOption: IdentifiableWithString {
     /// Will hold the list of urls to support different themes for the icons
     public let paymentOptionsLogos:PaymentOptionLogos?
     
+    /// Will hold the ui to be displayed in the action button if any
+    public var buttonStyle:PaymentOptionButtonStyle?
+    
     /// Will do the correct fetching of which image to use, the default backend url or the correct light-dark cdn hosted url
     /// - Parameter showMonoForLightMode: Indicates whether to show the light or the light colored
     public func correctBackEndImageURL(showMonoForLightMode:Bool = false) -> URL {
@@ -121,6 +132,7 @@ public struct PaymentOption: IdentifiableWithString {
         case isAsync                = "asynchronous"
         case threeDLevel            = "threeDS"
         case paymentoptionsLogos    = "logos"
+        case buttonStyle            = "button_style"
     }
     
     private static func mapThreeDLevel(with threeD:String) -> ThreeDSecurityState
@@ -137,6 +149,23 @@ public struct PaymentOption: IdentifiableWithString {
         }
     }
     
+    /// Will set the action button style from the local file in case no style had been assigned from the backend
+    private mutating func setButtonStyleLocally() {
+        // let us read the json local data
+        if let path = Bundle(for: PaymentOption.Bar.self).path(forResource: "buttonstyles", ofType: "json") {
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
+                if let jsonResult = jsonResult as? Dictionary<String, AnyObject>, let person = jsonResult["buttons_styles"] as? Dictionary<String, AnyObject>, let element = person[title.uppercased()] as? Dictionary<String, AnyObject>, let buttonStyle = element["button_style"] as? Dictionary<String, AnyObject> {
+                    // do stuff
+                    let localButtonStyle:PaymentOptionButtonStyle = .init(background: try Background(dictionary: buttonStyle["background"] as! [String : Any]),titlesAssets: .init(baseURL: "https://tap-assets.b-cdn.net/action-button/"), paymenOptionName: title.uppercased() )
+                    self.buttonStyle = localButtonStyle
+                }
+            } catch {
+                // handle error
+            }
+        }
+    }
     
     /// Converts the payment option from Tap format to the acceptable format by Apple pay kit
     public func applePayNetworkMapper() -> [PKPaymentNetwork]
@@ -190,18 +219,19 @@ extension PaymentOption: Decodable {
         
         let container           = try decoder.container(keyedBy: CodingKeys.self)
         
-        let identifier          = try container.decode          (String.self,               forKey: .identifier)
-        let brand               = try container.decode          (CardBrand.self,            forKey: .title)
-        let title               = try container.decode          (String.self,               forKey: .title)
-        let imageURL            = try container.decode          (URL.self,                  forKey: .backendImageURL)
-        let paymentType         = try container.decode          (TapPaymentType.self,       forKey: .paymentType)
-        let sourceIdentifier    = try container.decodeIfPresent (String.self,               forKey: .sourceIdentifier)
-        var supportedCardBrands = try container.decode          ([CardBrand].self,          forKey: .supportedCardBrands)
-        let supportedCurrencies = try container.decode          ([TapCurrencyCode].self,    forKey: .supportedCurrencies)
-        let orderBy             = try container.decode          (Int.self,                  forKey: .orderBy)
-        let isAsync             = try container.decode          (Bool.self,                 forKey: .isAsync)
-        let threeDLevel         = try container.decodeIfPresent (String.self,               forKey: .threeDLevel) ?? "U"
-        let paymentOptionsLogos = try container.decodeIfPresent (PaymentOptionLogos.self,   forKey: .paymentoptionsLogos)
+        let identifier          = try container.decode          (String.self,                   forKey: .identifier)
+        let brand               = try container.decode          (CardBrand.self,                forKey: .title)
+        let title               = try container.decode          (String.self,                   forKey: .title)
+        let imageURL            = try container.decode          (URL.self,                      forKey: .backendImageURL)
+        let paymentType         = try container.decode          (TapPaymentType.self,           forKey: .paymentType)
+        let sourceIdentifier    = try container.decodeIfPresent (String.self,                   forKey: .sourceIdentifier)
+        var supportedCardBrands = try container.decode          ([CardBrand].self,              forKey: .supportedCardBrands)
+        let supportedCurrencies = try container.decode          ([TapCurrencyCode].self,        forKey: .supportedCurrencies)
+        let orderBy             = try container.decode          (Int.self,                      forKey: .orderBy)
+        let isAsync             = try container.decode          (Bool.self,                     forKey: .isAsync)
+        let threeDLevel         = try container.decodeIfPresent (String.self,                   forKey: .threeDLevel) ?? "U"
+        let paymentOptionsLogos = try container.decodeIfPresent (PaymentOptionLogos.self,       forKey: .paymentoptionsLogos)
+        let buttonStyle         = try container.decodeIfPresent (PaymentOptionButtonStyle.self, forKey: .buttonStyle)
         
         supportedCardBrands = supportedCardBrands.filter { $0 != .unknown }
         
@@ -215,7 +245,8 @@ extension PaymentOption: Decodable {
                   supportedCurrencies: supportedCurrencies,
                   orderBy: orderBy,
                   threeDLevel: PaymentOption.mapThreeDLevel(with: threeDLevel),
-                  paymentOptionsLogos: paymentOptionsLogos)
+                  paymentOptionsLogos: paymentOptionsLogos,
+                  buttonStyle: buttonStyle)
     }
 }
 

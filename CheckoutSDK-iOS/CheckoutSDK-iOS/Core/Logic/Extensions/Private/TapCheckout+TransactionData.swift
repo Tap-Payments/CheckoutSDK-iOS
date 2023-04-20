@@ -421,7 +421,11 @@ internal class TransactionDataHolder {
     }
     
     /// Represents the payment option the user is actively selecting right now
-    var selectedPaymentOption:PaymentOption?
+    var selectedPaymentOption:PaymentOption? {
+        didSet{
+            TapCheckout.sharedCheckoutManager().postChangingPaymentOptionLogic()
+        }
+    }
     
     /// Decides which save card option to be shown whether merchant, goPay, both or none
     var saveCardSwitchType:TapSwitchEnum {

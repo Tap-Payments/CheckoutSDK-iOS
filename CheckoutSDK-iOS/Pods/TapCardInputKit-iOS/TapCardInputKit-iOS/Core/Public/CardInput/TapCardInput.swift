@@ -838,7 +838,7 @@ internal protocol TapCardInputCommonProtocol {
             // in case of saved card we take the brand and the validation from the saved card itself
             if cardStatusUI == .SavedCard, let nonNullSavedCard = savedCard {
                 detectedBrand = nonNullSavedCard.brand
-                validity = .Valid
+                validity = cardCVV.textFieldStatus()
             }
             nonNullDelegate.brandDetected(for: detectedBrand ?? .unknown, with: validity, cardStatusUI: cardStatusUI, isCVVFocused: cardCVV.isEditing)
             handleOneBrandIcon(with: detectedBrand ?? .unknown)

@@ -7,10 +7,12 @@
 //
 
 import TapThemeManager2020
-
+import Nuke
 /// Represents the Tap Action Button View
 @objc public class TapActionButton: UIView {
     
+    /// The image that displays the title needed for the selected payment method. For example : Pay with KNET
+    @IBOutlet weak var paymentTitleImageView: UIImageView!
     /// the main holder view
     @IBOutlet weak var contentView: UIView!
     /// The image used to show the laoder, success and failure animations
@@ -79,10 +81,45 @@ import TapThemeManager2020
         reload()
     }
     
-    /// Fetch the displayed title from the view model
-    private func fetchData() {
+    /// Compute the title of the payment button. This is the textual view that appears if there is no image title to be displayed
+    fileprivate func fetchTextualButtonData() {
+        self.payButton.alpha = 1
         payButton.setTitle(viewModel?.buttonDisplayTitle(), for: .normal)
         payButton.isUserInteractionEnabled = viewModel?.buttonStatus.isButtonEnabled() ?? false
+    }
+    
+    /// Compute the image title to be displayed in case of anny/
+    fileprivate func fetchImageTitleData() {
+        // Make sure all good and we have the needed data
+        self.paymentTitleImageView.image = nil
+        guard let (shouldDisplayImageTitle,imageTitleUrl) = viewModel?.paymentTitleImage(),
+        shouldDisplayImageTitle else {
+            self.paymentTitleImageView.isHidden = true
+            self.payButton.alpha = 1
+            return
+        }
+        
+        Nuke.loadImage(with: imageTitleUrl, into: self.paymentTitleImageView) { result in
+            // Make sure that even after the time we took to load the image, we now have to show it
+            guard let (shouldDisplayImageTitle,_) = self.viewModel?.paymentTitleImage(),
+                  shouldDisplayImageTitle else {
+                self.paymentTitleImageView.isHidden = true
+                self.payButton.alpha = 1
+                return
+            }
+            self.payButton.alpha = 0.1
+            self.paymentTitleImageView.contentMode = .scaleAspectFit
+            self.paymentTitleImageView.isHidden = false
+        }
+        
+    }
+    
+    /// Fetch the displayed title from the view model
+    private func fetchData() {
+        // Let us compute the title of the payment button. This is the textual view that appears if there is no image title to be displayed
+        fetchTextualButtonData()
+        // Let us also compute the image title to be displayed in case of anny
+        fetchImageTitleData()
     }
     
     /// Apply the needed logic to reload UI and localisations upon an order from the view model
@@ -119,6 +156,11 @@ import TapThemeManager2020
 
 
 extension TapActionButton:TapActionButtonViewDelegate {
+    
+    func buttonFrame() -> CGRect {
+        return bounds
+    }
+    
     func startLoading(completion: @escaping () -> () = {}) {
         // Save the callback we need to do after showing the result
         afterLoadingCallback = completion
@@ -195,7 +237,7 @@ extension TapActionButton {
         let status:TapActionButtonStatusEnum = viewModel?.buttonStatus ?? .InvalidPayment
         
         contentView.backgroundColor = status.buttonViewBackGroundColor()
-        viewHolder.backgroundColor = status.buttonBackGroundColor()
+        viewHolder.backgroundColor = viewModel?.backgroundColor()
         
         payButton.setTitleColor(status.buttonTitleColor(), for: .normal)
         payButton.titleLabel?.tap_theme_font = .init(stringLiteral: "\(themePath).Common.titleLabelFont")

@@ -45,10 +45,10 @@ internal extension TapCheckout {
         case .ApplePay,.Device:
             startApplePayPayment(with: paymentOption, and: andApplePayToken)
         default:
-            // in all cases, as long as the user opted out to pay , let us hide the local currency prompt
-            hideLocalCurrency()
             return
         }
+        // in all cases, as long as the user opted out to pay , let us hide the local currency prompt
+        hideLocalCurrency()
     }
     
     // MARK:- Redirection based methods

@@ -13,6 +13,7 @@ import TapCardVlidatorKit_iOS
 import PassKit
 import TapApplePayKit_iOS
 import CoreTelephony
+import LocalisationManagerKit_iOS
 /// Extension to handle logic to update ui view models based on data changes
 internal extension TapCheckout {
     /// Handles the logic required to update all required fields and variables upon a change in the current shared data manager state
@@ -29,13 +30,18 @@ internal extension TapCheckout {
     /// This will only take effect if the mode is purchase or authorize
     func updateActionButtonTitle() {
         var customAppendedTitle:String = ""
+        
         // Only if we are charging or authorizing we need to display ythe currency and the amount
         // For non amount based modes like save or tokenize these values are not needed
         if dataHolder.transactionData.transactionMode == .purchase || dataHolder.transactionData.transactionMode == .authorizeCapture {
-            // We need to add the following to the title {CurrencySymbol Amount}
-            customAppendedTitle = dataHolder.viewModels.tapAmountSectionViewModel.convertedTransactionCurrency.currency != .undefined ? dataHolder.viewModels.tapAmountSectionViewModel.convertedTransactionAmountFormated : dataHolder.viewModels.tapAmountSectionViewModel.originalTransactionAmountFormated //"\(dataHolder.transactionData.transactionUserCurrencyValue.displaybaleSymbol) \(dataHolder.transactionData.transactionUserCurrencyValue.amount)"
+            // It is confirmed to be only Pay now without adding the currency & the amount
+            customAppendedTitle = TapLocalisationManager.shared.localisedValue(for: "ActionButton.now")
+            /*// We need to add the following to the title {CurrencySymbol Amount}
+            customAppendedTitle = dataHolder.viewModels.tapAmountSectionViewModel.convertedTransactionCurrency.currency != .undefined ? dataHolder.viewModels.tapAmountSectionViewModel.convertedTransactionAmountFormated : dataHolder.viewModels.tapAmountSectionViewModel.originalTransactionAmountFormated //"\(dataHolder.transactionData.transactionUserCurrencyValue.displaybaleSymbol) \(dataHolder.transactionData.transactionUserCurrencyValue.amount)"*/
             print(customAppendedTitle)
         }
+        
+        
         dataHolder.viewModels.tapActionButtonViewModel.appendCustomTitle = customAppendedTitle
     }
     
@@ -189,7 +195,7 @@ internal extension TapCheckout {
     
     /// Call it whenever needed to hide the local currency prompt for good
     func hideLocalCurrency() {
-        sharedCheckoutDataManager.dataHolder.viewModels.tapAmountSectionViewModel.removeCurrencyPrompt()
+        dataHolder.viewModels.tapAmountSectionViewModel.removeCurrencyPrompt()
     }
     
     /// We need to highlight the default currency of the user didn't select a new currency other than the default currency
@@ -383,6 +389,13 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         
         // Update the values for the views based on the all the fetched data from the api
         updateManager()
+    }
+    
+    /// The method is responsible to do the logic needed after selecting a new payment option
+    func postChangingPaymentOptionLogic() {
+        // First, update the style for the action button based on the newly selected payment method
+        let sharedManager = TapCheckout.sharedCheckoutManager()
+        sharedManager.dataHolder.viewModels.tapActionButtonViewModel.buttonStyle = sharedManager.dataHolder.transactionData.selectedPaymentOption?.buttonStyle
     }
     
     /// Update the visibility of the views based on the transaction mode

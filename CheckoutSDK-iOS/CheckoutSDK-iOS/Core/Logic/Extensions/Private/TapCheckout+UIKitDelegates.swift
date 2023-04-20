@@ -143,7 +143,7 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
         // make a haptic feedback
         generateHapticFeedbackForChipClicking()
         
-        dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .ValidPayment
+        //dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .ValidPayment
         // Check the type of saved card source
         if viewModel.listSource == .GoPayListHeader {
             handleGoPaySavedCard(for: viewModel)

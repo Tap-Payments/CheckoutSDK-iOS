@@ -233,10 +233,14 @@ extension TapAmountSectionView {
     /// - Parameter shouldSlideOut: If true, then will apply slide out animation after fading it out.
     internal func animateCurrencyPrompt(show:Bool, shouldSlideIn:Bool = true, shouldSlideOut:Bool = true) {
         guard let _ = self.localCurrencyView else { return }
+        self.localCurrencyView.isHidden = false
         
         if show {
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds( shouldSlideIn ? 2 : 0 )){
                 self.localCurrencyView.isUserInteractionEnabled = true
+                // We will not make a fade in, in case the user did already open the currency selector before displaying the prompt
+                self.localCurrencyView.isHidden = self.viewModel?.currentStateView == .ItemsView
+                
                 self.localCurrencyView.fadeIn(duration:1)
                 if shouldSlideIn {
                     self.localCurrencyView.slideIn(from: TapLocalisationManager.shared.localisationLocale == "ar" ? .left  : .right, duration: 1) { _ in

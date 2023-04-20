@@ -1,0 +1,378 @@
+{
+  "titles_assets": {
+    "light": {
+      "en": "https://tap-assets.b-cdn.net/action-button/light/en/",
+      "ar": "https://tap-assets.b-cdn.net/action-button/light/ar/"
+    },
+    "dark": {
+      "en": "https://tap-assets.b-cdn.net/action-button/dark/en/",
+      "ar": "https://tap-assets.b-cdn.net/action-button/dark/ar/"
+    }
+  },
+  "buttons_styles": {
+    "PAYPAL": {
+      "button_style": {
+        "background": {
+          "light": {
+            "base_color": "#1C6DA6",
+            "background_colors": [
+              "#222D65",
+              "#179BD7"
+            ]
+          },
+          "dark": {
+            "base_color": "#FFFFFF",
+            "background_colors": [
+              "#FFFFFF"
+            ]
+          }
+        }
+      }
+    },
+    "AMERICAN_EXPRESS": {
+      "button_style": {
+        "background": {
+          "light": {
+            "base_color": "#000000",
+            "background_colors": [
+              "#000000"
+            ]
+          },
+          "dark": {
+            "base_color": "#FFFFFF",
+            "background_colors": [
+              "#FFFFFF"
+            ]
+          }
+        }
+      }
+    },
+    "APPLE_PAY": {
+      "button_style": {
+        "background": {
+          "light": {
+            "base_color": "#000000",
+            "background_colors": [
+              "#000000"
+            ]
+          },
+          "dark": {
+            "base_color": "#FFFFFF",
+            "background_colors": [
+              "#FFFFFF"
+            ]
+          }
+        }
+      }
+    },
+    "BENEFIT_PAY": {
+      "button_style": {
+        "background": {
+          "light": {
+            "base_color": "#CF5B92",
+            "background_colors": [
+              "#F61B27",
+              "#D25C91",
+              "#5B31B0"
+            ]
+          },
+          "dark": {
+            "base_color": "#FFFFFF",
+            "background_colors": [
+              "#FFFFFF"
+            ]
+          }
+        }
+      }
+    },
+    "BENEFIT": {
+      "button_style": {
+        "background": {
+          "light": {
+            "base_color": "#F5293C",
+            "background_colors": [
+              "#EA0331",
+              "#FE4844"
+            ]
+          },
+          "dark": {
+            "base_color": "#FFFFFF",
+            "background_colors": [
+              "#FFFFFF"
+            ]
+          }
+        }
+      }
+    },
+    "CARREMPAY": {
+      "button_style": {
+        "background": {
+          "light": {
+            "base_color": "#28BB4E",
+            "background_colors": [
+              "#28BB4E"
+            ]
+          },
+          "dark": {
+            "base_color": "#FFFFFF",
+            "background_colors": [
+              "#FFFFFF"
+            ]
+          }
+        }
+      }
+    },
+    "FAWRY": {
+      "button_style": {
+        "background": {
+          "light": {
+            "base_color": "#006C98",
+            "background_colors": [
+              "#006C98"
+            ]
+          },
+          "dark": {
+            "base_color": "#FFFFFF",
+            "background_colors": [
+              "#FFFFFF"
+            ]
+          }
+        }
+      }
+    },
+    "GOOGLE_PAY": {
+      "button_style": {
+        "background": {
+          "light": {
+            "base_color": "#000000",
+            "background_colors": [
+              "#000000"
+            ]
+          },
+          "dark": {
+            "base_color": "#FFFFFF",
+            "background_colors": [
+              "#FFFFFF"
+            ]
+          }
+        }
+      }
+    },
+    "KNET": {
+      "button_style": {
+        "background": {
+          "light": {
+            "base_color": "#0872B9",
+            "background_colors": [
+              "#0872B9"
+            ]
+          },
+          "dark": {
+            "base_color": "#FFFFFF",
+            "background_colors": [
+              "#FFFFFF"
+            ]
+          }
+        }
+      }
+    },
+    "MADA": {
+      "button_style": {
+        "background": {
+          "light": {
+            "base_color": "#000000",
+            "background_colors": [
+              "#000000"
+            ]
+          },
+          "dark": {
+            "base_color": "#FFFFFF",
+            "background_colors": [
+              "#FFFFFF"
+            ]
+          }
+        }
+      }
+    },
+    "MASTERCARD": {
+      "button_style": {
+        "background": {
+          "light": {
+            "base_color": "#000000",
+            "background_colors": [
+              "#000000"
+            ]
+          },
+          "dark": {
+            "base_color": "#FFFFFF",
+            "background_colors": [
+              "#FFFFFF"
+            ]
+          }
+        }
+      }
+    },
+    "MEEZA": {
+      "button_style": {
+        "background": {
+          "light": {
+            "base_color": "#000000",
+            "background_colors": [
+              "#000000"
+            ]
+          },
+          "dark": {
+            "base_color": "#FFFFFF",
+            "background_colors": [
+              "#FFFFFF"
+            ]
+          }
+        }
+      }
+    },
+    "NAPS": {
+      "button_style": {
+        "background": {
+          "light": {
+            "base_color": "#000000",
+            "background_colors": [
+              "#000000"
+            ]
+          },
+          "dark": {
+            "base_color": "#FFFFFF",
+            "background_colors": [
+              "#FFFFFF"
+            ]
+          }
+        }
+      }
+    },
+    "OMANNET": {
+      "button_style": {
+        "background": {
+          "light": {
+            "base_color": "#000000",
+            "background_colors": [
+              "#000000"
+            ]
+          },
+          "dark": {
+            "base_color": "#FFFFFF",
+            "background_colors": [
+              "#FFFFFF"
+            ]
+          }
+        }
+      }
+    },
+    "POST_PAY": {
+      "button_style": {
+        "background": {
+          "light": {
+            "base_color": "#000000",
+            "background_colors": [
+              "#000000"
+            ]
+          },
+          "dark": {
+            "base_color": "#FFFFFF",
+            "background_colors": [
+              "#FFFFFF"
+            ]
+          }
+        }
+      }
+    },
+    "SAMSUNG_PAY": {
+      "button_style": {
+        "background": {
+          "light": {
+            "base_color": "#000000",
+            "background_colors": [
+              "#000000"
+            ]
+          },
+          "dark": {
+            "base_color": "#FFFFFF",
+            "background_colors": [
+              "#FFFFFF"
+            ]
+          }
+        }
+      }
+    },
+    "STC_PAY": {
+      "button_style": {
+        "background": {
+          "light": {
+            "base_color": "#481889",
+            "background_colors": [
+              "#481889"
+            ]
+          },
+          "dark": {
+            "base_color": "#FFFFFF",
+            "background_colors": [
+              "#FFFFFF"
+            ]
+          }
+        }
+      }
+    },
+    "TABBY": {
+      "button_style": {
+        "background": {
+          "light": {
+            "base_color": "#000000",
+            "background_colors": [
+              "#000000"
+            ]
+          },
+          "dark": {
+            "base_color": "#FFFFFF",
+            "background_colors": [
+              "#FFFFFF"
+            ]
+          }
+        }
+      }
+    },
+    "UR_PAY": {
+      "button_style": {
+        "background": {
+          "light": {
+            "base_color": "#253F8B",
+            "background_colors": [
+              "#253F8B"
+            ]
+          },
+          "dark": {
+            "base_color": "#FFFFFF",
+            "background_colors": [
+              "#FFFFFF"
+            ]
+          }
+        }
+      }
+    },
+    "VISA": {
+      "button_style": {
+        "background": {
+          "light": {
+            "base_color": "#000000",
+            "background_colors": [
+              "#000000"
+            ]
+          },
+          "dark": {
+            "base_color": "#FFFFFF",
+            "background_colors": [
+              "#FFFFFF"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

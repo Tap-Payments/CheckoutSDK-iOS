@@ -206,6 +206,10 @@ extension TapCheckout {
      - Parameter isCVVFocused: Will tell the focusing state of the CVV, will be used not to show CVV hint if the field is focused in the saved card view
      */
     func handleCardValidationStatus(for cardBrand: CardBrand,with validation: CrardInputTextFieldStatusEnum,cardStatusUI:CardInputUIStatus, isCVVFocused:Bool) {
+        // As long as we are getting updated card data, we will only consider it as the selected payment option if and only if it is a valid card
+        // But we will keep an instance of it in case it is a saved card. As the saved card paymnent option is computed at the time it is selected
+//        let currentSelectedPaymentOption = dataHolder.transactionData.selectedPaymentOption
+//        dataHolder.transactionData.selectedPaymentOption = nil
         // Check if valid or not and based on that we decide the logic to be done
         if validation == .Valid,
            dataHolder.viewModels.tapCardTelecomPaymentViewModel.decideHintStatus(and:cardStatusUI,isCVVFocused: isCVVFocused) == .None {
@@ -213,17 +217,17 @@ extension TapCheckout {
             
             // Based on the card input status (filling in CVV for a saved card or just finished filling in the data of a new card) we decide the actions to be done by the pay button
             if cardStatusUI == .NormalCard {
-                dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .ValidPayment
                 // Fetch the payment option related to the validated card brand
                 let paymentOptions:[PaymentOption] = dataHolder.viewModels.tapCardPhoneListDataSource.filter{ $0.tapPaymentOption?.brand == cardBrand }.filter{ $0.tapPaymentOption != nil }.map{ $0.tapPaymentOption! }
                 guard paymentOptions.count > 0, let selectedPaymentOption:PaymentOption = paymentOptions.first else {
                     handleError(session: nil, result: nil, error: "Unexpected error, trying to start card payment without a payemnt option selected.")
                     return }
+                // Set it as the selected payment option
+                dataHolder.transactionData.selectedPaymentOption = selectedPaymentOption
                 // Assign the action to be done once clicked on the action button to start the payment
                 dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .ValidPayment
                 let payAction:()->() = { [weak self] in self?.processCheckout(with:selectedPaymentOption,andCard:self?.dataHolder.transactionData.currentCard) }
                 dataHolder.viewModels.tapActionButtonViewModel.buttonActionBlock = payAction
-                
                 // Log the brand
                 setLoggingCustomerData()
                 //log().verbose("Finished valid raw card data for \(selectedPaymentOption.title)")
@@ -232,6 +236,7 @@ extension TapCheckout {
                 // The action button should be in a valid state as saved cards are ready to process right away
                 // Make the button action to start the paymet with the selected saved card
                 // Start the payment with the selected saved card
+                //dataHolder.transactionData.selectedPaymentOption = currentSelectedPaymentOption
                 let savedCardActionBlock:()->() = { [weak self] in
                     self?.processCheckout(with: (self?.dataHolder.transactionData.selectedPaymentOption!)!, andCard: self?.dataHolder.transactionData.currentCard) }
                 chanegActionButton(status: .ValidPayment, actionBlock: savedCardActionBlock)
