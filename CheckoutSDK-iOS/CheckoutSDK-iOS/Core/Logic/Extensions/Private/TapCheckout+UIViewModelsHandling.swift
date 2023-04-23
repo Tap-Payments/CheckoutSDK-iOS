@@ -14,6 +14,7 @@ import PassKit
 import TapApplePayKit_iOS
 import CoreTelephony
 import LocalisationManagerKit_iOS
+import Nuke
 /// Extension to handle logic to update ui view models based on data changes
 internal extension TapCheckout {
     /// Handles the logic required to update all required fields and variables upon a change in the current shared data manager state
@@ -269,6 +270,24 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         }
     }
     
+    /// For some of the gateways, we will set an image background for the action button. It will be good if we cached them, so whenever they are clicked, they will reflect directly on the action button/
+    private func cacheActionButtonTitleImages() {
+        self.dataHolder.transactionData.paymentOptionsModelResponse?.paymentOptions.forEach({ paymentOption in
+            // Check if we have a style passed first,
+            // Then there is a valid url to load
+            if let buttonStyle:PaymentOptionButtonStyle = paymentOption.buttonStyle,
+                  let _ = buttonStyle.titlesAssets,
+                  let finalURL:URL = URL(string:buttonStyle.paymentOptionImageUrl(for: (UIView().traitCollection.userInterfaceStyle == .dark) ? "dark" : "light", and: TapLocalisationManager.shared.localisationLocale ?? "en", with: ".png")),
+               UIApplication.shared.canOpenURL(finalURL) {
+                // Let us cache it
+                ImagePipeline.shared.loadImage(
+                    with: finalURL) { _ in
+                        print("LOADED \(finalURL)")
+                    }
+            }
+        })
+    }
+    
     /** Fetches the loyalty model and updates the loyalty view model if any
      - Parameter paymentOptions: The payment options response we got from payment types api.
      */
@@ -386,6 +405,9 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         
         // We need to change the default item title in case the user didn't pass any items to have the correct name of the merchant we just got from the INIT api.
         updateDefaultItemTitle()
+        
+        // Let us cache the action button different backgrounds for so they reflect directly upon selection
+        cacheActionButtonTitleImages()
         
         // Update the values for the views based on the all the fetched data from the api
         updateManager()

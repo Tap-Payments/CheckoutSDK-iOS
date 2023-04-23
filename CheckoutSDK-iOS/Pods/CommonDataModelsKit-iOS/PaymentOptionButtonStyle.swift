@@ -20,12 +20,11 @@ import Foundation
 // MARK: - PaymentOptionButtonStyle
 public struct PaymentOptionButtonStyle: Codable {
     public var background: Background?
-    public var titlesAssets: TitlesAssets?
-    public var paymenOptionName: String?
+    public var titlesAssets: String?
     
     enum CodingKeys: String, CodingKey {
         case background
-        case titlesAssets = "titles_assets"
+        case titlesAssets = "title_asset"
     }
 }
 
@@ -62,6 +61,24 @@ extension PaymentOptionButtonStyle {
         }
     }
     
+    /**
+     Generates the correct url to access the image to be displayed on the action button when valid, using the attached payment option
+     - Parameter for displayMode : To indicate whether you need the dark or light
+     - Parameter and locale: To indicate which locale you want to show for example en,ar etc.
+     - Parameter with fileFxtension: The assets extension to append to fetch the correct image from the url
+     */
+    public func paymentOptionImageUrl(for displayMode:String, and locale:String, with fileFxtension:String) -> String {
+        // make sure we already have a string representing the base url for this payment option
+        guard var nonNullTitleAsset = titlesAssets else { return "" }
+        // let us replace the url parts with the given parameters
+        nonNullTitleAsset = nonNullTitleAsset.replacingOccurrences(of: "{theme}", with: displayMode)
+        nonNullTitleAsset = nonNullTitleAsset.replacingOccurrences(of: "{lang}",  with: locale)
+        // let us append the extension
+        nonNullTitleAsset = "\(nonNullTitleAsset)\(fileFxtension)"
+        // let us return now
+        return nonNullTitleAsset
+    }
+    
     /// Returns the solid color the button should show after shrinking while loading
     /// Also, it auto computes whether we need to display the dark or light colors based on the device interface
     func baseColor() -> UIColor {
@@ -79,13 +96,11 @@ extension PaymentOptionButtonStyle {
     
     func with(
         background: Background?? = nil,
-        titlesAssets: TitlesAssets?? = nil,
-        paymentOptionName: String?? = nil
+        titlesAssets: String?? = nil
     ) -> PaymentOptionButtonStyle {
         return PaymentOptionButtonStyle(
             background: background ?? self.background,
-            titlesAssets: titlesAssets ?? self.titlesAssets,
-            paymenOptionName: self.paymenOptionName
+            titlesAssets: titlesAssets ?? self.titlesAssets
         )
     }
     
@@ -176,46 +191,6 @@ extension BackgroundDark {
         return BackgroundDark(
             baseColor: baseColor ?? self.baseColor,
             backgroundColors: backgroundColors ?? self.backgroundColors
-        )
-    }
-    
-    func jsonData() throws -> Data {
-        return try newJSONEncoder().encode(self)
-    }
-    
-    func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
-        return String(data: try self.jsonData(), encoding: encoding)
-    }
-}
-
-// MARK: - TitlesAssets
-public struct TitlesAssets: Codable {
-    public  var baseURL:String
-}
-
-// MARK: TitlesAssets convenience initializers and mutators
-
-extension TitlesAssets {
-    init(data: Data) throws {
-        self = try newJSONDecoder().decode(TitlesAssets.self, from: data)
-    }
-    
-    init(_ json: String, using encoding: String.Encoding = .utf8) throws {
-        guard let data = json.data(using: encoding) else {
-            throw NSError(domain: "JSONDecoding", code: 0, userInfo: nil)
-        }
-        try self.init(data: data)
-    }
-    
-    init(fromURL url: URL) throws {
-        try self.init(data: try Data(contentsOf: url))
-    }
-    
-    func with(
-        baseURL:String
-    ) -> TitlesAssets {
-        return TitlesAssets(
-            baseURL: baseURL
         )
     }
     

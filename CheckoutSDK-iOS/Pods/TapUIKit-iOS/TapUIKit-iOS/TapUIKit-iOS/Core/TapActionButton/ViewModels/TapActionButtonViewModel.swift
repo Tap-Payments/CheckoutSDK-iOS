@@ -181,23 +181,24 @@ internal protocol TapActionButtonViewDelegate {
      That contains valid url to be displayed
      */
     internal func paymentTitleImage() -> (Bool, URL?) {
-        // Check if we have a style passed first
-        guard let buttonStyle:PaymentOptionButtonStyle = buttonStyle,
-              buttonStatus == .ValidPayment,
-              let baseURL:String = buttonStyle.titlesAssets?.baseURL,
-              let paymentOptionName:String = buttonStyle.paymenOptionName
-        else { return (false, nil) }
-        
+        // Compute the needed data for getting the correct URL
         // Now let us see what will we get, based on locale and display mode
-        var displayModePath:String = "light/"
+        var displayModePath:String = "light"
         if #available(iOS 12.0, *) {
-            displayModePath = (UIView().traitCollection.userInterfaceStyle == .dark) ? "dark/" : "light/"
+            displayModePath = (UIView().traitCollection.userInterfaceStyle == .dark) ? "dark" : "light"
         }
         // Now let us compute the path based on the locale
-        let localePath:String = "\(TapLocalisationManager.shared.localisationLocale ?? "en")/"
-        // Append the name of the payment option
-        guard let finalURL:URL = URL(string:"\(baseURL)\(displayModePath)\(localePath)\(paymentOptionName).png") else { return (false, nil) }
-        // All good :)
+        let localePath:String = "\(TapLocalisationManager.shared.localisationLocale ?? "en")"
+        
+        // Check if we have a style passed first,
+        // Then there is a valid url to load
+        guard let buttonStyle:PaymentOptionButtonStyle = buttonStyle,
+              buttonStatus == .ValidPayment,
+              let _ = buttonStyle.titlesAssets,
+              let finalURL:URL = URL(string:buttonStyle.paymentOptionImageUrl(for: displayModePath, and: localePath, with: ".png")),
+              UIApplication.shared.canOpenURL(finalURL)
+        else { return (false, nil) }
+        
         return (true, finalURL)
         
     }

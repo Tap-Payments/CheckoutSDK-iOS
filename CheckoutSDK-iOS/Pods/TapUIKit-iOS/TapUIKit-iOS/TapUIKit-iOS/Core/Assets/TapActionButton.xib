@@ -28,9 +28,8 @@
                     <rect key="frame" x="107" y="18" width="200" height="40"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qec-Kh-Rs4">
-                            <rect key="frame" x="25" y="8" width="150" height="24"/>
+                            <rect key="frame" x="0.0" y="8" width="200" height="24"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="150" id="LfD-BO-z7a"/>
                                 <constraint firstAttribute="height" constant="24" id="yhJ-kF-O8Q"/>
                             </constraints>
                         </imageView>
@@ -58,7 +57,9 @@
                         <constraint firstAttribute="width" constant="200" id="6ca-gc-JEt"/>
                         <constraint firstItem="Qec-Kh-Rs4" firstAttribute="centerY" secondItem="3Pi-Oh-5Gg" secondAttribute="centerY" id="7h8-gO-hE4"/>
                         <constraint firstAttribute="bottom" secondItem="CgC-zI-zgc" secondAttribute="bottom" id="8se-6I-qmP"/>
+                        <constraint firstItem="Qec-Kh-Rs4" firstAttribute="leading" secondItem="3Pi-Oh-5Gg" secondAttribute="leading" id="9oD-Gk-M48"/>
                         <constraint firstAttribute="height" constant="40" id="GWL-TP-bZr"/>
+                        <constraint firstAttribute="trailing" secondItem="Qec-Kh-Rs4" secondAttribute="trailing" id="IFX-q5-QEW"/>
                         <constraint firstAttribute="trailing" secondItem="CgC-zI-zgc" secondAttribute="trailing" id="Rna-EM-XDc"/>
                         <constraint firstItem="bDd-in-4hb" firstAttribute="centerY" secondItem="3Pi-Oh-5Gg" secondAttribute="centerY" id="UM0-go-g3I"/>
                         <constraint firstItem="CgC-zI-zgc" firstAttribute="top" secondItem="3Pi-Oh-5Gg" secondAttribute="top" id="mW1-sN-FM8"/>

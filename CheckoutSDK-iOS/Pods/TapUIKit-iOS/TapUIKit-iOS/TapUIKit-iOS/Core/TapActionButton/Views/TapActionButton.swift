@@ -92,14 +92,15 @@ import Nuke
     fileprivate func fetchImageTitleData() {
         // Make sure all good and we have the needed data
         self.paymentTitleImageView.image = nil
+        //self.paymentTitleImageView.alpha = 0
         guard let (shouldDisplayImageTitle,imageTitleUrl) = viewModel?.paymentTitleImage(),
         shouldDisplayImageTitle else {
             self.paymentTitleImageView.isHidden = true
-            self.payButton.alpha = 1
+            self.payButton.fadeIn()
             return
         }
-        
-        Nuke.loadImage(with: imageTitleUrl, into: self.paymentTitleImageView) { result in
+
+        Nuke.loadImage(with: imageTitleUrl, options: ImageLoadingOptions(placeholder: UIImage(),transition: .fadeIn(duration: 0.5)), into: self.paymentTitleImageView) { result in
             // Make sure that even after the time we took to load the image, we now have to show it
             guard let (shouldDisplayImageTitle,_) = self.viewModel?.paymentTitleImage(),
                   shouldDisplayImageTitle else {
@@ -110,6 +111,7 @@ import Nuke
             self.payButton.alpha = 0.1
             self.paymentTitleImageView.contentMode = .scaleAspectFit
             self.paymentTitleImageView.isHidden = false
+            //self.paymentTitleImageView.fadeIn()
         }
         
     }

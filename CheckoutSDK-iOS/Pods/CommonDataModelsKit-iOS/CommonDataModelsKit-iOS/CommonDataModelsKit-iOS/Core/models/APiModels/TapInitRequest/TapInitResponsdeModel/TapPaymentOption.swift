@@ -11,7 +11,6 @@ import struct PassKit.PKPaymentNetwork
 import TapCardVlidatorKit_iOS
 /// Payment Option model.
 public struct PaymentOption: IdentifiableWithString {
-    fileprivate class Bar {}
     
     public init(identifier: String, brand: CardBrand, title: String, backendImageURL: URL, isAsync: Bool, paymentType: TapPaymentType, sourceIdentifier: String? = nil, supportedCardBrands: [CardBrand], supportedCurrencies: [TapCurrencyCode], orderBy: Int, threeDLevel: ThreeDSecurityState, savedCard: SavedCard? = nil, extraFees: [ExtraFee] = [], paymentOptionsLogos:PaymentOptionLogos? = nil, buttonStyle: PaymentOptionButtonStyle? = nil) {
         self.identifier = identifier
@@ -29,12 +28,6 @@ public struct PaymentOption: IdentifiableWithString {
         self.extraFees = extraFees
         self.paymentOptionsLogos = paymentOptionsLogos
         self.buttonStyle = buttonStyle
-        defer{
-            if buttonStyle == nil {
-                // let us set the button style locally as a fallback
-                setButtonStyleLocally()
-            }
-        }
     }
     
     
@@ -149,24 +142,6 @@ public struct PaymentOption: IdentifiableWithString {
         }
     }
     
-    /// Will set the action button style from the local file in case no style had been assigned from the backend
-    private mutating func setButtonStyleLocally() {
-        // let us read the json local data
-        if let path = Bundle(for: PaymentOption.Bar.self).path(forResource: "buttonstyles", ofType: "json") {
-            do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-                let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
-                if let jsonResult = jsonResult as? Dictionary<String, AnyObject>, let person = jsonResult["buttons_styles"] as? Dictionary<String, AnyObject>, let element = person[title.uppercased()] as? Dictionary<String, AnyObject>, let buttonStyle = element["button_style"] as? Dictionary<String, AnyObject> {
-                    // do stuff
-                    let localButtonStyle:PaymentOptionButtonStyle = .init(background: try Background(dictionary: buttonStyle["background"] as! [String : Any]),titlesAssets: .init(baseURL: "https://tap-assets.b-cdn.net/action-button/"), paymenOptionName: title.uppercased() )
-                    self.buttonStyle = localButtonStyle
-                }
-            } catch {
-                // handle error
-            }
-        }
-    }
-    
     /// Converts the payment option from Tap format to the acceptable format by Apple pay kit
     public func applePayNetworkMapper() -> [PKPaymentNetwork]
     {
@@ -249,11 +224,13 @@ extension PaymentOption: Decodable {
                   buttonStyle: buttonStyle)
     }
 }
-
+// MARK: - ThreeDSecurityState enum to provide different levels of 3ds transaction
 public enum ThreeDSecurityState {
-    
+    /// This means all transactions will pass through 3ds
     case always
+    /// This means no transactions will pass through 3ds
     case never
+    /// This means it depends on the merchant's configuration passed when starting the checkout
     case definedByMerchant
 }
 
