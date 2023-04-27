@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "CheckoutSDK-iOS"
-  spec.version      = "0.0.74"
+  spec.version      = "0.0.75"
   spec.summary      = "The new era of mobile payments is here with Tap."
 
   # This description is used to generate tags and improve search results.
@@ -138,7 +138,7 @@ Pod::Spec.new do |spec|
   spec.dependency "TapApplicationV2"
   spec.dependency "SwiftyRSA"
   spec.dependency "TapKeychain"
-  spec.dependency "BugfenderSDK"
+  spec.dependency "BugfenderSDK", '1.11.0'
 
   spec.pod_target_xcconfig = {
     'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64'
