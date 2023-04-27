@@ -347,11 +347,23 @@ extension ViewController:CheckoutScreenDelegate {
     }
     
     func checkoutCaptured(with authorize: Authorize) {
+        if let custId = authorize.customer.identifier {
+            saveNewCustomerDataForFurtherUsage(with: custId)
+        }
         showAlert(title: "Success", message: "Authorize ID: \(authorize.identifier),\nAmount: \(authorize.amount)")
     }
     
     func checkoutCaptured(with charge: Charge) {
+        if let custId = charge.customer.identifier {
+            saveNewCustomerDataForFurtherUsage(with: custId)
+        }
         showAlert(title: "Success", message: "Charge ID: \(charge.identifier),\nAmount: \(charge.amount)")
+    }
+    
+    func saveNewCustomerDataForFurtherUsage(with customerID:String) {
+        UserDefaults.standard.set(SDKCustomerType.CustomerID.rawValue, forKey: TapSettingsKeys.SDKCustomerType.rawValue)
+        UserDefaults.standard.set(customerID, forKey: TapSettingsKeys.SDKCustomerID.rawValue)
+        UserDefaults.standard.synchronize()
     }
     
     func checkoutFailed(in session: URLSessionDataTask?, for result: [String : String]?, with error: Error?) {

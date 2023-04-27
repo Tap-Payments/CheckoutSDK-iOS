@@ -450,7 +450,7 @@ class TapFormSettingsViewController: Eureka.FormViewController {
 
 
 
-fileprivate enum TapSettingsKeys:String {
+enum TapSettingsKeys:String {
     case SDKLanguage
     case SDKMode
     case SDKCloseButton

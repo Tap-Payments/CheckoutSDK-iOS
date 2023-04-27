@@ -223,11 +223,11 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         TapCheckout.configureLocalisationManager(localiseFile: localiseFile)
         sharedCheckoutManager().sharedLocalisationManager = TapLocalisationManager.shared
         // Init the theme manager
-        DispatchQueue.background(background: {
+        // If it is the default theme, let us load it in background thread then assign i
+        DispatchQueue.main.async {
             TapCheckout.configureThemeManager(customTheme:customTheme)
-        }, completion:{
             print("LOADED DEFAULT")
-        })
+        }
     }
     
     /**
