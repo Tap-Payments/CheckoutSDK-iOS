@@ -220,7 +220,11 @@ internal extension TapCheckout {
         }
         
         // Set the passed custom localisation and/or theme if any
-        sharedManager.dataHolder.themeLocalisationHolder = .init(customTheme: customTheme, localiseFile: localiseFile)
+        // If it is not passed, let us load the default ones so we cache them and save time not to call them again after checkoutprofile api
+        let correctThem:TapCheckOutTheme = customTheme ?? .init(with: TapCheckout.defaultThemeLightURL, and: TapCheckout.defaultThemeDarkURL, from: .RemoteJsonFile)
+        let correctLocalisation:TapCheckoutLocalisation = localiseFile ?? .init(with: URL(string: TapCheckout.defaultLocalisationURL)!, from: .RemoteJsonFile)
+        
+        sharedManager.dataHolder.themeLocalisationHolder = .init(customTheme: correctThem, localiseFile: correctLocalisation)
     }
     
     

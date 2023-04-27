@@ -189,6 +189,13 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     /// Tells to demo the loyalty widget or not
     @objc public static var loyaltyEnabled:Bool = false
     
+    /// Saves the default light theme url
+    internal static var defaultThemeLightURL:String = "https://tapcheckoutsdk.firebaseio.com/TapThemeMobile/light.json"
+    /// Saves the default dark theme url
+    internal static var defaultThemeDarkURL:String = "https://tapcheckoutsdk.firebaseio.com/TapThemeMobile/dark.json"
+    /// Saves the default localisation url
+    internal static var defaultLocalisationURL:String = "https://tapcheckoutsdk.firebaseio.com/TapLocalisation.json"
+    
     // MARK:- Internal functions
     /// Configures and start sthe session with the bug finder logging platform
     internal func configureBugFinder() {
@@ -216,9 +223,11 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         TapCheckout.configureLocalisationManager(localiseFile: localiseFile)
         sharedCheckoutManager().sharedLocalisationManager = TapLocalisationManager.shared
         // Init the theme manager
-        DispatchQueue.main.async {
+        DispatchQueue.background(background: {
             TapCheckout.configureThemeManager(customTheme:customTheme)
-        }
+        }, completion:{
+            print("LOADED DEFAULT")
+        })
     }
     
     /**
@@ -318,6 +327,9 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
             // Store the passed configurations for further processing
             configureSharedManager(customTheme:customTheme, localiseFile: localiseFile, currency:currency, supportedCurrencies:supportedCurrencies?.compactMap{ TapCurrencyCode(appleRawValue: $0) }.filter{$0 != .undefined }, amount:amount,items:items,applePayMerchantID:applePayMerchantID,swipeDownToDismiss:swipeDownToDismiss,paymentType:paymentType,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID,taxes: taxes, shipping: shipping, allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor,require3DSecure:require3DSecure,receiptSettings:receiptSettings, authorizeAction: authorizeAction,allowsToSaveSameCardMoreThanOnce: allowsToSaveSameCardMoreThanOnce, enableSaveCard: enableSaveCard, enableApiLogging: enableApiLogging.map{ TapLoggingType(rawValue: $0) ?? .CONSOLE }, isSaveCardSwitchOnByDefault: isSaveCardSwitchOnByDefault, collectCreditCardName: collectCreditCardName, creditCardNameEditable: creditCardNameEditable, creditCardNamePreload: creditCardNamePreload, showSaveCreditCard:showSaveCreditCard, isSubscription: isSubscription, recurringPaymentRequest: recurringPaymentRequest, applePayButtonType :applePayButtonType, applePayButtonStyle: applePayButtonStyle, shouldFlipCardData: shouldFlipCardData, cardShouldThemeItself: true)
             
+            // let us load the default theme and localistion to save time. Instead of calling them after the checkoutprofile api response
+            preloadDefaultThemeAndLocalisation()
+            
             // Initiate the needed calls to server to start the session
             initialiseSDKFromAPI() {  [self] in
                 //guard let nonNullSelf = self else { return }
@@ -336,6 +348,21 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         DispatchQueue.main.async { [weak self] in
             controller.present(self!.bottomSheetController, animated: true, completion: nil)
         }
+    }
+    
+    /// This will load the default theme and localisation from firebase. This will save time instead of calling them after getting the urls from checkout profile api.
+    /// Also, after getting the urls from checkoutprofile api, will reload them if and only if for any reason, the backend sends a different default url
+    internal func preloadDefaultThemeAndLocalisation() {
+        DispatchQueue.background(background: {
+            // Load the default theme & localisations if the user didn't pass his own custom theme and localisation
+            let sharedManager:TapCheckout = TapCheckout.sharedCheckoutManager()
+            guard let nonNullTheme = sharedManager.dataHolder.themeLocalisationHolder.customTheme,
+                  let nonNullLocalisation = sharedManager.dataHolder.themeLocalisationHolder.localiseFile else { return }
+            TapCheckout.PreloadSDKData(localiseFile: nonNullLocalisation,
+                                       customTheme: nonNullTheme)
+        }, completion:{
+            print("LOADED DEFAULT")
+        })
     }
     
     /// Sets the customer data for the logging session

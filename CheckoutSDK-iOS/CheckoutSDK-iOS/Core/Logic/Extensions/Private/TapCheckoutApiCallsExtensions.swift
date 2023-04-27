@@ -33,22 +33,49 @@ internal extension TapCheckout {
         NetworkManager.shared.makeApiCall(routing: .CheckoutProfileApi, resultType: TapInitResponseModel.self, body: .init(body: bodyDictionary), httpMethod: .POST) { [weak self] (session, result, error) in
             guard let initModel:TapInitResponseModel = result as? TapInitResponseModel else { self?.handleError(session: session, result: result, error: "Unexpected error when parsing into TapInitResponseModel")
                 return }
-            
-            DispatchQueue.background(background: {
-                // Load the default theme & localisations if the user didn't pass his own custom theme and localisation
-                TapCheckout.PreloadSDKData(localiseFile: self?.dataHolder.themeLocalisationHolder.localiseFile ?? .init(with: URL(string: initModel.assets.localisation.url)!, from: .RemoteJsonFile),
-                                           customTheme: self?.dataHolder.themeLocalisationHolder.customTheme ?? .init(with: initModel.assets.theme.light, and: initModel.assets.theme.dark, from: .RemoteJsonFile))
-            }, completion:{
-                // when background job finished, do something in main thread
-                print("COMPLETED")
+            // We will only load the default values if and only if, the already cached and loaded theme and localisation is not the default one and if it is the defailt one we have a different default value
+            if self?.shouldLoadDefaultThemeAndLocalisation(lightThemeUrlApi: initModel.assets.theme.light, darkThemeUrlApi: initModel.assets.theme.dark, localisationUrlApi: initModel.assets.localisation.url) ?? true {
+                DispatchQueue.background(background: {
+                    // Load the default theme & localisations if the user didn't pass his own custom theme and localisation
+                    TapCheckout.PreloadSDKData(localiseFile: self?.dataHolder.themeLocalisationHolder.localiseFile ?? .init(with: URL(string: initModel.assets.localisation.url)!, from: .RemoteJsonFile),
+                                               customTheme: self?.dataHolder.themeLocalisationHolder.customTheme ?? .init(with: initModel.assets.theme.light, and: initModel.assets.theme.dark, from: .RemoteJsonFile))
+                }, completion:{
+                    // when background job finished, do something in main thread
+                    print("COMPLETED")
+                    self?.handleInitResponse(initModel: initModel)
+                    onCheckOutReady()
+                })
+            }else{
                 self?.handleInitResponse(initModel: initModel)
                 onCheckOutReady()
-            })
+            }
         } onError: { (session, result, errorr) in
             self.handleError(session: session, result: result, error: errorr)
         }
     }
     
+    
+    /// This method will instruct if we need to load the default theme and localisation we got from the checkout profile api or not.
+    /// We already preload them before calling the checkout profile api, hence we will return TRUE only if the default urls passed from checkout profile for some reason are different than the ones we loaded
+    func shouldLoadDefaultThemeAndLocalisation(lightThemeUrlApi:String, darkThemeUrlApi:String, localisationUrlApi:String) -> Bool {
+        // First check if we cached the default theme and localisation and not passed by merchant already
+        let sharedManager:TapCheckout = TapCheckout.sharedCheckoutManager()
+        guard sharedManager.dataHolder.themeLocalisationHolder.localiseFile?.filePath?.absoluteString == TapCheckout.defaultLocalisationURL,
+              sharedManager.dataHolder.themeLocalisationHolder.customTheme?.lightModeThemeFileName == TapCheckout.defaultThemeLightURL else {
+            // This means the user didn't pass naything and we cached the default values,
+            // now it is time to check if the api sent a different urls for the default values
+            guard sharedManager.dataHolder.themeLocalisationHolder.localiseFile?.filePath?.absoluteString == localisationUrlApi,
+                  sharedManager.dataHolder.themeLocalisationHolder.customTheme?.lightModeThemeFileName == lightThemeUrlApi else {
+                // This means, the backend sent a different urls, and hence, we need to load the new default ones
+                return true
+            }
+            // This means, the backend sent the same default urls we already preloaded, so no need to load it again
+            return false
+        }
+        
+        // This means, we already loaded what the user passed as a custom theme and we are not using any default values. Hence, we don't have to load the default theme and localisation now
+        return false
+    }
     
     /**
      Respinsiboe for calling charge or authorize api
