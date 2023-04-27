@@ -32,19 +32,19 @@ internal class UIGradientHelper {
             return startAndEndPoints(from: angle)
         }
     }
-
+    
     static func startAndEndPoints(from angle: Int) -> (startPoint:CGPoint, endPoint:CGPoint) {
         // Set default points for angle of 0°
         var startPointX: CGFloat = 0.5
         var startPointY: CGFloat = 1.0
-
+        
         // Define point objects
         var startPoint: CGPoint
         var endPoint: CGPoint
-
+        
         // Define points
         switch true {
-        // Define known points
+            // Define known points
         case angle == 0:
             startPointX = 0.5
             startPointY = 1.0
@@ -69,7 +69,7 @@ internal class UIGradientHelper {
         case angle == 315:
             startPointX = 1.0
             startPointY = 1.0
-        // Define calculated points
+            // Define calculated points
         case angle > 315 || angle < 45:
             startPointX = 0.5 - CGFloat(tan(angle.degreesToRads()) * 0.5)
             startPointY = 1.0
@@ -93,14 +93,14 @@ internal class UIGradientHelper {
 }
 
 internal extension Int {
-
+    
     func degreesToRads() -> Double {
         return (Double(self) * .pi / 180)
     }
 }
 
 internal extension CGPoint {
-
+    
     func opposite() -> CGPoint {
         // Create New Point
         var oppositePoint = CGPoint()

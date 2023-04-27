@@ -21,9 +21,9 @@ internal enum GradientDirection {
 }
 
 internal class GradientLayer: CAGradientLayer {
-
+    
     private var direction: GradientDirection = .bottomLeftToTopRight
-
+    
     init(direction: GradientDirection, colors: [UIColor], cornerRadius: CGFloat = 0, locations: [Double]? = nil) {
         super.init()
         self.direction = direction

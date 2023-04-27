@@ -62,5 +62,5 @@ internal extension UIImage {
         let gradient = GradientLayer(direction: direction, colors: colors, cornerRadius: cornerRadius, locations: locations)
         return UIImage.fromGradient(gradient, frame: frame)
     }
-
+    
 }
