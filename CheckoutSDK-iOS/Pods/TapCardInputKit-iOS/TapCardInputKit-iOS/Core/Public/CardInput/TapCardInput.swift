@@ -869,6 +869,8 @@ internal protocol TapCardInputCommonProtocol {
             self?.cardCVV.alpha = (self?.cardNumber.isEditing ?? false) ? 0 : 1
             self?.cardExpiry.alpha = (self?.cardNumber.isEditing ?? false) ? 0 : 1
             self?.cardName.alpha = (self?.showCardName ?? false) ? ((self?.cardNumber.isEditing ?? false || !(numberValid && expiryValid && cvvValid)) ? 0 : 1) : 0
+            self?.cardHolderNameSeparator.alpha = self?.cardName.alpha ?? 0
+            self?.cardHolderNameSeparator.isHidden = self?.cardName.isHidden ?? true
             self?.delegate?.heightChanged()
         })
     }

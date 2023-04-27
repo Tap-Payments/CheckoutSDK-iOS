@@ -8,7 +8,7 @@
 
 import UIKit
 
-public extension UIView {
+internal extension UIView {
     
     func addGradientWithDirection(_ direction: GradientDirection, colors: [UIColor], cornerRadius: CGFloat = 0, locations: [Double]? = nil) {
         let gradientLayer = GradientLayer(direction: direction, colors: colors, cornerRadius: cornerRadius, locations: locations)
@@ -23,7 +23,7 @@ public extension UIView {
     }
 }
 
-public extension UIColor {
+internal extension UIColor {
     
     static func hex(_ hex: String, alpha: CGFloat = 1.0) -> UIColor {
         guard let hex = Int(hex, radix: 16) else { return UIColor.clear }
@@ -44,7 +44,7 @@ public extension UIColor {
     }
 }
 
-public extension UIImage {
+internal extension UIImage {
     
     static func fromGradient(_ gradient: GradientLayer, frame: CGRect, cornerRadius: CGFloat = 0) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, UIScreen.main.scale)

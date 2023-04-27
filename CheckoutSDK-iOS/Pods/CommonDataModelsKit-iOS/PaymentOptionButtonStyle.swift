@@ -61,6 +61,20 @@ extension PaymentOptionButtonStyle {
         }
     }
     
+    /// Returns and computes the loading base solid color
+    public func loadingBasebackgroundColor() -> UIColor? {
+        guard let lightBackgroundColor:String = background?.light?.baseColor,
+              let darkBackgroundColor:String = background?.dark?.baseColor else { return nil }
+        
+        // We decide which theme object to user based on the current userInterfaceStyle
+        if #available(iOS 12.0, *) {
+            return (UIView().traitCollection.userInterfaceStyle == .dark) ?  UIColor(tap_hex: darkBackgroundColor) : UIColor(tap_hex: lightBackgroundColor)
+        } else {
+            // Fallback on earlier versions
+            return UIColor(tap_hex: lightBackgroundColor)
+        }
+    }
+    
     /**
      Generates the correct url to access the image to be displayed on the action button when valid, using the attached payment option
      - Parameter for displayMode : To indicate whether you need the dark or light

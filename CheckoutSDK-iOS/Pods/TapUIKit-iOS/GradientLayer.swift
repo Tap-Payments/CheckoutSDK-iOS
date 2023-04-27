@@ -8,7 +8,7 @@
 
 import UIKit
 
-public enum GradientDirection {
+internal enum GradientDirection {
     case topToBottom
     case bottomToTop
     case leftToRight
@@ -20,11 +20,11 @@ public enum GradientDirection {
     case custom(Int)
 }
 
-open class GradientLayer: CAGradientLayer {
+internal class GradientLayer: CAGradientLayer {
 
     private var direction: GradientDirection = .bottomLeftToTopRight
 
-    public init(direction: GradientDirection, colors: [UIColor], cornerRadius: CGFloat = 0, locations: [Double]? = nil) {
+    init(direction: GradientDirection, colors: [UIColor], cornerRadius: CGFloat = 0, locations: [Double]? = nil) {
         super.init()
         self.direction = direction
         self.needsDisplayOnBoundsChange = true
@@ -36,15 +36,15 @@ open class GradientLayer: CAGradientLayer {
         self.locations = locations?.map { NSNumber(value: $0) }
     }
     
-    public override init(layer: Any) {
+    override init(layer: Any) {
         super.init(layer: layer)
     }
     
-    required public init(coder aDecoder: NSCoder) {
+    required init(coder aDecoder: NSCoder) {
         super.init()
     }
     
-    public final func clone() -> GradientLayer {
+    final func clone() -> GradientLayer {
         if let colors = self.colors {
             return GradientLayer(direction: self.direction, colors: colors.map { UIColor(cgColor: ($0 as! CGColor)) }, cornerRadius: self.cornerRadius, locations: self.locations?.map { $0.doubleValue } )
         }
@@ -52,7 +52,7 @@ open class GradientLayer: CAGradientLayer {
     }
 }
 
-public extension GradientLayer {
+internal extension GradientLayer {
     static var oceanBlue: GradientLayer {
         return GradientLayer(direction: .bottomLeftToTopRight, colors: [UIColor.hex("2E3192"), UIColor.hex("1BFFFF")])
     }

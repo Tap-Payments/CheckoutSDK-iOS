@@ -157,6 +157,17 @@ internal protocol TapActionButtonViewDelegate {
         return buttonStatus == .ValidPayment ? validPaymentButtonBackgroundColor() : buttonStatus.buttonBackGroundColor()
     }
     
+    /// Comutes the solid color of the action button to show in loading state based on its current status
+    internal func loadingShrinkingBackgroundColor() -> UIColor {
+        
+        // Check if we have a style passed first
+        guard let buttonStyle:PaymentOptionButtonStyle = buttonStyle,
+              buttonStatus == .ValidPayment,
+              let solidColor:UIColor = buttonStyle.loadingBasebackgroundColor() else { return buttonStatus.buttonBackGroundColor() }
+        
+        return solidColor
+    }
+    
     /// Only in valid payments statuses we will have to check if we shall return the default or the passed style by the caller if any
     /// If there is a passed style, it will create a color out of it but if not it will send the default valid payment color fetched from the theme file
     internal func validPaymentButtonBackgroundColor() -> UIColor {
