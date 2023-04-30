@@ -275,8 +275,8 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         sharedCheckoutDataManager.resetCardData(shouldFireCardDataChanged: false)
         CardValidator.favoriteCardBrand = nil
         
-        self.removeView(viewType: TapAmountSectionView.self, with: .init(for: .fadeOut, with: 0.1), and: true, skipSelf: true)
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
+        self.removeView(viewType: TapAmountSectionView.self, with: .init(for: .fadeOut, with: 0.2), and: true, skipSelf: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300)) {
             self.sharedCheckoutDataManager.currencyChip(for: nonNullCurrencyViewModel)
             self.tapVerticalView.add(views: [self.sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView, self.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView], with: [.init(for: .fadeIn, with: 0.0 , wait: 0)])
         }
