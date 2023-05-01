@@ -87,6 +87,24 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
     
    
     
+    public func deselectedAll() {
+        // Disable the pay button regarding its current state
+        dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .InvalidPayment
+        
+        // Deselect selected chips before starting the edit mode
+        dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.deselectAll()
+        dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deselectAll()
+        
+        // We will need to reset the card data if we are currently selecting a saved card and we are going to deselect it
+        if dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView.cardInputView.cardUIStatus == .SavedCard {
+            resetCardData(shouldFireCardDataChanged: true)
+        }
+        
+        // let the card come back
+        dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView.alpha = 1
+        dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView.isUserInteractionEnabled = true
+    }
+    
     public func headerRightButtonClicked(in headerType: TapHorizontalHeaderType) {
         // Disable the pay button regarding its current state
         dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .InvalidPayment
