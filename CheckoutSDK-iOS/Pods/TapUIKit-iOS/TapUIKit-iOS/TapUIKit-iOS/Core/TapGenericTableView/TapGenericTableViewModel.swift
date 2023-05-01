@@ -81,6 +81,7 @@ internal protocol TapCellGenericTableViewModelDelegate {
         // Create the attached table view instance
         tableView = .init()
         tableView?.translatesAutoresizingMaskIntoConstraints = false
+        tableView?.backgroundColor = .clear
         // Assign self to be the delegate of the table created
         tableView?.changeViewMode(with: self)
         defer {
