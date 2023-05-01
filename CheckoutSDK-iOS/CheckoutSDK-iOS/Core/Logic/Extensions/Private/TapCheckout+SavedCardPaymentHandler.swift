@@ -89,7 +89,8 @@ extension TapCheckout {
         // Then show loader
         chanegActionButton(status: .InvalidPayment, actionBlock: nil)
         cardCellViewModel.showLoader()
-        
+        // Disable the interaction until deletion is done
+        self.UIDelegate?.enableInteraction(with: false)
         // Call the deletion api after a sec to give the loader the needed time to animate
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
             self.callSavedCardDeletion(for: savedCard) { [weak self] (savedCardDeleteResponse) in
@@ -126,6 +127,8 @@ extension TapCheckout {
         dataHolder.viewModels.tapActionButtonViewModel.expandButton()
         // Stop the edit mode for the saved card list
         headerEndEditingButtonClicked(in: .GatewayListHeader)
+        // Enable the view again after deletion is done
+        self.UIDelegate?.enableInteraction(with: true)
     }
     
     /**
