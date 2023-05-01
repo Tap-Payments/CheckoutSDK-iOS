@@ -183,8 +183,13 @@ extension TapCheckout: TapBottomSheetDialogDelegate {
     }
     
     public func tapBottomSheetHeightChanged(with newHeight: CGFloat) {
+        // compute the minimum neede height
+        let minimumNeededHeight = TapCheckout.sharedCheckoutManager().UIDelegate?.minimumNeededHeight() ?? 400
+        // Check if the user moved it to a lower point than the required minimum, then we ask it to bounce back to the minimum height needed
+        if newHeight < minimumNeededHeight {
+            changeHeight(to: minimumNeededHeight)
+        }
     }
-    
 }
 
 

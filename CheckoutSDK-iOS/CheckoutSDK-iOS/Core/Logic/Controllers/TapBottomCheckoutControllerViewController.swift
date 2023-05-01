@@ -455,6 +455,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
     
     /// Handles closing the web view and getting back normal views
     func cancelWebView(showingFullScreen:Bool = false) {
+        
         // First thing, animate closing the web view
         /*// We will remove all the shown views below the amount section first
          self.removeView(viewType: TapWebView.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true)
@@ -810,11 +811,14 @@ extension TapBottomCheckoutControllerViewController:TapWebViewModelDelegate {
 
 extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDelegate {
     
-    func changeHeightt(to: CGFloat) {
-        //print("DELEGATE CALL BACK WITH SIZE \(newSize) and Frame of :\(frame)")
+    func reduceHeight(to: CGFloat) {
         guard let delegate = delegate else { return }
-        
         delegate.reduceHeight(by: to)
+    }
+    
+    func changeHeight(to: CGFloat) {
+        guard let delegate = delegate else { return }
+        delegate.changeHeight(to: to)
     }
     
     func prepareFor3DSInCardAnimation() {
@@ -871,6 +875,10 @@ extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDe
         }
     }
     
+    
+    func minimumNeededHeight() -> CGFloat {
+        return tapVerticalView.getMinimumNeededHeight()
+    }
     
     func goPaySignIn(status: Bool) {
         

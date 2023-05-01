@@ -56,6 +56,9 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      */
     func actionButton(shouldLoad:Bool,success:Bool,onComplete:@escaping()->())
     
+    /// Computes the minimum needed space to display all the views inside the checkout
+    func minimumNeededHeight() -> CGFloat
+    
     /**
      Will be fired once the checkout process faild and we need to dismiss
      - Parameter with error:  The error cause the checkout process to fail
@@ -131,8 +134,13 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     /// It will show loading view inside the card form waiting until the web view is ready from the charge response
     func prepareFor3DSInCardAnimation()
     
+    /// Will reduce the height by a value
+    /// - Parameter to: The amount that we will reduce the height by
+    func reduceHeight(to:CGFloat)
     
-    func changeHeightt(to:CGFloat)
+    /// Will set the height by a value
+    /// - Parameter to: The height we will set the sheet to
+    func changeHeight(to:CGFloat)
 }
 
 
@@ -286,7 +294,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         amount:Double = 1,
         items:[ItemModel] = [],
         applePayMerchantID:String = "merchant.tap.gosell",
-        swipeDownToDismiss:Bool = true,
+        swipeDownToDismiss:Bool = false,
         paymentType:TapPaymentType = .All,
         closeButtonStyle:CheckoutCloseButtonEnum = .title,
         showDragHandler:Bool = false,

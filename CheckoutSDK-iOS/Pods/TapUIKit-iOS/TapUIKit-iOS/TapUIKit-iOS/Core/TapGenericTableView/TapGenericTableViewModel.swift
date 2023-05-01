@@ -188,6 +188,10 @@ internal protocol TapCellGenericTableViewModelDelegate {
 
 
 extension TapGenericTableViewModel:TapGenericCellViewModelDelegate {
+    func isLastRow(for viewModel: ItemCellViewModel) -> Bool {
+        return dataSource.last == viewModel
+    }
+    
     func reloadRows(at indexPaths: [IndexPath]) {
         cellDelegate?.reloadRows(at: indexPaths)
     }

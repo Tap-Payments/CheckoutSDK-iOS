@@ -22,7 +22,6 @@ internal extension TapCheckout {
     /// Configures the bottom sheet by creating one and assigning the correct delegates and datasources
     func configureBottomSheet() {
         // Create the sheet itself
-        bottomSheetController = TapBottomSheetDialogViewController()
         bottomSheetController.dataSource = self
         bottomSheetController.delegate = self
         bottomSheetController.modalPresentationStyle = .overCurrentContext
