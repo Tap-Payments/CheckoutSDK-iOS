@@ -14,7 +14,7 @@
                 <outlet property="contentView" destination="iN0-l3-epB" id="4X3-ae-UgX"/>
                 <outlet property="headerView" destination="VLF-Re-aM8" id="ZCR-Oe-hcn"/>
                 <outlet property="loadingBlurView" destination="UlU-UZ-H8C" id="9sN-6q-5Pt"/>
-                <outlet property="poweredByTapView" destination="LUL-8j-V4O" id="RJW-yy-T3S"/>
+                <outlet property="poweredByTapView" destination="TvM-sv-pqx" id="PlW-PS-JZm"/>
                 <outlet property="pre3DSLoadingView" destination="kpP-xc-tEn" id="RME-aP-6Cm"/>
                 <outlet property="stackView" destination="CZk-jP-kZU" id="9SK-eb-rzi"/>
                 <outlet property="tapCardPhoneListView" destination="or1-yo-2AD" id="Jvu-8O-tJG"/>
@@ -52,10 +52,10 @@
                         <constraint firstAttribute="height" constant="24" id="zFf-Xx-rVe"/>
                     </constraints>
                 </view>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LUL-8j-V4O">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TvM-sv-pqx">
                     <rect key="frame" x="449" y="208" width="100" height="24"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="100" id="Sch-Hj-Li3"/>
+                        <constraint firstAttribute="width" constant="100" id="2f1-IM-ZZb"/>
                     </constraints>
                 </imageView>
                 <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kpP-xc-tEn">
@@ -92,14 +92,14 @@
                 <constraint firstItem="or1-yo-2AD" firstAttribute="top" secondItem="CZk-jP-kZU" secondAttribute="bottom" constant="8" id="5bI-D9-kXM"/>
                 <constraint firstItem="VLF-Re-aM8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Dna-gj-QlP"/>
                 <constraint firstItem="or1-yo-2AD" firstAttribute="leading" secondItem="CZk-jP-kZU" secondAttribute="leading" id="ENA-kU-aBy"/>
-                <constraint firstItem="LUL-8j-V4O" firstAttribute="bottom" secondItem="or1-yo-2AD" secondAttribute="bottom" id="Ees-M9-Zf7"/>
-                <constraint firstItem="LUL-8j-V4O" firstAttribute="trailing" secondItem="or1-yo-2AD" secondAttribute="trailing" id="FQK-S3-FIT"/>
                 <constraint firstAttribute="trailing" secondItem="CZk-jP-kZU" secondAttribute="trailing" constant="16" id="Fda-Gy-8NT"/>
                 <constraint firstItem="or1-yo-2AD" firstAttribute="trailing" secondItem="CZk-jP-kZU" secondAttribute="trailing" id="HkT-c2-1U6"/>
                 <constraint firstItem="CZk-jP-kZU" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="OM3-6q-VAy"/>
                 <constraint firstItem="kpP-xc-tEn" firstAttribute="trailing" secondItem="CZk-jP-kZU" secondAttribute="trailing" id="S3n-GT-gQN"/>
-                <constraint firstItem="LUL-8j-V4O" firstAttribute="top" secondItem="or1-yo-2AD" secondAttribute="top" id="Xde-f8-dop"/>
+                <constraint firstItem="TvM-sv-pqx" firstAttribute="trailing" secondItem="or1-yo-2AD" secondAttribute="trailing" id="Waa-9t-x0v"/>
                 <constraint firstItem="kpP-xc-tEn" firstAttribute="top" secondItem="CZk-jP-kZU" secondAttribute="top" id="aeQ-7R-0Wo"/>
+                <constraint firstItem="TvM-sv-pqx" firstAttribute="bottom" secondItem="or1-yo-2AD" secondAttribute="bottom" id="bGO-oo-ejI"/>
+                <constraint firstItem="TvM-sv-pqx" firstAttribute="top" secondItem="or1-yo-2AD" secondAttribute="top" id="gHJ-hN-Pnu"/>
                 <constraint firstItem="kpP-xc-tEn" firstAttribute="leading" secondItem="CZk-jP-kZU" secondAttribute="leading" id="hpe-VF-n4f"/>
                 <constraint firstItem="or1-yo-2AD" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" priority="750" id="lfc-qu-aN1"/>
                 <constraint firstItem="VLF-Re-aM8" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="yBb-TV-koC"/>
