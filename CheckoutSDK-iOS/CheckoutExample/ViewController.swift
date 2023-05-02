@@ -9,14 +9,11 @@
 import UIKit
 import CheckoutSDK_iOS
 import CommonDataModelsKit_iOS
-import TapUIKit_iOS
 import LocalisationManagerKit_iOS
 import PassKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var tapPayButton: TapActionButton!
-    let tapPayButtonViewModel:TapPayButtonViewModel = .init()
     var tapSettings:TapSettings = TapSettings(localisation: false, theme: "Default", currency: .USD, swipeToDismissFeature: true, paymentTypes: [.All],closeButtonTitleFeature: true, customer: try! .init(identifier: "cus_TS075220212320q2RD0707283"),transactionMode: .purchase,addShippingFeature: false)
     
     var localeID:String = "en" {
@@ -94,9 +91,7 @@ class ViewController: UIViewController {
     }
     
     func adjustTapButton() {
-        tapPayButton.setup(with: tapPayButtonViewModel)
-        tapPayButtonViewModel.buttonStatus = .ValidPayment
-        tapPayButtonViewModel.buttonActionBlock = { [weak self] in self?.startSDKClicked() }
+        
     }
     
     
@@ -108,10 +103,8 @@ class ViewController: UIViewController {
     func startSDKClicked() {
         tapSettings.load()
         
-        tapPayButtonViewModel.startLoading()
         // Tell the chekout to configure its resources
         let checkout:TapCheckout = .init()
-        TapCheckout.flippingStatus = .FlipOnLoadWithFlippingBack
         // Checkout's localization. Currently supporting en and ar
         TapCheckout.localeIdentifier = localeID
         // Checkout's sample keys. Make sure
@@ -140,7 +133,6 @@ class ViewController: UIViewController {
             applePayMerchantID: TapFormSettingsViewController.merchantSettings().4,
             swipeDownToDismiss: swipeToDismiss,
             paymentType: TapFormSettingsViewController.transactionSettings().2,
-            closeButtonStyle: TapFormSettingsViewController.showCloseButtonTitle() ? .title : .icon,
             showDragHandler:showDragHandler,
             transactionMode: TapFormSettingsViewController.transactionSettings().0,
             customer: TapFormSettingsViewController.customerSettings().7,
@@ -284,8 +276,7 @@ class ViewController: UIViewController {
 
 extension ViewController:CheckoutScreenDelegate {
     func tapBottomSheetWillDismiss() {
-        tapPayButtonViewModel.expandButton()
-        adjustTapButton()
+        
     }
     
     func applePayTokenizationFailed(in session:URLSessionDataTask?, for result:[String:String]?, with error:Error?) {
@@ -367,19 +358,17 @@ extension ViewController:CheckoutScreenDelegate {
     }
     
     func checkoutFailed(in session: URLSessionDataTask?, for result: [String : String]?, with error: Error?) {
-        tapPayButtonViewModel.endLoading(with: false) {
-            self.tapBottomSheetWillDismiss()
-            var message = "No error message"
-            if let result = result {
-                message = ""
-                result.tap_allKeys.forEach{ message = "\(message)\n\($0) : \(result[$0] ?? "")" }
-            }
-            
-            if let error = error {
-                message = "\(message)\n\(error.localizedDescription)"
-            }
-            self.showAlert(title: "Error", message: message)
+        self.tapBottomSheetWillDismiss()
+        var message = "No error message"
+        if let result = result {
+            message = ""
+            result.tap_allKeys.forEach{ message = "\(message)\n\($0) : \(result[$0] ?? "")" }
         }
+        
+        if let error = error {
+            message = "\(message)\n\(error.localizedDescription)"
+        }
+        self.showAlert(title: "Error", message: message)
     }
     
     func checkoutFailed(with charge: Charge) {

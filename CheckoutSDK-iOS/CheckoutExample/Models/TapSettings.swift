@@ -8,7 +8,6 @@
 import class Foundation.NSObject
 import CheckoutSDK_iOS
 import CommonDataModelsKit_iOS
-import TapUIKit_iOS
 
 @objc public class TapSettings: NSObject, Codable {    
     public func encode(to encoder: Encoder) throws {

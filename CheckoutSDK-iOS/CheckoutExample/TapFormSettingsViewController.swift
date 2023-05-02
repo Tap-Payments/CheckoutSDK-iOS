@@ -8,8 +8,7 @@
 import UIKit
 import Eureka
 import CommonDataModelsKit_iOS
-import TapUIKit_iOS
-import TapApplePayKit_iOS
+
 import CheckoutSDK_iOS
 
 class TapFormSettingsViewController: Eureka.FormViewController {

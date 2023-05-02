@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Nuke
 import CommonDataModelsKit_iOS
 
 extension PaymentOption {

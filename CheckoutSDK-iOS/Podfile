@@ -13,9 +13,11 @@ target 'CheckoutSDK-iOS' do
   use_frameworks!
 
   # Pods for CheckoutSDK-iOS
-pod 'TapUIKit-iOS'
+pod 'CommonDataModelsKit-iOS' 
 pod 'TapNetworkKit-iOS'
 pod 'TapApplicationV2'
 pod 'BugfenderSDK', '1.11.0'
-
+pod 'SnapKit'
+pod 'TapCardScanner-iOS' 
+pod 'LocalisationManagerKit-iOS'
 end

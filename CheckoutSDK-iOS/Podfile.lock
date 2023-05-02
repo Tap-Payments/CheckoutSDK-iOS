@@ -1,41 +1,23 @@
 PODS:
   - BugfenderSDK (1.11.0)
-  - CommonDataModelsKit-iOS (1.0.119):
+  - CommonDataModelsKit-iOS (1.0.121):
     - SwiftyRSA
     - TapAdditionsKitV2
     - TapCardVlidatorKit-iOS
     - TapKeychain
-  - EasyTipView (2.1.0)
-  - FlagKit (2.2)
   - LocalisationManagerKit-iOS (1.0.5)
-  - McPicker (3.0.0)
-  - Nuke (10.7.1)
-  - PullUpController (0.8.0)
   - SnapKit (5.6.0)
   - SwiftyRSA (1.7.0):
     - SwiftyRSA/ObjC (= 1.7.0)
   - SwiftyRSA/ObjC (1.7.0)
   - TapAdditionsKitV2 (0.0.9):
     - TapSwiftFixesV2
-  - TapApplePayKit-iOS (1.0.14):
-    - CommonDataModelsKit-iOS
-    - TapApplicationV2
-    - TapNetworkKit-iOS
   - TapApplicationV2 (0.0.2):
     - TapAdditionsKitV2
-  - TapCardInputKit-iOS (1.0.63):
-    - CommonDataModelsKit-iOS
-    - LocalisationManagerKit-iOS
-    - Nuke
-    - SnapKit
-    - TapCardVlidatorKit-iOS
-    - TapThemeManager2020
   - TapCardScanner-iOS (1.0.25):
     - CommonDataModelsKit-iOS
     - TapCardVlidatorKit-iOS
   - TapCardVlidatorKit-iOS (1.0.20)
-  - TapFontKit-iOS (0.0.9):
-    - TapSwiftFixesV2
   - TapKeychain (1.0.5)
   - TapNetworkKit-iOS (1.0.14):
     - CommonDataModelsKit-iOS
@@ -50,79 +32,45 @@ PODS:
   - TapSwiftFixesV2/CoreGraphics (1.0.0)
   - TapSwiftFixesV2/Exceptions (1.0.0)
   - TapSwiftFixesV2/Threading (1.0.0)
-  - TapThemeManager2020 (1.0.81):
-    - LocalisationManagerKit-iOS
-    - TapFontKit-iOS
-  - TapUIKit-iOS (1.0.140):
-    - CommonDataModelsKit-iOS
-    - EasyTipView
-    - FlagKit
-    - LocalisationManagerKit-iOS
-    - McPicker
-    - Nuke
-    - PullUpController
-    - SnapKit
-    - TapApplePayKit-iOS
-    - TapCardInputKit-iOS
-    - TapCardScanner-iOS
-    - TapCardVlidatorKit-iOS
-    - TapThemeManager2020
 
 DEPENDENCIES:
   - BugfenderSDK (= 1.11.0)
+  - CommonDataModelsKit-iOS
+  - LocalisationManagerKit-iOS
+  - SnapKit
   - TapApplicationV2
+  - TapCardScanner-iOS
   - TapNetworkKit-iOS
-  - TapUIKit-iOS
 
 SPEC REPOS:
   trunk:
     - BugfenderSDK
     - CommonDataModelsKit-iOS
-    - EasyTipView
-    - FlagKit
     - LocalisationManagerKit-iOS
-    - McPicker
-    - Nuke
-    - PullUpController
     - SnapKit
     - SwiftyRSA
     - TapAdditionsKitV2
-    - TapApplePayKit-iOS
     - TapApplicationV2
-    - TapCardInputKit-iOS
     - TapCardScanner-iOS
     - TapCardVlidatorKit-iOS
-    - TapFontKit-iOS
     - TapKeychain
     - TapNetworkKit-iOS
     - TapSwiftFixesV2
-    - TapThemeManager2020
-    - TapUIKit-iOS
 
 SPEC CHECKSUMS:
   BugfenderSDK: b31a017a6a6ee3e2e834ae36148e9b70fb33c20f
-  CommonDataModelsKit-iOS: 8661b40ee5407031e72c56f03c9f19ee1671949d
-  EasyTipView: a92b6edc377b81c5ac18e9fd35d5ee78e9409488
-  FlagKit: eca7dc89064b0c986302ba9acefad1bf80a435b1
+  CommonDataModelsKit-iOS: eef101818cfa9da0dbd0ae2a65b3711fce66e552
   LocalisationManagerKit-iOS: 4c140a36e66d34af69424a311659df3bd6cc793a
-  McPicker: ba38be56a8194faa5249eca4226c364eed628044
-  Nuke: 279f17a599fd1c83cf51de5e0e1f2db143a287b0
-  PullUpController: 2f7ccaa0f35b31b47e3efbe1854c7f781552b3c7
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   SwiftyRSA: 8c6dd1ea7db1b8dc4fb517a202f88bb1354bc2c6
   TapAdditionsKitV2: 9846381c32b150303cbeff355550d3500a98f77d
-  TapApplePayKit-iOS: e45d9c999b427f327a70dc838919336d61a22ff7
   TapApplicationV2: aee3d046c4272778431e1535de6cab34e1269f8c
-  TapCardInputKit-iOS: efad8a093d610f17ebe686bb964be5d28a9defcd
   TapCardScanner-iOS: 9db044847348ddb7a3b4ca262b33842e83d71a6e
   TapCardVlidatorKit-iOS: 00ac65c44019f955234640e5d4ca583f639edca2
-  TapFontKit-iOS: 51ed2ddbe9f2b5ece1cc587ed45af9147e5c6fc1
   TapKeychain: 143aa70bb2d1b094e0298e944660264034c79849
   TapNetworkKit-iOS: 92c8c7feae384dc2595f8f270853ee3cf8ea3380
   TapSwiftFixesV2: a8623a7273c6790b9754ec7e272e96fce7d3a800
-  TapThemeManager2020: fe49f3ed41314ab845661ec1f93529585acf500a
-  TapUIKit-iOS: 3fbcff810f195b92bab78637ba4c30b6d3fb8971
 
-PODFILE CHECKSUM: a11d355f0de25be5c6356b85b5389ad9ba1e396d
+PODFILE CHECKSUM: 05e9572a7df6aa8af197c7dd7d3cd2663b6e3343
 
 COCOAPODS: 1.11.2

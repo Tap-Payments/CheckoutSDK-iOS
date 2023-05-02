@@ -7,15 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-@import TapUIKit_iOS;
-@import TapThemeManager2020;
 @import LocalisationManagerKit_iOS;
-@import TapApplePayKit_iOS;
 @import CommonDataModelsKit_iOS;
-@import TapApplePayKit_iOS;
-@import CommonDataModelsKit_iOS;
-@import TapCardVlidatorKit_iOS;
-@import TapCardInputKit_iOS;
 @import TapCardScanner_iOS;
 @import AVFoundation;
 @import WebKit;

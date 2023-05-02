@@ -43,15 +43,6 @@ SZhWp4Mnd6wjVgXAsQIDAQAB
             Constants.HTTPHeaderKey.mdn: Crypter.encrypt(TapCheckout.bundleID, using: NetworkManager.headersEncryptionPublicKey) ?? ""
         ]
         
-        if let sessionToken = TapCheckout.sharedCheckoutManager().dataHolder.transactionData.intitModelResponse?.data.sessionToken, !sessionToken.isEmpty {
-            
-            result[Constants.HTTPHeaderKey.sessionToken] = sessionToken
-        }
-        
-        if let middleWareToken = TapCheckout.sharedCheckoutManager().dataHolder.transactionData.intitModelResponse?.session {
-            
-            result[Constants.HTTPHeaderKey.token] = "\(middleWareToken)"
-        }
         
         return result
     }
@@ -80,7 +71,7 @@ SZhWp4Mnd6wjVgXAsQIDAQAB
      - Returns: The sandbox or production secret key based on the SDK mode
      */
     static func secretKey() -> String {
-        return (TapCheckout.sharedCheckoutManager().dataHolder.transactionData.sdkMode == .sandbox) ? TapCheckout.secretKey.sandbox : TapCheckout.secretKey.production
+        return (TapCheckout.sharedCheckoutManager().sdkMode == .sandbox) ? TapCheckout.secretKey.sandbox : TapCheckout.secretKey.production
     }
     
     

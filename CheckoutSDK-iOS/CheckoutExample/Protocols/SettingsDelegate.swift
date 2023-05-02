@@ -8,7 +8,7 @@
 import Foundation
 import CheckoutSDK_iOS
 import CommonDataModelsKit_iOS
-import TapUIKit_iOS
+
 
 public protocol SettingsDelegate {
     func didUpdateLanguage(with locale: String)

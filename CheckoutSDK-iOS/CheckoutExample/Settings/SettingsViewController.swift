@@ -9,7 +9,7 @@
 import UIKit
 import CheckoutSDK_iOS
 import CommonDataModelsKit_iOS
-import TapUIKit_iOS
+
 
 class SettingsViewController: UIViewController {
 

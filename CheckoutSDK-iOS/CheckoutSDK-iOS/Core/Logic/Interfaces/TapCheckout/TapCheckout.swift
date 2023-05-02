@@ -10,226 +10,40 @@ import Foundation
 import LocalisationManagerKit_iOS
 //import MOLH
 import CommonDataModelsKit_iOS
-import TapUIKit_iOS
 import TapApplicationV2
 import PassKit
-import TapApplePayKit_iOS
 import BugfenderSDK
-
-/// A protocol to comminicate between the UIManager and the data manager
-internal protocol TapCheckoutSharedManagerUIDelegate {
-    
-    /// Inform the ui checkout to dismiss the scanner
-    func closeScannerClicked()
-    
-    /**
-     Adds a hint view below a given view
-     - Parameter hintView: The hint view to be added
-     - Parameter to: The type of the view you want to show the hint below it
-     - Parameter animations: A boolean to indicate whether you want to show the hint with animation or right away
-     */
-    func attach(hintView:TapHintView,to:AnyClass,with animations:Bool)
-    
-    /**
-     Inform the delegate to remove a certain view from the checkout sheet
-     - Parameter view: The view required by the data manager to be removed from the checkout sheet
-     - Parameter with animation: The animation to remove the view with if any
-     */
-    func removeView(view:UIView,with animation:TapSheetAnimation?)
-    /**
-     Inform the delegate to end the loading status of the goPay login
-     - Parameter status: If set, means the user has provided correct credentials and is logged in to goPay. Otherwise, he provided wrong ones
-     */
-    func goPaySignIn(status:Bool)
-    
-    /**
-     Will be fired once the tap sheet content changed its height
-     - Parameter newHeight: The new height the content of the Tap sheet has
-     */
-    func show(alert:UIAlertController)
-    
-    /**
-     Will be fired once we need to ake the button starts/end loading
-     - Parameter shouldLoad: True to start loading and false otherwise
-     - Parameter success: Will be used in the case of ending loading with the success status
-     - Parameter onComplete: Logic block to execute after stopping loading
-     */
-    func actionButton(shouldLoad:Bool,success:Bool,onComplete:@escaping()->())
-    
-    /**
-     Will be fired once the checkout process faild and we need to dismiss
-     - Parameter with error:  The error cause the checkout process to fail
-     */
-    func dismissCheckout(with error:Error)
-    
-    /**
-     Will be fired when we want the checkout controller to show a webview
-     - Parameter with url: The url we want to load
-     - Parameter and navigationDelegate: The navigationDelegate to handle the webview navigation flow
-     - Parameter for webViewType: An enum to state all the possible ways to display a web view inside.
-     */
-    func showWebView(with url:URL,and navigationDelegate:TapWebViewModelDelegate?,for webViewType:WebViewTypeEnum)
-    
-    /**
-     Will be fired when we want the checkout controller to show a async payment view confirmation
-     - Parameter merchantModel: The merchant data
-     - Parameter chargeModel: The charge data
-     - Parameter paymentOption: The payment option used to start this async payment
-     */
-    func showAsyncView(merchantModel:TapMerchantHeaderViewModel, chargeModel:Charge, paymentOption:PaymentOption)
-    
-    /**
-     Will be fired in case we want to close/hide the currently shown web view in the checkout controller
-     */
-    func closeWebView()
-    
-    /**
-     Will be fired in case we want to close/hide the currently shown web view in the checkout controller
-     */
-    func cancelWebView(showingFullScreen:Bool)
-    
-    /**
-     Will be fired in case we want to hide/remove a loyalty widget
-     */
-    func hideLoyalty()
-    
-    /**
-     Will be fired in case we want to hide/remove a customer contact data collection widget
-     */
-    func hideCustomerContactDataCollection()
-    
-    /**
-     Will be fired in case we want to show  a loyalty widget
-     - Parameter with loyaltyViewModel: The view model for the loyalty widget we want to show
-     - Parameter animate: If true a fade in animation will be done while inserting the view, otherwise no animation will be used
-     */
-    func showLoyalty(with loyaltyViewModel: TapLoyaltyViewModel,animate:Bool)
-    
-    /**
-     Will be fired in case we want to show  customer contact data collection
-     - Parameter with customerDataViewModel: The view model that controls the customer contact data collection view
-     - Parameter and customerShippingViewModel: The view model that controls the customer shipping data collection view
-     - Parameter animate: If true a fade in animation will be done while inserting the view, otherwise no animation will be used
-     */
-    func showCustomerContactDataCollection(with customerDataViewModel: CustomerContactDataCollectionViewModel, and customerShippingViewModel: CustomerShippingDataCollectionViewModel, animate:Bool)
-    
-    /**
-     Will be fired in case we want to show saved card otp view
-     - Parameter with authenticationID: The authentication process ID if any
-     */
-    func showSavedCardOTPView(with authenticationID:String)
-    
-    /**
-     Will be fired in case we want to disable/enable interaction with the checkout sheet itself to prevent actions while calling the api for example
-     - Parameter with status: if true then enable if false then disable the checkout's interaction capabilty
-     */
-    func enableInteraction(with status:Bool)
-    
-    /// Will be fired in case you want to do the pre-3d animations.
-    /// It will remove all other sub views except the card form
-    /// It will shrink the card form into the ideal height
-    /// It will show loading view inside the card form waiting until the web view is ready from the charge response
-    func prepareFor3DSInCardAnimation()
-    
-    
-    func changeHeightt(to:CGFloat)
-}
 
 
 /// The public interface to deal and start the TapCheckout SDK/UI
 @objc public class TapCheckout: NSObject {
     
     // MARK:- Internal varibales
-    /// Reference to the color of the dimming of the tap sheet controller
-    internal var bottomSheetBackgroundColor:UIColor? = .init(white: 0, alpha: 0.5)
-    /// Initial height to start the sheet with
-    internal var initialHeight:CGFloat = 550
-    /// The corner radius of the sheet
-    internal var cornerRadius:CGFloat = 12
-    /// Indicates whether we  can load assets from CDN or not
-    internal var canLoadFromCDN:Bool = false
-    /// The tap bottom sheet reference
-    internal var bottomSheetController = TapBottomSheetDialogViewController()
-    /// A reference to the localisation manager
-    internal var sharedLocalisationManager = TapLocalisationManager.shared
-    /// A reference to the TapCheckoutController that will present the TapSheet
-    internal var tapCheckoutControllerViewController:TapBottomCheckoutControllerViewController?
-    /// A protocol to comminicate between the UIManager and the data manager
-    internal var UIDelegate:TapCheckoutSharedManagerUIDelegate?
     /// Represents a global accessable common data gathered by the merchant when loading the checkout sdk like amount, currency, etc
     internal static var privateShared : TapCheckout?
-    /// Represents the default item name. We will use this default item name when the user doesn't pass any items. It is required to have them in the format of items to make it readable by Apple Pay Requests. Please check [DefaultItemsCreation](x-source-tag://DefaultItemsCreation)
-    internal static var defaulItemTitle:String = "PAY TO TAP PAYMENTS"
-    /// Represents a block to execute after dismissing the sheet if any
-    internal var toBeExecutedBlock:()->() = {}
-    /// The current SDK version
-    internal static var sdkVersion:String? {
-        return TapBundlePlistInfo(bundle: Bundle(for: TapCheckout.self)).shortVersionString
-    }
-    
-    // MARK:- View Models Variables
-    var dataHolder:DataHolder = .init(viewModels: ViewModelsHolder.init(), transactionData: .init())
-    
-    // MARK:- Public varibales
-    /// A protocol to communicate with the Presente tap sheet controller
-    @objc public var tapCheckoutScreenDelegate:CheckoutScreenDelegate?
-    /// Indicates whether the checkout sheet is presented or not
-    internal static var isCheckoutSheenPresented:Bool = false
-    /// Indicates whether to display the light colored or light mono icons in the light theme mode
-    @objc public static var displayMonoLight:Bool = false
-    /// Indicates what to do when using RTL languages
-    @objc public static var flippingStatus:TapCheckoutFlipStatus = .FlipOnLoadWithFlippingBack
-    /// The ISO 639-1 Code language identefier, please note if the passed locale is wrong or not found in the localisation files, we will show the keys instead of the values
-    @objc public static var localeIdentifier:String = "en"
-    /// The secret keys providede to your business from TAP.
-    @objc public static var secretKey:SecretKey = .init(sandbox: "", production: "")
-    /// Holds the bundle id data
-    @objc public static var bundleID:String = TapApplicationPlistInfo.shared.bundleIdentifier ?? ""
-    
-    /// Tells to demo the loyalty widget or not
-    @objc public static var loyaltyEnabled:Bool = false
-    
-    /// Saves the default light theme url
-    internal static var defaultThemeLightURL:String = "https://tapcheckoutsdk.firebaseio.com/TapThemeMobile/light.json"
-    /// Saves the default dark theme url
-    internal static var defaultThemeDarkURL:String = "https://tapcheckoutsdk.firebaseio.com/TapThemeMobile/dark.json"
-    /// Saves the default localisation url
-    internal static var defaultLocalisationURL:String = "https://tapcheckoutsdk.firebaseio.com/TapLocalisation.json"
-    
+    internal var canLoadFromCDN:Bool = false
+    public static var bundleID:String = ""
+    public static var localeIdentifier:String = "en"
+    public static var secretKey:SecretKey = .init(sandbox: "", production: "")
+    public var sdkMode:SDKMode = .sandbox
+    public static var displayMonoLight:Bool = false
     // MARK:- Internal functions
     /// Configures and start sthe session with the bug finder logging platform
     internal func configureBugFinder() {
         // Log session start
         Bugfender.activateLogger("722zS708zuKi2owFgjUpgLYUk12hFwLY")
         Bugfender.enableCrashReporting()
-        Bugfender.setPrintToConsole(TapCheckout.sharedCheckoutManager().dataHolder.transactionData.enableApiLogging.contains(.CONSOLE))
+        Bugfender.setPrintToConsole(true)
         Bugfender.setDeviceString(NetworkManager.staticHTTPHeaders.tap_jsonString, forKey: "Static Headers")
         logBF(message: "New Session", tag: .EVENTS)
-        if TapCheckout.sharedCheckoutManager().dataHolder.transactionData.enableApiLogging.contains(.UI) {
+        if true {
             Bugfender.enableUIEventLogging()
         }
 
     }
     
     // MARK:- Public functions
-    
-    /// It is a required method to be called as fast as possible (on app delegate).
-    /// This will make sure whever the checkout process is needed, it will be ready and fast for better UX
-    /// - Parameter localiseFile: Please pass the name of the custom localisation file model if needed. If not set, the normal and default TAP localisations will be used
-    /// - Parameter customTheme: Please pass the tap checkout theme object with the names of your custom theme files if needed. If not set, the normal and default TAP theme will be used
-    @objc public static func PreloadSDKData(localiseFile:TapCheckoutLocalisation,
-                                            customTheme:TapCheckOutTheme) {
-        // Init the localsiation manager
-        TapCheckout.configureLocalisationManager(localiseFile: localiseFile)
-        sharedCheckoutManager().sharedLocalisationManager = TapLocalisationManager.shared
-        // Init the theme manager
-        // If it is the default theme, let us load it in background thread then assign i
-        DispatchQueue.main.async {
-            TapCheckout.configureThemeManager(customTheme:customTheme)
-            print("LOADED DEFAULT")
-        }
-    }
-    
+   
     /**
      Defines the tap checkout bottom sheet controller
      - Parameter customTheme: Please pass the tap checkout theme object with the names of your custom theme files if needed. If not set, the normal and default TAP theme will be used
@@ -288,7 +102,6 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         applePayMerchantID:String = "merchant.tap.gosell",
         swipeDownToDismiss:Bool = true,
         paymentType:TapPaymentType = .All,
-        closeButtonStyle:CheckoutCloseButtonEnum = .title,
         showDragHandler:Bool = false,
         transactionMode: TransactionMode = .purchase,
         customer: TapCustomer = try! .init(identifier: "cus_TS031720211012r4RM0403926"),
@@ -321,21 +134,9 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         shouldFlipCardData:Bool = true,
         onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
             
-            // Do the pre steps needed before starting a new SDK session
-            prepareSDK(with: sdkMode,delegate:delegate, enableApiLogging:enableApiLogging.map{ TapLoggingType(rawValue: $0) ?? .CONSOLE })
             
-            // Store the passed configurations for further processing
-            configureSharedManager(customTheme:customTheme, localiseFile: localiseFile, currency:currency, supportedCurrencies:supportedCurrencies?.compactMap{ TapCurrencyCode(appleRawValue: $0) }.filter{$0 != .undefined }, amount:amount,items:items,applePayMerchantID:applePayMerchantID,swipeDownToDismiss:swipeDownToDismiss,paymentType:paymentType,closeButtonStyle: closeButtonStyle, showDragHandler: showDragHandler,transactionMode: transactionMode,customer: customer,destinations: destinations,tapMerchantID: tapMerchantID,taxes: taxes, shipping: shipping, allowedCardTypes:allowedCardTypes,postURL: postURL, paymentDescription: paymentDescription, paymentMetadata: paymentMetadata, paymentReference: paymentReference, paymentStatementDescriptor: paymentStatementDescriptor,require3DSecure:require3DSecure,receiptSettings:receiptSettings, authorizeAction: authorizeAction,allowsToSaveSameCardMoreThanOnce: allowsToSaveSameCardMoreThanOnce, enableSaveCard: enableSaveCard, enableApiLogging: enableApiLogging.map{ TapLoggingType(rawValue: $0) ?? .CONSOLE }, isSaveCardSwitchOnByDefault: isSaveCardSwitchOnByDefault, collectCreditCardName: collectCreditCardName, creditCardNameEditable: creditCardNameEditable, creditCardNamePreload: creditCardNamePreload, showSaveCreditCard:showSaveCreditCard, isSubscription: isSubscription, recurringPaymentRequest: recurringPaymentRequest, applePayButtonType :applePayButtonType, applePayButtonStyle: applePayButtonStyle, shouldFlipCardData: shouldFlipCardData, cardShouldThemeItself: true)
             
-            // let us load the default theme and localistion to save time. Instead of calling them after the checkoutprofile api response
-            preloadDefaultThemeAndLocalisation()
             
-            // Initiate the needed calls to server to start the session
-            initialiseSDKFromAPI() {  [self] in
-                //guard let nonNullSelf = self else { return }
-                self.configureBottomSheet()
-                onCheckOutReady(self)
-            }
         }
     
     
@@ -346,28 +147,14 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     @objc public func start(presentIn controller:UIViewController?) {
         guard let controller = controller else { return }
         DispatchQueue.main.async { [weak self] in
-            controller.present(self!.bottomSheetController, animated: true, completion: nil)
+            //controller.present(self!.bottomSheetController, animated: true, completion: nil)
         }
     }
     
-    /// This will load the default theme and localisation from firebase. This will save time instead of calling them after getting the urls from checkout profile api.
-    /// Also, after getting the urls from checkoutprofile api, will reload them if and only if for any reason, the backend sends a different default url
-    internal func preloadDefaultThemeAndLocalisation() {
-        DispatchQueue.background(background: {
-            // Load the default theme & localisations if the user didn't pass his own custom theme and localisation
-            let sharedManager:TapCheckout = TapCheckout.sharedCheckoutManager()
-            guard let nonNullTheme = sharedManager.dataHolder.themeLocalisationHolder.customTheme,
-                  let nonNullLocalisation = sharedManager.dataHolder.themeLocalisationHolder.localiseFile else { return }
-            TapCheckout.PreloadSDKData(localiseFile: nonNullLocalisation,
-                                       customTheme: nonNullTheme)
-        }, completion:{
-            print("LOADED DEFAULT")
-        })
-    }
     
     /// Sets the customer data for the logging session
     internal func setLoggingCustomerData() {
-        Bugfender.setDeviceString("Customer ID : \(dataHolder.transactionData.customer.identifier ?? "NA") | Customer name : \(dataHolder.transactionData.customer.firstName ?? "NA") | Customer email : \(dataHolder.transactionData.customer.emailAddress?.value ?? "NA") | Customer phone : \(dataHolder.transactionData.customer.phoneNumber?.phoneNumber ?? "NA")",forKey: "Customer")
+        /*Bugfender.setDeviceString("Customer ID : \(dataHolder.transactionData.customer.identifier ?? "NA") | Customer name : \(dataHolder.transactionData.customer.firstName ?? "NA") | Customer email : \(dataHolder.transactionData.customer.emailAddress?.value ?? "NA") | Customer phone : \(dataHolder.transactionData.customer.phoneNumber?.phoneNumber ?? "NA")",forKey: "Customer")*/
     }
     
     /**
@@ -381,32 +168,11 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         // Decide the level based on the logging type
         let level:BFLogLevel = (tag == .EVENTS) ? .trace : .default
         // Check if the user allowed to log this type
-        guard (tag == .EVENTS && TapCheckout.sharedCheckoutManager().dataHolder.transactionData.enableApiLogging.contains(.EVENTS)) || (tag == .API && TapCheckout.sharedCheckoutManager().dataHolder.transactionData.enableApiLogging.contains(.API)) else { return }
+        /*guard (tag == .EVENTS && TapCheckout.sharedCheckoutManager().dataHolder.transactionData.enableApiLogging.contains(.EVENTS)) || (tag == .API && TapCheckout.sharedCheckoutManager().dataHolder.transactionData.enableApiLogging.contains(.API)) else { return }*/
         // Log it happily :)
         bfprint(message, tag: tag.stringValue, level: level)
     }
-    /*/// The logger for analytics
-    internal func log() -> SwiftyBeaver.Type {
-        
-        let log = SwiftyBeaver.self
-        
-        // add log destinations. at least one is needed!
-        let console = ConsoleDestination()  // log to Xcode Console
-        let googleCloud = GoogleCloudDestination(serviceName: "")
-        let cloud = SBPlatformDestination(appID: "r7xElo", appSecret: "1xcyjpgckJGdg5rfckbzfzaih0Znpewf", encryptionKey: "axpogXqu5wey1hjvmTopu1pmeqgfgprJ") // to cloud
-        cloud.analyticsUserName = (dataHolder.transactionData.customer.identifier ?? dataHolder.transactionData.customer.firstName) ?? ""
-        // use custom format and set console output to short time, log level & message
-        console.format = "$J"
-        cloud.format = "$DHH:mm:ss$d $N.$F():$l $L: $M"
-        // or use this for JSON output: console.format = "$J"
-        
-        // add the destinations to SwiftyBeaver
-        log.addDestination(console)
-        log.addDestination(cloud)
-        
-        return log
-    }*/
-    
+  
     /**
      Creates a shared instance of the CheckoutDataManager
      - Returns: The shared checkout manager
@@ -419,33 +185,6 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
         return uwShared
     }
     
-    /**
-     Used to do the pre steps before initiating a new SDK session
-     - Parameter localiseFile: Please pass the name of the custom localisation model if needed. If not set, the normal and default TAP localisations will be used
-     - Parameter customTheme: Please pass the tap checkout theme object with the names of your custom theme files if needed. If not set, the normal and default TAP theme will be used
-     - Parameter delegate: A protocol to communicate with the Presente tap sheet controller
-     - Parameter sdkMode: Defines the mode sandbox or production the sdk will perform this transaction on. Please check [SDKMode](x-source-tag://SDKMode)
-     - Parameter enableApiLogging: Defines which level of logging do you wnt to enable.  [TapLoggingType](x-source-tag://TapLoggingType)
-     */
-    internal func prepareSDK(with sdkMode:SDKMode = .sandbox,
-                             delegate:CheckoutScreenDelegate? = nil,
-                             localiseFile:TapCheckoutLocalisation? = nil,
-                             customTheme:TapCheckOutTheme? = nil,
-                             enableApiLogging:[TapLoggingType] = [.CONSOLE]) {
-        
-        // remove any pending things from an old session
-        TapCheckout.destroy()
-        // Decide the availability of the CDN
-        //TapCheckout.sharedCheckoutManager().decideIfWeCanLoadAssetsFromCDN()
-        // Set the SDK mode and the delegate
-        TapCheckout.sharedCheckoutManager().dataHolder.transactionData.sdkMode = sdkMode
-        TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate = delegate
-        // Listen to events from network manager
-        NetworkManager.shared.delegate = TapCheckout.sharedCheckoutManager()
-        // Adjust the logging ability
-        NetworkManager.shared.enableLogging  = enableApiLogging.contains(.CONSOLE)
-        NetworkManager.shared.consoleLogging = enableApiLogging.contains(.CONSOLE)
-    }
     
     /**
      Used to deal with runtime errors in the SDK
@@ -453,27 +192,6 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
      */
     internal func handleError(session:URLSessionDataTask?, result:Any?, error:Error?) {
         
-        /*let loggedDataModel:TapLogRequestModel = .init(application: .init(), customer: TapCheckout.sharedCheckoutManager().dataHolder.transactionData.customer, merchant: .init(), stack_trace: NetworkManager.shared.loggedApis, error_catgeroy: error?.localizedDescription)*/
         
-        //callLogging(for: loggedDataModel)
-        
-        TapCheckout.sharedCheckoutManager().toBeExecutedBlock = {
-            TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.checkoutFailed?(in: session, for: result as? [String:String], with: error)
-        }
-        
-        if TapCheckout.isCheckoutSheenPresented {
-            dataHolder.viewModels.tapActionButtonViewModel.endLoading(with: false, completion: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-                    self.UIDelegate?.dismissCheckout(with: error ?? "UNKNOWN ERROR OCCURED")
-                }
-            })
-        }else{
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-                //self.UIDelegate?.dismissCheckout(with: error ?? "UNKNOWN ERROR OCCURED")
-                TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.tapBottomSheetWillDismiss?()
-                TapCheckout.sharedCheckoutManager().tapBottomSheetDismissed()
-                self.bottomSheetController.dismissTheController()
-            }
-        }
     }
 }

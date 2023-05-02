@@ -133,11 +133,36 @@ public struct TapThemeAssetsModel:Codable {
     /// The dark mode theme url
     public let dark:String
     
+    /// The card theme model
+    public let card:TapCardThemeAssetsModel?
+    
+}
+
+
+/// The model for fetching the default assets urls for the light and dark themes
+public struct TapCardThemeAssetsModel:Codable {
+    
+    /// The light mode theme url
+    public let light:String
+    
+    /// The dark mode theme url
+    public let dark:String
+    
 }
 
 
 /// The model for fetching the default assets urls for the localisations
 public struct TapLocalisationAssetsModel:Codable {
+    /// The localisation url
+    public let url:String
+    
+    /// The card loclisation model
+    public let card:TapCardLocalisationAssetsModel?
+}
+
+
+/// The model for fetching the default assets urls for the localisations
+public struct TapCardLocalisationAssetsModel:Codable {
     /// The localisation url
     public let url:String
 }
