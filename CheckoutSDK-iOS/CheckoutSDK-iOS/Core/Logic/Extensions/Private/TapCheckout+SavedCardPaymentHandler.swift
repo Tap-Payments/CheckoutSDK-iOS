@@ -139,6 +139,7 @@ extension TapCheckout {
         
         guard let savedCardID = cardCellViewModel.savedCardID else { return }
         // Delete the saved card object from the viewmodel datasource
+        cardCellViewModel.hideLoader()
         dataHolder.viewModels.gatewayChipsViewModel.removeAll(where: {$0.savedCard?.identifier == savedCardID})
         // Perform UI deletion animation, then decide if we need to keep showing the edit mode. We will keep showing it only if there are MORE saved cards after the deleted one
         dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deleteCell(with: cardCellViewModel, shouldShowRightButton: shouldShowEditButton())
