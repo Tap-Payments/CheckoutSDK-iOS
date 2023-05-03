@@ -21,46 +21,54 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gQ7-9e-GHV" customClass="TapActionButton" customModule="TapUIKit_iOS">
-                                <rect key="frame" x="0.0" y="814" width="414" height="82"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="82" id="exm-RS-GBe"/>
-                                </constraints>
-                            </view>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type the amount here" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gOB-vl-Rp8">
                                 <rect key="frame" x="20" y="112" width="374" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="A3I-GR-sK0">
-                                <rect key="frame" x="20" y="166" width="374" height="628"/>
+                                <rect key="frame" x="20" y="166" width="374" height="615"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SBb-xE-1Ym">
+                                <rect key="frame" x="20" y="789" width="374" height="48"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="t2B-fC-cVl"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Pay now">
+                                    <fontDescription key="titleFontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="payButtonClicked:" destination="SWO-JH-ULU" eventType="touchUpInside" id="TPX-vd-hRx"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="IdE-wk-sbY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="IdE-wk-sbY" firstAttribute="trailing" secondItem="A3I-GR-sK0" secondAttribute="trailing" constant="20" id="0tj-Su-w6n"/>
-                            <constraint firstItem="IdE-wk-sbY" firstAttribute="trailing" secondItem="gQ7-9e-GHV" secondAttribute="trailing" id="2aE-NB-kyj"/>
-                            <constraint firstItem="gQ7-9e-GHV" firstAttribute="bottom" secondItem="Y9W-HV-mx7" secondAttribute="bottom" id="4Kv-Br-RnB"/>
                             <constraint firstItem="gOB-vl-Rp8" firstAttribute="top" secondItem="IdE-wk-sbY" secondAttribute="top" constant="20" id="9kb-CX-G67"/>
                             <constraint firstItem="IdE-wk-sbY" firstAttribute="trailing" secondItem="gOB-vl-Rp8" secondAttribute="trailing" constant="20" id="Ako-sQ-FAK"/>
-                            <constraint firstItem="gQ7-9e-GHV" firstAttribute="top" secondItem="A3I-GR-sK0" secondAttribute="bottom" constant="20" id="BLY-Ky-uvC"/>
                             <constraint firstItem="43O-qa-DV1" firstAttribute="trailing" secondItem="IdE-wk-sbY" secondAttribute="trailing" id="C6a-sZ-xBs"/>
                             <constraint firstItem="43O-qa-DV1" firstAttribute="leading" secondItem="IdE-wk-sbY" secondAttribute="leading" id="L5j-cd-ZTx"/>
+                            <constraint firstItem="SBb-xE-1Ym" firstAttribute="leading" secondItem="IdE-wk-sbY" secondAttribute="leading" constant="20" id="Pz6-0f-WRV"/>
                             <constraint firstItem="A3I-GR-sK0" firstAttribute="leading" secondItem="IdE-wk-sbY" secondAttribute="leading" constant="20" id="Qik-bz-zIj"/>
                             <constraint firstItem="gOB-vl-Rp8" firstAttribute="leading" secondItem="IdE-wk-sbY" secondAttribute="leading" constant="20" id="U0H-Pb-HNr"/>
+                            <constraint firstItem="IdE-wk-sbY" firstAttribute="bottom" secondItem="SBb-xE-1Ym" secondAttribute="bottom" constant="25" id="Upo-D4-UJw"/>
+                            <constraint firstItem="SBb-xE-1Ym" firstAttribute="top" secondItem="A3I-GR-sK0" secondAttribute="bottom" constant="8" symbolic="YES" id="Xt7-R1-X5e"/>
+                            <constraint firstItem="IdE-wk-sbY" firstAttribute="trailing" secondItem="SBb-xE-1Ym" secondAttribute="trailing" constant="20" id="Zmi-Um-cw5"/>
                             <constraint firstItem="A3I-GR-sK0" firstAttribute="top" secondItem="gOB-vl-Rp8" secondAttribute="bottom" constant="20" id="eqI-xQ-3ss"/>
                             <constraint firstItem="43O-qa-DV1" firstAttribute="top" secondItem="Y9W-HV-mx7" secondAttribute="top" id="hHQ-tl-l3T"/>
                             <constraint firstAttribute="bottom" secondItem="43O-qa-DV1" secondAttribute="bottom" id="imV-RI-FrX"/>
-                            <constraint firstItem="gQ7-9e-GHV" firstAttribute="leading" secondItem="IdE-wk-sbY" secondAttribute="leading" id="ypj-3X-VJS"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Checkout SDK" id="b0f-l6-uAb">
                         <barButtonItem key="leftBarButtonItem" title="Settings" style="plain" id="BVt-3h-7zV">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="LI6-Vn-UQO">
-                                <rect key="frame" x="20" y="5" width="92" height="34.5"/>
+                                <rect key="frame" x="20" y="4.5" width="92" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Settings"/>
@@ -71,7 +79,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="jDg-RH-gWF">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="s1a-CG-2dw">
-                                <rect key="frame" x="302" y="5" width="92" height="34.5"/>
+                                <rect key="frame" x="302" y="4.5" width="92" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Options"/>
@@ -83,8 +91,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="amountTextField" destination="gOB-vl-Rp8" id="Sza-Dd-w08"/>
+                        <outlet property="payButton" destination="SBb-xE-1Ym" id="uHR-gq-jsC"/>
                         <outlet property="paymentItemsTableView" destination="A3I-GR-sK0" id="m9f-ep-hV3"/>
-                        <outlet property="tapPayButton" destination="gQ7-9e-GHV" id="jqA-Pz-WKq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mCz-t8-Kaz" sceneMemberID="firstResponder"/>
@@ -1046,6 +1054,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGroupedBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

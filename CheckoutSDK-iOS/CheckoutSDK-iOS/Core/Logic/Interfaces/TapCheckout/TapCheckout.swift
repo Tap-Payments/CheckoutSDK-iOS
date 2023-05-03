@@ -46,8 +46,6 @@ import BugfenderSDK
    
     /**
      Defines the tap checkout bottom sheet controller
-     - Parameter customTheme: Please pass the tap checkout theme object with the names of your custom theme files if needed. If not set, the normal and default TAP theme will be used
-     - Parameter localiseFile: Please pass the name of the custom localisation file model if needed. If not set, the normal and default TAP localisations will be used
      - Parameter delegate: A protocol to communicate with the Presente tap sheet controller
      - Parameter currency: Represents the original transaction currency stated by the merchant on checkout start
      - Parameter supportedCurrencies: Represents the allowed currencies for the transaction. Leave nil for ALL, pass the 3 digits iso KWD, EGP, etc.
@@ -92,8 +90,6 @@ import BugfenderSDK
      - Parameter cardShouldThemeItself: Indicates if the card form shall have its own background theming or it should be clear and reflect whatever is behind it
      */
     @objc public func build(
-        customTheme:TapCheckOutTheme? = nil,
-        localiseFile:TapCheckoutLocalisation? = nil,
         delegate: CheckoutScreenDelegate? = nil,
         currency:TapCurrencyCode = .USD,
         supportedCurrencies:[String]? = nil,
@@ -134,9 +130,9 @@ import BugfenderSDK
         shouldFlipCardData:Bool = true,
         onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
             
-            
-            
-            
+            initialiseSDKFromAPI { configModel in
+                onCheckOutReady(self)
+            }
         }
     
     

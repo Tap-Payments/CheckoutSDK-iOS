@@ -8,40 +8,47 @@
 
 import Foundation
 /// Config api response model
-public struct TapConfigResponseModel {
-    
-    // MARK: - Internal -
-    // MARK: Properties
-    
-    /// The middleware token generated for the user for this session
-    public let token: String?
-    
-    // MARK: - Private -
-    
-    private enum CodingKeys: String, CodingKey {
-        
-        case token  =   "token"
+public struct TapConfigResponseModel: Codable {
+    let redirectURL: String
+    public var checkoutURL:String {
+        return "\(redirectURL.replacingOccurrences(of: "https://checkout.dev.tap.company/", with: "https://e064-156-193-71-68.ngrok-free.app/"))&fromSDK=true"
+    }
+    enum CodingKeys: String, CodingKey {
+        case redirectURL = "redirect_url"
     }
 }
 
-// MARK: - Equatable
-extension TapConfigResponseModel: Equatable {
-    
-    public static func == (lhs: TapConfigResponseModel, rhs: TapConfigResponseModel) -> Bool {
-        
-        return lhs.token == rhs.token
-    }
-}
+// MARK: Welcome convenience initializers and mutators
 
-// MARK: - Decodable
-extension TapConfigResponseModel: Decodable {
+extension TapConfigResponseModel {
+    init(data: Data) throws {
+        self = try newJSONDecoder().decode(TapConfigResponseModel.self, from: data)
+    }
     
-    public init(from decoder: Decoder) throws {
-        
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        let token  =   try container.decodeIfPresent(String.self, forKey: .token) ?? ""
-        
-        self.init(token: token)
+    init(_ json: String, using encoding: String.Encoding = .utf8) throws {
+        guard let data = json.data(using: encoding) else {
+            throw NSError(domain: "JSONDecoding", code: 0, userInfo: nil)
+        }
+        try self.init(data: data)
+    }
+    
+    init(fromURL url: URL) throws {
+        try self.init(data: try Data(contentsOf: url))
+    }
+    
+    func with(
+        redirectURL: String? = nil
+    ) -> TapConfigResponseModel {
+        return TapConfigResponseModel(
+            redirectURL: redirectURL ?? self.redirectURL
+        )
+    }
+    
+    func jsonData() throws -> Data {
+        return try newJSONEncoder().encode(self)
+    }
+    
+    func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
+        return String(data: try self.jsonData(), encoding: encoding)
     }
 }

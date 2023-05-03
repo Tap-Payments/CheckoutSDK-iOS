@@ -3,4 +3,22 @@
    uuid = "51793A65-FEC8-406C-9954-D9C03F638AB7"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F1A7F263-409A-4055-A090-19755510F48A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Interfaces/TapCheckout/TapCheckout.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
+            landmarkName = "build(delegate:currency:supportedCurrencies:amount:items:applePayMerchantID:swipeDownToDismiss:paymentType:showDragHandler:transactionMode:customer:destinations:tapMerchantID:taxes:shipping:allowedCardTypes:postURL:paymentDescription:paymentMetadata:paymentReference:paymentStatementDescriptor:require3DSecure:receiptSettings:authorizeAction:allowsToSaveSameCardMoreThanOnce:enableSaveCard:isSaveCardSwitchOnByDefault:sdkMode:enableApiLogging:collectCreditCardName:creditCardNameEditable:creditCardNamePreload:showSaveCreditCard:isSubscription:recurringPaymentRequest:applePayButtonType:applePayButtonStyle:shouldFlipCardData:onCheckOutReady:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

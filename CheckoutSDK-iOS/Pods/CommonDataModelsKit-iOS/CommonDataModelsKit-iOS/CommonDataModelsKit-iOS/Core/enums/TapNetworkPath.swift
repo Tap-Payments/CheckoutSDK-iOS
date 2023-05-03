@@ -17,6 +17,8 @@ public enum TapNetworkPath : String {
     case GoPayLoginAPI = "7ffceaa7-0b86-4a18-88bb-c157c9a27aae"
     /// Calling CheckoutProfileApi  api which is the kickstart for a starting a new session and construct a connection with the middleware
     case CheckoutProfileApi         = "checkoutprofile"
+    /// The config api endpoint
+    case ConfigApi                  = "config"
     /// Calling the authorize api
     case authorize                  = "authorize/"
     /// Calling Billing address card api

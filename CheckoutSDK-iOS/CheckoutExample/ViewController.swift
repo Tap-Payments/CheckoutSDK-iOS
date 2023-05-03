@@ -14,6 +14,8 @@ import PassKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var payButton: UIButton!
+    
     var tapSettings:TapSettings = TapSettings(localisation: false, theme: "Default", currency: .USD, swipeToDismissFeature: true, paymentTypes: [.All],closeButtonTitleFeature: true, customer: try! .init(identifier: "cus_TS075220212320q2RD0707283"),transactionMode: .purchase,addShippingFeature: false)
     
     var localeID:String = "en" {
@@ -100,6 +102,10 @@ class ViewController: UIViewController {
         localeID = TapFormSettingsViewController.selectedLocale()
     }
     
+    @IBAction func payButtonClicked(_ sender: Any) {
+        startSDKClicked()
+    }
+    
     func startSDKClicked() {
         tapSettings.load()
         
@@ -123,8 +129,6 @@ class ViewController: UIViewController {
         TapSettings.logs = []
         
         checkout.build(
-            customTheme: TapFormSettingsViewController.sdkTheme(),
-            localiseFile: TapFormSettingsViewController.sdkLocalisation(),
             delegate: self,
             currency: TapFormSettingsViewController.transactionSettings().1,
             supportedCurrencies: Array(TapFormSettingsViewController.transactionSettings().3),

@@ -17,24 +17,17 @@ internal extension TapCheckout {
     //MARK:- Methods for making the api calls
     
     /// Responsible for making the network calls needed to boot the SDK like init and payment options
-    func initialiseSDKFromAPI(onCheckOutReady: @escaping () -> () = {}) {
+    func initialiseSDKFromAPI(onCheckOutReady: @escaping (TapConfigResponseModel) -> () = {_ in}) {
         // As per the backend logic, we will have to hit CheckoutProfile api to load merchant & payment options data
         let sharedManager = TapCheckout.sharedCheckoutManager()
         
         // Create the payment option request with the configured data from the user
-        let paymentOptionRequest = sharedManager.createConfigRequestModel()
+        let configRequstBody = sharedManager.createConfigRequestModel()
         
-        // Change the model into a dictionary
-        guard let bodyDictionary = TapCheckout.convertModelToDictionary(paymentOptionRequest, callingCompletionOnFailure: { error in
-            return
-        }) else { return }
-        
-        
-        NetworkManager.shared.makeApiCall(routing: .CheckoutProfileApi, resultType: TapInitResponseModel.self, body: .init(body: bodyDictionary), httpMethod: .POST) { [weak self] (session, result, error) in
-            guard let initModel:TapInitResponseModel = result as? TapInitResponseModel else { self?.handleError(session: session, result: result, error: "Unexpected error when parsing into TapInitResponseModel")
+        NetworkManager.shared.makeApiCall(routing: .ConfigApi, resultType: TapConfigResponseModel.self, body: .init(body: configRequstBody), httpMethod: .POST) { [weak self] (session, result, error) in
+            guard let configModel:TapConfigResponseModel = result as? TapConfigResponseModel else { self?.handleError(session: session, result: result, error: "Unexpected error when parsing into TapConfigResponseModel")
                 return }
-            self?.handleInitResponse(initModel: initModel)
-            onCheckOutReady()
+            onCheckOutReady(configModel)
         } onError: { (session, result, errorr) in
             self.handleError(session: session, result: result, error: errorr)
         }
@@ -179,15 +172,16 @@ internal extension TapCheckout {
     
     //MARK:- Methods for handling API responses
     /**
-     Handles the result of the init api by storing it in the right place to be further processed
-     - Parameter initModel: The response model from backend we need to deal with
+     Handles the result of the config api by storing it in the right place to be further processed
+     - Parameter configModel: The response model from backend we need to deal with
      */
-    func handleInitResponse(initModel:TapInitResponseModel) {
+    func handleConfigResponse(configModel:TapConfigResponseModel) {
         // Store the init model for further access
         /*TapCheckout.sharedCheckoutManager().dataHolder.transactionData.intitModelResponse = initModel
         DispatchQueue.main.async {
             TapCheckout.sharedCheckoutManager().dataHolder.transactionData.paymentOptionsModelResponse = initModel.paymentOptions
         }*/
+        print(configModel.checkoutURL)
     }
     
     
