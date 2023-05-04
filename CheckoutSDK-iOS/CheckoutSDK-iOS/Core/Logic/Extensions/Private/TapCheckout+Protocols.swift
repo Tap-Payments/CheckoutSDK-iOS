@@ -18,6 +18,12 @@ import CommonDataModelsKit_iOS
     /// Inform the delegate that we may need log some strings for further analysis
     @objc optional func log(string:String)
     
+    /// This means, that the web checkout did display and slided in the popup. Calling config + checkout profile api is done
+    @objc optional func webCheckoutPopupIsDisplayed()
+    
+    /// This means, the customer did hit on the close button and dismissed the checkout
+    @objc optional func webCheckoutClosedByCustomer()
+    
     /**
      Will be fired just before the sheet is dismissed
      */

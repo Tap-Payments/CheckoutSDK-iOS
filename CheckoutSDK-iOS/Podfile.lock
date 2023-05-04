@@ -7,6 +7,7 @@ PODS:
     - TapKeychain
   - LocalisationManagerKit-iOS (1.0.5)
   - SnapKit (5.6.0)
+  - SwiftEntryKit (2.0.0)
   - SwiftyRSA (1.7.0):
     - SwiftyRSA/ObjC (= 1.7.0)
   - SwiftyRSA/ObjC (1.7.0)
@@ -38,6 +39,7 @@ DEPENDENCIES:
   - CommonDataModelsKit-iOS
   - LocalisationManagerKit-iOS
   - SnapKit
+  - SwiftEntryKit
   - TapApplicationV2
   - TapCardScanner-iOS
   - TapNetworkKit-iOS
@@ -48,6 +50,7 @@ SPEC REPOS:
     - CommonDataModelsKit-iOS
     - LocalisationManagerKit-iOS
     - SnapKit
+    - SwiftEntryKit
     - SwiftyRSA
     - TapAdditionsKitV2
     - TapApplicationV2
@@ -62,6 +65,7 @@ SPEC CHECKSUMS:
   CommonDataModelsKit-iOS: eef101818cfa9da0dbd0ae2a65b3711fce66e552
   LocalisationManagerKit-iOS: 4c140a36e66d34af69424a311659df3bd6cc793a
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  SwiftEntryKit: 61b5fa36f34a97dd8013e48a7345bc4c4720be9a
   SwiftyRSA: 8c6dd1ea7db1b8dc4fb517a202f88bb1354bc2c6
   TapAdditionsKitV2: 9846381c32b150303cbeff355550d3500a98f77d
   TapApplicationV2: aee3d046c4272778431e1535de6cab34e1269f8c
@@ -71,6 +75,6 @@ SPEC CHECKSUMS:
   TapNetworkKit-iOS: 92c8c7feae384dc2595f8f270853ee3cf8ea3380
   TapSwiftFixesV2: a8623a7273c6790b9754ec7e272e96fce7d3a800
 
-PODFILE CHECKSUM: 05e9572a7df6aa8af197c7dd7d3cd2663b6e3343
+PODFILE CHECKSUM: b00a8888775cf1fefa37c94e45196b301dc2c8d7
 
 COCOAPODS: 1.11.2

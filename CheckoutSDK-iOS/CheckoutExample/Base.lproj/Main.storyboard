@@ -45,6 +45,10 @@
                                     <action selector="payButtonClicked:" destination="SWO-JH-ULU" eventType="touchUpInside" id="TPX-vd-hRx"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="4ww-x7-hXe">
+                                <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
+                                <color key="color" red="1" green="0.16078431369999999" blue="0.36470588240000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="IdE-wk-sbY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -53,6 +57,7 @@
                             <constraint firstItem="gOB-vl-Rp8" firstAttribute="top" secondItem="IdE-wk-sbY" secondAttribute="top" constant="20" id="9kb-CX-G67"/>
                             <constraint firstItem="IdE-wk-sbY" firstAttribute="trailing" secondItem="gOB-vl-Rp8" secondAttribute="trailing" constant="20" id="Ako-sQ-FAK"/>
                             <constraint firstItem="43O-qa-DV1" firstAttribute="trailing" secondItem="IdE-wk-sbY" secondAttribute="trailing" id="C6a-sZ-xBs"/>
+                            <constraint firstItem="4ww-x7-hXe" firstAttribute="centerY" secondItem="Y9W-HV-mx7" secondAttribute="centerY" id="HHf-28-qNp"/>
                             <constraint firstItem="43O-qa-DV1" firstAttribute="leading" secondItem="IdE-wk-sbY" secondAttribute="leading" id="L5j-cd-ZTx"/>
                             <constraint firstItem="SBb-xE-1Ym" firstAttribute="leading" secondItem="IdE-wk-sbY" secondAttribute="leading" constant="20" id="Pz6-0f-WRV"/>
                             <constraint firstItem="A3I-GR-sK0" firstAttribute="leading" secondItem="IdE-wk-sbY" secondAttribute="leading" constant="20" id="Qik-bz-zIj"/>
@@ -63,6 +68,7 @@
                             <constraint firstItem="A3I-GR-sK0" firstAttribute="top" secondItem="gOB-vl-Rp8" secondAttribute="bottom" constant="20" id="eqI-xQ-3ss"/>
                             <constraint firstItem="43O-qa-DV1" firstAttribute="top" secondItem="Y9W-HV-mx7" secondAttribute="top" id="hHQ-tl-l3T"/>
                             <constraint firstAttribute="bottom" secondItem="43O-qa-DV1" secondAttribute="bottom" id="imV-RI-FrX"/>
+                            <constraint firstItem="4ww-x7-hXe" firstAttribute="centerX" secondItem="Y9W-HV-mx7" secondAttribute="centerX" id="jlT-w5-tzb"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Checkout SDK" id="b0f-l6-uAb">
@@ -91,6 +97,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="amountTextField" destination="gOB-vl-Rp8" id="Sza-Dd-w08"/>
+                        <outlet property="loadingActivity" destination="4ww-x7-hXe" id="vp1-YI-jCd"/>
                         <outlet property="payButton" destination="SBb-xE-1Ym" id="uHR-gq-jsC"/>
                         <outlet property="paymentItemsTableView" destination="A3I-GR-sK0" id="m9f-ep-hV3"/>
                     </connections>

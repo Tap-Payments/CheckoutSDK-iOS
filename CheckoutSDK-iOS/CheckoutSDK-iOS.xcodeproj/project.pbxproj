@@ -61,6 +61,11 @@
 		E89520F32A00DEBF0011B2C6 /* SaveCardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89520F22A00DEBF0011B2C6 /* SaveCardType.swift */; };
 		E89520F52A00DED90011B2C6 /* TapApplePayButtonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89520F42A00DED90011B2C6 /* TapApplePayButtonType.swift */; };
 		E89520F72A00DEEC0011B2C6 /* TapApplePayButtonStyleOutline.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89520F62A00DEEC0011B2C6 /* TapApplePayButtonStyleOutline.swift */; };
+		E89521172A0247990011B2C6 /* TapWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89521162A0247990011B2C6 /* TapWebViewController.swift */; };
+		E89521192A027B610011B2C6 /* CheckoutWebViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89521182A027B610011B2C6 /* CheckoutWebViewDelegate.swift */; };
+		E895211C2A027BA70011B2C6 /* CheckoutWebSDKUrlScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E895211B2A027BA70011B2C6 /* CheckoutWebSDKUrlScheme.swift */; };
+		E895211E2A0282D20011B2C6 /* TapCheckoutDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E895211D2A0282D20011B2C6 /* TapCheckoutDelegate.swift */; };
+		E89521202A02D9680011B2C6 /* TapCheckout+CommonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E895211F2A02D9680011B2C6 /* TapCheckout+CommonExtensions.swift */; };
 		E8983DCD24EEC3D900C34E50 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CF141924EE8F140036015C /* NetworkManager.swift */; };
 		E89B4F8A26A21B3B0077B0A6 /* TapCheckout+CDNUrlsGeneration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89B4F8926A21B3B0077B0A6 /* TapCheckout+CDNUrlsGeneration.swift */; };
 		E8B3C4D429E593EF00CD5DD1 /* TapCheckout+Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B3C4D329E593EF00CD5DD1 /* TapCheckout+Locale.swift */; };
@@ -183,6 +188,11 @@
 		E89520F22A00DEBF0011B2C6 /* SaveCardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveCardType.swift; sourceTree = "<group>"; };
 		E89520F42A00DED90011B2C6 /* TapApplePayButtonType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapApplePayButtonType.swift; sourceTree = "<group>"; };
 		E89520F62A00DEEC0011B2C6 /* TapApplePayButtonStyleOutline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapApplePayButtonStyleOutline.swift; sourceTree = "<group>"; };
+		E89521162A0247990011B2C6 /* TapWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapWebViewController.swift; sourceTree = "<group>"; };
+		E89521182A027B610011B2C6 /* CheckoutWebViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutWebViewDelegate.swift; sourceTree = "<group>"; };
+		E895211B2A027BA70011B2C6 /* CheckoutWebSDKUrlScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutWebSDKUrlScheme.swift; sourceTree = "<group>"; };
+		E895211D2A0282D20011B2C6 /* TapCheckoutDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCheckoutDelegate.swift; sourceTree = "<group>"; };
+		E895211F2A02D9680011B2C6 /* TapCheckout+CommonExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+CommonExtensions.swift"; sourceTree = "<group>"; };
 		E89B4F8926A21B3B0077B0A6 /* TapCheckout+CDNUrlsGeneration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+CDNUrlsGeneration.swift"; sourceTree = "<group>"; };
 		E8B3C4D329E593EF00CD5DD1 /* TapCheckout+Locale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+Locale.swift"; sourceTree = "<group>"; };
 		E8C2052724E40E95006653CA /* CustomLocalisation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CustomLocalisation.json; sourceTree = "<group>"; };
@@ -336,13 +346,6 @@
 			path = Interfaces;
 			sourceTree = "<group>";
 		};
-		E80F426C24DFFB64001A9E8D /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
 		E87D79BF26B3227E00CF001C /* TapLogRequest */ = {
 			isa = PBXGroup;
 			children = (
@@ -438,6 +441,8 @@
 				E83923CA269F0C3900421E15 /* TapCheckout + ScannerHandler.swift */,
 				E89B4F8926A21B3B0077B0A6 /* TapCheckout+CDNUrlsGeneration.swift */,
 				E8B3C4D329E593EF00CD5DD1 /* TapCheckout+Locale.swift */,
+				E89521182A027B610011B2C6 /* CheckoutWebViewDelegate.swift */,
+				E895211F2A02D9680011B2C6 /* TapCheckout+CommonExtensions.swift */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -458,8 +463,8 @@
 				E8DE2C71299FD3D800A02639 /* Logging */,
 				E8844E6426777B590073D777 /* Extensions */,
 				62CF141824EE8F040036015C /* Network */,
-				E80F426C24DFFB64001A9E8D /* Controllers */,
 				E80F426B24DFFB5B001A9E8D /* Interfaces */,
+				E89521152A0244C50011B2C6 /* Controllers */,
 				E8845E7A24D851EE009E8B73 /* Views */,
 			);
 			path = Logic;
@@ -484,6 +489,7 @@
 			isa = PBXGroup;
 			children = (
 				E8845E6F24D83D7B009E8B73 /* TapCheckout.swift */,
+				E895211D2A0282D20011B2C6 /* TapCheckoutDelegate.swift */,
 			);
 			path = TapCheckout;
 			sourceTree = "<group>";
@@ -491,6 +497,7 @@
 		E89520F02A00DEB20011B2C6 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
+				E895211A2A027B990011B2C6 /* Private */,
 				E89520F12A00DEB70011B2C6 /* Public */,
 			);
 			path = Enums;
@@ -504,6 +511,22 @@
 				E89520F62A00DEEC0011B2C6 /* TapApplePayButtonStyleOutline.swift */,
 			);
 			path = Public;
+			sourceTree = "<group>";
+		};
+		E89521152A0244C50011B2C6 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E89521162A0247990011B2C6 /* TapWebViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		E895211A2A027B990011B2C6 /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				E895211B2A027BA70011B2C6 /* CheckoutWebSDKUrlScheme.swift */,
+			);
+			path = Private;
 			sourceTree = "<group>";
 		};
 		E8983DD224F1469C00C34E50 /* Requests */ = {
@@ -765,11 +788,13 @@
 				E8DE2C83299FD3E800A02639 /* TapFilter.swift in Sources */,
 				E85B553B289FCC8B00362990 /* TapCreateTokenWithSavedCardRequest.swift in Sources */,
 				E8983DCD24EEC3D900C34E50 /* NetworkManager.swift in Sources */,
+				E895211E2A0282D20011B2C6 /* TapCheckoutDelegate.swift in Sources */,
 				E830B7FE24FA451600B62713 /* TapCheckoutConstants.swift in Sources */,
 				E86D2509295B226E00FBCD72 /* TapApplePayPKRecurringPaymentRequest.swift in Sources */,
 				E8EC81BC267D30740080E760 /* TapCheckout+RequestsGeneration.swift in Sources */,
 				E8DE2C85299FD3E800A02639 /* TapAES256CBC.swift in Sources */,
 				E8EEFCDF27E3390E00B69A9F /* TapCheckoutLocalisation.swift in Sources */,
+				E895211C2A027BA70011B2C6 /* CheckoutWebSDKUrlScheme.swift in Sources */,
 				E8EC81BE267D35DA0080E760 /* TapCheckout+WebPaymentHandler.swift in Sources */,
 				E86128B424ED23EF00774BAA /* TapCheckoutExtensions.swift in Sources */,
 				E8DE2C7F299FD3E800A02639 /* TapBaseDestination.swift in Sources */,
@@ -781,6 +806,9 @@
 				E85B5539289FCC6B00362990 /* TapCreateTokenWithApplePayTokenRequestModel.swift in Sources */,
 				E8DE2C81299FD3E800A02639 /* TapGoogleCloudDestination.swift in Sources */,
 				E89520F52A00DED90011B2C6 /* TapApplePayButtonType.swift in Sources */,
+				E89521192A027B610011B2C6 /* CheckoutWebViewDelegate.swift in Sources */,
+				E89521202A02D9680011B2C6 /* TapCheckout+CommonExtensions.swift in Sources */,
+				E89521172A0247990011B2C6 /* TapWebViewController.swift in Sources */,
 				E83923CB269F0C3A00421E15 /* TapCheckout + ScannerHandler.swift in Sources */,
 				E8844F542678A1150073D777 /* TapCheckoutApiCallsExtensions.swift in Sources */,
 				E8B3C4D429E593EF00CD5DD1 /* TapCheckout+Locale.swift in Sources */,

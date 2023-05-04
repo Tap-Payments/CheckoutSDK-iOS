@@ -13,7 +13,7 @@ import CommonDataModelsKit_iOS
 import TapApplicationV2
 import PassKit
 import BugfenderSDK
-
+import SwiftEntryKit
 
 /// The public interface to deal and start the TapCheckout SDK/UI
 @objc public class TapCheckout: NSObject {
@@ -22,6 +22,20 @@ import BugfenderSDK
     /// Represents a global accessable common data gathered by the merchant when loading the checkout sdk like amount, currency, etc
     internal static var privateShared : TapCheckout?
     internal var canLoadFromCDN:Bool = false
+    /// Holds the delegate
+    internal var delegate: CheckoutScreenDelegate?
+    /// Holds the latest config model
+    internal var configModel:TapConfigResponseModel?
+    /// The web view controller to display the web checkout
+    let webViewController:TapWebViewController = .init()
+    /// The transaction mode
+    internal var transactionMode:TransactionMode = .purchase
+    /// Represents the latest charge object from the api
+    internal var currentCharge:Charge?
+    /// Represents the latest charge object from the api
+    internal var currentAuthorize:Authorize?
+    
+    
     public static var bundleID:String = ""
     public static var localeIdentifier:String = "en"
     public static var secretKey:SecretKey = .init(sandbox: "", production: "")
@@ -130,7 +144,11 @@ import BugfenderSDK
         shouldFlipCardData:Bool = true,
         onCheckOutReady: @escaping (TapCheckout) -> () = {_ in}) {
             
+            TapCheckout.sharedCheckoutManager().delegate = delegate
+            TapCheckout.sharedCheckoutManager().transactionMode = transactionMode
+            
             initialiseSDKFromAPI { configModel in
+                self.configModel = configModel
                 onCheckOutReady(self)
             }
         }
@@ -141,9 +159,17 @@ import BugfenderSDK
      - Parameter controller: This is th view controller you want to show the tap checkout in
      */
     @objc public func start(presentIn controller:UIViewController?) {
-        guard let controller = controller else { return }
+        guard let controller = controller,
+        let configModel = configModel,
+        let redirectionURL:URL = URL(string: configModel.checkoutURL) else { return }
+        webViewController.webView.navigationDelegate = self
+        let attributes = centeralPopUpAttributes()
+        
         DispatchQueue.main.async { [weak self] in
             //controller.present(self!.bottomSheetController, animated: true, completion: nil)
+            let nonNullWebController = TapCheckout.sharedCheckoutManager().webViewController
+            nonNullWebController.load(url: redirectionURL)
+            SwiftEntryKit.display(entry: nonNullWebController, using: attributes)
         }
     }
     
@@ -187,7 +213,81 @@ import BugfenderSDK
      - Parameter error: The error we need to handle and deal with
      */
     internal func handleError(session:URLSessionDataTask?, result:Any?, error:Error?) {
+        TapCheckout.sharedCheckoutManager().delegate?.checkoutFailed?(in: session, for: result as? [String : String], with: error)
+        TapCheckout.sharedCheckoutManager().dismiss()
         
+    }
+    
+    /// Call this method to dismiss the checkout popup
+    internal func dismiss() {
+        SwiftEntryKit.dismiss {
+            self.delegate?.webCheckoutClosedByCustomer?()
+        }
+    }
+    
+    /// Call this method for any post logic needed while showing the web checkout sdk popup
+    internal func webSDKWillShow() {
+        DispatchQueue.main.async {
+            self.webViewController.webView.customUserAgent = nil
+        }
+        self.delegate?.webCheckoutPopupIsDisplayed?()
+    }
+    
+    /// Call this method to do any adjustments needed after before redirecting to the 3ds/redirection external payment page
+    internal func willRedirectToFinaliseCharge() {
+        DispatchQueue.main.async {
+            self.webViewController.webView.isOpaque = true
+        }
+    }
+    
+    
+    /// The attributes to show the full screen web view modal
+    private func centeralPopUpAttributes() -> EKAttributes {
+        var attributes: EKAttributes
+        let displayMode:EKAttributes.DisplayMode = .inferred
+        
+        attributes = .centerFloat
+        attributes.displayMode = displayMode
+        attributes.displayDuration = .infinity
+        attributes.screenBackground = .color(color: .clear)
+        attributes.entryBackground = .color(color: .clear)
+        attributes.screenInteraction = .dismiss
+        attributes.entryInteraction = .absorbTouches
+        attributes.scroll = .edgeCrossingDisabled(swipeable: true)
+        /*switch threeDSConfiguration.threeDsAnimationType {
+        case .ZoomIn:
+            attributes.entranceAnimation = .init(
+                scale: .init(from: 0, to: 1, duration: threeDSConfiguration.animationDuration, spring: .init(damping: 1, initialVelocity: 0))
+            )
+        case.BottomTransition:
+            attributes.entranceAnimation = .init(
+                translate: .init(duration: threeDSConfiguration.animationDuration)
+            )
+        }
+        attributes.exitAnimation = .init(
+            translate: .init(duration: 0.35)
+        )*/
+        attributes.popBehavior = .animated(
+            animation: .init(
+                translate: .init(duration:1)
+                //scale: .init(from: 0, to: 1, duration: 1.5)
+            )
+        )
+        attributes.shadow = .active(
+            with: .init(
+                color: .black,
+                opacity: 0.3,
+                radius: 6
+            )
+        )
+        attributes.positionConstraints.size = .init(
+            width: .fill,
+            height: .fill
+        )
+        attributes.positionConstraints.verticalOffset = 0
+        attributes.positionConstraints.safeArea = .overridden
+        attributes.statusBar = .dark
+        return attributes
         
     }
 }

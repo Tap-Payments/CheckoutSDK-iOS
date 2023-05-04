@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var payButton: UIButton!
     
+    @IBOutlet weak var loadingActivity: UIActivityIndicatorView!
     var tapSettings:TapSettings = TapSettings(localisation: false, theme: "Default", currency: .USD, swipeToDismissFeature: true, paymentTypes: [.All],closeButtonTitleFeature: true, customer: try! .init(identifier: "cus_TS075220212320q2RD0707283"),transactionMode: .purchase,addShippingFeature: false)
     
     var localeID:String = "en" {
@@ -48,6 +49,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadingActivity.isHidden = true
         self.hideKeyboardWhenTappedAround()
         TapFormSettingsViewController.funcPreFillData()
         
@@ -108,7 +110,7 @@ class ViewController: UIViewController {
     
     func startSDKClicked() {
         tapSettings.load()
-        
+        loadingActivity.isHidden = false
         // Tell the chekout to configure its resources
         let checkout:TapCheckout = .init()
         // Checkout's localization. Currently supporting en and ar
@@ -158,6 +160,7 @@ class ViewController: UIViewController {
             onCheckOutReady: {[weak self] tapCheckOut in
                 DispatchQueue.main.async() {
                     tapCheckOut.start(presentIn: self)
+                    self?.loadingActivity.isHidden = false
                 }
             })
     }
@@ -281,6 +284,12 @@ class ViewController: UIViewController {
 extension ViewController:CheckoutScreenDelegate {
     func tapBottomSheetWillDismiss() {
         
+    }
+    
+    func webCheckoutPopupIsDisplayed() {
+        DispatchQueue.main.async {
+            self.loadingActivity.isHidden = true
+        }
     }
     
     func applePayTokenizationFailed(in session:URLSessionDataTask?, for result:[String:String]?, with error:Error?) {

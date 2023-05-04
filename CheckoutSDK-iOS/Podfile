@@ -20,4 +20,5 @@ pod 'BugfenderSDK', '1.11.0'
 pod 'SnapKit'
 pod 'TapCardScanner-iOS' 
 pod 'LocalisationManagerKit-iOS'
+pod 'SwiftEntryKit'
 end
