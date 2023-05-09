@@ -59,7 +59,6 @@ internal class TapWebViewController: UIViewController {
     /// Load the url into the web view
     /// - Parameter url: The url to be loaded
     func load(url:URL) {
-        webView.customUserAgent = "ngrok user agent"
         webView.navigationDelegate = TapCheckout.sharedCheckoutManager()
         webView.load(.init(url: url,cachePolicy: .reloadIgnoringLocalAndRemoteCacheData))
     }

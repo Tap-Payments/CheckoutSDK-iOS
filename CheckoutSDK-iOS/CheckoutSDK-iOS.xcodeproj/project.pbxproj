@@ -459,13 +459,13 @@
 		E8845E7424D8459E009E8B73 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				E89521212A08CC2D0011B2C6 /* Views */,
 				E89520F02A00DEB20011B2C6 /* Enums */,
 				E8DE2C71299FD3D800A02639 /* Logging */,
 				E8844E6426777B590073D777 /* Extensions */,
 				62CF141824EE8F040036015C /* Network */,
 				E80F426B24DFFB5B001A9E8D /* Interfaces */,
 				E89521152A0244C50011B2C6 /* Controllers */,
-				E8845E7A24D851EE009E8B73 /* Views */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -476,13 +476,6 @@
 				E8845E7824D851E2009E8B73 /* TapCheckoutBlurView.xib */,
 			);
 			path = Assets;
-			sourceTree = "<group>";
-		};
-		E8845E7A24D851EE009E8B73 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		E89225E824E92CC4001D5CAB /* TapCheckout */ = {
@@ -527,6 +520,21 @@
 				E895211B2A027BA70011B2C6 /* CheckoutWebSDKUrlScheme.swift */,
 			);
 			path = Private;
+			sourceTree = "<group>";
+		};
+		E89521212A08CC2D0011B2C6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E89521242A08CC660011B2C6 /* TapActionButton */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E89521242A08CC660011B2C6 /* TapActionButton */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TapActionButton;
 			sourceTree = "<group>";
 		};
 		E8983DD224F1469C00C34E50 /* Requests */ = {

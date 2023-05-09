@@ -40,8 +40,7 @@ extension TapCheckout: WKNavigationDelegate {
             TapCheckout.sharedCheckoutManager().webSDKWillShow()
         }else if let redirectionURL = decision.redirectionURL {
             print("REDIRECT \(redirectionURL)")
-            await webView.load(.init(url: URL(string: redirectionURL)!))
-            TapCheckout.sharedCheckoutManager().willRedirectToFinaliseCharge()
+            TapCheckout.sharedCheckoutManager().willRedirectToFinaliseCharge(with : redirectionURL)
         }
         return decision.shouldLoad ? .allow : .cancel
     }

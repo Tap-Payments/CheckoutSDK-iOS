@@ -11,7 +11,7 @@ import Foundation
 public struct TapConfigResponseModel: Codable {
     let redirectURL: String
     public var checkoutURL:String {
-        return "\(redirectURL.replacingOccurrences(of: "https://checkout.dev.tap.company/", with: "https://e064-156-193-71-68.ngrok-free.app/"))&fromSDK=true"
+        return "\(redirectURL.replacingOccurrences(of: "https://checkout.dev.tap.company/", with: "https://ios-wrapper.netlify.app/"))&fromSDK=true"
     }
     enum CodingKeys: String, CodingKey {
         case redirectURL = "redirect_url"

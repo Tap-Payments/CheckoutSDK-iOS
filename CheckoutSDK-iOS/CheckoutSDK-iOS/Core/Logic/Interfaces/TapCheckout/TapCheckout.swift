@@ -27,7 +27,9 @@ import SwiftEntryKit
     /// Holds the latest config model
     internal var configModel:TapConfigResponseModel?
     /// The web view controller to display the web checkout
-    let webViewController:TapWebViewController = .init()
+    let webCheckoutViewController:TapWebViewController = .init()
+    /// The web view controller to display the redirection web view
+    let redirectionWebViewController:TapWebViewController = .init()
     /// The transaction mode
     internal var transactionMode:TransactionMode = .purchase
     /// Represents the latest charge object from the api
@@ -162,12 +164,12 @@ import SwiftEntryKit
         guard let controller = controller,
         let configModel = configModel,
         let redirectionURL:URL = URL(string: configModel.checkoutURL) else { return }
-        webViewController.webView.navigationDelegate = self
+        webCheckoutViewController.webView.navigationDelegate = self
         let attributes = centeralPopUpAttributes()
         
         DispatchQueue.main.async { [weak self] in
             //controller.present(self!.bottomSheetController, animated: true, completion: nil)
-            let nonNullWebController = TapCheckout.sharedCheckoutManager().webViewController
+            let nonNullWebController = TapCheckout.sharedCheckoutManager().webCheckoutViewController
             nonNullWebController.load(url: redirectionURL)
             SwiftEntryKit.display(entry: nonNullWebController, using: attributes)
         }
@@ -227,21 +229,26 @@ import SwiftEntryKit
     
     /// Call this method for any post logic needed while showing the web checkout sdk popup
     internal func webSDKWillShow() {
-        DispatchQueue.main.async {
-            self.webViewController.webView.customUserAgent = nil
-        }
         self.delegate?.webCheckoutPopupIsDisplayed?()
     }
     
     /// Call this method to do any adjustments needed after before redirecting to the 3ds/redirection external payment page
-    internal func willRedirectToFinaliseCharge() {
-        DispatchQueue.main.async {
-            self.webViewController.webView.isOpaque = true
+    /// - Parameter with redirectionURL: The redirection url it should redirect to
+    internal func willRedirectToFinaliseCharge(with redirectionURL:String) {
+        let attributes = redirectionPopUpAttributes()
+        
+        DispatchQueue.main.async { [weak self] in
+            TapCheckout.sharedCheckoutManager().redirectionWebViewController.webView.navigationDelegate = TapCheckout.sharedCheckoutManager()
+            let nonNullWebController = TapCheckout.sharedCheckoutManager().redirectionWebViewController
+            //nonNullWebController.view.backgroundColor = .red
+            SwiftEntryKit.display(entry: nonNullWebController, using: attributes)
+            nonNullWebController.webView.isOpaque = true
+            nonNullWebController.load(url: URL(string: redirectionURL)!)
         }
     }
     
     
-    /// The attributes to show the full screen web view modal
+    /// The attributes to show the full screen web checkout sdk view modal
     private func centeralPopUpAttributes() -> EKAttributes {
         var attributes: EKAttributes
         let displayMode:EKAttributes.DisplayMode = .inferred
@@ -286,6 +293,47 @@ import SwiftEntryKit
         )
         attributes.positionConstraints.verticalOffset = 0
         attributes.positionConstraints.safeArea = .overridden
+        attributes.statusBar = .dark
+        return attributes
+        
+    }
+    
+    
+    /// The attributes to show the redirection web view modal
+    private func redirectionPopUpAttributes() -> EKAttributes {
+        var attributes: EKAttributes
+        let displayMode:EKAttributes.DisplayMode = .inferred
+        
+        attributes = .centerFloat
+        attributes.displayMode = displayMode
+        attributes.displayDuration = .infinity
+        attributes.screenBackground = .visualEffect(style: .extra)
+        attributes.entryBackground = .color(color: .clear)
+        attributes.screenInteraction = .dismiss
+        attributes.entryInteraction = .absorbTouches
+        attributes.scroll = .edgeCrossingDisabled(swipeable: true)
+        attributes.entranceAnimation = .init(
+            translate: .init(duration:0.3)
+        )
+        /*attributes.popBehavior = .animated(
+            animation: .init(
+                translate: .init(duration:1)
+                //scale: .init(from: 0, to: 1, duration: 1.5)
+            )
+        )*/
+        attributes.shadow = .active(
+            with: .init(
+                color: .black,
+                opacity: 0.3,
+                radius: 6
+            )
+        )
+        attributes.positionConstraints.size = .init(
+            width: .fill,
+            height: .fill
+        )
+        //attributes.positionConstraints.verticalOffset = 0
+        //attributes.positionConstraints.safeArea = .overridden
         attributes.statusBar = .dark
         return attributes
         

@@ -21,4 +21,5 @@ pod 'SnapKit'
 pod 'TapCardScanner-iOS' 
 pod 'LocalisationManagerKit-iOS'
 pod 'SwiftEntryKit'
+
 end
