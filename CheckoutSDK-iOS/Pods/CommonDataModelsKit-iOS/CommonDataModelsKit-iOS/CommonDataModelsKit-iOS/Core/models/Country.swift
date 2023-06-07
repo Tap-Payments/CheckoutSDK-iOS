@@ -28,31 +28,14 @@
         
         let code = isoCode.uppercased()
         
-        if Country.allISOCodes.contains(code) {
-            self.isoCode = code
-        }else {
-            // couldn't find it using the iso code, let us check if we have the country name
-            guard let codeFromName:String = Country.locale(for: isoCode) else {
-                let userInfo = [ErrorConstants.UserInfoKeys.countryCode: code]
-                let underlyingError = NSError(domain: ErrorConstants.internalErrorDomain, code: InternalError.invalidCountryCode.rawValue, userInfo: userInfo)
-                throw TapSDKKnownError(type: .internal, error: underlyingError, response: nil, body: nil)
-            }
-            self.isoCode = codeFromName
+        guard Country.allISOCodes.contains(code) else {
+            
+            let userInfo = [ErrorConstants.UserInfoKeys.countryCode: code]
+            let underlyingError = NSError(domain: ErrorConstants.internalErrorDomain, code: InternalError.invalidCountryCode.rawValue, userInfo: userInfo)
+            throw TapSDKKnownError(type: .internal, error: underlyingError, response: nil, body: nil)
         }
-    }
-    
-    /// Tries to detect the iso code for the a given country name
-    private static func locale(for fullCountryName : String) -> String? {
         
-        for localeCode in NSLocale.isoCountryCodes {
-            let identifier = NSLocale(localeIdentifier: "en")
-            let countryName = identifier.displayName(forKey: NSLocale.Key.countryCode, value: localeCode)
-            if fullCountryName.lowercased() == countryName?.lowercased() ||
-                (countryName?.lowercased() ?? "").contains(fullCountryName.lowercased()) {
-                return localeCode
-            }
-        }
-        return nil
+        self.isoCode = code
     }
     
     internal convenience init(_ isoCode: String) throws {
@@ -61,6 +44,7 @@
     }
     
     // MARK: - Private -
+    
     private static let allISOCodes = Locale.isoRegionCodes.map { $0.uppercased() }
 }
 
