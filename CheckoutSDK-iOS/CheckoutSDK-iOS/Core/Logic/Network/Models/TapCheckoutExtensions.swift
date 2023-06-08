@@ -33,12 +33,23 @@ internal extension Array where Element: CurrencyCardsTelecomModel {
 
 internal extension Array where Element: ChipWithCurrencyModel {
     /**
-     Extended method to easily extract the list of GenericTapChipViewModel from list of ChipWithCurrencyModel that supports a certain currenct
-     - Parameter currency: Pass the currency you want to see its support. If no passed, the Global UserCurrency will be used as the filtering currency
+     Extended method to easily extract the list of GenericTapChipViewModel from list of ChipWithCurrencyModel that supports/unsupports a certain currenct
+     - Parameter for currency: Pass the currency you want to see its support/or not. If no passed, the Global UserCurrency will be used as the filtering currency
+     - Parameter and supportsCurrency: Indicates if we need to extract the payment options which support the provided currency. Otherwise, will only fetch the ones that don't support the currency
      - Returns: List of the chip models that supports the given currency code
      */
-    func filter(for currency:TapCurrencyCode) -> [GenericTapChipViewModel] {
-        return self.filter{ $0.isEnabled(for: currency) }.map{ $0.tapChipViewModel }
+    func filter(for currency:TapCurrencyCode, and supportsCurrency:Bool = true) -> [GenericTapChipViewModel] {
+        if supportsCurrency {
+            return self.filter{ $0.isEnabled(for: currency) }.map{ $0.tapChipViewModel }
+        }else{
+            return self.filter{ !$0.isEnabled(for: currency) }.map{ $0.tapChipViewModel }
+        }
+    }
+}
+
+internal extension Array {
+    func contains<T>(obj: T) -> Bool where T: Equatable {
+        return !self.filter({$0 as? T == obj}).isEmpty
     }
 }
 

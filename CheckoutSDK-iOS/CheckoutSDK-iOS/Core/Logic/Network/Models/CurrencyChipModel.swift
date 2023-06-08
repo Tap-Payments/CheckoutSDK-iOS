@@ -65,6 +65,7 @@ internal class ChipWithCurrencyModel:Codable {
             PaymentOption.init(identifier: savedCard.paymentOptionIdentifier ?? "",
                   brand: savedCard.brand,
                   title: savedCard.lastFourDigits,
+                               titleAr: savedCard.lastFourDigits,
                   backendImageURL: URL(string:savedCard.image )!,
                   isAsync: false,
                   paymentType: TapPaymentType.Card,
@@ -89,14 +90,14 @@ internal class ChipWithCurrencyModel:Codable {
      - Parameter paymentOption:Represnts the payment option model backend
      */
     private func generateCorrectChipType(from paymentOption:PaymentOption) -> GenericTapChipViewModel {
-        let genericChipModel:GenericTapChipViewModel = .init(title: paymentOption.title, icon: paymentOption.imageURL.absoluteString)
+        let genericChipModel:GenericTapChipViewModel = .init(title: paymentOption.title, icon: paymentOption.imageURL.absoluteString, disabledIcon: paymentOption.correctDisabledImageURL().absoluteString)
         switch paymentOption.paymentType {
         case .ApplePay,.Device:
             return ApplePayChipViewCellModel.init(title: paymentOption.title, icon: paymentOption.imageURL.absoluteString, paymentOptionIdentifier: paymentOption.identifier)
         case .Card:
             return SavedCardCollectionViewCellModel.init(title: savedCard!.displayTitle, icon: paymentOption.imageURL.absoluteString, paymentOptionIdentifier: paymentOption.identifier,savedCardID: savedCard?.identifier)
         case .Web:
-            return GatewayChipViewModel.init(title: paymentOption.title, icon: paymentOption.imageURL.absoluteString, paymentOptionIdentifier: paymentOption.identifier)
+            return GatewayChipViewModel.init(title: paymentOption.title, icon: paymentOption.imageURL.absoluteString, paymentOptionIdentifier: paymentOption.identifier, disabledIcon: paymentOption.correctDisabledImageURL().absoluteString)
         default:
             return genericChipModel
         }
@@ -171,4 +172,13 @@ extension TapChipType:Codable {
             self = .GatewayChip
         }
     }
+}
+
+
+extension ChipWithCurrencyModel:Equatable {
+    static func == (lhs: ChipWithCurrencyModel, rhs: ChipWithCurrencyModel) -> Bool {
+        return lhs.tapPaymentOption == rhs.tapPaymentOption
+    }
+    
+    
 }

@@ -218,17 +218,32 @@ internal extension TapCheckout {
 
 extension TapCheckout:TapCheckoutDataHolderDelegate {
     
-    func updateGatewayChipsList() {
-        // First step to deselect everything selected in the gopay and gateways horizontal chips
-        dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deselectAll()
-        dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.deselectAll()
+    func updateGatewayChipsList(shouldSort:Bool = true) {
         
-        // let us now update the two lists with the corresponding data sources from the payment types api based on the new transaction data like user currency
-        dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.dataSource = dataHolder.viewModels.gatewayChipsViewModel.filter(for: dataHolder.transactionData.transactionUserCurrencyValue.currency)
-        dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.dataSource = dataHolder.viewModels.goPayChipsViewModel.filter(for: dataHolder.transactionData.transactionUserCurrencyValue.currency)
+        if shouldSort {
+            // This means, we have changed the currency or we are on load
+            // In such a case, we will have to reset everything, deselect everything and sort the chips by putting the enabled payment methods first
+            
+            // First step to deselect everything selected in the gopay and gateways horizontal chips
+            dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deselectAll()
+            dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.deselectAll()
+            // let us get the two lists. 1 for enabled and 1 for disabled sorted then we append them together
+            let enabledPaymentOptions  = dataHolder.viewModels.gatewayChipsViewModel.filter(for: dataHolder.transactionData.transactionUserCurrencyValue.currency)
+            let disabledPaymentOptions = dataHolder.viewModels.gatewayChipsViewModel.filter(for: dataHolder.transactionData.transactionUserCurrencyValue.currency, and: false)
+            // Let us add them
+            dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.dataSource = enabledPaymentOptions + disabledPaymentOptions
+            // Then let us update the enabled/disabled status for the chips
+            dataHolder.viewModels.updatePaymentChipsEnableStatus()
+        }else{
+            // This means, we need only to re-render the cells by keeping the sorting but we change the enabled/disabled status of the chips
+            // based on the current selected currency
+            // Then let us update the enabled/disabled status for the chips
+            dataHolder.viewModels.updatePaymentChipsEnableStatus()
+        }
         
         updateGoPayAndGatewayLists()
     }
+    
     
     /// Handles the logic to fetch different sections from the Init API response
     func parseInitResponse() {

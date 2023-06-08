@@ -15,7 +15,8 @@ import TapApplePayKit_iOS
 /// Protocol to instruct parent upon important data changes to act upon
 internal protocol TapCheckoutDataHolderDelegate {
     /// Handles all the logic needed when the user selected currency changed to reflect in the supported gateways chips for the new currency
-    func updateGatewayChipsList()
+    /// - Parameter shouldSort: If true, then update will have to sort the enabled payment options first then append the disabled sorted as well.
+    func updateGatewayChipsList(shouldSort:Bool)
     /// Handles the logic to fetch different sections from the INIT api response
     func parseInitResponse()
     /// Handles the logic to fetch different sections from the Payment options response
@@ -182,6 +183,16 @@ internal class ViewModelsHolder {
         return showSaveCreditCard
     }
     
+    /// Then let us update the enabled/disabled status for the chips. Will mark the isEnabld and isDisabled flags for the payment options based on the given currency
+    /// - Parameter for currency: The currency code you want to set the enable status based on. If not passed, we will use the selected currency for the singleton checkout
+    internal func updatePaymentChipsEnableStatus(for currency:TapCurrencyCode? = nil) {
+        // Fetch the correct currency
+        let nonNullCurrencyCode = currency ?? TapCheckout.sharedCheckoutManager().dataHolder.transactionData.transactionUserCurrencyValue.currency
+        // Now let us mark the flag for each payment option based on the supporting status of the computed currency
+        TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.dataSource.forEach { $0.isDisabled = !(TapCheckout.sharedCheckoutManager().dataHolder.transactionData.paymentOptionsModelResponse?.fetchPaymentOption(with: $0.paymentOptionIdentifier)?.supportedCurrencies.contains(obj:nonNullCurrencyCode) ?? false) }
+        
+        print("SD")
+    }
 }
 
 /// Struct that holds transaction related variables

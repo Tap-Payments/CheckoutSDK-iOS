@@ -690,6 +690,10 @@ extension TapBottomCheckoutControllerViewController:TapCardTelecomPaymentProtoco
 
 
 extension TapBottomCheckoutControllerViewController:TapGenericTableViewModelDelegate {
+    func itemClicked(for viewModel: TapUIKit_iOS.TapGenericTableCellViewModel) {
+        
+    }
+    
     func didSelectTable(item viewModel: TapGenericTableCellViewModel) {
         return
     }

@@ -79,6 +79,10 @@ internal extension TapCheckout {
 
 
 extension TapCheckout:TapChipHorizontalListViewModelDelegate {
+    public func didShowDisabledItems(isShow showingDisabledItem: Bool) {
+        
+    }
+    
     
     public func logoutChip(for viewModel:TapLogoutChipViewModel) {}
     public func didSelect(item viewModel: GenericTapChipViewModel) {}
@@ -174,6 +178,23 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
         // make a haptic feedback
         generateHapticFeedbackForChipClicking()
         
+        // let us first check if it is enabled or disabled
+        if viewModel.isDisabled {
+            handleDisabledGateway(for: viewModel)
+        }else{
+            handleEnabledGateway(for: viewModel)
+        }
+    }
+    
+    /// Will handle the logic needed after selecring a disabled gateway
+    /// - Parameter for viewModel: The view model for the disabled selected gateway
+    internal func handleDisabledGateway(for viewModel: GatewayChipViewModel) {
+        
+    }
+    
+    /// Will handle the logic needed after selecring an enabled gateway
+    /// - Parameter for viewModel: The view model for the enabled selected gateway
+    internal func handleEnabledGateway(for viewModel: GatewayChipViewModel) {
         // First reset the enetred data in the card form if any if the current visible status is for a saved card view
         if dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView.cardInputView.cardUIStatus == .SavedCard {
             resetCardData(shouldFireCardDataChanged: false)
