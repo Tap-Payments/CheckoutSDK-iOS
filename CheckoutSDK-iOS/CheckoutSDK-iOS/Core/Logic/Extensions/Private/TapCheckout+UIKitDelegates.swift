@@ -189,7 +189,11 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
     /// Will handle the logic needed after selecring a disabled gateway
     /// - Parameter for viewModel: The view model for the disabled selected gateway
     internal func handleDisabledGateway(for viewModel: GatewayChipViewModel) {
-        
+        // let us clear the card element
+        dataHolder.viewModels.tapCardTelecomPaymentViewModel.changeEnableStatus(to: false, doPostLogic: true)
+        // Disable the pay button regarding its current state
+        dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .InvalidPayment
+        chanegActionButton(status: .InvalidPayment, actionBlock: nil)
     }
     
     /// Will handle the logic needed after selecring an enabled gateway
