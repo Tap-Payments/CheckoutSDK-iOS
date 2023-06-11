@@ -200,6 +200,22 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
         
         guard let paymentOption:PaymentOption = fetchPaymentOption(with: viewModel.paymentOptionIdentifier) else { return }
         
+        showOrUpdateCurrencyWidget(paymentOption: paymentOption)
+    }
+    
+    /// This will remove the currency widget if it is already shown and nulify it
+    internal func removeCurrencyWidget() {
+        if let nonNullCurrencyViewModel = dataHolder.viewModels.tapCurrencyWidgetModel {
+            // This means, it is already defined and being displayed now
+            // let us remove it as UI first then nulify it
+            UIDelegate?.removeView(view: nonNullCurrencyViewModel.attachedView, with: .init(for: .fadeOut, with: 0.25, and: .bottom))
+            dataHolder.viewModels.tapCurrencyWidgetModel = nil
+        }
+    }
+    
+    /// Will handle showing or update currency widget
+    /// - Parameter paymentOption PaymentOption: the payment option to be shown
+    internal func showOrUpdateCurrencyWidget(paymentOption: PaymentOption) {
         // Then if the currency widget is already visible, we just need to update the content, otherwise we add it to the view
         guard let nonNullViewModel = dataHolder.viewModels.tapCurrencyWidgetModel else {
             // This means, it is nil and it is not currently visible on the screen
@@ -214,15 +230,6 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
         nonNullViewModel.updateData(with:  fetchAmountedCurrencies(for: paymentOption), and: paymentOption)
     }
     
-    /// This will remove the currency widget if it is already shown and nulify it
-    internal func removeCurrencyWidget() {
-        if let nonNullCurrencyViewModel = dataHolder.viewModels.tapCurrencyWidgetModel {
-            // This means, it is already defined and being displayed now
-            // let us remove it as UI first then nulify it
-            UIDelegate?.removeView(view: nonNullCurrencyViewModel.attachedView, with: .init(for: .fadeOut, with: 0.25, and: .bottom))
-            dataHolder.viewModels.tapCurrencyWidgetModel = nil
-        }
-    }
     
     /// Will handle the logic needed after selecring an enabled gateway
     /// - Parameter for viewModel: The view model for the enabled selected gateway
@@ -244,8 +251,24 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
         // Start the payment with the selected payment option
         let gatewayActionBlock:()->() = { self.processCheckout(with: self.dataHolder.transactionData.selectedPaymentOption!) }
         chanegActionButton(status: .ValidPayment, actionBlock: gatewayActionBlock)
-        // let us also make sure we remove any currency widget if any
-        removeCurrencyWidget()
+    
+    }
+    /// Handle showing or removing currency widget for enabled gateway method
+    /// - Parameter for viewModel: The view model for the enabled selected gateway
+    internal func updateCurrencyWidgetForEnabledGateway(for viewModel: GatewayChipViewModel) {
+        guard let paymentOption:PaymentOption = fetchPaymentOption(with: viewModel.paymentOptionIdentifier) else {
+            removeCurrencyWidget()
+            return
+        }
+        // Check if payment method enabled and have another currencies options
+        // Current selected payment option has same currency as transaction currency user not selected another currency
+        // Selected payment option doesn't have extra supported currencies
+        guard dataHolder.transactionData.transactionCurrencyValue.currency != dataHolder.viewModels.currentUsedCurrency, paymentOption.supportedCurrencies.count > 1  else {
+            removeCurrencyWidget()
+            return
+        }
+        // Update or show currency widget for the another payment option currency
+        showOrUpdateCurrencyWidget(paymentOption: paymentOption)
     }
     
     public func currencyChip(for viewModel: CurrencyChipViewModel) {

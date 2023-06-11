@@ -32,7 +32,6 @@
 		E8082E66299288AC00F001F3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8082E62299288AC00F001F3 /* SettingsViewController.swift */; };
 		E8082E68299288F400F001F3 /* TapFormSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8082E67299288F400F001F3 /* TapFormSettingsViewController.swift */; };
 		E8082E6B29928A0200F001F3 /* Eureka in Frameworks */ = {isa = PBXBuildFile; productRef = E8082E6A29928A0200F001F3 /* Eureka */; };
-		E8082E6D29928CEF00F001F3 /* LocalisationSettingsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8082E6C29928CEF00F001F3 /* LocalisationSettingsDelegate.swift */; };
 		E8082E6F29928D2000F001F3 /* TaxTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8082E6E29928D2000F001F3 /* TaxTableViewController.swift */; };
 		E830B7F324F3E96900B62713 /* TapPayButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E830B7F224F3E96900B62713 /* TapPayButtonViewModel.swift */; };
 		E830B7F724FA3BF100B62713 /* TapCheckout+UIKitDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = E830B7F624FA3BF100B62713 /* TapCheckout+UIKitDelegates.swift */; };
@@ -174,7 +173,6 @@
 		E8082E61299288AB00F001F3 /* CreateItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateItemViewController.swift; sourceTree = "<group>"; };
 		E8082E62299288AC00F001F3 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E8082E67299288F400F001F3 /* TapFormSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapFormSettingsViewController.swift; sourceTree = "<group>"; };
-		E8082E6C29928CEF00F001F3 /* LocalisationSettingsDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocalisationSettingsDelegate.swift; path = ../../../../CheckoutExample/CheckoutExample/Protocols/LocalisationSettingsDelegate.swift; sourceTree = "<group>"; };
 		E8082E6E29928D2000F001F3 /* TaxTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxTableViewController.swift; sourceTree = "<group>"; };
 		E830B7F224F3E96900B62713 /* TapPayButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapPayButtonViewModel.swift; sourceTree = "<group>"; };
 		E830B7F624FA3BF100B62713 /* TapCheckout+UIKitDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+UIKitDelegates.swift"; sourceTree = "<group>"; };
@@ -288,7 +286,6 @@
 		620965F624E42EB000BD9985 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				E8082E6C29928CEF00F001F3 /* LocalisationSettingsDelegate.swift */,
 				620965F724E42ED800BD9985 /* SettingsDelegate.swift */,
 			);
 			path = Protocols;
@@ -870,7 +867,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8082E6D29928CEF00F001F3 /* LocalisationSettingsDelegate.swift in Sources */,
 				E8082E522992886E00F001F3 /* ApplePaySubscriptionDetailsViewController.swift in Sources */,
 				E8082E4D2992886E00F001F3 /* CreateBundleViewController.swift in Sources */,
 				E8811AEC24D4287400DE95D1 /* ViewController.swift in Sources */,
