@@ -251,6 +251,7 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
         // Start the payment with the selected payment option
         let gatewayActionBlock:()->() = { self.processCheckout(with: self.dataHolder.transactionData.selectedPaymentOption!) }
         chanegActionButton(status: .ValidPayment, actionBlock: gatewayActionBlock)
+        updateCurrencyWidgetForEnabledGateway(for: viewModel)
     
     }
     /// Handle showing or removing currency widget for enabled gateway method
