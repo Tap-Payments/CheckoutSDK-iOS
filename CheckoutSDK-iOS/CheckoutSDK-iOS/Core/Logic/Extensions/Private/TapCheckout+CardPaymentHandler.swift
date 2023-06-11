@@ -260,7 +260,9 @@ extension TapCheckout {
         // We will need to act only if there is a redirection scheme was selected, as all others will not need.
         // Apple pay is a one step payment hence it is not selected by default
         // Saved card chip will already disable the card form only allowing CVV to be entered
-        if dataHolder.transactionData.selectedPaymentOption?.paymentType == .Web {
+        // Also, if there is a disabled chip selected & currency widget is displayed
+        if dataHolder.transactionData.selectedPaymentOption?.paymentType == .Web ||
+            dataHolder.viewModels.tapCurrencyWidgetModel != nil {
             // First step to deselect everything selected in the gopay and gateways horizontal chips
             dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deselectAll()
             dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.deselectAll()
@@ -272,6 +274,8 @@ extension TapCheckout {
             // Then let us enable the card form back
             dataHolder.viewModels.tapCardTelecomPaymentViewModel.changeEnableStatus(to: true, doPostLogic: true)
         }
+        // In all cases, let us defensive wise to remove the currenc widget if any
+        removeCurrencyWidget()
     }
     
     /**

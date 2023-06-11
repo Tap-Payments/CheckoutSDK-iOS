@@ -107,6 +107,9 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
         // let the card come back
         dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView.alpha = 1
         dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView.isUserInteractionEnabled = true
+        
+        // If were were showing a currency widget let us remove it
+        removeCurrencyWidget()
     }
     
     public func headerRightButtonClicked(in headerType: TapHorizontalHeaderType) {
@@ -211,6 +214,16 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
         nonNullViewModel.updateData(with:  fetchAmountedCurrencies(for: paymentOption), and: paymentOption)
     }
     
+    /// This will remove the currency widget if it is already shown and nulify it
+    internal func removeCurrencyWidget() {
+        if let nonNullCurrencyViewModel = dataHolder.viewModels.tapCurrencyWidgetModel {
+            // This means, it is already defined and being displayed now
+            // let us remove it as UI first then nulify it
+            UIDelegate?.removeView(view: nonNullCurrencyViewModel.attachedView, with: .init(for: .fadeOut, with: 0.25, and: .bottom))
+            dataHolder.viewModels.tapCurrencyWidgetModel = nil
+        }
+    }
+    
     /// Will handle the logic needed after selecring an enabled gateway
     /// - Parameter for viewModel: The view model for the enabled selected gateway
     internal func handleEnabledGateway(for viewModel: GatewayChipViewModel) {
@@ -231,6 +244,8 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
         // Start the payment with the selected payment option
         let gatewayActionBlock:()->() = { self.processCheckout(with: self.dataHolder.transactionData.selectedPaymentOption!) }
         chanegActionButton(status: .ValidPayment, actionBlock: gatewayActionBlock)
+        // let us also make sure we remove any currency widget if any
+        removeCurrencyWidget()
     }
     
     public func currencyChip(for viewModel: CurrencyChipViewModel) {
