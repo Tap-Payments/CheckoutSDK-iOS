@@ -272,6 +272,16 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
 extension TapCheckout: TapCurrencyWidgetViewModelDelegate {
     
     public func confirmClicked(for viewModel: TapUIKit_iOS.TapCurrencyWidgetViewModel) {
+        // make sure all is good we can fetch the currency and the payment option
+        guard let selectedCurrency = viewModel.selectedAmountCurrency else { return }
+        let selectedPaymentOption:PaymentOption = viewModel.paymentOption
+        
+        // let us set the currency first
+        dataHolder.transactionData.transactionUserCurrencyValue = selectedCurrency
+        // let us remove the widget
+        removeCurrencyWidget()
+        // set the payment option to be auto selected
+        dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.selectCell(with: selectedPaymentOption.identifier, shouldAnimate: true)
         
     }
     
