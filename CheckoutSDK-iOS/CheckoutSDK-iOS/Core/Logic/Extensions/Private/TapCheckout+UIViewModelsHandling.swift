@@ -226,6 +226,10 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
             
             // First step to deselect everything selected in the gopay and gateways horizontal chips
             dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.deselectAll()
+            
+            //TODO: i Think we need to move it to tapGatewayChipHorizontalListViewModel.deselectAll()
+            dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.selectedChip = nil
+            
             dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.deselectAll()
             // let us get the two lists. 1 for enabled and 1 for disabled sorted then we append them together
             let enabledPaymentOptions  = dataHolder.viewModels.gatewayChipsViewModel.filter(for: dataHolder.transactionData.transactionUserCurrencyValue.currency)
