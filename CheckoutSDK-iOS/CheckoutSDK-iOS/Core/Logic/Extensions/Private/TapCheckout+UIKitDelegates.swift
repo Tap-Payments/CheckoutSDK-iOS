@@ -257,7 +257,7 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
     /// Handle showing or removing currency widget for enabled gateway method
     /// - Parameter for viewModel: The view model for the enabled selected gateway
     internal func updateCurrencyWidgetForEnabledGateway(for viewModel: GatewayChipViewModel) {
-        guard let paymentOption:PaymentOption = fetchPaymentOption(with: viewModel.paymentOptionIdentifier) else {
+        guard var paymentOption:PaymentOption = fetchPaymentOption(with: viewModel.paymentOptionIdentifier) else {
             removeCurrencyWidget()
             return
         }
@@ -267,6 +267,9 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
         guard dataHolder.transactionData.transactionCurrencyValue.currency != dataHolder.viewModels.currentUsedCurrency, paymentOption.supportedCurrencies.count > 1  else {
             removeCurrencyWidget()
             return
+        }
+        paymentOption.supportedCurrencies.removeAll {
+            $0 == dataHolder.viewModels.currentUsedCurrency
         }
         // Update or show currency widget for the another payment option currency
         showOrUpdateCurrencyWidget(paymentOption: paymentOption)
