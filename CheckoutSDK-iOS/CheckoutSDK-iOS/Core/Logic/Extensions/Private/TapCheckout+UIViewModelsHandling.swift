@@ -220,7 +220,7 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
     
     func updateGatewayChipsList(shouldSort:Bool = true) {
         
-        if shouldSort {
+        if shouldSort && !currencyConvertedFromWidget {
             // This means, we have changed the currency or we are on load
             // In such a case, we will have to reset everything, deselect everything and sort the chips by putting the enabled payment methods first
             
@@ -238,6 +238,7 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
             // This means, we need only to re-render the cells by keeping the sorting but we change the enabled/disabled status of the chips
             // based on the current selected currency
             // Then let us update the enabled/disabled status for the chips
+            currencyConvertedFromWidget = false
             dataHolder.viewModels.updatePaymentChipsEnableStatus()
         }
         

@@ -277,6 +277,8 @@ extension TapCheckout: TapCurrencyWidgetViewModelDelegate {
         let selectedPaymentOption:PaymentOption = viewModel.paymentOption
         
         // let us set the currency first
+        // We will have to declare to the checkout manager that we are coming from the currency widget, so it doesn't apply sorting
+        TapCheckout.sharedCheckoutManager().currencyConvertedFromWidget = true
         dataHolder.transactionData.transactionUserCurrencyValue = selectedCurrency
         // let us remove the widget
         removeCurrencyWidget()

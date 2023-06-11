@@ -153,6 +153,8 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
 @objc public class TapCheckout: NSObject {
     
     // MARK:- Internal varibales
+    /// Indicates whether the last currency change occured from the currency change widget or not
+    internal var currencyConvertedFromWidget:Bool = false
     /// Reference to the color of the dimming of the tap sheet controller
     internal var bottomSheetBackgroundColor:UIColor? = .init(white: 0, alpha: 0.5)
     /// Initial height to start the sheet with
