@@ -194,6 +194,21 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
         // Disable the pay button regarding its current state
         dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .InvalidPayment
         chanegActionButton(status: .InvalidPayment, actionBlock: nil)
+        
+        guard let paymentOption:PaymentOption = fetchPaymentOption(with: viewModel.paymentOptionIdentifier) else { return }
+        
+        // Then if the currency widget is already visible, we just need to update the content, otherwise we add it to the view
+        guard let nonNullViewModel = dataHolder.viewModels.tapCurrencyWidgetModel else {
+            // This means, it is nil and it is not currently visible on the screen
+            dataHolder.viewModels.tapCurrencyWidgetModel = TapCurrencyWidgetViewModel(convertedAmounts: fetchAmountedCurrencies(for: paymentOption), paymentOption: paymentOption)
+            dataHolder.viewModels.tapCurrencyWidgetModel?.setTapCurrencyWidgetViewModelDelegate(delegate: self)
+            UIDelegate?.showCurrencyWidget(for: dataHolder.viewModels.tapCurrencyWidgetModel!, in: .PaymentChipsList)
+            
+            return
+        }
+        
+        // This means, it is already visible and we just need to update its content
+        nonNullViewModel.updateData(with:  fetchAmountedCurrencies(for: paymentOption), and: paymentOption)
     }
     
     /// Will handle the logic needed after selecring an enabled gateway
@@ -236,4 +251,13 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
         generator.impactOccurred()
         
     }
+}
+
+//MARK: The currency widget delegate
+extension TapCheckout: TapCurrencyWidgetViewModelDelegate {
+    
+    public func confirmClicked(for viewModel: TapUIKit_iOS.TapCurrencyWidgetViewModel) {
+        
+    }
+    
 }

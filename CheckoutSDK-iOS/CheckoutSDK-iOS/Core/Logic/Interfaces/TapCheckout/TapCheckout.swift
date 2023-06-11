@@ -141,6 +141,11 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     /// Will set the height by a value
     /// - Parameter to: The height we will set the sheet to
     func changeHeight(to:CGFloat)
+    
+    /// Will display a currency widget control
+    /// - Parameter for viewModel: The view model for the currency widget view you want to display
+    /// - Parameter in position: The position of the currency widget control to show it in
+    func showCurrencyWidget(for viewModel:TapCurrencyWidgetViewModel,in position:CurrencyWidgetPositionEnum)
 }
 
 

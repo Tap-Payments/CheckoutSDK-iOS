@@ -814,6 +814,19 @@ extension TapBottomCheckoutControllerViewController:TapWebViewModelDelegate {
 
 
 extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDelegate {
+    func showCurrencyWidget(for viewModel: TapUIKit_iOS.TapCurrencyWidgetViewModel, in position: CurrencyWidgetPositionEnum) {
+        // let us detect the position we will add the view in based on the passed position enum
+        var computedPosition:Int = 0
+        
+        switch position {
+        case .PaymentChipsList:
+            computedPosition = (tapVerticalView.stackView.arrangedSubviews.firstIndex(where: { $0.isKind(of: TapChipHorizontalList.self) }) ?? 0) + 1
+        case .Card:
+            computedPosition = (tapVerticalView.stackView.arrangedSubviews.firstIndex(where: { $0.isKind(of: TapCardTelecomPaymentView.self) }) ?? 0) + 1
+        }
+        tapVerticalView.add(view: viewModel.attachedView, at: computedPosition, with: [.init(for:.fadeIn, with: 0.25)], shouldFillHeight: false)
+    }
+    
     
     func reduceHeight(to: CGFloat) {
         guard let delegate = delegate else { return }
