@@ -268,11 +268,31 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
             removeCurrencyWidget()
             return
         }
-        paymentOption.supportedCurrencies.removeAll {
+        // Remove the selected currency from payment option list
+        var updatedSupportedCurrencies = paymentOption.supportedCurrencies
+        updatedSupportedCurrencies.removeAll {
             $0 == dataHolder.viewModels.currentUsedCurrency
         }
+        let updatedPaymentOption = PaymentOption( identifier: paymentOption.identifier,
+                                                  brand: paymentOption.brand,
+                                                  title: paymentOption.title,
+                                                  titleAr: paymentOption.titleAr,
+                                                  displayableTitle: paymentOption.displayableTitle,
+                                                  backendImageURL: paymentOption.backendImageURL,
+                                                  isAsync: paymentOption.isAsync,
+                                                  paymentType: paymentOption.paymentType,
+                                                  sourceIdentifier: paymentOption.sourceIdentifier,
+                                                  supportedCardBrands: paymentOption.supportedCardBrands,
+                                                  supportedCurrencies: updatedSupportedCurrencies,
+                                                  orderBy: paymentOption.orderBy,
+                                                  threeDLevel: paymentOption.threeDLevel,
+                                                  savedCard: paymentOption.savedCard,
+                                                  extraFees: paymentOption.extraFees,
+                                                  paymentOptionsLogos:paymentOption.paymentOptionsLogos,
+                                                  buttonStyle: paymentOption.buttonStyle)
+      
         // Update or show currency widget for the another payment option currency
-        showOrUpdateCurrencyWidget(paymentOption: paymentOption)
+        showOrUpdateCurrencyWidget(paymentOption: updatedPaymentOption)
     }
     
     public func currencyChip(for viewModel: CurrencyChipViewModel) {
