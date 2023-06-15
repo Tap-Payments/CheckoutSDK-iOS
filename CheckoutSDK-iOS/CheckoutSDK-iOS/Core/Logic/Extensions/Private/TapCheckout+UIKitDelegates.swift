@@ -200,7 +200,7 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
         
         guard let paymentOption:PaymentOption = fetchPaymentOption(with: viewModel.paymentOptionIdentifier) else { return }
         
-        showOrUpdateCurrencyWidget(paymentOption: paymentOption, type: TapCurrencyWidgetType.disabledPaymentOption)
+        showOrUpdateCurrencyWidget(paymentOption: paymentOption, type: TapCurrencyWidgetType.disabledPaymentOption, in: .PaymentChipsList)
     }
     
     /// This will remove the currency widget if it is already shown and nulify it
@@ -215,13 +215,13 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
     
     /// Will handle showing or update currency widget
     /// - Parameter paymentOption PaymentOption: the payment option to be shown
-    internal func showOrUpdateCurrencyWidget(paymentOption: PaymentOption, type: TapCurrencyWidgetType) {
+    internal func showOrUpdateCurrencyWidget(paymentOption: PaymentOption, type: TapCurrencyWidgetType, in position: CurrencyWidgetPositionEnum) {
         // Then if the currency widget is already visible, we just need to update the content, otherwise we add it to the view
         guard let nonNullViewModel = dataHolder.viewModels.tapCurrencyWidgetModel else {
             // This means, it is nil and it is not currently visible on the screen
             dataHolder.viewModels.tapCurrencyWidgetModel = TapCurrencyWidgetViewModel(convertedAmounts: fetchAmountedCurrencies(for: paymentOption), paymentOption: paymentOption, type: type)
             dataHolder.viewModels.tapCurrencyWidgetModel?.setTapCurrencyWidgetViewModelDelegate(delegate: self)
-            UIDelegate?.showCurrencyWidget(for: dataHolder.viewModels.tapCurrencyWidgetModel!, in: .PaymentChipsList)
+            UIDelegate?.showCurrencyWidget(for: dataHolder.viewModels.tapCurrencyWidgetModel!, in: position)
             
             return
         }
@@ -292,7 +292,7 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
                                                  buttonStyle: paymentOption.buttonStyle)
       
         // Update or show currency widget for the another payment option currency
-        showOrUpdateCurrencyWidget(paymentOption: updatedPaymentOption, type: TapCurrencyWidgetType.enabledPaymentOption)
+        showOrUpdateCurrencyWidget(paymentOption: updatedPaymentOption, type: TapCurrencyWidgetType.enabledPaymentOption, in: .PaymentChipsList)
     }
     
     public func currencyChip(for viewModel: CurrencyChipViewModel) {
@@ -331,8 +331,12 @@ extension TapCheckout: TapCurrencyWidgetViewModelDelegate {
         // let us remove the widget
         removeCurrencyWidget()
         // set the payment option to be auto selected
-        dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.selectCell(with: selectedPaymentOption.identifier, shouldAnimate: true)
         
+        if selectedPaymentOption.paymentType == .Card  {
+            dataHolder.viewModels.tapCardTelecomPaymentViewModel.changeEnableStatus(to: true, doPostLogic: true)
+        } else {
+            dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.selectCell(with: selectedPaymentOption.identifier, shouldAnimate: true)
+        }
     }
     
 }
