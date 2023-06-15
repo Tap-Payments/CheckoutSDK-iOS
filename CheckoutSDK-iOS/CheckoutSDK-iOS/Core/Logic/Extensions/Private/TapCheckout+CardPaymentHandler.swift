@@ -222,12 +222,16 @@ extension TapCheckout {
                 guard paymentOptions.count > 0, let selectedPaymentOption:PaymentOption = paymentOptions.first else {
                     handleError(session: nil, result: nil, error: "Unexpected error, trying to start card payment without a payemnt option selected.")
                     return }
+                
+                showOrUpdateCurrencyWidget(paymentOption: selectedPaymentOption, type: TapCurrencyWidgetType.enabledPaymentOption, in: .Card)
+                dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .InvalidPayment
+
                 // Set it as the selected payment option
-                dataHolder.transactionData.selectedPaymentOption = selectedPaymentOption
-                // Assign the action to be done once clicked on the action button to start the payment
-                dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .ValidPayment
-                let payAction:()->() = { [weak self] in self?.processCheckout(with:selectedPaymentOption,andCard:self?.dataHolder.transactionData.currentCard) }
-                dataHolder.viewModels.tapActionButtonViewModel.buttonActionBlock = payAction
+//                dataHolder.transactionData.selectedPaymentOption = selectedPaymentOption
+//                // Assign the action to be done once clicked on the action button to start the payment
+//                dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .ValidPayment
+//                let payAction:()->() = { [weak self] in self?.processCheckout(with:selectedPaymentOption,andCard:self?.dataHolder.transactionData.currentCard) }
+//                dataHolder.viewModels.tapActionButtonViewModel.buttonActionBlock = payAction
                 // Log the brand
                 setLoggingCustomerData()
                 //log().verbose("Finished valid raw card data for \(selectedPaymentOption.title)")
@@ -248,7 +252,7 @@ extension TapCheckout {
         }
         
         // Check about the loyalty widget
-        handleLoyalty(for:cardBrand,with: validation)
+//        handleLoyalty(for:cardBrand,with: validation)
         // Check about customer data collection if needed
         handleCustomerContact(with: validation)
     }

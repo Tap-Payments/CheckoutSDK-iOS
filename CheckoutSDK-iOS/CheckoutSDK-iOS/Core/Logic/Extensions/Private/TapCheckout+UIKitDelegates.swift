@@ -80,7 +80,7 @@ internal extension TapCheckout {
 
 extension TapCheckout:TapChipHorizontalListViewModelDelegate {
     public func didShowDisabledItems(isShow showingDisabledItem: Bool) {
-        
+        dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.shouldShowRightButton(show: showingDisabledItem)
     }
     
     
@@ -200,18 +200,7 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
         
         guard let paymentOption:PaymentOption = fetchPaymentOption(with: viewModel.paymentOptionIdentifier) else { return }
         
-        // Then if the currency widget is already visible, we just need to update the content, otherwise we add it to the view
-        guard let nonNullViewModel = dataHolder.viewModels.tapCurrencyWidgetModel else {
-            // This means, it is nil and it is not currently visible on the screen
-            dataHolder.viewModels.tapCurrencyWidgetModel = TapCurrencyWidgetViewModel(convertedAmounts: fetchAmountedCurrencies(for: paymentOption), paymentOption: paymentOption)
-            dataHolder.viewModels.tapCurrencyWidgetModel?.setTapCurrencyWidgetViewModelDelegate(delegate: self)
-            UIDelegate?.showCurrencyWidget(for: dataHolder.viewModels.tapCurrencyWidgetModel!, in: .PaymentChipsList)
-            
-            return
-        }
-        
-        // This means, it is already visible and we just need to update its content
-        nonNullViewModel.updateData(with:  fetchAmountedCurrencies(for: paymentOption), and: paymentOption)
+        showOrUpdateCurrencyWidget(paymentOption: paymentOption, type: TapCurrencyWidgetType.disabledPaymentOption, in: .PaymentChipsList)
     }
     
     /// This will remove the currency widget if it is already shown and nulify it
@@ -223,6 +212,24 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
             dataHolder.viewModels.tapCurrencyWidgetModel = nil
         }
     }
+    
+    /// Will handle showing or update currency widget
+    /// - Parameter paymentOption PaymentOption: the payment option to be shown
+    internal func showOrUpdateCurrencyWidget(paymentOption: PaymentOption, type: TapCurrencyWidgetType, in position: CurrencyWidgetPositionEnum) {
+        // Then if the currency widget is already visible, we just need to update the content, otherwise we add it to the view
+        guard let nonNullViewModel = dataHolder.viewModels.tapCurrencyWidgetModel else {
+            // This means, it is nil and it is not currently visible on the screen
+            dataHolder.viewModels.tapCurrencyWidgetModel = TapCurrencyWidgetViewModel(convertedAmounts: fetchAmountedCurrencies(for: paymentOption), paymentOption: paymentOption, type: type)
+            dataHolder.viewModels.tapCurrencyWidgetModel?.setTapCurrencyWidgetViewModelDelegate(delegate: self)
+            UIDelegate?.showCurrencyWidget(for: dataHolder.viewModels.tapCurrencyWidgetModel!, in: position)
+            
+            return
+        }
+        
+        // This means, it is already visible and we just need to update its content
+        nonNullViewModel.updateData(with:  fetchAmountedCurrencies(for: paymentOption), and: paymentOption)
+    }
+    
     
     /// Will handle the logic needed after selecring an enabled gateway
     /// - Parameter for viewModel: The view model for the enabled selected gateway
@@ -244,13 +251,54 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
         // Start the payment with the selected payment option
         let gatewayActionBlock:()->() = { self.processCheckout(with: self.dataHolder.transactionData.selectedPaymentOption!) }
         chanegActionButton(status: .ValidPayment, actionBlock: gatewayActionBlock)
-        // let us also make sure we remove any currency widget if any
-        removeCurrencyWidget()
+        updateCurrencyWidgetForEnabledGateway(for: viewModel)
+    
+    }
+    /// Handle showing or removing currency widget for enabled gateway method
+    /// - Parameter for viewModel: The view model for the enabled selected gateway
+    internal func updateCurrencyWidgetForEnabledGateway(for viewModel: GatewayChipViewModel) {
+        guard var paymentOption:PaymentOption = fetchPaymentOption(with: viewModel.paymentOptionIdentifier) else {
+            removeCurrencyWidget()
+            return
+        }
+        // Check if payment method enabled and have another currencies options
+        // Current selected payment option has same currency as transaction currency user not selected another currency
+        // Selected payment option doesn't have extra supported currencies
+        guard dataHolder.transactionData.transactionCurrencyValue.currency != dataHolder.viewModels.currentUsedCurrency, paymentOption.supportedCurrencies.count > 1  else {
+            removeCurrencyWidget()
+            return
+        }
+        // Remove the selected currency from payment option list
+        var updatedSupportedCurrencies = paymentOption.supportedCurrencies
+        updatedSupportedCurrencies.removeAll {
+            $0 == dataHolder.viewModels.currentUsedCurrency
+        }
+        let updatedPaymentOption = PaymentOption(identifier: paymentOption.identifier,
+                                                 brand: paymentOption.brand,
+                                                 title: paymentOption.title,
+                                                 titleAr: paymentOption.titleAr,
+                                                 displayableTitle: paymentOption.displayableTitle,
+                                                 backendImageURL: paymentOption.backendImageURL,
+                                                 isAsync: paymentOption.isAsync,
+                                                 paymentType: paymentOption.paymentType,
+                                                 sourceIdentifier: paymentOption.sourceIdentifier,
+                                                 supportedCardBrands: paymentOption.supportedCardBrands,
+                                                 supportedCurrencies: updatedSupportedCurrencies,
+                                                 orderBy: paymentOption.orderBy,
+                                                 threeDLevel: paymentOption.threeDLevel,
+                                                 savedCard: paymentOption.savedCard,
+                                                 extraFees: paymentOption.extraFees,
+                                                 paymentOptionsLogos:paymentOption.paymentOptionsLogos,
+                                                 buttonStyle: paymentOption.buttonStyle)
+      
+        // Update or show currency widget for the another payment option currency
+        showOrUpdateCurrencyWidget(paymentOption: updatedPaymentOption, type: TapCurrencyWidgetType.enabledPaymentOption, in: .PaymentChipsList)
     }
     
     public func currencyChip(for viewModel: CurrencyChipViewModel) {
         // make a haptic feedback
         generateHapticFeedbackForChipClicking()
+        removeCurrencyWidget()
         dataHolder.transactionData.transactionUserCurrencyValue = viewModel.currency
         setLoggingCustomerData()
         logBF(message: "Currency changed to : \( viewModel.currency.displaybaleSymbol )", tag: .EVENTS)
@@ -283,8 +331,12 @@ extension TapCheckout: TapCurrencyWidgetViewModelDelegate {
         // let us remove the widget
         removeCurrencyWidget()
         // set the payment option to be auto selected
-        dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.selectCell(with: selectedPaymentOption.identifier, shouldAnimate: true)
         
+        if selectedPaymentOption.paymentType == .Card  {
+            dataHolder.viewModels.tapCardTelecomPaymentViewModel.changeEnableStatus(to: true, doPostLogic: true)
+        } else {
+            dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.selectCell(with: selectedPaymentOption.identifier, shouldAnimate: true)
+        }
     }
     
 }

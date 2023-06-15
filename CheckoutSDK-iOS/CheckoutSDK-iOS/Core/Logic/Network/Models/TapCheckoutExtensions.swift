@@ -15,10 +15,15 @@ internal extension Array where Element: CurrencyCardsTelecomModel {
     /**
      Extended method to easily extract the list of tapCardPhoneViewModel from list of CurrencyCardsTelecomModel that supports a certain currenct
      - Parameter currency: Pass the currency you want to see its support. If no passed, the Global UserCurrency will be used as the filtering currency
+     - Parameter and supportsCurrency: Indicates if we need to extract the payment options which support the provided currency. Otherwise, will only fetch the ones that don't support the currency
      - Returns: List of the tapCardPhoneViewModels that supports the given currency code
      */
-    func filter(for currency:TapCurrencyCode) -> [TapCardPhoneIconViewModel] {
-        return self.filter{ $0.isEnabled(for: currency) }.map{ $0.tapCardPhoneViewModel }
+    func filter(for currency:TapCurrencyCode, and supportsCurrency:Bool = true) -> [TapCardPhoneIconViewModel] {
+        if supportsCurrency {
+            return self.filter{ $0.isEnabled(for: currency) }.map{ $0.tapCardPhoneViewModel }
+        }else{
+            return self.filter{ !$0.isEnabled(for: currency) }.map{ $0.tapCardPhoneViewModel }
+        }
     }
     
     func telecomCountry(for currency:TapCurrencyCode) -> TapCountry? {

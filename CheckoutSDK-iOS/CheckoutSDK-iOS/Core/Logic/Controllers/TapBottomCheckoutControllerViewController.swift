@@ -666,7 +666,7 @@ extension TapBottomCheckoutControllerViewController:TapCardTelecomPaymentProtoco
         // Based on the detected brand type we decide the action button status
         if cardBrand.brandSegmentIdentifier == "telecom" {
             handleTelecomPayment(for: cardBrand, with: validation)
-        }else if cardBrand.brandSegmentIdentifier == "cards" {
+        } else if cardBrand.brandSegmentIdentifier == "cards" {
             sharedCheckoutDataManager.handleCardValidationStatus(for:cardBrand, with: validation, cardStatusUI: cardStatusUI, isCVVFocused: isCVVFocused)
         }
     }

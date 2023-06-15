@@ -47,7 +47,7 @@ internal class CurrencyCardsTelecomModel:Codable {
      */
     init(paymentOption:PaymentOption) {
         
-        self.tapCardPhoneViewModel = TapCardPhoneIconViewModel.init(associatedCardBrand: paymentOption.brand, tapCardPhoneIconUrl: paymentOption.imageURL.absoluteString, paymentOptionIdentifier: paymentOption.identifier)
+        self.tapCardPhoneViewModel = TapCardPhoneIconViewModel.init(associatedCardBrand: paymentOption.brand, tapCardPhoneIconUrl: paymentOption.imageURL.absoluteString, paymentOptionIdentifier: paymentOption.identifier, isDisabled: false, tapCardDisabledPhoneIconUrl: paymentOption.correctDisabledImageURL().absoluteString)
         
         self.supportedCurrencies = paymentOption.supportedCurrencies
         self.supportedTelecomCountry = nil
@@ -99,7 +99,7 @@ internal class CurrencyCardsTelecomModel:Codable {
         self.supportedTelecomCountry = try values.decodeIfPresent(TapCountry.self, forKey: .supportedTelecomCountry)
         let cardBrand:CardBrand = try values.decodeIfPresent(CardBrand.self, forKey: .brand) ?? CardBrand.unknown
         let brandIcon:String = try values.decodeIfPresent(String.self, forKey: .brandIcon) ?? ""
-        self.tapCardPhoneViewModel = .init(associatedCardBrand: cardBrand, tapCardPhoneIconUrl:brandIcon)
+        self.tapCardPhoneViewModel = .init(associatedCardBrand: cardBrand, tapCardPhoneIconUrl:brandIcon, tapCardDisabledPhoneIconUrl: brandIcon)
         self.paymentType = try values.decodeIfPresent(TapPaymentType.self, forKey: .paymentType) ?? .All
     }
     
