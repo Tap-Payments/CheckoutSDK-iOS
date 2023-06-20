@@ -221,7 +221,6 @@ extension TapCheckout {
                 guard let selectedPaymentOption:PaymentOption = fetchPaymentOption(with: cardBrand) else {
                     handleError(session: nil, result: nil, error: "Unexpected error, trying to start card payment without a payemnt option selected.")
                     return }
-                
                 // Store this selected payment option for further usages
                 dataHolder.transactionData.selectedPaymentOption = selectedPaymentOption
                 
@@ -273,7 +272,26 @@ extension TapCheckout {
             let payAction:()->() = { [weak self] in self?.processCheckout(with:selectedPaymentOption,andCard:self?.dataHolder.transactionData.currentCard) }
             dataHolder.viewModels.tapActionButtonViewModel.buttonActionBlock = payAction
         }else{
-            dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .InvalidPayment
+            // This means, that the detected card brand is not enabled for the selected currency.
+            // we need to check, if this card is a co-badged one, and if the parent brand is an enabled one, so we show pay button with it
+            // First, we need to check if we have a valid bin lookup response and if it is a co-badged one
+            /// First of all we need to make sure that we have a co-badged card
+            let (weHaveCobadged, paymentOptionForParentCardBrand, _) = doWeHaveCoBadgedCard()
+            
+            if weHaveCobadged,
+               let paymentOptionForParentCardBrand = paymentOptionForParentCardBrand,
+               isCardBrandEnabled(in: paymentOptionForParentCardBrand) {
+                // This means, that we have a co-badged card brand and its original card brand is actually supported by the current currency
+                // Then we will mark the pay button as valid and set the selected payment option to the one that has the original card brand
+                dataHolder.transactionData.selectedPaymentOption = paymentOptionForParentCardBrand
+                dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .ValidPayment
+                let payAction:()->() = { [weak self] in self?.processCheckout(with:paymentOptionForParentCardBrand,andCard:self?.dataHolder.transactionData.currentCard) }
+                dataHolder.viewModels.tapActionButtonViewModel.buttonActionBlock = payAction
+            }else{
+                // This means whether the card is not co-badged and not enabled,
+                // Or co-badged but even the parent brand is not enabled
+                dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .InvalidPayment
+            }
         }
     }
     
@@ -345,9 +363,40 @@ extension TapCheckout {
         let isCardBrandEnabled:Bool = isCardBrandEnabled(in: selectedPaymentOption)
         let userCurrencyMatchesTransactionCurrency:Bool = dataHolder.transactionData.transactionCurrencyValue.currency == dataHolder.transactionData.transactionUserCurrencyValue.currency
         
-        return allCardDataAreValid && isSelectedOptionCard && !userChangedWithThisBrandAndCurrency && !(userCurrencyMatchesTransactionCurrency && isCardBrandEnabled)
+        return allCardDataAreValid && isSelectedOptionCard && !userChangedWithThisBrandAndCurrency && !(userCurrencyMatchesTransactionCurrency && isCardBrandEnabled) || willShowCurrencyWidgetForCoBadged()
     }
     
+    /// This method will check if we will show the widget because the current payment option is a co-badged card
+    /// - Returns: true, if we have a binlookup response and it's a co-badged and we need to show a widget for it. False, otherwise.
+    func willShowCurrencyWidgetForCoBadged() -> (Bool) {
+        /// First of all we need to make sure that we have a co-badged card
+        let (weHaveCobadged, _, coBadgedPaymentOption) = doWeHaveCoBadgedCard()
+        
+        if weHaveCobadged,
+           let coBadgedPaymentOption = coBadgedPaymentOption,
+           // Check if the cobadged is not supported by selected currency
+           !isCardBrandEnabled(in: coBadgedPaymentOption) {
+            return true
+        }
+        return false
+    }
+    
+    /// Checks if the current detected card is a co-badged one
+    /// - Returns: True, if we have a binlook upu and it is a co-badged card and the currency of the co-badge scheme is supported by the transaction currencies. False, otherwise. Also, if it is true, it will return the payment option that contains the parent brand and for the co-badged value.
+    func doWeHaveCoBadgedCard() -> (Bool,PaymentOption?,PaymentOption?) {
+        /// First of all we need to make sure that we have a co-badged card
+        /// We need to make sure we have a valid binlook up and it has a scheme different than the original brand
+        if let binLookUpResponse:TapBinResponseModel = dataHolder.transactionData.binLookUpModelResponse,
+           let schemeBrand:CardBrand = binLookUpResponse.scheme?.cardBrand,
+           // Then for a co-badge the parent brand (e.g VISA) will be different than the scheme brand (e.g. MADA)
+           binLookUpResponse.cardBrand != schemeBrand,
+           // Let us get the payment options supporting both parent and co-badge
+           let paymentOptionForParentCardBrand:PaymentOption = fetchPaymentOption(with: binLookUpResponse.cardBrand),
+           let paymentOptionForCoBadgeBrand:PaymentOption = fetchPaymentOption(with: schemeBrand) {
+            return(true,paymentOptionForParentCardBrand,paymentOptionForCoBadgeBrand)
+        }
+        return (false,nil,nil)
+    }
     
     /// The method checks all conditions that will lead for displaying a currency widget related to the card data or not
     /// - Parameter selectedPaymentOption: The payment option we want to know if shall show a currency widget for or not
