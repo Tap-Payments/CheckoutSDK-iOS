@@ -34,6 +34,16 @@ internal extension TapCheckout {
         return paymentOption
     }
     
+    
+    /**
+     Gets the related payment option by supporting a certain card brand
+     - Parameter with: The card brand you are looking for
+     - Returns: Payment option if found with the specified card brand, else nil
+     */
+    func fetchPaymentOption(with cardBrand:CardBrand) -> PaymentOption? {
+        return dataHolder.viewModels.tapCardPhoneListDataSource.filter{ $0.tapPaymentOption?.brand == cardBrand }.filter{ $0.tapPaymentOption != nil }.map{ $0.tapPaymentOption! }.first
+    }
+    
     /**
      Gets the list of amounted currencies supported by this payment option.
      - Parameter for paymentOption: The payment option you want to know what are the amounted currencies attached to it

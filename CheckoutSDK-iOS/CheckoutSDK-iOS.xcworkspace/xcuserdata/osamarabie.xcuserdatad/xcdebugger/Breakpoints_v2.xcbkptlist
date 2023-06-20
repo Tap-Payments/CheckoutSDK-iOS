@@ -7,145 +7,65 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1E3462A0-148F-4FF2-AFAA-8CBB21E5D2D6"
+            uuid = "F91C8371-459C-4034-AA7A-71D55B4AAE8E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapChip/Views/Chips/GatewayChip/GatewayImageCollectionViewCell.swift"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+CardPaymentHandler.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
-            landmarkName = "changedDisabledMode(to:)"
+            startingLineNumber = "214"
+            endingLineNumber = "214"
+            landmarkName = "handleCardValidationStatus(for:with:cardStatusUI:isCVVFocused:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F7C4A1A9-B712-4D04-9CBF-B46F3025D60E"
+            uuid = "82792945-E281-4CDC-8916-E6A0DA71804D"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+TransactionData.swift"
+            filePath = "Pods/TapCardInputKit-iOS/TapCardInputKit-iOS/Core/Private/TextFields/CardNumberTextField.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "193"
-            endingLineNumber = "193"
-            landmarkName = "updatePaymentChipsEnableStatus(for:)"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "textFieldStatus(cardNumber:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "26BA0B47-6E24-46F6-81CF-133770B1E426"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapChip/Views/Chips/CurrencyChip/CurrencyChipCollectionViewCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
-            landmarkName = "changedDisabledMode(to:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "EF97A8B0-7E80-4538-A569-FC23259EF0F8"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapChip/Views/Chips/ApplePayChip/ApplePayChipCollectionViewCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
-            landmarkName = "changedDisabledMode(to:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "FCB2D9C9-E5E1-4775-8880-5F48BF5C2AE2"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapChip/Views/Chips/SavedCardChip/SavedCardCollectionViewCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "203"
-            endingLineNumber = "203"
-            landmarkName = "changedDisabledMode(to:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "FC8A2F9D-BE81-4CB1-B8DD-C88DE50C9524"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapChip/Views/Chips/GenericTapChip/GenericTapChipViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
-            landmarkName = "isDisabled"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "31271B2C-585E-4C38-883C-207AB09FB43D"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+UIKitDelegates.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "260"
-            endingLineNumber = "260"
-            landmarkName = "updateCurrencyWidgetForEnabledGateway(for:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "7184A5DD-D697-4161-A49E-0A4FA2DD7DDB"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+UIKitDelegates.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
-            landmarkName = "showOrUpdateCurrencyWidget(paymentOption:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C90FBBAA-5756-4C56-A1C0-ECE6A03A280F"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CheckoutSDK-iOS/Core/Logic/Controllers/TapBottomCheckoutControllerViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "819"
-            endingLineNumber = "819"
-            landmarkName = "showCurrencyWidget(for:in:)"
-            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "82792945-E281-4CDC-8916-E6A0DA71804D - 45d8c03dabd20989"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TapCardInputKit_iOS.CardNumberTextField.textFieldStatus(cardNumber: Swift.Optional&lt;Swift.String&gt;) -&gt; TapCardInputKit_iOS.CrardInputTextFieldStatusEnum"
+                  moduleName = "TapCardInputKit_iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osamarabie/desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapCardInputKit-iOS/TapCardInputKit-iOS/Core/Private/TextFields/CardNumberTextField.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "89"
+                  endingLineNumber = "89"
+                  offsetFromSymbolStart = "148">
+               </Location>
+               <Location
+                  uuid = "82792945-E281-4CDC-8916-E6A0DA71804D - 45d8c03dabd20989"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TapCardInputKit_iOS.CardNumberTextField.textFieldStatus(cardNumber: Swift.Optional&lt;Swift.String&gt;) -&gt; TapCardInputKit_iOS.CrardInputTextFieldStatusEnum"
+                  moduleName = "TapCardInputKit_iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osamarabie/desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapCardInputKit-iOS/TapCardInputKit-iOS/Core/Private/TextFields/CardNumberTextField.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "89"
+                  endingLineNumber = "89"
+                  offsetFromSymbolStart = "229">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

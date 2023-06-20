@@ -23,8 +23,10 @@ internal extension TapCheckout {
         updateLoyaltySection()
         updateItemsList()
         updateApplePayRequest()
-        updateGatewayChipsList()
-        updateCardTelecomIconList()
+        // check if we need to sort the options or not based on coming from changing currency in widget or from currencies list
+        let shouldSortOptions:Bool = !currencyConvertedFromWidget
+        updateGatewayChipsList(shouldSort: shouldSortOptions)
+        updateCardTelecomIconList(shouldSort: shouldSortOptions)
         updateActionButtonTitle()
     }
     /// Updates the textual title of the action button upon changing the currency.
@@ -129,8 +131,6 @@ internal extension TapCheckout {
     
     /// Handles all the logic needed when the user selected currency changed to reflect in the supported cards/telecom tabbar items for the new currency
     func updateCardTelecomList() {
-        // Then let us update the enabled/disabled status for the chips
-        dataHolder.viewModels.updateCardTelecomListEnableStatus()
         // Instruct if we have to collect the card name or not
         dataHolder.viewModels.tapCardTelecomPaymentViewModel.collectCardName = dataHolder.viewModels.collectCreditCardName
         // Decides whether or not, the card name field will be editable
@@ -149,6 +149,7 @@ internal extension TapCheckout {
         dataHolder.viewModels.tapCardTelecomPaymentViewModel.tapCardPhoneListViewModel = dataHolder.viewModels.tapCardPhoneListViewModel
         // Change the telecom part country to the country of the selected currency
         dataHolder.viewModels.tapCardTelecomPaymentViewModel.changeTapCountry(to: dataHolder.viewModels.tapCardPhoneListDataSource.telecomCountry(for: dataHolder.transactionData.transactionUserCurrencyValue.currency))
+        dataHolder.viewModels.updateCardTelecomListEnableStatus()
     }
     
     /// Handles all the logic needed to correctly parse the passed data into a correct Apple Pay request format
@@ -225,10 +226,14 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
             let disabledPaymentOptions = dataHolder.viewModels.tapCardPhoneListDataSource.filter(for: dataHolder.transactionData.transactionUserCurrencyValue.currency, and: false)
             // Let us add them
             dataHolder.viewModels.tapCardPhoneListViewModel.dataSource = enabledPaymentOptions + disabledPaymentOptions
+            updateCardTelecomList()
         }else{
+            // This means, we need only to re-render the cells by keeping the sorting but we change the enabled/disabled status of the chips
+            // based on the current selected currency
+            // Then let us update the enabled/disabled status for the chips
             currencyConvertedFromWidget = false
+            dataHolder.viewModels.updateCardTelecomListEnableStatus()
         }
-        updateCardTelecomList()
     }
     
     func updateGatewayChipsList(shouldSort:Bool = true) {

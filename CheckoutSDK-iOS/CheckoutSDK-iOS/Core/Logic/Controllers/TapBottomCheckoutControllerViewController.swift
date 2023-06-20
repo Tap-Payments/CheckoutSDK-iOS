@@ -614,6 +614,10 @@ extension TapBottomCheckoutControllerViewController: TapAuthenticateDelegate {
 
 
 extension TapBottomCheckoutControllerViewController:TapCardTelecomPaymentProtocol {
+    func showSavedCard() -> Bool {
+        return !sharedCheckoutDataManager.willShowCurrencyWidgetForCard(selectedPaymentOption: sharedCheckoutDataManager.dataHolder.transactionData.selectedPaymentOption)
+    }
+    
     func cardFieldsAreFocused() {
         sharedCheckoutDataManager.handleCardFormIsFocused()
     }
@@ -819,8 +823,10 @@ extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDe
         var computedPosition:Int = 0
         
         switch position {
+            // This means we are showing the currency conversion for a selected payment chip in the list
         case .PaymentChipsList:
             computedPosition = (tapVerticalView.stackView.arrangedSubviews.firstIndex(where: { $0.isKind(of: TapChipHorizontalList.self) }) ?? 0) + 1
+            // This means we are showing the currency conversion for a detected card brand payment
         case .Card:
             computedPosition = (tapVerticalView.stackView.arrangedSubviews.firstIndex(where: { $0.isKind(of: TapCardTelecomPaymentView.self) }) ?? 0) + 1
         }

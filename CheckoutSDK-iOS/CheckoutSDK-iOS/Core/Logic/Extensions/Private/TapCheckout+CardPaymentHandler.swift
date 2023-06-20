@@ -218,24 +218,15 @@ extension TapCheckout {
             // Based on the card input status (filling in CVV for a saved card or just finished filling in the data of a new card) we decide the actions to be done by the pay button
             if cardStatusUI == .NormalCard {
                 // Fetch the payment option related to the validated card brand
-                let paymentOptions:[PaymentOption] = dataHolder.viewModels.tapCardPhoneListDataSource.filter{ $0.tapPaymentOption?.brand == cardBrand }.filter{ $0.tapPaymentOption != nil }.map{ $0.tapPaymentOption! }
-                guard paymentOptions.count > 0, let selectedPaymentOption:PaymentOption = paymentOptions.first else {
+                guard let selectedPaymentOption:PaymentOption = fetchPaymentOption(with: cardBrand) else {
                     handleError(session: nil, result: nil, error: "Unexpected error, trying to start card payment without a payemnt option selected.")
                     return }
                 
-                showOrUpdateCurrencyWidget(paymentOption: selectedPaymentOption, type: TapCurrencyWidgetType.enabledPaymentOption, in: .Card)
-                dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .InvalidPayment
-
-                // Set it as the selected payment option
-//                dataHolder.transactionData.selectedPaymentOption = selectedPaymentOption
-//                // Assign the action to be done once clicked on the action button to start the payment
-//                dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .ValidPayment
-//                let payAction:()->() = { [weak self] in self?.processCheckout(with:selectedPaymentOption,andCard:self?.dataHolder.transactionData.currentCard) }
-//                dataHolder.viewModels.tapActionButtonViewModel.buttonActionBlock = payAction
-                // Log the brand
-                setLoggingCustomerData()
-                //log().verbose("Finished valid raw card data for \(selectedPaymentOption.title)")
-                logBF(message: "Finished valid raw card data for \(selectedPaymentOption.title)", tag: .EVENTS)
+                // Store this selected payment option for further usages
+                dataHolder.transactionData.selectedPaymentOption = selectedPaymentOption
+                
+                // We need to handle now what to do with the detected card brand as we are showing enabled and disabled ones
+                handleValidCardPaymentOption(selectedPaymentOption: selectedPaymentOption)
             }else{
                 // The action button should be in a valid state as saved cards are ready to process right away
                 // Make the button action to start the paymet with the selected saved card
@@ -249,14 +240,65 @@ extension TapCheckout {
             // The status is invalid hence we need to clear the action button
             dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .InvalidPayment
             dataHolder.viewModels.tapActionButtonViewModel.buttonActionBlock = {}
+            // Remove the currency widget if any
+            removeCurrencyWidget()
         }
         
         // Check about the loyalty widget
 //        handleLoyalty(for:cardBrand,with: validation)
         // Check about customer data collection if needed
-        handleCustomerContact(with: validation)
+        //handleCustomerContact(with: validation)
     }
     
+    /// Will do the needed logic upong detecting a valid card brand
+    /// - Parameter selectedPaymentOption: The payment option associated with the detected card brand
+    func handleValidCardPaymentOption(selectedPaymentOption:PaymentOption) {
+        
+        // First, let us ask the widget show logic to decide if it will show one or not
+        showOrUpdateCurrencyWidget(paymentOption: selectedPaymentOption, type: isCardBrandEnabled(in: selectedPaymentOption) ? TapCurrencyWidgetType.enabledPaymentOption : TapCurrencyWidgetType.disabledPaymentOption, in: .Card)
+        
+        // Second, let us decide what is the post logic for the detected brand based on its validity and supported by currency or not
+        postLogicValidCardBrandDetected(selectedPaymentOption: selectedPaymentOption)
+        
+        // Third, let us Log the brand
+        logCardBrand(selectedPaymentOption: selectedPaymentOption)
+    }
+    
+    /// Will decide what is the button action handler based on the selected payment option card brand. If it is enabled it will be active, and disabled itehrwise
+    /// - Parameter selectedPaymentOption: The payment option associated with the detected card brand
+    func postLogicValidCardBrandDetected(selectedPaymentOption:PaymentOption) {
+        if isCardBrandEnabled(in: selectedPaymentOption) {
+            // Assign the action to be done once clicked on the action button to start the payment
+            dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .ValidPayment
+            let payAction:()->() = { [weak self] in self?.processCheckout(with:selectedPaymentOption,andCard:self?.dataHolder.transactionData.currentCard) }
+            dataHolder.viewModels.tapActionButtonViewModel.buttonActionBlock = payAction
+        }else{
+            dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .InvalidPayment
+        }
+    }
+    
+    /// Will log the detected card brand for analytics purposes
+    /// - Parameter selectedPaymentOption: The payment option associated with the detected card brand
+    func logCardBrand(selectedPaymentOption:PaymentOption) {
+        // Log the brand
+        setLoggingCustomerData()
+        //log().verbose("Finished valid raw card data for \(selectedPaymentOption.title)")
+        logBF(message: "Finished valid raw card data for \(selectedPaymentOption.title)", tag: .EVENTS)
+    }
+    
+    /// Will check if the provided payment option is enabled for the current selected currency
+    /// - Parameter in paymentoption: The payment option we need to check
+    /// - Returns: True, if the provided payment option does support the currently selected currency
+    func isCardBrandEnabled(in paymentOption:PaymentOption) -> Bool {
+        return paymentOption.supportedCurrencies.contains(obj: dataHolder.transactionData.transactionUserCurrencyValue.currency)
+    }
+    
+    /// Checks whether the selected payment option is supported by the selected  currency or not
+    /// - Parameter in paymentoption: The payment option we need to check
+    /// - Returns: True, means the selected payment option supports the user's currency and false otherwise
+    func isPaymentOptionEnabled(in paymentOption:PaymentOption) -> Bool {
+        return paymentOption.supportedCurrencies.contains(obj: dataHolder.transactionData.transactionUserCurrencyValue.currency)
+    }
     
     /// Handles the logic needed when the card form is being focused. Which is deselecting all payment schemes chips
     func handleCardFormIsFocused() {
@@ -280,6 +322,57 @@ extension TapCheckout {
         }
         // In all cases, let us defensive wise to remove the currenc widget if any
         removeCurrencyWidget()
+    }
+    
+    /// The method checks all conditions that will lead for displaying a currency widget related to the card data or not
+    /// - Parameter selectedPaymentOption: The payment option we want to know if shall show a currency widget for or not
+    /// - Returns: True, means it will be displayed. False, otherwise.
+    func willShowCurrencyWidgetForCard(selectedPaymentOption:PaymentOption?) -> Bool {
+        /// Currency card widget won't be displayed unless selected payment option is a card one
+        guard let selectedPaymentOption = selectedPaymentOption else { return false }
+        let isSelectedOptionCard:Bool = selectedPaymentOption.paymentType == .Card
+        
+        /// Currency card widget won't be displayed unless all card fields are valid
+        let allCardDataAreValid:Bool = dataHolder.viewModels.tapCardTelecomPaymentViewModel.allCardFieldsValid()
+        
+        // /// Currency card widget won't be displayed unless it supports more than 1 currency
+        // let doesCardBrandSupportsMultipleCurrencies:Bool = selectedPaymentOption.supportedCurrencies.count > 1
+        
+        /// Currency card widget won't be displayed if the last time, the user changed currency from the card widget and he didn't change the brand or the currency again. For example, if he was in VISA and switched to USD then if he is still on VISA and USD we shouldn't ask him again
+        let userChangedWithThisBrandAndCurrency:Bool = (lastConfirmedCurrencyWidget?.paymentOption.identifier == selectedPaymentOption.identifier && lastConfirmedCurrencyWidget?.selectedAmountCurrency?.currency == dataHolder.transactionData.transactionUserCurrencyValue.currency)
+
+        /// We only display the widget if the currency is not the same as the selected currency if it is an enabled card brand already
+        let isCardBrandEnabled:Bool = isCardBrandEnabled(in: selectedPaymentOption)
+        let userCurrencyMatchesTransactionCurrency:Bool = dataHolder.transactionData.transactionCurrencyValue.currency == dataHolder.transactionData.transactionUserCurrencyValue.currency
+        
+        return allCardDataAreValid && isSelectedOptionCard && !userChangedWithThisBrandAndCurrency && !(userCurrencyMatchesTransactionCurrency && isCardBrandEnabled)
+    }
+    
+    
+    /// The method checks all conditions that will lead for displaying a currency widget related to the card data or not
+    /// - Parameter selectedPaymentOption: The payment option we want to know if shall show a currency widget for or not
+    /// - Returns: True, means it will be displayed. False, otherwise.
+    func willShowCurrencyWidgetForPaymentChip(selectedPaymentOption:PaymentOption?) -> Bool {
+        /// Currency payment chip widget won't be displayed unless selected payment option is a redirection one
+        guard let selectedPaymentOption = selectedPaymentOption else { return false }
+        let isSelectedOptionWeb:Bool = selectedPaymentOption.paymentType == .Web
+        
+        /// Currency card widget won't be displayed if the last time, the user changed currency from the payement chips and he didn't change the brand or the currency again. For example, if he was in PAYPAL and switched to USD then if he is still on PAYPAL and USD we shouldn't ask him again
+        let userChangedWithThisOptionAndCurrency:Bool = (lastConfirmedCurrencyWidget?.paymentOption.identifier == selectedPaymentOption.identifier && lastConfirmedCurrencyWidget?.selectedAmountCurrency?.currency == dataHolder.transactionData.transactionUserCurrencyValue.currency)
+        
+        /// We only display the widget if the currency is not the same as the selected currency if it is an enabled payment chip
+        let isPaymentOptionEnabled:Bool = isPaymentOptionEnabled(in: selectedPaymentOption)
+        let userCurrencyMatchesTransactionCurrency:Bool = dataHolder.transactionData.transactionCurrencyValue.currency == dataHolder.transactionData.transactionUserCurrencyValue.currency
+        
+        return isSelectedOptionWeb && !userChangedWithThisOptionAndCurrency && !(userCurrencyMatchesTransactionCurrency && isPaymentOptionEnabled)
+    }
+    
+    /// Decides whether or not a currency widget should be displayed based on meeting all the requiremenets of this payment option type
+    /// - Parameter for selectedPaymentOption: The payment option in concern we need to show a currency widget when it is activated
+    /// - Parameter and type: The type of this payment option whether it's card or chips based
+    /// - Returns: True, if the payment option passes all the requirements needed to show a currency widget for his specified type
+    func shouldShowCurrencyWidget(for selectedPaymentOption:PaymentOption?,and type: CurrencyWidgetPositionEnum) -> Bool {
+        return (type == .Card) ? willShowCurrencyWidgetForCard(selectedPaymentOption: selectedPaymentOption) : willShowCurrencyWidgetForPaymentChip(selectedPaymentOption: selectedPaymentOption)
     }
     
     /**
