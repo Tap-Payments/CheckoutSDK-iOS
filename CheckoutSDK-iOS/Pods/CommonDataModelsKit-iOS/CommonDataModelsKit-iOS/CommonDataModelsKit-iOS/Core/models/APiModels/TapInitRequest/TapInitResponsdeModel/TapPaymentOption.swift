@@ -269,6 +269,36 @@ public struct PaymentOption: IdentifiableWithString {
         
         return applePayMappednNetworks.removingDuplicates()
     }
+    
+    /// Creates a copy of self by deleting the provided currencies
+    /// - Parameter without currencies: The list of currencies you want to remove from the supported currencies
+    /// - Returns: The same payment option with the supported currencies doesn't have the ones needed to be deleted
+    public func copyPaymentOption(without currencies:[TapCurrencyCode]) -> PaymentOption {
+        // Remove the selected currency from payment option list
+        var updatedSupportedCurrencies = supportedCurrencies
+        updatedSupportedCurrencies.removeAll {
+            currencies.contains($0)
+        }
+        
+        let updatedPaymentOption = PaymentOption(identifier: identifier,
+                                                 brand: brand,
+                                                 title: title,
+                                                 titleAr: titleAr,
+                                                 displayableTitle: displayableTitle,
+                                                 backendImageURL: backendImageURL,
+                                                 isAsync: isAsync,
+                                                 paymentType: paymentType,
+                                                 sourceIdentifier: sourceIdentifier,
+                                                 supportedCardBrands: supportedCardBrands,
+                                                 supportedCurrencies: updatedSupportedCurrencies,
+                                                 orderBy: orderBy,
+                                                 threeDLevel: threeDLevel,
+                                                 savedCard: savedCard,
+                                                 extraFees: extraFees,
+                                                 paymentOptionsLogos:paymentOptionsLogos,
+                                                 buttonStyle: buttonStyle)
+        return updatedPaymentOption
+    }
 }
 
 // MARK: - Decodable

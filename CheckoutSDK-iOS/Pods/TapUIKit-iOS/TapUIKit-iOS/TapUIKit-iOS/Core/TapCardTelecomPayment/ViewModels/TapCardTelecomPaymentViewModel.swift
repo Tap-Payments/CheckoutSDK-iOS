@@ -284,7 +284,8 @@ import TapThemeManager2020
             // then we will have to hide the saved card component as well
             attachedView.saveCrdView.saveCardSwitch.setOn(false, animated: true)
             attachedView.saveCrdView.saveCardSwitchChanged(attachedView.saveCrdView.saveCardSwitch)
-            
+            // let us also unfocus all the card elements
+            attachedView.cardInputView.endEditing(true)
             // let us store the current card data
             attachedView.cardInputView.saveCardDataBeforeMovingToSavedCard()
         }else{

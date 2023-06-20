@@ -7,65 +7,65 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F91C8371-459C-4034-AA7A-71D55B4AAE8E"
+            uuid = "6C09F5BC-5EFC-411A-8FC1-829219098C77"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+CardPaymentHandler.swift"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+UIKitDelegates.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "214"
-            endingLineNumber = "214"
-            landmarkName = "handleCardValidationStatus(for:with:cardStatusUI:isCVVFocused:)"
+            startingLineNumber = "213"
+            endingLineNumber = "213"
+            landmarkName = "removeCurrencyWidget()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "6C09F5BC-5EFC-411A-8FC1-829219098C77 - 7e5b69db99c2df1c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CheckoutSDK_iOS.TapCheckout.removeCurrencyWidget() -&gt; ()"
+                  moduleName = "CheckoutSDK_iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osamarabie/desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+UIKitDelegates.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "213"
+                  endingLineNumber = "213"
+                  offsetFromSymbolStart = "56">
+               </Location>
+               <Location
+                  uuid = "6C09F5BC-5EFC-411A-8FC1-829219098C77 - 7e5b69db99c2df1c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CheckoutSDK_iOS.TapCheckout.removeCurrencyWidget() -&gt; ()"
+                  moduleName = "CheckoutSDK_iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osamarabie/desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+UIKitDelegates.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "213"
+                  endingLineNumber = "213"
+                  offsetFromSymbolStart = "143">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "82792945-E281-4CDC-8916-E6A0DA71804D"
+            uuid = "79525A35-DB89-498C-9D85-71AE5E8D2F84"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pods/TapCardInputKit-iOS/TapCardInputKit-iOS/Core/Private/TextFields/CardNumberTextField.swift"
+            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+UIKitDelegates.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
-            landmarkName = "textFieldStatus(cardNumber:)"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
+            landmarkName = "handleDisabledGateway(for:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "82792945-E281-4CDC-8916-E6A0DA71804D - 45d8c03dabd20989"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TapCardInputKit_iOS.CardNumberTextField.textFieldStatus(cardNumber: Swift.Optional&lt;Swift.String&gt;) -&gt; TapCardInputKit_iOS.CrardInputTextFieldStatusEnum"
-                  moduleName = "TapCardInputKit_iOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osamarabie/desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapCardInputKit-iOS/TapCardInputKit-iOS/Core/Private/TextFields/CardNumberTextField.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "89"
-                  endingLineNumber = "89"
-                  offsetFromSymbolStart = "148">
-               </Location>
-               <Location
-                  uuid = "82792945-E281-4CDC-8916-E6A0DA71804D - 45d8c03dabd20989"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TapCardInputKit_iOS.CardNumberTextField.textFieldStatus(cardNumber: Swift.Optional&lt;Swift.String&gt;) -&gt; TapCardInputKit_iOS.CrardInputTextFieldStatusEnum"
-                  moduleName = "TapCardInputKit_iOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osamarabie/desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapCardInputKit-iOS/TapCardInputKit-iOS/Core/Private/TextFields/CardNumberTextField.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "89"
-                  endingLineNumber = "89"
-                  offsetFromSymbolStart = "229">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

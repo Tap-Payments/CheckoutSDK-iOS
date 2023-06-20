@@ -180,8 +180,13 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
     public func gateway(for viewModel: GatewayChipViewModel) {
         // make a haptic feedback
         generateHapticFeedbackForChipClicking()
+        // as we are moving to the chips element, let us remove any currency widget related to the card if any
+        if let paymentOption = dataHolder.viewModels.tapCurrencyWidgetModel?.paymentOption,
+           paymentOption.paymentType == .Card {
+            removeCurrencyWidget()
+        }
         
-        // let us first check if it is enabled or disabled
+        // then let us first check if it is enabled or disabled
         if viewModel.isDisabled {
             handleDisabledGateway(for: viewModel)
         }else{
@@ -229,17 +234,23 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
         // If we reached here,this means the user did change his currency or started selecting another payment option. Then we will clear the last confirmed widget for now
         lastConfirmedCurrencyWidget = nil
         
+        // We have to remove the current currency, if we are showing teh widget for an enabled payment method. for example, is current currency is USD and VISA is supporting USD & EUR. We should only show EUR only
+        let correctPaymenOptionWihtoutCurrentCurrency:PaymentOption = paymentOption.copyPaymentOption(without: [dataHolder.transactionData.transactionUserCurrencyValue.currency])
+        
+        
         // Then if the currency widget is already visible, we just need to update the content, otherwise we add it to the view
         guard let nonNullViewModel = dataHolder.viewModels.tapCurrencyWidgetModel else {
             // This means, it is nil and it is not currently visible on the screen
-            dataHolder.viewModels.tapCurrencyWidgetModel = TapCurrencyWidgetViewModel(convertedAmounts: fetchAmountedCurrencies(for: paymentOption), paymentOption: paymentOption, type: type)
+            // Let us show the widget now with the correct payment option details
+            dataHolder.viewModels.tapCurrencyWidgetModel = TapCurrencyWidgetViewModel(convertedAmounts: fetchAmountedCurrencies(for: correctPaymenOptionWihtoutCurrentCurrency), paymentOption: correctPaymenOptionWihtoutCurrentCurrency, type: type)
+            
             dataHolder.viewModels.tapCurrencyWidgetModel?.setTapCurrencyWidgetViewModelDelegate(delegate: self)
             UIDelegate?.showCurrencyWidget(for: dataHolder.viewModels.tapCurrencyWidgetModel!, in: position)
             
             return
         }
         // This means, it is already visible and we just need to update its content
-        nonNullViewModel.updateData(with:  fetchAmountedCurrencies(for: paymentOption), and: paymentOption)
+        nonNullViewModel.updateData(with:  fetchAmountedCurrencies(for: correctPaymenOptionWihtoutCurrentCurrency), and: correctPaymenOptionWihtoutCurrentCurrency)
     }
     
     
@@ -280,31 +291,8 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
             removeCurrencyWidget()
             return
         }
-        // Remove the selected currency from payment option list
-        var updatedSupportedCurrencies = paymentOption.supportedCurrencies
-        updatedSupportedCurrencies.removeAll {
-            $0 == dataHolder.viewModels.currentUsedCurrency
-        }
-        let updatedPaymentOption = PaymentOption(identifier: paymentOption.identifier,
-                                                 brand: paymentOption.brand,
-                                                 title: paymentOption.title,
-                                                 titleAr: paymentOption.titleAr,
-                                                 displayableTitle: paymentOption.displayableTitle,
-                                                 backendImageURL: paymentOption.backendImageURL,
-                                                 isAsync: paymentOption.isAsync,
-                                                 paymentType: paymentOption.paymentType,
-                                                 sourceIdentifier: paymentOption.sourceIdentifier,
-                                                 supportedCardBrands: paymentOption.supportedCardBrands,
-                                                 supportedCurrencies: updatedSupportedCurrencies,
-                                                 orderBy: paymentOption.orderBy,
-                                                 threeDLevel: paymentOption.threeDLevel,
-                                                 savedCard: paymentOption.savedCard,
-                                                 extraFees: paymentOption.extraFees,
-                                                 paymentOptionsLogos:paymentOption.paymentOptionsLogos,
-                                                 buttonStyle: paymentOption.buttonStyle)
-      
         // Update or show currency widget for the another payment option currency
-        showOrUpdateCurrencyWidget(paymentOption: updatedPaymentOption, type: TapCurrencyWidgetType.enabledPaymentOption, in: .PaymentChipsList)
+        showOrUpdateCurrencyWidget(paymentOption: paymentOption, type: TapCurrencyWidgetType.enabledPaymentOption, in: .PaymentChipsList)
     }
     
     public func currencyChip(for viewModel: CurrencyChipViewModel) {
