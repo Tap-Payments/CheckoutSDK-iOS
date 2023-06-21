@@ -49,17 +49,15 @@ internal extension TapCheckout {
      - Parameter for paymentOption: The payment option you want to know what are the amounted currencies attached to it
     - returns: List of amounted currencies which are supported by the provided payment option. Default is empty
      */
-    func fetchAmountedCurrencies(for paymentOption:PaymentOption) -> [AmountedCurrency] {
+    func fetchAmountedCurrencies(for paymentOption:PaymentOption, with maxLimit:Int = 3) -> [AmountedCurrency] {
         guard let supportedCurrencies:[AmountedCurrency] = dataHolder.transactionData.paymentOptionsModelResponse?.supportedCurrenciesAmounts else {
             // This means for some reaso, this method is alled without firstly calling the api to get all the supported currencies
             return []
         }
         
         // now let us filter the backend amounted currencies to fetch only the ones supported by the provided pament option
-        return supportedCurrencies.filter { amountedCurrency in
-            return paymentOption.supportedCurrencies.contains(where: { $0 == amountedCurrency.currency }) }
-        
-        
+        return Array(supportedCurrencies.filter { amountedCurrency in
+            return paymentOption.supportedCurrencies.contains(where: { $0 == amountedCurrency.currency }) }.prefix(maxLimit))
         
     }
     
