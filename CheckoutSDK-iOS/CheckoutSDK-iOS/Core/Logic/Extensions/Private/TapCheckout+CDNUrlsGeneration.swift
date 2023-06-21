@@ -9,13 +9,14 @@
 import Foundation
 import Nuke
 import CommonDataModelsKit_iOS
+import TapThemeManager2020
 
 extension PaymentOption {
     /// Computed attribute to get the CDN based URL
     internal var imageURL:URL {
         // Check if it is allowed to load from cdn or it is unreachable
         guard TapCheckout.sharedCheckoutManager().canLoadFromCDN else {
-            return correctBackEndImageURL(showMonoForLightMode: TapCheckout.displayMonoLight)
+            return correctBackEndImageURL(showMonoForLightMode: TapThemeManager.showMonoForLightMode, showColoredForDarkMode: TapThemeManager.showColoredForDarkMode)
         }
         return URL(string: "https://checkoutsdkios.b-cdn.net/\(CDNPath.PaymentOption.generateCDNPath())/\(identifier).png")!
     }
@@ -37,7 +38,7 @@ extension AmountedCurrency {
     internal var cdnFlag:String {
         // Check if it is allowed to load from cdn or it is unreachable
         guard TapCheckout.sharedCheckoutManager().canLoadFromCDN else {
-            return correctBackEndImageURL(showMonoForLightMode: TapCheckout.displayMonoLight).absoluteString
+            return correctBackEndImageURL(showMonoForLightMode: TapThemeManager.showMonoForLightMode, showColoredForDarkMode: TapThemeManager.showColoredForDarkMode).absoluteString
         }
         return "https://checkoutsdkios.b-cdn.net/\(CDNPath.Currency.generateCDNPath())/\(currency.appleRawValue).png"
     }

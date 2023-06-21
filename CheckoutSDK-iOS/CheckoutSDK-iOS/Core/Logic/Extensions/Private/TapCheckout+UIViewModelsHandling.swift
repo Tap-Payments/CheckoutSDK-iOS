@@ -15,6 +15,7 @@ import TapApplePayKit_iOS
 import CoreTelephony
 import LocalisationManagerKit_iOS
 import Nuke
+import TapThemeManager2020
 /// Extension to handle logic to update ui view models based on data changes
 internal extension TapCheckout {
     /// Handles the logic required to update all required fields and variables upon a change in the current shared data manager state
@@ -98,7 +99,7 @@ internal extension TapCheckout {
               let nonNullAmountedCurrency = amountedCurrency else { return }
             
         // Tell the view model to update the currency prompt with the correct local currency values
-        dataHolder.viewModels.tapAmountSectionViewModel.configureCurrencyPrompt(with: nonNullCurrencyCode.appleRawValue, and: nonNullAmountedCurrency.correctBackEndImageURL())
+        dataHolder.viewModels.tapAmountSectionViewModel.configureCurrencyPrompt(with: nonNullCurrencyCode.appleRawValue, and: nonNullAmountedCurrency.correctBackEndImageURL(showMonoForLightMode: TapThemeManager.showMonoForLightMode, showColoredForDarkMode: TapThemeManager.showColoredForDarkMode))
         
     }
     
@@ -254,6 +255,7 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
             let disabledPaymentOptions = dataHolder.viewModels.gatewayChipsViewModel.filter(for: dataHolder.transactionData.transactionUserCurrencyValue.currency, and: false)
             // Let us add them
             dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.dataSource = enabledPaymentOptions + disabledPaymentOptions
+            dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.scrollTo(index:0)
             // Then let us update the enabled/disabled status for the chips
             dataHolder.viewModels.updatePaymentChipsEnableStatus()
         }else{
@@ -315,7 +317,7 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
             // Then there is a valid url to load
             if let buttonStyle:PaymentOptionButtonStyle = paymentOption.buttonStyle,
                   let _ = buttonStyle.titlesAssets,
-                  let finalURL:URL = URL(string:buttonStyle.paymentOptionImageUrl(for: (UIView().traitCollection.userInterfaceStyle == .dark) ? "dark" : "light", and: TapLocalisationManager.shared.localisationLocale ?? "en", with: ".png")),
+               let finalURL:URL = URL(string:buttonStyle.paymentOptionImageUrl(for: (UIView().traitCollection.userInterfaceStyle == .dark) ? TapThemeManager.showColoredForDarkMode ? "dark_colored" : "dark" : TapThemeManager.showMonoForLightMode ? "light_mono" : "light", and: TapLocalisationManager.shared.localisationLocale ?? "en", with: ".png")),
                UIApplication.shared.canOpenURL(finalURL) {
                 // Let us cache it
                 ImagePipeline.shared.loadImage(

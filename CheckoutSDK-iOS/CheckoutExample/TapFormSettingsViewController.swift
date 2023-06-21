@@ -69,6 +69,16 @@ class TapFormSettingsViewController: Eureka.FormViewController {
             }
         })
         
+        
+        <<< SwitchRow(TapSettingsKeys.SDKDarkColoredKey.rawValue, { row in
+            row.title = "Dark colored icons"
+            row.value = TapFormSettingsViewController.DarkThemeColored()
+            row.onChange { switchRow in
+                UserDefaults.standard.set(switchRow.value, forKey: TapSettingsKeys.SDKDarkColoredKey.rawValue)
+                UserDefaults.standard.synchronize()
+            }
+        })
+        
         <<< SegmentedRow<String>(TapSettingsKeys.SDKLocaliseKey.rawValue, { row in
             row.title = "SDK localisation"
             row.options = ["Default","Custom"]
@@ -456,6 +466,7 @@ enum TapSettingsKeys:String {
     case SDKCloseButton
     case SDKThemeKey
     case SDKLightMonoKey
+    case SDKDarkColoredKey
     case SDKLocaliseKey
     
     case SDKSandBoxKey
@@ -524,6 +535,10 @@ extension TapFormSettingsViewController {
     
     static func lightThemeMono() -> Bool {
         return UserDefaults.standard.bool(forKey: TapSettingsKeys.SDKLightMonoKey.rawValue)
+    }
+    
+    static func DarkThemeColored() -> Bool {
+        return UserDefaults.standard.bool(forKey: TapSettingsKeys.SDKDarkColoredKey.rawValue)
     }
     
     static func sdkTheme() -> TapCheckOutTheme? {

@@ -346,30 +346,33 @@ extension TapCheckout {
     /// - Parameter selectedPaymentOption: The payment option we want to know if shall show a currency widget for or not
     /// - Returns: True, means it will be displayed. False, otherwise.
     func willShowCurrencyWidgetForCard(selectedPaymentOption:PaymentOption?) -> Bool {
-        /// Currency card widget won't be displayed unless selected payment option is a card one
+        // Currency card widget won't be displayed unless selected payment option is a card one
         guard let selectedPaymentOption = selectedPaymentOption else { return false }
         let isSelectedOptionCard:Bool = selectedPaymentOption.paymentType == .Card
         
-        /// Currency card widget won't be displayed unless all card fields are valid
+        // Currency card widget won't be displayed unless all card fields are valid
         let allCardDataAreValid:Bool = dataHolder.viewModels.tapCardTelecomPaymentViewModel.allCardFieldsValid()
         
-        // /// Currency card widget won't be displayed unless it supports more than 1 currency
+        // // Currency card widget won't be displayed unless it supports more than 1 currency
         // let doesCardBrandSupportsMultipleCurrencies:Bool = selectedPaymentOption.supportedCurrencies.count > 1
         
-        /// Currency card widget won't be displayed if the last time, the user changed currency from the card widget and he didn't change the brand or the currency again. For example, if he was in VISA and switched to USD then if he is still on VISA and USD we shouldn't ask him again
+        // Currency card widget won't be displayed if the last time, the user changed currency from the card widget and he didn't change the brand or the currency again. For example, if he was in VISA and switched to USD then if he is still on VISA and USD we shouldn't ask him again
         let userChangedWithThisBrandAndCurrency:Bool = (lastConfirmedCurrencyWidget?.paymentOption.identifier == selectedPaymentOption.identifier && lastConfirmedCurrencyWidget?.selectedAmountCurrency?.currency == dataHolder.transactionData.transactionUserCurrencyValue.currency)
 
-        /// We only display the widget if the currency is not the same as the selected currency if it is an enabled card brand already
+        // We only display the widget if the currency is not the same as the selected currency if it is an enabled card brand already
         let isCardBrandEnabled:Bool = isCardBrandEnabled(in: selectedPaymentOption)
         let userCurrencyMatchesTransactionCurrency:Bool = dataHolder.transactionData.transactionCurrencyValue.currency == dataHolder.transactionData.transactionUserCurrencyValue.currency
         
-        return allCardDataAreValid && isSelectedOptionCard && !userChangedWithThisBrandAndCurrency && !(userCurrencyMatchesTransactionCurrency && isCardBrandEnabled) || willShowCurrencyWidgetForCoBadged()
+        // We also need to check if it is enabled, it has another currency to show other than the current selected one
+        let doesCardHasMoreCurrenciesThanCurrent:Bool = (isCardBrandEnabled && selectedPaymentOption.supportedCurrencies.count > 1)
+        
+        return allCardDataAreValid && isSelectedOptionCard && !userChangedWithThisBrandAndCurrency && !(userCurrencyMatchesTransactionCurrency && isCardBrandEnabled) && doesCardHasMoreCurrenciesThanCurrent || willShowCurrencyWidgetForCoBadged()
     }
     
     /// This method will check if we will show the widget because the current payment option is a co-badged card
     /// - Returns: true, if we have a binlookup response and it's a co-badged and we need to show a widget for it. False, otherwise.
     func willShowCurrencyWidgetForCoBadged() -> (Bool) {
-        /// First of all we need to make sure that we have a co-badged card
+        // First of all we need to make sure that we have a co-badged card
         let (weHaveCobadged, _, coBadgedPaymentOption) = doWeHaveCoBadgedCard()
         
         if weHaveCobadged,
@@ -384,8 +387,8 @@ extension TapCheckout {
     /// Checks if the current detected card is a co-badged one
     /// - Returns: True, if we have a binlook upu and it is a co-badged card and the currency of the co-badge scheme is supported by the transaction currencies. False, otherwise. Also, if it is true, it will return the payment option that contains the parent brand and for the co-badged value.
     func doWeHaveCoBadgedCard() -> (Bool,PaymentOption?,PaymentOption?) {
-        /// First of all we need to make sure that we have a co-badged card
-        /// We need to make sure we have a valid binlook up and it has a scheme different than the original brand
+        // First of all we need to make sure that we have a co-badged card
+        // We need to make sure we have a valid binlook up and it has a scheme different than the original brand
         if let binLookUpResponse:TapBinResponseModel = dataHolder.transactionData.binLookUpModelResponse,
            let schemeBrand:CardBrand = binLookUpResponse.scheme?.cardBrand,
            // Then for a co-badge the parent brand (e.g VISA) will be different than the scheme brand (e.g. MADA)
@@ -406,10 +409,10 @@ extension TapCheckout {
         guard let selectedPaymentOption = selectedPaymentOption else { return false }
         let isSelectedOptionWeb:Bool = selectedPaymentOption.paymentType == .Web
         
-        /// Currency card widget won't be displayed if the last time, the user changed currency from the payement chips and he didn't change the brand or the currency again. For example, if he was in PAYPAL and switched to USD then if he is still on PAYPAL and USD we shouldn't ask him again
+        // Currency card widget won't be displayed if the last time, the user changed currency from the payement chips and he didn't change the brand or the currency again. For example, if he was in PAYPAL and switched to USD then if he is still on PAYPAL and USD we shouldn't ask him again
         let userChangedWithThisOptionAndCurrency:Bool = (lastConfirmedCurrencyWidget?.paymentOption.identifier == selectedPaymentOption.identifier && lastConfirmedCurrencyWidget?.selectedAmountCurrency?.currency == dataHolder.transactionData.transactionUserCurrencyValue.currency)
         
-        /// We only display the widget if the currency is not the same as the selected currency if it is an enabled payment chip
+        // We only display the widget if the currency is not the same as the selected currency if it is an enabled payment chip
         let isPaymentOptionEnabled:Bool = isPaymentOptionEnabled(in: selectedPaymentOption)
         let userCurrencyMatchesTransactionCurrency:Bool = dataHolder.transactionData.transactionCurrencyValue.currency == dataHolder.transactionData.transactionUserCurrencyValue.currency
         

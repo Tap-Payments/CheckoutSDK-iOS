@@ -11,6 +11,8 @@ import TapUIKit_iOS
 import CommonDataModelsKit_iOS
 import TapUIKit_iOS
 import TapCardVlidatorKit_iOS
+import TapThemeManager2020
+
 /// Represents a model that will link the different Cards and Telecom bar item view models with their approved currencies and countries
 internal class CurrencyCardsTelecomModel:Codable {
     
@@ -47,7 +49,7 @@ internal class CurrencyCardsTelecomModel:Codable {
      */
     init(paymentOption:PaymentOption) {
         
-        self.tapCardPhoneViewModel = TapCardPhoneIconViewModel.init(associatedCardBrand: paymentOption.brand, tapCardPhoneIconUrl: paymentOption.imageURL.absoluteString, paymentOptionIdentifier: paymentOption.identifier, isDisabled: false, tapCardDisabledPhoneIconUrl: paymentOption.correctDisabledImageURL().absoluteString)
+        self.tapCardPhoneViewModel = TapCardPhoneIconViewModel.init(associatedCardBrand: paymentOption.brand, tapCardPhoneIconUrl: paymentOption.imageURL.absoluteString, paymentOptionIdentifier: paymentOption.identifier, isDisabled: false, tapCardDisabledPhoneIconUrl: paymentOption.correctDisabledImageURL(showMonoForLightMode: TapThemeManager.showMonoForLightMode, showColoredForDarkMode: TapThemeManager.showColoredForDarkMode).absoluteString)
         
         self.supportedCurrencies = paymentOption.supportedCurrencies
         self.supportedTelecomCountry = nil

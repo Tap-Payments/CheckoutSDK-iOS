@@ -90,14 +90,14 @@ internal class ChipWithCurrencyModel:Codable {
      - Parameter paymentOption:Represnts the payment option model backend
      */
     private func generateCorrectChipType(from paymentOption:PaymentOption) -> GenericTapChipViewModel {
-        let genericChipModel:GenericTapChipViewModel = .init(title: paymentOption.title, icon: paymentOption.imageURL.absoluteString, disabledIcon: paymentOption.correctDisabledImageURL().absoluteString)
+        let genericChipModel:GenericTapChipViewModel = .init(title: paymentOption.title, icon: paymentOption.imageURL.absoluteString, disabledIcon: paymentOption.correctDisabledImageURL(showMonoForLightMode: TapThemeManager.showMonoForLightMode, showColoredForDarkMode: TapThemeManager.showColoredForDarkMode).absoluteString)
         switch paymentOption.paymentType {
         case .ApplePay,.Device:
             return ApplePayChipViewCellModel.init(title: paymentOption.title, icon: paymentOption.imageURL.absoluteString, paymentOptionIdentifier: paymentOption.identifier)
         case .Card:
             return SavedCardCollectionViewCellModel.init(title: savedCard!.displayTitle, icon: paymentOption.imageURL.absoluteString, paymentOptionIdentifier: paymentOption.identifier,savedCardID: savedCard?.identifier)
         case .Web:
-            return GatewayChipViewModel.init(title: paymentOption.title, icon: paymentOption.imageURL.absoluteString, paymentOptionIdentifier: paymentOption.identifier, disabledIcon: paymentOption.correctDisabledImageURL().absoluteString)
+            return GatewayChipViewModel.init(title: paymentOption.title, icon: paymentOption.imageURL.absoluteString, paymentOptionIdentifier: paymentOption.identifier, disabledIcon: paymentOption.correctDisabledImageURL(showMonoForLightMode: TapThemeManager.showMonoForLightMode, showColoredForDarkMode: TapThemeManager.showColoredForDarkMode).absoluteString)
         default:
             return genericChipModel
         }

@@ -9,6 +9,7 @@
 import Foundation
 import LocalisationManagerKit_iOS
 import CommonDataModelsKit_iOS
+import TapThemeManager2020
 
 /// An external delegate to listen to events fired from the whole loyalty widget
 public protocol TapCurrencyWidgetViewModelDelegate {
@@ -138,7 +139,7 @@ public class TapCurrencyWidgetViewModel:NSObject {
     
     /// Computes the payment Option logo value
     internal var paymentOptionLogo: URL {
-        return paymentOption.correctCurrencyWidgetImageURL()
+        return paymentOption.correctCurrencyWidgetImageURL(showMonoForLightMode: TapThemeManager.showMonoForLightMode, showColoredForDarkMode: TapThemeManager.showColoredForDarkMode)
     }
     
     /// Computes the showing or disable the multiple currencies  option

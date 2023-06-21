@@ -120,6 +120,7 @@ class ViewController: UIViewController {
         TapCheckout.secretKey = .init(sandbox: TapFormSettingsViewController.merchantSettings().0,
                                       production: TapFormSettingsViewController.merchantSettings().1)
         TapCheckout.displayMonoLight = TapFormSettingsViewController.lightThemeMono()
+        TapCheckout.displayColoredDark = TapFormSettingsViewController.DarkThemeColored()
         
         //TapCheckout.secretKey = .init(sandbox: "pk_test_YhUjg9PNT8oDlKJ1aE2fMRz7",
         //                            production:"sk_live_V4UDhitI0r7sFwHCfNB6xMKp")
