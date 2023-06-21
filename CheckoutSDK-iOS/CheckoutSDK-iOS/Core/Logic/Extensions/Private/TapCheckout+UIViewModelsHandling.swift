@@ -172,6 +172,7 @@ internal extension TapCheckout {
         self.bottomSheetController.traitCollection.userInterfaceStyle == .dark ? .Black : .White : dataHolder.transactionData.applePayButtonStyle
         
         let applePayItems:[PKPaymentSummaryItem] = generateApplePaymentItems()
+        TapApplePay.intitModelResponse = TapCheckout.sharedCheckoutManager().dataHolder.transactionData.intitModelResponse
         
         applePayChipViewModel.configureApplePayRequest(currencyCode: dataHolder.transactionData.transactionUserCurrencyValue.currency,
                                                        paymentNetworks: applePaymentOption.applePayNetworkMapper().map{ $0.rawValue },
