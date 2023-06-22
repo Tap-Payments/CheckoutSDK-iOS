@@ -268,6 +268,7 @@ extension TapCheckout {
     func postLogicValidCardBrandDetected(selectedPaymentOption:PaymentOption) {
         if isCardBrandEnabled(in: selectedPaymentOption) {
             // Assign the action to be done once clicked on the action button to start the payment
+            dataHolder.transactionData.selectedPaymentOption = selectedPaymentOption
             dataHolder.viewModels.tapActionButtonViewModel.buttonStatus = .ValidPayment
             let payAction:()->() = { [weak self] in self?.processCheckout(with:selectedPaymentOption,andCard:self?.dataHolder.transactionData.currentCard) }
             dataHolder.viewModels.tapActionButtonViewModel.buttonActionBlock = payAction
@@ -364,7 +365,7 @@ extension TapCheckout {
         let userCurrencyMatchesTransactionCurrency:Bool = dataHolder.transactionData.transactionCurrencyValue.currency == dataHolder.transactionData.transactionUserCurrencyValue.currency
         
         // We also need to check if it is enabled, it has another currency to show other than the current selected one
-        let doesCardHasMoreCurrenciesThanCurrent:Bool = (isCardBrandEnabled && selectedPaymentOption.supportedCurrencies.count > 1)
+        let doesCardHasMoreCurrenciesThanCurrent:Bool = (!isCardBrandEnabled || selectedPaymentOption.supportedCurrencies.count > 1)
         
         return allCardDataAreValid && isSelectedOptionCard && !userChangedWithThisBrandAndCurrency && !(userCurrencyMatchesTransactionCurrency && isCardBrandEnabled) && doesCardHasMoreCurrenciesThanCurrent || willShowCurrencyWidgetForCoBadged()
     }

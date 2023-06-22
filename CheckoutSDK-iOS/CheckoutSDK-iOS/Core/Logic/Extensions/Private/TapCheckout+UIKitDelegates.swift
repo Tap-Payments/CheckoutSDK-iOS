@@ -318,12 +318,23 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
 
 //MARK: The currency widget delegate
 extension TapCheckout: TapCurrencyWidgetViewModelDelegate {
+    public func dropDownClicked(for viewModel: TapUIKit_iOS.TapCurrencyWidgetViewModel, and isOpened: Bool) {
+        // When the user clicks on the dropdown, if the card is focused then we need to hid ethe keyboard not to block the drop down list view
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)){
+            TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapCardTelecomPaymentViewModel.tapCardTelecomPaymentView?.resignFirstResponder()
+            TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapCardTelecomPaymentViewModel.tapCardTelecomPaymentView?.endEditing(true)
+        }
+    }
     
     public func confirmClicked(for viewModel: TapUIKit_iOS.TapCurrencyWidgetViewModel) {
         // make sure all is good we can fetch the currency and the payment option
         guard let selectedCurrency = viewModel.selectedAmountCurrency else { return }
         let selectedPaymentOption:PaymentOption = viewModel.paymentOption
-        
+        //TapCheckout.sharedCheckoutManager().tapCheckoutControllerViewController?.view.endEditing(true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)){
+            TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapCardTelecomPaymentViewModel.tapCardTelecomPaymentView?.resignFirstResponder()
+            TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapCardTelecomPaymentViewModel.tapCardTelecomPaymentView?.endEditing(true)
+        }
         // let us set the currency first
         // We will have to declare to the checkout manager that we are coming from the currency widget, so it doesn't apply sorting
         TapCheckout.sharedCheckoutManager().currencyConvertedFromWidget = true
