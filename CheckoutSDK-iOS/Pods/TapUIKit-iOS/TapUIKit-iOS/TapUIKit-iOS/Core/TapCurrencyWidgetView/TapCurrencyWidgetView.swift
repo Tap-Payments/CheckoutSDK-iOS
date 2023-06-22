@@ -110,7 +110,7 @@ public class TapCurrencyWidgetView: UIView {
         }
         
         currencyTableView.changeViewModel(tapCurrencyWidgetViewModel: viewModel)
-        tooltipManager.setup(tooltipToShow: TooltipController(view: chevronImageView, direction: .up, viewToShow: currencyTableView, height: 157, width: 224), mainView: self.findViewController()?.view ?? self)
+        tooltipManager.setup(tooltipToShow: TooltipController(view: chevronImageView, direction: .up, viewToShow: currencyTableView, height: CGFloat(40 * viewModel.getSupportedCurrenciesOptions().count), width: 224), mainView: self.findViewController()?.view ?? self)
     }
     
 }

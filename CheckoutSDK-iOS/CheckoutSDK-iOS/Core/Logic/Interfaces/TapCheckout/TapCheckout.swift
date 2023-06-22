@@ -15,6 +15,7 @@ import TapApplicationV2
 import PassKit
 import TapApplePayKit_iOS
 import BugfenderSDK
+import TapThemeManager2020
 
 /// A protocol to comminicate between the UIManager and the data manager
 internal protocol TapCheckoutSharedManagerUIDelegate {
