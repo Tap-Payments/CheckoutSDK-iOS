@@ -29,7 +29,9 @@ internal class NetworkManager: NSObject {
     }
     private var networkManager: TapNetworkManager
     /// The server base url
-    private let baseURL = "https://mw-sdk.dev.tap.company/v2/checkout/"
+    private static var baseURL:String {
+        return TapCheckout.sharedCheckoutManager().dataHolder.transactionData.sdkMode == .sandbox ? "https://mw-sdk.dev.tap.company/v2/checkout/" : "https://mw-sdk.staging.tap.company/v2/checkout/"
+    }
     /// Defines if loging api calls to server
     public var enableLogging = false
     /// Defines if logging apu calls to console
@@ -40,7 +42,7 @@ internal class NetworkManager: NSObject {
     }
     
     private override init () {
-        networkManager = TapNetworkManager(baseURL: URL(string: baseURL)!)
+        networkManager = TapNetworkManager(baseURL: URL(string: NetworkManager.baseURL)!)
         super.init()
         networkManager.loggedInApiCalls = []
         networkManager.delegate = self
@@ -66,7 +68,7 @@ internal class NetworkManager: NSObject {
         networkManager.consolePrintLoggingEnabled   = consoleLogging
         
         // Group all the configurations and pass it to the network manager
-        let requestOperation = TapNetworkRequestOperation(path: "\(baseURL)\(routing.rawValue)", method: httpMethod, headers: headers, urlModel: urlModel, bodyModel: body, responseType: .json)
+        let requestOperation = TapNetworkRequestOperation(path: "\(NetworkManager.baseURL)\(routing.rawValue)", method: httpMethod, headers: headers, urlModel: urlModel, bodyModel: body, responseType: .json)
         delegate?.apiCallInProgress(status: true)
         // Perform the actual request
         networkManager.performRequest(requestOperation, completion: { [weak self] (session, result, error) in

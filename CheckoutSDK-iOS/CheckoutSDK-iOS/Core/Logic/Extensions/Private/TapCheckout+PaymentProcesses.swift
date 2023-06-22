@@ -49,6 +49,7 @@ internal extension TapCheckout {
         }
         // in all cases, as long as the user opted out to pay , let us hide the local currency prompt
         hideLocalCurrency()
+        removeCurrencyWidget()
     }
     
     // MARK:- Redirection based methods
