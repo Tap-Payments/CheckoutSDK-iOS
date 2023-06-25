@@ -89,4 +89,19 @@ In order to be able to use the SDK, you have to create a Tap account first. Once
    3. The customer paying already activate Apple pay in his device.
    4. The customer paying has already added at least one valid card in his Apple Wallet with one our Apple pay payment networks.
 
+## SDK Setup
+### Global variables setup
+These variables to be set before starting the `Checkout SDK`. This will define important parameters for configuring and theming the `Checkout SDK` itself. Please note, missing to configure these will end up in using default values or the `Checkout SDK` will throw an error as it cannot start.
 
+1. The required localisation.
+	1. By this you define which language you want the `Checkout SDK` appears with.
+	1. Now we do support: `en` & `ar`.
+	1. Default value if not set is : `en`.
+	1. How to set it:
+		 `TapLocalisationManager.shared.localisationLocale = "en"`
+		 `TapCheckout.localeIdentifier = "en"`
+1. The required Tap keys.
+	1. By this, you define your Tap keys so the sdk can identify you as a merchant.
+	1. These are required.
+	1. How to set it: `TapCheckout.secretKey = .init(sandbox: "", production:"")`
+	
