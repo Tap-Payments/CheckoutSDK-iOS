@@ -328,3 +328,73 @@ These are the list of callbacks that you can listen to based on your context to 
      */
     @objc optional func saveCardFailed(with savedCard:TapCreateCardVerificationResponseModel)
 ```
+
+## Minimum code to accept payments
+### Swift
+```swift
+/** To start a transaction you only need to pass these
+1. Your Tap keys.
+2. Amount.
+3. Currency.
+4. Customer.
+*/
+TapCheckout.secretKey = .init(sandbox: "", production:"")
+        let checkout:TapCheckout = .init()
+        checkout.build(
+            delegate:self,
+            currency: .KWD,
+            amount: 10,
+            customer: try! .init(emailAddress: .init(emailAddressString: "Customeremail@domain.com"), phoneNumber: nil, name: "TAP CUSTOMER", address: nil),
+            onCheckOutReady: {[weak self] tapCheckOut in
+                DispatchQueue.main.async() {
+                    tapCheckOut.start(presentIn: self)
+                }
+            }
+        )
+```
+### Objective-C
+
+## Using our pay button
+The code mentiond above, is showing how to show our `Checkout SDK`, as a generic action you can embedd/fire from any UI element. We also, provide a `Pay button` that will show `Pay` + `Custom loader` as a UI element you can put it inside your UIView.
+
+### Class parameters
+```swift
+/// The outlet reference for the Tap button you have inside your story board.
+@IBOutlet weak var tapPayButton: TapActionButton!
+/// The pay button view model. That will be used to construct and listen to events fired from the button.
+let tapPayButtonViewModel:TapPayButtonViewModel = .init()
+```
+
+### Configure the Pay button
+```swift
+/// A sample code that sets up the button with the view model, set the status of the button & define the action to be called when the button is clicked.
+func adjustTapButton() {
+        tapPayButton.setup(with: tapPayButtonViewModel)
+        tapPayButtonViewModel.buttonStatus = .ValidPayment
+        tapPayButtonViewModel.buttonActionBlock = { [weak self] in 
+			self?.startSDKClicked()
+			self?.tapPayButtonViewModel.startLoading()
+			self?.startCheckoutSDK()
+		}
+    }
+```
+
+### Ending the loading state of the Tap button
+```swift
+/// Just expand
+tapPayButtonViewModel.expandButton()
+/// You can end loading by showing a status and do logic on completion
+tapPayButtonViewModel.endLoading(with: false) {
+            self.tapBottomSheetWillDismiss()
+            var message = "No error message"
+            if let result = result {
+                message = ""
+                result.tap_allKeys.forEach{ message = "\(message)\n\($0) : \(result[$0] ?? "")" }
+            }
+            
+            if let error = error {
+                message = "\(message)\n\(error.localizedDescription)"
+            }
+            self.showAlert(title: "Error", message: message)
+        }
+```
