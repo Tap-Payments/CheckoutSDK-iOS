@@ -141,3 +141,13 @@ These variables to be set before starting the `Checkout SDK`. This will define i
 	1. Display colorized variant when showing the Dark mode theme
 		1. If not passed default value is `false`
 		1. How to set it : `TapCheckout.displayColoredDark = false`
+
+## Starting the Checkout SDK
+### Checkout SDK Instance
+
+```swift
+    import CheckoutSDK_iOS
+    class ViewController: UIViewController {
+    	/// A strong reference to tap checkout variable
+    	let checkout:TapCheckout = .init()
+    }
