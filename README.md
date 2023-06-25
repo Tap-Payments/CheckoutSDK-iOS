@@ -226,10 +226,33 @@ checkout.build(
             })
 ```
 
-
 #### Variables closer look
 Let us take a closer look at the variables configuring the `Checkout SDK`.
 |  Variable | Sample value  |  Default value | Notes |
 | :------------ | :------------ | :------------ | :------------ |
 | currency  | .KWD  | .USD | Represents the original transaction currency stated by the merchant on checkout start |
-| supportedCurrencies| [TapCurrencyCode.EGP.appleRawValue, TapCurrencyCode.KWD.appleRawValue] | nil| Represents the allowed currencies for the transaction. Leave nil for ALL, pass the 3 digits iso KWD, EGP, etc.
+| supportedCurrencies| [TapCurrencyCode.EGP.appleRawValue, TapCurrencyCode.KWD.appleRawValue] | nil| Represents the allowed currencies for the transaction. Leave nil for ALL, pass the 3 digits iso KWD, EGP, etc.|
+|amount | 100.12 | 1 | Represents the original total transaction amount stated by the merchant on checkout start|
+|items | [.init(title: "Item Title", description: "Item Description", price: 100, quantity: 1, discount: nil, taxes: [], currency: .KWD)]| []| Represents the List of payment items if any. If no items are provided one will be created by default as PAY TO [MERCHANT NAME] -- Total value|
+|applePayMerchantID | "merchant.gosell" | "" | The Apple pay merchant id to be used inside the apple pay kit. You get this value from your Apple developer account. Please check Apple pay section for more details.|
+| paymentType  | .CARD  | .All | Represents which of payment methods group you want to enable. We have currently : `.All, .Web, . Card, .Device` |
+| transactionMode  | .purchase  | .purchase | Decide which transaction mode will be used in this call. We have currently :
+| customer  | `try! .init(identifier: "cus_TS031720211012r4RM0403926")`  | `try! .init(identifier: "cus_TS031720211012r4RM0403926")` | Decides which customer is performing this transaction. It will help you as a merchant to define the payer afterwards|
+| destinations  | [Destination(identifier: "destID", amount: 10, currency: .KWD)]  | nil | Decides which destination(s) this transaction's amount should split to.  |
+| tapMerchantID  | "11233"  | nil | The Tap identifier for your app. Please collect it from Tap's integration team |
+|taxes| [.init(title: "VAT", descriptionText: "TAX", amount: .init(type:.Fixed,value: 10))]| nil| Any taxes value you want to add above your transaction's value|
+| shipping  | .init(name: "Shipping", amount: 10)  | nil | Represents any additional shipping value you want to add to your transaction |
+|allowedCardTypes| [CardType(cardType: .Debit)]| [CardType(cardType: .All)]| ecides the allowed card types whether Credit or Debit or All. If not set all will be accepeted. |
+|postURL| URL(string: "") | nil | Tap backend will send a post request with the transaction result to the url if provided. |
+|paymentDescription| "paymentDescription" | nil | A description for the payment, that may help you linking it to your own database. |
+|paymentMetadata| "["key1":"value1"]" | nil | Extra data you want to attach to the transaction for your own purposes. |
+|paymentStatementDescriptor| "paymentStatementDescriptor" | nil | A description for the payment, That will appear in the statement. |
+|require3DSecure| true | true | This will tell if we have to force the `3DS` when paying with cards. Please note, that even if it is passed as `false`, but it is required by the card's issuer bank the `3DS` will be displayed. |
+|receiptSettings| Receipt(email: true, sms: true) | nil | This indicates which method to be used to tell the customer about the transaction by sending an email or SMS to him. |
+|authorizeAction| AuthorizeAction.capture(after: 24) | AuthorizeAction.default | Indicates what to do with the authorized amount after X amount of time. We currently have `AuthorizeAction.capture & AuthorizeAction.void` |
+|enableSaveCard| true | true | Whether you want to show `save card` option or not. |
+|isSaveCardSwitchOnByDefault| true | true | Whether to auto select `save card` option or not. |
+|sdkMode| .sandbox | .sandbox | Which environment you want to develop with now.|
+|collectCreditCardName| true | false | Whether or not you want to collect the card name when the customer is paying with a card. |
+|creditCardNameEditable| true | true | Whether you want to your customer to be able to edit the card name field while paying with a card. |
+|creditCardNamePreload| "Tap Payments" | "" | If you want to put a value in the card name field you can pass it here. |
