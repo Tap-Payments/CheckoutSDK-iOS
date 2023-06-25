@@ -144,10 +144,92 @@ These variables to be set before starting the `Checkout SDK`. This will define i
 
 ## Starting the Checkout SDK
 ### Checkout SDK Instance
-
 ```swift
-    import CheckoutSDK_iOS
+import CheckoutSDK_iOS
     class ViewController: UIViewController {
     	/// A strong reference to tap checkout variable
     	let checkout:TapCheckout = .init()
     }
+```
+
+### Checkout SDK transaction configurations
+```swift
+/**
+     Defines the tap checkout bottom sheet controller
+     - Parameter delegate: A protocol to communicate with the Presente tap sheet controller
+     - Parameter currency: Represents the original transaction currency stated by the merchant on checkout start
+     - Parameter supportedCurrencies: Represents the allowed currencies for the transaction. Leave nil for ALL, pass the 3 digits iso KWD, EGP, etc.
+     - Parameter amount: Represents the original total transaction amount stated by the merchant on checkout start
+     - Parameter items: Represents the List of payment items if any. If no items are provided one will be created by default as PAY TO [MERCHANT NAME] -- Total value
+     - Parameter applePayMerchantID: The Apple pay merchant id to be used inside the apple pay kit
+     - Parameter onCheckOutReady: This will be called once the checkout is ready so you can use it to present it or cancel it
+     - Parameter paymentType: The allowed payment type inclyding cards, apple pay, web and telecom or ALL
+     - Parameter transactionMode: Decide which transaction mode will be used in this call. Purchase, Authorization, Card Saving and Toknization. Please check [TransactionMode](x-source-tag://TransactionModeEnum)
+     - Parameter customer: Decides which customer is performing this transaction. It will help you as a merchant to define the payer afterwards. Please check [TapCustomer](x-source-tag://TapCustomer)
+     - Parameter destinations: Decides which destination(s) this transaction's amount should split to. Please check [Destination](x-source-tag://Destination)
+     - Parameter tapMerchantID: Optional. Useful when you have multiple Tap accounts and would like to do the `switch` on the fly within the single app.
+     - Parameter taxes: Optional. List of Taxes you want to apply to the order if any.
+     - Parameter shipping: Optional. List of Shipping you want to apply to the order if any.
+     - Parameter allowedCadTypes: Decides the allowed card types whether Credit or Debit or All. If not set all will be accepeted.
+     - Parameter postURL: The URL that will be called by Tap system notifying that payment has succeed or failed.
+     - Parameter paymentDescription: Description of the payment to use for further analysis and processing in reports.
+     - Parameter TapMetadata: Additional information you would like to pass along with the transaction. Please check [TapMetaData](x-source-tag://TapMetaData)
+     - Parameter paymentReference: Implement this property to keep a reference to the transaction on your backend. Please check [Reference](x-source-tag://Reference)
+     - Parameter paymentStatementDescriptor: Description of the payment  to appear on your settlemenets statement.
+     - Parameter require3DSecure: Defines if you want to apply 3DS for this transaction. By default it is set to true.
+     - Parameter receiptSettings: Defines how you want to notify about the status of transaction reciept by email, sms or both. Please check [Receipt](x-source-tag://Receipt)
+     - Parameter authorizeAction: Defines what to do with the authorized amount after being authorized for a certain time interval. Please check [AuthorizeAction](x-source-tag://AuthorizeAction)
+     - Parameter allowsToSaveSameCardMoreThanOnce: Defines if same card can be saved more than once. Default is `true`.
+     - Parameter enableSaveCard: Defines if the customer can save his card for upcoming payments. Default is `true`.
+     - Parameter isSaveCardSwitchOnByDefault: Defines if save card switch is on by default.. Default is `true`.
+     - Parameter sdkMode: Defines the mode sandbox or production the sdk will perform this transaction on. Please check [SDKMode](x-source-tag://SDKMode)
+     - Parameter collectCreditCardName: Decides whether or not, the card input should collect the card holder name. Default is false
+     - Parameter creditCardNameEditable: Decides whether or not, the card name field will be editable
+     - Parameter creditCardNamePreload: Decides whether or not, the card name field should be prefilled
+     - Parameter isSubscription: Defines if you want to make a subscription based transaction. Default is false
+     - Parameter recurringPaymentRequest: Defines the recurring payment request Please check [Apple Pay
+     docs](https://developer.apple.com/documentation/passkit/pkrecurringpaymentrequest). NOTE: This will only be availble for iOS 16+ and subscripion parameter is on.
+     - Parameter applePayButtonType: Defines the type of the apple pay button like Pay with or Subscripe with  etc. Default is Pay
+     - Parameter applePayButtonStyle: Defines the UI of the apple pay button white, black or outlined. Default is black
+     - Parameter showSaveCreditCard:Decides whether or not, the card input should show save card option for Tap and Merchant sides. Default is None
+     - Parameter shouldFlipCardData: Defines if the card info textfields should support RTL in Arabic mode or not
+     */
+	 
+checkout.build(
+            delegate: self,
+            currency: .KWD,
+            supportedCurrencies: [TapCurrencyCode.EGP.appleRawValue, TapCurrencyCode.KWD.appleRawValue],
+            amount: 100,
+            items: [.init(title: "Item Title", description: "Item Description", price: 100, quantity: 1, discount: nil, taxes: [], currency: .KWD)],
+            applePayMerchantID: "merchant.tap.gosell",
+            paymentType: .All,
+            transactionMode: .purchase,
+            customer: try! .init(emailAddress: .init(emailAddressString: "Customeremail@domain.com"), phoneNumber: .init(isdNumber: "965", phoneNumber: "50000000"), name: "Customer Name", address: nil),
+            tapMerchantID: TapFormSettingsViewController.merchantSettings().3,
+            taxes: [],
+            shipping: nil,//.init(name: "Optional shipping fees", amount: 20),
+            require3DSecure: true,
+            sdkMode: .sandbox,
+            collectCreditCardName: true,
+            creditCardNameEditable: true,
+            creditCardNamePreload: "",
+            showSaveCreditCard: .Merchant,
+            isSubscription: false,
+            recurringPaymentRequest: nil,
+            applePayButtonType: .PayWithApplePay,
+            applePayButtonStyle: .Auto,
+            shouldFlipCardData: false,
+            onCheckOutReady: {[weak self] tapCheckOut in
+                DispatchQueue.main.async() {
+                    tapCheckOut.start(presentIn: self)
+                }
+            })
+```
+
+
+#### Variables closer look
+Let us take a closer look at the variables configuring the `Checkout SDK`.
+|  Variable | Sample value  |  Default value | Notes |
+| :------------ | :------------ | :------------ | :------------ |
+| currency  | .KWD  | .USD | Represents the original transaction currency stated by the merchant on checkout start |
+| supportedCurrencies| [TapCurrencyCode.EGP.appleRawValue, TapCurrencyCode.KWD.appleRawValue] | nil| Represents the allowed currencies for the transaction. Leave nil for ALL, pass the 3 digits iso KWD, EGP, etc.
