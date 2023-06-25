@@ -256,3 +256,75 @@ Let us take a closer look at the variables configuring the `Checkout SDK`.
 |collectCreditCardName| true | false | Whether or not you want to collect the card name when the customer is paying with a card. |
 |creditCardNameEditable| true | true | Whether you want to your customer to be able to edit the card name field while paying with a card. |
 |creditCardNamePreload| "Tap Payments" | "" | If you want to put a value in the card name field you can pass it here. |
+### CheckoutScreenDelegate
+These are the list of callbacks that you can listen to based on your context to fetch the required data/events from the `Checkout SDK`.
+
+```swift
+/// Inform the delegate that we may need log some strings for further analysis
+    @objc optional func log(string:String)
+    
+    /**
+     Will be fired just before the sheet is dismissed
+     */
+    @objc optional func tapBottomSheetWillDismiss()
+    /**
+     Will be fired once the controller is presented
+     */
+    @objc optional func tapBottomSheetPresented(viewController:UIViewController?)
+    /**
+     Will be fired once the checkout fails for any error
+     */
+    @objc optional func checkoutFailed(in session:URLSessionDataTask?, for result:[String:String]?, with error:Error?)
+    
+    /**
+     Will be fired once the charge (CAPTURE) successfully transacted
+     */
+    @objc(checkoutChargeCaptured:) optional func checkoutCaptured(with charge:Charge)
+    
+    /**
+     Will be fired once the charge (AUTHORIZE) successfully transacted
+     */
+    @objc(checkoutAuthorizeCaptured:) optional func checkoutCaptured(with authorize:Authorize)
+    
+    /**
+     Will be fired once the charge (CAPTURE) successfully transacted
+     */
+    @objc(checkoutChargeFailed:) optional func checkoutFailed(with charge:Charge)
+    
+    /**
+     Will be fired once the charge (AUTHORIZE) successfully transacted
+     */
+    @objc(checkoutAuthorizeFailed:) optional func checkoutFailed(with authorize:Authorize)
+    
+    
+    /**
+     Will be fired once the card is succesfully tokenized
+     */
+    @objc optional func cardTokenized(with token:Token)
+    
+    
+    /**
+     Will be fired once apply pay tokenization fails
+     */
+    @objc optional func applePayTokenizationFailed(in session:URLSessionDataTask?, for result:[String:String]?, with error:Error?)
+    
+    /**
+     Will be fired once card tokenization fails
+     */
+    @objc optional func cardTokenizationFailed(in session:URLSessionDataTask?, for result:[String:String]?, with error:Error?)
+    
+    /**
+     Will be fired once save card tokenization fails
+     */
+    @objc optional func saveCardTokenizationFailed(in session:URLSessionDataTask?, for result:[String:String]?, with error:Error?)
+    
+    /**
+     Will be fired once the save card is done
+     */
+    @objc optional func saveCardSuccessfull(with savedCard:TapCreateCardVerificationResponseModel)
+    
+    /**
+     Will be fired once the save card failed
+     */
+    @objc optional func saveCardFailed(with savedCard:TapCreateCardVerificationResponseModel)
+```
