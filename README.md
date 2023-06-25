@@ -89,6 +89,36 @@ In order to be able to use the SDK, you have to create a Tap account first. Once
    3. The customer paying already activate Apple pay in his device.
    4. The customer paying has already added at least one valid card in his Apple Wallet with one our Apple pay payment networks.
 
+## Important Information
+### Supported languages
+1. English.
+1. Arabic.
+
+### Supported themes
+> The sdk auto detects the device's display mode light or dark and displays itself accordingly.
+
+1. Light mode.
+	1. The `Checkout SDK` will be displayed in light mode and icons will be colored.
+1. Light mode with mono color.
+	1. The `Checkout SDK` will be displayed in light mode and icons will be monochromatic.
+1. Dark mode.
+	1. The `Checkout SDK` will be displayed in dark mode and icons will white.
+1. Dark mode with colors.
+	1. The `Checkout SDK` will be displayed in dark mode and icons will be colored.
+
+### Supported SDK modes
+1. Sandbox
+	1. Where you can try all different payment methods with no limits and no charges will occur.
+	2. Check this for our [Testing Cards](https://developers.tap.company/reference/testing-cards "Testing Cards")
+1. Production
+	1. Where you can try all different payment methods for real to memic your expected customers' experience. Please note, this will require using real data will incur charges.
+
+### Supported transaction modes
+1. Purchase
+	1. To be used when you want to deduct the amount from your customer.
+1. Authourize
+	1. To be used when you want to hold the amount from your customer.
+
 ## SDK Setup
 ### Global variables setup
 These variables to be set before starting the `Checkout SDK`. This will define important parameters for configuring and theming the `Checkout SDK` itself. Please note, missing to configure these will end up in using default values or the `Checkout SDK` will throw an error as it cannot start.
@@ -104,4 +134,10 @@ These variables to be set before starting the `Checkout SDK`. This will define i
 	1. By this, you define your Tap keys so the sdk can identify you as a merchant.
 	1. These are required.
 	1. How to set it: `TapCheckout.secretKey = .init(sandbox: "", production:"")`
-	
+1. Optional theme variables:
+	1. Display mono variant when showing the Light mode theme
+		1. If not passed default value is `false`
+		1. How to set it : `TapCheckout.displayMonoLight = false`
+	1. Display colorized variant when showing the Dark mode theme
+		1. If not passed default value is `false`
+		1. How to set it : `TapCheckout.displayColoredDark = false`
