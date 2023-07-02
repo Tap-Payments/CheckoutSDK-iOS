@@ -6,7 +6,6 @@ PODS:
     - TapCardVlidatorKit-iOS
     - TapKeychain
   - EasyTipView (2.1.0)
-  - FlagKit (2.2)
   - LocalisationManagerKit-iOS (1.0.5)
   - McPicker (3.0.0)
   - Nuke (10.7.1)
@@ -53,10 +52,9 @@ PODS:
   - TapThemeManager2020 (1.0.86):
     - LocalisationManagerKit-iOS
     - TapFontKit-iOS
-  - TapUIKit-iOS (1.0.154):
+  - TapUIKit-iOS (1.0.155):
     - CommonDataModelsKit-iOS
     - EasyTipView
-    - FlagKit
     - LocalisationManagerKit-iOS
     - McPicker
     - Nuke
@@ -79,7 +77,6 @@ SPEC REPOS:
     - BugfenderSDK
     - CommonDataModelsKit-iOS
     - EasyTipView
-    - FlagKit
     - LocalisationManagerKit-iOS
     - McPicker
     - Nuke
@@ -103,7 +100,6 @@ SPEC CHECKSUMS:
   BugfenderSDK: b31a017a6a6ee3e2e834ae36148e9b70fb33c20f
   CommonDataModelsKit-iOS: 4f0dc1842e46437d6d137cf3f3566a83f09f6830
   EasyTipView: a92b6edc377b81c5ac18e9fd35d5ee78e9409488
-  FlagKit: eca7dc89064b0c986302ba9acefad1bf80a435b1
   LocalisationManagerKit-iOS: 4c140a36e66d34af69424a311659df3bd6cc793a
   McPicker: ba38be56a8194faa5249eca4226c364eed628044
   Nuke: 279f17a599fd1c83cf51de5e0e1f2db143a287b0
@@ -121,7 +117,7 @@ SPEC CHECKSUMS:
   TapNetworkKit-iOS: 92c8c7feae384dc2595f8f270853ee3cf8ea3380
   TapSwiftFixesV2: a8623a7273c6790b9754ec7e272e96fce7d3a800
   TapThemeManager2020: 1675bf0feaf58ac24355adc7bd1d8f75fe9ffcc4
-  TapUIKit-iOS: 865062698cbc403b3041c361f9657da35cb6ba87
+  TapUIKit-iOS: a89e6e2ba63cdf6a7a0ef09249fc32cff7260ab8
 
 PODFILE CHECKSUM: e067c2b13ba8ebe0fe2472848910e94f8a11ab5f
 
