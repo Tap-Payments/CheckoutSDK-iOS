@@ -125,9 +125,9 @@ internal extension TapCheckout {
         // Check if the user is logged in before or not
         dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.shouldShow = dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.shouldShow && dataHolder.transactionData.loggedInToGoPay
         // Adjust the header of the tapGatewayChipList
-        dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.headerType = dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.shouldShow ? .GateWayListWithGoPayListHeader : .GatewayListHeader
+        dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.headerType = .GatewayListHeader //dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.shouldShow ? .GateWayListWithGoPayListHeader : .GatewayListHeader
         // Decide if we need to show the edit button, only will be visible when there is at least one saved card
-        dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.shouldShowRightButton(show: shouldShowEditButton())
+        dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.shouldShowRightButton(show: true)
     }
     
     /// Handles all the logic needed when the user selected currency changed to reflect in the supported cards/telecom tabbar items for the new currency

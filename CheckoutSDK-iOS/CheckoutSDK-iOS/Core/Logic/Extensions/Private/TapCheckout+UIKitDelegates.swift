@@ -105,7 +105,7 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
         }
         
         // let the card come back
-        dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView.alpha = 1
+        dataHolder.viewModels.tapCardTelecomPaymentViewModel.changeEnableStatus(to: true, doPostLogic: false)
         dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView.isUserInteractionEnabled = true
         
         // If were were showing a currency widget let us remove it
