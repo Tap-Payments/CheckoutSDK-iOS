@@ -372,6 +372,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         tapVerticalView.stopOTPTimers()
         
         webViewModel = .init()
+        webViewModel.shouldBeFullScreen = true
         webViewModel.delegate = navigationDelegate
         webViewModel.load(with: url)
         
