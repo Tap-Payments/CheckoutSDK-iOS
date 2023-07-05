@@ -299,6 +299,7 @@ extension TapCheckout:TapChipHorizontalListViewModelDelegate {
         // make a haptic feedback
         generateHapticFeedbackForChipClicking()
         removeCurrencyWidget()
+        
         dataHolder.transactionData.transactionUserCurrencyValue = viewModel.currency
         setLoggingCustomerData()
         logBF(message: "Currency changed to : \( viewModel.currency.displaybaleSymbol )", tag: .EVENTS)

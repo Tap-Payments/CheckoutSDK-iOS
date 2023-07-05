@@ -49,7 +49,7 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         TapKeyboardAvoiding.avoidingView = self.view
-        TapKeyboardAvoiding.paddingForCurrentAvoidingView = -130
+        TapKeyboardAvoiding.paddingForCurrentAvoidingView = -90
         //self.view.addKeyboardListener(30)
         //TapKeyboardAvoiding.keyboardAvoidingMode = .minimumDelayed
         //KeyboardAvoiding.setAvoidingView(self.view, withTriggerView:sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView)
@@ -213,6 +213,13 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
     func showItemsClicked() {
         self.view.endEditing(true)
         self.removeView(viewType: TapAmountSectionView.self, with: .init(for: .none, with: 0), and: true, skipSelf: true)
+        
+        if self.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView.cardInputView.cardUIStatus == .NormalCard {
+            let card = self.sharedCheckoutDataManager.dataHolder.transactionData.currentCard
+            self.sharedCheckoutDataManager.dataHolder.transactionData.cachedCard = .init(TapCard(tapCardNumber: card?.tapCardNumber, tapCardName: card?.tapCardName, tapCardExpiryMonth: card?.tapCardExpiryMonth, tapCardExpiryYear: card?.tapCardExpiryYear, tapCardCVV: card?.tapCardCVV))
+        }else{
+            self.sharedCheckoutDataManager.dataHolder.transactionData.cachedCard = nil
+        }
         tapVerticalView.hideActionButton(fadeInDuation: 0, fadeInDelay: 0)
         DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [weak self] in
             self!.sharedCheckoutDataManager.chanegActionButton(status: .InvalidPayment, actionBlock: nil)
@@ -246,6 +253,15 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         })
         // Decide whether we have to show the local currency prompt back or not
         let (shouldShow, tapCurrency, amountedCurrency) = self.sharedCheckoutDataManager.shouldShowLocalPrompt()
+        
+        // Decide whether or not we need to reload the card data before changing the currency
+        if let nonNullCurrentCard = self.sharedCheckoutDataManager.dataHolder.transactionData.cachedCard {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(900)) {
+                self.sharedCheckoutDataManager.forceNoFocusAfterBinLookup = nonNullCurrentCard.tapCardNumber?.count ?? 0 >= 1
+                self.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.setCard(with: nonNullCurrentCard, then: false, for: .NormalCard, forceNoFocus: true)
+                self.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView.cardInputView.endEditing(true)
+            }
+        }
         
         guard shouldShow,
               let _ = tapCurrency,
@@ -667,6 +683,8 @@ extension TapBottomCheckoutControllerViewController:TapCardTelecomPaymentProtoco
             // Let us inform the checkout shared manager about the new card please
             sharedCheckoutDataManager.dataHolder.transactionData.currentCard = (tapCard.tapCardNumber?.tap_length ?? 0 > 0) ? tapCard : nil
         }
+        // Upon card changes, we need to invalidate any cached data
+        //sharedCheckoutDataManager.dataHolder.transactionData.cachedCard = nil
     }
     
     func brandDetected(for cardBrand: CardBrand, with validation: CrardInputTextFieldStatusEnum,cardStatusUI: CardInputUIStatus, isCVVFocused:Bool) {

@@ -406,6 +406,9 @@ internal class TransactionDataHolder {
         }
     }
     
+    /// Represents the latest cached card, before removing current one. for further reloading if needed
+    var cachedCard:TapCard?
+    
     /// Represents the card prefix we are currently executing a binlook up for, used to prevent multiple calls if the user quickly typed the card number
     var currentlyRequestingBinFor:String?
     

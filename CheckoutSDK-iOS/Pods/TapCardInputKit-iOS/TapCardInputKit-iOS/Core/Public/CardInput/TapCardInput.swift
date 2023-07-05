@@ -249,8 +249,9 @@ internal protocol TapCardInputCommonProtocol {
      - Parameter then focusCardNumber: Indicate whether we need to focus the card number after setting the card data
      - Parameter shouldRemoveCurrentCard: Indicate If there is a card number, first thing to do now is to clear the fields
      - Parameter for cardUIStatus: Indicates whether the given card is from a normal process like scanning or to show the special UI for a saved card flow
+     - Parameter forceNoFocus: If it is true, then no field will be focused whatsoever
      */
-    @objc public func setCardData(tapCard:TapCard,then focusCardNumber:Bool,shouldRemoveCurrentCard:Bool = true,for cardUIStatus:CardInputUIStatus) {
+    @objc public func setCardData(tapCard:TapCard,then focusCardNumber:Bool,shouldRemoveCurrentCard:Bool = true,for cardUIStatus:CardInputUIStatus, forceNoFocus:Bool = false) {
         // Match the tapCard attributes to the different card fields
         
         // First then, we check if there is a card number provided
@@ -269,17 +270,17 @@ internal protocol TapCardInputCommonProtocol {
             return
         }
         
-        if focusCardNumber || !cardNumber.isValid(cardNumber: providedCardNumber) {
+        if (focusCardNumber || !cardNumber.isValid(cardNumber: providedCardNumber)) && !forceNoFocus {
             cardNumber.becomeFirstResponder()
         }else {
-            //cardNumber.resignFirstResponder()
+            cardNumber.resignFirstResponder()
         }
         updateWidths(for: cardNumber)
         
         // Then we set the card expiry and check if it is valid or not
         guard cardExpiry.changeText(with: tapCard.tapCardExpiryMonth, year: tapCard.tapCardExpiryYear) else {
             cardExpiry.text = ""
-            if !focusCardNumber {
+            if !focusCardNumber && !forceNoFocus {
                 cardExpiry.becomeFirstResponder()
             }
             return
@@ -291,7 +292,7 @@ internal protocol TapCardInputCommonProtocol {
         // Then check if the usder provided a correct cvv
         guard cardCVV.changeText(with: tapCard.tapCardCVV ?? "", setTextAfterValidation: true) else {
             cardCVV.text = ""
-            if !focusCardNumber {
+            if !focusCardNumber && !forceNoFocus {
                 cardCVV.becomeFirstResponder()
             }
             return
@@ -304,22 +305,24 @@ internal protocol TapCardInputCommonProtocol {
         guard showCardName,
               cardName.changeText(with: tapCard.tapCardName ?? "", setTextAfterValidation: true) else {
             cardName.text = ""
-            if !focusCardNumber && showCardName {
+            if (!focusCardNumber && showCardName) && !forceNoFocus {
                 cardName.becomeFirstResponder()
             }
             return
         }
         
-        if focusCardNumber {
-            cardNumber.becomeFirstResponder()
-        }else if !cardNumber.isValid(cardNumber: providedCardNumber) {
-            cardNumber.becomeFirstResponder()
-        }else if !cardExpiry.isValid() {
-            cardExpiry.becomeFirstResponder()
-        }else if !cardCVV.isValid() {
-            cardCVV.becomeFirstResponder()
-        }else if showCardName && !cardName.isValid() {
-            cardName.becomeFirstResponder()
+        if !forceNoFocus {
+            if focusCardNumber {
+                cardNumber.becomeFirstResponder()
+            }else if !cardNumber.isValid(cardNumber: providedCardNumber) {
+                cardNumber.becomeFirstResponder()
+            }else if !cardExpiry.isValid() {
+                cardExpiry.becomeFirstResponder()
+            }else if !cardCVV.isValid() {
+                cardCVV.becomeFirstResponder()
+            }else if showCardName && !cardName.isValid() {
+                cardName.becomeFirstResponder()
+            }
         }
         
         //FlurryLogger.logEvent(with: "Tap_Card_Input_Fill_Data_Called", timed:false , params:["card_number":tapCard.tapCardNumber ?? "","card_name":tapCard.tapCardName ?? "","card_month":tapCard.tapCardExpiryMonth ?? "","card_year":tapCard.tapCardExpiryYear ?? ""])

@@ -184,6 +184,8 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     internal static var sdkVersion:String? {
         return TapBundlePlistInfo(bundle: Bundle(for: TapCheckout.self)).shortVersionString
     }
+    /// If true, then after binlook up, the card will not auto focus the card fields
+    internal var forceNoFocusAfterBinLookup:Bool = false
     
     // MARK:- View Models Variables
     var dataHolder:DataHolder = .init(viewModels: ViewModelsHolder.init(), transactionData: .init())

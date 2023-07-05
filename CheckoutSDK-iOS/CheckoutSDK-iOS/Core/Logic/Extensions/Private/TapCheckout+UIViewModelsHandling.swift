@@ -504,7 +504,7 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         // First, we need to check if the card is one of the allowed types.
         if !shouldAllowCard() {
             // We shall instruct the card form to stop accepting any new data as the entered card prefix indicates an unallowed card type. And to reset itself to the empty card form with only the first 5 digits
-            setCardData(with: .init(tapCardNumber:dataHolder.transactionData.currentCard?.tapCardNumber?.tap_substring(to: 5)), then: true,for:.NormalCard)
+            setCardData(with: .init(tapCardNumber:dataHolder.transactionData.currentCard?.tapCardNumber?.tap_substring(to: 5)), then: true,for:.NormalCard, forceNoFocus: forceNoFocusAfterBinLookup)
         }
         
         // Second, we should indicate the card brand detector, that we now have a favorite/preferred brand to select for this card scheme
@@ -514,7 +514,9 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         // Third instruct the Card form to reselect the correct chip based on the new favorite brand from bin response if any
         guard let currentCard = dataHolder.transactionData.currentCard else { return }
         
-        setCardData(with: currentCard, then: (currentCard.tapCardNumber?.count ?? 0) < 12,shouldRemoveCurrentCard:false, for:.NormalCard)
+        setCardData(with: currentCard, then: (currentCard.tapCardNumber?.count ?? 0) < 12, shouldRemoveCurrentCard:false, for:.NormalCard, forceNoFocus: forceNoFocusAfterBinLookup)
+        
+        forceNoFocusAfterBinLookup = false
     }
     
     

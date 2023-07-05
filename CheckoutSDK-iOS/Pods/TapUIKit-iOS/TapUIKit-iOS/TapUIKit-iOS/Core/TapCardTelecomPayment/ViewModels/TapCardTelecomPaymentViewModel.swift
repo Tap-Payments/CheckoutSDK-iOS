@@ -197,10 +197,11 @@ import TapThemeManager2020
      - Parameter tapCard: The TapCard that holds the data needed to be filled into the textfields
      - Parameter then focusCardNumber: Indicate whether we need to focus the card number after setting the card data
      - Parameter for cardUIStatus: Indicates whether the given card is from a normal process like scanning or to show the special UI for a saved card flow
+     - Parameter forceNoFocus: If it is true, then no field will be focused whatsoever
      */
-    @objc public func setCard(with card:TapCard,then focusCardNumber:Bool,shouldRemoveCurrentCard:Bool = true,for cardUIStatus:CardInputUIStatus) {
+    @objc public func setCard(with card:TapCard,then focusCardNumber:Bool,shouldRemoveCurrentCard:Bool = true,for cardUIStatus:CardInputUIStatus, forceNoFocus:Bool = false) {
         tapCardTelecomPaymentView?.lastReportedTapCard = card
-        tapCardTelecomPaymentView?.cardInputView.setCardData(tapCard: card, then: focusCardNumber,shouldRemoveCurrentCard:shouldRemoveCurrentCard,for: cardUIStatus)
+        tapCardTelecomPaymentView?.cardInputView.setCardData(tapCard: card, then: focusCardNumber,shouldRemoveCurrentCard:shouldRemoveCurrentCard,for: cardUIStatus, forceNoFocus: forceNoFocus)
         tapCardTelecomPaymentView?.headerView.headerType = (cardUIStatus == .SavedCard) ? .SaveCardInputTitle : self.cardHeaderType
     }
     
