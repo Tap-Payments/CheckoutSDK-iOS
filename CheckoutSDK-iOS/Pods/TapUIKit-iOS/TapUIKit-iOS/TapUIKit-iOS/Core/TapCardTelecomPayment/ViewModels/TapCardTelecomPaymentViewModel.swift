@@ -245,15 +245,15 @@ import TapThemeManager2020
      */
     @objc public func changeEnableStatus(to:Bool = true, doPostLogic:Bool = false) {
         // Check if it is neccessary
-        guard (to && self.attachedView.alpha != 1) || (!to && self.attachedView.alpha != 0) else { return }
+        guard (to && self.attachedView.stackView.alpha != 1) || (!to && self.attachedView.stackView.alpha != 0) else { return }
         
         UIView.animate(withDuration: 0.3) {
             if !to {
-                self.attachedView.alpha = 0.4
-                self.attachedView.transform = CGAffineTransform(scaleX: 0.94, y: 0.94)
+                self.attachedView.stackView.alpha = 0.4
+                self.attachedView.stackView.transform = CGAffineTransform(scaleX: 0.94, y: 0.94)
             }else{
-                self.attachedView.alpha = 1
-                self.attachedView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                self.attachedView.stackView.alpha = 1
+                self.attachedView.stackView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
             }
         } completion: { done in
             if to {
