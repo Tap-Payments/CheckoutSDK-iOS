@@ -62,7 +62,7 @@ import TapCardScanner_iOS
     
     /// Computes the needed bottom space margin including the button + the powered by tap view
     internal var neededBottomSpaceMargin:Double {
-        return tapActionButtonHeightConstraint.constant + tapActionButtonBottomConstraint.constant
+        return 0//tapActionButtonHeightConstraint.constant + tapActionButtonBottomConstraint.constant - 50.0
     }
     
     
