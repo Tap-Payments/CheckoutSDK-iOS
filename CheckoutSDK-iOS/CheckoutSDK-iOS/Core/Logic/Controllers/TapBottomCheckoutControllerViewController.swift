@@ -489,6 +489,9 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
                     // Once we finished the password/OTP views of goPay we have to make sure that the blur view is now invisible
                     self?.tapVerticalView.add(views: [self!.sharedCheckoutDataManager.dataHolder.viewModels.tapMerchantViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapAmountSectionViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGoPayChipsHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView,self!.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView], with: [.init(for: .fadeIn, with:self!.fadeInAnimationDuration - 0.4, wait: self!.fadeInAnimationDelay)])
                 }
+                let paymentViewModel = self.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel
+                let cardView = paymentViewModel.attachedView
+                cardView.cardInputView.alpha = 1
             }else{
                 // Add back the default views & reset the
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(650)) { [weak self] in
