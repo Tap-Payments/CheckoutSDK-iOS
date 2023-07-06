@@ -211,6 +211,8 @@ import TapThemeManager2020
         tapCardTelecomPaymentView?.cardInputView.saveCardDataBeforeMovingToSavedCard()
     }
     
+    /// Adds a view on top of the current card element
+    /// - Parameter view: The view to add on top full size of the card element view
     @objc public func addFullScreen(view:UIView?) {
         guard let view = view else { return }
         view.translatesAutoresizingMaskIntoConstraints = false

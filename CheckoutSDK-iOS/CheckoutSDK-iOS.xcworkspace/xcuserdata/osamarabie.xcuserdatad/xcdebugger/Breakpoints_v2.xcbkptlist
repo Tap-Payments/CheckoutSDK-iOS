@@ -7,80 +7,96 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B46B1E5A-7398-4A98-AEF1-EC10D13A6CDD"
+            uuid = "FA0EC2E3-3B21-4795-A9DD-E7FAE0DD623B"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CheckoutSDK-iOS/Core/Logic/Extensions/Private/TapCheckout+UIViewModelsHandling.swift"
+            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapCardTelecomPayment/Views/TapCardTelecomPaymentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "505"
-            endingLineNumber = "505"
-            landmarkName = "parseTapBinResponse()"
+            startingLineNumber = "457"
+            endingLineNumber = "457"
+            landmarkName = "shouldShowHintView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B52975C6-7882-4DAB-80B3-0D9F4F6639D9"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CheckoutSDK-iOS/Core/Logic/Controllers/TapBottomCheckoutControllerViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
-            landmarkName = "showItemsClicked()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "199A8674-1812-4B21-BDAE-74091593A92B"
+            uuid = "252A032D-4D87-4673-8874-3A1B1520209A"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/TapCardInputKit-iOS/TapCardInputKit-iOS/Core/Public/CardInput/TapCardInput.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "309"
-            endingLineNumber = "309"
-            landmarkName = "setCardData(tapCard:then:shouldRemoveCurrentCard:for:forceNoFocus:)"
+            startingLineNumber = "514"
+            endingLineNumber = "514"
+            landmarkName = "showShowHintForExpiryField()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4FB16B10-62E3-4869-9E52-4B378A9167A6"
+            uuid = "B1463011-BC41-4EDE-8076-B9E0161BBD4D"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pods/TapCardInputKit-iOS/TapCardInputKit-iOS/Core/Public/CardInput/TapCardInput.swift"
+            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapCardTelecomPayment/Views/TapCardTelecomPaymentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "324"
-            endingLineNumber = "324"
-            landmarkName = "setCardData(tapCard:then:shouldRemoveCurrentCard:for:forceNoFocus:)"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
+            landmarkName = "validateHintStatus(with:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B1463011-BC41-4EDE-8076-B9E0161BBD4D - 25c7461603c69cc4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TapUIKit_iOS.TapCardTelecomPaymentView.validateHintStatus(with: Swift.Optional&lt;TapUIKit_iOS.TapHintViewStatusEnum&gt;) -&gt; ()"
+                  moduleName = "TapUIKit_iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osamarabie/desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapCardTelecomPayment/Views/TapCardTelecomPaymentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "294"
+                  endingLineNumber = "294"
+                  offsetFromSymbolStart = "114">
+               </Location>
+               <Location
+                  uuid = "B1463011-BC41-4EDE-8076-B9E0161BBD4D - 25c7461603c69cc4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TapUIKit_iOS.TapCardTelecomPaymentView.validateHintStatus(with: Swift.Optional&lt;TapUIKit_iOS.TapHintViewStatusEnum&gt;) -&gt; ()"
+                  moduleName = "TapUIKit_iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osamarabie/desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapCardTelecomPayment/Views/TapCardTelecomPaymentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "294"
+                  endingLineNumber = "294"
+                  offsetFromSymbolStart = "128">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0131202B-B86B-41AE-A90D-FEAF602184D1"
+            uuid = "875EB2A5-2B4B-48F0-87F7-43967B38D506"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CheckoutSDK-iOS/Core/Logic/Controllers/TapBottomCheckoutControllerViewController.swift"
+            filePath = "Pods/TapCardInputKit-iOS/TapCardInputKit-iOS/Core/Private/TextFields/CardExpiryTextField.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
-            landmarkName = "showItemsClicked()"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "canShowHint()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
