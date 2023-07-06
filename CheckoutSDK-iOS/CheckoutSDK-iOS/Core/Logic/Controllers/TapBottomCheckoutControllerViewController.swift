@@ -71,7 +71,6 @@ internal class TapBottomCheckoutControllerViewController: UIViewController {
             self.poweredByTapView.slideIn(from:.bottom, duration: 0.75)
             self.poweredByTapView.fadeIn(duration: 1.0)
             self.poweredByTapView.poweredByTapLogo.fadeIn(duration: 1.5)
-            print("HERE")
         }
     }
     
