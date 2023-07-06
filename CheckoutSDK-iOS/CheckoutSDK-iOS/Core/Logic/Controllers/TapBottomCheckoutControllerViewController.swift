@@ -497,6 +497,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
             if showingFullScreen {
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
                     self.sharedCheckoutDataManager.dataHolder.viewModels.tapActionButtonViewModel.expandButton()
+                    self.sharedCheckoutDataManager.dataHolder.viewModels.tapAmountSectionViewModel.screenChanged(to: .DefaultView)
                 }
                 
                 // Add back the default views & reset the

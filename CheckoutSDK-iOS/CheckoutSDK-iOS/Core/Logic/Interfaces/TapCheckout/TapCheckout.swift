@@ -161,7 +161,7 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     /// Reference to the color of the dimming of the tap sheet controller
     internal var bottomSheetBackgroundColor:UIColor? = .init(white: 0, alpha: 0.5)
     /// Initial height to start the sheet with
-    internal var initialHeight:CGFloat = 550
+    internal var initialHeight:CGFloat = 450
     /// The corner radius of the sheet
     internal var cornerRadius:CGFloat = 12
     /// Indicates whether we  can load assets from CDN or not

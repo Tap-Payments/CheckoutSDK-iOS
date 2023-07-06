@@ -82,6 +82,7 @@ internal extension TapCheckout {
      */
     func startCardPayment(with paymentOption:PaymentOption? = nil,and card:TapCard? = nil) {
         // Make sure we have a card info entered already and ready to use
+        TapCheckout.sharedCheckoutManager().dataHolder.viewModels.swipeDownToDismiss = false
         guard let _:TapBinResponseModel = dataHolder.transactionData.binLookUpModelResponse,
               let currentCard:TapCard = card else {
             handleError(session: nil, result: nil, error: "UnExpected error, paying with a card while missing card data or binlookup data")
