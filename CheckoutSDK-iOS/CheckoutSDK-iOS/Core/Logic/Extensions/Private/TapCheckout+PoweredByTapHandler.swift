@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import TapUIKit_iOS
 
 /// Some methods related to dealing with the powered by tap/back button view
 internal extension TapCheckout {
