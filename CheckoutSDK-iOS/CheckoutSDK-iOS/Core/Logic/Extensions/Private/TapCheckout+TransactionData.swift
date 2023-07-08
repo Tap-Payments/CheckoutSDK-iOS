@@ -64,7 +64,7 @@ internal class ThemeLocalisationHolder {
 /// Struct that holds view models and UI related variables
 internal class ViewModelsHolder {
     
-    internal init(tapMerchantViewModel: TapMerchantHeaderViewModel = .init(), tapAmountSectionViewModel: TapAmountSectionViewModel = .init(), tapItemsTableViewModel: TapGenericTableViewModel = .init(), tapGatewayChipHorizontalListViewModel: TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GateWayListWithGoPayListHeader), tapGoPayChipsHorizontalListViewModel: TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GoPayListHeader), tapCardPhoneListViewModel: TapCardPhoneBarListViewModel = .init(), tapCardTelecomPaymentViewModel: TapCardTelecomPaymentViewModel = .init(), tapCurrienciesChipHorizontalListViewModel: TapChipHorizontalListViewModel = .init(), goPayBarViewModel: TapGoPayLoginBarViewModel? = nil, swipeDownToDismiss: Bool = false, currenciesChipsViewModel: [CurrencyChipViewModel] = [], goPayLoginCountries: [TapCountry] = [], closeButtonStyle: CheckoutCloseButtonEnum = .title, showDragHandler: Bool = false, tapCardPhoneListDataSource: [CurrencyCardsTelecomModel] = [], gatewayChipsViewModel: [ChipWithCurrencyModel] = [], goPayChipsViewModel: [ChipWithCurrencyModel] = [], tapLoyaltyViewModel:TapLoyaltyViewModel, customerDataViewModel:CustomerContactDataCollectionViewModel, customerShippingViewModel:CustomerShippingDataCollectionViewModel,tapCurrencyWidgetModel:TapCurrencyWidgetViewModel? = nil) {
+    internal init(tapMerchantViewModel: TapMerchantHeaderViewModel = .init(), tapAmountSectionViewModel: TapAmountSectionViewModel = .init(), tapItemsTableViewModel: TapGenericTableViewModel = .init(), tapGatewayChipHorizontalListViewModel: TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GateWayListWithGoPayListHeader), tapGoPayChipsHorizontalListViewModel: TapChipHorizontalListViewModel = .init(dataSource: [], headerType: .GoPayListHeader), tapCardPhoneListViewModel: TapCardPhoneBarListViewModel = .init(), tapCardTelecomPaymentViewModel: TapCardTelecomPaymentViewModel = .init(), tapCurrienciesChipHorizontalListViewModel: TapChipHorizontalListViewModel = .init(), goPayBarViewModel: TapGoPayLoginBarViewModel? = nil, swipeDownToDismiss: Bool = false, currenciesChipsViewModel: [CurrencyChipViewModel] = [], goPayLoginCountries: [TapCountry] = [], closeButtonStyle: CheckoutCloseButtonEnum = .title, showDragHandler: Bool = false, tapCardPhoneListDataSource: [CurrencyCardsTelecomModel] = [], gatewayChipsViewModel: [ChipWithCurrencyModel] = [], goPayChipsViewModel: [ChipWithCurrencyModel] = [], tapCurrencyWidgetModel:TapCurrencyWidgetViewModel? = nil) {
         
         self.tapMerchantViewModel = tapMerchantViewModel
         self.tapAmountSectionViewModel = tapAmountSectionViewModel
@@ -83,9 +83,9 @@ internal class ViewModelsHolder {
         self.tapCardPhoneListDataSource = tapCardPhoneListDataSource
         self.gatewayChipsViewModel = gatewayChipsViewModel
         self.goPayChipsViewModel = goPayChipsViewModel
-        self.tapLoyaltyViewModel = tapLoyaltyViewModel
-        self.customerDataViewModel = customerDataViewModel
-        self.customerShippingViewModel = customerShippingViewModel
+        //self.tapLoyaltyViewModel = tapLoyaltyViewModel
+        //self.customerDataViewModel = customerDataViewModel
+        //self.customerShippingViewModel = customerShippingViewModel
         self.tapCurrencyWidgetModel = tapCurrencyWidgetModel
         assignViewModelsDelegates()
     }
@@ -154,11 +154,11 @@ internal class ViewModelsHolder {
     /// Represents the list of ALL allowed goPay chips for the logged in customer
     var goPayChipsViewModel:[ChipWithCurrencyModel] = []
     /// Represents the view model controling the loyalty widget if any
-    var tapLoyaltyViewModel:TapLoyaltyViewModel? = .init()
+    //var tapLoyaltyViewModel:TapLoyaltyViewModel? = .init()
     /// Represents the view mdoel cotrolling collecting customer contact data
-    var customerDataViewModel:CustomerContactDataCollectionViewModel?
+    //var customerDataViewModel:CustomerContactDataCollectionViewModel?
     /// The view model that controls the customer shipping data collection view
-    var customerShippingViewModel:CustomerShippingDataCollectionViewModel?
+    //var customerShippingViewModel:CustomerShippingDataCollectionViewModel?
     /// Represents the current using currency, will send the conversion currency if any otherwise the original transation currency
     var currentUsedCurrency:TapCurrencyCode {
         if tapAmountSectionViewModel.convertedTransactionCurrency.currency == .undefined {
@@ -177,7 +177,7 @@ internal class ViewModelsHolder {
         tapCurrienciesChipHorizontalListViewModel.delegate  = TapCheckout.sharedCheckoutManager()
         tapGatewayChipHorizontalListViewModel.delegate      = TapCheckout.sharedCheckoutManager()
         tapGoPayChipsHorizontalListViewModel.delegate       = TapCheckout.sharedCheckoutManager()
-        tapLoyaltyViewModel?.delegate                       = TapCheckout.sharedCheckoutManager()
+        //tapLoyaltyViewModel?.delegate                       = TapCheckout.sharedCheckoutManager()
         tapActionButtonViewModel.delegate                   = TapCheckout.sharedCheckoutManager()
     }
     

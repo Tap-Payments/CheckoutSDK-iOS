@@ -220,7 +220,7 @@ internal protocol TapActionButtonViewDelegate {
         // If passed, let us create a color outof it
         if backgroundColors.count > 1 {
             // Then we have a gradient colors to apply
-            return UIColor.fromGradient(.init(direction: TapLocalisationManager.shared.localisationLocale == "ar" ? .rightToLeft : .leftToRight, colors: buttonStyle.backgroundColors(showMonoForLightMode: TapThemeManager.showMonoForLightMode, showColoredForDarkMode: TapThemeManager.showColoredForDarkMode)), frame: viewDelegate!.buttonFrame()) ?? .black
+            return UIColor.fromGradient(.init(direction: TapLocalisationManager.shared.localisationLocale == "ar" ? .leftToRight : .rightToLeft, colors: buttonStyle.backgroundColors(showMonoForLightMode: TapThemeManager.showMonoForLightMode, showColoredForDarkMode: TapThemeManager.showColoredForDarkMode)), frame: viewDelegate!.buttonFrame()) ?? .black
         }else{
             guard let nonNullColor:UIColor = backgroundColors.first else { return buttonStatus.buttonBackGroundColor() }
             return nonNullColor

@@ -21,7 +21,7 @@ internal extension TapCheckout {
     /// Handles the logic required to update all required fields and variables upon a change in the current shared data manager state
     func updateManager() {
         updateAmountSection()
-        updateLoyaltySection()
+        //updateLoyaltySection()
         updateItemsList()
         updateApplePayRequest()
         // check if we need to sort the options or not based on coming from changing currency in widget or from currencies list
@@ -58,7 +58,7 @@ internal extension TapCheckout {
     }
     
     /// Handles all the logic needed when the amount or the user selected currency changed to reflect in the Loyalty section view
-    func updateLoyaltySection() {
+    /*func updateLoyaltySection() {
         // Make sure we have a loyalty view model and it does support the new selected currency first
         guard let nonNullViewModel = dataHolder.viewModels.tapLoyaltyViewModel,
               let supportedLoyaltyCurrencies:[TapCurrencyCode] = nonNullViewModel.loyaltyModel?.supportedCurrencies?.map({ $0.currency?.currency ?? .undefined }),
@@ -69,7 +69,7 @@ internal extension TapCheckout {
         // Now it is there, let us update the view model
         nonNullViewModel.change(currency: dataHolder.viewModels.currentUsedCurrency,transactionAmount: dataHolder.transactionData.transactionUserCurrencyValue.amount)
         nonNullViewModel.refreshData()
-    }
+    }*/
     
     /// Handles all the logic needed when the user selected currency changed to reflect in the items list view
     func updateItemsList() {
@@ -332,7 +332,7 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
     /** Fetches the loyalty model and updates the loyalty view model if any
      - Parameter paymentOptions: The payment options response we got from payment types api.
      */
-    fileprivate func fetchLoyaltyModel(_ paymentOptions: TapPaymentOptionsReponseModel) {
+    /*fileprivate func fetchLoyaltyModel(_ paymentOptions: TapPaymentOptionsReponseModel) {
         guard let nonNullLoyaltyModel : TapLoyaltyModel = paymentOptions.loyaltyModel else {
             // That means no loyalty found so let us make it nil for now and we show nothing
             dataHolder.viewModels.tapLoyaltyViewModel = nil
@@ -341,17 +341,17 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         // Otherwise let us update the viewmodel with the new model we got from the backend
         dataHolder.viewModels.tapLoyaltyViewModel?.loyaltyModel = nonNullLoyaltyModel
         //updateLoyaltySection()
-    }
+    }*/
     
     
     /** Fetches thecustomer collected data if any
      - Parameter paymentOptions: The payment options response we got from payment types api.
      */
-    fileprivate func fetchCustomerContactDataModel(_ paymentOptions: TapPaymentOptionsReponseModel) {
+    /*fileprivate func fetchCustomerContactDataModel(_ paymentOptions: TapPaymentOptionsReponseModel) {
         // Dummy creation until coming from API
         dataHolder.viewModels.customerDataViewModel = CustomerContactDataCollectionViewModel.init(toBeCollectedData: [.email,.phone], allowedCountries: [.EG,.KW,.SA,.BH,.AE,.OM,.QA,.JO,.LB], selectedCountry: .EG)
         dataHolder.viewModels.customerShippingViewModel = CustomerShippingDataCollectionViewModel.init(allowedCountries: TapCountryCode.allCases, selectedCountry: .EG)
-    }
+    }*/
     
     /** Update the total payable amount as we got from the backend
      - Parameter paymentOptions: The payment options response we got from payment types api.
@@ -430,10 +430,10 @@ extension TapCheckout:TapCheckoutDataHolderDelegate {
         fetchGateways(paymentOptions)
         
         // Fetch the loyaly model from the payment options if any
-        fetchLoyaltyModel(paymentOptions)
+        //fetchLoyaltyModel(paymentOptions)
         
         // Fetch the customer data collection if any
-        fetchCustomerContactDataModel(paymentOptions)
+        //fetchCustomerContactDataModel(paymentOptions)
         
         // Load the goPayLogin status
         dataHolder.transactionData.loggedInToGoPay = false//UserDefaults.standard.bool(forKey: TapCheckoutConstants.GoPayLoginUserDefaultsKey)

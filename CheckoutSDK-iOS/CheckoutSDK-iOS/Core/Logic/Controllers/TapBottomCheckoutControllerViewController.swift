@@ -646,7 +646,7 @@ extension TapBottomCheckoutControllerViewController:TapCardTelecomPaymentProtoco
         // update the saving card status for the checkout manager
         // If activated for TAP we need to check if we have to collect user's data
         if saveCardType == .Tap {
-            sharedCheckoutDataManager.handleCustomerContact(with: .Valid)
+            //sharedCheckoutDataManager.handleCustomerContact(with: .Valid)
         }
     }
     

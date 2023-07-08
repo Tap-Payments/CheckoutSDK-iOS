@@ -8,14 +8,27 @@
 import UIKit
 import TapThemeManager2020
 import LocalisationManagerKit_iOS
+import CommonDataModelsKit_iOS
 
 /// Represents the power by tap view
 @objc public class PoweredByTapView: UIView {
+    /// The view holding the back button
+    @IBOutlet weak var backView: UIView!
+    /// The back indicator label
+    @IBOutlet weak var backLabel: UIButton!
+    /// Indicating the back icon for the user
+    @IBOutlet weak var backIconImageView: UIImageView!
     /// Represents the main holding view
     @IBOutlet weak var cardBlur: CardVisualEffectView!
+    /// The container view for the custom Xib
     @IBOutlet var containerView: UIView!
-    @IBOutlet var blurView: UIVisualEffectView!
+    /// The image view holding powered by tap logo
     @IBOutlet public weak var poweredByTapLogo: UIImageView!
+    /// Holds the UIViews that needed to be RTL supported based on the selected locale
+    @IBOutlet var toBeLocalizedViews: [UIView]!
+    /// The action handler to fire when back button is clicked
+    var backActionHandler:(()->())? = nil
+    
     internal let themePath:String = "poweredByTap"
     // Mark:- Init methods
     override init(frame: CGRect) {
@@ -31,12 +44,57 @@ import LocalisationManagerKit_iOS
     /// Used as a consolidated method to do all the needed steps upon creating the view
     private func commonInit() {
         self.containerView = setupXIB()
+        setContent()
         applyTheme()
+        adjustDirections()
     }
     
     public override func layoutSubviews() {
         super.layoutSubviews()
         self.containerView.frame = bounds
+    }
+    
+    //MARK: - Private functions
+    /// Sets the content for labels and flipped images for uiimageviews
+    private func setContent() {
+        // The localized back label
+        backLabel.setTitle(TapLocalisationManager.shared.localisedValue(for: "Common.back",with: TapCommonConstants.pathForDefaultLocalisation()), for: .normal)
+        // The correct back arrow, it should be flipped if we are in Arabic mode
+        var backImageIcon:UIImage? = .init(systemName: "chevron.backward")?.withTintColor(.white, renderingMode: .alwaysOriginal)
+        backIconImageView.semanticContentAttribute = TapLocalisationManager.shared.localisationLocale == "ar" ? .forceRightToLeft : .forceLeftToRight
+        // Set the icon
+        backIconImageView.image = backImageIcon?.withHorizontallyFlippedOrientation()
+    }
+    
+    
+    /// Adjusts the directions and RTL for needed views
+    private func adjustDirections() {
+        // Decide which direction should be used in the UIView based on the current selected locale
+        let correctSemanticContent:UISemanticContentAttribute = TapLocalisationManager.shared.localisationLocale == "ar" ? .forceRightToLeft : .forceLeftToRight
+        // Adjust all the subviews marked to be localized based on direction
+        toBeLocalizedViews.forEach{ $0.semanticContentAttribute = correctSemanticContent }
+    }
+    
+    /// The back button is clicked handler
+    @IBAction func backButtonClicked(_ sender: Any) {
+        backActionHandler?()
+    }
+    
+    //MARK: - Public functions
+    /// Will show/hide the back button
+    /// - Parameter to: If true, the back button will be visible and false otherwise.
+    /// - Parameter with backActionHandler: The action handler to be called when the back button is clicked
+    public func changeBackButtonVisibility(to:Bool, with backActionHandler:(()->())?) {
+        // First check if we need to animate
+        if to && backView.alpha != 1 {
+            backView.fadeIn {
+                self.backActionHandler = backActionHandler
+            }
+        }else if !to && backView.alpha != 0 {
+            backView.fadeOut {
+                self.backActionHandler = backActionHandler
+            }
+        }
     }
 }
 
@@ -52,16 +110,26 @@ extension PoweredByTapView {
     
     /// Match the UI attributes with the correct theming entries
     private func matchThemeAttributes() {
+        // Powered by tap logo
         poweredByTapLogo.image = TapThemeManager.imageValue(for: "\(themePath).tapLogo")
-        //blurView.tap_theme_backgroundColor = .init(stringLiteral: "\(themePath).blurColor")
         poweredByTapLogo.contentMode = TapLocalisationManager.shared.localisationLocale == "ar" ? .left : .right
         backgroundColor = .clear
         layoutIfNeeded()
         
+        // The background bluring effect
         cardBlur.scale = 1
         cardBlur.blurRadius = 6
         cardBlur.colorTint = TapThemeManager.colorValue(for: "\(themePath).blurColor")
         cardBlur.colorTintAlpha = CGFloat(TapThemeManager.numberValue(for: "\(themePath).blurAlpha")?.floatValue ?? 0)
+        
+        // The back view and contents
+        backView.tap_theme_backgroundColor = .init(keyPath: "\(themePath).backButton.background")
+        backIconImageView.tap_theme_tintColor = .init(keyPath: "\(themePath).backButton.arrowColor")
+        
+        backLabel.tap_theme_setTitleColor(selector: .init(keyPath: "\(themePath).backButton.labelColor"), forState: .normal)
+        backLabel.tap_theme_tintColor = .init(keyPath: "\(themePath).backButton.labelColor")
+        backLabel.titleLabel?.tap_theme_font = .init(stringLiteral:"\(themePath).backButton.labelFont",shouldLocalise: true)
+        backLabel.titleEdgeInsets = .init(top: TapLocalisationManager.shared.localisationLocale == "ar" ? 4 : 0, left: 0, bottom: 0, right: 0)
     }
     
     /// Listen to light/dark mde changes and apply the correct theme based on the new style

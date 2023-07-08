@@ -434,7 +434,7 @@ extension TapCheckout {
      - Parameter cardBrand: The detected card brand
      - Parameter with validation: The validation status came out of the card validator
      */
-    func handleCustomerContact(with validation: CrardInputTextFieldStatusEnum) {
+    /*func handleCustomerContact(with validation: CrardInputTextFieldStatusEnum) {
         // Check of we can display loyalty section or not
         if canShowCustomerContactData(),
            let nonCustomerContactViewModel: CustomerContactDataCollectionViewModel = dataHolder.viewModels.customerDataViewModel,
@@ -448,14 +448,14 @@ extension TapCheckout {
             // Then if no valid card data is provided, all what we need to do is to remove the loyalty section if any
             UIDelegate?.hideCustomerContactDataCollection()
         }
-    }
+    }*/
     
     /**
      Handles the logic needed to be applied upon card form validation status changes regrding the loyalty widget
      - Parameter cardBrand: The detected card brand
      - Parameter with validation: The validation status came out of the card validator
      */
-    func handleLoyalty(for cardBrand: CardBrand,with validation: CrardInputTextFieldStatusEnum) {
+    /*func handleLoyalty(for cardBrand: CardBrand,with validation: CrardInputTextFieldStatusEnum) {
         // Check of we can display loyalty section or not
         if canShowLoyalty(),
            let nonNullLoyaltyViewModel: TapLoyaltyViewModel = dataHolder.viewModels.tapLoyaltyViewModel {
@@ -468,11 +468,11 @@ extension TapCheckout {
             // Then if no valid card data is provided, all what we need to do is to remove the loyalty section if any
             UIDelegate?.hideLoyalty()
         }
-    }
+    }*/
     
     
     /// Checks all the conditoins to show a customer contact data collection section including
-    func canShowCustomerContactData() -> Bool {
+    /*func canShowCustomerContactData() -> Bool {
         // Check if the card's data including number, CVV and expiry are valid
         guard dataHolder.viewModels.tapCardTelecomPaymentViewModel.allCardFieldsValid(),
               // Check if the user activated saving for TAP
@@ -485,11 +485,11 @@ extension TapCheckout {
         }
         
         return true
-    }
+    }*/
     
     /// Checks all the conditoins to show a loyalty section including
     /// There is a loyalty model, card data is fully valid, used currency is supported by the loyalty model
-    func canShowLoyalty() -> Bool {
+    /*func canShowLoyalty() -> Bool {
         // Check if the card's data including number, CVV and expiry are valid
         guard dataHolder.viewModels.tapCardTelecomPaymentViewModel.allCardFieldsValid(),
               // Check if there is a loyalty model to display
@@ -507,7 +507,7 @@ extension TapCheckout {
         let currenyUsedCurrency: TapCurrencyCode = dataHolder.viewModels.currentUsedCurrency
         // Check if the current selected currency is one of the supported currencies in the loyalty model
         return supportedLoyaltyCurrencies.contains(currenyUsedCurrency)
-    }
+    }*/
     
     
     /**

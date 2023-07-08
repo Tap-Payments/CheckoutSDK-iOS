@@ -11,7 +11,7 @@ import TapUIKit_iOS
 import CommonDataModelsKit_iOS
 
 /// Logic to handle callbacks from the loyalty widget
-extension TapCheckout: TapLoyaltyDelegate {
+/*extension TapCheckout: TapLoyaltyDelegate {
     public func changeLoyaltyEnablement(to: Bool) {
         guard let nonNullViewModel = dataHolder.viewModels.tapLoyaltyViewModel else {
             return
@@ -28,4 +28,4 @@ extension TapCheckout: TapLoyaltyDelegate {
         
     }
     
-}
+}*/
