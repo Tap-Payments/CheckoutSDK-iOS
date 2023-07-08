@@ -63,6 +63,7 @@ extension TapCheckout:TapWebViewModelDelegate {
         
         // First get the decision based on the loaded url
         let decision = navigationDecision(forWebPayment: url)
+        TapCheckout.sharedCheckoutManager().changeBackButtonVisibility(to: false)
         
         // If the redirection finished we need to fetch the object id from the url to further process it
         if decision.redirectionFinished, let tapID = decision.tapID {

@@ -175,7 +175,7 @@ internal protocol TapActionButtonViewDelegate {
             if UIView().traitCollection.userInterfaceStyle == .dark && TapThemeManager.showColoredForDarkMode {
                 computedGifName = "3sec-white-loader-2"
             }else if UIView().traitCollection.userInterfaceStyle == .light && TapThemeManager.showMonoForLightMode {
-                computedGifName = "Black-loader"
+                computedGifName = "3sec-white-loader-2"
             }
         }
         return computedGifName

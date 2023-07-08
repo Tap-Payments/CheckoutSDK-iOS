@@ -45,6 +45,7 @@
 		E83A6AA32A358BD10074D2F8 /* CurrencyWidgetPositionEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83A6AA22A358BD10074D2F8 /* CurrencyWidgetPositionEnum.swift */; };
 		E83D221125777E4A00AE6DA0 /* Pods_CheckoutSDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21BD535F94169C44719615A6 /* Pods_CheckoutSDK_iOS.framework */; };
 		E83D221225777E4A00AE6DA0 /* Pods_CheckoutSDK_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 21BD535F94169C44719615A6 /* Pods_CheckoutSDK_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E85318352A593B77002CA472 /* TapCheckout+PoweredByTapHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85318342A593B77002CA472 /* TapCheckout+PoweredByTapHandler.swift */; };
 		E85B5539289FCC6B00362990 /* TapCreateTokenWithApplePayTokenRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85B5538289FCC6B00362990 /* TapCreateTokenWithApplePayTokenRequestModel.swift */; };
 		E85B553B289FCC8B00362990 /* TapCreateTokenWithSavedCardRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85B553A289FCC8B00362990 /* TapCreateTokenWithSavedCardRequest.swift */; };
 		E861286D24EA7F7F00774BAA /* CurrencyChipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E861286C24EA7F7F00774BAA /* CurrencyChipModel.swift */; };
@@ -184,6 +185,7 @@
 		E83923B9269A13A400421E15 /* TapCheckout+ApplePayPaymentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+ApplePayPaymentHandler.swift"; sourceTree = "<group>"; };
 		E83923CA269F0C3900421E15 /* TapCheckout + ScannerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout + ScannerHandler.swift"; sourceTree = "<group>"; };
 		E83A6AA22A358BD10074D2F8 /* CurrencyWidgetPositionEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyWidgetPositionEnum.swift; sourceTree = "<group>"; };
+		E85318342A593B77002CA472 /* TapCheckout+PoweredByTapHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TapCheckout+PoweredByTapHandler.swift"; sourceTree = "<group>"; };
 		E85B5538289FCC6B00362990 /* TapCreateTokenWithApplePayTokenRequestModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapCreateTokenWithApplePayTokenRequestModel.swift; sourceTree = "<group>"; };
 		E85B553A289FCC8B00362990 /* TapCreateTokenWithSavedCardRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapCreateTokenWithSavedCardRequest.swift; sourceTree = "<group>"; };
 		E861286C24EA7F7F00774BAA /* CurrencyChipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyChipModel.swift; sourceTree = "<group>"; };
@@ -502,6 +504,7 @@
 				E89B4F8926A21B3B0077B0A6 /* TapCheckout+CDNUrlsGeneration.swift */,
 				E8B5275328D727E90001FE24 /* TapCheckout+Loyalty.swift */,
 				E8B3C4D329E593EF00CD5DD1 /* TapCheckout+Locale.swift */,
+				E85318342A593B77002CA472 /* TapCheckout+PoweredByTapHandler.swift */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -809,6 +812,7 @@
 			files = (
 				E83923962695E3C800421E15 /* TapCheckout+SavedCardPaymentHandler.swift in Sources */,
 				E8C58B3824E5344700E1F04F /* TapCheckOutTheme.swift in Sources */,
+				E85318352A593B77002CA472 /* TapCheckout+PoweredByTapHandler.swift in Sources */,
 				E83923BA269A13A400421E15 /* TapCheckout+ApplePayPaymentHandler.swift in Sources */,
 				E83A6AA32A358BD10074D2F8 /* CurrencyWidgetPositionEnum.swift in Sources */,
 				E89B4F8A26A21B3B0077B0A6 /* TapCheckout+CDNUrlsGeneration.swift in Sources */,

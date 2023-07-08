@@ -47,6 +47,7 @@ import CommonDataModelsKit_iOS
         setContent()
         applyTheme()
         adjustDirections()
+        setListeners()
     }
     
     public override func layoutSubviews() {
@@ -66,6 +67,33 @@ import CommonDataModelsKit_iOS
         backIconImageView.image = backImageIcon?.withHorizontallyFlippedOrientation()
     }
     
+    /// Will make the powered by tap view listen to the show/hide back button from anywhere dispatched the notification
+    private func setListeners() {
+        // Register for notifications to allow changing the status and the action block at run time form anywhere in the app
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: TapConstantManager.TapBackButtonVisibilityNotification), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: TapConstantManager.TapBackButtonBlockNotification), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(StnNotificationExist(_:)), name: NSNotification.Name(rawValue: TapConstantManager.TapBackButtonVisibilityNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(StnNotificationExist(_:)), name: NSNotification.Name(rawValue: TapConstantManager.TapBackButtonBlockNotification), object: nil)
+    }
+    
+    
+    /**
+     Handles the logic needed to recieve the notifiations from other parts in the SDK to change the visibility and the action block of the back button
+     - Parameter notification: The recieved notification object from the dispatcher object
+     */
+    @objc private func StnNotificationExist(_ notification:NSNotification)
+    {
+        // Let us decide if the notification is related to us, and if yes, let us decide its type and behave accordingly
+        if notification.name.rawValue == TapConstantManager.TapBackButtonVisibilityNotification {
+            // This is a back button visibilitr
+            changeBackButtonVisibility(to: notification.userInfo?[TapConstantManager.TapBackButtonVisibilityNotification] as? Bool ?? false)
+        }else if notification.name.rawValue == TapConstantManager.TapBackButtonBlockNotification {
+            // This is a callback notification
+            changeBackButtonCallback(with: notification.userInfo?[TapConstantManager.TapBackButtonBlockNotification] as? ()->())
+            
+        }
+    }
     
     /// Adjusts the directions and RTL for needed views
     private func adjustDirections() {
@@ -80,21 +108,21 @@ import CommonDataModelsKit_iOS
         backActionHandler?()
     }
     
-    //MARK: - Public functions
     /// Will show/hide the back button
     /// - Parameter to: If true, the back button will be visible and false otherwise.
-    /// - Parameter with backActionHandler: The action handler to be called when the back button is clicked
-    public func changeBackButtonVisibility(to:Bool, with backActionHandler:(()->())?) {
+    private func changeBackButtonVisibility(to:Bool) {
         // First check if we need to animate
         if to && backView.alpha != 1 {
-            backView.fadeIn {
-                self.backActionHandler = backActionHandler
-            }
+            backView.fadeIn()
         }else if !to && backView.alpha != 0 {
-            backView.fadeOut {
-                self.backActionHandler = backActionHandler
-            }
+            backView.fadeOut()
         }
+    }
+    
+    /// Will show/hide the back button
+    /// - Parameter with backActionHandler: The action handler to be called when the back button is clicked
+    private func changeBackButtonCallback(with backActionHandler:(()->())?) {
+        self.backActionHandler = backActionHandler
     }
 }
 

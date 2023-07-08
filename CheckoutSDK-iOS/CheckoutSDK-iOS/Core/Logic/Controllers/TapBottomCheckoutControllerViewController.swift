@@ -414,7 +414,13 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
                     cardView.layoutIfNeeded()
                     self?.enableInteraction(with: true)
                 }
+                // set back dismiss to its original value
                 TapCheckout.sharedCheckoutManager().dataHolder.viewModels.swipeDownToDismiss = originalDismissOnSwipeValue
+                // let us show the back button now as we are displaying the 3ds inline
+                TapCheckout.sharedCheckoutManager().changeBackButtonVisibility(to: true, with: {
+                    navigationDelegate?.webViewCanceled(showingFullScreen: true)
+                    TapCheckout.sharedCheckoutManager().changeBackButtonVisibility(to: false)
+                })
             }
         }
         
@@ -465,6 +471,11 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
                 self?.enableInteraction(with: true)
                 // Set it back to swipe on dismiss
                 TapCheckout.sharedCheckoutManager().dataHolder.viewModels.swipeDownToDismiss = originalDismissOnSwipeValue
+                // let us show the back button now as we are displaying the 3ds inline
+                TapCheckout.sharedCheckoutManager().changeBackButtonVisibility(to: true, with: {
+                    navigationDelegate?.webViewCanceled(showingFullScreen: true)
+                    TapCheckout.sharedCheckoutManager().changeBackButtonVisibility(to: false)
+                })
             }
         }
     }
@@ -528,6 +539,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         self.tapVerticalView.remove(view: sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel.attachedView, with: .init(for: .fadeOut, with: fadeOutAnimationDuration))
         self.tapVerticalView.remove(view: webViewModel.attachedView, with: .init(for: .fadeOut, with: fadeOutAnimationDuration))
         self.tapVerticalView.showActionButton()
+        TapCheckout.sharedCheckoutManager().changeBackButtonVisibility(to: false)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
             // Set it back to swipe on dismiss
