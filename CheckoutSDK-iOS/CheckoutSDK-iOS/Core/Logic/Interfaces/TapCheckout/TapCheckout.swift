@@ -220,9 +220,9 @@ internal protocol TapCheckoutSharedManagerUIDelegate {
     @objc public static var loyaltyEnabled:Bool = false
     
     /// Saves the default light theme url
-    internal static var defaultThemeLightURL:String = "https://tapcheckoutsdk.firebaseio.com/TapThemeMobile/light.json"
+    internal static var defaultThemeLightURL:String = "https://tapcheckoutsdk.firebaseio.com/TapThemeMobileOnly/light.json"
     /// Saves the default dark theme url
-    internal static var defaultThemeDarkURL:String = "https://tapcheckoutsdk.firebaseio.com/TapThemeMobile/dark.json"
+    internal static var defaultThemeDarkURL:String = "https://tapcheckoutsdk.firebaseio.com/TapThemeMobileOnly/dark.json"
     /// Saves the default localisation url
     internal static var defaultLocalisationURL:String = "https://tapcheckoutsdk.firebaseio.com/TapLocalisation.json"
     

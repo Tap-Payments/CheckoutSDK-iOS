@@ -95,7 +95,7 @@ internal extension TapCheckout {
             TapCheckout.sharedCheckoutManager().UIDelegate?.reduceHeight(to: dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView.frame.height + dataHolder.viewModels.tapAmountSectionViewModel.attachedView.frame.height)
             
             TapCheckout.sharedCheckoutManager().UIDelegate?.removeView(view: dataHolder.viewModels.tapAmountSectionViewModel.attachedView, with: .init(for: .fadeOut, with: 0.1, and: .bottom))
-            TapCheckout.sharedCheckoutManager().UIDelegate?.removeView(view: dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView, with: .init(for: .fadeOut, with: 0.1, and: .top))
+            TapCheckout.sharedCheckoutManager().UIDelegate?.removeView(view: dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView, with: .init(for: .fadeOut, with: 0.1, and: .bottom))
             
         }
         // Create a card tokenization api to start with and call it

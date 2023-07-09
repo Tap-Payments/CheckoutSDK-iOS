@@ -34,7 +34,7 @@ internal extension TapCheckout {
             guard let initModel:TapInitResponseModel = result as? TapInitResponseModel else { self?.handleError(session: session, result: result, error: "Unexpected error when parsing into TapInitResponseModel")
                 return }
             // We will only load the default values if and only if, the already cached and loaded theme and localisation is not the default one and if it is the defailt one we have a different default value
-            if self?.shouldLoadDefaultThemeAndLocalisation(lightThemeUrlApi: initModel.assets.theme.light, darkThemeUrlApi: initModel.assets.theme.dark, localisationUrlApi: initModel.assets.localisation.url) ?? true {
+            if self?.shouldLoadDefaultThemeAndLocalisation(lightThemeUrlApi: initModel.assets.theme.lighMobileOnly, darkThemeUrlApi: initModel.assets.theme.darkMobileOnly, localisationUrlApi: initModel.assets.localisation.url) ?? true {
                 DispatchQueue.background(background: {
                     // Load the default theme & localisations if the user didn't pass his own custom theme and localisation
                     TapCheckout.PreloadSDKData(localiseFile: self?.dataHolder.themeLocalisationHolder.localiseFile ?? .init(with: URL(string: initModel.assets.localisation.url)!, from: .RemoteJsonFile),
