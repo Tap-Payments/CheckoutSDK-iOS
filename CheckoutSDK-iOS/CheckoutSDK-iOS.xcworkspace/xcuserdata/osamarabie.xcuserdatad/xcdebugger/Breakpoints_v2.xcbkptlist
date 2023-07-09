@@ -3,4 +3,54 @@
    uuid = "51793A65-FEC8-406C-9954-D9C03F638AB7"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F6CAFBA9-88FA-4BCE-9712-B6DB105DF7FD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapMerchantHeaderView/ViewModels/TapMerchantHeaderViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "merchantViewBottomSeparatorType"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "F6CAFBA9-88FA-4BCE-9712-B6DB105DF7FD - 6888e5fed07fd241"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TapUIKit_iOS.TapMerchantHeaderViewModel.merchantViewBottomSeparatorType.didset : TapUIKit_iOS.MerchantHeaderSeparatorType"
+                  moduleName = "TapUIKit_iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osamarabie/desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapMerchantHeaderView/ViewModels/TapMerchantHeaderViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "55"
+                  endingLineNumber = "55"
+                  offsetFromSymbolStart = "140">
+               </Location>
+               <Location
+                  uuid = "F6CAFBA9-88FA-4BCE-9712-B6DB105DF7FD - 9cd1ddbd34da7735"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (SnapKit.ConstraintMaker) -&gt; () in TapUIKit_iOS.TapMerchantHeaderViewModel.merchantViewBottomSeparatorType.didset : TapUIKit_iOS.MerchantHeaderSeparatorType"
+                  moduleName = "TapUIKit_iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osamarabie/desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapMerchantHeaderView/ViewModels/TapMerchantHeaderViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "77">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

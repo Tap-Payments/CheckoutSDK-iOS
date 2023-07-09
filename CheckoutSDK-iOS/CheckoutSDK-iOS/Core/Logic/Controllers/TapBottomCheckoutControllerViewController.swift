@@ -387,6 +387,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         tapVerticalView.stopOTPTimers()
         
         webViewModel = .init()
+        webViewModel.shouldShowHeaderView = false
         webViewModel.shouldBeFullScreen = true
         webViewModel.delegate = navigationDelegate
         webViewModel.load(with: url)
@@ -484,7 +485,7 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
     
     /// Handles closing the web view and getting back normal views
     func cancelWebView(showingFullScreen:Bool = false) {
-        
+        TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapMerchantViewModel.merchantViewBottomSeparatorType = .Gapped
         // First thing, animate closing the web view
         /*// We will remove all the shown views below the amount section first
          self.removeView(viewType: TapWebView.self, with: .init(for: .fadeOut, with: fadeOutAnimationDuration), and: true)
