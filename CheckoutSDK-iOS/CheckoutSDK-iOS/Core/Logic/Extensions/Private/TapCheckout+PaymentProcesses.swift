@@ -190,7 +190,7 @@ internal extension TapCheckout {
         TapCheckout.sharedCheckoutManager().dataHolder.viewModels.tapActionButtonViewModel.startLoading()
         TapCheckout.sharedCheckoutManager().dataHolder.transactionData.selectedPaymentOption = paymentOption
         // Do the pre animation needed to show 3ds when paying with a new card if any
-        if paymentOption?.paymentType == .Card {
+        if paymentOption?.paymentType == .Card || paymentOption?.paymentType == .SavedCard {
             UIDelegate?.prepareFor3DSInCardAnimation()
         }
         // Create the charge request and call it
@@ -302,7 +302,7 @@ internal extension TapCheckout {
         // Case 1: Redirection // Check if we need to make a redirection
         if let redirectionURL:URL = charge?.transactionDetails.url {
             showWebView(with: redirectionURL, for: self.dataHolder.transactionData.selectedPaymentOption?.paymentType == .Web ? .FullScreen :
-                            self.dataHolder.transactionData.selectedPaymentOption?.paymentType == .SavedCard ? .InScreen : .InCard)
+                            self.dataHolder.transactionData.selectedPaymentOption?.paymentType == .SavedCard ? .InCard : .InCard)
         }else // Case 2: Authentication
         if let authentication:Authentication = charge?.authentication {
             showAuthentication(with: authentication)
@@ -408,7 +408,7 @@ internal extension TapCheckout {
     func handleCardSaveInitiated(for cardVerifyResponse:TapCreateCardVerificationResponseModel) {
         // Check if we need to make a redirection
         if let redirectionURL:URL = cardVerifyResponse.transactionDetails.url {
-            showWebView(with: redirectionURL, for: .InScreen)
+            showWebView(with: redirectionURL, for: .InCard)
         }
     }
     
@@ -423,6 +423,8 @@ internal extension TapCheckout {
      */
     func startSavedCardPayment(with paymentOption:PaymentOption? = nil, and cardCVV:String?) {
         // Make sure we have the saved card info in place and stored
+        TapCheckout.sharedCheckoutManager().dataHolder.viewModels.swipeDownToDismiss = false
+        
         guard let paymentOption:PaymentOption = paymentOption,
               let selectedSavedCard:SavedCard = paymentOption.savedCard else {
             handleError(session: nil, result: nil, error: "UnExpected error, paying with a saved card while missing saved card data")
@@ -436,17 +438,28 @@ internal extension TapCheckout {
             handleError(session: nil, result: nil, error: "Unexpected error while creating TapCreateTokenRequest")
             return
         }
+        // Remove the payment scheme list
+        if dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.dataSource.count > 0 {
+            TapCheckout.sharedCheckoutManager().UIDelegate?.reduceHeight(to: dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView.frame.height + dataHolder.viewModels.tapAmountSectionViewModel.attachedView.frame.height)
+            
+            TapCheckout.sharedCheckoutManager().UIDelegate?.removeView(view: dataHolder.viewModels.tapAmountSectionViewModel.attachedView, with: .init(for: .fadeOut, with: 0.1, and: .bottom))
+            TapCheckout.sharedCheckoutManager().UIDelegate?.removeView(view: dataHolder.viewModels.tapGatewayChipHorizontalListViewModel.attachedView, with: .init(for: .fadeOut, with: 0.1, and: .top))
+            
+        }
         
         // Call the token api with the saved card token data
-        callCardTokenAPI(cardTokenRequestModel: createSavedCardTokenRequest) { (token) in
-            DispatchQueue.main.async{ [weak self] in
-                // Process the token we got from the server
-                guard let nonNullSelf = self else { return }
-                nonNullSelf.handleToken(with: token,for: paymentOption)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(450)){ [weak self] in
+            
+            self?.callCardTokenAPI(cardTokenRequestModel: createSavedCardTokenRequest) { (token) in
+                DispatchQueue.main.async{ [weak self] in
+                    // Process the token we got from the server
+                    guard let nonNullSelf = self else { return }
+                    nonNullSelf.handleToken(with: token,for: paymentOption)
+                }
+            } onErrorOccured: { [weak self] (session, result, error) in
+                TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.saveCardTokenizationFailed?(in: session, for: result as? [String:String], with: error)
+                self?.handleError(session: session, result: result, error: error)
             }
-        } onErrorOccured: { [weak self] (session, result, error) in
-            TapCheckout.sharedCheckoutManager().tapCheckoutScreenDelegate?.saveCardTokenizationFailed?(in: session, for: result as? [String:String], with: error)
-            self?.handleError(session: session, result: result, error: error)
         }
     }
     
