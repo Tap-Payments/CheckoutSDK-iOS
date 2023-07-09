@@ -393,7 +393,9 @@ extension TapBottomCheckoutControllerViewController:TapAmountSectionViewModelDel
         
         webViewModel.idleForWhile = {
             self.webViewModel.idleForWhile = {}
-            self.tapVerticalView.hideActionButton(fadeInDuation: 0.25,keepPowredByTapView: true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(800)) { [weak self] in
+                self?.tapVerticalView.hideActionButton(fadeInDuation: 0.25,keepPowredByTapView: true)
+            }
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) { [weak self] in
                 // make sure all is set
                 guard let paymentViewModel = self?.sharedCheckoutDataManager.dataHolder.viewModels.tapCardTelecomPaymentViewModel else {return}
