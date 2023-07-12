@@ -33,7 +33,7 @@ extension TapVerticalView {
         var shallDeleteView:Bool = false
         // List of views to be deleted afterwards
         var toBeDeletedViews:[UIView] = []
-        stackView.arrangedSubviews.forEach { arrangedView in
+        stackView.rows.compactMap{ $0.contentView }.forEach { arrangedView in
             // Check if the current view class type is the same as the required class
             if arrangedView.isKind(of: viewType) {
                 if !skipSelf {
@@ -57,10 +57,11 @@ extension TapVerticalView {
      - Parameter animation: The animation to be applied while doing the view removal. Default is nil
      */
     public func remove(at index:Int, with animation:TapSheetAnimation? = nil) {
-        let subViews = stackView.arrangedSubviews
-        guard subViews.count > index else { return }
+        let subViews = stackView.rows
+        guard subViews.count > index,
+        let view:UIView = subViews[index].contentView else { return }
         
-        handleDeletion(for: subViews[index], with: animation)
+        handleDeletion(for: view, with: animation)
     }
     
     /**
@@ -69,7 +70,8 @@ extension TapVerticalView {
      - Parameter animation: The animation to be applied while doing the view removal. Default is nil
      */
     public func remove(views:[UIView], with animation:TapSheetAnimation? = nil) {
-        views.forEach{ handleDeletion(for: $0, with: animation) }
+        //views.forEach{ handleDeletion(for: $0, with: animation) }
+        stackView.removeRows(views: views, animated: true)
     }
     
     
@@ -84,7 +86,7 @@ extension TapVerticalView {
         guard let animation:TapSheetAnimation = animation, animation.animation != .none  else {
             itemsBeingRemoved = false
             view.isHidden = true
-            stackView.removeArrangedSubview(view)
+            stackView.removeRow(view: view, animated: false)
             return
         }
         
@@ -103,7 +105,13 @@ extension TapVerticalView {
      - Parameter shouldFillHeight: If true, then this view will expand the available height from the previous view to fill in the screen
      */
     public func add(view:UIView, at index:Int? = nil, with animations:[TapSheetAnimation] = [], and animationSequence:TapAnimationSequence = .serial, shouldFillHeight:Bool = false) {
-        handleAddition(of: view, at: index,with: animations,and: animationSequence,shouldFillHeight: shouldFillHeight)
+        if let index = index {
+            stackView.addRow(view: view, at: .atIndex(index), animated: true)
+//            stackView.moveRow(index: index, to: index+1)
+//            stackView.replaceRow(index: index, withRow: view,animated: true)
+        }else{
+            handleAddition(of: view, at: index,with: animations,and: animationSequence,shouldFillHeight: shouldFillHeight)
+        }
     }
     
     
@@ -114,7 +122,9 @@ extension TapVerticalView {
      */
     public func add(views:[UIView], with animations:[TapSheetAnimation] = [], and animationSequence:TapAnimationSequence = .serial, shouldScrollToBottom:Bool = false) {
         // Filter out the sections that shouldn't be visible
-        views.filter{$0.shouldShowTapView()}.forEach{ handleAddition(of: $0, at: nil,with: animations,and: animationSequence,shouldFillHeight: false, shouldScrollToBottom: shouldScrollToBottom) }
+        //views.filter{$0.shouldShowTapView()}.forEach{ handleAddition(of: $0, at: nil,with: animations,and: animationSequence,shouldFillHeight: false, shouldScrollToBottom: shouldScrollToBottom) }
+        views.forEach{ $0.alpha = 1 }
+        stackView.addRows(views: views.filter{$0.shouldShowTapView()}, animated: true)
     }
     
     
@@ -146,10 +156,10 @@ extension TapVerticalView {
         
         // If the index is not defined, then we just add it to the end
         if let index = index {
-            stackView.insertArrangedSubview(view, at: index)
+            stackView.replaceRow(index: index, withRow: view,animated: true)
             view.layoutIfNeeded()
         }else{
-            stackView.addArrangedSubview(view)
+            stackView.addRow(view: view,animated: true)
         }
         
         DispatchQueue.main.async { [weak self] in
@@ -178,7 +188,7 @@ extension TapVerticalView {
         
         if shouldScrollToBottom {
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) { [weak self] in
-                self?.scrollView.tap_scrollToBottom(animated: true)
+                self?.stackView.scrollToTop(animated: true)
             }
         }
         
@@ -194,14 +204,7 @@ extension TapVerticalView {
         // STart adding after the passed duration
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(delay)) { [weak self] in
             // For each view, add it first to the stack
-            subViews.forEach{self?.stackView.addArrangedSubview($0)}
-            // Make sure they are of the same order now!
-            // Perform teh animation
-            for (_, newView) in subViews.enumerated() {
-                if animationSequence != .none {
-                    newView.slideIn(from: .bottom)
-                }
-            }
+            self?.stackView.addRows(views: subViews,animated: true)
         }
     }
 }

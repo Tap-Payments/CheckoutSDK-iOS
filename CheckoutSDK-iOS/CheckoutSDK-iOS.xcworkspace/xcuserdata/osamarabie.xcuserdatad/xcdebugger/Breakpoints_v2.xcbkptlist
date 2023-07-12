@@ -7,47 +7,111 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F6CAFBA9-88FA-4BCE-9712-B6DB105DF7FD"
+            uuid = "D63CCDE1-4DFF-4486-B19E-D2AD444A991A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapVerticalViewController/TapVerticalView+AddRemoveViews.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "remove(viewType:with:and:skipSelf:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FEDC12DA-982C-4998-B088-D261D55613B1"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapVerticalViewController/TapVerticalView+AddRemoveViews.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
+            landmarkName = "add(views:with:and:shouldScrollToBottom:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "FEDC12DA-982C-4998-B088-D261D55613B1 - b98a3b4b1648d54a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TapUIKit_iOS.TapVerticalView.add(views: Swift.Array&lt;__C.UIView&gt;, with: Swift.Array&lt;TapUIKit_iOS.TapSheetAnimation&gt;, and: TapUIKit_iOS.TapAnimationSequence, shouldScrollToBottom: Swift.Bool) -&gt; ()"
+                  moduleName = "TapUIKit_iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osamarabie/desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapVerticalViewController/TapVerticalView+AddRemoveViews.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "127"
+                  endingLineNumber = "127"
+                  offsetFromSymbolStart = "164">
+               </Location>
+               <Location
+                  uuid = "FEDC12DA-982C-4998-B088-D261D55613B1 - f22390652561bedc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (__C.UIView) -&gt; Swift.Bool in TapUIKit_iOS.TapVerticalView.add(views: Swift.Array&lt;__C.UIView&gt;, with: Swift.Array&lt;TapUIKit_iOS.TapSheetAnimation&gt;, and: TapUIKit_iOS.TapAnimationSequence, shouldScrollToBottom: Swift.Bool) -&gt; ()"
+                  moduleName = "TapUIKit_iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osamarabie/desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapVerticalViewController/TapVerticalView+AddRemoveViews.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "127"
+                  endingLineNumber = "127"
+                  offsetFromSymbolStart = "27">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6BA101C1-EDFE-4717-8190-C79E93CF6EA8"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapMerchantHeaderView/ViewModels/TapMerchantHeaderViewModel.swift"
+            filePath = "Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapVerticalViewController/TapVerticalView+AddRemoveViews.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "merchantViewBottomSeparatorType"
-            landmarkType = "24">
+            startingLineNumber = "108"
+            endingLineNumber = "108"
+            landmarkName = "add(view:at:with:and:shouldFillHeight:)"
+            landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "F6CAFBA9-88FA-4BCE-9712-B6DB105DF7FD - 6888e5fed07fd241"
+                  uuid = "6BA101C1-EDFE-4717-8190-C79E93CF6EA8 - 86f3ce9ac4d3bd2"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "TapUIKit_iOS.TapMerchantHeaderViewModel.merchantViewBottomSeparatorType.didset : TapUIKit_iOS.MerchantHeaderSeparatorType"
+                  symbolName = "TapUIKit_iOS.TapVerticalView.add(view: __C.UIView, at: Swift.Optional&lt;Swift.Int&gt;, with: Swift.Array&lt;TapUIKit_iOS.TapSheetAnimation&gt;, and: TapUIKit_iOS.TapAnimationSequence, shouldFillHeight: Swift.Bool) -&gt; ()"
                   moduleName = "TapUIKit_iOS"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osamarabie/desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapMerchantHeaderView/ViewModels/TapMerchantHeaderViewModel.swift"
+                  urlString = "file:///Users/osamarabie/desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapVerticalViewController/TapVerticalView+AddRemoveViews.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "55"
-                  endingLineNumber = "55"
-                  offsetFromSymbolStart = "140">
+                  startingLineNumber = "108"
+                  endingLineNumber = "108"
+                  offsetFromSymbolStart = "215">
                </Location>
                <Location
-                  uuid = "F6CAFBA9-88FA-4BCE-9712-B6DB105DF7FD - 9cd1ddbd34da7735"
+                  uuid = "6BA101C1-EDFE-4717-8190-C79E93CF6EA8 - 86f3ce9ac4d3bd2"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (SnapKit.ConstraintMaker) -&gt; () in TapUIKit_iOS.TapMerchantHeaderViewModel.merchantViewBottomSeparatorType.didset : TapUIKit_iOS.MerchantHeaderSeparatorType"
+                  symbolName = "TapUIKit_iOS.TapVerticalView.add(view: __C.UIView, at: Swift.Optional&lt;Swift.Int&gt;, with: Swift.Array&lt;TapUIKit_iOS.TapSheetAnimation&gt;, and: TapUIKit_iOS.TapAnimationSequence, shouldFillHeight: Swift.Bool) -&gt; ()"
                   moduleName = "TapUIKit_iOS"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/osamarabie/desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapMerchantHeaderView/ViewModels/TapMerchantHeaderViewModel.swift"
+                  urlString = "file:///Users/osamarabie/desktop/Tap/CheckoutSDK-iOS/CheckoutSDK-iOS/Pods/TapUIKit-iOS/TapUIKit-iOS/TapUIKit-iOS/Core/TapVerticalViewController/TapVerticalView+AddRemoveViews.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "56"
-                  endingLineNumber = "56"
-                  offsetFromSymbolStart = "77">
+                  startingLineNumber = "108"
+                  endingLineNumber = "108"
+                  offsetFromSymbolStart = "229">
                </Location>
             </Locations>
          </BreakpointContent>

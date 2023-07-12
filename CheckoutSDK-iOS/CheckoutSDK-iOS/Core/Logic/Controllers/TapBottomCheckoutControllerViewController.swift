@@ -862,10 +862,10 @@ extension TapBottomCheckoutControllerViewController:TapCheckoutSharedManagerUIDe
         switch position {
             // This means we are showing the currency conversion for a selected payment chip in the list
         case .PaymentChipsList:
-            computedPosition = (tapVerticalView.stackView.arrangedSubviews.firstIndex(where: { $0.isKind(of: TapChipHorizontalList.self) }) ?? 0) + 1
+            computedPosition = (tapVerticalView.stackView.rows.compactMap{ $0.contentView }.firstIndex(where: { $0.isKind(of: TapChipHorizontalList.self) }) ?? 0) + 1
             // This means we are showing the currency conversion for a detected card brand payment
         case .Card:
-            computedPosition = (tapVerticalView.stackView.arrangedSubviews.firstIndex(where: { $0.isKind(of: TapCardTelecomPaymentView.self) }) ?? 0) + 1
+            computedPosition = (tapVerticalView.stackView.rows.compactMap{ $0.contentView }.firstIndex(where: { $0.isKind(of: TapCardTelecomPaymentView.self) }) ?? 0) + 1
         }
         tapVerticalView.add(view: viewModel.attachedView, at: computedPosition, with: [.init(for:.fadeIn, with: 0.25)], shouldFillHeight: false)
     }

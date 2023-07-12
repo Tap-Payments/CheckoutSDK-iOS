@@ -336,3 +336,35 @@ extension TapChipHorizontalList: TapHorizontalHeaderDelegate {
         viewModel.leftButtonClicked(for: type)
     }
 }
+
+
+extension TapChipHorizontalList: ScrollStackRowAnimatable {
+    public func didEndAnimationTransition(toHide: Bool) {
+        
+    }
+    
+    
+    public var animationInfo: ScrollStackAnimationInfo {
+        return ScrollStackAnimationInfo(duration: 1, delay: 0, springDamping: 0.8)
+    }
+    
+    public func animateTransition(toHide: Bool) {
+        switch toHide {
+        case true:
+            transform = CGAffineTransform(translationX: 0, y:100)
+            alpha = 0
+            
+        case false:
+            transform = .identity
+            alpha = 1
+        }
+    }
+    
+    public func willBeginAnimationTransition(toHide: Bool) {
+        if toHide == false {
+            transform = CGAffineTransform(translationX: 0, y: 100)
+            alpha = 0
+        }
+    }
+    
+}

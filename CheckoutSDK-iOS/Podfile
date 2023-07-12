@@ -17,5 +17,4 @@ pod 'TapUIKit-iOS'
 pod 'TapNetworkKit-iOS'
 pod 'TapApplicationV2'
 pod 'BugfenderSDK', '1.11.0'
-
 end

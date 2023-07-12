@@ -11,8 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TapVerticalView" customModule="TapUIKit_iOS" customModuleProvider="target">
             <connections>
                 <outlet property="containerView" destination="iN0-l3-epB" id="rxe-2N-XoY"/>
-                <outlet property="scrollView" destination="DK2-Wu-MF0" id="juh-hj-KCL"/>
-                <outlet property="stackView" destination="tT2-ez-5Th" id="9hq-ma-5JH"/>
+                <outlet property="contentView" destination="Rbd-UI-EoV" id="ueK-kR-7C5"/>
                 <outlet property="tapActionButton" destination="1uI-oi-8Dg" id="dr8-Kp-9F9"/>
                 <outlet property="tapActionButtonBottomConstraint" destination="o20-4Z-FhZ" id="UhC-v1-drV"/>
                 <outlet property="tapActionButtonHeightConstraint" destination="MeX-bO-gUR" id="Xik-Su-pJg"/>
@@ -23,12 +22,6 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" bounces="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DK2-Wu-MF0">
-                    <rect key="frame" x="0.0" y="78" width="414" height="325"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <viewLayoutGuide key="contentLayoutGuide" id="PUO-8I-N1z"/>
-                    <viewLayoutGuide key="frameLayoutGuide" id="hk3-mP-Zxp"/>
-                </scrollView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1uI-oi-8Dg" customClass="TapActionButton" customModule="TapUIKit_iOS" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="816" width="414" height="48"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -36,16 +29,20 @@
                         <constraint firstAttribute="height" constant="48" id="MeX-bO-gUR"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rbd-UI-EoV">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="816"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="1uI-oi-8Dg" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="4H3-wQ-Zu3"/>
-                <constraint firstItem="DK2-Wu-MF0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="9Z5-sv-sQ8"/>
-                <constraint firstItem="1uI-oi-8Dg" firstAttribute="top" secondItem="DK2-Wu-MF0" secondAttribute="bottom" priority="750" identifier="$button_top$" id="GIH-nY-pE2"/>
+                <constraint firstItem="Rbd-UI-EoV" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="DGv-jP-ySG"/>
                 <constraint firstAttribute="trailing" secondItem="1uI-oi-8Dg" secondAttribute="trailing" id="JST-Xn-S0r"/>
-                <constraint firstItem="DK2-Wu-MF0" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="K3E-KX-xbz"/>
-                <constraint firstItem="DK2-Wu-MF0" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="ljk-Lz-kif"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Rbd-UI-EoV" secondAttribute="trailing" id="K0O-D4-PhC"/>
+                <constraint firstItem="1uI-oi-8Dg" firstAttribute="top" secondItem="Rbd-UI-EoV" secondAttribute="bottom" priority="750" id="XLe-BF-9Lv"/>
+                <constraint firstItem="Rbd-UI-EoV" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="nCa-cz-UQs"/>
                 <constraint firstAttribute="bottom" secondItem="1uI-oi-8Dg" secondAttribute="bottom" constant="32" id="o20-4Z-FhZ"/>
             </constraints>
             <point key="canvasLocation" x="137.68115942028987" y="98.4375"/>

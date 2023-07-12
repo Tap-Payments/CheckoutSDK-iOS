@@ -15,13 +15,10 @@ extension TapVerticalView {
     /// Call this method to remove all the shown hint views in the TAP bottom sheet
     @objc public func removeAllHintViews() {
         // Fetch all the hint views from the stack view first
-        let hintViews:[TapHintView] = stackView.arrangedSubviews.filter{ $0.isKind(of: TapHintView.self) } as? [TapHintView] ?? []
+        let hintViews:[TapHintView] = stackView.rows.compactMap{ $0.contentView }.filter{ $0.isKind(of: TapHintView.self) } as? [TapHintView] ?? []
         guard hintViews.count > 0 else { return }
         // For each one, apply the deletion method
-        hintViews.forEach { [weak self] hintView in
-            self?.stackView.removeArrangedSubview(hintView)
-            hintView.isHidden = true
-        }
+        stackView.removeRows(views: hintViews, animated: true)
     }
     
     
@@ -65,7 +62,7 @@ extension TapVerticalView {
         // Once we finished the password/OTP views of goPay we have to make sure that the blur view is now invisible
         showBlur = false
         // Make sure we have a valid sign in form shown already.. Defensive coding
-        let filteredViews = stackView.arrangedSubviews.filter{ $0.isKind(of: TapGoPaySignInView.self)}
+        let filteredViews = stackView.rows.compactMap{ $0.contentView }.filter{ $0.isKind(of: TapGoPaySignInView.self)}
         guard filteredViews.count > 0, let signGoPayView:TapGoPaySignInView = filteredViews[0] as? TapGoPaySignInView else { return }
         // Expire and invalidate any OTP running timers, so it won't fire even after closing the goPay OTP view
         signGoPayView.stopOTPTimers()
@@ -78,7 +75,7 @@ extension TapVerticalView {
     }
     
     @objc public func stopOTPTimers() {
-        let filteredViews = stackView.arrangedSubviews.filter{ $0.isKind(of: TapGoPaySignInView.self)}
+        let filteredViews = stackView.rows.compactMap{ $0.contentView }.filter{ $0.isKind(of: TapGoPaySignInView.self)}
         guard filteredViews.count > 0, let signGoPayView:TapGoPaySignInView = filteredViews[0] as? TapGoPaySignInView else { return }
         // Expire and invalidate any OTP running timers, so it won't fire even after closing the goPay OTP view
         signGoPayView.stopOTPTimers()
@@ -127,7 +124,7 @@ extension TapVerticalView {
         endEditing(true)
         
         // Make sure we have a valid scanner view already
-        let filteredViews = stackView.arrangedSubviews.filter{ $0.isKind(of: TapCardScannerView.self)}
+        let filteredViews = stackView.rows.compactMap{ $0.contentView }.filter{ $0.isKind(of: TapCardScannerView.self)}
         guard filteredViews.count > 0, let scannerView:TapCardScannerView = filteredViews[0] as? TapCardScannerView else { return }
         
         // Kill the camera and garbage collect anything leaking from the scanner activity
@@ -145,7 +142,7 @@ extension TapVerticalView {
     /// Removes all space views added to the bottom sheet, for example, keyboard is dimssing hence we will remove the space view added to push the views above the keyboars
     internal func removeSpaceViews() {
         // Get all space views added to the sheet
-        let spaceViews:[SpaceView] = stackView.arrangedSubviews.filter{ $0.isKind(of: SpaceView.self) } as? [SpaceView] ?? []
+        let spaceViews:[SpaceView] = stackView.rows.compactMap{ $0.contentView }.filter{ $0.isKind(of: SpaceView.self) } as? [SpaceView] ?? []
         guard spaceViews.count > 0 else { return }
         // For each space view apply the deletion method
         spaceViews.forEach { spaceView in
@@ -166,7 +163,7 @@ extension TapVerticalView {
             keyboardPadding = 0
         }
         // Adjust the content size of the current tap sheet to fire a notification that the size changed
-        var currentContentSize = scrollView.contentSize
+        var currentContentSize = stackView.contentSize
         currentContentSize.height -= 1
         
         // Animate pushing the views above the shown keyboard
@@ -177,8 +174,8 @@ extension TapVerticalView {
         
         // Change the scroll view content size to reflect the adding space to show the keyboard
         self.delaySizeChange = false
-        self.scrollView.contentSize = currentContentSize
-        self.scrollView.scrollToBottom()
+        //self.scrollView.contentSize = currentContentSize
+        self.stackView.scrollToBottom(animated: true)
     }
     
     
@@ -192,7 +189,7 @@ extension TapVerticalView {
         // Push the action button by the required space height
         keyboardPadding = 0
         // Adjust the content size of the current tap sheet to fire a notification that the size changed
-        var currentContentSize = scrollView.contentSize
+        var currentContentSize = stackView.contentSize
         currentContentSize.height -= 1
         
         // Animate pulling the views down again as the keyboard is dismissed
@@ -202,7 +199,8 @@ extension TapVerticalView {
         })
         // Change the scroll view content size to reflect the adding space to show the keyboard
         self.delaySizeChange = false
-        self.scrollView.contentSize = currentContentSize
+        stackView.reloadAllRows(animated: false)
+        //self.scrollView.contentSize = currentContentSize
     }
     
     /// Shows the action button fade in + height increase
@@ -263,15 +261,15 @@ extension TapVerticalView {
         // First we remove all hints
         removeAllHintViews()
         // Then we check that there is already a view with the passed type
-        let filteredViews:[UIView] = stackView.arrangedSubviews.filter{ $0.isKind(of: to) }
+        let filteredViews:[UIView] = stackView.rows.compactMap{ $0.contentView }.filter{ $0.isKind(of: to) }
         guard  filteredViews.count > 0 else { return }
         
         // Fetch the index of the view we will attach the hint
-        guard let attachToViewIndex:Int = stackView.arrangedSubviews.firstIndex(of: filteredViews[0]) else { return }
+        guard let attachToViewIndex:Int = stackView.rows.map({ $0.contentView }).firstIndex(of: filteredViews[0]) else { return }
         // All good now we can add, but let us determine the animations first
         let requiredAnimations:[TapSheetAnimation] = animations ? [.init(for: .fadeIn)] : []
         // Insert at the hint view at the correct index
-        if attachToViewIndex == stackView.arrangedSubviews.count - 1 {
+        if attachToViewIndex == stackView.rows.count - 1 {
             // The attaching to view is already the last element, hence we add at the end normally as we usually do
             add(view: hintView, with: requiredAnimations)
         }else {

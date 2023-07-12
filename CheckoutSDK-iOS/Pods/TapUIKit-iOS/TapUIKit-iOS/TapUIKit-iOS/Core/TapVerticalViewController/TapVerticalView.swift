@@ -9,6 +9,7 @@
 // import SimpleAnimation
 import TapThemeManager2020
 import TapCardScanner_iOS
+
 /// The protocol for the delegates and notifications fired from the TapVerticalView
 @objc public protocol TapVerticalViewDelegate {
     /**
@@ -22,10 +23,8 @@ import TapCardScanner_iOS
 /// The Tap wrapper view for having a dynamic height sizing scrollable vertical subview
 @objc public class TapVerticalView: UIView {
     
-    /// The stackview which is used as the backbone for laying out the views in a vertical fashion
-    @IBOutlet public var stackView: UIStackView!
     /// The scroll view which wraps the stackview to provide the scrollability whenever needed
-    @IBOutlet internal weak var scrollView: UIScrollView!
+    @IBOutlet internal weak var contentView: UIView!
     /// The main view loaded from the Xib
     @IBOutlet internal weak var containerView: UIView!
     /// Used to determine if we need to delay any coming view addition requests to wait until the items being removed to finish the animation first:)
@@ -43,6 +42,13 @@ import TapCardScanner_iOS
             applyTheme()
         }
     }
+    /// The scrollable controller that holds the vertical stacks of checkout views/rows
+    private var stackController = ScrollStackViewController()
+    /// A shorthand to access the stackview inside the stack controller
+    public var stackView: ScrollStack {
+        return stackController.scrollStack
+    }
+    /// A timer to fire size change
     private var newSizeTimer:Timer?
     /// Used to handle keyboard events and get the keyboard frame at run time
     private let keyboardHelper = KeyboardHelper()
@@ -79,7 +85,7 @@ import TapCardScanner_iOS
     @objc private func scrollViewTouched() {
         endEditing(true)
         if let gesture = getGiftGestureRecognizer {
-            scrollView.removeGestureRecognizer(gesture)
+            contentView.removeGestureRecognizer(gesture)
         }
     }
     
@@ -94,16 +100,16 @@ import TapCardScanner_iOS
     /// Configure the scroll view and stack view constraints and attach the scrolling view inner content to the stack view
     private func setupStackScrollView() {
         // Add the observer to listen to changes in the content size of the scroll view, this will be affected by updating the subviews of the stackview
-        scrollView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
-        scrollView.addSubview(stackView)
+        stackController.view.frame = contentView.bounds
+        contentView.addSubview(stackController.view)
         
         /// Adjust the stack view layout to fill in the super view
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
-        stackView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+        stackView.stackDelegate = self
+        stackView.hideSeparators = true
+        stackView.rowInsets = .init(top: 0, left: 0, bottom: 0, right: 16)
+        stackView.preservesSuperviewLayoutMargins = false
+        stackView.backgroundColor = .clear
+        stackView.rowBackgroundColor = .clear
     }
     
     
@@ -119,44 +125,10 @@ import TapCardScanner_iOS
      - Returns: The needed size to show all teh renered views + the action button size and keyboard padding if any
      */
     internal func neededSize() -> CGSize {
-        var contentSize = scrollView.contentSize
+        var contentSize = stackController.preferredContentSize
         contentSize.height += neededBottomSpaceMargin// + tapPoweredByTapBottomConstraint.constant
         return contentSize
     }
-    
-    /// It is overriden to listen to the change in size of the scroll view
-    override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        // Make sure this is the notfication we want to listen to which is the contentSize of the scroll view
-        guard let keyPath = keyPath, keyPath == "contentSize", object as? UIScrollView == scrollView, let _ = delegate else { return }
-        // Make sure the new heigt is not 0
-        guard scrollView.contentSize.height > 0 else { return }
-        // Inform the delegate if any, that the view has new size
-        // Take in consideration the safe margins :)
-        /*var bottomPadding:CGFloat = 0.0
-         if let window = UIApplication.shared.keyWindow {
-         bottomPadding = window.safeAreaInsets.bottom
-         }*/
-        let contentSize = scrollView.contentSize
-        var newSize = contentSize
-        //newSize.height += bottomPadding
-        //delegate.innerSizeChanged?(to: newSize, with: self.frame)
-        if let timer = newSizeTimer {
-            timer.invalidate()
-        }
-        // All good, time to animate the height :)
-        if delaySizeChange {
-            newSizeTimer = Timer.scheduledTimer(timeInterval: 0.0 , target: self, selector: #selector(publishNewContentSize(timer:)), userInfo: ["newSize":newSize,"newFrame":self.frame], repeats: false)
-        }else {
-            newSize.height += keyboardPadding + neededBottomSpaceMargin
-            
-            delegate?.innerSizeChanged?(to: newSize, with: frame)
-        }
-        
-        delaySizeChange = true
-        
-        //publishNewContentSize(to: newSize, with: self.frame)
-    }
-    
     
     @objc private func publishNewContentSize(timer: Timer) {
         
@@ -193,8 +165,8 @@ import TapCardScanner_iOS
                 // Add the tap gesture to the scroll view, so when the user clicks on the outside of the keyboard it will be dismissed
                 self?.getGiftGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self?.scrollViewTouched))
                 if let gesture = self?.getGiftGestureRecognizer {
-                    self?.scrollView.removeGestureRecognizer(gesture)
-                    self?.scrollView.addGestureRecognizer(gesture)
+                    self?.contentView.removeGestureRecognizer(gesture)
+                    self?.contentView.addGestureRecognizer(gesture)
                 }
                 
                 print("KEYBOARD SHOW : \(keyboardRect)")
@@ -203,7 +175,7 @@ import TapCardScanner_iOS
             keyboardHelper.onKeyboardWillBeHidden = { [weak self] keyboardRect in
                 // Remove the tap gesture
                 if let gesture = self?.getGiftGestureRecognizer {
-                    self?.scrollView.removeGestureRecognizer(gesture)
+                    self?.contentView.removeGestureRecognizer(gesture)
                 }
                 self?.removeAllHintViews()
                 self?.removeSpaceView(with: keyboardRect)
@@ -215,14 +187,14 @@ import TapCardScanner_iOS
                 // Add the tap gesture to the scroll view, so when the user clicks on the outside of the keyboard it will be dismissed
                 self?.getGiftGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self?.scrollViewTouched))
                 if let gesture = self?.getGiftGestureRecognizer {
-                    self?.scrollView.removeGestureRecognizer(gesture)
-                    self?.scrollView.addGestureRecognizer(gesture)
+                    self?.contentView.removeGestureRecognizer(gesture)
+                    self?.contentView.addGestureRecognizer(gesture)
                 }
             }
             keyboardHelper.onKeyboardWillBeHidden = { [weak self] keyboardRect in
                 // Remove the tap gesture
                 if let gesture = self?.getGiftGestureRecognizer {
-                    self?.scrollView.removeGestureRecognizer(gesture)
+                    self?.contentView.removeGestureRecognizer(gesture)
                 }
             }
         }
@@ -234,7 +206,7 @@ import TapCardScanner_iOS
      */
     func changeTapAmountSectionStatus(to newStatus:AmountSectionCurrentState) {
         // Make sure there is a valid Amount section rendered and visible on the screen..
-        if let tapAmountSectionView:TapAmountSectionView = stackView.arrangedSubviews.filter({ $0.isKind(of: TapAmountSectionView.self) })[0] as? TapAmountSectionView {
+        if let tapAmountSectionView:TapAmountSectionView = (stackView.rows.compactMap{ $0.contentView }).filter({ $0.isKind(of: TapAmountSectionView.self) })[0] as? TapAmountSectionView {
             // If yes, then assign the new status to it
             tapAmountSectionView.viewModel?.screenChanged(to: newStatus)
         }
@@ -247,11 +219,11 @@ import TapCardScanner_iOS
     @objc public func getMaxAvailableHeight(showingCardWebView:Bool = false) -> CGFloat {
         // Calculate the current views' height firs
         var currentViewsHeight:CGFloat = 0
-        stackView.arrangedSubviews.forEach{ currentViewsHeight += ($0.frame.height > 0) ? $0.frame.height : 45 }
+        stackView.rows.forEach{ currentViewsHeight += ($0.frame.height > 0) ? $0.frame.height : 45 }
         
         if showingCardWebView {
             // Then we need to remove the height of this view, as we will replace it with the web view already
-            if let view:TapCardTelecomPaymentView = stackView.arrangedSubviews.first(where: { $0 is TapCardTelecomPaymentView } ) as? TapCardTelecomPaymentView {
+            if let view:TapCardTelecomPaymentView = (stackView.rows.compactMap{ $0.contentView }).first(where: { $0 is TapCardTelecomPaymentView } ) as? TapCardTelecomPaymentView {
                 currentViewsHeight -= view.frame.height// - 180
             }
         }
@@ -270,7 +242,7 @@ import TapCardScanner_iOS
     @objc public func getMinimumNeededHeight() -> CGFloat {
         // Calculate the current views' height firs
         var currentViewsHeight:CGFloat = 0
-        stackView.arrangedSubviews.forEach{ currentViewsHeight += ($0.frame.height > 0) ? $0.frame.height : 45 }
+        stackView.rows.forEach{ currentViewsHeight += ($0.frame.height > 0) ? $0.frame.height : 45 }
         
         return currentViewsHeight + tapActionButtonBottomConstraint.constant + tapActionButtonHeightConstraint.constant + 60
     }
@@ -280,9 +252,12 @@ import TapCardScanner_iOS
      - Parameter view: The view to be deleted
      */
     internal func removeFromStackView(view:UIView) {
-        view.fadeOut(duration:0)
-        stackView.removeArrangedSubview(view)
-        itemsBeingRemoved = false
+        
+        if let index = stackView.rows.firstIndex(where: { $0.contentView == view }) {
+            view.fadeOut(duration:0)
+            stackView.removeRow(index: index, animated: true)
+            itemsBeingRemoved = false
+        }
     }
     
     internal func adjustAnimationList(view:UIView, for animations:[TapSheetAnimation], with sequence:TapAnimationSequence, then completion:@escaping () -> () = {  }) {
@@ -320,23 +295,10 @@ import TapCardScanner_iOS
      - Parameter animationSequence: Determine what animation's sequence to apply for views removals and additions. Default is performing both in parallel
      */
     @objc public func updateSubViews(with newViews:[UIView],and animationSequence:TapVerticalUpdatesAnimationSequence = .parallel) {
-        
-        var toBeRemovedViews:[UIView] = []
-        var toBeAddedViews:[UIView] = []
-        
         // Check which views we will delete, which doesn't exist in the new views list
-        stackView.arrangedSubviews.forEach { currentSubview in
-            if !newViews.contains(currentSubview) {
-                toBeRemovedViews.append(currentSubview)
-            }
-        }
-        
+        var toBeRemovedViews:[UIView] = stackView.rows.filter{ !newViews.contains($0.contentView ?? .init()) }
         // Check which views we will add, which exists only in the new views list
-        newViews.forEach { newSubview in
-            if !stackView.arrangedSubviews.contains(newSubview) {
-                toBeAddedViews.append(newSubview)
-            }
-        }
+        var toBeAddedViews:[UIView] = newViews.filter{ !stackView.rows.compactMap{ $0.contentView }.contains($0) }
         
         // Delete and add the calculated views
         remove(subViews: toBeRemovedViews, animationSequence: animationSequence)
@@ -348,15 +310,7 @@ import TapCardScanner_iOS
     }
     
     private func remove(subViews:[UIView], animationSequence:TapVerticalUpdatesAnimationSequence) {
-        if animationSequence == .none {
-            subViews.forEach{stackView.removeArrangedSubview($0)}
-        }else {
-            subViews.forEach{ subView in
-                subView.fadeOut{ [weak self] _ in
-                    self?.stackView.removeArrangedSubview(subView)
-                }
-            }
-        }
+        stackView.removeRows(views: subViews, animated: animationSequence != .none)
     }
 }
 
@@ -528,5 +482,42 @@ extension TapVerticalView {
         }
         lastUserInterfaceStyle = self.traitCollection.userInterfaceStyle
         applyTheme()
+    }
+}
+
+
+
+extension TapVerticalView: ScrollStackControllerDelegate {
+    public func scrollStackDidScroll(_ stackView: ScrollStack, offset: CGPoint) {
+        
+    }
+    
+    public func scrollStackRowDidBecomeVisible(_ stackView: ScrollStack, row: ScrollStackRow, index: Int, state: ScrollStack.RowVisibility) {
+        
+    }
+    
+    public func scrollStackRowDidBecomeHidden(_ stackView: ScrollStack, row: ScrollStackRow, index: Int, state: ScrollStack.RowVisibility) {
+        
+    }
+    
+    public func scrollStackDidUpdateLayout(_ stackView: ScrollStack) {
+        
+    }
+    
+    public func scrollStackContentSizeDidChange(_ stackView: ScrollStack, from oldValue: CGSize, to newValue: CGSize) {
+        if let timer = newSizeTimer {
+            timer.invalidate()
+        }
+        // All good, time to animate the height :)
+        if delaySizeChange {
+            newSizeTimer = Timer.scheduledTimer(timeInterval: 0.0 , target: self, selector: #selector(publishNewContentSize(timer:)), userInfo: ["newSize":newValue,"newFrame":self.frame], repeats: false)
+        }else {
+            var newValue = newValue
+            newValue.height += keyboardPadding + neededBottomSpaceMargin
+            
+            delegate?.innerSizeChanged?(to: newValue, with: frame)
+        }
+        
+        delaySizeChange = true
     }
 }
